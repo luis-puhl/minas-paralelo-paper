@@ -1,0 +1,81 @@
+\chapter{Trabalhos Relacionados}
+
+% discussão de 2020-02-01
+Aqueles que contenham:
+    - detecção de anomalia em streams
+    - detecção de intrusão em rede com processamento de streams
+    - BigFlow
+%/discussão
+
+
+\section{BigFlow}
+
+%  notas de bigflow
+Table 1
+Network-level feature set used in the experiments throughout this work [18].
+Types: Host-based (Host to All), Flow-based (Source to Destination, Destination to Source, Both)
+
+% \begin{itemize}
+%     \item Number of Packets,
+%     \item Number of Bytes,
+%     \item Average Packet Size,
+%     \item Percentage of Packets (PSH Flag),
+%     \item Percentage of Packets (SYN and FIN Flags),
+%     \item Percentage of Packets (FIN Flag),
+%     \item Percentage of Packets (SYN Flag),
+%     \item Percentage of Packets (ACK Flag),
+%     \item Percentage of Packets (RST Flag),
+%     \item Percentage of Packets (ICMP Redirect Flag),
+%     \item Percentage of Packets (ICMP Redirect Flag),
+%     \item Percentage of Packets (ICMP Time Exceeded Flag),
+%     \item Percentage of Packets (ICMP Unreachable Flag),
+%     \item Percentage of Packets (ICMP Other Types Flag),
+%     \item Throughput in Bytes,
+%     \item Protocol
+% \end{itemize}
+
+Features:\\
+    - Number of Packets,\\
+    - Number of Bytes,\\
+    - Average Packet Size,\\
+    - Percentage of Packets (PSH Flag),\\
+    - Percentage of Packets (SYN and FIN Flags),\\
+    - Percentage of Packets (FIN Flag),\\
+    - Percentage of Packets (SYN Flag),\\
+    - Percentage of Packets (ACK Flag),\\
+    - Percentage of Packets (RST Flag),\\
+    - Percentage of Packets (ICMP Redirect Flag),\\
+    - Percentage of Packets (ICMP Redirect Flag),\\
+    - Percentage of Packets (ICMP Time Exceeded Flag),\\
+    - Percentage of Packets (ICMP Unreachable Flag),\\
+    - Percentage of Packets (ICMP Other Types Flag),\\
+    - Throughput in Bytes,\\
+    - Protocol\\
+
+
+BigFlow destaca em sua secção 2 (backgroud) o processamento de streams [18, 19],
+a preferencia de NIDS por anomalia em contraste aos NIDS por assinatura [30, 31, 32],
+a variabilidade e evolução dos padrões de tráfego em redes de propósito geral [9, 11, 20],
+a necessidade de atualização regular do modelo classificador [8, 9, 10, 20] e
+o tratamento de eventos onde a confiança resultante da classificação é baixa [9, 12, 13].
+
+Também destaca em sua secção 3 (MAWIFlow) 
+que datasets adequados para NIDS são poucos devido o conjunto de qualidades que os mesmos
+devem atender como realismo, validade, etiquetamento, grande variabilidade
+e reprodutividade (disponibilidade pública) [8, 9, 10, 17, 38].
+
+Para avaliar o desempenho de NIDS o dataset MAWIFlow é proposto. Originário do 
+'Packet traces from WIDE backbone, samplepoint-F' composto por seções de captura de pacotes
+diárias de 15 minutos de um link de 1Gbps entre Japão e EUA, com inicio em 2006 continuamente até hoje,
+anonimizados [22], etiquetados por MAWILab [8].
+Desse dataset original apenas os eventos de 2016 são utilizados e desses 158 atributos são extraídas
+resultando em 7.9 TB de captura de pacotes. Além disso, os dados são estratificados [24] para redução
+de seu tamanho a um centésimo mantendo as proporções de etiquetas (Ataque e Normal)
+facilitando o compartilhamento e avaliação de NIDS além de atender as qualidades anteriormente mencionadas.
+
+Com o dataset MAWIFlow original e reduzido foram avaliados quatro classificadores [42, 43, 44, 45]
+da literatura em dois modos de operação quanto seus dados de treinamento
+(ambos contendo uma semana de captura) o primeiro usando somente a primeira semana do ano e as demais
+como teste e o segundo modo usando a semana anterior como treinamento e a seguinte como teste.
+Demostrando, com 62 atributos, que a qualidade da classificação retrai com o tempo quando não há
+atualização frequente do modelo classificador.

@@ -1,0 +1,42 @@
+\chapter{Proposta de Pesquisa}
+
+Descrever a arquitetura IDS-IoT do paper do Guilherme
+
+\section{Objetivos a serem alcançados}
+
+O que de fato vc irá fazer 
+
+\section{Resultados preliminares}
+
+Mostrar alguma implementação já feita e que esteja funcionando minimamente
+
+Mostrar resultados mesmo que sejam bem simples e básicos, apenas para demonstrar que vc domina o ambiente e as ferramentas e que está apto a avançar no trabalho 
+
+% discussão de 2020-02-01
+passos feitos/a fazer
+1. Entender Minas
+2. Analisar/descrever dataset KDD
+3. Notas sobre implementação Python/Kafka/Minas (não escala como esperado)
+4. BigFlow (dataset mais novo, usa flink)
+5. Plataforma Flink (processamento distribuído)
+Proposta
+6. Implementar minas em Scala/Flink
+7. Testar com datasets KDD e BigFlow
+8. Validar/Comparar métricas com seus trabalhos correspondentes
+
+Considerações
+- Notas sobre implementação Python/Kafka/Minas (não escala como esperado)
+- BigFlow com dataset atual e maior
+- Dificuldade no processamento distribuido em Flink.
+%/discussão
+
+% Notas lendo Quali Casssales:
+- Descrição do hardware utilizado pode conter:
+    - Arch, OS, Kernel,
+    - CPU (core, thread, freq),
+    - RAM (total/free size, freq),
+    - Disk (total/free size, seq RW, rand RW),
+    - Net IO between nodes (direct crossover, switched, wireless, to cloud) (bandwidth, latency).
+essas métricas permitem relacionar trade-offs para as questões de fog: Processar em node, edge ou cloud?
+
+Provavelmente vou retirar o kafka da jogada em node/edge, deixando apenas em cloud.

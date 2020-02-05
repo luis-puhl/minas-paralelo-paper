@@ -1,0 +1,155 @@
+
+\chapter{Fundamentos Científicos e Tecnológicos}
+
+% discussão de 2020-02-01
+Detecção de intrusão em redes
+    - riscos de segurança
+    % pontos de coleta de dados b´asicos para a maioria das estruturas de IoT sao Wireless Sensor Networks (WSN) e WSN baseadas em IP,
+    % as quais s˜ao vulner´aveis e geram uma ameac¸a de seguranc¸a de alto n´ıvel (ADAT; GUPTA, 2018) Adat2018
+    % (KASINATHAN et al., 2013), a detecc¸ ˜ao de assinaturas
+    % (RAZA; WALLGREN; VOIGT, 2013; SHEIKHAN; BOSTANI, 2016) s˜ao propostos IDSs h´ıbridos com foco espec´ıfico em ataques de roteamento como sink-hole e redireciona- mento seletivo
+    - técnicas de intrusão e tipos de ataques
+    - mecanismo de detecção (análise de fluxo de rede -> detecção de anomalia)
+    % Guilherme: A tarefa de detecção de intrusão consiste em descobrir, 
+    %           determinar e identificar a utilização, duplicação, alteração ou destruição
+    %           não autorizada de sistemas de informação (MUKKAMALA; SUNG; ABRAHAM, 2005) Mukkamala2005
+    % deteccao por assinaturas (tambem chamada de misuse-detection), deteccao comportamental (tambem chamada de anomaly-detection)e deteccao hıbrida.(MODI et al., 2013).
+    % implementacao usualmente ´e feita por meio de t´ecnicas de AM e MD (BUCZAK; GUVEN, 2016).
+    % existem poucos trabalhos [..] online e deteccao de novidade ao problema [..] observado nas surveys (BUCZAK; GUVEN, 2016; MITCHELL; CHEN, 2014; MODI et al., 2013).
+    % (FURQUIM et al., 2018), os autores implementam uma arquitetura de 3 camadas (WSN, Fog e Cloud)
+    % (MIDI et al., 2017), os autores propuseram um IDS h´ıbrido [...] ativa apenas os m´odulos [...] especializado em um ataque espec´ıfic
+    % (FAISAL et al., 2015)externo ou interno ao Smart Meter.dados do KDD99 [...] precis˜ao, Kappa, consumo de mem´oria, tempo e FAR
+    % extensivamente em (Sommer; Paxson, 2010) e (MCHUGH, 2000), ´e dif´ıcil encontrar boas me- didas de avaliac¸ ˜ao para IDSs
+    % (GAMA, 2010) afirma que no contexto de processamento de fluxo, as medidas tradicionais s˜ao impreci- sas.
+Detecção de novidades
+    % (PERNER, 2007)(GAMA, 2010). A
+    - técnicas de Detecção de novidades
+    - MINAS (incluir métricas) 
+    % (FARIA et al., 2016)
+    % ECSMiner (MASUD et al., 2011)
+    % AnyNovel (ABDALLAH et al., 2016) s˜ao
+    % medidas de Qualidade da Deteccao utilizadas foram Fnew, Mnew, Erro e a quantidade de exemplos rotulados por especialistas que cada t´ecnica requisitou (MASUD et al., 2011)
+    - BigFlow (incluir métricas)
+Processamento de Streams (big data)
+    - cloud?
+    % A arquitetura Lambda (MARZ; WARREN, 2015) de duas camadas de CPU (stream e batch) e camada de serviço
+    % Kappa (KREPS, 2014) possui apenas um m´odulo de processamento on-line (apenas as camadas de processamento e servic¸o)
+    - redes como stream
+    - Atraso
+    - Kafka/Spark/Flink
+Redes IoT
+    - Restrição hardware (Energia, CPU, Mem, Rede)
+    - Consideração FOG vs Cloud
+%/discussão
+
+\section{Computação em Nuvem} 
+
+<= 1 pagina com conceitos básicos
+
+\section{Detecção de Intrusão}
+
+Definir o que é detecção de intrusão
+
+Sistemas de detecção de intrusão (IDS) 
+
+Citar que a maioria utiliza métodos de machine learning e de mineração de dados 
+
+Survey da A. Buczak classifica em 3 principais categorias de técnicas IDS: \\
+- detecção de mau uso (misuse-detection) ou baseados em assinatura (signature based)\\
+- detecção de anomalias (anomaly detection)\\
+- híbridos \\
+falar um paragrafo ou 2 de cada
+
+\section{Computação na Névoa e Computação de Borda}
+
+Breve descrição de Computação na névoa (Fog) e Computação na Borda (edge) \\
+ver papers do SBRC se essas são traducao mais utilizadas
+
+1 pagina sobre isto
+
+
+\section{Ferramentas de BigData}
+
+
+
+O que são e para que servem essas ferramentas 
+
+Breve descricao do MapReduce e Hadoop
+
+Breve descricao do Spark 
+
+\subsection{Apache Spark}
+
+% Spark is an open-source cluster computing framework with a large global user base.
+% It is written in Scala, Java, R, and Python and gives programmers an Application Programming Interface (API)
+% built on a fault tolerant, read-only multiset of distributed data items.
+% In two years since its initial release (May 2014), it has seen wide acceptability for real-time,
+% in-memory, advanced analytics — owing to its speed, ease of use, and the ability to handle sophisticated analytical requirement
+% https://dzone.com/articles/streaming-in-spark-flink-and-kafka-1
+
+%  \input{02_1.spark.tex
+
+% # Apache Spark e pyspark
+
+Apache Spark is an open-source distributed general-purpose cluster-computing
+framework. Spark provides an interface for programming entire clusters with
+implicit data parallelism and fault tolerance. Originally developed at the
+University of California, Berkeley's AMPLab, the Spark codebase was later
+donated to the Apache Software Foundation, which has maintained it since.
+
+Apache Spark é um framework de código fonte aberto para computação
+distribuída.[1] Foi desenvolvido no AMPLab da Universidade da Califórnia[2] e
+posteriormente repassado para a Apache Software Foundation[3] que o mantém desde
+então. Spark provê uma interface para programação de clusters com paralelismo e
+tolerância a falhas.
+
+Apache Spark is a fast and general-purpose cluster computing system. It provides
+high-level APIs in Java, Scala, Python and R, and an optimized engine that
+supports general execution graphs. It also supports a rich set of higher-level
+tools including Spark SQL for SQL and structured data processing, MLlib for
+machine learning, GraphX for graph processing, and Spark Streaming.
+
+-----------------------
+
+Apache Spark\cite{Zaharia} é um \emph{framework} para construção de sistemas de
+computação distribuída em \emph{cluster} com garantias de tolerância a falhas
+(execução em computadores não confiáveis) utilizando como premissas: paralelização
+e localidade de dados, como 
+
+api em Python (dataframe de pandas)
+% ------------------------------------------------------------------------------------------------------
+
+\subsection{Apache Flink}
+Breve descrição do Flink (como esse vai ser usado, precisa explicar um pouco melhor - 2 paginas pelo menos):\\
+- arquitetura\\
+- modelo de programacao\\
+- 1 pequeno exemplo de codigo explicando
+
+% \section{Messa queueing systems - Sistemas de filas de mensagens}
+% O que são, para que servem e citar alguns exemplos
+% \subsection{Kafka}
+% 1 pag
+
+% Apache Flink
+% Apache Flink is an open-source platform for distributed stream and batch data processing. Flink’s core is a streaming data flow engine that provides data distribution, communication, and fault tolerance for distributed computations over data streams. Flink also builds batch processing on top of the streaming engine, overlaying native iteration support, managed memory, and program optimization.
+
+% Advantages of Flink:
+
+% Flink streaming processes data streams as true streams, i.e. data elements are immediately “pipelined” through a streaming program as soon as they arrive. This allows performing flexible window operations on streams.
+% Better memory management: Explicit memory management gets rid of the occasional spikes found in Spark framework.
+% Speed: It manages faster speeds by allowing iterative processing to take place on the same node rather than having the cluster run them independently. Its performance can be further tuned by tweaking it to re-process only that part of data that has changed rather than the entire set. It offers up to a five-fold boost in speed when compared to the standard processing algorithm.
+% Apache Spark is considered a replacement for the batch-oriented Hadoop system. But it includes a component called Apache Spark Streaming, as well. Contrast this with Apache Flink, which is a Big Data processing tool and it is known to process big data quickly with low data latency and high fault tolerance on distributed systems on a large scale. Its defining feature is its ability to process streaming data in real time.
+
+
+
+\section{Detecção de novidades}
+
+breve descricao do que sao algoritmos para DN
+
+ver se tem algum survey e citar
+
+\subsection{O algoritmo MINAS}
+
+breve descricao do MINAS
+
+ver paper da profa. Elaine
