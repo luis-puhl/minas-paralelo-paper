@@ -1,9 +1,18 @@
+
+# temporários de compilação
 *.aux
 *.bbl
 *.blg
 *.log
-# *.pdf
 *.synctex.gz
 *.toc
 *.fdb_latexmk
 *.fls
+*temp.tex
+
+# resultantes, adicionar com -f
+*.pdf
+*.dvi
+
+# diretório de referencias não publicas
+ref

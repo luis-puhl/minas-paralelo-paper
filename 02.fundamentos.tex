@@ -14,14 +14,121 @@
 %     2.6. Novelty Detection
 %     2.7. O algoritmo Minas
 
-\section{Computação em Nuvem, Fog e Edge}
+\section{Computação em Nuvem, Borda e Névoa}
 
-<= 1 pagina com conceitos básicos
+Definir internet e rede (borda, centro, etc)
+Classificando a internet por sua densidade podemos dizer que ao centro estão
+os \emph{data centers} e nuvems públicas em seguida o núcleo interconectando redes diversas,
+redes locais e a Borda composta pelos nós folha dentro de uma rede local.
 
-Breve descrição de Computação na névoa (Fog) e Computação na Borda (edge) \\
-ver papers do SBRC se essas são traducao mais utilizadas
+O modelo de Computação em Nuvem (\emph{Cloud Computing})
+permite alocar recursos como redes, servidores, armazenamento, aplicações e serviços
+de maneira conveniente e seu provisionamento ágil concede elasticidade para atender
+demandas variáveis com custo mínimo \cite{NIST2011}.
 
-1 pagina sobre isto
+Alternativamente, a Computação na Borda (\emph{Edge Computing}) destaca-se no
+processamento em tempo real de dados originários da própria borda além de atender
+preocupações de segurança e privacidade \cite{Shi2016}.
+
+\emph{Edge} é por vezes chamado de Computação em Névoa (\emph{Fog Computing})
+contudo \cite{IEEECommunicationsSociety2018} indica diferenças como exclusão do
+modelo \emph{cloud} e limitação a poucas camadas (por exemplo, somente os nós folha de uma rede)
+no modelo \emph{edge} em direto contraste com a inlcusão de \emph{cloud} e hierarquias
+maiores. \emph{Fog} também atende gerenciamento da rede, armazenamento e controle.
+
+% Fog works with the cloud, whereas edge is defined by the exclusion of cloud. Fog
+% is hierarchical, where edge tends to be limited to a small number of layers. In
+% additional to computation, fog also addresses networking, storage, control and
+% acceleration. \cite{IEEECommunicationsSociety2018}
+
+Esse modelo de computação distribuida desde os nós folha até o centro é motivado
+pela mudança do \emph{statu quo} do fluxo dos dados na internet: tradcionalmente
+os dados são produzidos pelos dispositivos de borda imediatamente emviados à 
+\emph{cloud} (produção, \emph{upstream}),
+que armazena e processa recursos derivados servido-os através de requisição-resposta
+(consumo, \emph{downstream}) a mais clientes.
+Com a ampliação da Internet das Coisas (\emph{Internet of Things}, IoT) e consequente
+ampliação sem precedentes do volume de dados gerados, mudando o relação de consumo
+e produção \cite{Shi2016}, arquiteturas tradicionais como \emph{cloud} podem não
+ser capazes de lidar com esses dados por falta de banda o que leva as
+propostas de distribuição vertical do processamento em \emph{fog} \cite{Dastjerdi2016, Bonomi2012}.
+
+% Previous work such as micro datacen- ter [12], [13], cloudlet [14], and fog computing [15]
+% [15] F. Bonomi, R. Milito, J. Zhu, and S. Addepalli,
+% “Fog computing and its role in the Internet of things,” 
+% in Proc. 1st Edition MCC Workshop Mobile Cloud Comput., Helsinki, Finland, 2012, pp. 13–16.
+
+% Fog Computing: Helping the Internet of Things Realize Its Potential
+% \cite{Dastjerdi2016}
+% The Internet of Things (IoT) could enable
+% innovations that enhance the quality of life, but it
+% generates unprecedented amounts of data that
+% precedented amounts of data that can be useful in many ways, par-
+% are difficult for traditional systems, the cloud, and
+% even edge computing to handle. Fog computing
+% is designed to overcome these limitations.
+
+%-------------------------------------------------
+% <= 1 pagina com conceitos básicos
+
+% Breve descrição de Computação na névoa (Fog) e Computação na Borda (edge) \\
+% ver papers do SBRC se essas são traducao mais utilizadas
+
+% Mini Revisão Sistemática:
+%   - Question: Definição de cloud, fog, edge
+%   - Search:
+%     - Termos: Nuvem, Névoa, Borda, Cloud, Fog, Edge, Stream, Novelty, Novidade, Fluxo
+%     - Source: SBRC 2019
+%     - Seleção: (open)
+%   - Extraction: Trechos de definições e suas referencias
+%   - Qualidade: Definiem caracteristicas relevantes para Minas Distribuido em Fog?
+
+% 2019: Anais do XXXVII Simpósio Brasileiro de Redes de Computadores e Sistemas Distribuídos
+
+% Névoa:
+% - Modelos Estocásticos para Análise de Desempenho e Custo de uma Arquitetura Distribuída Nuvem e Névoa
+%     computacao em nuvem e em nevoa
+%     Perera, C., Qin, Y., Estrella, J. C., Reiff-Marganiec, S., and Vasilakos, A. V. (2017).
+%     Fog computing for sustainable smart cities: A survey. ACMComp. Surv., 50(3):32:1–32:43.
+    
+%     Alem das preocupacoes com seguranca e privacidade, existe o problema com 
+%     relac¸ ˜ao a latˆencia em caso de uma conex˜ao de m´a qualidade [Wang and Ng 2010].
+%     Wang, G. and Ng, T. E. (2010). 
+%     The impact of virtualization on network performance of amazon ec2 data center. In Proc. ofIEEE Infocom.
+
+% - Análise da Predição de Mobilidade na migração de Aplicações em Computação em Névoa
+% - Um Sistema Multinível de Distribuição de Identidades em Névoas Computacionais
+% Borda:
+% - Modelo e Avaliação da Recuperação de Conteúdos Através de Funções de Rede Virtuais
+%      na Arquitetura de Computação na Borda em Redes Móveis
+% Nuvem:
+% - Escalonamento justo em infraestruturas de nuvem com múltiplas classes de serviço
+% - (!) Modelos Estocásticos para Análise de Desempenho e Custo de uma Arquitetura Distribuída Nuvem e Névoa
+% Fluxo:
+% - Análise do impacto da agregação dos fluxos IP nos algoritmos de aprendizado de máquina 
+% supervisionado voltados para a detecção de intrusão
+% - RDNA Balance: Balanceamento de Carga por Isolamento de Fluxos Elefante em Data Centers com Roteamento na Origem
+
+% 2019: Anais Estendidos do XXXVII Simpósio Brasileiro de Redes de Computadores e Sistemas Distribuídos
+
+% Nuvem:
+% - Um Protótipo para Experimentos de Eficiência Energética em Nuvem Openstack
+% Cloud:
+% - A Prediction-based Approach for Anomaly Detection in the Cloud
+% Borda:
+% - LabSensing: Um Sistema de Sensoriamento para Laboratórios Científicos com Computação Inteligente nas Bordas
+%     Telemetria/sensoriamento distribuido com MQTT e arduino
+%     Shi, W., Cao, J., Zhang, Q., Li, Y. e Xu, L. (2016). Edge computing: Vision and challenges.
+%     IEEE Internet of Things Journal, 3(5):637–646
+% Stream:
+% - A Monitoring and Threat Detection System Using Stream Processing as a Virtual Function for Big Data
+% - TrendsBot: Verificando a veracidade das mensagens do Telegram utilizando Data Stream
+
+\section{Mineração de Dados}
+\section{Mineração de Stream}
+
+- quem são, o que consomem
+(BigFlow apud Gaber2005) Mining data streams: A Review.
 
 \section{Plataformas de processamento distribuído}
 - arq labmda, kappa, (vide guilherme)
@@ -41,7 +148,8 @@ Breve descricao do Spark
 % It is written in Scala, Java, R, and Python and gives programmers an Application Programming Interface (API)
 % built on a fault tolerant, read-only multiset of distributed data items.
 % In two years since its initial release (May 2014), it has seen wide acceptability for real-time,
-% in-memory, advanced analytics — owing to its speed, ease of use, and the ability to handle sophisticated analytical requirement
+% in-memory, advanced analytics — owing to its speed, ease of use, and the ability to handle
+%  sophisticated analytical requirement
 % https://dzone.com/articles/streaming-in-spark-flink-and-kafka-1
 
 %  \input{02_1.spark.tex
@@ -68,7 +176,7 @@ machine learning, GraphX for graph processing, and Spark Streaming.
 
 -----------------------
 
-Apache Spark \cite{Zaharia} é um \emph{framework} para construção de sistemas
+Apache Spark \ cite{Zaharia} é um \emph{framework} para construção de sistemas
 de computação distribuída em \emph{cluster} com garantias de tolerância a falhas
 (execução em computadores não confiáveis) utilizando como premissas: paralelização
 e localidade de dados, como 
@@ -89,21 +197,33 @@ Breve descrição do Flink (como esse vai ser usado, precisa explicar um pouco m
 % \{Kafka}
 % 1 pag
 
-% Apache Flink
-% Apache Flink is an open-source platform for distributed stream and batch data processing. Flink’s core is a streaming data flow engine that provides data distribution, communication, and fault tolerance for distributed computations over data streams. Flink also builds batch processing on top of the streaming engine, overlaying native iteration support, managed memory, and program optimization.
+% Apache Flink % Apache Flink is an open-source platform for distributed stream
+% and batch data processing. Flink’s core is a streaming data flow engine that
+% provides data distribution, communication, and fault tolerance for distributed
+% computations over data streams. Flink also builds batch processing on top of the
+% streaming engine, overlaying native iteration support, managed memory, and
+% program optimization.
 
 % Advantages of Flink:
 
-% Flink streaming processes data streams as true streams, i.e. data elements are immediately “pipelined” through a streaming program as soon as they arrive. This allows performing flexible window operations on streams.
+% Flink streaming processes data streams as true streams, i.e. data elements are
+% immediately “pipelined” through a streaming program as soon as they arrive. This
+% allows performing flexible window operations on streams.
+
 % Better memory management: Explicit memory management gets rid of the occasional spikes found in Spark framework.
-% Speed: It manages faster speeds by allowing iterative processing to take place on the same node rather than having the cluster run them independently. Its performance can be further tuned by tweaking it to re-process only that part of data that has changed rather than the entire set. It offers up to a five-fold boost in speed when compared to the standard processing algorithm.
-% Apache Spark is considered a replacement for the batch-oriented Hadoop system. But it includes a component called Apache Spark Streaming, as well. Contrast this with Apache Flink, which is a Big Data processing tool and it is known to process big data quickly with low data latency and high fault tolerance on distributed systems on a large scale. Its defining feature is its ability to process streaming data in real time.
 
-\section{Mineração de Dados}
-\section{Mineração de Stream}
+% Speed: It manages faster speeds by allowing iterative processing to take place
+% on the same node rather than having the cluster run them independently. Its
+% performance can be further tuned by tweaking it to re-process only that part of
+% data that has changed rather than the entire set. It offers up to a five-fold
+% boost in speed when compared to the standard processing algorithm.
 
-- quem são, o que consomem
-(BigFlow apud Gaber2005) Mining data streams: A Review.
+% Apache Spark is considered a replacement for the batch-oriented Hadoop system.
+% But it includes a component called Apache Spark Streaming, as well. Contrast
+% this with Apache Flink, which is a Big Data processing tool and it is known to
+% process big data quickly with low data latency and high fault tolerance on
+% distributed systems on a large scale. Its defining feature is its ability to
+% process streaming data in real time.
 
 \section{Detecção de Novidade}
 
@@ -115,7 +235,7 @@ ver se tem algum survey e citar
 
 \section{O algoritmo MINAS}
 
-breve descricao do MINAS
+breve descricao do MINAS \cite{deFaria2016}
 
 ver paper da profa. Elaine
 
@@ -125,7 +245,8 @@ Detecção de intrusão em redes
     % pontos de coleta de dados b´asicos para a maioria das estruturas de IoT sao Wireless Sensor Networks (WSN) e WSN baseadas em IP,
     % as quais s˜ao vulner´aveis e geram uma ameac¸a de seguranc¸a de alto n´ıvel (ADAT; GUPTA, 2018) Adat2018
     % (KASINATHAN et al., 2013), a detecc¸ ˜ao de assinaturas
-    % (RAZA; WALLGREN; VOIGT, 2013; SHEIKHAN; BOSTANI, 2016) s˜ao propostos IDSs h´ıbridos com foco espec´ıfico em ataques de roteamento como sink-hole e redireciona- mento seletivo
+    % (RAZA; WALLGREN; VOIGT, 2013; SHEIKHAN; BOSTANI, 2016) s˜ao propostos IDSs h´ıbridos com foco 
+                % espec´ıfico em ataques de roteamento como sink-hole e redireciona- mento seletivo
     - técnicas de intrusão e tipos de ataques
     - mecanismo de detecção (análise de fluxo de rede -> detecção de anomalia)
     % Guilherme: A tarefa de detecção de intrusão consiste em descobrir, 
