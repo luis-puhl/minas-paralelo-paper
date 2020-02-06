@@ -1,5 +1,59 @@
 \chapter{Cronograma}
 % cap 5: Cronograma até a defesa
+cap 5: Cronograma até a defesa
+
+\section{Cronograma}
+% (quando)
+
+Lista de etapas 
+
+Quadro (linhas: etapas x colunas: meses)
+
+\begin{ganttchart}[
+    vgrid,
+    hgrid,
+    bar/.append style={fill=green},
+    bar incomplete/.append style={fill=red},
+    progress=today,
+    today=6,
+    group progress label node/.append style={below=3pt}
+    ]{1}{12}
+    \gantttitle{Title}{12} \\
+    \ganttgroup{Group 1}{1}{10} \\
+\ganttbar[
+bar progress label font=\color{green!25!black}\sffamily
+]{Subtask 1}{1}{3} \\
+\ganttbar[
+progress label text={$\displaystyle\frac{#1}{100}$}
+]{Subtask 2}{5}{12}
+\end{ganttchart}
+
+
+% \begin{ganttchart}[vgrid,  
+%     time slot format=isodate-yearmonth, 
+%     compress calendar,
+%     x unit=0.9cm,
+%     title height = 1,
+%     y unit title = 0.6cm,
+%     bar height = .5,
+%     y unit chart = 0.6cm,
+%     bar left shift=.15, bar right shift=-.15,
+%     bar/.style={fill=blue!70, rounded corners=5pt}]{2019-04}{2020-07}
+% \gantttitlecalendar{year, month} \\
+% \ganttbar{1}{2019-04}{2019-08} \\
+% \ganttbar{3}{2019-04}{2020-06} \\
+% \ganttbar{2}{2019-06}{2019-08} \\
+% \ganttbar{4}{2019-09}{2019-11} \\
+% \ganttbar{5}{2019-12}{2020-01} \\
+% \ganttbar{6}{2020-02}{2020-05}  \\
+% \ganttbar{7}{2020-05}{2020-07}
+% %\ganttbar{\E{5}}{2019-10}{2019-11} \\
+% %\ganttbar{\E{6}}{2019-12}{2020-03} \\
+% %\ganttbar{\E{7}}{2020-02}{2020-03} \\
+% %\ganttbar{\E{8}}{2020-04}{2020-05}  \\
+% %\ganttbar{\E{9}}{2020-04}{2020-05} \\
+% %\ganttbar{\E{10}}{2020-05}{2020-07}
+% \end{ganttchart}
 
 Etapas previstas:
 
