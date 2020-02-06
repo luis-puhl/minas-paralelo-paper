@@ -16,7 +16,17 @@
 
 \section{Computação em Nuvem, Borda e Névoa}
 
-Definir internet e rede (borda, centro, etc)
+Para descrever os modelos de computação em núvem, borda e névoa, é necessário
+abordar o conceito de distância e densidade em rede. Distância pode ser definida
+como número de saltos (\emph{hops}), latência, distância geográfica ou combinação destas.
+Densidade é extraida da distância, projetando a mesma num hiper-espaço de maneira que os
+nós com menor distância entre si fiquem mais próximos. Então quando existe um
+grande número de nós numa mesma região diz-se que ela é densa, quando há poucos
+nós em uma regição, esparça. Acredita-se que data centers, backbones e núvens publicas
+formem uma concentração de nós e quanto mais próximo do usuários finais (folhas)
+mais esparço é esse hiper-espaço.
+
+% Definir internet e rede (borda, centro, etc)
 Classificando a internet por sua densidade podemos dizer que ao centro estão
 os \emph{data centers} e nuvems públicas em seguida o núcleo interconectando redes diversas,
 redes locais e a Borda composta pelos nós folha dentro de uma rede local.
@@ -31,7 +41,7 @@ processamento em tempo real de dados originários da própria borda além de ate
 preocupações de segurança e privacidade \cite{Shi2016}.
 
 \emph{Edge} é por vezes chamado de Computação em Névoa (\emph{Fog Computing})
-contudo \cite{IEEECommunicationsSociety2018} indica diferenças como exclusão do
+contudo \citeonline{IEEECommunicationsSociety2018} indica diferenças como exclusão do
 modelo \emph{cloud} e limitação a poucas camadas (por exemplo, somente os nós folha de uma rede)
 no modelo \emph{edge} em direto contraste com a inlcusão de \emph{cloud} e hierarquias
 maiores. \emph{Fog} também atende gerenciamento da rede, armazenamento e controle.
@@ -51,7 +61,7 @@ Com a ampliação da Internet das Coisas (\emph{Internet of Things}, IoT) e cons
 ampliação sem precedentes do volume de dados gerados, mudando o relação de consumo
 e produção \cite{Shi2016}, arquiteturas tradicionais como \emph{cloud} podem não
 ser capazes de lidar com esses dados por falta de banda o que leva as
-propostas de distribuição vertical do processamento em \emph{fog} \cite{Dastjerdi2016, Bonomi2012}.
+propostas de distribuição vertical do processamento em \emph{fog} \cite{Bonomi2012, Dastjerdi2016}.
 
 % Previous work such as micro datacen- ter [12], [13], cloudlet [14], and fog computing [15]
 % [15] F. Bonomi, R. Milito, J. Zhu, and S. Addepalli,
@@ -67,62 +77,6 @@ propostas de distribuição vertical do processamento em \emph{fog} \cite{Dastje
 % are difficult for traditional systems, the cloud, and
 % even edge computing to handle. Fog computing
 % is designed to overcome these limitations.
-
-%-------------------------------------------------
-% <= 1 pagina com conceitos básicos
-
-% Breve descrição de Computação na névoa (Fog) e Computação na Borda (edge) \\
-% ver papers do SBRC se essas são traducao mais utilizadas
-
-% Mini Revisão Sistemática:
-%   - Question: Definição de cloud, fog, edge
-%   - Search:
-%     - Termos: Nuvem, Névoa, Borda, Cloud, Fog, Edge, Stream, Novelty, Novidade, Fluxo
-%     - Source: SBRC 2019
-%     - Seleção: (open)
-%   - Extraction: Trechos de definições e suas referencias
-%   - Qualidade: Definiem caracteristicas relevantes para Minas Distribuido em Fog?
-
-% 2019: Anais do XXXVII Simpósio Brasileiro de Redes de Computadores e Sistemas Distribuídos
-
-% Névoa:
-% - Modelos Estocásticos para Análise de Desempenho e Custo de uma Arquitetura Distribuída Nuvem e Névoa
-%     computacao em nuvem e em nevoa
-%     Perera, C., Qin, Y., Estrella, J. C., Reiff-Marganiec, S., and Vasilakos, A. V. (2017).
-%     Fog computing for sustainable smart cities: A survey. ACMComp. Surv., 50(3):32:1–32:43.
-    
-%     Alem das preocupacoes com seguranca e privacidade, existe o problema com 
-%     relac¸ ˜ao a latˆencia em caso de uma conex˜ao de m´a qualidade [Wang and Ng 2010].
-%     Wang, G. and Ng, T. E. (2010). 
-%     The impact of virtualization on network performance of amazon ec2 data center. In Proc. ofIEEE Infocom.
-
-% - Análise da Predição de Mobilidade na migração de Aplicações em Computação em Névoa
-% - Um Sistema Multinível de Distribuição de Identidades em Névoas Computacionais
-% Borda:
-% - Modelo e Avaliação da Recuperação de Conteúdos Através de Funções de Rede Virtuais
-%      na Arquitetura de Computação na Borda em Redes Móveis
-% Nuvem:
-% - Escalonamento justo em infraestruturas de nuvem com múltiplas classes de serviço
-% - (!) Modelos Estocásticos para Análise de Desempenho e Custo de uma Arquitetura Distribuída Nuvem e Névoa
-% Fluxo:
-% - Análise do impacto da agregação dos fluxos IP nos algoritmos de aprendizado de máquina 
-% supervisionado voltados para a detecção de intrusão
-% - RDNA Balance: Balanceamento de Carga por Isolamento de Fluxos Elefante em Data Centers com Roteamento na Origem
-
-% 2019: Anais Estendidos do XXXVII Simpósio Brasileiro de Redes de Computadores e Sistemas Distribuídos
-
-% Nuvem:
-% - Um Protótipo para Experimentos de Eficiência Energética em Nuvem Openstack
-% Cloud:
-% - A Prediction-based Approach for Anomaly Detection in the Cloud
-% Borda:
-% - LabSensing: Um Sistema de Sensoriamento para Laboratórios Científicos com Computação Inteligente nas Bordas
-%     Telemetria/sensoriamento distribuido com MQTT e arduino
-%     Shi, W., Cao, J., Zhang, Q., Li, Y. e Xu, L. (2016). Edge computing: Vision and challenges.
-%     IEEE Internet of Things Journal, 3(5):637–646
-% Stream:
-% - A Monitoring and Threat Detection System Using Stream Processing as a Virtual Function for Big Data
-% - TrendsBot: Verificando a veracidade das mensagens do Telegram utilizando Data Stream
 
 \section{Mineração de Dados}
 \section{Mineração de Stream}
