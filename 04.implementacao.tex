@@ -12,29 +12,40 @@
 %         - análises e comentários
 
 
-\section{descrição da implementação}
-    - offline, online, ND, Clustering
-    - observação de paralelização
-    - complexidade bigO (?)
-\section{cenário de teste }
-    - detecção de intrusão
-    - Arquitetura guilherme (dispositivos pequenos vs cloud)
-\section{Resultados de experimentos}
+\section{Descrição da Implementação}
+% \section{Objetivos a serem alcançados}
+% O que de fato vc irá fazer 
+
+- offline, online, ND, Clustering
+
+- observação/Considerações de paralelização
+
+Notas sobre implementação Python/Kafka/Minas (não escala como esperado)
+
+Dificuldade no processamento distribuido em Flink.
+
+- complexidade bigO (?)
+
+\section{Cenário de Teste}
+
+- detecção de intrusão
+- Arquitetura guilherme (dispositivos pequenos vs cloud)
+\cite{Cassales2019a}
+% Descrever a arquitetura IDS-IoT do paper do Guilherme
+
+- BigFlow com dataset atual e maior
+dataset kdd99
+% dataset kyoto não está disponível http://www.takakura.com/Kyoto_data/
+
+\section{Experimentos e Resultados}
     - gráficos, tempos, tabelas...
     - análises e comentários
 
-
-Descrever a arquitetura IDS-IoT do paper do Guilherme
-
-\section{Objetivos a serem alcançados}
-
-O que de fato vc irá fazer 
-
-\section{Resultados preliminares}
-
 Mostrar alguma implementação já feita e que esteja funcionando minimamente
 
-Mostrar resultados mesmo que sejam bem simples e básicos, apenas para demonstrar que vc domina o ambiente e as ferramentas e que está apto a avançar no trabalho 
+Mostrar resultados mesmo que sejam bem simples e básicos,
+apenas para demonstrar que vc domina o ambiente e as ferramentas e
+que está apto a avançar no trabalho 
 
 % discussão de 2020-02-01
 passos feitos/a fazer
@@ -47,11 +58,6 @@ Proposta
 6. Implementar minas em Scala/Flink
 7. Testar com datasets KDD e BigFlow
 8. Validar/Comparar métricas com seus trabalhos correspondentes
-
-Considerações
-- Notas sobre implementação Python/Kafka/Minas (não escala como esperado)
-- BigFlow com dataset atual e maior
-- Dificuldade no processamento distribuido em Flink.
 %/discussão
 
 % Notas lendo Quali Casssales:
