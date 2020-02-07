@@ -16,19 +16,19 @@
 
 \section{Computação em Nuvem, Borda e Névoa}
 
-Para descrever os modelos de computação em núvem, borda e névoa, é necessário
+Para descrever os modelos de computação em nuvem, borda e névoa, é necessário
 abordar o conceito de distância e densidade em rede. Distância pode ser definida
 como número de saltos (\emph{hops}), latência, distância geográfica ou combinação destas.
-Densidade é extraida da distância, projetando a mesma num hiper-espaço de maneira que os
+Densidade é extraída da distância, projetando a mesma num hiper-espaço de maneira que os
 nós com menor distância entre si fiquem mais próximos. Então quando existe um
 grande número de nós numa mesma região diz-se que ela é densa, quando há poucos
-nós em uma regição, esparça. Acredita-se que data centers, backbones e núvens publicas
+nós em uma região, esparsa. Acredita-se que data centers, backbones e nuvens publicas
 formem uma concentração de nós e quanto mais próximo do usuários finais (folhas)
-mais esparço é esse hiper-espaço.
+mais esparso é esse hiper-espaço.
 
 % Definir internet e rede (borda, centro, etc)
 Classificando a internet por sua densidade podemos dizer que ao centro estão
-os \emph{data centers} e nuvems públicas em seguida o núcleo interconectando redes diversas,
+os \emph{data centers} e nuvens públicas em seguida o núcleo interconectando redes diversas,
 redes locais e a Borda composta pelos nós folha dentro de uma rede local.
 
 O modelo de Computação em Nuvem (\emph{Cloud Computing})
@@ -43,7 +43,7 @@ preocupações de segurança e privacidade \cite{Shi2016}.
 \emph{Edge} é por vezes chamado de Computação em Névoa (\emph{Fog Computing})
 contudo \citeonline{IEEECommunicationsSociety2018} indica diferenças como exclusão do
 modelo \emph{cloud} e limitação a poucas camadas (por exemplo, somente os nós folha de uma rede)
-no modelo \emph{edge} em direto contraste com a inlcusão de \emph{cloud} e hierarquias
+no modelo \emph{edge} em direto contraste com a inclusão de \emph{cloud} e hierarquias
 maiores. \emph{Fog} também atende gerenciamento da rede, armazenamento e controle.
 
 % Fog works with the cloud, whereas edge is defined by the exclusion of cloud. Fog
@@ -51,9 +51,9 @@ maiores. \emph{Fog} também atende gerenciamento da rede, armazenamento e contro
 % additional to computation, fog also addresses networking, storage, control and
 % acceleration. \cite{IEEECommunicationsSociety2018}
 
-Esse modelo de computação distribuida desde os nós folha até o centro é motivado
-pela mudança do \emph{statu quo} do fluxo dos dados na internet: tradcionalmente
-os dados são produzidos pelos dispositivos de borda imediatamente emviados à 
+Esse modelo de computação distribuída desde os nós folha até o centro é motivado
+pela mudança do \emph{statu quo} do fluxo dos dados na internet: tradicionalmente
+os dados são produzidos pelos dispositivos de borda imediatamente enviados à 
 \emph{cloud} (produção, \emph{upstream}),
 que armazena e processa recursos derivados servido-os através de requisição-resposta
 (consumo, \emph{downstream}) a mais clientes.
