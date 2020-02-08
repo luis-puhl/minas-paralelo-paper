@@ -1,7 +1,7 @@
 \chapter{Fundamentos Científicos e Tecnológicos}
 
 % cap 2: fundamentos científicos e tecnológicos
-%     (pege apenas os mais citados, siga a Elaine)
+%     (pegue apenas os mais citados, siga a Elaine)
 %     2.1. Computação em Nuvem, Fog e Edge
 %     2.2. Plataformas de processamento distribuído
 %         - arq labmda, kappa, (vide guilherme)
@@ -78,13 +78,106 @@ propostas de distribuição vertical do processamento em \emph{fog} \cite{Bonomi
 % even edge computing to handle. Fog computing
 % is designed to overcome these limitations.
 
-\section{Mineração de Dados}
-\section{Mineração de Stream}
+\section{Mineração de Dados e Fluxo de Dados}
+
+% Faria nem Silva definem ou citam data mining
+% A data stream (DS) is a sequence of examples that arrive continuously. They are
+% continuous, unbounded, flow at high speed and have a data distribution that
+% may change over time \cite{Silva2013}. In DS scenarios, new concepts may
+% appear and known concepts may disappear or evolve. \cite{Faria2016nd}
+
+Mineração de Dados é o processo de descoberta de padrões em grandes conjuntos de
+dados utilizando métodos derivados de aprendizagem de maquina, estatística e 
+banco de dados. Uma caso de mineração de dados é \emph{Big Data} onde o conjunto
+de dados não pode ser processado em um tempo relevante por \emph{hardware} e \emph{software}
+comum, geralmente coincidente com o limite de armazenado na memória ou
+armazenamento principal.
+
+% Data stream mining is concerned with the extraction of knowledge from large
+% amounts of continuously generated data in a non-stationary environment. Novelty
+% detection (ND), the ability to identify new or unknown situations not
+% experienced before, is an important task for learning systems, especially when
+% data are acquired incrementally (Perner 2008). In data streams (DSs), where new
+% concept can appear, disappear or evolve over time, this is an important issue to
+% be addressed. ND in DSs makes it possible to recognize the novel concepts, which
+% may indicate the appearance of a new concept, a change in known concepts or the
+% presence of noise (Gama 2010).
+% 
+% Perner P (2008) Concepts for novelty detection and handling based on a case-based
+% reasoning process scheme. Eng Appl Artif Intell 22:86–91
+% 
+% Gama J (2010) Knowledge discovery from data streams, vol 1, 1st edn. CRC press chapman hall, Atlanta
+
+% dados massivamente e continuamente gerados e não persistentes. Fp
+
+Além da dimensão de armazenamento outra dimensão que afeta a maneira como dados
+são modelados e manipulados é o tempo. Um Fluxo de Dados (\emph{Data Stream}) é
+uma sequência de registros produzidos a uma taxa muito alta, associadas ao tempo
+real, ilimitados, que excede recursos de armazenamento e, portanto, pode ser
+lida apenas uma vez durante processamento \cite{Gama2007}.
+
+% 
+% A data stream is a sequence of unbounded, real-time data records that are
+% characterized by the very high data rate, which stresses our computational
+% resources, and can be read only once by processing applications [13,8,1,9]
+ 
+% [1] B. Babcock, S. Babu, M. Datar, R. Motwani, J. Widom, Models and issues in
+% data stream systems. In: Proceedings of Principles of Database Systems
+% (PODS’02), pp. 1–16, 2002. \cite{Babcock2002}
+
+% [2] G. Boone, Reality mining: browsing reality with sensor networks.
+% In: Sensors Online, vol. 21, 2004.
+
+% [3] V. Cantoni, L. Lombardi, P. Lombardi, Challenges for data mining in
+% distributed sensor networks. ICPR (1) 1000–1007, 2006
+
+% [8] M.M. Gaber, A. Zaslavsky, S. Krishnaswamy, Mining data streams: a review.
+% ACMSIGMOD Record, 34(2):18–26, 2005.
+% 
+% [9] M. Garofalakis, J. Gehrke, R. Rastogi, Querying and mining data streams:
+% you only get one look a tutorial. In: Proceedings of the 2002 ACM SIGMOD
+% International Conference on Management of Data, June 03–06, Madison, Wisconsin,
+% 2002.
+% 
+% [13] S. Muthukrishnan, Data streams: algorithms and applications. In:
+% Proceedings of the Four- teenth Annual ACM-SIAM Symposium on Discrete
+% Algorithms, 2003.
+
+Mineração de Fluxo de Dados é análogo à mineração de
+dados e \emph{big data} com a restrição temporal onde um registro é unicamente 
+associado um tempo, dessa forma além de não ser possível manipular o conjunto
+de dados em memória, não é possível recuperar dados fora do intervalo de tempo associado
+a eles.
+
+% ----- wikipedia ------
+% 
+% Data mining is the process of discovering patterns in large data sets involving
+% methods at the intersection of machine learning, statistics, and database
+% systems.[1] Data mining is an interdisciplinary subfield of computer science and
+% statistics with an overall goal to extract information (with intelligent
+% methods) from a data set and transform the information into a comprehensible
+% structure for further use.[1][2][3][4] Data mining is the analysis step of the
+% "knowledge discovery in databases" process or KDD.[5] Aside from the raw
+% analysis step, it also involves database and data management aspects, data
+% pre-processing, model and inference considerations, interestingness metrics,
+% complexity considerations, post-processing of discovered structures,
+% visualization, and online updating.[1]
+% 
+% [1] "Data Mining Curriculum". ACM SIGKDD. 2006-04-30. Retrieved 2014-01-27.
+% [2] Clifton, Christopher (2010). "Encyclopædia Britannica: Definition of Data Mining". Retrieved 2010-12-09.
+% [3] Hastie, Trevor; Tibshirani, Robert; Friedman, Jerome (2009).
+% "The Elements of Statistical Learning: Data Mining, Inference, and Prediction".
+% Archived from the original on 2009-11-10. Retrieved 2012-08-07.
+% [4] Han, Kamber, Pei, Jaiwei, Micheline, Jian (June 9, 2011).
+% Data Mining: Concepts and Techniques (3rd ed.). Morgan Kaufmann. ISBN 978-0-12-381479-1.
+% [5] Fayyad, Usama; Piatetsky-Shapiro, Gregory; Smyth, Padhraic (1996).
+% "From Data Mining to Knowledge Discovery in Databases" (PDF). Retrieved 17 December 2008.
 
 - quem são, o que consomem
 (BigFlow apud Gaber2005) Mining data streams: A Review.
 
 \section{Plataformas de processamento distribuído}
+
 - arq labmda, kappa, (vide guilherme)
 - MapReduce, Haddop, Spark, Storm
 
@@ -92,9 +185,9 @@ propostas de distribuição vertical do processamento em \emph{fog} \cite{Bonomi
 
 O que são e para que servem essas ferramentas 
 
-Breve descricao do MapReduce e Hadoop
+Breve descrição do MapReduce e Hadoop
 
-Breve descricao do Spark 
+Breve descrição do Spark
 
 % Apache Spark}
 
@@ -110,11 +203,11 @@ Breve descricao do Spark
 
 % # Apache Spark e pyspark
 
-Apache Spark is an open-source distributed general-purpose cluster-computing
-framework. Spark provides an interface for programming entire clusters with
-implicit data parallelism and fault tolerance. Originally developed at the
-University of California, Berkeley's AMPLab, the Spark codebase was later
-donated to the Apache Software Foundation, which has maintained it since.
+% Apache Spark is an open-source distributed general-purpose cluster-computing
+% framework. Spark provides an interface for programming entire clusters with
+% implicit data parallelism and fault tolerance. Originally developed at the
+% University of California, Berkeley's AMPLab, the Spark codebase was later
+% donated to the Apache Software Foundation, which has maintained it since.
 
 Apache Spark é um framework de código fonte aberto para computação
 distribuída.[1] Foi desenvolvido no AMPLab da Universidade da Califórnia[2] e
@@ -122,11 +215,11 @@ posteriormente repassado para a Apache Software Foundation[3] que o mantém desd
 então. Spark provê uma interface para programação de clusters com paralelismo e
 tolerância a falhas.
 
-Apache Spark is a fast and general-purpose cluster computing system. It provides
-high-level APIs in Java, Scala, Python and R, and an optimized engine that
-supports general execution graphs. It also supports a rich set of higher-level
-tools including Spark SQL for SQL and structured data processing, MLlib for
-machine learning, GraphX for graph processing, and Spark Streaming.
+% Apache Spark is a fast and general-purpose cluster computing system. It provides
+% high-level APIs in Java, Scala, Python and R, and an optimized engine that
+% supports general execution graphs. It also supports a rich set of higher-level
+% tools including Spark SQL for SQL and structured data processing, MLlib for
+% machine learning, GraphX for graph processing, and Spark Streaming.
 
 -----------------------
 
@@ -145,6 +238,26 @@ Breve descrição do Flink (como esse vai ser usado, precisa explicar um pouco m
 - arquitetura\\
 - modelo de programacao\\
 - 1 pequeno exemplo de codigo explicando
+
+\cite{Lopez2018}
+
+% [80] ANDREONI LOPEZ, M., LOBATO, A. G. P., MATTOS, D. M. F., et al. “Um
+% Algoritmo Não Supervisionado e Rápido para Seleção de Caracterı́sticas
+% em Classificação de Tráfego”. In: XXXV SBRC’2017, Belém- Pará, PA,,
+% 2017.
+% [81] ANDREONI LOPEZ, M., LOBATO, A. G. P., DUARTE, O. C. M. B., et al.
+% “An evaluation of a virtual network function for real-time threat detection
+% using stream processing”. In: IEEE Fourth International Conference on
+% Mobile and Secure Services (MobiSecServ), pp. 1–5, 2018. doi: 10.1109/
+% MOBISECSERV.2018.8311440.
+% [82] CHENG, Z., CAVERLEE, J., LEE, K. “You Are Where You Tweet: A Content-
+% based Approach to Geo-locating Twitter Users”. In: Proceedings of the
+% 19th ACM International Conference on Information and Knowledge Man-
+% agement, CIKM ’10, pp. 759–768. ACM, 2010. ISBN: 978-1-4503-0099-5.
+% [83] LOBATO, A. G. P., ANDREONI LOPEZ, M., DUARTE, O. C. M. B. “Um
+% Sistema Acurado de Detecção de Ameaças em Tempo Real por Processa-
+% mento de Fluxos”. In: SBRC’2016, pp. 572–585, Salvador, Bahia, 2016.
+
 
 % \{Messa queueing systems - Sistemas de filas de mensagens}
 % O que são, para que servem e citar alguns exemplos
@@ -183,13 +296,13 @@ Breve descrição do Flink (como esse vai ser usado, precisa explicar um pouco m
 
 Novelty Detection
 
-breve descricao do que sao algoritmos para DN
+breve descrição do que sao algoritmos para DN
 
 ver se tem algum survey e citar
 
 \section{O algoritmo MINAS}
 
-breve descricao do MINAS \cite{deFaria2016}
+breve descrição do MINAS \cite{deFaria2016}
 
 ver paper da profa. Elaine
 
