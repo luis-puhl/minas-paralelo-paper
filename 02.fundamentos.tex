@@ -174,11 +174,43 @@ a eles.
 % "From Data Mining to Knowledge Discovery in Databases" (PDF). Retrieved 17 December 2008.
 
 - quem são, o que consomem
-(BigFlow apud Gaber2005) Mining data streams: A Review.
+(\citeonline{Viegas2019} \emph{apud} \citeonline{Gaber2005}) Mining data streams: A Review.
 
 \section{Plataformas de processamento distribuído}
 
-- arq labmda, kappa, (vide guilherme)
+- arq lambda, kappa, (vide guilherme)
+
+% Existem diversas maneiras de organizar o caminho das informações em um
+% aplicativo de processamento de fluxo de dados. Algumas propostas sao amplamente
+% conhecidas como as arquiteturas Lambda (MARZ; WARREN, 2015) e Kappa (KREPS,
+% 2014), as quais s˜ao genéricas e focadas no processamento de fluxo.
+
+% A arquitetura Lambda (MARZ; WARREN, 2015) mescla o processamento do fluxos de
+% dados com o processamento em lotes. O objetivo dessa mistura é obter, ao mesmo
+% tempo, a capacidade de fazer análises em tempo real, e, ao mesmo tempo,
+% fazê-las com maior qualidade. Seu processamento é dividido em duas camadas,
+% uma camada de processamento online que fornece resultados aproximados com baixa
+% latência e uma camada de processamento offline que usa os dados históricos
+% disponíveis e fornece resultados mais precisos, embora com maior sobrecarga e
+% latência. Além das duas camadas de processamento, a Arquitetura Lambda possui
+% uma camada de serviço, que combina dados de ambas as camadas de processamento e
+% apresenta ao usuário.
+
+% A arquitetura Kappa, por outro lado, possui apenas as camadas de processamento e
+% serviço de fluxo. Seu objetivo é o processamento em tempo real, portanto
+% possui a menor quantidade possível de sobrecarga e latência. Sendo assim, é
+% natural que esta seja uma arquitetura muito simples e que possua apenas os
+% módulos essenciais para um sistema de processamento de fluxo. A arquitetura
+% Kappa possui apenas um módulo de processamento on-line que opera através do
+% fluxo de dados e fornece informações.
+
+% MARZ, N.; WARREN, J. Big Data: Principles and Best Practices of Scalable
+% Realtime Data Systems. 1st. ed. Greenwich, CT, USA: Manning Publications Co.,
+% 2015. ISBN 1617290343, 9781617290343.
+
+% KREPS, J. Questioning the Lambda Architecture. 2014. Disponível em:
+% https://www.oreilly. com/ideas/questioning-the-lambda-architecturei.
+
 - MapReduce, Haddop, Spark, Storm
 
 % Ferramentas de BigData}
@@ -241,6 +273,31 @@ Breve descrição do Flink (como esse vai ser usado, precisa explicar um pouco m
 
 \cite{Lopez2018}
 
+% These stream applications are characterized by an unbounded sequence of events, or tuples, that arrive continuously [4]. \cite{Stonebraker2005}
+
+% A number of requirements must be met on distributed stream processing platforms, \citeonline{Stonebraker2005} Stonebraker et al. highlight the most important [4]. 
+
+
+% the difficulties in anonymizing and extracting knowledge from
+% anonymized data, and discuss the main datasets available [6].
+% Among the datasets for security research, the most commonly
+% used is KDD [10], whose characterization was performed by
+% Tavallaee et al. [15]. \cite{Lopez2017}
+
+% \cite{Lopez2017}
+% In this paper, we analyze and characterize the traffic of a broadband Internet
+% access network by differentiating normal from anomalous traffic, that is marked
+% as threat by an IDS. We collected real and anonymized data from a major
+% telecommu- nications operator ^1. The dataset is created by capturing 5 TB of
+% access data of 373 residential broadband users in the city of Rio de Janeiro,
+% Brazil. The dataset contains legitimate traffic, attacks and other security
+% threats
+% ^1 Anonymized data can be consulted through email contact with authors.
+
+% [4] STONEBRAKER, M., C¸ ETINTEMEL, U., ZDONIK, S. “The 8 requirements of
+% real-time stream processing”, ACM SIGMOD Record, v. 34, n. 4, pp. 42–
+% 47, 12 2005. ISSN: 01635808. doi: 10.1145/1107499.1107504.
+% \cite{Stonebraker2005}
 % [80] ANDREONI LOPEZ, M., LOBATO, A. G. P., MATTOS, D. M. F., et al. “Um
 % Algoritmo Não Supervisionado e Rápido para Seleção de Caracterı́sticas
 % em Classificação de Tráfego”. In: XXXV SBRC’2017, Belém- Pará, PA,,
@@ -309,8 +366,8 @@ ver paper da profa. Elaine
 % discussão de 2020-02-01
 Detecção de intrusão em redes
     - riscos de segurança
-    % pontos de coleta de dados b´asicos para a maioria das estruturas de IoT sao Wireless Sensor Networks (WSN) e WSN baseadas em IP,
-    % as quais s˜ao vulner´aveis e geram uma ameac¸a de seguranc¸a de alto n´ıvel (ADAT; GUPTA, 2018) Adat2018
+    % pontos de coleta de dados básicos para a maioria das estruturas de IoT sao Wireless Sensor Networks (WSN) e WSN baseadas em IP,
+    % as quais s˜ao vulneráveis e geram uma ameac¸a de seguranc¸a de alto n´ıvel (ADAT; GUPTA, 2018) Adat2018
     % (KASINATHAN et al., 2013), a detecc¸ ˜ao de assinaturas
     % (RAZA; WALLGREN; VOIGT, 2013; SHEIKHAN; BOSTANI, 2016) s˜ao propostos IDSs h´ıbridos com foco 
                 % espec´ıfico em ataques de roteamento como sink-hole e redireciona- mento seletivo
@@ -320,12 +377,12 @@ Detecção de intrusão em redes
     %           determinar e identificar a utilização, duplicação, alteração ou destruição
     %           não autorizada de sistemas de informação (MUKKAMALA; SUNG; ABRAHAM, 2005) Mukkamala2005
     % deteccao por assinaturas (tambem chamada de misuse-detection), deteccao comportamental (tambem chamada de anomaly-detection)e deteccao hıbrida.(MODI et al., 2013).
-    % implementacao usualmente ´e feita por meio de t´ecnicas de AM e MD (BUCZAK; GUVEN, 2016).
+    % implementacao usualmente é feita por meio de técnicas de AM e MD (BUCZAK; GUVEN, 2016).
     % existem poucos trabalhos [..] online e deteccao de novidade ao problema [..] observado nas surveys (BUCZAK; GUVEN, 2016; MITCHELL; CHEN, 2014; MODI et al., 2013).
     % (FURQUIM et al., 2018), os autores implementam uma arquitetura de 3 camadas (WSN, Fog e Cloud)
-    % (MIDI et al., 2017), os autores propuseram um IDS h´ıbrido [...] ativa apenas os m´odulos [...] especializado em um ataque espec´ıfic
-    % (FAISAL et al., 2015)externo ou interno ao Smart Meter.dados do KDD99 [...] precis˜ao, Kappa, consumo de mem´oria, tempo e FAR
-    % extensivamente em (Sommer; Paxson, 2010) e (MCHUGH, 2000), ´e dif´ıcil encontrar boas me- didas de avaliac¸ ˜ao para IDSs
+    % (MIDI et al., 2017), os autores propuseram um IDS h´ıbrido [...] ativa apenas os módulos [...] especializado em um ataque espec´ıfic
+    % (FAISAL et al., 2015)externo ou interno ao Smart Meter.dados do KDD99 [...] precis˜ao, Kappa, consumo de memória, tempo e FAR
+    % extensivamente em (Sommer; Paxson, 2010) e (MCHUGH, 2000), é dif´ıcil encontrar boas me- didas de avaliac¸ ˜ao para IDSs
     % (GAMA, 2010) afirma que no contexto de processamento de fluxo, as medidas tradicionais s˜ao impreci- sas.
 Detecção de novidades
     % (PERNER, 2007)(GAMA, 2010). A
@@ -334,12 +391,12 @@ Detecção de novidades
     % (FARIA et al., 2016)
     % ECSMiner (MASUD et al., 2011)
     % AnyNovel (ABDALLAH et al., 2016) s˜ao
-    % medidas de Qualidade da Deteccao utilizadas foram Fnew, Mnew, Erro e a quantidade de exemplos rotulados por especialistas que cada t´ecnica requisitou (MASUD et al., 2011)
+    % medidas de Qualidade da Deteccao utilizadas foram Fnew, Mnew, Erro e a quantidade de exemplos rotulados por especialistas que cada técnica requisitou (MASUD et al., 2011)
     - BigFlow (incluir métricas)
 Processamento de Streams (big data)
     - cloud?
     % A arquitetura Lambda (MARZ; WARREN, 2015) de duas camadas de CPU (stream e batch) e camada de serviço
-    % Kappa (KREPS, 2014) possui apenas um m´odulo de processamento on-line (apenas as camadas de processamento e servic¸o)
+    % Kappa (KREPS, 2014) possui apenas um módulo de processamento on-line (apenas as camadas de processamento e servic¸o)
     - redes como stream
     - Atraso
     - Kafka/Spark/Flink
