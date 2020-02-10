@@ -33,23 +33,38 @@
 % os \emph{data centers} e nuvens públicas em seguida o núcleo interconectando redes diversas,
 % redes locais e a Borda composta pelos nós folha dentro de uma rede local.
 
-O modelo de Computação em Nuvem (\emph{Cloud Computing})
-permite alocar recursos como redes, servidores, armazenamento, aplicações e serviços
-de maneira conveniente e seu provisionamento ágil concede elasticidade para atender
-demandas variáveis com custo mínimo \cite{NIST2011}.
+% O modelo de Computação em Nuvem (\emph{Cloud Computing})
+% permite alocar recursos como redes, servidores, armazenamento, aplicações    e serviços
+% de maneira conveniente e seu provisionamento ágil concede elasticidade para atender
+% demandas variáveis com custo mínimo \cite{NIST2011}.
+
 % Definição de Cloud Computing
 \subsection{Computação em Nuvem}
-Computação em Nuvem (em inglês, \emph{Cloud Computing}) habilita o acesso através da rede e sob demanda a um grupo compartilhado de recursos de computação configuráveis (servidores, redes, aplicativo, armazenamento, serviços, etc.) que podem ser provisionados ou liberados rapidamente com o mínimo esforço de gerenciamento ou interação com o provedor de serviços \cite{NIST2011}. As principais características do \emph{cloud computing} são:
 
-Alternativamente, a Computação na Borda (\emph{Edge Computing}) destaca-se no
-processamento em tempo real de dados originários da própria borda além de atender
-preocupações de segurança e privacidade \cite{Shi2016}.
+A computação em nuvem (em inglês, \emph{cloud computing}), ou simplesmente nuvem
+(\emph{cloud}), habilita o acesso através da rede a um grupo compartilhado de
+recursos de computação configuráveis (servidores, redes, aplicativo,
+armazenamento, serviços, etc.) que podem ser provisionados ou liberados sob
+demanda e rapidamente com o mínimo esforço de gerenciamento ou interação com o
+provedor de serviços \cite{NIST2011}. As principais características do
+\emph{cloud computing} são:
+
+% Computação em Nuvem (em inglês, \emph{Cloud Computing}) habilita o acesso
+% através da rede e sob demanda a um grupo compartilhado de recursos de computação
+% configuráveis (servidores, redes, aplicativo, armazenamento, serviços, etc.) que
+% podem ser provisionados ou liberados rapidamente com o mínimo esforço de
+% gerenciamento ou interação com o provedor de serviços \cite{NIST2011}. As
+% principais características do \emph{cloud computing} são:
+
+% Alternativamente, a Computação na Borda (\emph{Edge Computing}) destaca-se no
+% processamento em tempo real de dados originários da própria borda além de atender
+% preocupações de segurança e privacidade \cite{Shi2016}.
 
 \begin{itemize}
-
-    \item \textbf{Serviço sob Demanda:} o cliente pode provisionarcapacidades de
-    computação (ex: tempo de servidor e armazenamento) conforme o necessário sem
-    requer interação com o provedor de serviço;
+    
+    \item \textbf{Serviço sob Demanda:} o cliente pode provisionar ou liberar
+    capacidades de computação (ex: tempo de servidor e armazenamento) conforme o
+    necessário sem requer interação com o provedor de serviço;
     
     \item \textbf{Amplo acesso à rede:} o acesso aos recursos de computação e
     capacidades ocorre pela rede através de mecanismos padrões que permitem o
@@ -70,7 +85,8 @@ preocupações de segurança e privacidade \cite{Shi2016}.
 
 \end{itemize}
 
-Segundo, \citeonline{NIST2011}, a implantação da Computação em Nuvem pode ocorrer através dos seguintes modelos:
+Segundo, \citeonline{NIST2011}, a implantação da Computação em Nuvem pode
+ocorrer através dos seguintes modelos:
 
 \begin{itemize}
     
@@ -78,14 +94,14 @@ Segundo, \citeonline{NIST2011}, a implantação da Computação em Nuvem pode oc
     dedicada para um único cliente ou organização. Nesse modelo, o cliente
     gerencia e controla a infraestrutura, ou pode delegar essas tarefas a uma
     empresa terceira. A infraestrutura pode estar dentro ou fora das instalações
-    da organização;
-    
+    da organização proprietária;
+
     \item \textbf{Nuvem comunitária:} a infraestrutura de nuvem é fornecida para
     um grupo exclusivo de clientes que compartilham de um mesmo interesse
     (requerimentos de segurança, desempenho, políticas, etc.). Esse tipo de
     nuvem pode ser gerenciado pelo próprio grupo, ou organizações terceiras,
-    podendo estar dentro ou fora das instalações da empresa;
-    
+    podendo estar dentro ou fora das instalações da empresa proprietária;
+
     \item \textbf{Nuvem pública:} a infraestrutura da nuvem é provisionada e
     oferecida para uso público. É gerenciado e operado por um provedor de nuvem.
     
@@ -100,32 +116,32 @@ Segundo, \citeonline{NIST2011}, a implantação da Computação em Nuvem pode oc
 % Definição de Computação de Borda 
 \subsection{Computação de Borda}
 
-A computação de borda (em inglês, \emph{Edge Computing}) refere-se às
+A computação de borda (em inglês, \emph{edge computing}) refere-se às
 tecnologias que permitem que a computação seja executada na borda da rede.
 Define-se borda ou \emph{edge} como qualquer recurso de computação e de rede ao
 longo do caminho entre as fontes de dados e os data centers da nuvem
-\cite{Shi2016}. Por exemplo, um \emph{gateway} numa casa é o borda entre os
-dispositivos IoT e a nuvem. Na borda, é possível fazer armazenamento,
-processamento e descarregamento de dados, assim como distribuir as requisições e
-entregar os serviços das nuvens aos usuários. \citeonline{Shi2016} ressalta que
-essas capacidades dentre outras dos nós da borda (\emph{edge nodes})
-possibilitam que a computação de borda: reduzir latência na resposta da nuvem,
-pois o dado pode ser processado na borda; enviar somente os dados necessários,
-aproveitando melhor a banda e a transmissão de dados, e também consumindo menos
-recursos de computação na nuvem; aumentar a privacidade dos dados, pois o dado
-pode ser processado na borda.
+\cite{Shi2016}. Na borda, é possível fazer armazenamento, processamento e
+descarregamento de dados, assim como distribuir as requisições e entregar os
+serviços das nuvens aos usuários. \citeonline{Shi2016} ressalta que essas
+capacidades dentre outras dos nós da borda (\emph{edge nodes}) possibilita que a
+computação de borda reduza a latência na resposta da nuvem pré-processando os
+dados nos nós da borda, aproveitando melhor a banda e a transmissão de dados, e
+também consumindo menos recursos de computação na nuvem. Além disso, o autor
+ainda acrescentar que o \emph{edge computing} pode aumentar a privacidade dos
+dados uma vez que o dado pode ser processado no próprio dispositivo final.
 
-A computação de borda tenta trazer a computação para mais próximo das fontes de
+A computação de borda tenta trazer a computação mais próxima das fontes de
 dados, como mostra a Figura \ref{edge-computing}. Como é observado na figura, os
 componentes desse tipo de computação podem ser tanto produtores como
 consumidores, não só requisitando serviços e conteúdo da nuvem, mas também
 realizando tarefas da nuvem. Algumas aplicações da computação de borda são: nós
-de borda fazendo análise de vídeo; descarregar a nuvem de parte da computação,
-pois a borda também tem capacidade de processamento; privacidade dos dados
-produzidos por \emph{smart homes} e sensores IoT, pois dados sensíveis não
-precisam ir para a nuvem, liberando também cardas de dados na rede;
-processamento distribuído nos nós da borda de dados provenientes de milhões de
-sensores em cidades inteligentes.
+de borda fazendo análise de vídeo; diminuir a latência da nuvem para sistemas
+críticos; descarregar a nuvem de parte da computação, pois a borda também tem
+capacidade de processamento; privacidade dos dados produzidos por \emph{smart
+homes} e sensores IoT, pois dados sensíveis não precisam ir para a nuvem,
+liberando também cargas de dados na rede; processamento distribuído nos nós da
+borda de dados provenientes de milhões de sensores em cidades inteligentes.
+
 
 \begin{figure}[ht]
 \centering
@@ -135,12 +151,84 @@ sensores em cidades inteligentes.
 \end{figure}
 
 \subsection{Computação em Névoa}
-% Definição de Fog Computing
-% o que é e como se relaciona com IoT e se diferencia das outras
 
-% From our point of view, edge computing is interchangeable with fog comput-ing [19], 
-% but edge computing focus more toward the thingsside, while fog computing focus more 
-% on the infrastructureside.
+\citeonline{Dastjerdi2016} e \citeonline{IEEECommunicationsSociety2018}
+mencionam que a enorme massa de dados gerados por ambientes IoT pode ser
+processada pela nuvem, entretanto a latência produzida pela transferência desses
+dados para a nuvem e o retorno do resultado não são tolerados por sistemas
+críticos que sejam sensíveis a latência (monitoramento de saúde e resposta a
+emergências). O autor ainda acrescenta que enviar tantos dados a \emph{cloud}
+para processamento e armazenamento pode ser ineficiente e não escalável devido a
+saturação de dados na rede. O \emph{edge computing} foi proposto para trazer o
+processamento e armazenamento para os dispositivos de borda tentando solucionar
+esses problemas, porém os dispositivos de borda não podem lidar com várias
+aplicações IoT competindo pelos seus recursos limitados, o que poderia causar a
+contenção dos recursos e aumento na latência do processamento
+\cite{Dastjerdi2016}. Portanto, para solucionar estas questões de latência e
+capacidade limita dos dispositivos de borda, a computação em névoa foi proposta.
+
+A computação em névoa (em inglês, \emph{fog computing}) é um paradigma que traz
+as capacidades de computação, armazenamento e rede para próximo das fontes dados
+e dos dispositivos finais, mas não necessariamente localizados na borda
+\cite{Bonomi2012} \cite{Dastjerdi2016} \cite{IEEECommunicationsSociety2018}.
+Esse tipo de computação evita a contenção dos recursos dos dispositivos mais
+próximos às fontes de dados fornecendo-os capacidade de nuvem e coordenando-os
+geograficamente distribuídos. \citeonline{Bonomi2012} e
+\citeonline{Dastjerdi2016} veem o \emph{fog computing} como complementar da
+\emph{edge computing}, podendo a computação em névoa aproveitar os recursos da
+nuvem e da borda. \citeonline{IEEECommunicationsSociety2018} considera que a
+principal diferença entre esses dois tipos de computação está no número de
+camadas. Enquanto o \emph{edge computing} tem camadas menores, pois atua só nos
+dispositivos de borda, o \emph{fog computing} tem mais camadas e um modelo
+hierárquico, pois não atua só na camada de borda.
+
+Segundo \citeonline{Bonomi2012} e \citeonline{Dastjerdi2016}, as principais
+características da computação em névoa são:
+
+\begin{itemize}
+
+    \item \textbf{Mobilidade:} é essencial que as aplicações \emph{fog} sejam
+    capazes de se comunicar com dispositivos móveis, por exemplo, utilizando
+    protocolos que considerem a mobilidade dos nós;
+
+    \item \textbf{Heterogeneidade:} os nós nesse tipo de paradigma possuem
+    configurações e formatos diferentes e podem estar implantados em ambientes
+    distintos;
+
+    \item \textbf{Baixa Latência:} a computação em névoa foi proposta para
+    atender aplicações que requeiram baixa latência (monitoramento de saúde,
+    jogos, realidade aumentada, etc.);
+
+    \item \textbf{Distribuição geográfica:} o \emph{fog computing} possui
+    milhares de sensores e dispositivos distribuídos geograficamente e a
+    consciência da localização deles (em inglês, \emph{location awareness});
+
+    \item \textbf{Alto número de nós:} seguindo os ambientes IoT, a computação
+    em névoa pode ser composta por milhares de nós;
+
+    \item \textbf{Interoperabilidade e federação:} os componentes da computação
+    em névoa devem ser capazes de interoperar, e o serviços devem ser federados
+    ao longo de diferentes domínios;
+
+    \item \textbf{Uso de fluxo de dados e aplicações em tempo real:} a
+    computação em névoa pode envolver aplicações que processam em lote, mas na
+    maior parte das vezes envolve aplicações com requisito de processamento em
+    tempo real, e para isso fazem o uso de fluxo de dados. Por exemplo, os
+    sensores de um rede IoT inscrevem a informação no fluxo de dados, a
+    informação é processada, e os \emph{insights} extraídos são traduzidos em
+    ações nos componentes atuadores.
+
+\end{itemize}
+
+Algumas aplicações para computação em névoa são: cidades inteligentes e
+semáforos inteligentes que enviam sinais de alerta aos veículos e coordenam os
+sinais verdes com outros semáforos através de sensores (veículos, pedestres,
+ciclistas); na área de saúde para monitorar e prever situações de pacientes que
+estão conectados a sensores; em prédios inteligentes que são dotados de sensores
+de umidade, temperatura, qualidade do ar, ocupação, então a partir das
+informações deles é possível alertar os ocupantes do prédio em algum caso de
+emergência.
+
 
 % \emph{Edge} é por vezes chamado de Computação em Névoa (\emph{Fog Computing})
 % contudo \citeonline{IEEECommunicationsSociety2018} indica diferenças como exclusão do
@@ -153,6 +241,13 @@ sensores em cidades inteligentes.
 % additional to computation, fog also addresses networking, storage, control and
 % acceleration. \cite{IEEECommunicationsSociety2018}
 
+% Definição de Fog Computing
+% o que é e como se relaciona com IoT e se diferencia das outras
+
+% From our point of view, edge computing is interchangeable with fog comput-ing [19], 
+% but edge computing focus more toward the thingsside, while fog computing focus more 
+% on the infrastructureside.
+
 % Esse modelo de computação distribuída desde os nós folha até o centro é motivado
 % pela mudança do \emph{statu quo} do fluxo dos dados na internet: tradicionalmente
 % os dados são produzidos pelos dispositivos de borda imediatamente enviados à 
@@ -164,7 +259,6 @@ sensores em cidades inteligentes.
 % e produção \cite{Shi2016}, arquiteturas tradicionais como \emph{cloud} podem não
 % ser capazes de lidar com esses dados por falta de banda o que leva as
 % propostas de distribuição vertical do processamento em \emph{fog} \cite{Bonomi2012, Dastjerdi2016}.
-
 
 
 % Previous work such as micro datacen- ter [12], [13], cloudlet [14], and fog computing [15]
@@ -292,6 +386,7 @@ de processamento menor que linear \cite{Gama2007, Gaber2005}.
 % (\citeonline{Viegas2019} \emph{apud} \citeonline{Gaber2005}) Mining data streams: A Review.
 
 \section{Plataformas de processamento distribuído}
+% Blablablbalba % Ferramentas de BigData}
 
 Tradicionalmente, aplicações foram construídas com um sistema gerenciador de
 banco de dados (SGBD) relacional ou não-relacional associado. Essa arquitetura, 
