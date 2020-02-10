@@ -16,7 +16,6 @@
 
 \section{Computação em Nuvem, Borda e Névoa}
 
-
 % Para descrever os modelos de computação em nuvem, borda e névoa, é necessário
 % abordar o conceito de distância e densidade em redes. Distância pode ser definida como o número de saltos (\emph{hops}), latência, distância geográfica ou combinação destas.
 % Densidade é extraída da distância, projetando a mesma num hiper-espaço de maneira que os
@@ -25,8 +24,6 @@
 % nós em uma região, esparsa. Acredita-se que data centers, backbones e nuvens publicas
 % formem uma concentração de nós e quanto mais próximo do usuários finais (folhas)
 % mais esparso é esse hiper-espaço.
-
-
 
 % Definir internet e rede (borda, centro, etc)
 % Classificando a internet por sua densidade podemos dizer que ao centro estão
@@ -39,6 +36,7 @@
 % demandas variáveis com custo mínimo \cite{NIST2011}.
 
 % Definição de Cloud Computing
+
 \subsection{Computação em Nuvem}
 
 A computação em nuvem (em inglês, \emph{cloud computing}), ou simplesmente nuvem
@@ -48,13 +46,6 @@ armazenamento, serviços, etc.) que podem ser provisionados ou liberados sob
 demanda e rapidamente com o mínimo esforço de gerenciamento ou interação com o
 provedor de serviços \cite{NIST2011}. As principais características do
 \emph{cloud computing} são:
-
-% Computação em Nuvem (em inglês, \emph{Cloud Computing}) habilita o acesso
-% através da rede e sob demanda a um grupo compartilhado de recursos de computação
-% configuráveis (servidores, redes, aplicativo, armazenamento, serviços, etc.) que
-% podem ser provisionados ou liberados rapidamente com o mínimo esforço de
-% gerenciamento ou interação com o provedor de serviços \cite{NIST2011}. As
-% principais características do \emph{cloud computing} são:
 
 % Alternativamente, a Computação na Borda (\emph{Edge Computing}) destaca-se no
 % processamento em tempo real de dados originários da própria borda além de atender
@@ -229,7 +220,6 @@ de umidade, temperatura, qualidade do ar, ocupação, então a partir das
 informações deles é possível alertar os ocupantes do prédio em algum caso de
 emergência.
 
-
 % \emph{Edge} é por vezes chamado de Computação em Névoa (\emph{Fog Computing})
 % contudo \citeonline{IEEECommunicationsSociety2018} indica diferenças como exclusão do
 % modelo \emph{cloud} e limitação a poucas camadas (por exemplo, somente os nós folha de uma rede)
@@ -259,7 +249,6 @@ emergência.
 % e produção \cite{Shi2016}, arquiteturas tradicionais como \emph{cloud} podem não
 % ser capazes de lidar com esses dados por falta de banda o que leva as
 % propostas de distribuição vertical do processamento em \emph{fog} \cite{Bonomi2012, Dastjerdi2016}.
-
 
 % Previous work such as micro datacenter [12], [13], cloudlet [14], and fog computing [15]
 % [15] F. Bonomi, R. Milito, J. Zhu, and S. Addepalli,
@@ -385,11 +374,43 @@ de processamento menor que linear \cite{Gama2007, Gaber2005}.
 % - quem são, o que consomem
 % (\citeonline{Viegas2019} \emph{apud} \citeonline{Gaber2005}) Mining data streams: A Review.
 
-\section{Plataformas de processamento distribuído}
-% Blablablbalba % Ferramentas de BigData}
+\section{Arquiteturas e Plataformas de Processamento de Fluxos}
+
+% - arq lambda, kappa, (vide guilherme)
+
+% Existem diversas maneiras de organizar o caminho das informações em um
+% aplicativo de processamento de fluxo de dados. Algumas propostas sao amplamente
+% conhecidas como as arquiteturas Lambda (MARZ; WARREN, 2015) e Kappa (KREPS,
+% 2014), as quais s˜ao genéricas e focadas no processamento de fluxo.
+
+% A arquitetura Lambda (MARZ; WARREN, 2015) mescla o processamento do fluxos de
+% dados com o processamento em lotes. O objetivo dessa mistura é obter, ao mesmo
+% tempo, a capacidade de fazer análises em tempo real, e, ao mesmo tempo,
+% fazê-las com maior qualidade. Seu processamento é dividido em duas camadas,
+% uma camada de processamento online que fornece resultados aproximados com baixa
+% latência e uma camada de processamento offline que usa os dados históricos
+% disponíveis e fornece resultados mais precisos, embora com maior sobrecarga e
+% latência. Além das duas camadas de processamento, a Arquitetura Lambda possui
+% uma camada de serviço, que combina dados de ambas as camadas de processamento e
+% apresenta ao usuário.
+
+% A arquitetura Kappa, por outro lado, possui apenas as camadas de processamento e
+% serviço de fluxo. Seu objetivo é o processamento em tempo real, portanto
+% possui a menor quantidade possível de sobrecarga e latência. Sendo assim, é
+% natural que esta seja uma arquitetura muito simples e que possua apenas os
+% módulos essenciais para um sistema de processamento de fluxo. A arquitetura
+% Kappa possui apenas um módulo de processamento on-line que opera através do
+% fluxo de dados e fornece informações.
+
+% MARZ, N.; WARREN, J. Big Data: Principles and Best Practices of Scalable
+% Realtime Data Systems. 1st. ed. Greenwich, CT, USA: Manning Publications Co.,
+% 2015. ISBN 1617290343, 9781617290343. \cite{marz2015big}
+
+% KREPS, J. Questioning the Lambda Architecture. 2014. Disponível em:
+% https://www.oreilly.com/ideas/questioning-the-lambda-architecture
 
 Tradicionalmente, aplicações foram construídas com um sistema gerenciador de
-banco de dados (SGBD) relacional ou não-relacional associado. Essa arquitetura, 
+banco de dados (SGBD) relacional ou não-relacional associado. Essa arquitetura,
 nomeada de arquitetura totalmente incremental por \citeonline{marz2015big},
 foi evoluída e simplificada iterativamente durante décadas de uso porém ela não
 é adequada para sistemas em tempo real, como os sistema de fluxo de dados.
@@ -410,7 +431,7 @@ sequencial, armazenando-o em sistema de aquivos distribuído e pré-processando
 várias visões sobre esse conjunto mestre, essas visões (armazenadas num SGBD
 tradicional) são consumidas pela camada de serviço, que portanto tem acesso
 regular (leitura aleatória), no entanto as garantias oferecidas pela camada de
-lotes (escalabilidade, Corretude, tolerância a falhas) não atendem os requisitos
+lotes (escalabilidade, consistência, tolerância a falhas) não atendem os requisitos
 de latência em um sistema em tempo real, portanto a camada de velocidade
 complementa os dados das visões com dados diretamente do conjunto mestre em
 tempo real diretamente para a camada de serviço \cite{marz2015big}.
@@ -444,50 +465,38 @@ que linear, dados serão perdidos ou a complexidade espacial são será satisfei
 em resumo, a aplicação sempre deve ser mais rápida que o \emph{Stream}
 \cite{marz2015big}.
 
-% - arq lambda, kappa, (vide guilherme)
+% - MapReduce, Hadoop, Spark, Storm
+% Breve descrição do MapReduce e Hadoop
+% O que são e para que servem essas ferramentas
 
-% Existem diversas maneiras de organizar o caminho das informações em um
-% aplicativo de processamento de fluxo de dados. Algumas propostas sao amplamente
-% conhecidas como as arquiteturas Lambda (MARZ; WARREN, 2015) e Kappa (KREPS,
-% 2014), as quais s˜ao genéricas e focadas no processamento de fluxo.
+Em sincronia com os desenvolvimentos em arquiteturas de processamento de fluxo,
+durante as últimas duas décadas foram construídas diversas plataformas de
+processamento para \emph{Big Data} e \emph{Streams}.
+% A seguir descrevemos algumas das mais notáveis (?)
 
-% A arquitetura Lambda (MARZ; WARREN, 2015) mescla o processamento do fluxos de
-% dados com o processamento em lotes. O objetivo dessa mistura é obter, ao mesmo
-% tempo, a capacidade de fazer análises em tempo real, e, ao mesmo tempo,
-% fazê-las com maior qualidade. Seu processamento é dividido em duas camadas,
-% uma camada de processamento online que fornece resultados aproximados com baixa
-% latência e uma camada de processamento offline que usa os dados históricos
-% disponíveis e fornece resultados mais precisos, embora com maior sobrecarga e
-% latência. Além das duas camadas de processamento, a Arquitetura Lambda possui
-% uma camada de serviço, que combina dados de ambas as camadas de processamento e
-% apresenta ao usuário.
+\emph{MapReduce} é a primeira plataforma de processamento de conjuntos massivos
+de dados que atingiu uso generalizado. Nessa implementação uma biblioteca
+gerencia a distribuição, paralelização, tolerância a falhas e balanceamento de
+carga e ao usuário resta implementar duas funções: \emph{Map} que recebe uma par
+$(chave, valor)$ e emite um conjunto de pares intermediários na mesma estrutura;
+\emph{Reduce} recebe uma chave e um conjunto de valores gerado pelo agrupamento
+de pares com a mesma chave \cite{Dean2004}.
 
-% A arquitetura Kappa, por outro lado, possui apenas as camadas de processamento e
-% serviço de fluxo. Seu objetivo é o processamento em tempo real, portanto
-% possui a menor quantidade possível de sobrecarga e latência. Sendo assim, é
-% natural que esta seja uma arquitetura muito simples e que possua apenas os
-% módulos essenciais para um sistema de processamento de fluxo. A arquitetura
-% Kappa possui apenas um módulo de processamento on-line que opera através do
-% fluxo de dados e fornece informações.
+Em prática um \emph{cluster} tem centenas processadores e o conjunto de dados é
+armazenado em um sistema de arquivos distribuído que é lido pela plataforma com
+programas escritos por usuários sendo executados sob supervisão de nó mestre.
+Essa implementação tem esquema geral de processamento em lotes que não atende o
+requisito de baixa latência porém suas vantagens sobrepunham as desvantagens.
+\emph{MapReduce} é uma das principais influencias na criação da arquitetura
+\emph{lambda} \cite{marz2015big}.
 
-% MARZ, N.; WARREN, J. Big Data: Principles and Best Practices of Scalable
-% Realtime Data Systems. 1st. ed. Greenwich, CT, USA: Manning Publications Co.,
-% 2015. ISBN 1617290343, 9781617290343. \cite{marz2015big}
+\emph{Apache Hadoop} é uma coleção de ferramentas incluindo: \emph{Hadoop
+Distributed File System} (HDFS) um sistema de arquivos distribuído, \emph{Hadoop
+YARN} um gerenciador de recursos em cluster e escalonador de trabalhos e,
+\emph{Hadoop MapReduce} um sistema baseado em \emph{YARN} implementando o modelo
+\emph{MapReduce} \cite{ApacheHadoop2020}.
 
-% KREPS, J. Questioning the Lambda Architecture. 2014. Dispon´ıvel em:
-% https://www.oreilly.com/ideas/questioning-the-lambda-architecture
-
-- MapReduce, Hadoop, Spark, Storm
-
-% Ferramentas de BigData}
-
-O que são e para que servem essas ferramentas 
-
-Breve descrição do MapReduce e Hadoop
-
-Breve descrição do Spark
-
-% Apache Spark}
+% Breve descrição do Apache Spark
 
 % Spark is an open-source cluster computing framework with a large global user base.
 % It is written in Scala, Java, R, and Python and gives programmers an Application Programming Interface (API)
@@ -497,21 +506,11 @@ Breve descrição do Spark
 %  sophisticated analytical requirement
 % https://dzone.com/articles/streaming-in-spark-flink-and-kafka-1
 
-%  \input{02_1.spark.tex
-
-% # Apache Spark e pyspark
-
 % Apache Spark is an open-source distributed general-purpose cluster-computing
 % framework. Spark provides an interface for programming entire clusters with
 % implicit data parallelism and fault tolerance. Originally developed at the
 % University of California, Berkeley's AMPLab, the Spark codebase was later
 % donated to the Apache Software Foundation, which has maintained it since.
-
-Apache Spark é um framework de código fonte aberto para computação
-distribuída.[1] Foi desenvolvido no AMPLab da Universidade da Califórnia[2] e
-posteriormente repassado para a Apache Software Foundation[3] que o mantém desde
-então. Spark provê uma interface para programação de clusters com paralelismo e
-tolerância a falhas.
 
 % Apache Spark is a fast and general-purpose cluster computing system. It provides
 % high-level APIs in Java, Scala, Python and R, and an optimized engine that
@@ -519,10 +518,34 @@ tolerância a falhas.
 % tools including Spark SQL for SQL and structured data processing, MLlib for
 % machine learning, GraphX for graph processing, and Spark Streaming.
 
------------------------
+\emph{Apache Spark}, analogamente ao \emph{Hadoop}, é um \emph{framework} para
+construção de sistemas de computação distribuída em \emph{cluster} com garantias
+de tolerância a falhas. No entanto, o modelo de processamento diverge
+significativamente do tradicional \emph{MapReduce} utilizando em lugar do HDFS
+um multi-set de apenas leitura distribuído (\emph{Resilient Distributed Dataset}
+- RDD) com um escalonador de trabalhos representados por grafos acíclicos
+direcionados (\emph{directed acyclic graph} - DAG), otimizador de consultas e
+motor de execução \cite{ApacheSpark2020}.
 
-Apache Spark \ cite{Zaharia} é um \emph{framework} para construção de sistemas
-de computação distribuída em \emph{cluster} com garantias de tolerância a falhas
+% MapReduce programs read input data from disk, map a function across the data,
+% reduce the results of the map, and store reduction results on disk.
+% Spark's RDDs function as a working set for distributed programs that offers a
+% (deliberately) restricted form of distributed shared memory.[8]
+
+Enquanto programas \emph{MapReduce} fazem sua entrada de dados por leitura de um
+disco, executam a função \emph{Map} em todos os items, agrupam, executam
+\emph{Reduce} e armazenam o resultado em disco novamente, RDD opera com um
+conjunto de trabalho distribuído em formato de memória compartilhada com
+restrições. Esse conjunto de trabalho distribuído facilita programas iterativos
+que são típicos de análise, mineração de dados e aprendizado de máquina.
+
+Foi desenvolvido no AMPLab da Universidade da Califórnia[2] e posteriormente
+doado para a Apache Software Foundation[3] que o mantém desde então.
+
+Spark provê uma interface para programação de clusters com paralelismo e
+tolerância a falhas.
+
+Apache Spark \ cite{Zaharia} é um 
 (execução em computadores não confiáveis) utilizando como premissas: paralelização
 e localidade de dados, como 
 
