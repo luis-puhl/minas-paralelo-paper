@@ -46,27 +46,86 @@ processamento em tempo real de dados originários da própria borda além de ate
 preocupações de segurança e privacidade \cite{Shi2016}.
 
 \begin{itemize}
-    \item \textbf{Serviço sob Demanda:} o cliente pode provisionar capacidades de computação (ex: tempo de servidor e armazenamento) conforme o necessário sem requer interação com o provedor de serviço;
-    \item \textbf{Amplo acesso à rede:} o acesso aos recursos de computação e capacidades ocorre pela rede através de mecanismos padrões que permitem o acesso por plataformas heterogêneas (celulares, computadores, tablets, etc.)
-    \item \textbf{Agrupamento de recursos:} para servir múltiplos clientes, os recursos de computação são agrupados usando o modelo \emph{multi-tenancy} com recursos físicos e virtuais diferentes dinamicamente atribuídos e reatribuídos de acordo com a demanda do cliente;
-    \item \textbf{Elasticidade:} as capacidades de computação são rapidamente provisionadas ou liberadas, em alguns casos automaticamente, para escalar conforme a demanda;
-    \item \textbf{Serviço mensurado:} os recursos de computação são monitorados, controlados e reportados fornecendo transparência para o provedor de serviços e para o cliente sobre as capacidades que foram consumidas.
+
+    \item \textbf{Serviço sob Demanda:} o cliente pode provisionarcapacidades de
+    computação (ex: tempo de servidor e armazenamento) conforme o necessário sem
+    requer interação com o provedor de serviço;
+    
+    \item \textbf{Amplo acesso à rede:} o acesso aos recursos de computação e
+    capacidades ocorre pela rede através de mecanismos padrões que permitem o
+    acesso por plataformas heterogêneas (celulares, computadores, tablets, etc.)
+      
+    \item \textbf{Agrupamento de recursos:} para servir múltiplos clientes, os
+    recursos de computação são agrupados usando o modelo \emph{multi-tenancy}
+    com recursos físicos e virtuais diferentes dinamicamente atribuídos e
+    reatribuídos de acordo com a demanda do cliente;
+    
+    \item \textbf{Elasticidade:} as capacidades de computação são rapidamente
+    provisionadas ou liberadas, em alguns casos automaticamente, para escalar
+    conforme a demanda;
+    
+    \item \textbf{Serviço mensurado:} os recursos de computação são monitorados,
+    controlados e reportados fornecendo transparência para o provedor de
+    serviços e para o cliente sobre as capacidades que foram consumidas.
+
 \end{itemize}
 
 Segundo, \citeonline{NIST2011}, a implantação da Computação em Nuvem pode ocorrer através dos seguintes modelos:
 
 \begin{itemize}
-    \item \textbf{Nuvem privada:} a infraestrutura da nuvem é provisionada e dedicada para um único cliente ou organização. Nesse modelo, o cliente gerencia e controla a infraestrutura, ou pode delegar essas tarefas a uma empresa terceira. A infraestrutura pode estar dentro ou fora das instalações da organização;
-    \item \textbf{Nuvem comunitária:} a infraestrutura de nuvem é fornecida para um grupo exclusivo de clientes que compartilham de um mesmo interesse (requerimentos de segurança, desempenho, políticas, etc.). Esse tipo de nuvem pode ser gerenciado pelo próprio grupo, ou organizações terceiras, podendo estar dentro ou fora das instalações da empresa;
-    \item \textbf{Nuvem pública:} a infraestrutura da nuvem é provisionada e oferecida para uso público. É gerenciado e operado por um provedor de nuvem.
-    \item \textbf{Nuvem híbrida:} a infraestrutura desse tipo de nuvem é uma composição de duas ou mais modelos de implantação de \emph{cloud} (privada, pública e comunitária) que formam um entidade única e são unidos por tecnologias padronizadas que habilitam a portabilidade de dados e aplicações.
+    
+    \item \textbf{Nuvem privada:} a infraestrutura da nuvem é provisionada e
+    dedicada para um único cliente ou organização. Nesse modelo, o cliente
+    gerencia e controla a infraestrutura, ou pode delegar essas tarefas a uma
+    empresa terceira. A infraestrutura pode estar dentro ou fora das instalações
+    da organização;
+    
+    \item \textbf{Nuvem comunitária:} a infraestrutura de nuvem é fornecida para
+    um grupo exclusivo de clientes que compartilham de um mesmo interesse
+    (requerimentos de segurança, desempenho, políticas, etc.). Esse tipo de
+    nuvem pode ser gerenciado pelo próprio grupo, ou organizações terceiras,
+    podendo estar dentro ou fora das instalações da empresa;
+    
+    \item \textbf{Nuvem pública:} a infraestrutura da nuvem é provisionada e
+    oferecida para uso público. É gerenciado e operado por um provedor de nuvem.
+    
+    \item \textbf{Nuvem híbrida:} a infraestrutura desse tipo de nuvem é uma
+    composição de duas ou mais modelos de implantação de \emph{cloud} (privada,
+    pública e comunitária) que formam um entidade única e são unidos por
+    tecnologias padronizadas que habilitam a portabilidade de dados e
+    aplicações.
+
 \end{itemize}
 
 % Definição de Computação de Borda 
 \subsection{Computação de Borda}
-A computação de borda (em inglês, \emph{Edge Computing}) refere-se às tecnologias que permitem que a computação seja executada na borda da rede. Define-se borda ou \emph{edge} como qualquer recurso de computação e de rede ao longo do caminho entre as fontes de dados e os data centers da nuvem \cite{Shi2016}. Por exemplo, um \emph{gateway} numa casa é o borda entre os dispositivos IoT e a nuvem. Na borda, é possível fazer armazenamento,  processamento e descarremento de dados, assim como distribuir as requisições e entregar os serviços das nuvens aos usuários. \citeonline{Shi2016} ressalta que essas capacidades dentre outras dos nós da borda (\emph{edge nodes}) possibilitam que a computação de borda: reduzir latência na resposta da nuvem, pois o dado pode ser processado na borda; enviar somente os dados necessários, aproveitando melhor a banda e a transmissão de dados, e também consumindo menos recursos de computação na nuvem; aumentar a privacidade dos dados, pois o dado pode ser processado na borda. 
 
-A computação de borda tenta trazer a computação para mais próximo das fontes de dados, como mostra a Figura \ref{edge-computing}. Como é observado na figura, os componentes desse tipo de computação podem ser tanto produtores como consumidores, não só requisitando serviços e conteúdo da nuvem, mas também realizando tarefas da nuvem. Algumas aplicações da computação de borda são: nós de borda fazendo análise de vídeo; descarregar a nuvem de parte da computação, pois a borda também tem capacidade de processamento; privacidade dos dados produzidos por \emph{smart homes} e sensores IoT, pois dados sensíveis não precisam ir para a nuvem, liberando também cardas de dados na rede; processamento distribuído nos nós da borda de dados provenientes de milhões de sensores em cidades inteligentes.
+A computação de borda (em inglês, \emph{Edge Computing}) refere-se às
+tecnologias que permitem que a computação seja executada na borda da rede.
+Define-se borda ou \emph{edge} como qualquer recurso de computação e de rede ao
+longo do caminho entre as fontes de dados e os data centers da nuvem
+\cite{Shi2016}. Por exemplo, um \emph{gateway} numa casa é o borda entre os
+dispositivos IoT e a nuvem. Na borda, é possível fazer armazenamento,
+processamento e descarregamento de dados, assim como distribuir as requisições e
+entregar os serviços das nuvens aos usuários. \citeonline{Shi2016} ressalta que
+essas capacidades dentre outras dos nós da borda (\emph{edge nodes})
+possibilitam que a computação de borda: reduzir latência na resposta da nuvem,
+pois o dado pode ser processado na borda; enviar somente os dados necessários,
+aproveitando melhor a banda e a transmissão de dados, e também consumindo menos
+recursos de computação na nuvem; aumentar a privacidade dos dados, pois o dado
+pode ser processado na borda.
+
+A computação de borda tenta trazer a computação para mais próximo das fontes de
+dados, como mostra a Figura \ref{edge-computing}. Como é observado na figura, os
+componentes desse tipo de computação podem ser tanto produtores como
+consumidores, não só requisitando serviços e conteúdo da nuvem, mas também
+realizando tarefas da nuvem. Algumas aplicações da computação de borda são: nós
+de borda fazendo análise de vídeo; descarregar a nuvem de parte da computação,
+pois a borda também tem capacidade de processamento; privacidade dos dados
+produzidos por \emph{smart homes} e sensores IoT, pois dados sensíveis não
+precisam ir para a nuvem, liberando também cardas de dados na rede;
+processamento distribuído nos nós da borda de dados provenientes de milhões de
+sensores em cidades inteligentes.
 
 \begin{figure}[ht]
 \centering
@@ -79,11 +138,9 @@ A computação de borda tenta trazer a computação para mais próximo das fonte
 % Definição de Fog Computing
 % o que é e como se relaciona com IoT e se diferencia das outras
 
-
-
-% From our pointof view, edge computing is interchangeable with fog comput-ing [19], 
-but edge computing focus more toward the thingsside, while fog computing focus more 
-on the infrastructureside.
+% From our point of view, edge computing is interchangeable with fog comput-ing [19], 
+% but edge computing focus more toward the thingsside, while fog computing focus more 
+% on the infrastructureside.
 
 % \emph{Edge} é por vezes chamado de Computação em Névoa (\emph{Fog Computing})
 % contudo \citeonline{IEEECommunicationsSociety2018} indica diferenças como exclusão do
@@ -133,12 +190,11 @@ on the infrastructureside.
 % may change over time \cite{Silva2013}. In DS scenarios, new concepts may
 % appear and known concepts may disappear or evolve. \cite{Faria2016nd}
 
-Mineração de Dados é o processo de descoberta de padrões em grandes conjuntos de
-dados utilizando métodos derivados de aprendizagem de maquina, estatística e 
-banco de dados. Uma caso de mineração de dados é \emph{Big Data} onde o conjunto
-de dados não pode ser processado em um tempo relevante por \emph{hardware} e \emph{software}
-comum, geralmente coincidente com o limite de armazenado na memória ou
-armazenamento principal.
+Mineração de Dados é o processo de descoberta de padrões em conjuntos de dados
+utilizando métodos derivados de aprendizagem de maquina, estatística e banco de
+dados \cite{Gaber2005}. Uma caso de mineração de dados é \emph{Big Data} onde o
+conjunto de dados não pode ser processado em um tempo viável devido a limitações
+como armazenado na memória ou armazenamento principal.
 
 % Data stream mining is concerned with the extraction of knowledge from large
 % amounts of continuously generated data in a non-stationary environment. Novelty
@@ -157,13 +213,25 @@ armazenamento principal.
 
 % dados massivamente e continuamente gerados e não persistentes. Fp
 
+% \cite{Gaber2005} Cited by 1174
+% Data mining is that interdisciplinary field of study that can extract models
+% and patterns from large amounts of information stored in data repositories
+% [30, 31, 34].
+% 
+% Recently, the data generation rates in some data sources become faster than ever
+% before. This rapid generation of continuous streams of information has
+% challenged our storage, computation and communication capabilities in computing
+% systems. Systems, models and techniques have been proposed and developed over
+% the past few years to address these challenges [5, 44]
+
 Além da dimensão de armazenamento outra dimensão que afeta a maneira como dados
 são modelados e manipulados é o tempo. Um Fluxo de Dados (\emph{Data Stream}) é
 uma sequência de registros produzidos a uma taxa muito alta, associadas ao tempo
-real, ilimitados, que excede recursos de armazenamento e, portanto, pode ser
-lida apenas uma vez durante processamento \cite{Gama2007}.
+real, ilimitados, que excede recursos de armazenamento e comunicação \cite{Gaber2005}.
+Modelos de mineração de fluxo de dados atendem a esses desafios utilizando
+restrições como apenas uma leitura do conjunto de dados e complexidade
+de processamento menor que linear \cite{Gama2007, Gaber2005}.
 
-% 
 % A data stream is a sequence of unbounded, real-time data records that are
 % characterized by the very high data rate, which stresses our computational
 % resources, and can be read only once by processing applications [13,8,1,9]
@@ -190,11 +258,11 @@ lida apenas uma vez durante processamento \cite{Gama2007}.
 % Proceedings of the Four- teenth Annual ACM-SIAM Symposium on Discrete
 % Algorithms, 2003.
 
-Mineração de Fluxo de Dados é análogo à mineração de
-dados e \emph{big data} com a restrição temporal onde um registro é unicamente 
-associado um tempo, dessa forma além de não ser possível manipular o conjunto
-de dados em memória, não é possível recuperar dados fora do intervalo de tempo associado
-a eles.
+% Mineração de Fluxo de Dados é análogo à mineração de
+% dados e \emph{big data} com a restrição temporal onde um registro é unicamente 
+% associado um tempo, dessa forma além de não ser possível manipular o conjunto
+% de dados em memória, não é possível recuperar dados fora do intervalo de tempo associado
+% a eles.
 
 % ----- wikipedia ------
 % 
@@ -220,12 +288,68 @@ a eles.
 % [5] Fayyad, Usama; Piatetsky-Shapiro, Gregory; Smyth, Padhraic (1996).
 % "From Data Mining to Knowledge Discovery in Databases" (PDF). Retrieved 17 December 2008.
 
-- quem são, o que consomem
-(\citeonline{Viegas2019} \emph{apud} \citeonline{Gaber2005}) Mining data streams: A Review.
+% - quem são, o que consomem
+% (\citeonline{Viegas2019} \emph{apud} \citeonline{Gaber2005}) Mining data streams: A Review.
 
 \section{Plataformas de processamento distribuído}
 
-- arq lambda, kappa, (vide guilherme)
+Tradicionalmente, aplicações foram construídas com um sistema gerenciador de
+banco de dados (SGBD) relacional ou não-relacional associado. Essa arquitetura, 
+nomeada de arquitetura totalmente incremental por \citeonline{marz2015big},
+foi evoluída e simplificada iterativamente durante décadas de uso porém ela não
+é adequada para sistemas em tempo real, como os sistema de fluxo de dados.
+
+O volume e velocidade de dados em um \emph{Data Stream} leva a necessidade de
+distribuir o processamento acrescentando poder computacional a cada nó
+adicionado porém desafios como comunicação eficiente e sincronização de estado
+entre os nós assim como tolerância a falhas aumentam a complexidade de
+construção de um sistema distribuído em relação a um sistema tradicional. Para
+mitigar esses problemas foram propostas arquiteturas de processamento de fluxo
+de dados distribuído como arquitetura \emph{lambda} e \emph{kappa} além de
+diversas plataformas tanto de \emph{Big Data} com características de tempo real
+como especializadas em fluxo de dados.
+
+Arquitetura \emph{lambda} divide o processamento em três camadas: lotes, serviço
+e velocidade. A camada de lotes atua sobre o conjunto mestre em modo de leitura
+sequencial, armazenando-o em sistema de aquivos distribuído e pré-processando
+várias visões sobre esse conjunto mestre, essas visões (armazenadas num SGBD
+tradicional) são consumidas pela camada de serviço, que portanto tem acesso
+regular (leitura aleatória), no entanto as garantias oferecidas pela camada de
+lotes (escalabilidade, Corretude, tolerância a falhas) não atendem os requisitos
+de latência em um sistema em tempo real, portanto a camada de velocidade
+complementa os dados das visões com dados diretamente do conjunto mestre em
+tempo real diretamente para a camada de serviço \cite{marz2015big}.
+
+A Figura \ref{lambda} ilustra uma implementação da arquitetura \emph{Lambda}
+onde a \emph{Apache Kafka}, \emph{Apache Storm}, \emph{Apache Hadoop}
+implementam o conjunto mestre, camada de velocidade e camada de lotes
+respectivamente.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.6\textwidth]{figuras/lambda.png}
+\caption{Arquitetura \emph{Lambda} com detalhes práticos \cite{Kreps2014}.}
+\label{lambda}
+\end{figure}
+
+No entanto, observações práticas de \citeonline{Kreps2014} mostram que como o
+sistema de fila de mensagens (no exemplo \emph{Apache Kafka}) fonte do conjunto
+de dados mestre por lidar com diversas fontes, garantir tolerância a falhas,
+replicação e armazenamento de longo prazo, poderia ser usado como fonte de
+verdade em conjunto com a arquitetura totalmente incremental (tradicional)
+substituindo as camadas de lotes e velocidade e o sistema de aquivos distribuído
+simplificando a aplicação de três implementações para duas eliminando a
+repetição de tarefas executadas pelas camadas de lotes e velocidade que
+produziam o mesmo resultado.
+
+Essa arquitetura que limita-se ao processamento de \emph{Stream} apenas
+\emph{on-line} destila outras observações quanto a complexidade temporal do
+sistema completo de que se uma aplicação não processa os dados em tempo menor
+que linear, dados serão perdidos ou a complexidade espacial são será satisfeita,
+em resumo, a aplicação sempre deve ser mais rápida que o \emph{Stream}
+\cite{marz2015big}.
+
+% - arq lambda, kappa, (vide guilherme)
 
 % Existem diversas maneiras de organizar o caminho das informações em um
 % aplicativo de processamento de fluxo de dados. Algumas propostas sao amplamente
@@ -253,12 +377,12 @@ a eles.
 
 % MARZ, N.; WARREN, J. Big Data: Principles and Best Practices of Scalable
 % Realtime Data Systems. 1st. ed. Greenwich, CT, USA: Manning Publications Co.,
-% 2015. ISBN 1617290343, 9781617290343.
+% 2015. ISBN 1617290343, 9781617290343. \cite{marz2015big}
 
-% KREPS, J. Questioning the Lambda Architecture. 2014. Disponível em:
-% https://www.oreilly. com/ideas/questioning-the-lambda-architecturei.
+% KREPS, J. Questioning the Lambda Architecture. 2014. Dispon´ıvel em:
+% https://www.oreilly.com/ideas/questioning-the-lambda-architecture
 
-- MapReduce, Haddop, Spark, Storm
+- MapReduce, Hadoop, Spark, Storm
 
 % Ferramentas de BigData}
 
