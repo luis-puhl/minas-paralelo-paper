@@ -80,14 +80,13 @@
 % - avaliar
 % - avaliar aprendizado local ou global trade-offs
 
-
 % % luis
-% O minas abre espaço 
+% O minas abre espaço para diferentes estratégias de paralelismo e distribuição.
 
 % % hermes
 % escalabilidade do algoritmo
 
-% Kafka particiona e expoem esse particionamento ao consumidor.
+% Kafka particiona e expõem esse particionamento ao consumidor.
 % Tentei usar Python + Kafka, mas não escalou.
 
 % Detalhar a implementação
@@ -101,34 +100,85 @@
 % Use a detecção de intrusão apenas como validação do algoritmo.
 
 % cenário 2: NIDS é meu foco, esses são os desafios de NIDS, o minas resolve. mas esse cenário é tragico
+% ------------------------------------------------------------------------------------------------------
 
-cap 1:
-    - Objetivo paralelizar minas em plataforma de big-data capaz de consumir streams de forma eficiente
-    - Motivação: Minas é recente, com potencial em várias aplicações, por exemplo (NIDS, sensores, ...)
-        para isso deseja-se uma implementação eficiente (low power, ou usar todo hardware) e escalável (big-data)
+% cap 1:
+%   - Objetivo paralelizar minas em plataforma de big-data capaz de consumir streams de forma eficiente
+%   - Motivação: Minas é recente, com potencial em várias aplicações, por exemplo (NIDS, sensores, ...)
+%       para isso deseja-se uma implementação eficiente (low power, ou usar todo hardware) e escalável (big-data)
 %/hermes
+% ------------------------------------------------------------------------------------------------------
+
+% a. Cenário: Monitoramento, classificação,
+% b. Problema: detecção de novidades,
+% c. Proposta: executar em nós multi-core de maneira escalável,
+% d. Resultado Esperado: minas com mesma qualidade porém escalável.
+% hermes
+% iot, nós expostos vitima de ataque, novas funcionalidades ->
+% firewall rigido vs modelos -> streams ->
+% novidade -> minas -> big data -> discussão de localidade de dados
+% paralelização
+% motivação: testes preliminares do guilherme que fez teste com tais bases
+% teve resultados promissores
+% - implementar
+% - paralelizar
+% - avaliar
+% - avaliar aprendizado local ou global trade-offs
 
 A Internet das Coisas (\emph{Internet of Things} - IoT) é um tema frequentemente
-abordado em pesquisas de segurança em redes de computadores claramente motivado
-pelo crescimento dessa rede, estimada em 8.4 bilhões de dispositivos em 2017
-[1] e, pelo risco que ela representa fundamentado no histórico de ataques
-massivos realizados por milhares de nós subvertidos como o realizado pela \emph{botnet}
-mirai em 2016 [2]. Mais preocupante nesse cenário são os fatores que
-possibilitaram esses ataques: falta de controle sobre a origem do hardware e
+abordado na última década claramente motivado crescimento sem precedentes do
+número de dispositivos dessa categoria e respectivos dados gerados que podem
+trazer novos conhecimentos através da análise desses dados. No entanto, além dos
+dados de sensores e atuadores esses dispositivos, quando subvertidos, podem
+gerar outro tipo de tráfego, maligno à sociedade, como o gerado pela
+\emph{botnet} mirai em 2016 \cite{Kambourakis2017}. Nesse cenário são fatores
+que possibilitaram esses ataques: falta de controle sobre a origem do hardware e
 software embarcado nos dispositivos além das cruciais atualizações de segurança.
 
-Com esse desafio de segurança, especialmente em IoT industrial onde a subversão
-de dispositivos pode causar danos reais imediatamente, profissionais de
-segurança de redes e operadores de redes são confrontados com enorme superfície
-de ataque composta por diversos sistemas, tecnologias com longo tempo de vida e
-poucas atualizações, um sistema de detecção de intrusão (\emph{Intrusion DetectionSystem} - IDS)
-operando na rede de computadores local torna-se uma ferramenta
-muito importante para defesa dessa rede e os serviços que ela suporta.
+Com o cenário de milhares de dispositivos em redes distantes, complexa análise
+sobre os dados gerados, tanto os diretamente ligados a sua função original como
+os metadados produzidos como subproduto dessa função, o volume e velocidade com
+o qual esses dados são gerados levam a ampla aplicação de técnicas de mineração
+de fluxos de dados (\emph{Data Stream Mining}). Essas técnicas são aplicadas,
+por exemplo, em problemas de monitoramento e classificação de valores
+originários de sensores para tomada de decisão tanto em nível micro como
+modificação de atuadores remotos ou macro na otimização de processos
+industriais.
+
+Essas técnicas envolvem mineração de dados (\emph{Data Mining}), aprendizado de
+máquina (\emph{Machine Learning}) e recentemente Detecção de Novidades
+(\emph{Novelty Detection} - ND) para, além de classificar em modelos conhecidos,
+descobrir novos padrões e atuar coerentemente mesmo em face a valores nunca
+vistos. Essa capacidade de reconhecer padrões nunca vistos é relevante em
+especial para o processamento dos metadados para detecção de anomalias no
+tráfego de rede podendo ser usado para distinguir novas funcionalidades
+desenvolvidas e entregues aos dispositivos após sua implantação em campo de
+ataques executados por agentes externos sem assinatura existente em bancos de
+dados de ataques conhecidos.
+
+Esse tipo de análise é tradicionalmente feita com o paradigma de
+computação na nuvem (\emph{Cloud Computing} - \emph{cloud}), e recentemente
+paradigmas como computação em névoa (\emph{Fog Computing}) tem proposto que, por
+exemplo, partes do processo que são sensíveis à latência, sensíveis à
+privacidade, de baixo consumo computacional (ou energético) ou que reduzem o
+volume de dados enviados à \emph{cloud}.
+
+Nesse contexto, uma arquitetura recente proposta por \citeonline{Cassales2019a}
+baseada no algoritmo de detecção de novidades em fluxo de dados (ND em DS) MINAS
+\cite{Faria2016minas} mostra resultados promissores. Contudo esse algoritmo
+ainda não foi implementado e avaliado com paralelismo \emph{multi-core} ou
+distribuído, seja no paradigma \emph{cloud} ou \emph{fog} deixando uma
+oportunidade de contribuição técnica e acadêmica. Além disso outros algoritmos e
+arquiteturas já receberam esse tratamento como é o caso de
+\citeonline{Viegas2019} que apresenta \emph{BigFlow} no intuito de detectar
+intrusão em redes \emph{10 Gigabit Ethernet} que é um volume considerável.
+
+-----------------------------------------------
 
 Os IDS foram tradicionalmente construídos à partir de técnicas de mineração de
 dados (\emph{Data Mining} - DM), aprendizado de máquina (\emph{Machine Learning} - ML), mais
 especificamente Detecção de Novidades (\emph{Novelty Detection} - ND) para detectar
-% Guilherme: deteccção de novidade (PERNER, 2007) (GAMA, 2010).
+% Guilherme: detecção de novidade (PERNER, 2007) (GAMA, 2010).
 % PERNER2007 GAMA2010
 ataques e descobrir novos padrões, porém ao analisar tráfego de rede a
 velocidade da análise deve ser próxima ou superior à velocidade da rede
