@@ -142,16 +142,16 @@ de detecção de novidades em fluxo de dados MINAS
 \cite{Faria2016minas}, mostra resultados promissores.
 
 Essa arquitetura foi avaliada com conjunto de dados \emph{Kyoto 2006+} que
-coletou dados de 348 \emph{Honeypots} (maquinas isoladas com diversos softwares
-com vulnerabilidades conhecidas expostas a Internet com propósito de atrair
+coletou dados de 348 \emph{Honeypots} (máquinas isoladas com diversos softwares
+com vulnerabilidades conhecidas expostas à Internet com propósito de atrair
 ataques) de 2006 até dezembro 2015. Com 24 atributos, 3 etiquetas atribuídas por
 detectores de intrusão comerciais de detecção de intrusão e uma etiqueta
-distinguindo o trafego entre normal, ataque conhecido e ataque desconhecido.
+distinguindo o tráfego entre normal, ataque conhecido e ataque desconhecido.
 Contudo, esse algoritmo ainda não foi implementado e avaliado com paralelismo
 \emph{multi-core} ou distribuído.
 
 Outras propostas tratam do caso de grandes volumes e velocidades, como é o caso
-de \citeonline{Viegas2019} que apresenta \emph{BigFlow} no intuito de detectar
+de \citeonline{Viegas2019} que apresenta o \emph{BigFlow} no intuito de detectar
 intrusão em redes \emph{10 Gigabit Ethernet}, que é um volume considerável
 atualmente impossível de ser processado em um único núcleo de processador
 (\emph{single-threaded}). Essa implementação é feita sobre uma plataforma
@@ -179,10 +179,10 @@ abordagem não é nova e visa mitigar problemas como \emph{Concept Drift} e
 \emph{Concept Evolution} \cite{Faria2016nd} com a redução de acurácia durante na
 avaliação inicial dos algoritmos tradicionais e devidamente mitigada com a
 atualização constante do modelo. Esses problemas são amplamente abordados e
-tratados em outros algoritmos como MINAS \cite{Faria2016minas}.
+tratados em outros algoritmos como o MINAS \cite{Faria2016minas}.
 
 Esses trabalhos abordam detecção de intrusão porém com perspectivas diferentes.
-O primeiro observa \emph{iot}, processamento em \emph{fog}, baseia-se em um
+O primeiro observa \emph{IoT}, processamento em \emph{fog}, baseia-se em um
 algoritmo genérico de detecção de novidade e o segundo observa \emph{backbones},
 processamento em \emph{cloud}, implementa o próprio algoritmo de detecção de
 novidade. Essas diferenças deixam uma lacuna onde de um lado tem-se uma
@@ -303,3 +303,7 @@ A base -
 % das para que possam ser propostas melhorias ou mesmo uma nova técnica. Finalmente, serão
 % implementadas melhorias e, se necessário, uma nova técnica e será feita avaliação do desempe-
 % nho desta técnica.
+
+
+
+\section{Organização do trabalho}
