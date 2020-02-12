@@ -1,6 +1,14 @@
 \chapter{Introdução}
 
-% Se
+
+\textit{A Internet das Coisas, tema frequentemente abordado nos últimos anos,
+atrelado ao crescimento sem precedentes do número de dispositivos conectados.
+Tais dispositivos captam informações através de sensores e outros meios de
+entrada e geram dados que podem trazer conhecimentos relevantes através de sua  
+análise.}
+
+\textit{Lembre-se:
+\textbf{Se 3 palavras formam uma ideia atômica, tenha 2 ligações nas pontas}}
 
 % ELEMENTOS QUE INTRO DEVE TER
 % -contexto
@@ -145,7 +153,7 @@ arquitetura recente proposta por \citeonline{Cassales2019a}, baseada no algoritm
 de detecção de novidades em fluxo de dados MINAS
 \cite{Faria2016minas}, mostra resultados promissores.
 
-A arquitetura proposta foi avaliada com conjunto de dados (\emph{dataset}) \emph{Kyoto 2006+} que
+A arquitetura proposta foi avaliada com conjunto de dados (\emph{data set}) \emph{Kyoto 2006+} que
 coletou dados de 348 \emph{Honeypots} (máquinas isoladas com diversos softwares
 com vulnerabilidades conhecidas expostas à Internet com propósito de atrair
 ataques) de 2006 até dezembro 2015. Com 24 atributos, 3 etiquetas atribuídas por
@@ -165,7 +173,7 @@ com até 10 nós de trabalho, cada um com 4 núcleos de processamento totalizand
 40 núcleos para atingir taxas de até $10,72 \ Gbps$.
 
 Além de apresentar uma implementação, \citeonline{Viegas2019} também apresenta o
-\emph{dataset} \emph{MAWIFlow}. Esse conjunto é derivado do ponto de coleta
+\emph{data set} \emph{MAWIFlow}. Esse conjunto é derivado do ponto de coleta
 F, localizado em um elo de comunicação entre o Japão e os EUA (\emph{Backbone})
 com capacidade de $1\ Gbps$, diariamente 15 minutos são capturados desde 2006
 sob supervisão de \citeonline{mawiSamplepointF} \cite{Fontugne2010}. O conjunto
@@ -177,7 +185,7 @@ por \citeonline{Fontugne2010}.
 O sistema \emph{BigFlow} é composto de dois estágios: extração de
 características (estatísticas de tráfego da rede) e aprendizado confiável de
 fluxo. O segundo estágio implementa um algoritmo de detecção de novidade
-utilizando classificadores já estabelecidos na biblioteca MOA \cite{MOA} com
+utilizando classificadores já estabelecidos na biblioteca \emph{Massive Online Analysis framework} (MOA) \cite{MOA} com
 adição de um módulo de verificação que armazena valores classificados com baixa
 confiança para serem manualmente avaliados por um especialista \cite{Viegas2019}.
 A escolha dessa
@@ -208,9 +216,10 @@ com um algoritmo menos preparado para os desafios de detecção de novidades.
 
 \section{Objetivos}
 
-Com a avaliação inicial formulou-se a questão: Quais resultados podem ser
-esperados de um sistema multi-processado que implementa um algoritmo estado da
-arte de detecção de novidades em fluxo de dados?
+Com a avaliação inicial formulou-se a questão: \emph{``Quais resultados podem
+ser esperados de um sistema multi-processado que implementa um algoritmo estado
+da arte de detecção de novidades em fluxo de dados?"} que engloba sucintamente
+os temas abordados nesse trabalho.
 
 % c. Proposta: executar em nós multi-core de maneira escalável,
 % d. Resultado Esperado: minas com mesma qualidade porém escalável.
@@ -234,7 +243,7 @@ classificação à seu original e com escalabilidade semelhante demonstrada pelo
 % discussão de 2020-02-01
 % nota og: Avaliar o apache flink e o Minas para detecção de intrusão em redes IoT.
 % Avaliar o algoritmo minas na plataforma Flink para detecção de intrusão em redes IoT.
-% Avaliar = Testes com diferentes datasets (KDD e BigFlow) com as métricas Minas e BigFlow.
+% Avaliar = Testes com diferentes data sets (KDD e BigFlow) com as métricas Minas e BigFlow.
 
 % O que o minas-flink tem de especial para detecção de intrusão?
 % - conformidade com variação da rede
@@ -249,10 +258,10 @@ Com foco no objetivo geral, alguns objetivos secundários são propostos:
 % Implementar Minas sobre Apache Flink para detecção de intrusão em redes IoT;
 % % Demonstrar que Minas sobre Apache Flink (a implementação) é um alternativa 
 % % mudar verbo 'Mostrar' para algo mais concreto/fechado
-% Extrair as métricas de detecção de anomalias da implementação com datasets diferentes;
+% Extrair as métricas de detecção de anomalias da implementação com data sets diferentes;
 % Validar a implementação comparando as métricas extraídas da implementação com as encontradas na literatura;
 % % teste ferramentas de stream (python/kafaka, scala/flink)
-% Extrair as métricas de desempenho da implementação com datasets diferentes;
+% Extrair as métricas de desempenho da implementação com data sets diferentes;
 
 \begin{itemize}
     \item Enumerar métricas de qualidade de classificação e métricas de
@@ -266,7 +275,7 @@ Com foco no objetivo geral, alguns objetivos secundários são propostos:
         \item \emph{Apache Flink};
     \end{itemize}
     \item Implementar algoritmo MINAS sobre \emph{Apache Flink};
-    \item Executar a implementação com \emph{datasets} públicos relevantes;
+    \item Executar a implementação com \emph{data sets} públicos relevantes;
     \item Validar, por meio de comparação com o algoritmo original, se a
     implementação gera os mesmos resultados quanto a classificação;
     \item Extrair métricas de escalabilidade por meio de experimentação;
@@ -290,35 +299,38 @@ Com foco no objetivo geral, alguns objetivos secundários são propostos:
 
 % (Metodologia) (como)
 
-Os objetivos desse trabalho indicam um processo exploratório e experimental
-iniciando com exploração da literatura acadêmica e literatura técnica seguido de
-implementação, testes e avaliações experimentais.
+Para cumprir os objetivos citados anteriormente, foi identificado a necessidade
+de um processo exploratório seguido de experimentação. Tal processo inclui a
+revisão da literatura, tanto acadêmica quanto técnica, seguida da experimentação
+através de implementação de aplicação e testes.
 
-O foco da exploração da literatura acadêmica é em trabalhos que abordem
-processamento de fluxos de dados, classificação e detecção de novidades nesses
-fluxos e distribuição de processamento de fluxo de dados e estabelecimento do
-estado da arte desses assuntos. Além disso, nesses trabalhos espera-se encontrar
-métricas de qualidade de classificação (por exemplo taxa de falso positivo e
-matriz de confusão) e métricas de escalabilidade (taxa de mensagens por segundo
-e escalabilidade vertical ou horizontal). Além de seleção das métricas, alguns
-desses trabalhos servirão para comparações e relacionamentos.
+O foco da revisão da literatura acadêmica é em trabalhos que abordem:
+processamento de fluxos de dados, classificação de fluxo de dados, detecção de
+novidades em fluxo de dados e processamento e distribuído de fluxo de dados.
+O objetivo da revisão é o estabelecimento do estado da arte desses assuntos
+e para que alguns desses trabalhos sirvam para comparações e relacionamentos.
+Além disso, desses trabalhos estrai-se métricas de qualidade de classificação
+(por exemplo taxa de falso positivo e matriz de confusão) e métricas de
+escalabilidade (taxa de mensagens por segundo e escalabilidade vertical ou
+horizontal).
 
-Na literatura técnica busca-se plataformas, ferramentas e técnicas para realizar
-a implementação proposta, portanto, plataformas de processamento
-distribuído de fluxos contínuos de dados, técnicas para implementação de
-\emph{machine learning} nessas plataformas e técnicas ou ferramentas necessárias
-para extração das métricas de avaliação.
-
-De ambas (acadêmica e técnica) serão extraídos e selecionados \emph{datasets}
+A revisão da literatura técnica foca em plataformas, ferramentas e técnicas
+para realizar a implementação proposta.
+Portanto, serão selecionadas plataformas de processamento distribuído de fluxos
+contínuos de dados e técnicas de aprendizado de máquina associadas à elas.
+Obtém-se também dessa revisão, as técnicas ou ferramentas necessárias
+para extração das métricas de avaliação bem como \emph{data sets}
 públicos relevantes para detecção de novidades em DS.
 
-Com o estado da arte, ferramentas técnicas e \emph{datasets} definidos, é
-desenvolvida uma aplicação multi-processada que, com base no algoritmo MINAS
-\cite{Faria2016minas}, classifica e detecta novidades em DS com resultados de
-classificação equivalentes à implementação original validando essa nova
+Uma vez definidos o estado da arte, as ferramentas técnicas e os
+\emph{data sets}, o passo seguinte é a experimentação.
+Nesse passo é desenvolvida uma aplicação multi-processada que, com base no
+algoritmo MINAS \cite{Faria2016minas}, classifica e detecta novidades em DS.
+Os resultados de classificação dessa implementação equivalem-se aos resultados 
+de classificação da implementação original, validando assim essa nova
 aplicação.
 
-Além disso, experimentos com a implementação e variações em \emph{datasets} e
+Além disso, experimentos com a implementação e variações em \emph{data sets} e
 cenários de distribuição em \emph{fog} coletando as métricas previamente
 definidas. Os resultados serão comparados comparados entre si e com outros
 trabalhos.
