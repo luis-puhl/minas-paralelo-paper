@@ -1,67 +1,104 @@
 \chapter{Cronograma}
 \label{cha:crono}
-% cap 5: Cronograma até a defesa
-cap 5: Cronograma até a defesa
 
-\section{Cronograma}
+% cap 5: Cronograma até a defesa
 % (quando)
 
-Lista de etapas 
+Neste capítulo apresentam-se as etapas previstas e sua distribuição temporal.
+
+\begin{itemize}
+  \item Enumerar métricas de qualidade de classificação e métricas de
+    escalabilidade encontradas na literatura;
+  \item Avaliar plataformas de processamento distribuído de fluxos como:
+    \begin{itemize}
+        \item \emph{Apache Kafka} com \emph{Python};
+        \item \emph{Apache Kafka Streams};
+        \item \emph{Apache Spark Streaming};
+        \item \emph{Apache Storm};
+        \item \emph{Apache Flink};
+    \end{itemize}
+  \item Implementar algoritmo MINAS sobre \emph{Apache Flink};
+  \item Executar a implementação com \emph{data sets} públicos relevantes;
+  \item Validar, por meio de comparação com o algoritmo original, se a
+    implementação gera os mesmos resultados quanto a classificação;
+  \item Extrair métricas de escalabilidade por meio de experimentação;
+  \item Avaliar estratégias de distribuição do algoritmo em \emph{fog} como:
+  \begin{itemize}
+    \item Detecção de novidade nas pontas;
+    \item Detecção de novidade na nuvem;
+    \item Detecção de novidade nas pontas e em nuvem;
+  \end{itemize}
+    e seu o impacto na qualidade de classificação e volume computado.
+\end{itemize}
+
+\begin{enumerate}[label=\alph*)]
+  \item \label{A} Desenvolvimento da aplicação;
+  \item \label{B} Validação da aplicação em contraste com a implementação
+  MINAS original:
+    \begin{itemize}
+      \item preparação e, se necessário, adaptação da implementação
+      original e \emph{data sets};
+      \item comparação e, se necessário, ajustes à implementação.
+    \end{itemize}
+  \item \label{C} Experimentos com \emph{data sets} e estratégias de 
+  distribuição em \emph{fog};
+  \item \label{D} Comparação com outros trabalhos, envolvendo:
+    \begin{itemize}
+      \item preparação e, se necessário, adaptação dos programas e \emph{data sets};
+      \item comparação e publicação dos resultados.
+    \end{itemize}
+  \item \label{E} Preparação da base de dados para treinamento e teste: Mês 02
+  \item \label{F} Teste ... : meses 04 a 07
+  \item 
+\end{enumerate}
+
+
 
 Quadro (linhas: etapas x colunas: meses)
 
 \begin{ganttchart}[
-    vgrid,
-    hgrid,
-    bar/.append style={fill=green},
-    bar incomplete/.append style={fill=red},
-    progress=today,
-    today=6,
-    group progress label node/.append style={below=3pt}
-    ]{1}{12}
-    \gantttitle{Title}{12} \\
-    \ganttgroup{Group 1}{1}{10} \\
-\ganttbar[
-bar progress label font=\color{green!25!black}\sffamily
-]{Subtask 1}{1}{3} \\
-\ganttbar[
-progress label text={$\displaystyle\frac{#1}{100}$}
-]{Subtask 2}{5}{12}
+  vgrid,
+  hgrid,
+  bar/.append style={fill=green},
+  bar incomplete/.append style={fill=red},
+  progress=today,
+  today=6,
+  group progress label node/.append style={below=3pt}
+]{1}{12}
+  \gantttitle{Cronograma}{12} \\
+  \ganttgroup{Group 1}{1}{10} \\
+  \ganttbar[
+  bar progress label font=\color{green!25!black}\sffamily
+  ]{Subtask 1}{1}{3} \\
+  \ganttbar[
+  progress label text={$\displaystyle\frac{#1}{100}$}
+  ]{Subtask 2}{5}{12}
 \end{ganttchart}
 
 
-% \begin{ganttchart}[vgrid,  
-%     time slot format=isodate-yearmonth, 
-%     compress calendar,
-%     x unit=0.9cm,
-%     title height = 1,
-%     y unit title = 0.6cm,
-%     bar height = .5,
-%     y unit chart = 0.6cm,
-%     bar left shift=.15, bar right shift=-.15,
-%     bar/.style={fill=blue!70, rounded corners=5pt}]{2019-04}{2020-07}
-% \gantttitlecalendar{year, month} \\
-% \ganttbar{1}{2019-04}{2019-08} \\
-% \ganttbar{3}{2019-04}{2020-06} \\
-% \ganttbar{2}{2019-06}{2019-08} \\
-% \ganttbar{4}{2019-09}{2019-11} \\
-% \ganttbar{5}{2019-12}{2020-01} \\
-% \ganttbar{6}{2020-02}{2020-05}  \\
-% \ganttbar{7}{2020-05}{2020-07}
-% %\ganttbar{\E{5}}{2019-10}{2019-11} \\
-% %\ganttbar{\E{6}}{2019-12}{2020-03} \\
-% %\ganttbar{\E{7}}{2020-02}{2020-03} \\
-% %\ganttbar{\E{8}}{2020-04}{2020-05}  \\
-% %\ganttbar{\E{9}}{2020-04}{2020-05} \\
-% %\ganttbar{\E{10}}{2020-05}{2020-07}
-% \end{ganttchart}
-
-Etapas previstas:
-
-\begin{itemize}
-    \item E1 - Implementação distribuída do MINAS em uma rede de SBC com Rapberry: meses 01 a 03
-    \item E2 - Preparação da base de dados para treinamento e teste: Mês 02
-    \item E3 - Teste ... : meses 04 a 07
-    \item 
-\end{itemize}
-
+\begin{ganttchart}[vgrid,
+  time slot format=isodate-yearmonth,
+  % compress calendar,
+  x unit=0.9cm,
+  title height = 1,
+  y unit title = 0.6cm,
+  bar height = .5,
+  y unit chart = 0.6cm,
+  bar left shift=.15, bar right shift=-.15,
+  bar/.style={fill=blue!70, rounded corners=5pt}
+]{2020-02}{2020-07}
+  \gantttitlecalendar{year, month} \\
+  \ganttbar{1}{2019-04}{2019-08} \\
+  \ganttbar{3}{2019-04}{2020-06} \\
+  \ganttbar{2}{2019-06}{2019-08} \\
+  \ganttbar{4}{2019-09}{2019-11} \\
+  \ganttbar{5}{2019-12}{2020-01} \\
+  \ganttbar{6}{2020-02}{2020-05}  \\
+  \ganttbar{7}{2020-05}{2020-07}
+  %\ganttbar{\E{5}}{2019-10}{2019-11} \\
+  %\ganttbar{\E{6}}{2019-12}{2020-03} \\
+  %\ganttbar{\E{7}}{2020-02}{2020-03} \\
+  %\ganttbar{\E{8}}{2020-04}{2020-05}  \\
+  %\ganttbar{\E{9}}{2020-04}{2020-05} \\
+  %\ganttbar{\E{10}}{2020-05}{2020-07}
+\end{ganttchart}
