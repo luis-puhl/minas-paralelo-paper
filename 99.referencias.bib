@@ -922,3 +922,114 @@ year = {2014}
   notes = "DBLP:journals/jmlr/BifetHKP10",
   bibsource = {dblp computer science bibliography, https://dblp.org}
 }
+
+@phdthesis{DaSilva2018thesis,
+  title = {{Abordagem Fuzzy para Detec{\c{c}}{\~{a}}o de Novidade em Fluxo Cont{\'{i}}nuo de Dados}},
+  author = {da Silva, Tiago Pinho},
+  
+  abstract = {In recent years, we have witnessed the advent of computational
+  systems capable of generating an immense amount of data in a short time
+  period. These applications can be found in areas such as sensor networks,
+  financial markets and computer networks. Systems that produce data
+  incessantly, creating a continuous Data Stream (DS), can be infinite in size
+  and can mutate in its statistical distribution over time. These DS can be used
+  as sources for the automatic acquisition of useful knowledge by machine
+  learning methods. However, the infinite and mutable nature of these data sets
+  can essentially cause new concepts to emerge, which are examples that differ
+  significantly from the examples learned by the model. Occurrences of this
+  behavior in real-world applications may be credit card fraud or computer
+  network intrusions. In this way, the task of detecting these examples, known
+  as novelty de- tection, stands out as an important research topic. In general,
+  classical methods for detecting novelty are not able to deal with the
+  particularities of DS. Thus, differ- ent approaches have been proposed in
+  order to create adaptable models that can accomplish this task. However, the
+  unpredictable characteristics of DS's create dif- ficulties in the learning
+  process, encouraging the search for a more flexible learning. The integration
+  of fuzzy set theory concepts is a timely way of making DS learning more
+  adaptable to imprecisions. Recently, there have been proposals for machine
+  learning models in DS based on fuzzy sets theory with the objective of
+  collaborating for the flexibility and adaptability of the knowledge learned in
+  DS's. Nonetheless, in the context of novelty detection the proposed approaches
+  are few and limited to the domains of study. This paper presents a proposal
+  for a fuzzy approach to detecting novelty in DS investigating techniques for
+  detection of novelty in DS and machine learning models in DS based on fuzzy
+  set theory. The analysis of the results, showed that the proposals favor the
+  novelty detection task, facilitating the identification of discrepant data
+  through the representation and treatment of imprecise data.},
+  
+  keywords = {data streams,fuzzy sets theory,novelty detection,soft computing},
+  pages = {89},
+  school = {Universidade Federal de S{\~{a}}o Carlos},
+  type = {Master},
+  url = {https://repositorio.ufscar.br/handle/ufscar/10544},
+  mendeley-groups = {minas/faria},
+  file = {:home/puhl/mendeley/da Silva_2018_Abordagem Fuzzy para Detec{\c{c}}{\~{a}}o de Novidade em Fluxo Cont{\'{i}}nuo de Dados.pdf:pdf},
+  year = {2018}
+}
+@article{DaSilva2018,
+  title = {{A fuzzy multiclass novelty detector for data streams}},
+  author = {{Da Silva}, Tiago Pinho and Schick, Leonardo and {De Abreu Lopes}, Priscilla and {De Arruda Camargo}, Heloisa},
+  
+  abstract = {In many real-world applications data arrive continuously, in the
+  form of streams. Such data can be used for the acquisition of knowledge by
+  machine learning methods. In data streams learning, novelty detection is a
+  relevant topic, which aims to identify the emergence of a new concept or a
+  drift in the known concept in real time. Most approaches in the literature
+  that focus on the novelty detection problem, make assumptions that limit the
+  method usefulness. For instance, some methods are designed lying on the
+  supposition that labeled data will be available at some time in the stream,
+  while others restrict the proposed algorithm to one-class problems. Some
+  recent approaches aim to overcome the limitations mentioned, considering
+  multiclass problems and unlabeled data sets. In addition, there are also
+  proposals that explore concepts of fuzzy set theory to add more flexibility to
+  the learning process, although restricted to labeled data sets. In this paper,
+  we propose a fuzzy multiclass novelty detector for data streams called FuzzND,
+  as a fuzzy extension of the MINAS algorithm. Our algorithm generates a model
+  based on fuzzy micro-clusters that provides flexible class boundaries.
+  Allowing the identification of different types of novel information, i.e,
+  novel classes, extension of classes or outliers more efficiently. Experiments
+  show that our approach is promising in dealing with the changes in data
+  streams and presents improvements in comparison to the non-fuzzy version.},
+  
+  journal = {IEEE International Conference on Fuzzy Systems},
+  pages = {1--8},
+  volume = {2018-July},
+  doi = {10.1109/Fuzz-Ieee.2018.8491545},
+  isbn = {9781509060207},
+  issn = {10987584},
+  publisher = {IEEE},
+  file = {:home/puhl/mendeley/Da Silva et al._2018_A fuzzy multiclass novelty detector for data streams.pdf:pdf},
+  mendeley-groups = {minas/faria},
+  year = {2018}
+}
+@article{Costa2019,
+  title = {{Novelty detection for multi-label stream classification}},
+  author = {Costa, Joel D. and Faria, Elaine R. and Silva, Jonathan A. and Gama, Joao and Cerri, Ricardo},
+  
+  abstract = {In Multi-Label Stream Classification (MLSC) examples arriving in a
+  stream can be simultaneously classified into multiple classes. This is a very
+  challenging task, especially considering that new classes can emerge during
+  the stream (Concept Evolution), and known classes can change over time
+  (Concept Drift). In real situations, these characteristics come together with
+  a scenario with Infinitely Delayed Labels, where we can never access the true
+  class labels of the examples to update classifiers. In order to overcome these
+  issues, this paper proposes a new method called MultI-label learNing Algorithm
+  for Data Streams with Binary Relevance transformation (MINAS-BR). Our proposal
+  uses a new Novelty Detection (ND) procedure to detect concept evolution and
+  concept drift, being updated in an unsupervised fashion. We also propose a new
+  methodology to evaluate MLSC methods in scenarios with Infinitely Delayed
+  Labels. Experiments over synthetic datasets attested the potential of
+  MINAS-BR, which was able to adapt to different concept drift and concept
+  evolution scenarios, obtaining superior or competitive performances in
+  comparison to literature baselines.},
+  
+  journal = {Proceedings - 2019 Brazilian Conference on Intelligent Systems, BRACIS 2019},
+  doi = {10.1109/BRACIS.2019.00034},
+  isbn = {9781728142531},
+  keywords = {Concept Evolution,Infinitely Delayed Labels,Multi-label Stream Classification,Novelty Detection},
+  number = {8},
+  pages = {144--149},
+  file = {:home/puhl/mendeley/Costa et al._2019_Novelty detection for multi-label stream classification.pdf:pdf},
+  mendeley-groups = {minas/faria},
+  year = {2019}
+}

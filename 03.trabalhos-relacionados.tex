@@ -1,11 +1,56 @@
 \chapter{Trabalhos Relacionados}
 \label{cha:related}
 
-cap 3: Trabalhos relacionados
-    - Artigos sobre o Minas
-    - outros que paralelizaram algoritmos de mineração de dados/streams alguns online (5-10 refs)
-    - implementação paralelas/distribuídas em dispositivos pequenos
-% 
+% % discussão de 2020-02-01
+% Aqueles que contenham:
+%     - detecção de anomalia em streams
+%     - detecção de intrusão em rede com processamento de streams
+%     - BigFlow
+% %/discussão
+
+% cap 3: Trabalhos relacionados
+%     - Artigos sobre o Minas
+%     - outros que paralelizaram algoritmos de mineração de 
+%        dados/streams alguns online (5-10 refs)
+%     - implementação paralelas/distribuídas em dispositivos pequenos
+% % 
+
+\section{MINAS e derivados}
+
+O algoritmo MINAS, como já foi discutido, classifica exemplos e detecta
+novidades em DS e considera em sua composição \emph{concept drift} e
+\emph{concept evolution}, sendo capaz de classificar como extensão de classe
+conhecida e reconhecer novas classes sem intervenção de especialista
+\cite{Faria2016minas}. Neste trabalho, consideram-se algoritmos derivados
+aqueles apresentados em trabalhos publicados após 2016 que estendem a
+implementação original seguindo sua estrutura básica.
+
+
+
+\citeonline{DaSilva2018}
+
+\citeonline{Costa2019} estende o algoritmo original na sua capacidade de
+classificar um exemplo com uma ou mais etiquetas usando a transformação
+\emph{Binary Relevance}. Essa versão modificada é testada e comparada com 7
+algoritmos por meio de experimentos com 4 \emph{data sets} sintéticos gerados
+pelo método \emph{Radial Basis Function}. Os 7 algoritmos e o método estão
+disponíveis na ferramenta MOA \cite{MOA}.
+
+
+Apesar de outros trabalhos expandirem o algoritmo com diferentes técnicas, seu
+núcleo continua relevante \cite{DaSilva2018,DaSilva2018thesis,Costa2019}.
+
+\section{AnyNovel}
+
+\textit{também é da mesma classe do minas porém \citeonline{Cassales2019a} destaca um
+desempenho inferior para o \emph{data set} testado.}
+%  a atividade de detecção de intrusão
+
+\citeonline{abdallah2016anynovel}
+
+\section{Catraca Lopez2018}
+
+\cite{Lopez2018}
 
 % A monitoring and threat detection system using stream processing as a virtual function for Big Data
 
@@ -35,19 +80,6 @@ cap 3: Trabalhos relacionados
 % finalmente, 
 % vi) um algoritmo guloso que aloca sob demanda uma sequência de 
 % funções de rede virtual.
-
-FuzzyND Minas
-
-
-\cite{Lopez2018}
-
-% discussão de 2020-02-01
-Aqueles que contenham:
-    - detecção de anomalia em streams
-    - detecção de intrusão em rede com processamento de streams
-    - BigFlow
-%/discussão
-
 
 \section{BigFlow}
 
@@ -101,29 +133,41 @@ a necessidade de atualização regular do modelo classificador [8, 9, 10, 20] e
 o tratamento de eventos onde a confiança resultante da classificação é baixa [9, 12, 13].
 
 Também destaca em sua secção 3 (MAWIFlow) 
-que datasets adequados para NIDS são poucos devido o conjunto de qualidades que os mesmos
+que data sets adequados para NIDS são poucos devido o conjunto de qualidades que os mesmos
 devem atender como realismo, validade, etiquetamento, grande variabilidade
 e reprodutividade (disponibilidade pública) [8, 9, 10, 17, 38].
 
-Para avaliar o desempenho de NIDS o dataset MAWIFlow é proposto. Originário do 
+Para avaliar o desempenho de NIDS o data set MAWIFlow é proposto. Originário do 
 'Packet traces from WIDE backbone, samplepoint-F' composto por seções de captura de pacotes
 diárias de 15 minutos de um link de 1Gbps entre Japão e EUA, com inicio em 2006 continuamente até hoje,
 anonimizados [22], etiquetados por MAWILab [8].
-Desse dataset original apenas os eventos de 2016 são utilizados e desses 158 atributos são extraídas
+Desse data set original apenas os eventos de 2016 são utilizados e desses 158 atributos são extraídas
 resultando em 7.9 TB de captura de pacotes. Além disso, os dados são estratificados [24] para redução
 de seu tamanho a um centésimo mantendo as proporções de etiquetas (Ataque e Normal)
 facilitando o compartilhamento e avaliação de NIDS além de atender as qualidades anteriormente mencionadas.
 
-Com o dataset MAWIFlow original e reduzido foram avaliados quatro classificadores [42, 43, 44, 45]
+Com o data set MAWIFlow original e reduzido foram avaliados quatro classificadores [42, 43, 44, 45]
 da literatura em dois modos de operação quanto seus dados de treinamento
 (ambos contendo uma semana de captura) o primeiro usando somente a primeira semana do ano e as demais
 como teste e o segundo modo usando a semana anterior como treinamento e a seguinte como teste.
 Demostrando, com 62 atributos, que a qualidade da classificação retrai com o tempo quando não há
 atualização frequente do modelo classificador.
 
-concluir com um gap
+\textit{concluir com um gap}
+
+\textit{Discutir que o data set não é de borda de uma rede, portanto não tem
+relevância para fog. Também discutir a classificação dos fluxos por endpoint
+exarcerbando assim a distinção na fog com o efeito de particionamento dos dados.
+Ou seja, um nó só vê e classifica os próprios dados.}
 
 \chapter{Proposta}
 \label{cha:proposta}
 
-o que fazer e como fazer, resultados esperados
+\textit{o que fazer e como fazer, resultados esperados}
+
+\textit{resumo e retomada do objetivo}
+
+\textit{métodos para alcançar os objetivos}
+
+\textit{resul}
+
