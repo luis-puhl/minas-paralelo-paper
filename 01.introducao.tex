@@ -1,37 +1,3 @@
-% cap 1:
-%     - Objetivo paralelizar minas em plataforma de big-data capaz de consumir streams de forma eficiente
-%     - Motivação: Minas é recente, com potencial em várias aplicações, por exemplo (NIDS, sensores, ...)
-%         para isso deseja-se uma implementação eficiente (low power, ou usar todo hardware) e escalável (big-data)
-% cap 2: fundamentos científicos e tecnológicos
-%     (pege apenas os mais citados, siga a Elaine)
-%     2.1. Computação em Núvem, Fog e Edge
-%     2.2. Plataformas de processamento distribuído
-%         - arq labmda, kappa, (vide guilherme)
-%         - MapReduce, Haddop, Spark, Storm
-%     2.3. Apache Flink
-%     2.4. Mineração de Dados
-%     2.5. Mineração de Stream
-%         - quem são, o que consomem
-%         (BigFlow apud Gaber2005) Mining data streams: A Review.
-%     2.6. Novelty Detection
-%     2.7. O algoritmo Minas
-% cap 3: Trabalhos relacionados
-%     - Artigos sobre o Minas
-%     - outros que paralelizaram algoritmos de mineração de dados/streams alguns online (5-10 refs)
-%     - implementação paralelas/distribuídas em dispositivos pequenos
-% cap 4: Implementação e testes
-%     4.1. descrição da implementação
-%         - offline, online, ND, Clustering
-%         - observação de paralelização
-%         - complexidade bigO (?)
-%     4.2. cenário de teste 
-%         - detecção de intrusão
-%         - Arquitetura guilherme (dispositivos pequenos vs cloud)
-%     4.3. Resultados de experimentos
-%         - gráficos, tempos, tabelas...
-%         - análises e comentários
-% cap 5: Cronograma até a defesa
-
 \chapter{Introdução}
 
 % Se
@@ -125,6 +91,8 @@
 % - avaliar
 % - avaliar aprendizado local ou global trade-offs
 
+% 3 ou 4 linhas max, quebrar em sentenças
+
 A Internet das Coisas (\emph{Internet of Things} - IoT) é um tema frequentemente
 abordado na última década claramente motivado crescimento sem precedentes do
 número de dispositivos dessa categoria e respectivos dados gerados que podem
@@ -135,66 +103,100 @@ gerar outro tipo de tráfego, maligno à sociedade, como o gerado pela
 que possibilitaram esses ataques: falta de controle sobre a origem do hardware e
 software embarcado nos dispositivos além das cruciais atualizações de segurança.
 
-Com o cenário de milhares de dispositivos em redes distantes, complexa análise
-sobre os dados gerados, tanto os diretamente ligados a sua função original como
-os metadados produzidos como subproduto dessa função, o volume e velocidade com
-o qual esses dados são gerados levam a ampla aplicação de técnicas de mineração
-de fluxos de dados (\emph{Data Stream Mining}). Essas técnicas são aplicadas,
-por exemplo, em problemas de monitoramento e classificação de valores
-originários de sensores para tomada de decisão tanto em nível micro como
-modificação de atuadores remotos ou macro na otimização de processos
-industriais.
+Com milhares de dispositivos em redes distantes gerando dados (diretamente
+ligados a sua função original e também metadados produzidos como subproduto) com
+volume e velocidade consideráveis, técnicas de mineração de fluxos de dados
+(\emph{Data Stream Mining}) são amplamente necessárias. Essas técnicas são
+aplicadas, por exemplo, em problemas de monitoramento e classificação de valores
+originários de sensores para tomada de decisão tanto em nível micro, como
+modificação de atuadores remotos, ou macro, na otimização de processos
+industriais. Analogamente, as mesmas técnicas podem ser aplicadas para os
+metadados gerados pela comunicação entre esses nós e a Internet num serviço de
+detecção de intrusão.
 
 Essas técnicas envolvem mineração de dados (\emph{Data Mining}), aprendizado de
 máquina (\emph{Machine Learning}) e recentemente Detecção de Novidades
-(\emph{Novelty Detection} - ND) para, além de classificar em modelos conhecidos,
-descobrir novos padrões e atuar coerentemente mesmo em face a valores nunca
-vistos. Essa capacidade de reconhecer padrões nunca vistos é relevante em
-especial para o processamento dos metadados para detecção de anomalias no
-tráfego de rede podendo ser usado para distinguir novas funcionalidades
-desenvolvidas e entregues aos dispositivos após sua implantação em campo de
-ataques executados por agentes externos sem assinatura existente em bancos de
+(\emph{Novelty Detection} - ND). ND além de classificar em modelos conhecidos
+permite descobrir novos padrões e, consequentemente, atuar coerentemente mesmo
+em face a valores nunca vistos. Essa capacidade é relevante em especial para o
+exemplo de detecção de intrusão, onde novidades na rede podem distinguir novas
+funcionalidades (entregues aos dispositivos após sua implantação em campo) de
+ataques por agentes externos sem assinatura existente em bancos de
 dados de ataques conhecidos.
 
-Esse tipo de análise é tradicionalmente feita com o paradigma de
-computação na nuvem (\emph{Cloud Computing} - \emph{cloud}), e recentemente
-paradigmas como computação em névoa (\emph{Fog Computing}) tem proposto que, por
-exemplo, partes do processo que são sensíveis à latência, sensíveis à
-privacidade, de baixo consumo computacional (ou energético) ou que reduzem o
-volume de dados enviados à \emph{cloud}.
+% finalizo com "por exemplo"?
+
+Esse tipo de análise é implementada sobre o paradigma de computação na nuvem
+(\emph{Cloud Computing}) e, recentemente, paradigmas como computação em névoa
+(\emph{Fog Computing}). Para \emph{fog}, além dos recursos em \emph{cloud}, são
+explorados os recursos distribuídos pela rede desde o nó remoto até a
+\emph{cloud}. Processos que dependem desses recursos são distribuídos de acordo
+com características como sensibilidade à latência, privacidade,
+consumo computacional ou energético.
 
 \section{Motivação}
 
 Nesse contexto, detecção de novidades para fluxos de dados em \emph{fog}, uma
-arquitetura recente proposta por \citeonline{Cassales2019a} baseada no algoritmo
-de detecção de novidades em fluxo de dados (ND em DS) MINAS
-\cite{Faria2016minas} mostra resultados promissores com conjunto de dados
-\emph{Kyoto 2006+} que coletou dados de 348 \emph{Honeypots} (maquinas isoladas
-com diversos softwares com vulnerabilidades conhecidas expostas á internet com
-propósito de atrair ataques) de 2006 até dezembro 2015 com 24 atributos, 3
-etiquetas atribuídas por produtos comerciais de detecção de intrusão e uma etiqueta
+arquitetura recente proposta por \citeonline{Cassales2019a}, baseada no algoritmo
+de detecção de novidades em fluxo de dados MINAS
+\cite{Faria2016minas}, mostra resultados promissores.
+
+Essa arquitetura foi avaliada com conjunto de dados \emph{Kyoto 2006+} que
+coletou dados de 348 \emph{Honeypots} (maquinas isoladas com diversos softwares
+com vulnerabilidades conhecidas expostas a Internet com propósito de atrair
+ataques) de 2006 até dezembro 2015. Com 24 atributos, 3 etiquetas atribuídas por
+detectores de intrusão comerciais de detecção de intrusão e uma etiqueta
 distinguindo o trafego entre normal, ataque conhecido e ataque desconhecido.
+Contudo, esse algoritmo ainda não foi implementado e avaliado com paralelismo
+\emph{multi-core} ou distribuído.
 
-Contudo esse algoritmo
-ainda não foi implementado e avaliado com paralelismo \emph{multi-core} ou
-distribuído, seja no paradigma \emph{cloud} ou \emph{fog} deixando uma
-oportunidade de contribuição técnica e acadêmica.
+Outras propostas tratam do caso de grandes volumes e velocidades, como é o caso
+de \citeonline{Viegas2019} que apresenta \emph{BigFlow} no intuito de detectar
+intrusão em redes \emph{10 Gigabit Ethernet}, que é um volume considerável
+atualmente impossível de ser processado em um único núcleo de processador
+(\emph{single-threaded}). Essa implementação é feita sobre uma plataforma
+distribuída processadora de fluxos (\emph{Apache Flink}) executada em um cluster
+com até 10 nós de trabalho, cada um com 4 núcleos de processamento totalizando
+40 núcleos para atingir taxas de até $10,72 \ Gbps$.
 
-Além disso outros algoritmos e arquiteturas já receberam esse tratamento, como é
-o caso de \citeonline{Viegas2019} que apresenta \emph{BigFlow} no intuito de
-detectar intrusão em redes \emph{10 Gigabit Ethernet} que é um volume
-considerável atualmente impossível de ser processado em um único núcleo de
-processador (\emph{single-threaded}). Essa proposta foi implementada sobre uma
-plataforma distribuída processadora de fluxos (\emph{Apache Flink}) executada em
-um cluster com até 10 nós de trabalho, cada um com 4 núcleos de processamento
-totalizando 40 núcleos para atingir taxas de até $10,72 \  Gbps$.
-
-Além de apresentar uma implementação \citeonline{Viegas2019} também apresenta um
-conjunto de dados baseado no conjunto coletado por \citeonline{mawiSamplepointF}
-\cite{Fontugne2010} reduzido ao ano de 2016 ($7.9 \ TB$) e estratificado para
+Além de apresentar uma implementação, \citeonline{Viegas2019} também apresenta o
+conjunto de dados \emph{MAWIFlow}. Esse conjunto é derivado do ponto de coleta
+F, localizado em um elo de comunicação entre o Japão e os EUA (\emph{Backbone})
+com capacidade de $1\ Gbps$, diariamente 15 minutos são capturados desde 2006
+sob supervisão de \citeonline{mawiSamplepointF} \cite{Fontugne2010}. O conjunto
+\emph{MAWIFlow} limita-se às coletas de 2016 ($7.9\ TB$) e estratificado para
 $1\%$ desse tamanho facilitando compartilhamento e avaliação por outros
 softwares. Esse conjunto contempla 158 atributos de nós e fluxos e etiquetado
 por \citeonline{Fontugne2010}.
+
+O sistema \emph{BigFlow} é composto de dois estágios: extração de
+características (estatísticas de tráfego da rede) e aprendizado confiável de
+fluxo. O segundo estágio implementa um algoritmo de detecção de novidade
+utilizando classificadores já estabelecidos na biblioteca MOA \cite{MOA} com
+adição de um módulo de verificação que armazena valores classificados com baixa
+confiança para serem manualmente avaliados por um especialista. A escolha dessa
+abordagem não é nova e visa mitigar problemas como \emph{Concept Drift} e
+\emph{Concept Evolution} \cite{Faria2016nd} com a redução de acurácia durante na
+avaliação inicial dos algoritmos tradicionais e devidamente mitigada com a
+atualização constante do modelo. Esses problemas são amplamente abordados e
+tratados em outros algoritmos como MINAS \cite{Faria2016minas}.
+
+Esses trabalhos abordam detecção de intrusão porém com perspectivas diferentes.
+O primeiro observa \emph{iot}, processamento em \emph{fog}, baseia-se em um
+algoritmo genérico de detecção de novidade e o segundo observa \emph{backbones},
+processamento em \emph{cloud}, implementa o próprio algoritmo de detecção de
+novidade. Essas diferenças deixam uma lacuna onde de um lado tem-se uma
+arquitetura mais adequada para \emph{fog} com um algoritmo estado da arte de
+detecção de novidades porém sem paralelismo e de outro tem-se um sistema
+escalável de alto desempenho porém almejando outra arquitetura (\emph{cloud}) e
+com um algoritmo menos preparado para os desafios de detecção de novidades.
+
+% \textit{
+% \\ deixar mais claro o contraste entre cassales e bigflow
+% \\ abordar o **gap** no qual a minha pesquisa entra
+% \\ mostrar que modelo bigflow não considera fog
+% \\ arquiteutra distribuida em fog com minas e alto desempenho big flow
+% }
 
 \section{Objetivos}
 
@@ -214,67 +216,69 @@ facilitar posterior comparação com outras implementações.
 
 Para atingir esse objetivo geral, 
 
-% % discussão de 2020-02-01
-% % nota og: Avaliar o apache flink e o Minas para detecção de intrusão em redes IoT.
-% Avaliar o algoritmo minas na plataforma Flink para detecção de intrusão em redes IoT.
-% % Avaliar = Testes com diferentes datasets (KDD e BigFlow) com as métricas Minas e BigFlow.
+% discussão de 2020-02-01
+% nota og: Avaliar o apache flink e o Minas para detecção de intrusão em redes IoT.
+Avaliar o algoritmo minas na plataforma Flink para detecção de intrusão em redes IoT.
+% Avaliar = Testes com diferentes datasets (KDD e BigFlow) com as métricas Minas e BigFlow.
 
-% % O que o minas-flink tem de especial para detecção de intrusão?
-% % - conformidade com variação da rede
+% O que o minas-flink tem de especial para detecção de intrusão?
+% - conformidade com variação da rede
 
-% Objetivos secundários:
-% % visto como um passo-a-passo até o objetivo principal.
-% Identificar métricas na literatura:
-%     - Quanto a detecção de anomalias;
-%     - e desempenho na detecção de intrusão da literatura;
-% Implementar Minas sobre Apache Flink para detecção de intrusão em redes IoT;
-% % Demonstrar que Minas sobre Apache Flink (a implementação) é um alternativa 
-% % mudar verbo 'Mostrar' para algo mais concreto/fechado
-% Extrair as métricas de detecção de anomalias da implementação com datasets diferentes;
-% Validar a implementação comparando as métricas extraídas da implementação com as encontradas na literatura;
-% % teste ferramentas de stream (python/kafaka, scala/flink)
-% Extrair as métricas de desempenho da implementação com datasets diferentes;
+Objetivos secundários:
+% visto como um passo-a-passo até o objetivo principal.
+Identificar métricas na literatura:
+    - Quanto a detecção de anomalias;
+    - e desempenho na detecção de intrusão da literatura;
+Implementar Minas sobre Apache Flink para detecção de intrusão em redes IoT;
+% Demonstrar que Minas sobre Apache Flink (a implementação) é um alternativa 
+% mudar verbo 'Mostrar' para algo mais concreto/fechado
+Extrair as métricas de detecção de anomalias da implementação com datasets diferentes;
+Validar a implementação comparando as métricas extraídas da implementação com as encontradas na literatura;
+% teste ferramentas de stream (python/kafaka, scala/flink)
+Extrair as métricas de desempenho da implementação com datasets diferentes;
 
 % \section{Motivação}
-% - flink não foi abordado para intrusões em redes iot;
-% - contribuição de técnica/método para a area de segurança da informação;
-% %/discussão
+- flink não foi abordado para intrusões em redes iot;
+- contribuição de técnica/método para a area de segurança da informação;
+%/discussão
 
-% % (o que)
-% % Implementar a arquitetura proposta em [3] (IDS-IoT) com foco no volume de fluxo
-% % explorando aspectos de paralelismo e distribuição de recursos em fog e cloud visando
-% % alta vazão e baixa latência.
+% (o que)
+% Implementar a arquitetura proposta em [3] (IDS-IoT) com foco no volume de fluxo
+% explorando aspectos de paralelismo e distribuição de recursos em fog e cloud visando
+% alta vazão e baixa latência.
 
-% Para redução da latência pretende-se utilizar recursos próximos à rede monitorada (fog) 
-% distribuindo o volume entre vários nós (com recursos muitas vezes limitados) para dar
-% vazão ao processamento. Além disso, para tarefas com maiores exigências de recursos de
-% processamento e armazenamento como treinamento e reconstrução do modelo pretende-se utilizar computação em nuvem.
+Para redução da latência pretende-se utilizar recursos próximos à rede
+monitorada (fog) distribuindo o volume entre vários nós (com recursos muitas
+vezes limitados) para dar vazão ao processamento. Além disso, para tarefas com
+maiores exigências de recursos de processamento e armazenamento como treinamento
+e reconstrução do modelo pretende-se utilizar computação em nuvem.
 
-% Implementar o algoritmo MINAS [4] buscando máximo desempenho nos aspectos 
-% latência e vazão utilizando recursos de fog e nuvem além de avaliar seus resultados
-% qualitativos na detecção e classificação de novidades em \emph{datasets}
-% relevantes a detecção de intrusão em redes IoT.
+Implementar o algoritmo MINAS [4] buscando máximo desempenho nos aspectos 
+latência e vazão utilizando recursos de fog e nuvem além de avaliar seus resultados
+qualitativos na detecção e classificação de novidades em \emph{datasets}
+relevantes a detecção de intrusão em redes IoT.
 
-% % There is a need for real-time stream processing, as data is arriving as continuous flows of events;
-% % for example, cars in motion emitting GPS signals; financial transactions;
-% % the interchange of signals between cellphone towers; web traffic including things like session tracking
-% % and understanding user behavior on websites; and measurements from industrial sensors.
-% % https://dzone.com/articles/streaming-in-spark-flink-and-kafka-1
+% There is a need for real-time stream processing, as data is arriving as
+% continuous flows of events; for example, cars in motion emitting GPS signals;
+% financial transactions; the interchange of signals between cellphone towers; web
+% traffic including things like session tracking and understanding user behavior
+% on websites; and measurements from industrial sensors.
+% https://dzone.com/articles/streaming-in-spark-flink-and-kafka-1
 
-% \section{Proposta Metodológica}
-% % (Metodologia) (como)
+\section{Proposta Metodológica}
+% (Metodologia) (como)
 
-% Implementar  -- e avaliar esta implementação -- o algoritmo MINAS [4] 
-% aplicando técnicas, como Apache Flink, usadas na solução BigFlow [5];
-% Aplicar essa implementação na arquitetura proposta por [3] e
-% comparar o desempenho com a implementação e conjunto de dados (dataset) original;
-% Avaliar o desempenho e escalabilidade da aplicação com dataset MAWIFlow.
+Implementar  -- e avaliar esta implementação -- o algoritmo MINAS [4] 
+aplicando técnicas, como Apache Flink, usadas na solução BigFlow [5];
+Aplicar essa implementação na arquitetura proposta por [3] e
+comparar o desempenho com a implementação e conjunto de dados (dataset) original;
+Avaliar o desempenho e escalabilidade da aplicação com dataset MAWIFlow.
 
-% Flink  - dizer que vai usar, para fazer o que e porque escolheu 
+Flink  - dizer que vai usar, para fazer o que e porque escolheu 
 
-% Kafka ?
+Kafka ?
 
-% Raspberry - para todos
+Raspberry - para todos
 
-% A base - 
+A base - 
 
