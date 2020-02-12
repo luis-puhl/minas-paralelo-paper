@@ -60,26 +60,6 @@ year = {2018}
 }
 
 
-@techreport{Zaharia,
-  title = {{Spark: Cluster Computing with Working Sets}},
-  author = {Zaharia, Matei and Chowdhury, Mosharaf and Franklin, Michael J and Shenker, Scott},
-  
-  abstract = {MapReduce and its variants have been highly successful in
-  implementing large-scale data-intensive applications on commodity clusters.
-  However, most of these systems are built around an acyclic data flow model
-  that is not suitable for other popular applications. This paper fo-cuses on
-  one such class of applications: those that reuse a working set of data across
-  multiple parallel operations. This includes many iterative machine learning
-  algorithms, as well as interactive data analysis tools. We propose a new
-  framework called Spark that supports these applications while retaining the
-  scalability and fault tolerance of MapReduce. To achieve these goals, Spark
-  introduces an abstraction called resilient distributed datasets (RDDs). An RDD
-  is a read-only collection of objects partitioned across a set of machines that
-  can be rebuilt if a partition is lost. Spark can outperform Hadoop by 10x in
-  iterative machine learning jobs, and can be used to interactively query a 39
-  GB dataset with sub-second response time.}
-}
-
 @article{dean2008mapreduce,
   title={MapReduce: simplified data processing on large clusters},
   author={Dean, Jeffrey and Ghemawat, Sanjay},
@@ -118,19 +98,40 @@ year = {2018}
 }
 
 @misc{ApacheHadoop2020,
-  title = {{Apache Hadoop}},
-  author= "Apache Hadoop",
+  title = {{The Apache™ Hadoop® project develops open-source software for reliable, scalable, distributed computing.}},
+  author= {{Apache Hadoop}},
   url = {https://hadoop.apache.org/},
   urldate = {2020-02-10},
   year={2020}
 }
 @misc{ApacheSpark2020,
-title = {{Apache Spark™ - Unified Analytics Engine for Big Data}},
-author= "Apache Spark",
-url = {https://spark.apache.org/},
-urldate = {2020-02-10},
-year = {2020}
+  title = {{Apache Spark™ - Unified Analytics Engine for Big Data}},
+  author= {{Apache Spark}},
+  url = {https://spark.apache.org/},
+  urldate = {2020-02-10},
+  year = {2020}
 }
+
+@techreport{Zaharia,
+  title = {{Spark: Cluster Computing with Working Sets}},
+  author = {Zaharia, Matei and Chowdhury, Mosharaf and Franklin, Michael J and Shenker, Scott},
+  
+  abstract = {MapReduce and its variants have been highly successful in
+  implementing large-scale data-intensive applications on commodity clusters.
+  However, most of these systems are built around an acyclic data flow model
+  that is not suitable for other popular applications. This paper fo-cuses on
+  one such class of applications: those that reuse a working set of data across
+  multiple parallel operations. This includes many iterative machine learning
+  algorithms, as well as interactive data analysis tools. We propose a new
+  framework called Spark that supports these applications while retaining the
+  scalability and fault tolerance of MapReduce. To achieve these goals, Spark
+  introduces an abstraction called resilient distributed datasets (RDDs). An RDD
+  is a read-only collection of objects partitioned across a set of machines that
+  can be rebuilt if a partition is lost. Spark can outperform Hadoop by 10x in
+  iterative machine learning jobs, and can be used to interactively query a 39
+  GB dataset with sub-second response time.}
+}
+
 
 % referencias da Quali Gui Cassales
 % (PERNER, 2007)
@@ -217,17 +218,29 @@ month={May},}
   year={2016},
   publisher={Springer}
 }
-@article{dastjerdi2016fog,
+@article{dastjerdi2016,
   title={Fog computing: Helping the Internet of Things realize its potential},
   author={Dastjerdi, Amir Vahid and Buyya, Rajkumar},
+  
+  abstract={The Internet of Things (IoT) could enable innovations that enhance
+  the quality of life, but it generates unprecedented amounts of data that are
+  difficult for traditional systems, the cloud, and even edge computing to
+  handle. Fog computing is designed to overcome these limitations.},
+  
+  keywords={data handling;Internet of Things;fog computing;Internet of
+  Things;IoT;data handling;Internet of things;Data analysis;Big data;Cloud
+  computing;Internet of Things;IoT;cloud computing;Cloud Cover;fog computing},
+    
   journal={Computer},
   volume={49},
   number={8},
   pages={112--116},
   year={2016},
+  doi={10.1109/MC.2016.245},
+  ISSN={1558-0814},
+  month={Aug},
   publisher={IEEE}
 }
-
 @misc{gartner_it_glossary_2018, 
   title={Gartner Says Worldwide IoT Security Spending Will Reach \$1.5 Billion in 2018}, 
   author={Gartner},
@@ -654,21 +667,6 @@ pages = {97--101},
 title = {{The NIST definition of cloud computing: Recommendations of the National Institute of Standards and Technology}},
 url = {http://faculty.winthrop.edu/domanm/csci411/Handouts/NIST.pdf},
 year = {2012}
-}
-
-@ARTICLE{Dastjerdi2016,
-author={A. V. {Dastjerdi} and R. {Buyya}},
-journal={Computer},
-title={Fog Computing: Helping the Internet of Things Realize Its Potential},
-year={2016},
-volume={49},
-number={8},
-pages={112-116},
-abstract={The Internet of Things (IoT) could enable innovations that enhance the quality of life, but it generates unprecedented amounts of data that are difficult for traditional systems, the cloud, and even edge computing to handle. Fog computing is designed to overcome these limitations.},
-keywords={data handling;Internet of Things;fog computing;Internet of Things;IoT;data handling;Internet of things;Data analysis;Big data;Cloud computing;Internet of Things;IoT;cloud computing;Cloud Cover;fog computing},
-doi={10.1109/MC.2016.245},
-ISSN={1558-0814},
-month={Aug}
 }
 
 @article{Shi2016,
