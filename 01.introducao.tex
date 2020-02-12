@@ -210,53 +210,61 @@ com um algoritmo menos preparado para os desafios de detecção de novidades.
 % - avaliar aprendizado local ou global trade-offs
 
 Propõem-se então a construção de uma aplicação que implemente o algoritmo MINAS
-de maneira escalável e distribuível e a avaliação dessa implementação com
-experimentos baseados na literatura e conjunto de dados publicados para
-facilitar posterior comparação com outras implementações.
+de maneira escalável e distribuível para nós \emph{multi-core} e a avaliação
+dessa implementação com experimentos baseados na literatura e conjunto de dados
+públicos relevantes para facilitar posterior comparação com outras
+implementações.
 
-Para atingir esse objetivo geral, 
+O resultado esperado é uma implementação compatível em qualidade de
+classificação à seu original e com escalabilidade semelhante demonstrada pelo
+\emph{BigFlow}.
 
 % discussão de 2020-02-01
 % nota og: Avaliar o apache flink e o Minas para detecção de intrusão em redes IoT.
-Avaliar o algoritmo minas na plataforma Flink para detecção de intrusão em redes IoT.
+% Avaliar o algoritmo minas na plataforma Flink para detecção de intrusão em redes IoT.
 % Avaliar = Testes com diferentes datasets (KDD e BigFlow) com as métricas Minas e BigFlow.
 
 % O que o minas-flink tem de especial para detecção de intrusão?
 % - conformidade com variação da rede
 
-Objetivos secundários:
-% visto como um passo-a-passo até o objetivo principal.
-Identificar métricas na literatura:
-    - Quanto a detecção de anomalias;
-    - e desempenho na detecção de intrusão da literatura;
-Implementar Minas sobre Apache Flink para detecção de intrusão em redes IoT;
-% Demonstrar que Minas sobre Apache Flink (a implementação) é um alternativa 
-% mudar verbo 'Mostrar' para algo mais concreto/fechado
-Extrair as métricas de detecção de anomalias da implementação com datasets diferentes;
-Validar a implementação comparando as métricas extraídas da implementação com as encontradas na literatura;
-% teste ferramentas de stream (python/kafaka, scala/flink)
-Extrair as métricas de desempenho da implementação com datasets diferentes;
+Para atingir esse objetivo geral, alguns objetivos secundários são propostos:
 
-% \section{Motivação}
-- flink não foi abordado para intrusões em redes iot;
-- contribuição de técnica/método para a area de segurança da informação;
-%/discussão
+% % Objetivos secundários:
+% % visto como um passo-a-passo até o objetivo principal.
+% Identificar métricas na literatura:
+%     - Quanto a detecção de anomalias;
+%     - e desempenho na detecção de intrusão da literatura;
+% Implementar Minas sobre Apache Flink para detecção de intrusão em redes IoT;
+% % Demonstrar que Minas sobre Apache Flink (a implementação) é um alternativa 
+% % mudar verbo 'Mostrar' para algo mais concreto/fechado
+% Extrair as métricas de detecção de anomalias da implementação com datasets diferentes;
+% Validar a implementação comparando as métricas extraídas da implementação com as encontradas na literatura;
+% % teste ferramentas de stream (python/kafaka, scala/flink)
+% Extrair as métricas de desempenho da implementação com datasets diferentes;
 
-% (o que)
-% Implementar a arquitetura proposta em [3] (IDS-IoT) com foco no volume de fluxo
-% explorando aspectos de paralelismo e distribuição de recursos em fog e cloud visando
-% alta vazão e baixa latência.
-
-Para redução da latência pretende-se utilizar recursos próximos à rede
-monitorada (fog) distribuindo o volume entre vários nós (com recursos muitas
-vezes limitados) para dar vazão ao processamento. Além disso, para tarefas com
-maiores exigências de recursos de processamento e armazenamento como treinamento
-e reconstrução do modelo pretende-se utilizar computação em nuvem.
-
-Implementar o algoritmo MINAS [4] buscando máximo desempenho nos aspectos 
-latência e vazão utilizando recursos de fog e nuvem além de avaliar seus resultados
-qualitativos na detecção e classificação de novidades em \emph{datasets}
-relevantes a detecção de intrusão em redes IoT.
+\begin{itemize}
+    \item Enumerar métricas de qualidade de classificação e métricas de
+    escalabilidade encontradas na literatura;
+    \item Avaliar plataformas de processamento distribuído de fluxos como:
+    \begin{itemize}
+        \item \emph{Apahce Kafka} com \emph{Python};
+        \item \emph{Apahce Kafka Streams};
+        \item \emph{Apahce Spark Streaming};
+        \item \emph{Apahce Flink};
+    \end{itemize}
+    \item Implementar algoritmo MINAS sobre \emph{Apache Flink};
+    \item Executar a implementação com \emph{datasets} públicos relevantes;
+    \item Validar, por meio de comparação com o algoritmo original, se a
+    implementação gera os mesmos resultados quanto a classificação;
+    \item Extrair métricas de escalabilidade por meio de experimentação;
+    \item Avaliar estratégias de distribuição do algoritmo em \emph{fog} como:
+    \begin{itemize}
+        \item Detecção de novidade nas pontas;
+        \item Detecção de novidade na nuvem;
+        \item Detecção de novidade nas pontas e em nuvem;
+    \end{itemize}
+    e seu o impacto na qualidade de classificação e volume computado.
+\end{itemize}
 
 % There is a need for real-time stream processing, as data is arriving as
 % continuous flows of events; for example, cars in motion emitting GPS signals;
@@ -266,13 +274,8 @@ relevantes a detecção de intrusão em redes IoT.
 % https://dzone.com/articles/streaming-in-spark-flink-and-kafka-1
 
 \section{Proposta Metodológica}
-% (Metodologia) (como)
 
-Implementar  -- e avaliar esta implementação -- o algoritmo MINAS [4] 
-aplicando técnicas, como Apache Flink, usadas na solução BigFlow [5];
-Aplicar essa implementação na arquitetura proposta por [3] e
-comparar o desempenho com a implementação e conjunto de dados (dataset) original;
-Avaliar o desempenho e escalabilidade da aplicação com dataset MAWIFlow.
+(Metodologia) (como)
 
 Flink  - dizer que vai usar, para fazer o que e porque escolheu 
 
@@ -282,3 +285,21 @@ Raspberry - para todos
 
 A base - 
 
+% 1.2 (Cassales)
+%  Metodologia
+% A seguir será descrita a metodologia que pretende-se utilizar para atingir aos objetivos e
+% responder às questões de pesquisa propostas.
+% Primeiramente será realizado um levantamento do estado da arte no que diz respeito aos
+% Sistemas de Detecção de Intrusão e às técnicas de Detecção de Novidade aplicadas aos Fluxos
+% Contı́nuos de Dados. Com base neste levantamento, serão determinadas as lacunas dos sistemas
+% da área e quais as técnicas mais adequadas para a utilização neste trabalho. Dado o foco nas
+% técnicas e na arquitetura, é necessário que se possua mais de uma base de dados para realizar
+% 1.2 Metodologia
+%  13
+% a avaliação. Tendo em vista que existem bases de dados de segurança que não representam
+% o cenário atual de maneira fidedigna, é necessário selecionar bases que possibilitem que os
+% resultados sejam confiáveis.
+% Além das bases, serão utilizadas diversas técnicas, as quais deverão ser avaliadas e estuda-
+% das para que possam ser propostas melhorias ou mesmo uma nova técnica. Finalmente, serão
+% implementadas melhorias e, se necessário, uma nova técnica e será feita avaliação do desempe-
+% nho desta técnica.
