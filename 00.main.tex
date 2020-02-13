@@ -1,5 +1,6 @@
 % !TeX root = ./00.main.tex
 \documentclass[dissertacao]{lib/ppgccufscar}
+% \usepackage[brazil]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{color}
 \usepackage{graphicx,url}
@@ -10,11 +11,14 @@
 \usepackage{subfigure}
 \usepackage[table,xcdraw]{xcolor}
 
-\usepackage[portuguese,ruled,vlined,linesnumbered]{algorithm2e}
-\usepackage{algorithmic}
+% \usepackage{subcaption}
+% \usepackage[portuguese,ruled,vlined,linesnumbered]{algorithm2e}
+% \usepackage{algorithmic}
 
-\usepackage{float}
-\usepackage{amsmath}
+% \usepackage{float}
+% \usepackage{amsmath}
+% \usepackage{mathtools}
+% \usepackage{amsfonts}
 \usepackage{tabularx}
 
 \usepackage{pgfgantt}
@@ -42,8 +46,15 @@
 
 % \noindent\makebox[\textwidth]{\includegraphics[width=\paperwidth]{folha_aprovacao.jpg}}
 
-%\begin{agradecimentos}
-%\end{agradecimentos}
+\begin{agradecimentos}
+
+O presente trabalho de pesquisa está sendo realizado com o apoio parcial do
+Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq).
+
+% Coordenação de Aperfeiçoamento de Pessoal de Nível Superior - Brasil (CAPES) -
+% Código de Financiamento 001.
+
+\end{agradecimentos}
 
 %\epigrafe{Inserir depois.}{---}
 % \epigrafe{O que está certo, não está errado...}
@@ -57,7 +68,7 @@
 % \keywords{Articles, Review}
 % \end{abstract}
 
-% \listoffigures
+\listoffigures
 % \listoftables
 
 % \acronym{TI}{Tecnologia da Informação}
@@ -110,5 +121,13 @@
 \bibliography{99.referencias}
 
 %% glossário
+%% DICA: voce pode ir definindo os acronimos ao longo do texto.
+%% Por exemplo, no capitulo 1, vc ta escrevendo:
+%% Segundo Fulano, Model-Driven Development (MDD)\acronym{MDD}{Model-Driven Development} � uma t�cnica bla bla bla...
+% \listofacronyms
+
+% \apendice
+%   \input{TEXs/8-ResultsPreliminares.tex}
+% % \anexo
 
 \end{document}
