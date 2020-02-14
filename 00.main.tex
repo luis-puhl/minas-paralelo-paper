@@ -1,29 +1,36 @@
 % !TeX root = ./00.main.tex
 \documentclass[dissertacao]{lib/ppgccufscar}
-% \usepackage[brazil]{babel}
+\usepackage[brazil]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{color}
 \usepackage{graphicx,url}
 \usepackage{multirow}
+\usepackage[inline]{enumitem}
 
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{subfigure}
 \usepackage[table,xcdraw]{xcolor}
 
-% \usepackage{subcaption}
-% \usepackage[portuguese,ruled,vlined,linesnumbered]{algorithm2e}
-% \usepackage{algorithmic}
+\usepackage[portuguese,ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{algorithmic}
 
-% \usepackage{float}
-% \usepackage{amsmath}
-% \usepackage{mathtools}
-% \usepackage{amsfonts}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amsfonts}
 \usepackage{tabularx}
 
 \usepackage{pgfgantt}
-\usepackage{enumitem}
 
+% \usepackage{minted}
+% \usemintedstyle{emacs}
+% \begin{minted}[breaklines]{bash}
+% $ find virusTotal_Database -type f -name '*.json' -exec grep --files-with-match -i 'Mirai' '{}';
+% \end{minted}
+
+\usepackage{navigator}
+\usepackage{microtype}
 % \usepackage{hyperref}
 % \hypersetup{
 %     colorlinks=true,
@@ -32,6 +39,10 @@
 %     urlcolor=cyan,
 % }
 
+% ---------------------------------------------------------
+\newcommand{\secef}[1]{Seção \ref{sec:#1}}
+
+% ---------------------------------------------------------
 \titulo{Uma Implementação paralela do algoritmo de Detecção de Novidade em Streams MINAS}
 \autor{Luís Henrique Puhl de Souza}
 \orientador[Orientador]{Prof. Dr. Hermes Senger}
