@@ -1,11 +1,184 @@
-\chapter{Proposta}
-\label{cha:proposta}
+\chapter{Proposta}\label{cha:proposta}
 
-\textit{o que fazer e como fazer, resultados esperados}
+% Uma Implementação paralela do algoritmo de Detecção de Novidade em Streams MINAS 
+\newcommand{\fog}{\emph{fog computing}\xspace}
+\newcommand{\iot}{\emph{IoT}\xspace}
+\newcommand{\mfog}{M-FOG\xspace}
 
-\textit{resumo e retomada do objetivo}
+Esse Capítulo apresenta a descrição de uma implementação paralela do algoritmo
+de detecção de novidades em fluxos de dados contínuos (\emph{Novelty Detection
+in Data Streams}) MINAS inserido no cenário de processamento distribuído no
+ambiente de computação em névoa (\fog) com ênfase nos fluxos gerados por
+dispositivos de Internet das Coisas (\iot) doravante referido por \mfog ou 
+``a presente implementação''.
+Os requisitos dessa implementação são derivados das lacuna discutidas no
+\refcap{related}.
 
-\textit{métodos para alcançar os objetivos}
+% \textit{resumo e retomada do objetivo}
+% \newcommand{\dataset}{\emph{data set}\xspace}
+% \newcommand{\datasets}{\emph{data sets}\xspace}
+\newcommand{\cloud}{\emph{cloud computing}\xspace}
+\newcommand{\drift}{\emph{Concept Drift}\xspace}
+\newcommand{\evolution}{\emph{Concept Evolution}\xspace}
 
-\textit{resul}
+Uma das lacunas é a falta de uma implementação do algoritmo
+MINAS mais próxima de aplicações reais, ou seja:
+que trate de fluxos realistas em contraste aos conjuntos de dados (\datasets)
+sintéticos;
+que considere restrições computacionais tanto teóricas que são características
+de processamento de fluxos contínuos e ilimitados como restrições práticas
+de ambientes diversos como computação pessoal (\emph{Desktop Computing}), 
+computação em nuvem (\cloud) e computação em névoa (\fog).
 
+Outras lacunas são encontrada na implementação de sistemas de que dependem de
+algoritmos de detecção de novidades. Nessas implementações nota-se a falta de
+algoritmos que tenham as considerações teóricas inerentes da variabilidade de
+dados em fluxos contínuos de dados como deriva e evolução de conceito (\drift e
+\evolution).
+Por outro lado, outros sistemas consideram a variabilidade porém o
+mecanismo de atualização do modelo assume que as etiquetas reais estarão
+disponíveis após classificação (\emph{feedback}) imediatamente ou com atraso
+predizível.
+A suposição de \emph{feedback} em fluxos reais também não é realista pois
+a presença de um especialista que classifique corretamente os exemplos
+solicitados é, na melhor das hipóteses, eventual e não contínua contrastando com
+a natureza do fluxo de dados.
+
+% Para cumprir os objetivos citados na \refsec{objetivos}, foi identificado a necessidade
+% de um processo exploratório seguido de experimentação. Tal processo inclui a
+% revisão da literatura, tanto acadêmica quanto técnica, seguida da experimentação
+% através de implementação de aplicação e testes.
+
+\section{Cenário}\label{sec:cenario}
+
+A presente Seção descreve o cenário base para a proposta de implementação,
+expondo características, desafios e hipóteses que a implementação deve atender.
+
+A Internet das Coisas \iot é composta por milhares de dispositivos distribuídos
+geograficamente conectados à Internet.
+Com capacidades diversas como sensores e atuadores, esses dispositivos dependem
+de conexões para executarem suas funções, enviando e recebendo informações
+trocadas com outros dispositivos ou aplicações centrais hospedadas em ambiente
+\cloud.
+A a dependência de comunicação é uma restrição que tem diversas implicações
+como confiabilidade de um sistema e, dependendo da conexão limita ou impede
+funcionalidades comuns em outros ambientes.
+Além das restrições, devido aos encargos atribuídos à manutenção da comunicação,
+o envio e recebimento de dados em dispositivos deve ser minimizado.
+
+% estou deixando implícito as restrições como baterias :(
+
+Mesmo com as restrições e desafios, a implementação de dispositivos ainda é
+vantajosa, pois o valor sobrepõe o custo.
+Esse valor origina de várias fontes como automação, redução de risco e coleta
+de dados granulares que possibilitam análises antes impraticáveis.
+A coleta de dados para análise contínua é um dos principais fatores na
+implantação de um sistema IoT levando a geração de diversos fluxos com
+propriedades e processos igualmente diversos.
+% A análise constante de dados 
+
+% meh
+
+\textit{Falta: fog, processamento distribuído de streams, detecção de novidade}
+
+\section{Descrição da Implementação}\label{sec:descricao}
+
+\newcommand{\source}{\emph{source}\xspace}
+\newcommand{\sink}{\emph{sink}\xspace}
+
+\newcommand{\offline}{\emph{offline}\xspace}
+\newcommand{\classify}{classificador\xspace}
+\newcommand{\detector}{detector\xspace}
+
+Nesta Seção apresenta \mfog, proposta deste trabalho.
+\mfog é composto pelos módulos \offline, \classify e \detector.
+Para correta avaliação \mfog é acompanhado de dois módulos auxiliares:
+módulo fonte (\source) e módulo sorvedouro (\sink).
+
+% \textit{métodos para alcançar os objetivos}
+% \textit{o que fazer e como fazer, resultados esperados}
+
+A implementação proposta segue a arquitetura proposta por
+\citeonline{Cassales2019a} onde na borda de uma rede local com dispositivos \iot
+um serviço de captura e tratamento de dados é instalado.
+Na presente implementação esse serviço de captura e tratamento é representado
+pelo módulo \source.
+O módulo \source é dependente da fonte de dados, executando a transformação dos
+formatos dos \datasets para um fluxo de dados compatível com o restante da
+implementação.
+Além de fornecer dados tratados para \mfog, o módulo \source também fornece
+dados para o módulo \sink e \offline.
+
+O módulo \sink é responsável por agregar todos resultados do \mfog e, juntamente
+com os valores do \dataset fornecidos pelo módulo \source, computar as métricas
+de qualidade de classificação e métricas base para as métricas de
+escalabilidade e métricas de recursos computacionais.
+
+\newcommand{\flink}{\emph{Apache Flink}\xspace}
+
+Os dados resultantes da captura e tratamento são ingeridos pela aplicação no
+módulo \classify por meio de conexão TCP (\emph{Transmission Control Protocol})
+fornecida pela plataforma \flink.
+Na plataforma, com o modelo de classificação disponível, os exemplos são
+classificados seguindo o algoritmo MINAS original discutido na \refsec{minas-og}.
+A etiqueta atribuída pela classificação, ou meta-etiqueta de desconhecido,
+juntamente com o exemplo original são enviados para o módulo \sink.
+Além disso, se o exemplo não for classificado, o mesmo é enviado para o módulo
+\detector.
+
+O módulo \detector é responsável por executar o processo de detecção de
+novidade, atualizando o modelo de classificação, e entrega do novo modelo
+ao módulo \classify.
+Este módulo também envia meta-informações sobre o processo de detecção de
+novidade para o módulo \sink.
+
+\section{Resultados Esperados}\label{sec:esperados}
+
+% \textit{resul}
+
+Da implementação \mfog é prevista execução de experimentos com \datasets
+diversos, em especial os \datasets reais que contém evolução de conceitos.
+Os resultados desses experimentos são válidos se contém as seguintes métricas
+para o \mfog:
+\begin{enumerate*}
+    \item qualidade de classificação (taxa de desconhecidos, F1M)
+    \item escalabilidade (número de processadores, volume processado, tempo decorrido)
+    \item recursos computacionais utilizados (memória RAM, CPU time, io)
+\end{enumerate*}
+e para o minas somente as métricas de qualidade de classificação.
+
+% O foco da revisão da literatura acadêmica é em trabalhos que abordem:
+% processamento de fluxos de dados, classificação de fluxo de dados, detecção de
+% novidades em fluxo de dados e processamento e distribuído de fluxo de dados.
+% O objetivo da revisão é o estabelecimento do estado da arte desses assuntos
+% e para que alguns desses trabalhos sirvam para comparações e relacionamentos.
+% Além disso, desses trabalhos extrai-se métricas de qualidade de classificação
+% (por exemplo taxa de falso positivo e matriz de confusão) e métricas de
+% escalabilidade (taxa de mensagens por segundo e escalabilidade vertical ou
+% horizontal).
+
+% A revisão da literatura técnica foca em plataformas, ferramentas e técnicas
+% para realizar a implementação proposta.
+% Portanto, serão selecionadas plataformas de processamento distribuído de fluxos
+% contínuos de dados e técnicas de aprendizado de máquina associadas a elas. Dessa revisão também são obtidas
+% as técnicas ou ferramentas necessárias
+% para extração das métricas de avaliação bem como \emph{data sets}
+% públicos relevantes para detecção de novidades em DS.
+
+% Uma vez definidos o estado da arte, as ferramentas técnicas e os
+% \emph{data sets}, o passo seguinte é a experimentação.
+% Nesse passo é desenvolvida uma aplicação multi-processada que, com base no
+% algoritmo MINAS \cite{Faria2016minas}, classifica e detecta novidades em DS.
+% Os resultados de classificação dessa implementação equivalem-se aos resultados 
+% de classificação da implementação original, validando assim essa nova
+% aplicação. 
+
+% \textit{Não é separado, são ideias e métodos distisntos}
+
+% Além disso, experimentos com a implementação e variações em \emph{data sets} e
+% cenários de distribuição em \emph{fog} coletando as métricas de classificação e escalabilidade.
+% Os resultados serão comparados entre si e com outros trabalhos.
+
+% E ao final, a aplicação, resultados, comparações e discussões serão publicados
+% nos meios e formatos adequados como repositórios técnicos, eventos ou revistas
+% acadêmicas.
