@@ -5,6 +5,13 @@
 \newcommand{\iot}{\emph{IoT}\xspace}
 \newcommand{\mfog}{M-FOG\xspace}
 
+\nota{Reestruturar:
+    remember,
+    cenário (iot, fog, stream),
+    problema (4.1, ND em fog, terminar com minas e cassales),
+    solução (4.2, apresetnação, resumo \mfog, metodologia)
+}
+
 Esse Capítulo apresenta a descrição de uma implementação paralela do algoritmo
 de detecção de novidades em fluxos de dados contínuos (\emph{Novelty Detection
 in Data Streams}) MINAS inserido no cenário de processamento distribuído no
@@ -14,7 +21,7 @@ dispositivos de Internet das Coisas (\iot) doravante referido por \mfog ou
 Os requisitos dessa implementação são derivados das lacuna discutidas no
 \refcap{related}.
 
-% \textit{resumo e retomada do objetivo}
+\nota{resumo e retomada do objetivo}
 % \newcommand{\dataset}{\emph{data set}\xspace}
 % \newcommand{\datasets}{\emph{data sets}\xspace}
 \newcommand{\cloud}{\emph{cloud computing}\xspace}
@@ -79,7 +86,7 @@ propriedades e processos igualmente diversos.
 
 % meh
 
-\textit{Falta: fog, processamento distribuído de streams, detecção de novidade}
+\nota{Falta: fog, processamento distribuído de streams, detecção de novidade}
 
 \section{Descrição da Implementação}\label{sec:descricao}
 
@@ -95,8 +102,8 @@ Nesta Seção apresenta \mfog, proposta deste trabalho.
 Para correta avaliação \mfog é acompanhado de dois módulos auxiliares:
 módulo fonte (\source) e módulo sorvedouro (\sink).
 
-% \textit{métodos para alcançar os objetivos}
-% \textit{o que fazer e como fazer, resultados esperados}
+nota{métodos para alcançar os objetivos \\
+o que fazer e como fazer, resultados esperados}
 
 A implementação proposta segue a arquitetura proposta por
 \citeonline{Cassales2019a} onde na borda de uma rede local com dispositivos \iot
@@ -134,16 +141,13 @@ novidade para o módulo \sink.
 
 \section{Resultados Esperados}\label{sec:esperados}
 
-% \textit{resul}
-
 Da implementação \mfog é prevista execução de experimentos com \datasets
 diversos, em especial os \datasets reais que contém evolução de conceitos.
 Os resultados desses experimentos são válidos se contém as seguintes métricas
-para o \mfog:
-\begin{enumerate*}
+para o \mfog: \begin{enumerate*}[label={\alph*)}]
     \item qualidade de classificação (taxa de desconhecidos, F1M)
     \item escalabilidade (número de processadores, volume processado, tempo decorrido)
-    \item recursos computacionais utilizados (memória RAM, CPU time, io)
+    \item recursos computacionais utilizados (memória, tempo de processamento, operações de leitura e escrita)
 \end{enumerate*}
 e para o minas somente as métricas de qualidade de classificação.
 
@@ -172,8 +176,6 @@ e para o minas somente as métricas de qualidade de classificação.
 % Os resultados de classificação dessa implementação equivalem-se aos resultados 
 % de classificação da implementação original, validando assim essa nova
 % aplicação. 
-
-% \textit{Não é separado, são ideias e métodos distisntos}
 
 % Além disso, experimentos com a implementação e variações em \emph{data sets} e
 % cenários de distribuição em \emph{fog} coletando as métricas de classificação e escalabilidade.

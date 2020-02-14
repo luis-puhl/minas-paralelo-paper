@@ -11,7 +11,7 @@
 %         - gráficos, tempos, tabelas...
 %         - análises e comentários
 
-\textit{usar coeficiente d-intra vs d-extra grupo para determinar K de
+\nota{usar coeficiente d-intra vs d-extra grupo para determinar K de
 cada label}
 
 % % hélio
@@ -67,17 +67,15 @@ cada label}
 % \section{Objetivos a serem alcançados}
 % O que de fato vc irá fazer 
 
-- offline, online, ND, Clustering
-
-- observação/Considerações de paralelização
-
-Notas sobre implementação Python/Kafka/Minas (não escala como esperado)
-
-Dificuldade no processamento distribuido em Flink.
-
+\nota{
+- offline, online, ND, Clustering \\
+- observação/Considerações de paralelização \\
+- Notas sobre implementação Python/Kafka/Minas (não escala como esperado) \\
+- Dificuldade no processamento distribuido em Flink. \\
 - complexidade bigO (?)
+}
 
-\section{Cenário de Teste}
+\section{Ambiente de Teste}
 
 Para testar e demonstrar essa implementação um cenário de aplicação é construído
 onde seria vantajoso distribuir o processamento segundo o modelo \emph{fog}. Alguns
@@ -88,46 +86,49 @@ casos onde deve-se tomar ação caso uma classe ou anomalia seja detectada
 % In time, process control and automation of industrial facilities, ranging from
 % oil refineries to corn flakes factories \cite{Stonebraker2005}
 
-- detecção de intrusão
-- Arquitetura guilherme (dispositivos pequenos vs cloud)
-\cite{Cassales2019a}
-% Descrever a arquitetura IDS-IoT do paper do Guilherme
+% dataset kyoto não está disponível {http://www.takakura.com/Kyoto_data/}
 
-\textit{- BigFlow com dataset atual e maior
-data set kdd99}
-% dataset kyoto não está disponível http://www.takakura.com/Kyoto_data/
+\nota{- detecção de intrusão\\
+- Arquitetura guilherme (dispositivos pequenos vs cloud)\\
+- Descrever a arquitetura IDS-IoT do paper do Guilherme \ cite{Cassales2019a}\\
+- dataset kyoto não está disponível\\
+- \ dataset kdd99\\
+- BigFlow com \ dataset atual e maior
+}
 
 \section{Experimentos e Resultados}
-    - gráficos, tempos, tabelas...
-    - análises e comentários
 
-
-Mostrar alguma implementação já feita e que esteja funcionando minimamente
+\nota{
+- gráficos, tempos, tabelas...\\
+- análises e comentários\\
+- Mostrar alguma implementação já feita e que esteja funcionando minimamente
+}
 
 Mostrar resultados mesmo que sejam bem simples e básicos,
 apenas para demonstrar que vc domina o ambiente e as ferramentas e
 que está apto a avançar no trabalho 
 
-% discussão de 2020-02-01
-passos feitos/a fazer
-1. Entender Minas
-2. Analisar/descrever data set KDD
-3. Notas sobre implementação Python/Kafka/Minas (não escala como esperado)
-4. BigFlow (data set mais novo, usa flink)
-5. Plataforma Flink (processamento distribuído)
-Proposta
-6. Implementar minas em Scala/Flink
-7. Testar com data sets KDD e BigFlow
+\nota{discussão de 2020-02-01:\\
+passos feitos/a fazer\\
+1. Entender Minas\\
+2. Analisar/descrever data set KDD\\
+3. Notas sobre implementação Python/Kafka/Minas (não escala como esperado)\\
+4. BigFlow (data set mais novo, usa flink)\\
+5. Plataforma Flink (processamento distribuído)\\
+Proposta\\
+6. Implementar minas em Scala/Flink\\
+7. Testar com data sets KDD e BigFlow\\
 8. Validar/Comparar métricas com seus trabalhos correspondentes
-%/discussão
+}
 
-% Notas lendo Quali Casssales:
-- Descrição do hardware utilizado pode conter:
-    - Arch, OS, Kernel,
-    - CPU (core, thread, freq),
-    - RAM (total/free size, freq),
-    - Disk (total/free size, seq RW, rand RW),
-    - Net IO between nodes (direct crossover, switched, wireless, to cloud) (bandwidth, latency).
+\nota{lendo Quali Casssales:\\
+- Descrição do hardware utilizado pode conter:\\
+    - Arch, OS, Kernel,\\
+    - CPU (core, thread, freq),\\
+    - RAM (total/free size, freq),\\
+    - Disk (total/free size, seq RW, rand RW),\\
+    - Net IO between nodes (direct crossover, switched, wireless, to cloud) (bandwidth, latency).\\
 essas métricas permitem relacionar trade-offs para as questões de fog: Processar em node, edge ou cloud?
+}
 
-Provavelmente vou retirar o kafka da jogada em node/edge, deixando apenas em cloud.
+\nota{Provavelmente vou retirar o kafka da jogada em node/edge, deixando apenas em cloud.}
