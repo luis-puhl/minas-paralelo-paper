@@ -1,9 +1,38 @@
-\chapter{Cronograma}\label{cha:crono}
+\chapter{Considerações Finais}\label{cha:final}
 
+Este trabalho reúne conceitos de aprendizado de máquina com enfasê em detecção
+de novidades em fluxos contínuos de dados e conceitos de processamento
+distribuído de fluxos contínuos com o objetivo de unir a lacuna no estado da
+arte desses conceitos à luz de uma implementação e avaliação no cenário de
+fluxos de dispositivos da Internet das Coisas (\iot) em ambiente de computação
+em névoa (\fog).
+
+\nota{deixar claro que é futuro, voz singular, 3ª pessoa \\ metodologia do restante}
+
+Na sequência deste trabalho continuamos desenvolvimento da implementação objeto
+desse trabalho, \mfog, e contínua avaliação comparativa dos resultados
+produzidos por ela com seu algoritmo base, MINAS.
+Também continuamos os experimentos com os conjuntos de dados (\datasets)
+diversos e configurações de distribuição de processamento em \fog variadas
+extraíndo desses experimentos as métricas previamente discutidas.
+
+% As métricas extraídas servirão, além de resultado final para este trabalho,
+% para a construção de artigos usados para compra
+
+Dessa forma contribuímos com uma adição de uma ferramenta para os interessados
+em construir sistemas que dependem de detecção de novidades para seu bom
+funcionamento, especialmente os baseados em dispositivos \iot e/ou com fluxos
+contínuos que tradicionalmente sofrem com os ônus de latência e largura de banda
+na comunicação dos resultados da borda para a nuvem onde são normalmente
+executadas as técnicas de mineração usuais.
+
+
+\section{Cronograma}\label{sec:crono}
 % cap 5: Cronograma até a defesa
 % (quando)
 
-Neste capítulo apresentam-se as etapas previstas e sua distribuição temporal.
+Nesta Seção apresentam-se as etapas previstas e sua distribuição temporal até o
+final deste trabalho de pesquisa.
 
 % \begin{itemize}
 %   \item Enumerar métricas de qualidade de classificação e métricas de
@@ -31,28 +60,39 @@ Neste capítulo apresentam-se as etapas previstas e sua distribuição temporal.
 % \end{itemize}
 
 \begin{enumerate}[label=\Alph*)]
+  \item \label{task:Z} Exame de Qualificação;
   \item \label{task:A} Desenvolvimento da aplicação;
-  \item \label{B} Validação da aplicação em contraste com a implementação
+  \item \label{task:B} Validação da aplicação em contraste com a implementação
   MINAS original:
     \begin{itemize}
       \item preparação e, se necessário, adaptação da implementação
       original e \emph{data sets};
       \item comparação e, se necessário, ajustes à implementação.
     \end{itemize}
-  \item \label{C} Experimentos com \emph{data sets} e estratégias de 
+  \item \label{task:C} Experimentos com \emph{data sets} e estratégias de 
   distribuição em \emph{fog};
-  \item \label{D} Comparação com outros trabalhos, envolvendo:
-    \begin{itemize}
-      \item preparação e, se necessário, adaptação dos programas e \emph{data sets};
-      \item comparação e publicação dos resultados.
-    \end{itemize}
+  \item \label{task:D} Submissão de artigos com resultados de (\ref{task:C}
+  \item \label{task:E} Defesa da Disertação.
+  % \item \label{task:E} Comparação com outros trabalhos, envolvendo:
+  %   \begin{itemize}
+  %     \item preparação e, se necessário, adaptação dos programas e \emph{data sets};
+  %     \item comparação e publicação dos resultados.
+  %   \end{itemize}
 \end{enumerate}
 
-\begin{ganttchart}
-  [vgrid, expand chart=\textwidth]
-  {1}{12}
-  \gantttitle{Cronograma 2020}{12} \\
-  \gantttitlelist{1,...,12}{1} \\
-  \ganttbar{A}{1}{4} \\
-  \ganttbar{B}{5}{11}
+\noindent\begin{ganttchart}[
+  vgrid,
+  time slot format=isodate-yearmonth,
+  time slot unit=month,
+  expand chart=\textwidth,
+  inline,
+  % milestone inline label node
+]{2020-03}{2020-07}
+  \gantttitlecalendar{year, month} \\
+  \ganttbar{(\ref{task:Z}}{2020-03}{2020-03} \\
+  \ganttbar{(\ref{task:A}}{2020-03}{2020-03} \\
+  \ganttbar{(\ref{task:B}}{2020-03}{2020-04} \\
+  \ganttbar{(\ref{task:C}}{2020-03}{2020-05} \\
+  \ganttbar{(\ref{task:D}}{2020-04}{2020-07} \\
+  \ganttbar{(\ref{task:E}}{2020-06}{2020-07}
 \end{ganttchart}
