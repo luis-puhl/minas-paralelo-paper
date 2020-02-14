@@ -1,9 +1,11 @@
 % !TeX root = ./00.main.tex
 \documentclass[dissertacao]{lib/ppgccufscar}
+\usepackage[brazil]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{color}
 \usepackage{graphicx,url}
 \usepackage{multirow}
+\usepackage[inline]{enumitem}
 
 \usepackage{booktabs}
 \usepackage{graphicx}
@@ -15,11 +17,20 @@
 
 \usepackage{float}
 \usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amsfonts}
 \usepackage{tabularx}
 
 \usepackage{pgfgantt}
-\usepackage{enumitem}
 
+% \usepackage{minted}
+% \usemintedstyle{emacs}
+% \begin{minted}[breaklines]{bash}
+% $ find virusTotal_Database -type f -name '*.json' -exec grep --files-with-match -i 'Mirai' '{}';
+% \end{minted}
+
+\usepackage{navigator}
+\usepackage{microtype}
 % \usepackage{hyperref}
 % \hypersetup{
 %     colorlinks=true,
@@ -28,6 +39,10 @@
 %     urlcolor=cyan,
 % }
 
+% ---------------------------------------------------------
+\newcommand{\secef}[1]{Seção \ref{sec:#1}}
+
+% ---------------------------------------------------------
 \titulo{Uma Implementação paralela do algoritmo de Detecção de Novidade em Streams MINAS}
 \autor{Luís Henrique Puhl de Souza}
 \orientador[Orientador]{Prof. Dr. Hermes Senger}
@@ -42,8 +57,15 @@
 
 % \noindent\makebox[\textwidth]{\includegraphics[width=\paperwidth]{folha_aprovacao.jpg}}
 
-%\begin{agradecimentos}
-%\end{agradecimentos}
+\begin{agradecimentos}
+
+O presente trabalho de pesquisa está sendo realizado com o apoio parcial do
+Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq).
+
+% Coordenação de Aperfeiçoamento de Pessoal de Nível Superior - Brasil (CAPES) -
+% Código de Financiamento 001.
+
+\end{agradecimentos}
 
 %\epigrafe{Inserir depois.}{---}
 % \epigrafe{O que está certo, não está errado...}
@@ -57,7 +79,7 @@
 % \keywords{Articles, Review}
 % \end{abstract}
 
-% \listoffigures
+\listoffigures
 % \listoftables
 
 % \acronym{TI}{Tecnologia da Informação}
@@ -110,5 +132,13 @@
 \bibliography{99.referencias}
 
 %% glossário
+%% DICA: voce pode ir definindo os acronimos ao longo do texto.
+%% Por exemplo, no capitulo 1, vc ta escrevendo:
+%% Segundo Fulano, Model-Driven Development (MDD)\acronym{MDD}{Model-Driven Development} � uma t�cnica bla bla bla...
+% \listofacronyms
+
+% \apendice
+%   \input{TEXs/8-ResultsPreliminares.tex}
+% % \anexo
 
 \end{document}

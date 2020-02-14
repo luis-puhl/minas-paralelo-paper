@@ -8,6 +8,8 @@
 *.toc
 *.fdb_latexmk
 *.fls
+*.lof
+*.out
 *temp.tex
 
 # resultantes, adicionar com -f

@@ -52,6 +52,8 @@
 %% conforme a ABNT [norma de 2006 - mas nao deve ter mudado muita coisa ;)]
 %% \RequirePackage[alf]{abntcite}
 \RequirePackage[alf,abnt-etal-cite=3,abnt-etal-list=0,bibjustif]{abntex2cite}
+% \RequirePackage[breaklinks=true]{hyperref}
+% \RequirePackage[alf]{abntex2cite}
 \RequirePackage[english,brazil]{babel}
 \RequirePackage{ifthen}
 
@@ -81,6 +83,7 @@
 %% colocando valores padrões para as monografias.
 \instituicao{Universidade Federal de S\~ao Carlos}
 \local{S\~ao Carlos -- SP}
+% \comentario{\PPGtipodoc\ apresentada ao Programa de P\'os-Gradua\c{c}\~ao em Ci\^encia da Computa\c{c}\~ao da Universidade Federal de S\~ao Carlos, como parte dos requisitos para a obten\c{c}\~ao do t\'{\i}tulo de \PPGtipotitulo\ em Ci\^encia da Computa\c{c}\~ao, \'area de concentra\c{c}\~ao: \PPGareaconcentracao}
 \comentario{
 \PPGtipodoc\ apresentada ao Programa de P\'os-Gradua\c{c}\~ao em Ci\^encia da Computa\c{c}\~ao da 
 Universidade Federal de S\~ao Carlos, como parte dos requisitos para a obten\c{c}\~ao do 
@@ -325,7 +328,8 @@ Programa de P\'os-Gradua\c{c}\~ao Em Ci\^encia da Computa\c{c}\~ao}
    
    	Membros da banca:
 
-	 	\vspace*{0.5cm}
+    %  \vspace*{1.3cm}
+    \vspace*{0.5cm}
 	
 	 	\rule{8.9cm}{1pt}
 	
@@ -709,6 +713,7 @@ Programa de P\'os-Gradua\c{c}\~ao Em Ci\^encia da Computa\c{c}\~ao}
 %% fim do codigo roubado
 
 \makeatletter
+  % \newcommand{\@glossaryname}{Acr\^onimos e Siglas}
   \newcommand{\@glossaryname}{Gloss\'ario}
 	\newcount\@acronym\@acronym0
 	\newcommand\acronym[2]{%

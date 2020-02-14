@@ -1,3 +1,4 @@
+% !TeX root = ./00.main.tex
 \chapter{Fundamentos Científicos e Tecnológicos}
 \label{cha:fundamentos}
 
@@ -540,6 +541,8 @@ conjunto de trabalho distribuído em formato de memória compartilhada com
 restrições. Esse conjunto de trabalho distribuído facilita programas iterativos
 que são típicos de análise, mineração de dados e aprendizado de máquina.
 
+\textit{aqui termnia -----------------------------}
+
 Além de 
 
 Foi desenvolvido no AMPLab da Universidade da Califórnia[2] e posteriormente
@@ -651,52 +654,68 @@ Novelty Detection
 
 breve descrição do que sao algoritmos para DN
 
+\cite{Costa2019thesis}
+% Capítulo 4. Detecção de Novidade em FCDs 52
+% Dentre as diversas aplicações de DN em FCDs encontradas na literatura, destacam-se
+% Detecção de Intrusos (COULL et al., 2003; SPINOSA et al., 2008), Detecção de Falhas (ZHANG et al., 2006), Diagnósticos Médicos (PERNER, 2009; SPINOSA; CARVALHO, 2004), Detecção de Regiões de Interesse em Imagens (SINGH; MARKOU, 2004), Detecção de Fraudes (WANG et al., 2003), Detecção do Tipo de Cobertura Florestal (MASUD et al., 2011a), Filtros de Spam (HAYAT; HASHEMI, 2010), Sistemas Biométricos (PISANI; LORENA, 2011; PISANI et al.,
+% 2015; PISANI et al., 2017), Detecção de Variações Comportamentais em um Jogador (VALLIM et al., 2013) e Classificação de Texto (LI; CROFT, 2006).
+
+%     - técnicas de Detecção de novidades
+(PERNER, 2007)(GAMA, 2010)
+
+ECSMiner (MASUD et al., 2011)
+
 ver se tem algum survey e citar
 
 \section{O algoritmo MINAS}
 
 Breve descrição do MINAS \cite{Faria2016minas}.
 
+
+% Although efficient in detecting NP, MINAS is
+% very sensitive to noisy data and data scale, what causes a
+% decrease in its accuracy. \cite{DaSilva2018}
+
 ver paper da profa. Elaine
 
-% discussão de 2020-02-01
-Detecção de intrusão em redes
-    - riscos de segurança
-    % pontos de coleta de dados básicos para a maioria das estruturas de IoT sao Wireless Sensor Networks (WSN) e WSN baseadas em IP,
-    % as quais s˜ao vulneráveis e geram uma ameac¸a de seguranc¸a de alto n´ıvel (ADAT; GUPTA, 2018) Adat2018
-    % (KASINATHAN et al., 2013), a detecc¸ ˜ao de assinaturas
-    % (RAZA; WALLGREN; VOIGT, 2013; SHEIKHAN; BOSTANI, 2016) s˜ao propostos IDSs h´ıbridos com foco 
-                % espec´ıfico em ataques de roteamento como sink-hole e redireciona- mento seletivo
-    - técnicas de intrusão e tipos de ataques
-    - mecanismo de detecção (análise de fluxo de rede -> detecção de anomalia)
-    % Guilherme: A tarefa de detecção de intrusão consiste em descobrir, 
-    %           determinar e identificar a utilização, duplicação, alteração ou destruição
-    %           não autorizada de sistemas de informação (MUKKAMALA; SUNG; ABRAHAM, 2005) Mukkamala2005
-    % deteccao por assinaturas (tambem chamada de misuse-detection), deteccao comportamental (tambem chamada de anomaly-detection)e deteccao hıbrida.(MODI et al., 2013).
-    % implementacao usualmente é feita por meio de técnicas de AM e MD (BUCZAK; GUVEN, 2016).
-    % existem poucos trabalhos [..] online e deteccao de novidade ao problema [..] observado nas surveys (BUCZAK; GUVEN, 2016; MITCHELL; CHEN, 2014; MODI et al., 2013).
-    % (FURQUIM et al., 2018), os autores implementam uma arquitetura de 3 camadas (WSN, Fog e Cloud)
-    % (MIDI et al., 2017), os autores propuseram um IDS h´ıbrido [...] ativa apenas os módulos [...] especializado em um ataque espec´ıfic
-    % (FAISAL et al., 2015)externo ou interno ao Smart Meter.dados do KDD99 [...] precis˜ao, Kappa, consumo de memória, tempo e FAR
-    % extensivamente em (Sommer; Paxson, 2010) e (MCHUGH, 2000), é dif´ıcil encontrar boas me- didas de avaliac¸ ˜ao para IDSs
-    % (GAMA, 2010) afirma que no contexto de processamento de fluxo, as medidas tradicionais s˜ao impreci- sas.
-Detecção de novidades
-    % (PERNER, 2007)(GAMA, 2010). A
-    - técnicas de Detecção de novidades
-    - MINAS (incluir métricas) 
-    % (FARIA et al., 2016)
-    % ECSMiner (MASUD et al., 2011)
-    % AnyNovel (ABDALLAH et al., 2016) s˜ao
-    % medidas de Qualidade da Deteccao utilizadas foram Fnew, Mnew, Erro e a quantidade de exemplos rotulados por especialistas que cada técnica requisitou (MASUD et al., 2011)
-    - BigFlow (incluir métricas)
-Processamento de Streams (big data)
-    - cloud?
-    % A arquitetura Lambda (MARZ; WARREN, 2015) de duas camadas de CPU (stream e batch) e camada de serviço
-    % Kappa (KREPS, 2014) possui apenas um módulo de processamento on-line (apenas as camadas de processamento e servic¸o)
-    - redes como stream
-    - Atraso
-    - Kafka/Spark/Flink
-Redes IoT
-    - Restrição hardware (Energia, CPU, Mem, Rede)
-    - Consideração FOG vs Cloud
-%/discussão
+% % discussão de 2020-02-01
+% Detecção de intrusão em redes
+%     - riscos de segurança
+%     % pontos de coleta de dados básicos para a maioria das estruturas de IoT sao Wireless Sensor Networks (WSN) e WSN baseadas em IP,
+%     % as quais s˜ao vulneráveis e geram uma ameac¸a de seguranc¸a de alto n´ıvel (ADAT; GUPTA, 2018) Adat2018
+%     % (KASINATHAN et al., 2013), a detecc¸ ˜ao de assinaturas
+%     % (RAZA; WALLGREN; VOIGT, 2013; SHEIKHAN; BOSTANI, 2016) s˜ao propostos IDSs h´ıbridos com foco 
+%                 % espec´ıfico em ataques de roteamento como sink-hole e redireciona- mento seletivo
+%     - técnicas de intrusão e tipos de ataques
+%     - mecanismo de detecção (análise de fluxo de rede -> detecção de anomalia)
+%     % Guilherme: A tarefa de detecção de intrusão consiste em descobrir, 
+%     %           determinar e identificar a utilização, duplicação, alteração ou destruição
+%     %           não autorizada de sistemas de informação (MUKKAMALA; SUNG; ABRAHAM, 2005) Mukkamala2005
+%     % deteccao por assinaturas (tambem chamada de misuse-detection), deteccao comportamental (tambem chamada de anomaly-detection)e deteccao hıbrida.(MODI et al., 2013).
+%     % implementacao usualmente é feita por meio de técnicas de AM e MD (BUCZAK; GUVEN, 2016).
+%     % existem poucos trabalhos [..] online e deteccao de novidade ao problema [..] observado nas surveys (BUCZAK; GUVEN, 2016; MITCHELL; CHEN, 2014; MODI et al., 2013).
+%     % (FURQUIM et al., 2018), os autores implementam uma arquitetura de 3 camadas (WSN, Fog e Cloud)
+%     % (MIDI et al., 2017), os autores propuseram um IDS h´ıbrido [...] ativa apenas os módulos [...] especializado em um ataque espec´ıfic
+%     % (FAISAL et al., 2015)externo ou interno ao Smart Meter.dados do KDD99 [...] precis˜ao, Kappa, consumo de memória, tempo e FAR
+%     % extensivamente em (Sommer; Paxson, 2010) e (MCHUGH, 2000), é dif´ıcil encontrar boas me- didas de avaliac¸ ˜ao para IDSs
+%     % (GAMA, 2010) afirma que no contexto de processamento de fluxo, as medidas tradicionais s˜ao impreci- sas.
+% Detecção de novidades
+%     % (PERNER, 2007)(GAMA, 2010). A
+%     - técnicas de Detecção de novidades
+%     - MINAS (incluir métricas) 
+%     % (FARIA et al., 2016)
+%     % ECSMiner (MASUD et al., 2011)
+%     % AnyNovel (ABDALLAH et al., 2016) s˜ao
+%     % medidas de Qualidade da Deteccao utilizadas foram Fnew, Mnew, Erro e a quantidade de exemplos rotulados por especialistas que cada técnica requisitou (MASUD et al., 2011)
+%     - BigFlow (incluir métricas)
+% Processamento de Streams (big data)
+%     - cloud?
+%     % A arquitetura Lambda (MARZ; WARREN, 2015) de duas camadas de CPU (stream e batch) e camada de serviço
+%     % Kappa (KREPS, 2014) possui apenas um módulo de processamento on-line (apenas as camadas de processamento e servic¸o)
+%     - redes como stream
+%     - Atraso
+%     - Kafka/Spark/Flink
+% Redes IoT
+%     - Restrição hardware (Energia, CPU, Mem, Rede)
+%     - Consideração FOG vs Cloud
+% %/discussão
