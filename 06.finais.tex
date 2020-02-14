@@ -1,5 +1,10 @@
 \chapter{Considerações Finais}\label{cha:final}
 
+\begin{resumocap}
+  O capítulo a seguir resume o trabalho realizado até agora e estabelece
+  os próximos passos até sua completude.
+\end{resumocap}
+
 Este trabalho reúne conceitos de aprendizado de máquina com enfasê em detecção
 de novidades em fluxos contínuos de dados e conceitos de processamento
 distribuído de fluxos contínuos com o objetivo de unir a lacuna no estado da
@@ -7,11 +12,19 @@ arte desses conceitos à luz de uma implementação e avaliação no cenário de
 fluxos de dispositivos da Internet das Coisas (\iot) em ambiente de computação
 em névoa (\fog).
 
+O objeto central desse trabalho (\mfog) implementa o algoritmo MINAS na
+plataforma de processamento de fluxos \flink em três módulos que podem ser
+distribuídos em um ambiente de \fog.
+Sua distribuição permite selecionar o nó que tem os recursos computacionais mais
+adequado para cada tarefa.
+A avaliação do \mfog é feita por meio de métricas de qualidade de classificação
+e métricas de escalabilidade.
+
 \nota{deixar claro que é futuro, voz singular, 3ª pessoa \\ metodologia do restante}
 
-Na sequência deste trabalho continuamos desenvolvimento da implementação objeto
-desse trabalho, \mfog, e contínua avaliação comparativa dos resultados
-produzidos por ela com seu algoritmo base, MINAS.
+Dando continuidade a este trabalho, o desenvolvimento da implementação objeto
+(\mfog) continuará bem como a contínua avaliação comparativa dos resultados
+produzidos pelo \mfog com seu algoritmo base, MINAS.
 Também continuamos os experimentos com os conjuntos de dados (\datasets)
 diversos e configurações de distribuição de processamento em \fog variadas
 extraíndo desses experimentos as métricas previamente discutidas.
