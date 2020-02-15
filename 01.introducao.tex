@@ -109,11 +109,11 @@ sem precedentes e, proporcionalmente, cresceu o volume de  dados gerados por ess
 
 A análise desses dados pode trazer novos conhecimentos e foi um tema frequentemente
 abordado por trabalhos de pesquisa na última década.
-No entanto, além dos
+Além dos
 dados de sensores e atuadores esses dispositivos, quando subvertidos, podem
 gerar outro tipo de tráfego, maligno à sociedade, como o gerado pela
 \emph{botnet} mirai em 2016 \cite{Kambourakis2017}. Nesse cenário são fatores
-que possibilitaram esses ataques: falta de controle sobre a origem do hardware e
+que possibilitam a subversão desses dispositivos: falta de controle sobre a origem do hardware e
 software embarcado nos dispositivos além das cruciais atualizações de segurança.
 
 % The Internet of Things (IoT) has been defined in Recommendation ITU-T Y.2060 (06/2012) as
@@ -141,9 +141,11 @@ detecção de intrusão.
 Técnicas de \emph{Data Stream Mining} envolvem mineração de dados
 (\emph{Data Mining}), aprendizado de
 máquina (\emph{Machine Learning}) e recentemente Detecção de Novidades
-(\emph{Novelty Detection} - ND). ND além de classificar em modelos conhecidos
-permite descobrir novos padrões e, consequentemente, atuar coerentemente mesmo
-em face a valores nunca vistos. Essa capacidade é relevante em especial para o
+(\emph{Novelty Detection} - ND).
+ND além de classificar em modelos conhecidos
+permite classificar novos padrões e, consequentemente, atuar corretamente mesmo
+em face a padrões nunca vistos.
+Essa capacidade é relevante em especial para o
 exemplo de detecção de intrusão, onde novidades na rede podem distinguir novas
 funcionalidades (entregues aos dispositivos após sua implantação em campo) de
 ataques por agentes externos sem assinatura existente em bancos de
@@ -166,15 +168,15 @@ No contexto de detecção de novidades para fluxos de dados em \emph{fog}, uma
 arquitetura recente proposta por \citeonline{Cassales2019a}, baseada no algoritmo
 de detecção de novidades em fluxo de dados MINAS
 \cite{Faria2016minas}, mostra resultados promissores.
-
-A arquitetura proposta foi avaliada com conjunto de dados (\emph{data set}) \emph{Kyoto 2006+} que
-coletou dados de 348 \emph{Honeypots} (máquinas isoladas com diversos softwares
+A arquitetura proposta foi avaliada com conjunto de dados (\emph{data set}) \emph{Kyoto 2006+} 
+composto de dados coletados de 348 \emph{Honeypots} (máquinas isoladas com diversos softwares
 com vulnerabilidades conhecidas expostas à Internet com propósito de atrair
-ataques) de 2006 até dezembro 2015. Com 24 atributos, 3 etiquetas atribuídas por
-detectores de intrusão comerciais de detecção de intrusão e uma etiqueta
+ataques) de 2006 até dezembro 2015. 
+O \emph{data set} \emph{Kyoto 2006+} contém 24 atributos, 3 etiquetas atribuídas por
+detectores de intrusão comerciais e uma etiqueta
 distinguindo o tráfego entre normal, ataque conhecido e ataque desconhecido
 \cite{Cassales2019a}.
-Contudo, esse algoritmo ainda não foi implementado e avaliado com paralelismo
+Contudo, o algoritmo MINAS ainda não foi implementado e avaliado com paralelismo
 multi-processamento ou distribuído.
 
 Outras propostas tratam do caso de grandes volumes e velocidades, como é o caso
@@ -206,10 +208,11 @@ utilizando classificadores já estabelecidos na biblioteca \emph{Massive Online 
 adição de um módulo de verificação que armazena valores classificados com baixa
 confiança para serem manualmente avaliados por um especialista \cite{Viegas2019}.
 A escolha dessa
-abordagem não é nova e visa mitigar problemas como
+abordagem não é nova e visa tratar nuances do problema abordado como
 variação temporal de conceitos conhecidos (\emph{Concept Drift}) e
 conceitos emergentes (\emph{Concept Evolution})
-\cite{Faria2016nd} com a redução de acurácia durante na
+\cite{Faria2016nd}.
+Essas nuances causam redução de acurácia durante a
 avaliação inicial dos algoritmos tradicionais e devidamente mitigada com a
 atualização constante do modelo. Esses problemas são amplamente abordados e
 tratados em outros algoritmos como o MINAS \cite{Faria2016minas}.
@@ -217,8 +220,9 @@ tratados em outros algoritmos como o MINAS \cite{Faria2016minas}.
 Os trabalhos de \citeonline{Cassales2019a} e \citeonline{Viegas2019} abordam
 detecção de intrusão em redes utilizando algoritmos de ND em DS porém com
 perspectivas diferentes.
-O primeiro observa \emph{IoT}, processamento em \emph{fog}, baseia-se em um
-algoritmo genérico de detecção de novidade e o segundo observa \emph{backbones},
+O primeiro observa \emph{IoT} e processamento em \emph{fog}, baseia-se em um
+algoritmo genérico de detecção de novidade.
+O segundo trabalho observa \emph{backbones} e
 processamento em \emph{cloud}, implementa o próprio algoritmo de detecção de
 novidade. Essas diferenças deixam uma lacuna onde de um lado tem-se uma
 arquitetura mais adequada para \emph{fog} com um algoritmo estado da arte de
@@ -226,13 +230,11 @@ detecção de novidades porém sem paralelismo e, de outro, tem-se um sistema
 escalável de alto desempenho porém almejando outra arquitetura (\emph{cloud}) e
 com um algoritmo menos preparado para os desafios de detecção de novidades.
 
-
-
 % \nota{
 % \\ deixar mais claro o contraste entre cassales e bigflow
 % \\ abordar o **gap** no qual a minha pesquisa entra
 % \\ mostrar que modelo bigflow não considera fog
-% \\ arquiteutra distribuida em fog com minas e alto desempenho big flow
+% \\ arquiteutra distribuida em fog com minas e alto desempenho bigflow
 % }
 
 \section{Objetivos}
@@ -256,8 +258,9 @@ Propõem-se então a construção de uma aplicação que implemente o algoritmo 
 de maneira escalável e distribuível para nós \emph{multi-core} e a avaliação
 dessa implementação com experimentos baseados na literatura e conjunto de dados
 públicos relevantes para facilitar posterior comparação com outras
-implementações. O resultado esperado é uma implementação compatível em qualidade de
-classificação a seu original e com escalabilidade semelhante demonstrada pelo
+implementações.
+O resultado esperado é uma implementação compatível em qualidade de
+classificação ao algoritmo MINAS e com escalabilidade semelhante demonstrada pelo
 \emph{BigFlow}.
 
 % discussão de 2020-02-01
@@ -267,8 +270,6 @@ classificação a seu original e com escalabilidade semelhante demonstrada pelo
 
 % O que o minas-flink tem de especial para detecção de intrusão?
 % - conformidade com variação da rede
-
-Com foco no objetivo geral, alguns objetivos secundários são propostos:
 
 % % Objetivos secundários:
 % % visto como um passo-a-passo até o objetivo principal.
@@ -282,6 +283,8 @@ Com foco no objetivo geral, alguns objetivos secundários são propostos:
 % Validar a implementação comparando as métricas extraídas da implementação com as encontradas na literatura;
 % % teste ferramentas de stream (python/kafaka, scala/flink)
 % Extrair as métricas de desempenho da implementação com data sets diferentes;
+
+Com foco no objetivo geral, alguns objetivos secundários são propostos:
 
 \begin{itemize}
     \item Identificar métricas de qualidade de classificação e métricas de
@@ -299,12 +302,8 @@ Com foco no objetivo geral, alguns objetivos secundários são propostos:
     \item Validar, por meio de comparação com o algoritmo original, se a
     implementação gera os mesmos resultados quanto a classificação;
     \item Extrair métricas de escalabilidade por meio de experimentação;
-    \item Avaliar estratégias de distribuição do algoritmo em \emph{fog} como:
-    \begin{itemize}
-        \item Detecção de novidade nas brodas;
-        \item Detecção de novidade na nuvem;
-        \item Detecção de novidade nas bordas e em nuvem;
-    \end{itemize}
+    \item Avaliar estratégias de distribuição 
+    (execução nas bordas, na nuvem e mista) do algoritmo em \emph{fog} 
     e seu o impacto na qualidade de classificação e volume computado.
 \end{itemize}
 
@@ -336,27 +335,23 @@ horizontal).
 
 A revisão da literatura técnica foca em plataformas, ferramentas e técnicas
 para realizar a implementação proposta.
-Portanto, serão selecionadas plataformas de processamento distribuído de fluxos
-contínuos de dados e técnicas de aprendizado de máquina associadas a elas. Dessa revisão também são obtidas
-as técnicas ou ferramentas necessárias
+Portanto, serão selecionadas plataformas de processamento distribuído de DS
+e técnicas de aprendizado de máquina associadas a elas.
+Dessa revisão também são obtidas técnicas ou ferramentas necessárias
 para extração das métricas de avaliação bem como \emph{data sets}
 públicos relevantes para detecção de novidades em DS.
 
 Uma vez definidos o estado da arte, as ferramentas técnicas e os
 \emph{data sets}, o passo seguinte é a experimentação.
-Nesse passo é desenvolvida uma aplicação multi-processada que, com base no
+Nesse passo é desenvolvida uma aplicação na plataforma escolhida que, com base no
 algoritmo MINAS \cite{Faria2016minas}, classifica e detecta novidades em DS.
-Os resultados de classificação dessa implementação equivalem-se aos resultados 
-de classificação da implementação original, validando assim essa nova
-aplicação. 
-
-\nota{Não é separado, são ideias e métodos distisntos}
-
-Além disso, experimentos com a implementação e variações em \emph{data sets} e
+Também nesse passo a implementação é validada comparando os resultados de
+classificação obtidos com os resultados de classificação do algoritmo original
+MINAS.
+Posteriormente, serão realizados experimentos com a implementação e variações em \emph{data sets} e
 cenários de distribuição em \emph{fog} coletando as métricas de classificação e escalabilidade.
-Os resultados serão comparados entre si e com outros trabalhos.
 
-E ao final, a aplicação, resultados, comparações e discussões serão publicados
+Ao final, a aplicação, resultados, comparações e discussões serão publicados
 nos meios e formatos adequados como repositórios técnicos, eventos ou revistas
 acadêmicas.
 
