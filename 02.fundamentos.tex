@@ -417,8 +417,8 @@ nomeada de arquitetura totalmente incremental por \citeonline{marz2015big},
 foi evoluída e simplificada iterativamente durante décadas de uso, porém ela não
 é adequada para sistemas em tempo real, como os sistema de fluxo de dados.
 
-\newcommand{\lambda}{\xspace\emph{Lambda}\xspace}
-\newcommand{\kappa}{\xspace\emph{Kappa}\xspace}
+\newcommand{\lambdaa}{\xspace\emph{Lambda}\xspace}
+\newcommand{\kappaa}{\xspace\emph{Kappa}\xspace}
 
 O volume e velocidade de dados em um \emph{Data Stream} leva a necessidade de
 distribuir o processamento acrescentando poder computacional a cada nó
@@ -426,11 +426,11 @@ adicionado, porém desafios como comunicação eficiente e sincronização de es
 entre os nós assim como tolerância a falhas aumentam a complexidade de
 construção de um sistema distribuído em relação a um sistema tradicional.
 Para mitigar esses problemas foram propostas arquiteturas de processamento de fluxo
-de dados distribuído, como arquitetura \emph{Lambda} e \emph{Kappa}, além de
+de dados distribuído, como arquitetura \lambdaa e \kappaa, além de
 diversas plataformas tanto de \emph{Big Data} com características de tempo real
 como especializadas em fluxo de dados.
 
-A arquitetura \emph{Lambda} divide o processamento em três camadas: lotes, serviço
+A arquitetura \lambdaa divide o processamento em três camadas: lotes, serviço
 e velocidade. A camada de lotes atua sobre o conjunto mestre em modo de leitura
 sequencial, armazenando-o em sistema de arquivos distribuído e pré-processando
 várias visões sobre esse conjunto mestre. Essas visões (armazenadas num SGBD
@@ -442,7 +442,7 @@ de latência em um sistema em tempo real, portanto a camada de velocidade
 complementa os dados das visões com dados diretamente do conjunto mestre em
 tempo real diretamente para a camada de serviço \cite{marz2015big}.
 
-A Figura \ref{fig:lambda} ilustra uma implementação da arquitetura \emph{Lambda}
+A Figura \ref{fig:lambda} ilustra uma implementação da arquitetura \lambdaa
 onde a \emph{Apache Kafka}, \emph{Apache Storm}, \emph{Apache Hadoop}
 implementam o conjunto mestre, camada de velocidade e camada de lotes
 respectivamente.
@@ -450,22 +450,22 @@ respectivamente.
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.6\textwidth]{figuras/lambda.png}
-\caption{Arquitetura \emph{Lambda} com detalhes práticos \cite{Kreps2014}.}
+\caption{Arquitetura \lambdaa com detalhes práticos \cite{Kreps2014}.}
 \label{fig:lambda}
 \end{figure}
 
-Em contraposição à arquitetura \emph{Lambda}, observações práticas de 
+Em contraposição à arquitetura \lambdaa, observações práticas de 
 \citeonline{Kreps2014} mostram que o sistema de fila de mensagens
 (no exemplo \emph{Apache Kafka}) já traz as garantias de
 escalabilidade, consistência, tolerância a falhas, replicação e armazenamento de longo prazo.
 Com isso, \citeonline{Kreps2014} propõe que as camadas de lotes e velocidade sejam
 unificadas em uma camada de processamento de fluxo, cujos resultados sejam entregues
-continuamente para a camada de serviço através de um SGBD, definindo assim a arquitetura \emph{Kappa}
+continuamente para a camada de serviço através de um SGBD, definindo assim a arquitetura \kappaa
 Essa proposta simplifica a aplicação de três implementações para duas eliminando a
 repetição de tarefas executadas pelas camadas de lotes e velocidade que
 produziam o mesmo resultado.
 
-% A arquitetura \emph{Kappa} limita-se ao processamento de \emph{Stream} apenas
+% A arquitetura \kappaa limita-se ao processamento de \emph{Stream} apenas
 % \emph{on-line} destila outras observações quanto a complexidade temporal do
 % sistema completo de que se uma aplicação não processa os dados em tempo menor
 % que linear, dados serão perdidos ou a complexidade espacial são será satisfeita,
@@ -498,7 +498,7 @@ programas escritos por usuários sendo executados sob supervisão de um nó mest
 Essa implementação tem esquema geral de processamento em lotes que não atende o
 requisito de baixa latência.
 \emph{MapReduce} é uma das principais influências na criação da arquitetura
-\emph{lambda} \cite{marz2015big}.
+\lambdaa \cite{marz2015big}.
 
 \emph{Apache Hadoop} é uma coleção de ferramentas incluindo: \emph{Hadoop
 Distributed File System} (HDFS) um sistema de arquivos distribuído, \emph{Hadoop
