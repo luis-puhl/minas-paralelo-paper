@@ -44,7 +44,7 @@ A computação em nuvem (em inglês, \emph{cloud computing}), ou simplesmente nu
 (\emph{cloud}), habilita o acesso através da rede a um grupo compartilhado de
 recursos de computação configuráveis (servidores, redes, aplicativo,
 armazenamento, serviços, etc.) que podem ser provisionados ou liberados sob
-demanda e rapidamente com o mínimo esforço de gerenciamento ou interação com o
+demanda rapidamente com o mínimo esforço de gerenciamento ou interação com o
 provedor de serviços \cite{NIST2011}. As principais características do
 \emph{cloud computing} são:
 
@@ -55,7 +55,7 @@ provedor de serviços \cite{NIST2011}. As principais características do
 \begin{itemize}
     
     \item \textbf{Serviço sob Demanda:} o cliente pode provisionar ou liberar
-    capacidades de computação (ex: tempo de servidor e armazenamento) conforme o
+    capacidades de computação (ex: tempo de processamento e armazenamento) conforme o
     necessário sem requer interação com o provedor de serviço;
     
     \item \textbf{Amplo acesso à rede:} o acesso aos recursos de computação e
@@ -119,21 +119,20 @@ capacidades dentre outras dos nós da borda (\emph{edge nodes}) possibilita que 
 computação de borda reduza a latência na resposta da nuvem pré-processando os
 dados nos nós da borda, aproveitando melhor a banda e a transmissão de dados, e
 também consumindo menos recursos de computação na nuvem. Além disso, o autor
-ainda acrescentar que o \emph{edge computing} pode aumentar a privacidade dos
+ainda acrescenta que o \emph{edge computing} pode aumentar a privacidade dos
 dados uma vez que o dado pode ser processado no próprio dispositivo final.
 
 A computação de borda tenta trazer a computação mais próxima das fontes de
 dados, como mostra a Figura \ref{edge-computing}. Como é observado na figura, os
 componentes desse tipo de computação podem ser tanto produtores como
 consumidores, não só requisitando serviços e conteúdo da nuvem, mas também
-realizando tarefas da nuvem. Algumas aplicações da computação de borda são: nós
-de borda fazendo análise de vídeo; diminuir a latência da nuvem para sistemas
-críticos; descarregar a nuvem de parte da computação, pois a borda também tem
-capacidade de processamento; privacidade dos dados produzidos por \emph{smart
-homes} e sensores IoT, pois dados sensíveis não precisam ir para a nuvem,
-liberando também cargas de dados na rede; processamento distribuído nos nós da
-borda de dados provenientes de milhões de sensores em cidades inteligentes.
-
+realizando tarefas da nuvem.
+Algumas aplicações da computação de borda são: análise de vídeo;
+redução de latência da nuvem para sistemas críticos;
+descarregar a nuvem de parte da computação;
+privacidade dos dados produzidos mantendo eles fora de ambientes públicos;
+redução das cargas de dados na rede;
+processamento distribuído de sensoriamento massivo em cidades inteligentes \cite{Shi2016}.
 
 \begin{figure}[ht]
 \centering
@@ -159,13 +158,13 @@ contenção dos recursos e aumento na latência do processamento
 \cite{Dastjerdi2016}. Portanto, para solucionar estas questões de latência e
 capacidade limita dos dispositivos de borda, a computação em névoa foi proposta.
 
-A computação em névoa (em inglês, \emph{fog computing}) é um paradigma que traz
-as capacidades de computação, armazenamento e rede para próximo das fontes dados
-e dos dispositivos finais, mas não necessariamente localizados na borda
-\cite{Bonomi2012} \cite{Dastjerdi2016} \cite{IEEECommunicationsSociety2018}.
-Esse tipo de computação evita a contenção dos recursos dos dispositivos mais
-próximos às fontes de dados fornecendo-os capacidade de nuvem e coordenando-os
-geograficamente distribuídos. \citeonline{Bonomi2012} e
+A computação em névoa (\emph{fog computing}) é um paradigma que distribui
+as capacidades de computação, armazenamento e rede entre os nós próximos das fontes dados
+e dos dispositivos finais, mas não necessariamente localizados na borda,
+dando a esses nós características de uma nuvem
+\cite{Bonomi2012,Dastjerdi2016,IEEECommunicationsSociety2018}.
+Esse tipo de computação evita a sobrecarga dos dispositivos de borda.
+\citeonline{Bonomi2012} e
 \citeonline{Dastjerdi2016} veem o \emph{fog computing} como complementar da
 \emph{edge computing}, podendo a computação em névoa aproveitar os recursos da
 nuvem e da borda. \citeonline{IEEECommunicationsSociety2018} considera que a
@@ -193,7 +192,7 @@ características da computação em névoa são:
 
     \item \textbf{Distribuição geográfica:} o \emph{fog computing} possui
     milhares de sensores e dispositivos distribuídos geograficamente e a
-    consciência da localização deles (em inglês, \emph{location awareness});
+    consciência da localização deles (\emph{location awareness});
 
     \item \textbf{Alto número de nós:} seguindo os ambientes IoT, a computação
     em névoa pode ser composta por milhares de nós;
@@ -206,8 +205,8 @@ características da computação em névoa são:
     computação em névoa pode envolver aplicações que processam em lote, mas na
     maior parte das vezes envolve aplicações com requisito de processamento em
     tempo real, e para isso fazem o uso de fluxo de dados. Por exemplo, os
-    sensores de um rede IoT inscrevem a informação no fluxo de dados, a
-    informação é processada, e os \emph{insights} extraídos são traduzidos em
+    sensores de um rede IoT escrevem a informação no fluxo de dados, a
+    informação é processada, ações são inferidas e traduzidos em
     ações nos componentes atuadores.
 
 \end{itemize}
@@ -276,9 +275,9 @@ emergência.
 
 A Mineração de Dados é o processo de descoberta de padrões em conjuntos de dados
 utilizando métodos derivados de aprendizagem de máquina, estatística e banco de
-dados \cite{Gaber2005}. Um caso de mineração de dados é \emph{Big Data} onde o
+dados \cite{Gaber2005}. Um caso de mineração de dados é o \emph{Big Data} onde o
 conjunto de dados não pode ser processado em um tempo viável devido a limitações
-como armazenado na memória ou armazenamento principal.
+como memória ou armazenamento principal.
 
 % Data stream mining is concerned with the extraction of knowledge from large
 % amounts of continuously generated data in a non-stationary environment. Novelty
@@ -311,7 +310,7 @@ como armazenado na memória ou armazenamento principal.
 Além da dimensão de armazenamento outra dimensão que afeta a maneira como dados
 são modelados e manipulados é o tempo. Um Fluxo de Dados (\emph{Data Stream}) é
 uma sequência de registros produzidos a uma taxa muito alta, associadas ao tempo
-real, ilimitados, que excede recursos de armazenamento e comunicação \cite{Gaber2005}.
+real, ilimitados, que excede recursos de armazenamento \cite{Gaber2005}.
 Modelos de mineração de fluxo de dados atendem a esses desafios utilizando
 restrições como apenas uma leitura do conjunto de dados e complexidade
 de processamento menor que linear \cite{Gama2007, Gaber2005}.
@@ -415,31 +414,35 @@ de processamento menor que linear \cite{Gama2007, Gaber2005}.
 Tradicionalmente, aplicações foram construídas com um sistema gerenciador de
 banco de dados (SGBD) relacional ou não-relacional associado. Essa arquitetura,
 nomeada de arquitetura totalmente incremental por \citeonline{marz2015big},
-foi evoluída e simplificada iterativamente durante décadas de uso porém ela não
+foi evoluída e simplificada iterativamente durante décadas de uso, porém ela não
 é adequada para sistemas em tempo real, como os sistema de fluxo de dados.
+
+\newcommand{\lambda}{\xspace\emph{Lambda}\xspace}
+\newcommand{\kappa}{\xspace\emph{Kappa}\xspace}
 
 O volume e velocidade de dados em um \emph{Data Stream} leva a necessidade de
 distribuir o processamento acrescentando poder computacional a cada nó
-adicionado porém desafios como comunicação eficiente e sincronização de estado
+adicionado, porém desafios como comunicação eficiente e sincronização de estado
 entre os nós assim como tolerância a falhas aumentam a complexidade de
-construção de um sistema distribuído em relação a um sistema tradicional. Para
-mitigar esses problemas foram propostas arquiteturas de processamento de fluxo
-de dados distribuído como arquitetura \emph{lambda} e \emph{kappa} além de
+construção de um sistema distribuído em relação a um sistema tradicional.
+Para mitigar esses problemas foram propostas arquiteturas de processamento de fluxo
+de dados distribuído, como arquitetura \emph{Lambda} e \emph{Kappa}, além de
 diversas plataformas tanto de \emph{Big Data} com características de tempo real
 como especializadas em fluxo de dados.
 
-Arquitetura \emph{lambda} divide o processamento em três camadas: lotes, serviço
+A arquitetura \emph{Lambda} divide o processamento em três camadas: lotes, serviço
 e velocidade. A camada de lotes atua sobre o conjunto mestre em modo de leitura
-sequencial, armazenando-o em sistema de aquivos distribuído e pré-processando
-várias visões sobre esse conjunto mestre, essas visões (armazenadas num SGBD
+sequencial, armazenando-o em sistema de arquivos distribuído e pré-processando
+várias visões sobre esse conjunto mestre. Essas visões (armazenadas num SGBD
 tradicional) são consumidas pela camada de serviço, que portanto tem acesso
-regular (leitura aleatória), no entanto as garantias oferecidas pela camada de
+regular (leitura aleatória).
+No entanto, as garantias oferecidas pela camada de
 lotes (escalabilidade, consistência, tolerância a falhas) não atendem os requisitos
 de latência em um sistema em tempo real, portanto a camada de velocidade
 complementa os dados das visões com dados diretamente do conjunto mestre em
 tempo real diretamente para a camada de serviço \cite{marz2015big}.
 
-A Figura \ref{lambda} ilustra uma implementação da arquitetura \emph{Lambda}
+A Figura \ref{fig:lambda} ilustra uma implementação da arquitetura \emph{Lambda}
 onde a \emph{Apache Kafka}, \emph{Apache Storm}, \emph{Apache Hadoop}
 implementam o conjunto mestre, camada de velocidade e camada de lotes
 respectivamente.
@@ -448,49 +451,53 @@ respectivamente.
 \centering
 \includegraphics[width=0.6\textwidth]{figuras/lambda.png}
 \caption{Arquitetura \emph{Lambda} com detalhes práticos \cite{Kreps2014}.}
-\label{lambda}
+\label{fig:lambda}
 \end{figure}
 
-No entanto, observações práticas de \citeonline{Kreps2014} mostram que como o
-sistema de fila de mensagens (no exemplo \emph{Apache Kafka}) fonte do conjunto
-de dados mestre por lidar com diversas fontes, garantir tolerância a falhas,
-replicação e armazenamento de longo prazo, poderia ser usado como fonte de
-verdade em conjunto com a arquitetura totalmente incremental (tradicional)
-substituindo as camadas de lotes e velocidade e o sistema de aquivos distribuído
-simplificando a aplicação de três implementações para duas eliminando a
+Em contraposição à arquitetura \emph{Lambda}, observações práticas de 
+\citeonline{Kreps2014} mostram que o sistema de fila de mensagens
+(no exemplo \emph{Apache Kafka}) já traz as garantias de
+escalabilidade, consistência, tolerância a falhas, replicação e armazenamento de longo prazo.
+Com isso, \citeonline{Kreps2014} propõe que as camadas de lotes e velocidade sejam
+unificadas em uma camada de processamento de fluxo, cujos resultados sejam entregues
+continuamente para a camada de serviço através de um SGBD, definindo assim a arquitetura \emph{Kappa}
+Essa proposta simplifica a aplicação de três implementações para duas eliminando a
 repetição de tarefas executadas pelas camadas de lotes e velocidade que
 produziam o mesmo resultado.
 
-Essa arquitetura que limita-se ao processamento de \emph{Stream} apenas
-\emph{on-line} destila outras observações quanto a complexidade temporal do
-sistema completo de que se uma aplicação não processa os dados em tempo menor
-que linear, dados serão perdidos ou a complexidade espacial são será satisfeita,
-em resumo, a aplicação sempre deve ser mais rápida que o \emph{Stream}
-\cite{marz2015big}.
+% A arquitetura \emph{Kappa} limita-se ao processamento de \emph{Stream} apenas
+% \emph{on-line} destila outras observações quanto a complexidade temporal do
+% sistema completo de que se uma aplicação não processa os dados em tempo menor
+% que linear, dados serão perdidos ou a complexidade espacial são será satisfeita,
+% em resumo, a aplicação sempre deve ser mais rápida que o \emph{Stream}
+% \cite{marz2015big}.
 
 % - MapReduce, Hadoop, Spark, Storm
 % Breve descrição do MapReduce e Hadoop
 % O que são e para que servem essas ferramentas
 
-Em sincronia com os desenvolvimentos em arquiteturas de processamento de fluxo,
+Em sincronia com os desenvolvimentos em arquiteturas de processamento de fluxo de dados,
 durante as últimas duas décadas foram construídas diversas plataformas de
 processamento para \emph{Big Data} e \emph{Streams}.
 % A seguir descrevemos algumas das mais notáveis (?)
 
 \emph{MapReduce} é a primeira plataforma de processamento de conjuntos massivos
-de dados que atingiu uso generalizado. Nessa implementação uma biblioteca
+de dados que atingiu uso generalizado.
+Nessa implementação uma biblioteca
 gerencia a distribuição, paralelização, tolerância a falhas e balanceamento de
-carga e ao usuário resta implementar duas funções: \emph{Map} que recebe uma par
+carga.
+Ao usuário da biblioteca resta implementar duas funções:
+\emph{Map} que recebe um par ordenado
 $(chave, valor)$ e emite um conjunto de pares intermediários na mesma estrutura;
 \emph{Reduce} recebe uma chave e um conjunto de valores gerado pelo agrupamento
-de pares com a mesma chave \cite{Dean2004}.
+de pares com essa mesma chave \cite{Dean2004}.
 
-Em prática um \emph{cluster} tem centenas processadores e o conjunto de dados é
+Em prática um \emph{cluster MapReduce} tem centenas de processadores e o conjunto de dados é
 armazenado em um sistema de arquivos distribuído que é lido pela plataforma com
-programas escritos por usuários sendo executados sob supervisão de nó mestre.
+programas escritos por usuários sendo executados sob supervisão de um nó mestre.
 Essa implementação tem esquema geral de processamento em lotes que não atende o
-requisito de baixa latência porém suas vantagens sobrepunham as desvantagens.
-\emph{MapReduce} é uma das principais influencias na criação da arquitetura
+requisito de baixa latência.
+\emph{MapReduce} é uma das principais influências na criação da arquitetura
 \emph{lambda} \cite{marz2015big}.
 
 \emph{Apache Hadoop} é uma coleção de ferramentas incluindo: \emph{Hadoop
@@ -525,7 +532,7 @@ YARN} um gerenciador de recursos em cluster e escalonador de trabalhos e,
 construção de sistemas de computação distribuída em \emph{cluster} com garantias
 de tolerância a falhas. No entanto, o modelo de processamento diverge
 significativamente do tradicional \emph{MapReduce} utilizando em lugar do HDFS
-um multi-set de apenas leitura distribuído (\emph{Resilient Distributed Dataset}
+um multiconjunto de apenas leitura distribuído (\emph{Resilient Distributed Dataset}
 - RDD) com um escalonador de trabalhos representados por grafos acíclicos
 direcionados (\emph{directed acyclic graph} - DAG), otimizador de consultas e
 motor de execução \cite{ApacheSpark2020}.
@@ -537,14 +544,15 @@ motor de execução \cite{ApacheSpark2020}.
 
 Enquanto programas \emph{MapReduce} fazem sua entrada de dados por leitura de um
 disco, executam a função \emph{Map} em todos os items, agrupam, executam
-\emph{Reduce} e armazenam o resultado em disco novamente, RDD opera com um
+\emph{Reduce} e armazenam o resultado em disco novamente, o RDD opera com um
 conjunto de trabalho distribuído em formato de memória compartilhada com
 restrições. Esse conjunto de trabalho distribuído facilita programas iterativos
 que são típicos de análise, mineração de dados e aprendizado de máquina.
 
-\nota{aqui termnia -----------------------------}
+\nota{Falar de Spark Streaming}
 
-Além de 
+\emph{Apache Spark} também inclui biblioteca de processamento de fluxo de dados
+baseada na estratégia de micro-lotes (\emph{micro-batching}) \emph{Spark Streaming}.
 
 Foi desenvolvido no AMPLab da Universidade da Califórnia[2] e posteriormente
 doado para a Apache Software Foundation[3] que o mantém desde então.
@@ -563,8 +571,11 @@ e localidade de dados, como
 api em Python (dataframe de pandas)
 % ------------------------------------------------------------------------------------------------------
 
+\nota{Falar de Apache Storm}
 
 \section{Apache Flink}
+
+\nota{Descrever o flink, diferenças entre as outras plataformas e dar exemplos de código}
 
 Breve descrição do Flink (como esse vai ser usado, precisa explicar um pouco melhor - 2 paginas pelo menos):\\
 - arquitetura\\
@@ -654,6 +665,8 @@ Breve descrição do Flink (como esse vai ser usado, precisa explicar um pouco m
 Novelty Detection
 
 breve descrição do que sao algoritmos para DN
+
+\nota{Concept: Drift and evolution}
 
 \cite{Costa2019thesis}
 % Capítulo 4. Detecção de Novidade em FCDs 52
