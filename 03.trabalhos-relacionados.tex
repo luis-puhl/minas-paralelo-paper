@@ -14,9 +14,14 @@
 %     - implementação paralelas/distribuídas em dispositivos pequenos
 % % 
 
-Esse Capítulo trata dos trabalhos relacionados e estabelece o estado da arte
+
+\begin{resumocap}
+
+Este Capítulo trata dos trabalhos relacionados e estabelece o estado da arte
 dos tópicos Detecção de Novidades em Fluxos de Dados, e 
 Processamento Distribuído de Fluxos de Dados.
+
+\end{resumocap}
 
 \section{Algoritmo MINAS e Algoritmos Derivados}
 
@@ -34,7 +39,7 @@ conhecida e reconhecer novas classes sem intervenção de especialista
 aqueles apresentados em trabalhos publicados após 2016 que estendem a
 implementação original seguindo sua estrutura básica.
 
-\subsection*{Algoritmo FuzzyND}
+\subsection{Algoritmo FuzzyND}
 
 % FuzzyND
 % $(n, \mathit{M}, \overline{CF1^x}, SSD^e, t, l)$
@@ -43,7 +48,7 @@ implementação original seguindo sua estrutura básica.
 % substituindo a soma linear dos elementos ($LS$) por  e $SS$ por $M$ e $$
 
 O algoritmo FuzzyND, derivado do MINAS é proposto por \citeonline{DaSilva2018}.
-FuzzyND incrementa o algoritmo inicial aplicando à ele teorias de
+FuzzyND incrementa o algoritmo original aplicando a ele teorias de
 conjuntos \emph{fuzzy} pela modificação da representação dos \clusters.
 A modificação afeta os métodos de construção de \clusters, classificação
 de exemplos e detecção de novidades de acordo com a nova representação.
@@ -58,7 +63,7 @@ descrita por \citeonline{Faria2016nd} extraindo dessa matriz duas métricas:
 acurácia (\emph{Macro F-Score}) \cite{Sokolova2009} e
 taxa de desconhecidos (\emph{UnkR}) \cite{Faria2016minas}.
 Em geral o algoritmo FuzzyND detecta melhor novidades e, consequentemente,
-é mais robusto à valores atípicos (\emph{outlier}) porém perde a capaciade
+é mais robusto a valores atípicos (\emph{outlier}), porém perde a capacidade
 de reconhecer padrões recorrentes.
 
 
@@ -72,13 +77,13 @@ de reconhecer padrões recorrentes.
 % [27] E. R. de Faria, I. R. Goncalves, J. Gama, A. C. P. de Leon Ferreira et al., “Evaluation of multiclass novelty detection algorithms for data streams,” IEEE Transactions on Knowledge and Data Engineering, vol. 27, no. 11, pp. 2961–2973, 2015.
 % [28] M. Sokolova and G. Lapalme, “A systematic analysis of performance measures for classification tasks,” Information Processing & Manage- ment, vol. 45, no. 4, pp. 427–437, 2009.
 
-\subsection*{Algoritmos MINAS-LC e MINAS-BR}
+\subsection{Algoritmos MINAS-LC e MINAS-BR}
 
-O algoritmo MINAS-LC é proposto por \citeonline{Costa2019thesis} e trata classificação
-multi-rótulo porém não trata evoluções de conceito (novas classes).
-AS alterações fundamentais são:
+O algoritmo MINAS-LC é proposto por \citeonline{Costa2019thesis} e trata a classificação
+multi-rótulo, porém não trata evoluções de conceito (\emph{Concept Evolution}).
+As alterações fundamentais propostas são:
 a representação de \cluster onde MINAS-LC troca a etiqueta, que era única, por uma multi-rótulo;
-a transformação de problema aplicada ao conjunto de treinamento para transforma-lo de um
+a transformação de problema aplicada ao conjunto de treinamento para transformá-lo de um
 conjunto multi-rotulo para um conjunto multi-classe (simplificação)
 em duas variações \emph{Label Powerset} e \emph{Pruned Sets} com
 mineração de conjunto de itens frequentes.
@@ -107,7 +112,7 @@ O algoritmo MINAS-BR também é experimentalmente avaliado com 4 \emph{data sets
 e \emph{4CRE-V2}
 \footnote{A versão original do \dataset 4CRE-V2 está disponível em https://sites.google.com/site/nonstationaryarchive/home}
 gerados pelo método \emph{Radial Basis Function} \cite{souza2015}.
-MINAS-BR é comparado com 7 algoritmos da literatura também disponíveis na ferramenta
+O MINAS-BR é comparado com 7 algoritmos da literatura também disponíveis na ferramenta
 MOA \cite{MOA},
 diferente da avaliação do FuzzyND que compara diretamente com MINAS.
 Os 7 algoritmos são divididos em dois grupos: 3 com acesso às etiquetas corretas para
@@ -123,7 +128,7 @@ pelos algoritmos.
 Para tratar a divergência, uma estratégia baseada em proposta anterior por
 \citeonline{Faria2016nd} é apresentada com alterações para exemplos multi-rótulo.
 A estratégia é executada na fase de classificação seguindo as regras:
-\begin{enumerate*}
+\begin{enumerate}
     \item após o consumo do exemplo $X_n$;
     \item para todo padrão $P_i$ (etiqueta atribuída) identificado sem associação até o momento;
     \item com classes novidade $y_j$ (etiqueta real) presentes em exemplos antes $X_n$;
@@ -133,7 +138,7 @@ A estratégia é executada na fase de classificação seguindo as regras:
     \item valores $\mathit{F1}_{(i,j)} = 0$ são descartados;
     \item dentre os valores restantes: o padrão $P_i$ é associado à classe $y_j$
     se $\mathit{F1}_{(i,j)}$ é máximo.
-\end{enumerate*}
+\end{enumerate}
 Após associação entre padrões de novidade e classes novidade é possível calcular métricas tradicionais.
 
 As métricas utilizadas por \citeonline{Costa2019} após a associação de classes e padrões são
@@ -155,26 +160,27 @@ a fase offline centrada no processo de agrupamento e criação de modelo;
 a fase online dividida em classificação (com atualização das estatísticas do modelo)
 e detecção de padrões, onde novamente o processo de agrupamento é central.
 Portanto, apesar de outros trabalhos expandirem o algoritmo com diferentes técnicas, seu
-núcleo continua relevante \cite{DaSilva2018,DaSilva2018thesis,Costa2019}\footnote{
+núcleo continua relevante\footnote{
 Propostas de modificação do algoritmo MINAS estão longe de serem exauridas.
-Não cabe ao presente trabalho expandir e validar conceitos de aprendizagem de maquina
-porém alguns exemplos mencionados ainda não abordados são: \begin{enumerate*}[label={\alph*)}]
+Não cabe ao presente trabalho expandir e validar conceitos de aprendizagem de máquina,
+porém alguns exemplos mencionados ainda não abordados são:
+\begin{enumerate*}[label={\alph*)}]
     \item diferentes métodos de cálculo de distância entre pontos além da distância euclidiana; 
-    \item a mudança de representação de \clusters, atualmente hiper-esferas, para hiper-cubos
-    para tratar \datasets onde as características representadas
+    \item a mudança de representação de \clusters, atualmente hiper-esferas \cite{Costa2019thesis},
+    para hiper-cubos tratando \datasets onde as características representadas
     pelas dimensões são completamente independentes;
     \item um modo interativo onde o \cluster é formado, mostrado ao especialista
-    que o classifica como inválido (ruido ou não representativo) ou válido, podendo conter
+    que o classifica como inválido (ruído ou não representativo) ou válido, podendo conter
     uma ou mais classes e, se conter mais que uma classe corte em grupos menores até conter somente
     uma classe;
     \item ainda considerando interação com especialista, a possibilidade dele injetar 
-    um exemplo não pertencer à uma classe, ou seja, marcar o exemplo como não
+    um exemplo não pertencente a uma classe, ou seja, marcar o exemplo como não
     pertencente à uma classe para manter ele na memória de desconhecidos e, eventualmente forçar
     criação de um \cluster que represente uma classe geometricamente próxima mas semanticamente distinta;
-    \item na fase \emph{offline} a verificação de sobreposição de \clusters pertencentes à
+    \item na fase \emph{offline} a verificação de sobreposição de \clusters pertencentes a
     classes distintas e tratamento adequado.
 \end{enumerate*} 
-}.
+} \cite{DaSilva2018,DaSilva2018thesis,Costa2019}.
 
 % >>>>>>> master
 % \citeonline{DaSilva2018}
