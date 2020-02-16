@@ -65,129 +65,65 @@ Para preencher a lacuna de algoritmo de \nd em ambiente \fog propõem-se então
 \mfog, uma implementação do algoritmo MINAS sobre a plataforma \flink que
 considera distribuição em um ambiente de \fog.
 
-
-\nota{Reestruturar:
-  A - remember,
-  B - cenário (iot, fog, stream),
-  C - problema (4.1, ND em fog, terminar com minas e cassales),
-  D - solução (4.2, apresetnação, resumo \mfog, metodologia)
-}
-
-\nota{reestrutura 2:
-  A - cenario
-  B - metodologia (como, o que vai implementar [kafka, python, flink], como avaliar)
-  C - métricas (escalabilidade, qualidade)
-  D - resultados preliminares (python/kafka, flink)
-}
-
-Esse Capítulo apresenta a descrição de uma implementação paralela do algoritmo
-de detecção de novidades em fluxos de dados contínuos (\emph{Novelty Detection
-in Data Streams}) MINAS inserido no cenário de processamento distribuído no
-ambiente de computação em névoa (\fog) com ênfase nos fluxos gerados por
-dispositivos de Internet das Coisas (\iot) doravante referido por \mfog ou 
-``a presente implementação''.
-Os requisitos dessa implementação são derivados das lacuna discutidas no
-\refcap{related}.
-
-\nota{resumo e retomada do objetivo}
-
-
-Uma das lacunas é a falta de uma implementação do algoritmo
-MINAS mais próxima de aplicações reais, ou seja:
-que trate de fluxos realistas em contraste aos conjuntos de dados (\datasets)
-sintéticos;
-que considere restrições computacionais tanto teóricas que são características
-de processamento de fluxos contínuos e ilimitados como restrições práticas
-de ambientes diversos como computação pessoal (\emph{Desktop Computing}), 
-computação em nuvem (\cloud) e computação em névoa (\fog).
-
-Outras lacunas são encontrada na implementação de sistemas de que dependem de
-algoritmos de detecção de novidades. Nessas implementações nota-se a falta de
-algoritmos que tenham as considerações teóricas inerentes da variabilidade de
-dados em fluxos contínuos de dados como deriva e evolução de conceito (\drift e
-\evolution).
-Por outro lado, outros sistemas consideram a variabilidade porém o
-mecanismo de atualização do modelo assume que as etiquetas reais estarão
-disponíveis após classificação (\emph{feedback}) imediatamente ou com atraso
-predizível.
-A suposição de \emph{feedback} em fluxos reais também não é realista pois
-a presença de um especialista que classifique corretamente os exemplos
-solicitados é, na melhor das hipóteses, eventual e não contínua contrastando com
-a natureza do fluxo de dados.
-
-% Para cumprir os objetivos citados na \refsec{objetivos}, foi identificado a necessidade
-% de um processo exploratório seguido de experimentação. Tal processo inclui a
-% revisão da literatura, tanto acadêmica quanto técnica, seguida da experimentação
-% através de implementação de aplicação e testes.
-
-\section{Cenário}\label{sec:cenario}
-
-A presente Seção descreve o cenário base para a proposta de implementação,
-expondo características, desafios e hipóteses que a implementação deve atender.
-
-A Internet das Coisas \iot é composta por milhares de dispositivos distribuídos
-geograficamente conectados à Internet.
-Com capacidades diversas como sensores e atuadores, esses dispositivos dependem
-de conexões para executarem suas funções, enviando e recebendo informações
-trocadas com outros dispositivos ou aplicações centrais hospedadas em ambiente
-\cloud.
-A a dependência de comunicação é uma restrição que tem diversas implicações
-como confiabilidade de um sistema e, dependendo da conexão limita ou impede
-funcionalidades comuns em outros ambientes.
-Além das restrições, devido aos encargos atribuídos à manutenção da comunicação,
-o envio e recebimento de dados em dispositivos deve ser minimizado.
-
-% estou deixando implícito as restrições como baterias :(
-
-Mesmo com as restrições e desafios, a implementação de dispositivos ainda é
-vantajosa, pois o valor sobrepõe o custo.
-Esse valor origina de várias fontes como automação, redução de risco e coleta
-de dados granulares que possibilitam análises antes impraticáveis.
-A coleta de dados para análise contínua é um dos principais fatores na
-implantação de um sistema IoT levando a geração de diversos fluxos com
-propriedades e processos igualmente diversos.
-% A análise constante de dados 
-
-% meh
-
-\nota{Falta: fog, processamento distribuído de streams, detecção de novidade}
+% \nota{Reestruturar:
+%   A - remember,
+%   B - cenário (iot, fog, stream),
+%   C - problema (4.1, ND em fog, terminar com minas e cassales),
+%   D - solução (4.2, apresetnação, resumo \mfog, metodologia)
+% }
+% \nota{Falta: fog, processamento distribuído de streams, detecção de novidade}
 
 \section{Descrição da Implementação}\label{sec:descricao}
 
 \newcommand{\source}{\emph{source}\xspace}
 \newcommand{\sink}{\emph{sink}\xspace}
 
-\newcommand{\offline}{\emph{offline}\xspace}
+\newcommand{\offline}{treinamento\xspace}
 \newcommand{\classify}{classificador\xspace}
 \newcommand{\detector}{detector\xspace}
 
-Nesta Seção apresenta \mfog, proposta deste trabalho.
-\mfog é composto pelos módulos \offline, \classify e \detector.
-Para correta avaliação \mfog é acompanhado de dois módulos auxiliares:
+\newcommand{\idsiot}{IDSA-IOT\xspace}
+
+Nesta Seção apresenta-se \mfog, objeto proposta deste trabalho.
+O \mfog é composto pelos módulos: \offline, \classify e \detector.
+Para correta avaliação, \mfog é acompanhado de dois módulos auxiliares:
 módulo fonte (\source) e módulo sorvedouro (\sink).
 
-nota{métodos para alcançar os objetivos \\
-o que fazer e como fazer, resultados esperados}
+\nota{métodos para alcançar os objetivos}
 
-A implementação proposta segue a arquitetura proposta por
-\citeonline{Cassales2019a} onde na borda de uma rede local com dispositivos \iot
-um serviço de captura e tratamento de dados é instalado.
-Na presente implementação esse serviço de captura e tratamento é representado
-pelo módulo \source.
-O módulo \source é dependente da fonte de dados, executando a transformação dos
+\nota{o que fazer e como fazer, resultados esperados}
+
+A implementação proposta segue a arquitetura \idsiot proposta por
+\citeonline{Cassales2019a}.
+A arquitetura \idsiot estabelece que um serviço de captura e tratamento de dados
+é instalado na borda de uma rede local com dispositivos \iot.
+Na presente implementação
+esse serviço de captura e tratamento é representado pelo módulo \source.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/cassales-service-physical-pt.png}
+  \caption{
+    Distribuição de Serviços da Arquitetura \idsiot.
+    Produzida e traduzida por \citeonline{Cassales2019a}.
+  }
+  \label{fig:ids-iot}
+\end{figure}
+
+O módulo auxiliar \source é dependente da fonte de dados, executando a transformação dos
 formatos dos \datasets para um fluxo de dados compatível com o restante da
 implementação.
 Além de fornecer dados tratados para \mfog, o módulo \source também fornece
 dados para o módulo \sink e \offline.
 
-O módulo \sink é responsável por agregar todos resultados do \mfog e, juntamente
+O módulo auxiliar \sink é responsável por agregar todos resultados do \mfog e, juntamente
 com os valores do \dataset fornecidos pelo módulo \source, computar as métricas
 de qualidade de classificação e métricas base para as métricas de
 escalabilidade e métricas de recursos computacionais.
 
-Os dados resultantes da captura e tratamento são ingeridos pela aplicação no
-módulo \classify por meio de conexão TCP (\emph{Transmission Control Protocol})
-fornecida pela plataforma \flink.
+Os dados resultantes do serviço de captura e tratamento são ingeridos pela
+aplicação no módulo \classify por meio de conexão TCP (\emph{Transmission
+Control Protocol}) fornecida pela plataforma \flink.
 Na plataforma, com o modelo de classificação disponível, os exemplos são
 classificados seguindo o algoritmo MINAS original discutido na \refsec{minas-og}.
 A etiqueta atribuída pela classificação, ou meta-etiqueta de desconhecido,
@@ -201,7 +137,29 @@ ao módulo \classify.
 Este módulo também envia meta-informações sobre o processo de detecção de
 novidade para o módulo \sink.
 
-\section{Resultados Esperados}\label{sec:esperados}
+\section{Metodologia de Avaliação e Resultados Esperados}\label{sec:esperados}
+
+\nota{reestrutura 2:
+  A - cenario
+  B - metodologia (como, o que vai implementar [kafka, python, flink], como avaliar)
+  C - métricas (escalabilidade, qualidade)
+  D - resultados preliminares (python/kafka, flink)
+}
+
+A avaliação da proposta apresentada será feita por meio de métricas extraídas da
+literatura, divididas em duas partes: métricas de qualidade de classificação
+e métricas de escalabilidade.
+
+Métricas tradicionais de qualidade de classificação estabelecidas por trabalhos
+aprendizado de máquina não são adequadas para avaliar detecção de novidades em
+\streams sem tratamento inicial, felizmente o tratamento necessário é
+estabelecido por \citeonline{Faria2016minas} e expandido por
+\citeonline{DaSilva2018,DaSilva2018thesis,Costa2019,Costa2019thesis}.
+As métricas selecionadas são taxa de desconhecidos e \emph{F-score}.
+
+As métricas de escalabilidade selecionadas são número de nós processadores, tipo
+de processadores, uso de memória, tempo de processamento, taxa de eventos
+processados e latência entre a produção e classificação de um evento.
 
 Da implementação \mfog é prevista execução de experimentos com \datasets
 diversos, em especial os \datasets reais que contém evolução de conceitos.
@@ -246,3 +204,76 @@ e para o minas somente as métricas de qualidade de classificação.
 % E ao final, a aplicação, resultados, comparações e discussões serão publicados
 % nos meios e formatos adequados como repositórios técnicos, eventos ou revistas
 % acadêmicas.
+
+% meh
+% \section{Descrição do \mfog}
+
+% Esta \Section descreve 
+
+% Esse Capítulo apresenta-se a descrição de uma implementação paralela do algoritmo
+% de detecção de novidades em fluxos de dados contínuos (\emph{Novelty Detection
+% in Data Streams}) MINAS inserido no cenário de processamento distribuído no
+% ambiente de computação em névoa (\fog) com ênfase nos fluxos gerados por
+% dispositivos de Internet das Coisas (\iot) doravante referido por \mfog ou 
+% ``a presente implementação''.
+% Os requisitos dessa implementação são derivados das lacuna discutidas no
+% \refcap{related}.
+
+% \nota{resumo e retomada do objetivo}
+
+
+% Uma das lacunas é a falta de uma implementação do algoritmo
+% MINAS mais próxima de aplicações reais, ou seja:
+% que trate de fluxos realistas em contraste aos conjuntos de dados (\datasets)
+% sintéticos;
+% que considere restrições computacionais tanto teóricas que são características
+% de processamento de fluxos contínuos e ilimitados como restrições práticas
+% de ambientes diversos como computação pessoal (\emph{Desktop Computing}), 
+% computação em nuvem (\cloud) e computação em névoa (\fog).
+
+% Outras lacunas são encontrada na implementação de sistemas de que dependem de
+% algoritmos de detecção de novidades. Nessas implementações nota-se a falta de
+% algoritmos que tenham as considerações teóricas inerentes da variabilidade de
+% dados em fluxos contínuos de dados como deriva e evolução de conceito (\drift e
+% \evolution).
+% Por outro lado, outros sistemas consideram a variabilidade porém o
+% mecanismo de atualização do modelo assume que as etiquetas reais estarão
+% disponíveis após classificação (\emph{feedback}) imediatamente ou com atraso
+% predizível.
+% A suposição de \emph{feedback} em fluxos reais também não é realista pois
+% a presença de um especialista que classifique corretamente os exemplos
+% solicitados é, na melhor das hipóteses, eventual e não contínua contrastando com
+% a natureza do fluxo de dados.
+
+% % Para cumprir os objetivos citados na \refsec{objetivos}, foi identificado a necessidade
+% % de um processo exploratório seguido de experimentação. Tal processo inclui a
+% % revisão da literatura, tanto acadêmica quanto técnica, seguida da experimentação
+% % através de implementação de aplicação e testes.
+
+% \section{Cenário}\label{sec:cenario}
+
+% A presente Seção descreve o cenário base para a proposta de implementação,
+% expondo características, desafios e hipóteses que a implementação deve atender.
+
+% A Internet das Coisas \iot é composta por milhares de dispositivos distribuídos
+% geograficamente conectados à Internet.
+% Com capacidades diversas como sensores e atuadores, esses dispositivos dependem
+% de conexões para executarem suas funções, enviando e recebendo informações
+% trocadas com outros dispositivos ou aplicações centrais hospedadas em ambiente
+% \cloud.
+% A a dependência de comunicação é uma restrição que tem diversas implicações
+% como confiabilidade de um sistema e, dependendo da conexão limita ou impede
+% funcionalidades comuns em outros ambientes.
+% Além das restrições, devido aos encargos atribuídos à manutenção da comunicação,
+% o envio e recebimento de dados em dispositivos deve ser minimizado.
+
+% % estou deixando implícito as restrições como baterias :(
+
+% Mesmo com as restrições e desafios, a implementação de dispositivos ainda é
+% vantajosa, pois o valor sobrepõe o custo.
+% Esse valor origina de várias fontes como automação, redução de risco e coleta
+% de dados granulares que possibilitam análises antes impraticáveis.
+% A coleta de dados para análise contínua é um dos principais fatores na
+% implantação de um sistema IoT levando a geração de diversos fluxos com
+% propriedades e processos igualmente diversos.
+% % A análise constante de dados 
