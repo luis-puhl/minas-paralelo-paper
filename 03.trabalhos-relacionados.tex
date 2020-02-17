@@ -23,7 +23,9 @@ Processamento Distribuído de Fluxos de Dados.
 
 \end{resumocap}
 
-\section{Algoritmo MINAS e Algoritmos Derivados}
+% \section{Algoritmo MINAS e Algoritmos Derivados}
+
+\section{Algoritmos de Detecção de Novidades}
 
 \newcommand{\cluster}{\emph{cluster}\xspace}
 \newcommand{\clusters}{\emph{clusters}\xspace}
@@ -107,10 +109,13 @@ algoritmo \emph{K-means}, originalmente aleatória, pelo algoritmo
 % as 4CRE-V13, 4CRE-V24 e 5CVT5 6 foram geradas originalmente em Souza et al. (2015b)
 % SOUZA, V. M. A.; SILVA, D. F.; GAMA, J.; BATISTA, G. E. A. P. A. Data stream classification guided by clustering on nonstationary environments and extreme verification latency. In: Procee- dings ofSIAM International Conference on Data Mining (SDM). [S.l.: s.n.], 2015. p. 873–881. Citado 4 vezes nas páginas 17, 65, 87 e 89.
 
-O algoritmo MINAS-BR também é experimentalmente avaliado com 4 \emph{data sets} sintéticos:
-\emph{MOA-3C-5C-2D}, \emph{MOA-5C-7C-2D}, \emph{MOA-5C-7C-3} da ferramenta MOA \cite{MOA}
-e \emph{4CRE-V2}
-\footnote{A versão original do \dataset 4CRE-V2 está disponível em https://sites.google.com/site/nonstationaryarchive/home}
+O algoritmo MINAS-BR também é experimentalmente avaliado com 4 \emph{data sets}
+sintéticos: \emph{MOA-3C-5C-2D}, \emph{MOA-5C-7C-2D}, \emph{MOA-5C-7C-3} da
+ferramenta MOA \cite{MOA} e \emph{4CRE-V2}
+\footnote{
+    A versão original do \dataset 4CRE-V2 está disponível em 
+    https://sites.google.com/site/nonstationaryarchive/home
+}
 gerados pelo método \emph{Radial Basis Function} \cite{souza2015}.
 O MINAS-BR é comparado com 7 algoritmos da literatura também disponíveis na ferramenta
 MOA \cite{MOA},
@@ -128,32 +133,47 @@ pelos algoritmos.
 Para tratar a divergência, uma estratégia baseada em proposta anterior por
 \citeonline{Faria2016nd} é apresentada com alterações para exemplos multi-rótulo.
 A estratégia é executada na fase de classificação seguindo as regras:
+
 \begin{enumerate}
+
     \item após o consumo do exemplo $X_n$;
-    \item para todo padrão $P_i$ (etiqueta atribuída) identificado sem associação até o momento;
-    \item com classes novidade $y_j$ (etiqueta real) presentes em exemplos antes $X_n$;
-    \item preenche-se a tabela de contingência $\mathbf{T}_{(i,j)}$ relacionando padrão $P_i$ e classe $y_j$;
-    \item calcula-se o grau de dependência $\mathit{F1}$ derivado da tabela de contingência
-    $\mathit{F1}_{(i,j)} = f(\mathbf{T}_{(i,j)})$;
+    
+    \item para todo padrão $P_i$ (etiqueta atribuída) identificado sem
+    associação até o momento;
+    
+    \item com classes novidade $y_j$ (etiqueta real) presentes em exemplos antes
+    $X_n$;
+    
+    \item preenche-se a tabela de contingência $\mathbf{T}_{(i,j)}$ relacionando
+    padrão $P_i$ e classe $y_j$;
+    
+    \item calcula-se o grau de dependência $\mathit{F1}$ derivado da tabela de
+    contingência $\mathit{F1}_{(i,j)} = f(\mathbf{T}_{(i,j)})$;
+    
     \item valores $\mathit{F1}_{(i,j)} = 0$ são descartados;
+    
     \item dentre os valores restantes: o padrão $P_i$ é associado à classe $y_j$
     se $\mathit{F1}_{(i,j)}$ é máximo.
-\end{enumerate}
-Após associação entre padrões de novidade e classes novidade é possível calcular métricas tradicionais.
 
-As métricas utilizadas por \citeonline{Costa2019} após a associação de classes e padrões são
-as tradicionais taxa de desconhecidos (\emph{UnkRM}) e \emph{F1M}.
-Os resultados apresentados indicam que MINAS-BR capturou todas as novidades dos \datasets sintéticos de teste
-e mostrou, como esperado, melhores métricas que os 4 algoritmos equivalentes da literatura ficando abaixo
-dos 3 com \emph{feedback} externo.
+\end{enumerate}
+
+Após associação entre padrões de novidade e classes novidade é possível calcular
+métricas tradicionais.
+
+As métricas utilizadas por \citeonline{Costa2019} após a associação de classes e
+padrões são as tradicionais taxa de desconhecidos (\emph{UnkRM}) e \emph{F1M}.
+Os resultados apresentados indicam que MINAS-BR capturou todas as novidades dos
+\datasets sintéticos de teste e mostrou, como esperado, melhores métricas que os
+4 algoritmos equivalentes da literatura ficando abaixo dos 3 com \emph{feedback}
+externo.
 
 Os trabalhos relacionados nessa Seção tem em comum muito além do algoritmo base,
-tem também métricas de avaliação acurácia (\emph{Macro F-Score} e \emph{Macro F-Measure} F1M)
-e taxa de desconhecidos, aplicadas com devido tratamento.
+tem também métricas de avaliação acurácia (\emph{Macro F-Score} e \emph{Macro
+F-Measure} F1M) e taxa de desconhecidos, aplicadas com devido tratamento.
 Também é comum entre eles o uso de \datasets sintéticos.
 Outro potencial não explorado do MINAS é em aplicações de reais, ou seja,
-consumindo além de \datasets reais, fluxos realistas em ambientes simulados ou reais porém
-considerando uso de recursos computacionais.
+consumindo além de \datasets reais, fluxos realistas em ambientes simulados ou
+reais porém considerando uso de recursos computacionais.
 
 Observando a arquitetura dos algoritmos abordados, todas são extremamente semelhantes:
 a fase offline centrada no processo de agrupamento e criação de modelo;
@@ -165,21 +185,30 @@ Propostas de modificação do algoritmo MINAS estão longe de serem exauridas.
 Não cabe ao presente trabalho expandir e validar conceitos de aprendizagem de máquina,
 porém alguns exemplos mencionados ainda não abordados são:
 \begin{enumerate*}[label={\alph*)}]
-    \item diferentes métodos de cálculo de distância entre pontos além da distância euclidiana; 
-    \item a mudança de representação de \clusters, atualmente hiper-esferas \cite{Costa2019thesis},
-    para hiper-cubos tratando \datasets onde as características representadas
-    pelas dimensões são completamente independentes;
+    
+    \item diferentes métodos de cálculo de distância entre pontos além da
+    distância euclidiana;
+    
+    \item a mudança de representação de \clusters, atualmente hiper-esferas
+    \cite{Costa2019thesis}, para hiper-cubos tratando \datasets onde as
+    características representadas pelas dimensões são completamente
+    independentes;
+    
     \item um modo interativo onde o \cluster é formado, mostrado ao especialista
-    que o classifica como inválido (ruído ou não representativo) ou válido, podendo conter
-    uma ou mais classes e, se conter mais que uma classe corte em grupos menores até conter somente
-    uma classe;
-    \item ainda considerando interação com especialista, a possibilidade dele injetar 
-    um exemplo não pertencente a uma classe, ou seja, marcar o exemplo como não
-    pertencente à uma classe para manter ele na memória de desconhecidos e, eventualmente forçar
-    criação de um \cluster que represente uma classe geometricamente próxima mas semanticamente distinta;
-    \item na fase \emph{offline} a verificação de sobreposição de \clusters pertencentes a
-    classes distintas e tratamento adequado.
-\end{enumerate*} 
+    que o classifica como inválido (ruído ou não representativo) ou válido,
+    podendo conter uma ou mais classes e, se conter mais que uma classe corte em
+    grupos menores até conter somente uma classe;
+    
+    \item ainda considerando interação com especialista, a possibilidade dele
+    injetar um exemplo não pertencente a uma classe, ou seja, marcar o exemplo
+    como não pertencente à uma classe para manter ele na memória de
+    desconhecidos e, eventualmente forçar criação de um \cluster que represente
+    uma classe geometricamente próxima mas semanticamente distinta;
+    
+    \item na fase \emph{offline} a verificação de sobreposição de \clusters
+    pertencentes a classes distintas e tratamento adequado.
+
+\end{enumerate*}
 } \cite{DaSilva2018,DaSilva2018thesis,Costa2019}.
 
 % >>>>>>> master
@@ -206,66 +235,16 @@ porém alguns exemplos mencionados ainda não abordados são:
 
 % \citeonline{Abdallah2016anynovel}
 
-\section{Catraca Lopez2018}
-\nota{Incompleto}
+\section{Processamento Distribuído de Fluxo de Dados em Tempo Real}
 
-\cite{Lopez2018}
+Nesta \Section abordamos trabalhos que aplicam algoritmos de detecção de
+novidades para fins diversos em fluxos de dados reais.
 
-% A monitoring and threat detection system using stream processing as a virtual function for Big Data
-
-% A detecção tardia de ameaças de segurança causa um significante aumento no
-% risco de danos irreparáveis, impossibilitando qualquer tentativa de defesa.
-% Como consequência, a detecção rápida de ameaças em tempo real é essencial
-% para a ad- ministração de segurança. Além disso, A tecnologia de
-% virtualização de funções de rede (Network Function Virtualization - NFV)
-% oferece novas oportunidades para soluções de segurança eficazes e de baixo
-% custo. Propomos um sistema de detecção de ameaças rápido e eficiente,
-% baseado em algoritmos de processamento de fluxo e de aprendizado de máquina. As
-% principais contribuições deste trabalho são: 
-% i) um novo sistema de monitoramento e detecção de ameaças baseado no processamento de fluxo; 
-% ii) dois conjuntos de dados, o primeiro é um conjunto de dados sintético de
-% segurança contendo tráfego suspeito e malicioso, e o segundo corresponde a uma
-% semana de tráfego real de um operador de telecomunicações no Rio de Janeiro,
-% Brasil; 
-% iii) um algoritmo de pré-processamento de dados composto por um algoritmo
-% de normalização e um algoritmo para seleção rápida de
-% características com base na correlação entre variáveis;
-% iv) uma função de
-% rede virtualizada em uma plataforma de código aberto para fornecer um serviço
-% de detecção de ameaças em tempo real;
-% v) posicionamento quase perfeito de
-% sensores através de uma heurística proposta para posicionamento estratégico
-% de sensores na infraestrutura de rede, com um número mínimo de sensores; e,
-% finalmente, 
-% vi) um algoritmo guloso que aloca sob demanda uma sequência de 
-% funções de rede virtual.
-
-\section{BigFlow}
+\subsection{Ferramenta BigFlow}
 
 \nota{Incompleto}
 
-%  notas de bigflow
-% Table 1
-% Network-level feature set used in the experiments throughout this work [18].
-% Types: Host-based (Host to All), Flow-based (Source to Destination, Destination to Source, Both)
-% Features:\\
-%     - Number of Packets,\\
-%     - Number of Bytes,\\
-%     - Average Packet Size,\\
-%     - Percentage of Packets (PSH Flag),\\
-%     - Percentage of Packets (SYN and FIN Flags),\\
-%     - Percentage of Packets (FIN Flag),\\
-%     - Percentage of Packets (SYN Flag),\\
-%     - Percentage of Packets (ACK Flag),\\
-%     - Percentage of Packets (RST Flag),\\
-%     - Percentage of Packets (ICMP Redirect Flag),\\
-%     - Percentage of Packets (ICMP Redirect Flag),\\
-%     - Percentage of Packets (ICMP Time Exceeded Flag),\\
-%     - Percentage of Packets (ICMP Unreachable Flag),\\
-%     - Percentage of Packets (ICMP Other Types Flag),\\
-%     - Throughput in Bytes,\\
-%     - Protocol\\
-
+\cite{mawiSamplepointF,Fontugne2010}
 BigFlow destaca em sua secção 2 (backgroud) o processamento de streams [18, 19],
 a preferencia de NIDS por anomalia em contraste aos NIDS por assinatura [30, 31, 32],
 a variabilidade e evolução dos padrões de tráfego em redes de propósito geral [9, 11, 20],
@@ -296,12 +275,108 @@ como teste e o segundo modo usando a semana anterior como treinamento e a seguin
 Demostrando, com 62 atributos, que a qualidade da classificação retrai com o tempo quando não há
 atualização frequente do modelo classificador.
 
+\subsection{A Ferramenta CATRACA}
+
+O trabalho \citeonline{Lopez2018} aborda detecção de ameaças a redes de
+computadores em tempo real e para atingir esse objetivo, propôs a ferramenta
+CATRACA\footnote{
+    A ferramenta e sua documentação estão disponíveis em http://gta.ufrj.br/catraca
+}.
+A ferramenta CATRACA é composta de funções virtuais de rede (\emph{Network
+Function Virtualization}, NFV) executadas em dispositivos de de rede virtuais
+estabelecendo um ambiente de computação em névoa.
+Também compõem a ferramenta uma interface gráfica que apresentada a visualização
+dos fluxos processados bem como os conhecimentos extraídos desse processamento.
+
+Pra avaliação da ferramenta CATRACA dois conjuntos de dados são utilizados.
+Um conjunto sintético (UFRJ/GTA) criado por uma simulação de rede de
+computadores com 214,200 fluxos de rede totalizando 95 GB de pacotes capturados,
+é composto de 24 atributos e 16 classes.
+O outro conjunto, referido como NetOp, foi coletado de um operador de rede que
+atende 373 residências na cidade do Rio de Janeiro em 2017.
+O conjunto NetOp é formado por 5 TB de pacotes capturados e etiquetados por um
+detector de intrusão comercial.
+
+Para desenvolvimento da ferramenta CATRACA, \citeonline{Lopez2018} avaliou e
+comparou as plataformas de processamento de fluxo de dados em tempo real
+disponíveis. A comparação envolveu:
+
+\begin{enumerate}
+    
+    \item Apache Storm versão 0.9.4 de 2015-03-18 (atualmente na versão 2.1.0,
+    publicada em 2019-10-25);
+      
+    \item Apache Flink versão 0.10.2 de 2016-02-03 (atualmente na versão 1.10.0,
+    publicada em 2020-02-11);
+    
+    \item Apache Spark Streams versão 1.6.1 de 2016-02-27 (atualmente na versão
+    2.4.5, publicada em 2020-02-02);
+    
+\end{enumerate}
+
+Além das plataformas comparadas é importante mencionar a presença em todos os
+testes do Apache Kafka na versão 0.8.2.1 de 2015-02-26 (atualmente na versão
+2.4.0 de 2019-12-13).
+A estratégia de avaliação continha um 
+
+Itens do \dataset UFRJ/GTA eram enviados ao cluster kafka lidos pela plataforma
+em teste. 
+
+Os resultados apresentados por essa avaliação mostraram que Apache Storm 
+
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/catraca-arch.png}
+\caption{Arquitetura em camadas da ferramenta CATRACA \cite{Lopez2018}.}
+\label{fig:ids-iot}
+\end{figure}
+
+
+Catraca Lopez2018
+
+\nota{Incompleto}
+
+% A monitoring and threat detection system using stream processing as a virtual 
+% function for Big Data
+
+% A detecção tardia de ameaças de segurança causa um significante aumento no
+% risco de danos irreparáveis, impossibilitando qualquer tentativa de defesa.
+% Como consequência, a detecção rápida de ameaças em tempo real é essencial
+% para a ad- ministração de segurança. Além disso, A tecnologia de
+% virtualização de funções de rede (Network Function Virtualization - NFV)
+% oferece novas oportunidades para soluções de segurança eficazes e de baixo
+% custo. Propomos um sistema de detecção de ameaças rápido e eficiente,
+% baseado em algoritmos de processamento de fluxo e de aprendizado de máquina. As
+% principais contribuições deste trabalho são: 
+% i) um novo sistema de monitoramento e detecção de ameaças baseado no processamento de fluxo; 
+% ii) dois conjuntos de dados, o primeiro é um conjunto de dados sintético de
+% segurança contendo tráfego suspeito e malicioso, e o segundo corresponde a uma
+% semana de tráfego real de um operador de telecomunicações no Rio de Janeiro,
+% Brasil; 
+% iii) um algoritmo de pré-processamento de dados composto por um algoritmo
+% de normalização e um algoritmo para seleção rápida de
+% características com base na correlação entre variáveis;
+% iv) uma função de
+% rede virtualizada em uma plataforma de código aberto para fornecer um serviço
+% de detecção de ameaças em tempo real;
+% v) posicionamento quase perfeito de
+% sensores através de uma heurística proposta para posicionamento estratégico
+% de sensores na infraestrutura de rede, com um número mínimo de sensores; e,
+% finalmente, 
+% vi) um algoritmo guloso que aloca sob demanda uma sequência de 
+% funções de rede virtual.
+
+
 \nota{Discutir que o data set não é de borda de uma rede, portanto não tem
 relevância para fog.}
 
 \section{Arquitetura IDSA-IOT}\label{sec:cassales}
 
 \newcommand{\idsiot}{IDSA-IOT\xspace}
+
+Arquitetura IDSA-IOT, proposta por \citeonline{Cassales2019a}, tem por objetivo
+monitorar uma rede local com dispositivos
 
 \nota{Falar do modelo de distribuição.}
 
