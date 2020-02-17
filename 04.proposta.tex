@@ -12,12 +12,6 @@
 \newcommand{\fog}{\emph{fog computing}\xspace}
 \newcommand{\cloud}{\emph{cloud computing}\xspace}
 
-\newcommand{\iot}{IoT\xspace}
-
-\newcommand{\stream}{\emph{data stream}\xspace}
-\newcommand{\streams}{\emph{data streams}\xspace}
-\newcommand{\streamMining}{\emph{data stream mining}\xspace}
-
 \newcommand{\mfog}{M-FOG\xspace}
 \newcommand{\flink}{\emph{Apache Flink}\xspace}
 
@@ -121,12 +115,12 @@ novidade para o módulo \sink.
 
 \section{Metodologia de Avaliação e Resultados Esperados}\label{sec:esperados}
 
-\nota{reestrutura 2:
-  A - cenario
-  B - metodologia (como, o que vai implementar [kafka, python, flink], como avaliar)
-  C - métricas (escalabilidade, qualidade)
-  D - resultados preliminares (python/kafka, flink)
-}
+% \nota{reestrutura 2:
+%   A - cenario
+%   B - metodologia (como, o que vai implementar [kafka, python, flink], como avaliar)
+%   C - métricas (escalabilidade, qualidade)
+%   D - resultados preliminares (python/kafka, flink)
+% }
 
 A avaliação da proposta apresentada será feita por meio de métricas extraídas da
 literatura, divididas em duas partes: métricas de qualidade de classificação
@@ -194,6 +188,11 @@ acurácia média ($acc$) e Macro F-score ($Fscore$, F1M)
 \end{align}
 % = 2 \cdot \frac{tp}{2 \cdot tp + fn + fp}
 % \mathcal{L}         &= \frac{-1}{N} \sum_{i=1}^{M} \sum_{j=1}^{J} y_{i,j} \log(p_{i,j})
+
+
+
+\nota{usar coeficiente d-intra vs d-extra grupo para determinar K de
+cada label}
 
 O tratamento do fluxo de saída é realizado no módulo \sink onde tem-se
 disponível o fluxo original com as etiquetas corretas.
@@ -302,10 +301,6 @@ A segunda alternativa explorada teve por inspiração o trabalho de
 
 \nota{Esse trabalho propos-se a fazer}
 
-
-\nota{usar coeficiente d-intra vs d-extra grupo para determinar K de
-cada label}
-
 % % hélio
 % notas sobre a distribuição do modelo
 % - cenário com o processamento de novidades local
@@ -388,7 +383,7 @@ casos onde deve-se tomar ação caso uma classe ou anomalia seja detectada
 - BigFlow com \ dataset atual e maior
 }
 
-\subsection{Experimentos e Resultados}
+% \subsection{Experimentos e Resultados}
 
 \nota{
 - gráficos, tempos, tabelas...\\

@@ -197,14 +197,14 @@ porém alguns exemplos mencionados ainda não abordados são:
 % núcleo continua relevante \cite{DaSilva2018,DaSilva2018thesis,Costa2019}.
 % <<<<<<
 
-\section{AnyNovel}
-\nota{Incompleto}
+% \section{AnyNovel}
+% \nota{Incompleto}
 
-\nota{também é da mesma classe do minas porém \citeonline{Cassales2019a} destaca um
-desempenho inferior para o \emph{data set} testado.}
+% \nota{também é da mesma classe do minas porém \citeonline{Cassales2019a} destaca um
+% desempenho inferior para o \emph{data set} testado.}
 %  a atividade de detecção de intrusão
 
-\citeonline{abdallah2016anynovel}
+% \citeonline{Abdallah2016anynovel}
 
 \section{Catraca Lopez2018}
 \nota{Incompleto}
@@ -296,11 +296,14 @@ como teste e o segundo modo usando a semana anterior como treinamento e a seguin
 Demostrando, com 62 atributos, que a qualidade da classificação retrai com o tempo quando não há
 atualização frequente do modelo classificador.
 
-\nota{Falar do modelo de distribuição.}
+\nota{Discutir que o data set não é de borda de uma rede, portanto não tem
+relevância para fog.}
 
 \section{Arquitetura IDSA-IOT}\label{sec:cassales}
 
 \newcommand{\idsiot}{IDSA-IOT\xspace}
+
+\nota{Falar do modelo de distribuição.}
 
 \begin{figure}[ht]
 \centering
@@ -311,9 +314,13 @@ Produzida e traduzida por \citeonline{Cassales2019a}.}
 \end{figure}
 
 
-\section{Conjuntos de Dados e Referência de Desempenho para Detecção de Anomalia}
+\nota{Também discutir a classificação dos fluxos por endpoint
+exarcerbando assim a distinção na fog com o efeito de particionamento dos dados.
+Ou seja, um nó só vê e classifica os próprios dados.}
 
-The Numenta Anomaly Benchmark
+% \section{Conjuntos de Dados e Referência de Desempenho para Detecção de Anomalia}
+
+% The Numenta Anomaly Benchmark
 
 % - Airline, approximately 116 million flight arrival and departure records (cleaned and sorted) compiled by E. Ikonomovska. Reference: Data Expo 2009 Competition [1]. Access
 % - Chess.com (online games) and Luxembourg (social survey) datasets compiled by I. Zliobaite. Access
@@ -325,9 +332,25 @@ The Numenta Anomaly Benchmark
 % - Text mining, a collection of text mining datasets with concept drift, maintained by I. Katakis. Access
 % - Gas Sensor Array Drift Dataset, a collection of 13,910 measurements from 16 chemical sensors utilized for drift compensation in a discrimination task of 6 gases at various levels of concentrations. Access
 
-\nota{concluir com um gap}
+% \nota{concluir com um gap}
 
-\nota{Discutir que o data set não é de borda de uma rede, portanto não tem
-relevância para fog. Também discutir a classificação dos fluxos por endpoint
-exarcerbando assim a distinção na fog com o efeito de particionamento dos dados.
-Ou seja, um nó só vê e classifica os próprios dados.}
+\newcommand{\iot}{IoT\xspace}
+
+\newcommand{\stream}{\emph{data stream}\xspace}
+\newcommand{\streams}{\emph{data streams}\xspace}
+\newcommand{\streamMining}{\emph{data stream mining}\xspace}
+
+Em conclusão, os trabalhos discutidos nesse Capítulo tem temas complementares em
+áreas distintas.
+A área de aprendizado de máquina, com o tema detecção de novidades em fluxos de
+dados, preocupa-se em fornecer melhores previsões através de algoritmos
+classificadores que atendam as características de cada problema.
+A área de computação distribuída, aborda os temas de processamento distribuído
+de fluxos contínuos em ambientes de computação em nuvem e em névoa, fornecendo
+métodos para processar grandes volume de dados com mínima latência.
+
+Apesar de já existirem propostas que estabelecem o estado da arte separadamente
+em cada um dos temas, falta ainda uma abordagem que estabeleça uma união entre o
+estado da arte em algoritmos de detecção de novidade e o estado da arte em
+processamento distribuído de fluxos de dados, em especial para o ambiente de
+computação em névoa focado em fluxos de dados relacionados a dispositivos \iot.
