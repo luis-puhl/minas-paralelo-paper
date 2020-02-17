@@ -849,59 +849,103 @@ No lugar, a recuperação é feita repetindo completamente o fluxo ou repetindo 
 \newcommand{\drift}{\emph{Concept Drift}\xspace}
 \newcommand{\evolution}{\emph{Concept Evolution}\xspace}
 
-No âmbito de classificação de dados, parte da área de aprendizado de máquina, as
-técnicas de detecção de novidade (\novelty, \nd) lidam com o reconhecimento e
-classificação de exemplos que diferem de exemplos anteriores \cite{PERNER2007}.
-Essas técnicas tratam a classificação em conjutos de dados que evolvem com o
-tempo.
 
-Evolução de conceito pode
+No âmbito de classificação de dados, parte da área de aprendizado de máquina, os
+métodos de detecção de novidade (também nomeado detecção de anomalia, \novelty,
+\nd) lidam com o reconhecimento e classificação de exemplos que diferem de
+exemplos anteriores \cite{PERNER2007,Gama2010}.
+Esses métodos tratam da classificação em conjutos de dados que evolvem com o
+tempo levando em consideração as características desse tipo de conjuntos.
 
-% A detecc¸ ˜ao de novidade ´e o reconhecimento de que um exemplo difere de alguma
-% forma dos exemplos anteriores (PERNER, 2007). Ela permite o reconhecimento de
-% novos padr˜oes, que podem indicar o surgimento de um novo conceito, a evoluc¸
-% ˜ao de um conceito conhecido ou a presenc¸a de ru´ıdo (GAMA, 2010). A detecc¸
-% ˜ao de novidade oferece uma t´ecnica valiosa ao lidar com detecc¸ ˜ao de
-% intrus˜ao, visto que ´e mais vantajoso saber que alguns exemplos fazem parte de
-% um padr˜ao emergente do que classific´a-los erroneamente em uma classe
-% conhecida. Usandom´etodos tradicionais, novos padr˜oes tendem a levar mais tempo
-% para serem descobertos. Al´em disso, ´e necess´ario retreinar o modelo com novos
-% dados para que seja poss´ıvel incluir o conhecimento sobre padr˜oes de ataque
-% emergentes no modelo de decis˜ao. Essa abordagem custa tempo e poder
-% computacional. H´a ainda o alto custo do especialista que precisa rotular um
-% conjunto significativo de exemplos para o treinamento do modelo. Com a detecc¸
-% ˜ao de novidade ´e poss´ıvel identificar novos comportamentos na rede e adaptar
-% o modelo de decis˜ao para reconhecˆe-los `a medida que estes emergem.
+São características desse tipo de conjunto:
+a evolução de conceito (\evolution)
+onde novos padrões podem surgir;
+desaparecimento ou recorrência de conceito, onde padrões podem desaparecer e
+também podem reaparecer;
+a mudança de conceito (\drift, também nomeado deriva ou desvio) onde um padrão
+gradualmente se transforma;
+a possível presença de ruído e \emph{outliers} \cite{Gama2010}.
 
-Novelty Detection
+Os métodos de \nd para reconhecimento padrões novidade ou anomalias são
+aplicadas à diversos problemas como
+Detecção de Intrusos \cite{Coull2003,Spinosa2008,Viegas2019,Cassales2019a},
+Detecção de Falhas \cite{Zhang2006},
+Diagnósticos Médicos \cite{Perner2009},
+Detecção de Regiões de Interesse em Imagens \cite{singh2004approach}
+Detecção de Fraudes \cite{wang2003mining,Abdallah201690}, 
+Filtros de Spam \cite{Hayat2010dct} e
+Detecção de Variações Comportamentais em um Jogador \cite{Vallim20136258}.
 
-breve descrição do que sao algoritmos para DN
+% breve descrição do que sao algoritmos para DN
 
-\nota{Concept: Drift and evolution}
+Alguns métodos tratam de novidades e anomalaias como um classificação de uma
+ou duas classes (binariamente) onde um conceito representa a classe normal e
+anomalias são reprensantadas pela abstência de conceito no modelo ou
+como um segundo conceito no modelo.
+A abordagem de classificação binária no entanto não é adequada para representar
+múltiplos conceitos em um mesmo conjunto de dados, para isso é necessário abordar
+\nd como classificação multi-classe.
+No entanto, alguns métodos que abordam \nd como classificação multi-classe não
+atendem completamente características de conjuntos com evolução temporal
+como \evolution e \drift, deixando de detectar multiplos padrões que surgem
+simultaneamente num intervalo de avaliação \cite{Faria2016nd,Gama2010}.
 
-\cite{Costa2019thesis}
-% Capítulo 4. Detecção de Novidade em FCDs 52
-% Dentre as diversas aplicações de DN em FCDs encontradas na literatura, destacam-se
-% Detecção de Intrusos (COULL et al., 2003; SPINOSA et al., 2008), Detecção de Falhas (ZHANG et al., 2006), Diagnósticos Médicos (PERNER, 2009; SPINOSA; CARVALHO, 2004), Detecção de Regiões de Interesse em Imagens (SINGH; MARKOU, 2004), Detecção de Fraudes (WANG et al., 2003), Detecção do Tipo de Cobertura Florestal (MASUD et al., 2011a), Filtros de Spam (HAYAT; HASHEMI, 2010), Sistemas Biométricos (PISANI; LORENA, 2011; PISANI et al.,
-% 2015; PISANI et al., 2017), Detecção de Variações Comportamentais em um Jogador (VALLIM et al., 2013) e Classificação de Texto (LI; CROFT, 2006).
+A maioria dos métodos de \nd são construidos seguindo a abordagem de aprendizado
+\emph{Offline-Online}. Essa abordagem estabelece que o método seja dividido em
+duas fases:
+a primeira fase (\emph{Offline}) usa um conjunto de exemplos rotulados para
+deles extrair conceitos conhecidos e gerar um modelo;
+a segunda fase (\emph{Online}) consome um conjunto ou fluxo de exemplos não
+rotulados e classifica cada exemplo em um dos conceitos do modelo ou marca o
+exemplo como desconhecido.
+Ainda na segunda fase, para atualizar o modelo os exemplos marcados como
+desconhecidos são utilizados para a extração de novos conceitos ou variações em
+conceitos conhecidos \cite{Gama2010}.
+
+Dentre os métodos de \nd que baseam-se em aprendizado \emph{Offline-Online},
+muitos são baseados em algoritmos de agrupamento não supervisionados, tanto
+para construção do modelo inicial como na extração de novos conceitos dos
+exemplos não explicados pelo modelo marcados como desconhecidos
+\cite{Spinosa2009ollinda,Masud2010ECSMiner,Faria2013}
+
+% Essa abordagem se deve as características 
+
+% \cite{Gama2007,Gama2010,Masud2010ECSMiner,Faria2013,Lavin2015,Abdallah2016anynovel}.
+
+% \cite{Costa2019thesis}
 
 %     - técnicas de Detecção de novidades
-(PERNER, 2007)(GAMA, 2010)
-
-ECSMiner (MASUD et al., 2011)
-
-ver se tem algum survey e citar
+% ver se tem algum survey e citar
+% (PERNER, 2007)(GAMA, 2010)
+% ECSMiner (MASUD et al., 2011)
 
 \section{O algoritmo MINAS}\label{sec:minas-og}
 
-Breve descrição do MINAS \cite{Faria2016minas}.
+Um algoritmo de \nd que tem recebido atenção nos últimos anos é o algoritmo
+MINAS orignialmente proposto por \citeonline{Faria2013}, refinado em
+\citeonline{Faria2016minas} e recentemente aprimorado por
+\citeonline{DaSilva2018thesis} com uso de conceitos \emph{Fuzzy} e expandido por
+\citeonline{Costa2019thesis} para tratar problemas multi-rótulo além dos problemas
+multi-classe já tratados.
+
+Esse algoritmo segue a abordagem de aprendizado \emph{Offline-Online} e usa por
+base algoritmos de agrupamento não supervisionados como \emph{K-means} e
+\emph{CluStream}.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\textwidth]{figuras/FariaMinas2015-fases.png}
+\caption{Visão geral do algoritmo MINAS com fases \emph{Offline} (a) e 
+\emph{Online} (b). Extraído de \citeonline{Faria2016minas}}
+\label{fig:minas}
+\end{figure}
 
 
 % Although efficient in detecting NP, MINAS is
 % very sensitive to noisy data and data scale, what causes a
 % decrease in its accuracy. \cite{DaSilva2018}
 
-ver paper da profa. Elaine
+% ver paper da profa. Elaine
 
 % % discussão de 2020-02-01
 % Detecção de intrusão em redes
