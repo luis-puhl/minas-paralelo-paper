@@ -1,8 +1,6 @@
 % !TeX root = ./00.main.tex
 \chapter{Proposta e metodologia}\label{cha:proposta}
 
-\nota{metodologia e implementação}
-
 \begin{resumocap}
 
   Este Capítulo apresenta a proposta deste trabalho e a metodologia elegida para
@@ -83,33 +81,21 @@ considera distribuição em um ambiente de \fog.
 \newcommand{\classify}{classificador\xspace}
 \newcommand{\detector}{detector\xspace}
 
-\newcommand{\idsiot}{IDSA-IOT\xspace}
-
 Nesta Seção apresenta-se \mfog, objeto proposta deste trabalho.
 O \mfog é composto pelos módulos: \offline, \classify e \detector.
 Para correta avaliação, \mfog é acompanhado de dois módulos auxiliares:
 módulo fonte (\source) e módulo sorvedouro (\sink).
 
-\nota{métodos para alcançar os objetivos}
+% \nota{métodos para alcançar os objetivos}
 
-\nota{o que fazer e como fazer, resultados esperados}
+% \nota{o que fazer e como fazer, resultados esperados}
 
-A implementação proposta segue a arquitetura \idsiot proposta por
-\citeonline{Cassales2019a}.
+A implementação proposta segue a arquitetura \idsiot formalizada por
+\citeonline{Cassales2019a} discutido na \refsec{cassales}.
 A arquitetura \idsiot estabelece que um serviço de captura e tratamento de dados
 é instalado na borda de uma rede local com dispositivos \iot.
 Na presente implementação
 esse serviço de captura e tratamento é representado pelo módulo \source.
-
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.8\textwidth]{figuras/cassales-service-physical-pt.png}
-  \caption{
-    Distribuição de Serviços da Arquitetura \idsiot.
-    Produzida e traduzida por \citeonline{Cassales2019a}.
-  }
-  \label{fig:ids-iot}
-\end{figure}
 
 O módulo auxiliar \source é dependente da fonte de dados, executando a transformação dos
 formatos dos \datasets para um fluxo de dados compatível com o restante da
@@ -259,109 +245,187 @@ para o \mfog: \begin{enumerate*}[label={\alph*)}]
 \end{enumerate*}
 e para o minas somente as métricas de qualidade de classificação.
 
-% O foco da revisão da literatura acadêmica é em trabalhos que abordem:
-% processamento de fluxos de dados, classificação de fluxo de dados, detecção de
-% novidades em fluxo de dados e processamento e distribuído de fluxo de dados.
-% O objetivo da revisão é o estabelecimento do estado da arte desses assuntos
-% e para que alguns desses trabalhos sirvam para comparações e relacionamentos.
-% Além disso, desses trabalhos extrai-se métricas de qualidade de classificação
-% (por exemplo taxa de falso positivo e matriz de confusão) e métricas de
-% escalabilidade (taxa de mensagens por segundo e escalabilidade vertical ou
-% horizontal).
+\section{Resultados preliminares}\label{sec:resultados}
 
-% A revisão da literatura técnica foca em plataformas, ferramentas e técnicas
-% para realizar a implementação proposta.
-% Portanto, serão selecionadas plataformas de processamento distribuído de fluxos
-% contínuos de dados e técnicas de aprendizado de máquina associadas a elas. Dessa revisão também são obtidas
-% as técnicas ou ferramentas necessárias
-% para extração das métricas de avaliação bem como \emph{data sets}
-% públicos relevantes para detecção de novidades em DS.
+\newcommand{\kafka}{\emph{Apache Kafka}\xspace}
+\newcommand{\python}{\emph{Python}\xspace}
 
-% Uma vez definidos o estado da arte, as ferramentas técnicas e os
-% \emph{data sets}, o passo seguinte é a experimentação.
-% Nesse passo é desenvolvida uma aplicação multi-processada que, com base no
-% algoritmo MINAS \cite{Faria2016minas}, classifica e detecta novidades em DS.
-% Os resultados de classificação dessa implementação equivalem-se aos resultados 
-% de classificação da implementação original, validando assim essa nova
-% aplicação. 
+\subsection{Implementação com \python e \kafka}
 
-% Além disso, experimentos com a implementação e variações em \emph{data sets} e
-% cenários de distribuição em \emph{fog} coletando as métricas de classificação e escalabilidade.
-% Os resultados serão comparados entre si e com outros trabalhos.
+A primeira implementação e avaliação do \mfog realizada foi construída sobre a
+linguagem \python com o sistema de fila de mensagens \kafka e a respectiva
+biblioteca de conexão.
+A escolha desse conjunto para a implementação deu-se devido a ampla
+disponibilidade de bibliotecas de aprendizagem de máquina no ecossistema
+\python e simplicidade geral da linguagem.
+O sistema \kafka recebe mensagens e as armazena em tópicos distribuídos em
+partições replicadas em nós de um \cluster, gerenciados por um nó mestre e
+suportado pelo serviço de gerenciamento de configuração distribuída \emph{Apache
+ZooKeeper}.
+A aplicação python consome eventos através da biblioteca \emph{Consumer API}
+que expõem a distribuição através da associação de um consumidor às partições
+mantidas pelo \kafka.
 
-% E ao final, a aplicação, resultados, comparações e discussões serão publicados
-% nos meios e formatos adequados como repositórios técnicos, eventos ou revistas
-% acadêmicas.
+No entanto, a hipótese de que a distribuição de mensagens gerenciada pelo \kafka
+se estenderia às processos consumidores, efetivamente distribuindo o volume de
+mensagens entre eles igualmente, não se realizou nos experimentos realizados.
+Os experimentos em questão foram compostos de 8 processos consumidores, 1
+processo produtor, 1 instância \kafka com 8 partições em seu tópico principal
+e uma instância \emph{Apache ZooKeeper} associada à instancia \kafka.
 
-% meh
-% \section{Descrição do \mfog}
+A hipótese era que como o número de partições igualava o número de produtores e
+cada produtor associaria-se a uma partição.
+No entanto essa hipótese foi refutada quando observou-se que o número de
+mensagens consumidas por um dos 8 processos representava a maioria (mais de
+80\%) do volume introduzido no sistema, o restante sendo distribuído entre
+outros 3 processos e o restante dos processos não recebia nenhuma mensagem.
 
-% Esta \Section descreve 
+Portanto iniciativa de implementar o algoritmo MINAS em \python com \kafka e
+atingir os objetivos de distribuição falhou, o que levou a reconsideração das
+plataformas escolhidas.
 
-% Esse Capítulo apresenta-se a descrição de uma implementação paralela do algoritmo
-% de detecção de novidades em fluxos de dados contínuos (\emph{Novelty Detection
-% in Data Streams}) MINAS inserido no cenário de processamento distribuído no
-% ambiente de computação em névoa (\fog) com ênfase nos fluxos gerados por
-% dispositivos de Internet das Coisas (\iot) doravante referido por \mfog ou 
-% ``a presente implementação''.
-% Os requisitos dessa implementação são derivados das lacuna discutidas no
-% \refcap{related}.
+\subsection{Implementação com \flink}
 
-% \nota{resumo e retomada do objetivo}
+A segunda alternativa explorada teve por inspiração o trabalho de
+\citeonline{Viegas2019}
+
+% \chapter{Resultados Preliminares: implementação e testes}\label{cha:imp}
+% cap 4: Implementação e testes
+%     4.1. descrição da implementação
+%         - offline, online, ND, Clustering
+%         - observação de paralelização
+%         - complexidade bigO (?)
+%     4.2. cenário de teste 
+%         - detecção de intrusão
+%         - Arquitetura guilherme (dispositivos pequenos vs cloud)
+%     4.3. Resultados de experimentos
+%         - gráficos, tempos, tabelas...
+%         - análises e comentários
+
+% \begin{resumocap}
+% \end{resumocap}
+
+\nota{Esse trabalho propos-se a fazer}
 
 
-% Uma das lacunas é a falta de uma implementação do algoritmo
-% MINAS mais próxima de aplicações reais, ou seja:
-% que trate de fluxos realistas em contraste aos conjuntos de dados (\datasets)
-% sintéticos;
-% que considere restrições computacionais tanto teóricas que são características
-% de processamento de fluxos contínuos e ilimitados como restrições práticas
-% de ambientes diversos como computação pessoal (\emph{Desktop Computing}), 
-% computação em nuvem (\cloud) e computação em névoa (\fog).
+\nota{usar coeficiente d-intra vs d-extra grupo para determinar K de
+cada label}
 
-% Outras lacunas são encontrada na implementação de sistemas de que dependem de
-% algoritmos de detecção de novidades. Nessas implementações nota-se a falta de
-% algoritmos que tenham as considerações teóricas inerentes da variabilidade de
-% dados em fluxos contínuos de dados como deriva e evolução de conceito (\drift e
-% \evolution).
-% Por outro lado, outros sistemas consideram a variabilidade porém o
-% mecanismo de atualização do modelo assume que as etiquetas reais estarão
-% disponíveis após classificação (\emph{feedback}) imediatamente ou com atraso
-% predizível.
-% A suposição de \emph{feedback} em fluxos reais também não é realista pois
-% a presença de um especialista que classifique corretamente os exemplos
-% solicitados é, na melhor das hipóteses, eventual e não contínua contrastando com
-% a natureza do fluxo de dados.
+% % hélio
+% notas sobre a distribuição do modelo
+% - cenário com o processamento de novidades local
+% - cenário com ND na nuvem
 
-% % Para cumprir os objetivos citados na \refsec{objetivos}, foi identificado a necessidade
-% % de um processo exploratório seguido de experimentação. Tal processo inclui a
-% % revisão da literatura, tanto acadêmica quanto técnica, seguida da experimentação
-% % através de implementação de aplicação e testes.
+% - minas totalmente active
 
-% \section{Cenário}\label{sec:cenario}
+% helio amanha:
+% a. Cenário, b. Problema, c. Proposta e d. Resultado Esperado.
+% hermes:
+% a. Monitoramento, classificação,
+% b. detecção de novidades,
+% c. executar em nós multi-core de maneira escalável,
+% d. minas com mesma qualidade porém escalável.
 
-% A presente Seção descreve o cenário base para a proposta de implementação,
-% expondo características, desafios e hipóteses que a implementação deve atender.
+% helio:
+% Técnicas de firewall tradicional: allow all, deny all.
+% Firewall moderno usa modelos.
+% Minas como modelo.
 
-% A Internet das Coisas \iot é composta por milhares de dispositivos distribuídos
-% geograficamente conectados à Internet.
-% Com capacidades diversas como sensores e atuadores, esses dispositivos dependem
-% de conexões para executarem suas funções, enviando e recebendo informações
-% trocadas com outros dispositivos ou aplicações centrais hospedadas em ambiente
-% \cloud.
-% A a dependência de comunicação é uma restrição que tem diversas implicações
-% como confiabilidade de um sistema e, dependendo da conexão limita ou impede
-% funcionalidades comuns em outros ambientes.
-% Além das restrições, devido aos encargos atribuídos à manutenção da comunicação,
-% o envio e recebimento de dados em dispositivos deve ser minimizado.
+% hermes
+% iot, nós expostos vitima de ataque, novas funcionalidades ->
+% firewall rigido vs modelos -> streams ->
+% novidade -> minas -> big data -> discussão de localidade de dados
+% paralelização
 
-% % estou deixando implícito as restrições como baterias :(
+% motivação: testes preliminares do guilherme que fez teste com tais bases
+% teve resultados promissores
 
-% Mesmo com as restrições e desafios, a implementação de dispositivos ainda é
-% vantajosa, pois o valor sobrepõe o custo.
-% Esse valor origina de várias fontes como automação, redução de risco e coleta
-% de dados granulares que possibilitam análises antes impraticáveis.
-% A coleta de dados para análise contínua é um dos principais fatores na
-% implantação de um sistema IoT levando a geração de diversos fluxos com
-% propriedades e processos igualmente diversos.
-% % A análise constante de dados 
+% - implementar
+% - paralelizar
+% - avaliar
+% - avaliar aprendizado local ou global trade-offs
+
+
+% % luis
+% O minas abre espaço 
+
+% % hermes
+% escalabilidade do algoritmo
+
+% Kafka particiona e expoem esse particionamento ao consumidor.
+% Tentei usar Python + Kafka, mas não escalou.
+
+% Detalhar a implementação
+
+% % hermes, esqueça kafka, foque em arquivos
+
+
+% \section{Descrição da Implementação}
+% \section{Objetivos a serem alcançados}
+% O que de fato vc irá fazer 
+
+\nota{
+- offline, online, ND, Clustering \\
+- observação/Considerações de paralelização \\
+- Notas sobre implementação Python/Kafka/Minas (não escala como esperado) \\
+- Dificuldade no processamento distribuido em Flink. \\
+- complexidade bigO (?)
+}
+
+\subsection{Ambiente de Teste}
+
+Para testar e demonstrar essa implementação um cenário de aplicação é construído
+onde seria vantajoso distribuir o processamento segundo o modelo \emph{fog}. Alguns
+cenários de exemplo são
+casos onde deve-se tomar ação caso uma classe ou anomalia seja detectada
+
+
+% In time, process control and automation of industrial facilities, ranging from
+% oil refineries to corn flakes factories \cite{Stonebraker2005}
+
+% dataset kyoto não está disponível {http://www.takakura.com/Kyoto_data/}
+
+\nota{- detecção de intrusão\\
+- Arquitetura guilherme (dispositivos pequenos vs cloud)\\
+- Descrever a arquitetura IDS-IoT do paper do Guilherme \ cite{Cassales2019a}\\
+- dataset kyoto não está disponível\\
+- \ dataset kdd99\\
+- BigFlow com \ dataset atual e maior
+}
+
+\subsection{Experimentos e Resultados}
+
+\nota{
+- gráficos, tempos, tabelas...\\
+- análises e comentários\\
+- Mostrar alguma implementação já feita e que esteja funcionando minimamente
+}
+
+\nota{Mostrar resultados mesmo que sejam bem simples e básicos,
+apenas para demonstrar que vc domina o ambiente e as ferramentas e
+que está apto a avançar no trabalho}
+
+\nota{discussão de 2020-02-01:\\
+passos feitos/a fazer\\
+1. Entender Minas\\
+2. Analisar/descrever data set KDD\\
+3. Notas sobre implementação Python/Kafka/Minas (não escala como esperado)\\
+4. BigFlow (data set mais novo, usa flink)\\
+5. Plataforma Flink (processamento distribuído)\\
+Proposta\\
+6. Implementar minas em Scala/Flink\\
+7. Testar com data sets KDD e BigFlow\\
+8. Validar/Comparar métricas com seus trabalhos correspondentes
+}
+
+\nota{lendo Quali Casssales:\\
+- Descrição do hardware utilizado pode conter:\\
+    - Arch, OS, Kernel,\\
+    - CPU (core, thread, freq),\\
+    - RAM (total/free size, freq),\\
+    - Disk (total/free size, seq RW, rand RW),\\
+    - Net IO between nodes (direct crossover, switched, wireless, to cloud) (bandwidth, latency).\\
+essas métricas permitem relacionar trade-offs para as questões de fog: Processar em node, edge ou cloud?
+}
+
+\nota{Provavelmente vou retirar o kafka da jogada em node/edge, deixando apenas em cloud.}
