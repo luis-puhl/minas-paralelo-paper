@@ -101,20 +101,22 @@
 % análise.}
 \acronym{IoT}{Internet of Things, Internet das Coisas}
 
-A Internet das Coisas (\emph{Internet of Things} - IoT) é um sistema global de dispositivos
-(máquinas, objetos físicos ou virtuais, sensores, atuadores e pessoas) com capacidade de intercomunicação pela Internet sem depender
-de interação com interface humano-computador tradicional.
-O número de dispositivos categorizados como IoT na década passada teve crescimento
-sem precedentes e, proporcionalmente, cresceu o volume de  dados gerados por esses dispositivos.
+A Internet das Coisas (\emph{Internet of Things} - IoT) é um sistema global de
+dispositivos (máquinas, objetos físicos ou virtuais, sensores, atuadores e
+pessoas) com capacidade de intercomunicação pela Internet sem depender de
+interação com interface humano-computador tradicional.
+O número de dispositivos categorizados como IoT na década passada teve
+crescimento sem precedentes e, proporcionalmente, cresceu o volume de dados
+gerados por esses dispositivos.
 
 A análise desses dados pode trazer novos conhecimentos e foi um tema frequentemente
 abordado por trabalhos de pesquisa na última década.
-Além dos
-dados de sensores e atuadores esses dispositivos, quando subvertidos, podem
-gerar outro tipo de tráfego, maligno à sociedade, como o gerado pela
-\emph{botnet} mirai em 2016 \cite{Kambourakis2017}. Nesse cenário são fatores
-que possibilitam a subversão desses dispositivos: falta de controle sobre a origem do hardware e
-software embarcado nos dispositivos além das cruciais atualizações de segurança.
+Além dos dados de sensores e atuadores esses dispositivos, quando subvertidos,
+podem gerar outro tipo de tráfego, maligno à sociedade, como o gerado pela
+\emph{botnet} mirai em 2016 \cite{Kambourakis2017}.
+Nesse cenário são fatores que possibilitam a subversão desses dispositivos:
+falta de controle sobre a origem do hardware e software embarcado nos
+dispositivos além das cruciais atualizações de segurança.
 
 % The Internet of Things (IoT) has been defined in Recommendation ITU-T Y.2060 (06/2012) as
 % a global infrastructure for the information society, enabling advanced services
@@ -136,12 +138,13 @@ Analogamente, as mesmas técnicas de classificação podem ser aplicadas para os
 metadados gerados pela comunicação entre esses nós e a Internet num serviço de
 detecção de intrusão.
 
-\acronym{ND}{Novelty Detection, Detecção de Novidade}
+\acronym{ND}{Novelty Detection}{Detecção de Novidade}
+% \New
 
 Técnicas de \emph{Data Stream Mining} envolvem mineração de dados
 (\emph{Data Mining}), aprendizado de
 máquina (\emph{Machine Learning}) e recentemente Detecção de Novidades
-(\emph{Novelty Detection} - ND).
+(\emph{Novelty Detection}, \gls{ND}).
 ND além de classificar em modelos conhecidos
 permite classificar novos padrões e, consequentemente, atuar corretamente mesmo
 em face a padrões nunca vistos.
@@ -162,16 +165,19 @@ explorados os recursos distribuídos pela rede desde o nó remoto até a
 com características como sensibilidade à latência, privacidade,
 consumo computacional ou energético.
 
-\section{Motivação}
+\section{Motivação}\label{sec:motivo}
 
 No contexto de detecção de novidades para fluxos de dados em \emph{fog}, uma
-arquitetura recente proposta por \citeonline{Cassales2019a}, baseada no algoritmo
-de detecção de novidades em fluxo de dados MINAS
-\cite{Faria2016minas}, mostra resultados promissores.
+arquitetura recente proposta por \citeonline{Cassales2019a} mostra resultados promissores.
+
+% baseada nos algoritmos de detecção de novidades em fluxo de dados ECSMiner, AnyNovel e MINAS \cite{Faria2016minas},
+ECSMiner, AnyNovel e MINAS
+
+
 A arquitetura proposta foi avaliada com conjunto de dados (\emph{data set}) \emph{Kyoto 2006+} 
 composto de dados coletados de 348 \emph{Honeypots} (máquinas isoladas com diversos softwares
 com vulnerabilidades conhecidas expostas à Internet com propósito de atrair
-ataques) de 2006 até dezembro 2015. 
+ataques) de 2006 até dezembro 2015.
 O \emph{data set} \emph{Kyoto 2006+} contém 24 atributos, 3 etiquetas atribuídas por
 detectores de intrusão comerciais e uma etiqueta
 distinguindo o tráfego entre normal, ataque conhecido e ataque desconhecido
@@ -188,43 +194,43 @@ distribuída processadora de fluxos (\emph{Apache Flink}) executada em um cluste
 com até 10 nós de trabalho, cada um com 4 núcleos de processamento totalizando
 40 núcleos para atingir taxas de até $10,72 \ Gbps$.
 
-Além de apresentar uma implementação, \citeonline{Viegas2019} também apresenta o
-\emph{data set} \emph{MAWIFlow}. Esse conjunto é derivado do ponto de coleta
-F, localizado em um elo de comunicação entre o Japão e os EUA (\emph{Backbone})
-com capacidade de $1\ Gbps$, diariamente 15 minutos são capturados desde 2006
-sob supervisão de \citeonline{mawiSamplepointF} \cite{Fontugne2010}. O conjunto
-\emph{MAWIFlow} limita-se às coletas de 2016 ($7.9\ TB$) e estratificado para
-$1\%$ desse tamanho facilitando compartilhamento e avaliação por outros
-softwares. Esse conjunto contempla 158 atributos de nós e fluxos e etiquetado
-por \citeonline{Fontugne2010}.
+% Além de apresentar uma implementação, \citeonline{Viegas2019} também apresenta o
+% \emph{data set} \emph{MAWIFlow}. Esse conjunto é derivado do ponto de coleta
+% F, localizado em um elo de comunicação entre o Japão e os EUA (\emph{Backbone})
+% com capacidade de $1\ Gbps$, diariamente 15 minutos são capturados desde 2006
+% sob supervisão de \citeonline{mawiSamplepointF} \cite{Fontugne2010}. O conjunto
+% \emph{MAWIFlow} limita-se às coletas de 2016 ($7.9\ TB$) e estratificado para
+% $1\%$ desse tamanho facilitando compartilhamento e avaliação por outros
+% softwares. Esse conjunto contempla 158 atributos de nós e fluxos e etiquetado
+% por \citeonline{Fontugne2010}.
 
 % \acronym{Drift}{\emph{Concept Drift}, Deriva conceitual: variação temporal de um conceito conhecido}
 % \acronym{Evolution}{\emph{Concept Evolution}, Conceitos emergentes: conceitos não  }
 
-O sistema \emph{BigFlow} é composto de dois estágios: extração de
-características (estatísticas de tráfego da rede) e aprendizado confiável de
-fluxo. O segundo estágio implementa um algoritmo de detecção de novidade
-utilizando classificadores já estabelecidos na biblioteca \emph{Massive Online Analysis framework} (MOA) \cite{MOA} com
-adição de um módulo de verificação que armazena valores classificados com baixa
-confiança para serem manualmente avaliados por um especialista \cite{Viegas2019}.
-A escolha dessa
-abordagem não é nova e visa tratar nuances do problema abordado como
-variação temporal de conceitos conhecidos (\emph{Concept Drift}) e
-conceitos emergentes (\emph{Concept Evolution})
-\cite{Faria2016nd}.
-Essas nuances causam redução de acurácia durante a
-avaliação inicial dos algoritmos tradicionais e devidamente mitigada com a
-atualização constante do modelo. Esses problemas são amplamente abordados e
-tratados em outros algoritmos como o MINAS \cite{Faria2016minas}.
+% O sistema \emph{BigFlow} é composto de dois estágios: extração de
+% características (estatísticas de tráfego da rede) e aprendizado confiável de
+% fluxo. O segundo estágio implementa um algoritmo de detecção de novidade
+% utilizando classificadores já estabelecidos na biblioteca \emph{Massive Online Analysis framework} (MOA) \cite{MOA} com
+% adição de um módulo de verificação que armazena valores classificados com baixa
+% confiança para serem manualmente avaliados por um especialista \cite{Viegas2019}.
+% A escolha dessa
+% abordagem não é nova e visa tratar nuances do problema abordado como
+% variação temporal de conceitos conhecidos (\emph{Concept Drift}) e
+% conceitos emergentes (\emph{Concept Evolution})
+% \cite{Faria2016nd}.
+% Essas nuances causam redução de acurácia durante a
+% avaliação inicial dos algoritmos tradicionais e devidamente mitigada com a
+% atualização constante do modelo. Esses problemas são amplamente abordados e
+% tratados em outros algoritmos como o MINAS \cite{Faria2016minas}.
 
 Os trabalhos de \citeonline{Cassales2019a} e \citeonline{Viegas2019} abordam
 detecção de intrusão em redes utilizando algoritmos de ND em DS porém com
 perspectivas diferentes.
 O primeiro observa \emph{IoT} e processamento em \emph{fog}, baseia-se em um
 algoritmo genérico de detecção de novidade.
-O segundo trabalho observa \emph{backbones} e
-processamento em \emph{cloud}, implementa o próprio algoritmo de detecção de
-novidade. Essas diferenças deixam uma lacuna onde de um lado tem-se uma
+O segundo trabalho observa \emph{backbones} e processamento em \emph{cloud},
+implementa o próprio algoritmo de detecção de novidade.
+Essas diferenças deixam uma lacuna onde de um lado tem-se uma
 arquitetura mais adequada para \emph{fog} com um algoritmo estado da arte de
 detecção de novidades porém sem paralelismo e, de outro, tem-se um sistema
 escalável de alto desempenho porém almejando outra arquitetura (\emph{cloud}) e
@@ -237,16 +243,22 @@ com um algoritmo menos preparado para os desafios de detecção de novidades.
 % \\ arquiteutra distribuida em fog com minas e alto desempenho bigflow
 % }
 
-\section{Objetivos}
-\label{sec:objetivos}
+\section{Objetivos}\label{sec:objetivos}
+
+Como estabelecido na \refsec{motivo}, a lacuna no estado da arte observada é
+constituída da ausência de uma implementação de algoritmo de detecção de
+novidade que considere o ambiente de computação em névoa aplicada à detecção de
+intrusão.
+Portanto, seguindo os trabalhos do Grupo de Sistemas Distribuídos e Redes
+(GSDR), propõem-se então a expansão do tra
 
 
 % Hermes
-Citar que o MINAS já foi testado para detecção de intrusão [Guilherme2019]. 
+\nota{Citar que o MINAS já foi testado para detecção de intrusão [Guilherme2019].}
 
-Falar do resultado bem resumuidamente 
+\nota{Falar do resultado bem resumuidamente}
 
-Porem a implementação não distribuída.
+\nota{Porem a implementação não distribuída.}
 
 
 %Com a avaliação inicial formulou-se a questão \emph{``quais resultados podem ser esperados de um sistema que implementa um algoritmo de detecção de novidades em fluxo de dados?"} que engloba sucintamente
