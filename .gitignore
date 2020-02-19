@@ -4,13 +4,18 @@
 *.bbl
 *.blg
 *.log
-*.synctex.gz
+*.synctex*
 *.toc
 *.fdb_latexmk
 *.fls
 *.lof
 *.out
 *temp.tex
+*.brf
+*.idx
+*.ilg
+*.loq
+*.lot
 
 # resultantes, adicionar com -f
 *.pdf
