@@ -246,20 +246,27 @@ com um algoritmo menos preparado para os desafios de detecção de novidades.
 \section{Objetivos}\label{sec:objetivos}
 
 Como estabelecido na \refsec{motivo}, a lacuna no estado da arte observada é
-constituída da ausência de uma implementação de algoritmo de detecção de
-novidade que considere o ambiente de computação em névoa aplicada à detecção de
+a ausência de uma implementação de algoritmo de detecção de
+novidade que trate adequadamente os desafios de fluxo de dados contínuos e
+considere o ambiente de computação em névoa aplicada à detecção de
 intrusão.
-Portanto, seguindo os trabalhos do Grupo de Sistemas Distribuídos e Redes
-(GSDR), propõem-se então a expansão do tra
+Seguindo a comparação entre algoritmos desse gênero realizada por
+\citeonline{Cassales2019a}, elege-se que o algoritmo MINAS \cite{Faria2016minas}
+receberá o tratamento proposto.
 
+Portanto, seguindo os trabalhos do Grupo de Sistemas Distribuídos e Redes
+(GSDR), propõem-se a construção de uma aplicação que implemente o algoritmo MINAS
+de maneira escalável e distribuível para ambientes de computação em névoa e a avaliação
+dessa implementação com experimentos baseados na literatura e conjunto de dados
+públicos relevantes.
+O resultado esperado é uma implementação compatível em qualidade de
+classificação ao algoritmo MINAS e passível de ser distribuído em um ambiente
+de computação em névoa aplicado à detecção de intrusão.
 
 % Hermes
-\nota{Citar que o MINAS já foi testado para detecção de intrusão [Guilherme2019].}
-
-\nota{Falar do resultado bem resumuidamente}
-
-\nota{Porem a implementação não distribuída.}
-
+% \nota{Citar que o MINAS já foi testado para detecção de intrusão [Guilherme2019].}
+% \nota{Falar do resultado bem resumuidamente}
+% \nota{Porem a implementação não distribuída.}
 
 %Com a avaliação inicial formulou-se a questão \emph{``quais resultados podem ser esperados de um sistema que implementa um algoritmo de detecção de novidades em fluxo de dados?"} que engloba sucintamente
 % os temas abordados nesse trabalho.
@@ -273,45 +280,34 @@ Portanto, seguindo os trabalhos do Grupo de Sistemas Distribuídos e Redes
 % - avaliar
 % - avaliar aprendizado local ou global trade-offs
 
-Propõem-se então a construção de uma aplicação que implemente o algoritmo MINAS
-de maneira escalável e distribuível para ambientes de computação em névoa e a avaliação
-dessa implementação com experimentos baseados na literatura e conjunto de dados
-públicos relevantes.
-O resultado esperado é uma implementação compatível em qualidade de
-classificação ao algoritmo MINAS e passível de ser distribuído em um ambiente
-de computação em névoa.
-
 Com foco no objetivo geral, alguns objetivos secundários são propostos:
 
-\nota{citar ferramentas e a escolha só depois do python e kafka}
+% \nota{citar ferramentas e a escolha só depois do python e kafka}
 
-\nota{entre flink e spark, outro grupo de pesquisa já está explorando spark}
+% \nota{entre flink e spark, outro grupo de pesquisa já está explorando spark}
 
+% \begin{itemize}
+% \item
+% \end{itemize}
+
+% \nota{
+%     estudar o algoritmo\\
+%     fazer uma implementação\\
+%     pegar datasets relevantes\\
+%     comparar a corretude  com o sequencial\\
+%     avaliar desempenho e escalabilidade
+% }
 \begin{itemize}
+
     \item Implementar o algoritmo MINAS de maneira distribuída sobre uma plataforma de processamento
     distribuída de fluxos de dados;
-    
-    \item Avaliar a qualidade de detecção de intrusão em ambiente distribuído conforme a arquitetura IDSa-IOT e os conjuntos de dados associados;
+
+    \item Avaliar a qualidade de detecção de intrusão em ambiente distribuído 
+    conforme a arquitetura IDSa-IOT;
     
     \item Avaliar o desempenho da implementação em ambiente de computação em névoa.
 
-    % \item Implementar algoritmo MINAS sobre \emph{Apache Flink};
-    % \item Executar a implementação com \emph{data sets} públicos relevantes;
-    % \item Validar, por meio de comparação com o algoritmo original, se a
-    % implementação gera os mesmos resultados quanto a classificação;
-    % \item Extrair métricas de escalabilidade por meio de experimentação;
-    % \item Avaliar estratégias de distribuição 
-    % (execução nas bordas, na nuvem e mista) do algoritmo em \emph{fog} 
-    % e seu o impacto na qualidade de classificação e volume computado.
 \end{itemize}
-
-\nota{
-estudar o algoritmo\\
-fazer uma implementação\\
-pegar datasets relevantes\\
-comparar a corretude  com o sequencial\\
-avaliar desempenho e escalabilidade
-}
 
 % There is a need for real-time stream processing, as data is arriving as
 % continuous flows of events; for example, cars in motion emitting GPS signals;
