@@ -722,7 +722,7 @@ O \emph{Apache Flink} implementa a tolerância a falhas combinando repetição e
 Um \emph{checkpoint} está relacionado com pontos específicos dos fluxos de
 entrada, juntamente com o estado dos operadores.
 Um fluxo de dados pode ser retornado a partir de um \emph{checkpoint}, mantendo
-a consistência de "exatamente uma vez" (não há dados duplicados e nem dados que
+a consistência de ``exatamente uma vez'' (não há dados duplicados e nem dados que
 não sejam processados), e restaurando o estado dos operadores e eventos naquele
 momento.
 Portanto, as falhas são tratadas de forma transparente e não afetam a exatidão
@@ -854,7 +854,7 @@ No âmbito de classificação de dados, parte da área de aprendizado de máquin
 métodos de detecção de novidade (também nomeado detecção de anomalia, \novelty,
 \nd) lidam com o reconhecimento e classificação de exemplos que diferem de
 exemplos anteriores \cite{PERNER2007,Gama2010}.
-Esses métodos tratam da classificação em conjutos de dados que evolvem com o
+Esses métodos tratam da classificação em conjuntos de dados que evolvem com o
 tempo levando em consideração as características desse tipo de conjuntos.
 
 São características desse tipo de conjunto:
@@ -878,19 +878,19 @@ Detecção de Variações Comportamentais em um Jogador \cite{Vallim20136258}.
 
 % breve descrição do que sao algoritmos para DN
 
-Alguns métodos tratam de novidades e anomalaias como um classificação de uma
+Alguns métodos tratam de novidades e anomalias como um classificação de uma
 ou duas classes (binariamente) onde um conceito representa a classe normal e
-anomalias são reprensantadas pela abstência de conceito no modelo ou
+anomalias são representadas pela falta de conceito no modelo ou
 como um segundo conceito no modelo.
 A abordagem de classificação binária no entanto não é adequada para representar
 múltiplos conceitos em um mesmo conjunto de dados, para isso é necessário abordar
 \nd como classificação multi-classe.
 No entanto, alguns métodos que abordam \nd como classificação multi-classe não
 atendem completamente características de conjuntos com evolução temporal
-como \evolution e \drift, deixando de detectar multiplos padrões que surgem
+como \evolution e \drift, deixando de detectar múltiplos padrões que surgem
 simultaneamente num intervalo de avaliação \cite{Faria2016nd,Gama2010}.
 
-A maioria dos métodos de \nd são construidos seguindo a abordagem de aprendizado
+A maioria dos métodos de \nd são construídos seguindo a abordagem de aprendizado
 \emph{Offline-Online}. Essa abordagem estabelece que o método seja dividido em
 duas fases:
 a primeira fase (\emph{Offline}) usa um conjunto de exemplos rotulados para
@@ -902,11 +902,11 @@ Ainda na segunda fase, para atualizar o modelo os exemplos marcados como
 desconhecidos são utilizados para a extração de novos conceitos ou variações em
 conceitos conhecidos \cite{Gama2010}.
 
-Dentre os métodos de \nd que baseam-se em aprendizado \emph{Offline-Online},
+Dentre os métodos de \nd que baseiam-se em aprendizado \emph{Offline-Online},
 muitos são baseados em algoritmos de agrupamento não supervisionados, tanto
 para construção do modelo inicial como na extração de novos conceitos dos
 exemplos não explicados pelo modelo marcados como desconhecidos
-\cite{Spinosa2009ollinda,Masud2010ECSMiner,Faria2013}
+\cite{Spinosa2009ollinda,Masud2010ECSMiner,Faria2013}.
 
 % Essa abordagem se deve as características 
 
@@ -922,24 +922,66 @@ exemplos não explicados pelo modelo marcados como desconhecidos
 \section{O algoritmo MINAS}\label{sec:minas-og}
 
 Um algoritmo de \nd que tem recebido atenção nos últimos anos é o algoritmo
-MINAS orignialmente proposto por \citeonline{Faria2013}, refinado em
+MINAS originalmente proposto por \citeonline{Faria2013}, refinado por
 \citeonline{Faria2016minas} e recentemente aprimorado por
 \citeonline{DaSilva2018thesis} com uso de conceitos \emph{Fuzzy} e expandido por
 \citeonline{Costa2019thesis} para tratar problemas multi-rótulo além dos problemas
 multi-classe já tratados.
 
-Esse algoritmo segue a abordagem de aprendizado \emph{Offline-Online} e usa por
+Esse algoritmo segue a abordagem de duas fases no modelo \emph{Offline-Online} e usa por
 base algoritmos de agrupamento não supervisionados como \emph{K-means} e
 \emph{CluStream}.
 
+\newcommand{\mcluster}{\emph{micro-cluster}\xspace}
+\newcommand{\mclusters}{\emph{micro-clusters}\xspace}
+
+O algoritmo MINAS em sua fase \emph{Offline} consome um conjunto treinamento
+contendo exemplos etiquetados.
+Esse conjunto de treinamento é dividido em grupos usando como chave a etiqueta
+e para cada grupo de exemplos o método de agrupamento (\emph{clustering}) é executado.
+O método de agrupamento objetiva resumir um conjunto maior de exemplos em 
+um conjunto menor de \mclusters que representem por meio de um sumário
+contendo, entre outras estatísticas, o centro e raio.
+A cada \mcluster é adicionada a etiqueta do grupo original e todos
+os conjuntos são unidos formando o modelo de decisão.
+
+Na fase \emph{Online} o algoritmo opera com dois métodos.
+O primeiro método é o de classificação, onde exemplos do fluxo de dados
+são consumidos e avaliados pelo modelo de decisão.
+O modelo de decisão avalia cada exemplo calculando a distância euclideana
+entre o exemplo e todos \mclusters do modelo selecionando o
+\mcluster de menor distância.
+Se a distância entre o exemplo e o centro do \mcluster for menor que
+o raio do \mcluster o exemplo é classificado com a etiqueta do \mcluster
+e o sumário estatístico do \mcluster é atualizado.
+Caso a distância seja maior o exemplo é marcado como desconhecido e armazenado
+em conjunto próprio.
+
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.9\textwidth]{figuras/FariaMinas2015-fases.png}
+\includegraphics[width=1\textwidth]{figuras/FariaMinas2015-fases.png}
 \caption{Visão geral do algoritmo MINAS com fases \emph{Offline} (a) e 
-\emph{Online} (b). Extraído de \citeonline{Faria2016minas}}
+\emph{Online} (b) \cite{Faria2016minas}}
 \label{fig:minas}
 \end{figure}
 
+O segundo método da fase \emph{Online} é a detecção de padrões novidade
+e é executada quando o tamanho do conjunto de desconhecidos é maior
+que um parâmetro predefinido.
+Esse método executa o agrupamento (\emph{clustering}) descrito na fase
+\emph{Offline} e valida os \mclusters gerados verificando sua representatividade
+e coesão.
+
+Para atribuição de etiquetas aos \mclusters gerados o algoritmo MINAS
+encontra no modelo atual o \mcluster mais próximo pela distância
+euclidiana e classifica em dois tipos de conceito.
+Se a distância é menor que um parâmetro predefinido,
+o novo \mcluster gerado recebe como etiqueta o valor de extensão
+de conceito conhecido.
+Caso contrário, se o novo \mcluster está mais distante,
+um novo conceito foi encontrado e a etiqueta marca uma novidade.
+Após a atribuição da etiqueta do novo \mcluster, ele é adicionado
+ao modelo de decisão.
 
 % Although efficient in detecting NP, MINAS is
 % very sensitive to noisy data and data scale, what causes a
