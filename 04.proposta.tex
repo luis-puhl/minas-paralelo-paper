@@ -41,6 +41,8 @@ volume de eventos do sistema.
 Volumes elevados são dificilmente computados em apenas um nó e muito menos em um
 único núcleo computacional, por esse motivo esses sistemas são distribuídos.
 
+\nota{separa ND}
+
 Sistemas que utilizam \nd para \streams gerados por dispositivos \iot devem
 utilizar algoritmos que considerem os desafios inerentes de fluxos de dados
 (\evolution e \drift) para adequada detecção de novidades e arquiteturas
@@ -49,9 +51,11 @@ O algoritmo MINAS é adequado pois trata os desafios de \streamMining porém nã
 tem ainda implementação que atenda os requisitos de volume e latência,
 especialmente para aplicações \iot onde um ambiente de \fog é atrativo.
 
-Para preencher a lacuna de algoritmo de \nd em ambiente \fog propõem-se então
+Para preencher a lacuna de algoritmo de \nd em ambiente \fog, propõem-se então
 \mfog, uma implementação do algoritmo MINAS sobre a plataforma \flink que
 considera distribuição em um ambiente de \fog.
+
+
 
 % \nota{Reestruturar:
 %   A - remember,
@@ -70,7 +74,9 @@ considera distribuição em um ambiente de \fog.
 \newcommand{\classify}{classificador\xspace}
 \newcommand{\detector}{detector\xspace}
 
-Nesta Seção apresenta-se \mfog, objeto proposta deste trabalho.
+\nota{sorvedouro??? kkkkk nao tem termo melhor, ou eh esse mesmo kk tipo saida de dados}
+
+Nesta Seção, apresenta-se o \mfog, objeto proposta deste trabalho.
 O \mfog é composto pelos módulos: \offline, \classify e \detector.
 Para correta avaliação, \mfog é acompanhado de dois módulos auxiliares:
 módulo fonte (\source) e módulo sorvedouro (\sink).
@@ -117,6 +123,12 @@ novidade para o módulo \sink.
 
 \nota{entre flink e spark, outro grupo de pesquisa já está explorando spark}
 
+\nota{
+nao seria legal fazer um diagrama pq ai vc pode usar ate nos slides de como eh
+essa implementacao. Faz no draw io pra que de pra usar na monografia e de para
+enxergar na apresentacao
+}
+
 \section{Metodologia de Avaliação e Resultados Esperados}\label{sec:esperados}
 
 % \nota{reestrutura 2:
@@ -131,7 +143,7 @@ literatura, divididas em duas partes: métricas de qualidade de classificação
 e métricas de escalabilidade.
 
 Métricas tradicionais de qualidade de classificação estabelecidas por trabalhos
-aprendizado de máquina não são adequadas para avaliar detecção de novidades em
+de aprendizado de máquina não são adequadas para avaliar detecção de novidades em
 \streams sem tratamento inicial, felizmente o tratamento necessário é
 estabelecido por \citeonline{Faria2013} e expandido por
 \citeonline{DaSilva2018,DaSilva2018thesis,Costa2019,Costa2019thesis}.
@@ -141,7 +153,7 @@ A matriz é preenchida com o número de eventos da classe $c_i$ classificados co
 etiqueta $l_j$ até o instante $n$.
 A equação \ref{eq:classes} representa o conjunto de classes presentes nos eventos
 do fluxo até o instante $n$ e a equação \ref{eq:labels} representa o conjunto
-de etiquetas atribuídas pelo classificador à eventos até o mesmo instante.
+de etiquetas atribuídas pelo classificador a eventos até o mesmo instante.
 
 \begin{align}
   % x_n &= classify_{n-1}(x_n)\\
@@ -155,6 +167,8 @@ de etiquetas atribuídas pelo classificador à eventos até o mesmo instante.
     e_{M,1} & e_{M,2} & \cdots & e_{M,J} 
   \end{pmatrix}  \label{eq:matrix}
 \end{align}
+
+\nota{as metricas de qualidade de classificacao sao}
 
 As métricas selecionadas são taxa de desconhecidos ($UnkR$) \cite{Faria2013},
 acurácia média ($acc$) e Macro F-score ($Fscore$, F1M)
@@ -198,6 +212,7 @@ acurácia média ($acc$) e Macro F-score ($Fscore$, F1M)
 \nota{usar coeficiente d-intra vs d-extra grupo para determinar K de
 cada label}
 
+
 O tratamento do fluxo de saída é realizado no módulo \sink onde tem-se
 disponível o fluxo original com as etiquetas corretas.
 Esse módulo deve levar em consideração que
@@ -205,9 +220,17 @@ como pode haver reclassificação de um evento, previamente rotulado como
 desconhecido, em padrões oriundos de classe novidade ou extensão devido ao
 processo de detecção de novidades executado posteriormente ao surgimento
 do padrão em questão.
-Portanto os resultados são computados em função do fluxo de saída, então $n$ nas
+Portanto os resultados são computados em função do fluxo de saída, então os $n$ nas
 equações são o índice do evento de saída.
 $\mathbf{unk}$ é o conjunto de eventos marcados como desconhecidos.
+
+\nota{oque eh unk? nesse paragrafo acima, erro de compilacao do latex?}
+
+\nota{frase confusa, eh so tirar o COMO e quebrar a frase: Esse módulo deve levar em consideração que
+COMO pode haver reclassificação de um evento, previamente rotulado como
+desconhecido, em padrões oriundos de classe novidade ou extensão devido ao
+processo de detecção de novidades executado posteriormente ao surgimento
+do padrão em questão}
 
 % \begin{align}
 %   E_{n,i,j} &= \bordermatrix{~ & c_i & \neg c_i \cr
@@ -229,9 +252,19 @@ $\mathbf{unk}$ é o conjunto de eventos marcados como desconhecidos.
 %           & \text{soma de uma linha (classe)}
 % \end{align}
 
-As métricas de escalabilidade selecionadas são número de nós processadores, tipo
+As métricas de escalabilidade selecionadas são: número de nós processadores, tipo
 de processadores, uso de memória, tempo de processamento, taxa de eventos
 processados e latência entre a produção e classificação de um evento.
+
+\nota{
+como assim os resultados sao validos so se tiverem essas metricas? Entao quer
+dizer que qual medida eh valida? Vc quis dizer que se as medicoes que vc extrair
+com essas metricas forem iguais as medicoes do minas original, entao ai eh
+valido. Eh Isso?
+}
+
+\nota{NAOOOOO!! Nao colocar frase depois do enumerate.
+Comeca um paragrafo novo ou continua ele com uma frase nova, nao pode fazer isso}
 
 Da implementação \mfog é prevista execução de experimentos com \datasets
 diversos, em especial os \datasets reais que contém evolução de conceitos.
@@ -242,6 +275,8 @@ para o \mfog: \begin{enumerate*}[label={\alph*)}]
   \item recursos computacionais utilizados (memória, tempo de processamento, operações de leitura e escrita)
 \end{enumerate*}
 e para o minas somente as métricas de qualidade de classificação.
+
+\nota{AQUI NO PARAGRAFO ANTERIOR, NAOOOOO!! Nao colocar frase depois do enumerate. Comeca um paragrafo novo ou continua ele com uma frase nova, nao pode fazer isso}
 
 \section{Resultados preliminares}\label{sec:resultados}
 
@@ -262,25 +297,27 @@ O sistema \kafka recebe mensagens e as armazena em tópicos distribuídos em
 partições replicadas em nós de um \cluster, gerenciados por um nó mestre e
 suportado pelo serviço de gerenciamento de configuração distribuída \emph{Apache
 ZooKeeper}.
-A aplicação python consome eventos através da biblioteca \emph{Consumer API}
+A aplicação \emph{Python} consome eventos através da biblioteca \emph{Consumer API}
 que expõem a distribuição através da associação de um consumidor às partições
 mantidas pelo \kafka.
 
 No entanto, a hipótese de que a distribuição de mensagens gerenciada pelo \kafka
-se estenderia às processos consumidores, efetivamente distribuindo o volume de
+se estenderia a processos consumidores, efetivamente distribuindo o volume de
 mensagens entre eles igualmente, não se realizou nos experimentos realizados.
 Os experimentos em questão foram compostos de 8 processos consumidores, 1
 processo produtor, 1 instância \kafka com 8 partições em seu tópico principal
-e uma instância \emph{Apache ZooKeeper} associada à instancia \kafka.
+e uma instância \emph{Apache ZooKeeper} associada à instância \kafka.
+
+\nota{A hipótese era que o número de partições se igualaria ao número de 
+produtores e cada produtor associaria-se a uma partição.}
 
 A hipótese era que como o número de partições igualava o número de produtores e
 cada produtor associaria-se a uma partição.
-No entanto essa hipótese foi refutada quando observou-se que o número de
+No entanto, essa hipótese foi refutada quando observou-se que o número de
 mensagens consumidas por um dos 8 processos representava a maioria (mais de
 80\%) do volume introduzido no sistema, o restante sendo distribuído entre
 outros 3 processos e o restante dos processos não recebia nenhuma mensagem.
-
-Portanto iniciativa de implementar o algoritmo MINAS em \python com \kafka e
+Portanto, a iniciativa de implementar o algoritmo MINAS em \python com \kafka e
 atingir os objetivos de distribuição falhou, o que levou a reconsideração das
 plataformas escolhidas.
 
