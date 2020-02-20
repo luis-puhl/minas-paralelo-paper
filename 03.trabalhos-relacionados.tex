@@ -33,13 +33,13 @@ Processamento Distribuído de Fluxos de Dados.
 \newcommand{\datasets}{\emph{data sets}\xspace}
 % \clusters é um conjunto de \cluster feito de um \dataset.
 
-O algoritmo MINAS, como já foi discutido, classifica exemplos e detecta
+O algoritmo MINAS, como já foi discutido na Seção \ref{sec:minas-og}, classifica exemplos e detecta
 novidades em DS e considera em sua composição \emph{concept drift} e
 \emph{concept evolution}, sendo capaz de classificar como extensão de classe
 conhecida e reconhecer novas classes sem intervenção de especialista
 \cite{Faria2016minas}. Neste trabalho, consideram-se algoritmos derivados
 aqueles apresentados em trabalhos publicados após 2016 que estendem a
-implementação original seguindo sua estrutura básica.
+implementação original do MINAS seguindo sua estrutura básica.
 
 \subsection{Algoritmo FuzzyND}
 
@@ -64,7 +64,7 @@ O método de avaliação utilizado baseia-se na matriz de confusão incremental
 descrita por \citeonline{Faria2016nd} extraindo dessa matriz duas métricas:
 acurácia (\emph{Macro F-Score}) \cite{Sokolova2009} e
 taxa de desconhecidos (\emph{UnkR}) \cite{Faria2016minas}.
-Em geral o algoritmo FuzzyND detecta melhor novidades e, consequentemente,
+Em geral, o algoritmo FuzzyND detecta melhor novidades e, consequentemente,
 é mais robusto a valores atípicos (\emph{outlier}), porém perde a capacidade
 de reconhecer padrões recorrentes.
 
@@ -86,7 +86,7 @@ multi-rótulo, porém não trata evoluções de conceito (\emph{Concept Evolutio
 As alterações fundamentais propostas são:
 a representação de \cluster onde MINAS-LC troca a etiqueta, que era única, por uma multi-rótulo;
 a transformação de problema aplicada ao conjunto de treinamento para transformá-lo de um
-conjunto multi-rotulo para um conjunto multi-classe (simplificação)
+conjunto multi-rótulo para um conjunto multi-classe (simplificação)
 em duas variações \emph{Label Powerset} e \emph{Pruned Sets} com
 mineração de conjunto de itens frequentes.
 
@@ -167,6 +167,8 @@ Os resultados apresentados indicam que MINAS-BR capturou todas as novidades dos
 4 algoritmos equivalentes da literatura ficando abaixo dos 3 com \emph{feedback}
 externo.
 
+\nota{os trabalhos desta SUBSEÇÃO.. Se vc estiver falando dos trabs MINAS-LC e MINAS-BR}
+
 Os trabalhos relacionados nessa Seção tem em comum muito além do algoritmo base,
 tem também métricas de avaliação acurácia (\emph{Macro F-Score} e \emph{Macro
 F-Measure} F1M) e taxa de desconhecidos, aplicadas com devido tratamento.
@@ -238,6 +240,8 @@ porém alguns exemplos mencionados ainda não abordados são:
 \nota{helio: Mining wireless networks}
 
 \section{Processamento Distribuído de Fluxo de Dados em Tempo Real}
+
+\nota{espaco depois de SECAO}
 
 Nesta \Section abordamos trabalhos que aplicam algoritmos de detecção de
 novidades para fins diversos em fluxos de dados reais.
@@ -432,6 +436,9 @@ Ou seja, um nó só vê e classifica os próprios dados.}
 \newcommand{\stream}{\emph{data stream}\xspace}
 \newcommand{\streams}{\emph{data streams}\xspace}
 \newcommand{\streamMining}{\emph{data stream mining}\xspace}
+
+
+\nota{coloca uma secao de SINTESE dos trabalhos relacionados ou sintese do capitulo}
 
 Em conclusão, os trabalhos discutidos nesse Capítulo tem temas complementares em
 áreas distintas.
