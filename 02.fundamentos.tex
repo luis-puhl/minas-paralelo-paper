@@ -870,24 +870,24 @@ No âmbito de classificação de dados, parte da área de aprendizado de máquin
 métodos de detecção de novidade (também nomeado detecção de anomalia, \novelty,
 \nd) lidam com o reconhecimento e classificação de exemplos que diferem de
 exemplos anteriores \cite{PERNER2007,Gama2010}.
-Esses métodos tratam da classificação em conjuntos de dados que evolvem com o
-tempo levando em consideração as características desse tipo de conjuntos.
+Esses métodos tratam da classificação em fluxos de dados que evolvem com o
+tempo levando em consideração as características desse tipo de fluxos.
 
-\nota{"As características desse tipo de conjunto de dados são?".. mas que tipo?}
+% \nota{"As características desse tipo de fluxo de dados são?".. mas que tipo?}
 
-São características desse tipo de conjunto:
-a evolução de conceito (\evolution)
-onde novos padrões podem surgir;
+Tratando-se dos padrões observados em fluxos de dados contínuos, são características:
+a evolução de conceito (\evolution) onde novos padrões podem surgir;
 desaparecimento ou recorrência de conceito, onde padrões podem desaparecer e
 também podem reaparecer;
 a mudança de conceito (\drift, também nomeado deriva ou desvio) onde um padrão
 gradualmente se transforma;
 a possível presença de ruído e \emph{outliers} \cite{Gama2010}.
 
-\nota{separar ai - ndpara//padroes novidade? reconhecomemnto de padroes novidade?}
+% \nota{separar ai - ndpara\\
+% padroes novidade? reconhecomemnto de padroes novidade?}
 
-Os métodos de \nd  para reconhecimento padrões novidade ou anomalias são
-aplicadas a diversos problemas como
+Os métodos de \nd são utlizados no reconhecimento de diversos padrões novidade
+ou anomalias e são aplicadas a diversos problemas como
 Detecção de Intrusos \cite{Coull2003,Spinosa2008,Viegas2019,Cassales2019a},
 Detecção de Falhas \cite{Zhang2006},
 Diagnósticos Médicos \cite{Perner2009},
@@ -897,7 +897,6 @@ Filtros de Spam \cite{Hayat2010dct} e
 Detecção de Variações Comportamentais em um Jogador \cite{Vallim20136258}.
 
 % breve descrição do que sao algoritmos para DN
-\nota{separa os ND ta tudo grudado com as palavra}
 
 Alguns métodos tratam de novidades e anomalias como uma classificação de uma
 ou duas classes (binariamente) onde um conceito representa a classe normal e
@@ -942,20 +941,25 @@ exemplos não explicados pelo modelo marcados como desconhecidos
 
 \section{O algoritmo MINAS}\label{sec:minas-og}
 
-\nota{ND separado das palavra}
-
 Um algoritmo de \nd que tem recebido atenção nos últimos anos é o algoritmo
 MINAS originalmente proposto por \citeonline{Faria2013}, refinado por
 \citeonline{Faria2016minas} e recentemente aprimorado por
 \citeonline{DaSilva2018thesis} com uso de conceitos \emph{Fuzzy} e expandido por
 \citeonline{Costa2019thesis} para tratar problemas multi-rótulo além dos problemas
 multi-classe já tratados.
-
-\nota{pode junta o paragrafo de baixo}
-
-Esse algoritmo segue a abordagem de duas fases no modelo \emph{Offline-Online} e usa por
-base algoritmos de agrupamento não supervisionados como \emph{K-means} e
+Esse algoritmo segue a abordagem de duas fases no modelo \emph{Offline-Online} e
+usa por base algoritmos de agrupamento não supervisionados como \emph{K-means} e
 \emph{CluStream}.
+As duas fases, com exceção do método de detecção de padrões novidade da fase
+\emph{Online}, são ilustradas na \reffig{minas}.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=1\textwidth]{figuras/FariaMinas2015-fases.png}
+\caption{Visão geral do algoritmo MINAS com fases \emph{Offline} (a) e 
+\emph{Online} (b) \cite{Faria2016minas}}
+\label{fig:minas}
+\end{figure}
 
 \newcommand{\mcluster}{\emph{micro-cluster}\xspace}
 \newcommand{\mclusters}{\emph{micro-clusters}\xspace}
@@ -981,16 +985,6 @@ o raio do \mcluster o exemplo é classificado com a etiqueta do \mcluster
 e o sumário estatístico do \mcluster é atualizado.
 Caso a distância seja maior o exemplo é marcado como desconhecido e armazenado
 em conjunto próprio.
-
-\nota{IMPORTATISSIMOO - cita a figura em algum lugar, ex: como mostra a Figura x.x}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=1\textwidth]{figuras/FariaMinas2015-fases.png}
-\caption{Visão geral do algoritmo MINAS com fases \emph{Offline} (a) e 
-\emph{Online} (b) \cite{Faria2016minas}}
-\label{fig:minas}
-\end{figure}
 
 O segundo método da fase \emph{Online} é a detecção de padrões novidade
 e é executada quando o tamanho do conjunto de desconhecidos é maior
