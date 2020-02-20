@@ -282,13 +282,64 @@ atualização frequente do modelo classificador.
 O trabalho \citeonline{Lopez2018} aborda detecção de ameaças a redes de
 computadores em tempo real e para atingir esse objetivo, propôs a ferramenta
 CATRACA\footnote{
-    A ferramenta e sua documentação estão disponíveis em http://gta.ufrj.br/catraca
+    A ferramenta e sua documentação estão disponíveis em \url{http://gta.ufrj.br/catraca}
+    e \url{https://github.com/tinchoa/catraca}.
 }.
-A ferramenta CATRACA é composta de funções virtuais de rede (\emph{Network
-Function Virtualization}, NFV) executadas em dispositivos de de rede virtuais
-estabelecendo um ambiente de computação em névoa.
-Também compõem a ferramenta uma interface gráfica que apresentada a visualização
-dos fluxos processados bem como os conhecimentos extraídos desse processamento.
+A ferramenta CATRACA é composta de três camadas: captura, processamento e visualização
+ilustradas na Figura \ref{fig:catraca}.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/catraca-arch.png}
+\caption{Arquitetura em camadas da ferramenta CATRACA \cite{Lopez2018}.}
+\label{fig:catraca}
+\end{figure}
+
+
+Na camada de de captura, pacotes de rede são transformadas em fluxos e enviadas 
+para um tópico de um sistema de fila de mensagens (\emph{Apache Kafka}) hospedada em nuvem
+por uma aplicação \emph{Python} baseada na biblioteca \emph{flowtbag}\footnote{
+    Disponível em \url{https://github.com/danielarndt/flowtbag} e \url{https://dan.arndt.ca/projects/netmate-flowcalc/}.
+}
+embaladas em uma função virtual de rede (\emph{Network Function Virtualization}) 
+executadas em dispositivos de de rede virtuais.
+
+% estabelecendo um ambiente de computação em névoa.
+A camada de processamento consome o tópico de mensagens que contém os fluxos
+da camada de captura e extrai características dos fluxos, detecta e classifica ameaças,
+enriquece o resultado (com localização geográfica por exemplo) e envia para a
+próxima camada na arquitetura por meio de um banco de dados (SGBD).
+A última camada da ferramenta fornece uma interface gráfica que apresentada a visualização
+dos fluxos processados bem como os conhecimentos extraídos e armazenados no banco de dados (SGBD).
+
+Para desenvolvimento da ferramenta CATRACA, \citeonline{Lopez2018} avaliou e
+comparou as plataformas de processamento de fluxo de dados em tempo real
+disponíveis.
+A avaliação extraiu a velocidade máxima, em mensagens por minuto,
+de cada plataforma variando a configuração de paralelismo
+em dois programas, ambos consumiam de um tópico de um sistema de fila 
+de mensagens (\emph{Apache Kafka}) e produziam para outro tópico.
+O primeiro programa consiste de um detector de ameças composto por
+uma rede neural classificadora escrito em \emph{Java} e é testado
+com o conjunto de dados sintético (UFRJ/GTA).
+O segundo programa conta quantas repetições de uma palavra exitem em um 
+fluxo de dados, exemplo muito comum em tutoriais de plataformas desse gênero,
+e é avaliado com um conjunto de \emph{Tweets}.
+
+% A comparação envolveu:
+% \begin{enumerate}
+%     \item Apache Storm versão 0.9.4 de 2015-03-18 (atualmente na versão 2.1.0,
+%     publicada em 2019-10-25);
+%     \item Apache Flink versão 0.10.2 de 2016-02-03 (atualmente na versão 1.10.0,
+%     publicada em 2020-02-11);
+%     \item Apache Spark Streams versão 1.6.1 de 2016-02-27 (atualmente na versão
+%     2.4.5, publicada em 2020-02-02);
+% \end{enumerate}
+% Além das plataformas comparadas é importante mencionar a presença em todos os
+% testes do Apache Kafka na versão 0.8.2.1 de 2015-02-26 (atualmente na versão
+% 2.4.0 de 2019-12-13).
+% A estratégia de avaliação continha um 
+% Os resultados apresentados por essa avaliação mostraram que Apache Storm 
 
 Pra avaliação da ferramenta CATRACA dois conjuntos de dados são utilizados.
 Um conjunto sintético (UFRJ/GTA) criado por uma simulação de rede de
@@ -299,47 +350,14 @@ atende 373 residências na cidade do Rio de Janeiro em 2017.
 O conjunto NetOp é formado por 5 TB de pacotes capturados e etiquetados por um
 detector de intrusão comercial.
 
-Para desenvolvimento da ferramenta CATRACA, \citeonline{Lopez2018} avaliou e
-comparou as plataformas de processamento de fluxo de dados em tempo real
-disponíveis. A comparação envolveu:
+
 
 \nota{o que vale é o conceito}
 
-\begin{enumerate}
-    
-    \item Apache Storm versão 0.9.4 de 2015-03-18 (atualmente na versão 2.1.0,
-    publicada em 2019-10-25);
-      
-    \item Apache Flink versão 0.10.2 de 2016-02-03 (atualmente na versão 1.10.0,
-    publicada em 2020-02-11);
-    
-    \item Apache Spark Streams versão 1.6.1 de 2016-02-27 (atualmente na versão
-    2.4.5, publicada em 2020-02-02);
-    
-\end{enumerate}
-
-Além das plataformas comparadas é importante mencionar a presença em todos os
-testes do Apache Kafka na versão 0.8.2.1 de 2015-02-26 (atualmente na versão
-2.4.0 de 2019-12-13).
-A estratégia de avaliação continha um 
-
-Itens do \dataset UFRJ/GTA eram enviados ao cluster kafka lidos pela plataforma
-em teste. 
-
-Os resultados apresentados por essa avaliação mostraram que Apache Storm 
-
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.8\textwidth]{figuras/catraca-arch.png}
-\caption{Arquitetura em camadas da ferramenta CATRACA \cite{Lopez2018}.}
-\label{fig:ids-iot}
-\end{figure}
-
-
-Catraca Lopez2018
-
 \nota{Incompleto}
+
+\nota{Discutir que o data set não é de borda de uma rede, portanto não tem
+relevância para fog.}
 
 % A monitoring and threat detection system using stream processing as a virtual 
 % function for Big Data
@@ -370,10 +388,6 @@ Catraca Lopez2018
 % finalmente, 
 % vi) um algoritmo guloso que aloca sob demanda uma sequência de 
 % funções de rede virtual.
-
-
-\nota{Discutir que o data set não é de borda de uma rede, portanto não tem
-relevância para fog.}
 
 \section{Arquitetura IDSA-IOT}\label{sec:cassales}
 
