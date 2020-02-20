@@ -315,6 +315,27 @@ Modelos de mineração de fluxo de dados atendem a esses desafios utilizando
 restrições como apenas uma leitura do conjunto de dados e complexidade
 de processamento menor que linear \cite{Gama2007, Gaber2005}.
 
+% \nota{falta abordar processamento paralelo e distribuído}
+
+As características de fluxos de dados e mineração de dados e os requisitos de
+seu processamento regularmente superam as capacidades computacionais de um único
+nó computacional convencional portanto a distribuição dos requisitos em
+múltiplos nós computacionais em um sistema distribuído é igualmente necessária
+\cite{Gaber2005}.
+Computação distribuída é a área da ciência da computação que estuda sistemas
+onde os componentes são localizados em diferentes computadores (nós) que
+comunicam-se apenas por troca de mensagens e, para que o objetivo do sistema
+seja atingido, a cooperação entre os nós é necessária.
+Outras propriedades de um sistema distribuído são a concorrência entre nós e
+falhas em partes independentes \cite{TanenbaumSteen2018}.
+
+% - quem são, o que consomem
+% (\citeonline{Viegas2019} \emph{apud} \citeonline{Gaber2005}) Mining data streams: A Review.
+% {Gaber2005} apud [47] {Park2002distributed}
+% [47] B. Park and H. Kargupta. Distributed Data Mining: Algorithms, Systems, and
+% Applications. To be published in the Data Mining Handbook. Editor: Nong Ye.
+% 2002.]
+
 % A data stream is a sequence of unbounded, real-time data records that are
 % characterized by the very high data rate, which stresses our computational
 % resources, and can be read only once by processing applications [13,8,1,9]
@@ -371,10 +392,6 @@ de processamento menor que linear \cite{Gama2007, Gaber2005}.
 % [5] Fayyad, Usama; Piatetsky-Shapiro, Gregory; Smyth, Padhraic (1996).
 % "From Data Mining to Knowledge Discovery in Databases" (PDF). Retrieved 17 December 2008.
 
-% - quem são, o que consomem
-% (\citeonline{Viegas2019} \emph{apud} \citeonline{Gaber2005}) Mining data streams: A Review.
-
-\nota{falta abordar processamento paralelo e distribuído}
 
 \section{Arquiteturas e Plataformas de Processamento de Fluxos}
 
@@ -619,8 +636,8 @@ computação \emph{stateful} sobre fluxo de dados limitados (tem um início e um
 fim) e ilimitados (não tem um fim definido) \cite{ApacheFlink2020}.
 Essa plataforma segue um paradigma que abrange o processamento de fluxos de
 dados contínuos e o processamento em lote \cite{Carbone2015,Lopez2018}.
-O \emph{Flink} pode ser integrado a todos os gerenciadores de \emph{cluster}
-comuns, como Hadoop Yarn, Apache Mesos, e Kubernetes, mas também pode ser
+O \emph{Apache Flink} pode ser integrado a todos os gerenciadores de \emph{cluster}
+comuns, como \emph{Hadoop Yarn}, \emph{Apache Mesos}, e \emph{Kubernetes}, mas também pode ser
 configurado para ser executado como um \emph{cluster stand-alone}.
 Já o acesso programático a essa plataforma pode ser feito através do Java, Scala
 ou Python.
@@ -631,7 +648,7 @@ Quando o \emph{Flink} é inicializado, o \emph{Job Manager} e um ou mais
 \emph{Task Manager} são criados.
 Quando um código de programa é submetido, o cliente transforma-o em um grafo
 acíclico direcionado - \emph{data flow} - e submete-o ao \emph{Job Manager},
-como pode ser observado na Figura Figura \ref{processo-flink}.
+como pode ser observado na Figura Figura \ref{fig:processo-flink}.
 Segundo \citeonline{Carbone2015}, essa fase de transformação examina tipos de
 dados (esquema) dos dados trocados entre os operadores e cria serializadores e
 outros códigos para otimização da futura execução.
@@ -650,11 +667,11 @@ Manager}.
 \centering
 \includegraphics[width=0.8\textwidth]{figuras/processo-flink.png}
 \caption{Processo do \emph{Apache Flink} \cite{ApacheFlink2020}}
-\label{processo-flink}
+\label{fig:processo-flink}
 \end{figure}
 
 A pilha de componentes de software do \emph{Apache Flink} é composta pelas
-seguintes camadas da Figura \ref{software-flink}.
+seguintes camadas da Figura \ref{fig:software-flink}.
 A camada \emph{core} é vista como um mecanismo de processamento e execução de
 fluxo de dados, enxergando o processamento em lote como um caso especial
 \cite{Lopez2018,Carbone2015}.
@@ -674,7 +691,7 @@ CEP (\emph{Complex Event Processing}) para processamento de eventos.
 \centering
 \includegraphics[width=0.7\textwidth]{figuras/software-flink.png}
 \caption{Componentes de software do \emph{Apache Flink} \cite{Carbone2015}.}
-\label{software-flink}
+\label{fig:software-flink}
 \end{figure}
 
 \subsection{\emph{Data flow} e \emph{data streams}}
@@ -701,7 +718,7 @@ Cada \emph{data flow} dos programas do \emph{Apache Flink} iniciam com uma fonte
 de dados e terminam com um \emph{sink} que escreve os dados de saída em algum
 sistema de armazenamento suportado (\emph{Apache Kafka, Amazon Kinesis Streams,
 Hadoop Filesystem, Apache Cassandra}, etc.) \cite{ApacheFlink2020}.
-Na Figura \ref{dataflow-flink}, pode-se observar um exemplo de programa
+Na Figura \ref{fig:dataflow-flink}, pode-se observar um exemplo de programa
 \emph{Apache Flink} escrito em Scala e seu grafo de execução.
 Nesse exemplo, define-se como fonte de dados o \emph{Apache Kafka}.
 Em seguida, aplica-se uma transformação \emph{map}, e depois outra transformação
@@ -712,7 +729,7 @@ Por fim, o resultado é passado para um \emph{sink}.
 \centering
 \includegraphics[width=0.85\textwidth]{figuras/dataflow-code-flink.png}
 \caption{Exemplo de código e \emph{dataflow} do \emph{Apache Flink} \cite{ApacheFlink2020}}
-\label{dataflow-flink}
+\label{fig:dataflow-flink}
 \end{figure}
 
 \subsection{Tolerância a falhas}
