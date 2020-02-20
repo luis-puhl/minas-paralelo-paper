@@ -375,21 +375,15 @@ de máquina (\emph{machine learning}) como validação cruzada com proporção
 70\% do conjunto base para treinamento e 30\% para teste.
 Para as métrics de escalabilidade utiliza latência e fator de aceleração
 \emph{speedup factor} (latência observada com paralelismo 1 dividida pela
-latência observada com paralelismo variável)
+latência observada com paralelismo variável).
 
-Em conclusão, a ferramenta CATRACA apresenta dois conjuntos de dados relevantes,
-uma abordagem de divisão em camadas alocadas em ambientes de névoa (\fog) e 
-nuvem (\cloud) avaliado com métricas e
-
-
-\nota{...}
-
-\nota{o que vale é o conceito}
-
-\nota{Incompleto}
-
-\nota{Discutir que o data set não é de borda de uma rede, portanto não tem
-relevância para fog.}
+Em conclusão, a ferramenta CATRACA apresenta uma arquitetura de divisão em
+camadas alocadas em ambientes de névoa (\fog) e nuvem (\cloud) avaliado com
+métricas e dois conjuntos de dados relevantes.
+No entanto, o algoritmo de detecção de anomalias consiste de um modelo de
+classificação pelo método árvore de decisão e atualização do modelo durante a
+fase \emph{Online} depende de todos exemplos do último intervalo de atualização,
+portanto não é capaz de reconhecer novidades.
 
 % A monitoring and threat detection system using stream processing as a virtual 
 % function for Big Data
