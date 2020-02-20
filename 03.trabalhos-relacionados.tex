@@ -1,3 +1,4 @@
+% !TeX root = ./00.main.tex
 \chapter{Trabalhos Relacionados}\label{cha:related}
 
 % % discussão de 2020-02-01
@@ -13,7 +14,6 @@
 %        dados/streams alguns online (5-10 refs)
 %     - implementação paralelas/distribuídas em dispositivos pequenos
 % % 
-
 
 \begin{resumocap}
 
@@ -37,7 +37,8 @@ Processamento Distribuído de Fluxos de Dados.
 \newcommand{\datasets}{\emph{data sets}\xspace}
 % \clusters é um conjunto de \cluster feito de um \dataset.
 
-O algoritmo MINAS, como já foi discutido na Seção \ref{sec:minas-og}, classifica exemplos e detecta
+O algoritmo MINAS, como já foi discutido na Seção \ref{sec:minas-og}, classifica
+exemplos e detecta
 novidades em DS e considera em sua composição \emph{concept drift} e
 \emph{concept evolution}, sendo capaz de classificar como extensão de classe
 conhecida e reconhecer novas classes sem intervenção de especialista
@@ -75,13 +76,31 @@ de reconhecer padrões recorrentes.
 
 % Experiments were evaluated using the incremental confusion-matrix proposed by [27],
 % recently been proposed [5]–[9]
-% [5] T. Al-Khateeb, M. M. Masud, L. Khan, C. Aggarwal, J. Han, and B. Thuraisingham, “Stream classification with recurring and novel class detection using class-based ensemble,” in Data Mining (ICDM), 2012 IEEE 12th International Conference on. IEEE, 2012, pp. 31–40.
-% [6] E. R. de Faria, A. C. P. de Leon Ferreira, J. Gama et al., “Minas: multiclass learning algorithm for novelty detection in data streams,” Data Mining and Knowledge Discovery, vol. 30, no. 3, pp. 640–680, 2016.
-% [7] M. Masud, J. Gao, L. Khan, J. Han, and B. M. Thuraisingham, “Classification and novel class detection in concept-drifting data streams under time constraints,” IEEE Transactions on Knowledge and Data Engineering, vol. 23, no. 6, pp. 859–874, 2011.
-% [8] M. M. Masud, Q. Chen, L. Khan, C. Aggarwal, J. Gao, J. Han, and B. Thuraisingham, “Addressing concept-evolution in concept-drifting data streams,” in Data Mining (ICDM), 2010 IEEE 10th International Conference on. IEEE, 2010, pp. 929–934.
-% [9] Z. S. Abdallah, M. M. Gaber, B. Srinivasan, and S. Krishnaswamy, “Anynovel: detection of novel concepts in evolving data streams,” Evolving Systems, vol. 7, no. 2, pp. 73–93, 2016.
-% [27] E. R. de Faria, I. R. Goncalves, J. Gama, A. C. P. de Leon Ferreira et al., “Evaluation of multiclass novelty detection algorithms for data streams,” IEEE Transactions on Knowledge and Data Engineering, vol. 27, no. 11, pp. 2961–2973, 2015.
-% [28] M. Sokolova and G. Lapalme, “A systematic analysis of performance measures for classification tasks,” Information Processing & Manage- ment, vol. 45, no. 4, pp. 427–437, 2009.
+% [5] T. Al-Khateeb, M. M. Masud, L. Khan, C. Aggarwal, J. Han, and B.
+% Thuraisingham, “Stream classification with recurring and novel class detection
+% using class-based ensemble,” in Data Mining (ICDM), 2012 IEEE 12th International
+% Conference on. IEEE, 2012, pp. 31–40.
+% [6] E. R. de Faria, A. C. P. de Leon Ferreira, J. Gama et al., “Minas:
+% multiclass learning algorithm for novelty detection in data streams,” Data
+% Mining and Knowledge Discovery, vol. 30, no. 3, pp. 640–680, 2016.
+% [7] M. Masud, J. Gao, L. Khan, J. Han, and B. M. Thuraisingham, “Classification
+% and novel class detection in concept-drifting data streams under time
+% constraints,” IEEE Transactions on Knowledge and Data Engineering, vol. 23, no.
+% 6, pp. 859–874, 2011.
+% [8] M. M. Masud, Q. Chen, L. Khan, C. Aggarwal, J. Gao, J. Han, and B.
+% Thuraisingham, “Addressing concept-evolution in concept-drifting data streams,”
+% in Data Mining (ICDM), 2010 IEEE 10th International Conference on. IEEE, 2010,
+% pp. 929–934.
+% [9] Z. S. Abdallah, M. M. Gaber, B. Srinivasan, and S. Krishnaswamy, “Anynovel:
+% detection of novel concepts in evolving data streams,” Evolving Systems, vol. 7,
+% no. 2, pp. 73–93, 2016.
+% [27] E. R. de Faria, I. R. Goncalves, J. Gama, A. C. P. de Leon Ferreira et al.,
+% “Evaluation of multiclass novelty detection algorithms for data streams,” IEEE
+% Transactions on Knowledge and Data Engineering, vol. 27, no. 11, pp. 2961–2973,
+% 2015.
+% [28] M. Sokolova and G. Lapalme, “A systematic analysis of performance measures
+% for classification tasks,” Information Processing & Manage- ment, vol. 45, no.
+% 4, pp. 427–437, 2009.
 
 \subsection{Algoritmos MINAS-LC e MINAS-BR}\label{sub:minas-derivados}
 
@@ -94,12 +113,22 @@ conjunto multi-rótulo para um conjunto multi-classe (simplificação)
 em duas variações \emph{Label Powerset} e \emph{Pruned Sets} com
 mineração de conjunto de itens frequentes.
 
-% Este capítulo apresentou o método MultI-label learNing Algorithm for data Streams
-% with Label Combination-based methods (MINAS-LC) e o MultI-label learNing Algorithm for data Streams with Binary Relevance transformation (MINAS-BR) para CMFCD com latência extrema de rótulos.
-% O MINAS-LC lida com problemas apenas com mudanças de conceito. O seu modelo
-% de decisão e composto por microgrupos multirrotulados sendo capaz de classificar exemplos em várias classes simultaneamente e evoluir ao longo do fluxo de dados. Foram propostas duas variações do método: utilizando o método de transformação de problema Label Powerset (LP) e, utilizando o método Pruned Sets (PS) com mineração de conjunto de itens frequentes. O MINAS-BR lida com problemas tanto com mudanças de conceito, como com evo-
-% luções de conceito. Ele possui um conjunto de modelos de decisão, um para cada classe do problema. Esses modelos de decisão podem ser entendidos adaptando-se às mudanças de con- ceito, ou novos modelos de decisão podem ser criados, adaptando-se às evoluções de conceito. O próximo capítulo apresenta os experimentos realizados envolvendo os dois métodos
-% propostos neste trabalho.
+% Este capítulo apresentou o método MultI-label learNing Algorithm for data
+% Streams with Label Combination-based methods (MINAS-LC) e o MultI-label learNing
+% Algorithm for data Streams with Binary Relevance transformation (MINAS-BR) para
+% CMFCD com latência extrema de rótulos. O MINAS-LC lida com problemas apenas com
+% mudanças de conceito. O seu modelo de decisão e composto por microgrupos
+% multirrotulados sendo capaz de classificar exemplos em várias classes
+% simultaneamente e evoluir ao longo do fluxo de dados. Foram propostas duas
+% variações do método: utilizando o método de transformação de problema Label
+% Powerset (LP) e, utilizando o método Pruned Sets (PS) com mineração de conjunto
+% de itens frequentes. O MINAS-BR lida com problemas tanto com mudanças de
+% conceito, como com evo- luções de conceito. Ele possui um conjunto de modelos de
+% decisão, um para cada classe do problema. Esses modelos de decisão podem ser
+% entendidos adaptando-se às mudanças de con- ceito, ou novos modelos de decisão
+% podem ser criados, adaptando-se às evoluções de conceito. O próximo capítulo
+% apresenta os experimentos realizados envolvendo os dois métodos propostos neste
+% trabalho.
 
 Já o trabalho de \citeonline{Costa2019}, estende o algoritmo original para que
 classifique um exemplo com uma ou mais etiquetas usando a transformação
@@ -111,7 +140,11 @@ algoritmo \emph{K-means}, originalmente aleatória, pelo algoritmo
 \emph{Leader Incremental Clustering} \cite{Vijaya2004505}.
 
 % as 4CRE-V13, 4CRE-V24 e 5CVT5 6 foram geradas originalmente em Souza et al. (2015b)
-% SOUZA, V. M. A.; SILVA, D. F.; GAMA, J.; BATISTA, G. E. A. P. A. Data stream classification guided by clustering on nonstationary environments and extreme verification latency. In: Procee- dings ofSIAM International Conference on Data Mining (SDM). [S.l.: s.n.], 2015. p. 873–881. Citado 4 vezes nas páginas 17, 65, 87 e 89.
+% SOUZA, V. M. A.; SILVA, D. F.; GAMA, J.; BATISTA, G. E. A. P. A. Data stream
+% classification guided by clustering on nonstationary environments and extreme
+% verification latency. In: Procee- dings ofSIAM International Conference on Data
+% Mining (SDM). [S.l.: s.n.], 2015. p. 873–881. Citado 4 vezes nas páginas 17, 65,
+% 87 e 89.
 
 O algoritmo MINAS-BR também é experimentalmente avaliado com 4 \emph{data sets}
 sintéticos: \emph{MOA-3C-5C-2D}, \emph{MOA-5C-7C-2D}, \emph{MOA-5C-7C-3} da
@@ -171,8 +204,8 @@ Os resultados apresentados indicam que MINAS-BR capturou todas as novidades dos
 4 algoritmos equivalentes da literatura ficando abaixo dos 3 com \emph{feedback}
 externo.
 
-Os trabalhos relacionados nessa \refsec{alg-nd}, tem em
-comum, além do algoritmo base, métricas de avaliação acurácia (\emph{Macro F-Score} e \emph{Macro
+Os trabalhos relacionados nessa \refsec{alg-nd}, tem em comum, além do algoritmo
+base, métricas de avaliação acurácia (\emph{Macro F-Score} e \emph{Macro
 F-Measure} F1M) e taxa de desconhecidos, aplicadas com devido tratamento.
 Também é comum entre eles o uso de \datasets sintéticos.
 Outro potencial não explorado do MINAS é em aplicações de reais, ou seja,
@@ -250,6 +283,10 @@ novidades para fins diversos em fluxos de dados reais.
 
 \nota{Incompleto}
 
+Proposta por \citeonline{Viegas2019}, a ferramenta BigFlow é um sistema de
+detecção de intrusão em rede, focado em processar o voluem
+
+
 \cite{mawiSamplepointF,Fontugne2010}
 BigFlow destaca em sua secção 2 (backgroud) o processamento de streams [18, 19],
 a preferencia de NIDS por anomalia em contraste aos NIDS por assinatura [30, 31, 32],
@@ -265,14 +302,17 @@ e reprodutividade (disponibilidade pública) [8, 9, 10, 17, 38].
 % discutir somente técnicas e estratégias
 % dão dê aval aos dados, especialmente os de 'venda' do artigo.
 
-Para avaliar o desempenho de NIDS o data set MAWIFlow é proposto. Originário do 
-'Packet traces from WIDE backbone, samplepoint-F' composto por seções de captura de pacotes
-diárias de 15 minutos de um link de 1Gbps entre Japão e EUA, com inicio em 2006 continuamente até hoje,
-anonimizados [22], etiquetados por MAWILab [8].
-Desse data set original apenas os eventos de 2016 são utilizados e desses 158 atributos são extraídas
-resultando em 7.9 TB de captura de pacotes. Além disso, os dados são estratificados [24] para redução
-de seu tamanho a um centésimo mantendo as proporções de etiquetas (Ataque e Normal)
-facilitando o compartilhamento e avaliação de NIDS além de atender as qualidades anteriormente mencionadas.
+Para avaliar o desempenho de NIDS o data set MAWIFlow é proposto. Originário do
+'Packet traces from WIDE backbone, samplepoint-F' composto por seções de captura
+de pacotes diárias de 15 minutos de um link de 1Gbps entre Japão e EUA, com
+inicio em 2006 continuamente até hoje, anonimizados [22], etiquetados por
+MAWILab [8].
+Desse data set original apenas os eventos de 2016 são utilizados e desses 158
+atributos são extraídas resultando em 7.9 TB de captura de pacotes.
+Além disso, os dados são estratificados [24] para redução de seu tamanho a um
+centésimo mantendo as proporções de etiquetas (Ataque e Normal) facilitando o
+compartilhamento e avaliação de NIDS além de atender as qualidades anteriormente
+mencionadas.
 
 Com o data set MAWIFlow original e reduzido foram avaliados quatro classificadores [42, 43, 44, 45]
 da literatura em dois modos de operação quanto seus dados de treinamento
@@ -304,7 +344,8 @@ Na camada de de captura, pacotes de rede são transformadas em fluxos e enviadas
 para um tópico de um sistema de fila de mensagens (\emph{Apache Kafka})
 hospedada em nuvem por uma aplicação \emph{Python} baseada na biblioteca
 \emph{flowtbag}\footnote{
-    Disponível em \url{https://github.com/danielarndt/flowtbag} e \url{https://dan.arndt.ca/projects/netmate-flowcalc/}.
+    Disponível em \url{https://github.com/danielarndt/flowtbag} e
+    \url{https://dan.arndt.ca/projects/netmate-flowcalc/}.
 }
 embaladas em uma função virtual de rede (\emph{Network Function Virtualization}) 
 executadas em dispositivos de de rede virtuais.
@@ -314,8 +355,9 @@ A camada de processamento consome o tópico de mensagens que contém os fluxos
 da camada de captura e extrai características dos fluxos, detecta e classifica ameaças,
 enriquece o resultado (com localização geográfica por exemplo) e envia para a
 próxima camada na arquitetura por meio de um banco de dados (SGBD).
-A última camada da ferramenta fornece uma interface gráfica que apresentada a visualização
-dos fluxos processados bem como os conhecimentos extraídos e armazenados no banco de dados (SGBD).
+A última camada da ferramenta fornece uma interface gráfica que apresentada a
+visualização dos fluxos processados bem como os conhecimentos extraídos e
+armazenados no banco de dados (SGBD).
 Ambas camadas de processamento e visualização são executadas em ambiente de
 computação em nuvem (\cloud).
 
@@ -440,16 +482,30 @@ Ou seja, um nó só vê e classifica os próprios dados.}
 % \section{Conjuntos de Dados e Referência de Desempenho para Detecção de Anomalia}
 
 % The Numenta Anomaly Benchmark
-
-% - Airline, approximately 116 million flight arrival and departure records (cleaned and sorted) compiled by E. Ikonomovska. Reference: Data Expo 2009 Competition [1]. Access
-% - Chess.com (online games) and Luxembourg (social survey) datasets compiled by I. Zliobaite. Access
-% - ECUE spam 2 datasets each consisting of more than 10,000 emails collected over a period of approximately 2 years by an individual. Access from S.J.Delany webpage
-% - Elec2, electricity demand, 2 classes, 45,312 instances. Reference: M. Harries, Splice-2 comparative evaluation: Electricity pricing, Technical report, The University of South Wales, 1999. Access from J.Gama webpage. Comment on applicability.
-% - PAKDD'09 competition data represents the credit evaluation task. It is collected over a five-year period. Unfortunately, the true labels are released only for the first part of the data. Access
-% - Sensor stream and Power supply stream datasets are available from X. Zhu's Stream Data Mining Repository. Access
-% - SMEAR is a benchmark data stream with a lot of missing values. Environment observation data over 7 years. Predict cloudiness. Access
-% - Text mining, a collection of text mining datasets with concept drift, maintained by I. Katakis. Access
-% - Gas Sensor Array Drift Dataset, a collection of 13,910 measurements from 16 chemical sensors utilized for drift compensation in a discrimination task of 6 gases at various levels of concentrations. Access
+% - Airline, approximately 116 million flight arrival and departure records
+%   (cleaned and sorted) compiled by E. Ikonomovska. Reference: Data Expo 2009
+%   Competition [1]. Access
+% - Chess.com (online games) and Luxembourg (social survey) datasets compiled by
+%   I. Zliobaite. Access
+% - ECUE spam 2 datasets each consisting of more than 10,000 emails collected over
+%   a period of approximately 2 years by an individual. Access from S.J.Delany
+%   webpage
+% - Elec2, electricity demand, 2 classes, 45,312 instances. Reference: M. Harries,
+%   Splice-2 comparative evaluation: Electricity pricing, Technical report, The
+%   University of South Wales, 1999. Access from J.Gama webpage. Comment on
+%   applicability.
+% - PAKDD'09 competition data represents the credit evaluation task. It is
+%   collected over a five-year period. Unfortunately, the true labels are released
+%   only for the first part of the data. Access
+% - Sensor stream and Power supply stream datasets are available from X. Zhu's
+%   Stream Data Mining Repository. Access
+% - SMEAR is a benchmark data stream with a lot of missing values. Environment
+%   observation data over 7 years. Predict cloudiness. Access
+% - Text mining, a collection of text mining datasets with concept drift,
+%   maintained by I. Katakis. Access
+% - Gas Sensor Array Drift Dataset, a collection of 13,910 measurements from 16
+%   chemical sensors utilized for drift compensation in a discrimination task of 6
+%   gases at various levels of concentrations. Access
 
 \newcommand{\stream}{\emph{data stream}\xspace}
 \newcommand{\streams}{\emph{data streams}\xspace}
