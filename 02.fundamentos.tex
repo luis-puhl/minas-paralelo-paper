@@ -40,7 +40,7 @@
 
 \subsection{Computação em Nuvem}
 
-A computação em nuvem (em inglês, \emph{cloud computing}), ou simplesmente nuvem
+A computação em nuvem (\emph{cloud computing}), ou simplesmente nuvem
 (\emph{cloud}), habilita o acesso através da rede a um grupo compartilhado de
 recursos de computação configuráveis (servidores, redes, aplicativo,
 armazenamento, serviços, etc.) que podem ser provisionados ou liberados sob
@@ -99,7 +99,7 @@ ocorrer através dos seguintes modelos:
     
     \item \textbf{Nuvem híbrida:} a infraestrutura desse tipo de nuvem é uma
     composição de duas ou mais modelos de implantação de \emph{cloud} (privada,
-    pública e comunitária) que formam um entidade única e são unidos por
+    pública e comunitária) que formam uma entidade única e são unidos por
     tecnologias padronizadas que habilitam a portabilidade de dados e
     aplicações.
 
@@ -108,7 +108,7 @@ ocorrer através dos seguintes modelos:
 % Definição de Computação de Borda 
 \subsection{Computação de Borda}
 
-A computação de borda (em inglês, \emph{edge computing}) refere-se às
+A computação de borda (\emph{edge computing}) refere-se às
 tecnologias que permitem que a computação seja executada na borda da rede.
 Define-se borda ou \emph{edge} como qualquer recurso de computação e de rede ao
 longo do caminho entre as fontes de dados e os data centers da nuvem
@@ -156,7 +156,7 @@ esses problemas, porém os dispositivos de borda não podem lidar com várias
 aplicações IoT competindo pelos seus recursos limitados, o que poderia causar a
 contenção dos recursos e aumento na latência do processamento
 \cite{Dastjerdi2016}. Portanto, para solucionar estas questões de latência e
-capacidade limita dos dispositivos de borda, a computação em névoa foi proposta.
+capacidade limitada dos dispositivos de borda, a computação em névoa foi proposta.
 
 A computação em névoa (\emph{fog computing}) é um paradigma que distribui
 as capacidades de computação, armazenamento e rede entre os nós próximos das fontes dados
@@ -460,7 +460,7 @@ Em contraposição à arquitetura \lambdaa, observações práticas de
 escalabilidade, consistência, tolerância a falhas, replicação e armazenamento de longo prazo.
 Com isso, \citeonline{Kreps2014} propõe que as camadas de lotes e velocidade sejam
 unificadas em uma camada de processamento de fluxo, cujos resultados sejam entregues
-continuamente para a camada de serviço através de um SGBD, definindo assim a arquitetura \kappaa
+continuamente para a camada de serviço através de um SGBD, definindo assim a arquitetura \kappaa.
 Essa proposta simplifica a aplicação de três implementações para duas eliminando a
 repetição de tarefas executadas pelas camadas de lotes e velocidade que
 produziam o mesmo resultado.
@@ -553,10 +553,10 @@ Uma das extensões do \emph{Apache Spark} é o \emph{Spark Streaming} que é um
 sistema de processamento de fluxo de dados escalável e tolerante a falhas
 \cite{zaharia2016,sparkStreaming2016}.
 O \emph{Spark Streaming} implementa o processamento incremental de fluxo de
-dados usando o modelo fluxos discretizados em que divide-se os dados de entrada
+dados usando o modelo de fluxos discretizados em que divide-se os dados de entrada
 em micro-lotes (ex: a cada 100 milissegundos) e combina-se regularmente com o
 estado nos RDDs para produzir novos resultados \cite{zaharia2016}.
-Essa estratégia traz benefícios sobre sistema fluxos de dados distribuídos
+Essa estratégia traz benefícios sobre os sistemas de fluxos de dados distribuídos
 tradicionais, pois permite a consistência e recuperação de falhas rapidamente
 devido a linhagem de RDD (\emph{RDD lineage}) e combinação do fluxo de dados com
 consultas em lotes e interativas \cite{sparkStreaming2016,Lopez2018}.
@@ -681,7 +681,7 @@ CEP (\emph{Complex Event Processing}) para processamento de eventos.
 
 Os \emph{data streams} ou fluxo de dados e as transformações são as principais
 abstrações do \emph{Apache Flink} \cite{Lopez2018,ApacheFlink2020}.
-Esse fluxo dados é definido como um fluxo de registros.
+Esse fluxo de dados é definido como um fluxo de registros.
 Já as transformações são operações (\emph{map, filtering, reduction, join},
 etc.) aplicadas de forma incremental nos \emph{data streams}, gerando um novo
 fluxo de dados.
@@ -701,9 +701,9 @@ Cada \emph{data flow} dos programas do \emph{Apache Flink} iniciam com uma fonte
 de dados e terminam com um \emph{sink} que escreve os dados de saída em algum
 sistema de armazenamento suportado (\emph{Apache Kafka, Amazon Kinesis Streams,
 Hadoop Filesystem, Apache Cassandra}, etc.) \cite{ApacheFlink2020}.
-Na Figura \ref{dataflow-flink}, pode-se observar um exemplo programa
+Na Figura \ref{dataflow-flink}, pode-se observar um exemplo de programa
 \emph{Apache Flink} escrito em Scala e seu grafo de execução.
-Nesse exemplo, define-se como fonte o Apache Kafka.
+Nesse exemplo, define-se como fonte de dados o \emph{Apache Kafka}.
 Em seguida, aplica-se uma transformação \emph{map}, e depois outra transformação
 de agrupamento por um dos atributos dos dados e por uma janela de 10 segundos.
 Por fim, o resultado é passado para um \emph{sink}.
@@ -845,9 +845,9 @@ No lugar, a recuperação é feita repetindo completamente o fluxo ou repetindo 
 \section{Detecção de Novidade}
 
 \newcommand{\novelty}{\emph{Novelty Detection}\xspace}
+% \newcommand{\nd}{ND\xspace}
 \newcommand{\drift}{\emph{Concept Drift}\xspace}
 \newcommand{\evolution}{\emph{Concept Evolution}\xspace}
-
 
 No âmbito de classificação de dados, parte da área de aprendizado de máquina, os
 métodos de detecção de novidade (também nomeado detecção de anomalia, \novelty,
@@ -855,6 +855,8 @@ métodos de detecção de novidade (também nomeado detecção de anomalia, \nov
 exemplos anteriores \cite{PERNER2007,Gama2010}.
 Esses métodos tratam da classificação em conjuntos de dados que evolvem com o
 tempo levando em consideração as características desse tipo de conjuntos.
+
+\nota{"As características desse tipo de conjunto de dados são?".. mas que tipo?}
 
 São características desse tipo de conjunto:
 a evolução de conceito (\evolution)
@@ -865,26 +867,29 @@ a mudança de conceito (\drift, também nomeado deriva ou desvio) onde um padrã
 gradualmente se transforma;
 a possível presença de ruído e \emph{outliers} \cite{Gama2010}.
 
-Os métodos de \nd para reconhecimento padrões novidade ou anomalias são
-aplicadas à diversos problemas como
+\nota{separar ai - ndpara//padroes novidade? reconhecomemnto de padroes novidade?}
+
+Os métodos de \nd  para reconhecimento padrões novidade ou anomalias são
+aplicadas a diversos problemas como
 Detecção de Intrusos \cite{Coull2003,Spinosa2008,Viegas2019,Cassales2019a},
 Detecção de Falhas \cite{Zhang2006},
 Diagnósticos Médicos \cite{Perner2009},
-Detecção de Regiões de Interesse em Imagens \cite{singh2004approach}
+Detecção de Regiões de Interesse em Imagens \cite{singh2004approach},
 Detecção de Fraudes \cite{wang2003mining,Abdallah201690}, 
 Filtros de Spam \cite{Hayat2010dct} e
 Detecção de Variações Comportamentais em um Jogador \cite{Vallim20136258}.
 
 % breve descrição do que sao algoritmos para DN
+\nota{separa os ND ta tudo grudado com as palavra}
 
-Alguns métodos tratam de novidades e anomalias como um classificação de uma
+Alguns métodos tratam de novidades e anomalias como uma classificação de uma
 ou duas classes (binariamente) onde um conceito representa a classe normal e
-anomalias são representadas pela falta de conceito no modelo ou
+as anomalias são representadas pela falta de conceito no modelo ou
 como um segundo conceito no modelo.
-A abordagem de classificação binária no entanto não é adequada para representar
+No entanto, a abordagem de classificação binária não é adequada para representar
 múltiplos conceitos em um mesmo conjunto de dados, para isso é necessário abordar
 \nd como classificação multi-classe.
-No entanto, alguns métodos que abordam \nd como classificação multi-classe não
+Entretanto, alguns métodos que abordam \nd como classificação multi-classe não
 atendem completamente características de conjuntos com evolução temporal
 como \evolution e \drift, deixando de detectar múltiplos padrões que surgem
 simultaneamente num intervalo de avaliação \cite{Faria2016nd,Gama2010}.
@@ -920,12 +925,16 @@ exemplos não explicados pelo modelo marcados como desconhecidos
 
 \section{O algoritmo MINAS}\label{sec:minas-og}
 
+\nota{ND separado das palavra}
+
 Um algoritmo de \nd que tem recebido atenção nos últimos anos é o algoritmo
 MINAS originalmente proposto por \citeonline{Faria2013}, refinado por
 \citeonline{Faria2016minas} e recentemente aprimorado por
 \citeonline{DaSilva2018thesis} com uso de conceitos \emph{Fuzzy} e expandido por
 \citeonline{Costa2019thesis} para tratar problemas multi-rótulo além dos problemas
 multi-classe já tratados.
+
+\nota{pode junta o paragrafo de baixo}
 
 Esse algoritmo segue a abordagem de duas fases no modelo \emph{Offline-Online} e usa por
 base algoritmos de agrupamento não supervisionados como \emph{K-means} e
@@ -936,7 +945,7 @@ base algoritmos de agrupamento não supervisionados como \emph{K-means} e
 
 O algoritmo MINAS em sua fase \emph{Offline} consome um conjunto treinamento
 contendo exemplos etiquetados.
-Esse conjunto de treinamento é dividido em grupos usando como chave a etiqueta
+Esse conjunto de treinamento é dividido em grupos usando como chave a etiqueta,
 e para cada grupo de exemplos o método de agrupamento (\emph{clustering}) é executado.
 O método de agrupamento objetiva resumir um conjunto maior de exemplos em 
 um conjunto menor de \mclusters que representem por meio de um sumário
@@ -955,6 +964,8 @@ o raio do \mcluster o exemplo é classificado com a etiqueta do \mcluster
 e o sumário estatístico do \mcluster é atualizado.
 Caso a distância seja maior o exemplo é marcado como desconhecido e armazenado
 em conjunto próprio.
+
+\nota{IMPORTATISSIMOO - cita a figura em algum lugar, ex: como mostra a Figura x.x}
 
 \begin{figure}[ht]
 \centering
