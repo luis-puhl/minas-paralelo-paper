@@ -25,10 +25,14 @@ Processamento Distribuído de Fluxos de Dados.
 
 % \section{Algoritmo MINAS e Algoritmos Derivados}
 
-\section{Algoritmos de Detecção de Novidades}
+\section{Algoritmos de Detecção de Novidades}\label{sec:alg-nd}
+
+\newcommand{\fog}{\emph{fog computing}\xspace}
+\newcommand{\cloud}{\emph{cloud computing}\xspace}
 
 \newcommand{\cluster}{\emph{cluster}\xspace}
 \newcommand{\clusters}{\emph{clusters}\xspace}
+
 \newcommand{\dataset}{\emph{data set}\xspace}
 \newcommand{\datasets}{\emph{data sets}\xspace}
 % \clusters é um conjunto de \cluster feito de um \dataset.
@@ -79,7 +83,7 @@ de reconhecer padrões recorrentes.
 % [27] E. R. de Faria, I. R. Goncalves, J. Gama, A. C. P. de Leon Ferreira et al., “Evaluation of multiclass novelty detection algorithms for data streams,” IEEE Transactions on Knowledge and Data Engineering, vol. 27, no. 11, pp. 2961–2973, 2015.
 % [28] M. Sokolova and G. Lapalme, “A systematic analysis of performance measures for classification tasks,” Information Processing & Manage- ment, vol. 45, no. 4, pp. 427–437, 2009.
 
-\subsection{Algoritmos MINAS-LC e MINAS-BR}
+\subsection{Algoritmos MINAS-LC e MINAS-BR}\label{sub:minas-derivados}
 
 O algoritmo MINAS-LC é proposto por \citeonline{Costa2019thesis} e trata a classificação
 multi-rótulo, porém não trata evoluções de conceito (\emph{Concept Evolution}).
@@ -167,17 +171,15 @@ Os resultados apresentados indicam que MINAS-BR capturou todas as novidades dos
 4 algoritmos equivalentes da literatura ficando abaixo dos 3 com \emph{feedback}
 externo.
 
-\nota{os trabalhos desta SUBSEÇÃO.. Se vc estiver falando dos trabs MINAS-LC e MINAS-BR}
-
-Os trabalhos relacionados nessa Seção tem em comum muito além do algoritmo base,
-tem também métricas de avaliação acurácia (\emph{Macro F-Score} e \emph{Macro
+Os trabalhos relacionados nessa \refsec{alg-nd}, tem em
+comum, além do algoritmo base, métricas de avaliação acurácia (\emph{Macro F-Score} e \emph{Macro
 F-Measure} F1M) e taxa de desconhecidos, aplicadas com devido tratamento.
 Também é comum entre eles o uso de \datasets sintéticos.
 Outro potencial não explorado do MINAS é em aplicações de reais, ou seja,
 consumindo além de \datasets reais, fluxos realistas em ambientes simulados ou
 reais porém considerando uso de recursos computacionais.
 
-Observando a arquitetura dos algoritmos abordados, todas são extremamente semelhantes:
+Observando a arquitetura dos algoritmos abordados na \refsec{alg-nd}, nota-se as semelhanças:
 a fase offline centrada no processo de agrupamento e criação de modelo;
 a fase online dividida em classificação (com atualização das estatísticas do modelo)
 e detecção de padrões, onde novamente o processo de agrupamento é central.
@@ -241,8 +243,6 @@ porém alguns exemplos mencionados ainda não abordados são:
 
 \section{Processamento Distribuído de Fluxo de Dados em Tempo Real}
 
-\nota{espaco depois de SECAO}
-
 Nesta \Section abordamos trabalhos que aplicam algoritmos de detecção de
 novidades para fins diversos em fluxos de dados reais.
 
@@ -300,9 +300,10 @@ ilustradas na Figura \ref{fig:catraca}.
 \end{figure}
 
 
-Na camada de de captura, pacotes de rede são transformadas em fluxos e enviadas 
-para um tópico de um sistema de fila de mensagens (\emph{Apache Kafka}) hospedada em nuvem
-por uma aplicação \emph{Python} baseada na biblioteca \emph{flowtbag}\footnote{
+Na camada de de captura, pacotes de rede são transformadas em fluxos e enviadas
+para um tópico de um sistema de fila de mensagens (\emph{Apache Kafka})
+hospedada em nuvem por uma aplicação \emph{Python} baseada na biblioteca
+\emph{flowtbag}\footnote{
     Disponível em \url{https://github.com/danielarndt/flowtbag} e \url{https://dan.arndt.ca/projects/netmate-flowcalc/}.
 }
 embaladas em uma função virtual de rede (\emph{Network Function Virtualization}) 
@@ -315,6 +316,8 @@ enriquece o resultado (com localização geográfica por exemplo) e envia para a
 próxima camada na arquitetura por meio de um banco de dados (SGBD).
 A última camada da ferramenta fornece uma interface gráfica que apresentada a visualização
 dos fluxos processados bem como os conhecimentos extraídos e armazenados no banco de dados (SGBD).
+Ambas camadas de processamento e visualização são executadas em ambiente de
+computação em nuvem (\cloud).
 
 Para desenvolvimento da ferramenta CATRACA, \citeonline{Lopez2018} avaliou e
 comparou as plataformas de processamento de fluxo de dados em tempo real
@@ -345,6 +348,16 @@ e é avaliado com um conjunto de \emph{Tweets}.
 % A estratégia de avaliação continha um 
 % Os resultados apresentados por essa avaliação mostraram que Apache Storm 
 
+Para o modelo de classificação, a ferramenta CATRACA utiliza o método árvore de
+decisão, escolhido pelo rápido treinamento e alta precisão e acurácia\footnote{
+    A precisão e acurácia do método árvore de decisão pode estar associado
+    a independência entre as características (\emph{features}) de cada exemplo
+    típicos de conjuntos derivados de pacotes de rede.
+}.
+O modelo é criado na fase \emph{Offline} e utilizado na classificação binária
+(normal e ameaça) da fase \emph{Online}, sendo recalculado quando uma ameaça
+é encontrada.
+
 Pra avaliação da ferramenta CATRACA dois conjuntos de dados são utilizados.
 Um conjunto sintético (UFRJ/GTA) criado por uma simulação de rede de
 computadores com 214,200 fluxos de rede totalizando 95 GB de pacotes capturados,
@@ -354,7 +367,21 @@ atende 373 residências na cidade do Rio de Janeiro em 2017.
 O conjunto NetOp é formado por 5 TB de pacotes capturados e etiquetados por um
 detector de intrusão comercial.
 
-Para o modelo de classificação, a ferramenta CATRACA utiliza uma árvore de decisão
+Também para a avaliação utiliza as métricas de qualidade de classificação
+acurácia, precisão, sensibilidade e F1M com intervalo de confiança de 95\%
+As métricas de qualidade, dependendo tamanho do conjunto, foram extraídas por
+métodos de avaliação amplamente utilizados para avaliar modelos de aprendizado
+de máquina (\emph{machine learning}) como validação cruzada com proporção
+70\% do conjunto base para treinamento e 30\% para teste.
+Para as métrics de escalabilidade utiliza latência e fator de aceleração
+\emph{speedup factor} (latência observada com paralelismo 1 dividida pela
+latência observada com paralelismo variável)
+
+Em conclusão, a ferramenta CATRACA apresenta dois conjuntos de dados relevantes,
+uma abordagem de divisão em camadas alocadas em ambientes de névoa (\fog) e 
+nuvem (\cloud) avaliado com métricas e
+
+
 \nota{...}
 
 \nota{o que vale é o conceito}
@@ -430,14 +457,13 @@ Ou seja, um nó só vê e classifica os próprios dados.}
 % - Text mining, a collection of text mining datasets with concept drift, maintained by I. Katakis. Access
 % - Gas Sensor Array Drift Dataset, a collection of 13,910 measurements from 16 chemical sensors utilized for drift compensation in a discrimination task of 6 gases at various levels of concentrations. Access
 
-% \nota{concluir com um gap}
-
 \newcommand{\stream}{\emph{data stream}\xspace}
 \newcommand{\streams}{\emph{data streams}\xspace}
 \newcommand{\streamMining}{\emph{data stream mining}\xspace}
 
+\section{Conclusão}\label{sec:conclusao-relacionados}
 
-\nota{coloca uma secao de SINTESE dos trabalhos relacionados ou sintese do capitulo}
+% \nota{coloca uma secao de SINTESE dos trabalhos relacionados ou sintese do capitulo}
 
 Em conclusão, os trabalhos discutidos nesse Capítulo tem temas complementares em
 áreas distintas.
