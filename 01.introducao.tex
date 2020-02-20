@@ -1,105 +1,8 @@
 % !TeX root = ./00.main.tex
 \chapter{Introdução}\label{cha:intro}
 
-% ELEMENTOS QUE INTRO DEVE TER
-% -contexto
-% - problema
-% - sua solucao
-% - como vc vai fazer (metodologia/simples)
-% - pq é importante (justificativa)
-% - ja teve algum resultado preliminar (se sim, cita ele)
-% - organizacao do trabalho( no capitulo 1 teremos... no capitulo 2 teremos ...)
-
-% ------------------------------------------------------------------------------------------------------
-% % hélio
-% notas sobre a distribuição do modelo
-% - cenário com o processamento de novidades local
-% - cenário com ND na nuvem
-
-% - minas totalmente active
-
-% helio amanha:
-% a. Cenário, b. Problema, c. Proposta e d. Resultado Esperado.
-% hermes:
-% a. Monitoramento, classificação,
-% b. detecção de novidades,
-% c. executar em nós multi-core de maneira escalável,
-% d. minas com mesma qualidade porém escalável.
-
-% helio:
-% Técnicas de firewall tradicional: allow all, deny all.
-% Firewall moderno usa modelos.
-% Minas como modelo.
-
-% hermes
-% iot, nós expostos vitima de ataque, novas funcionalidades ->
-% firewall rigido vs modelos -> streams ->
-% novidade -> minas -> big data -> discussão de localidade de dados
-% paralelização
-
-% motivação: testes preliminares do guilherme que fez teste com tais bases
-% teve resultados promissores
-
-% - implementar
-% - paralelizar
-% - avaliar
-% - avaliar aprendizado local ou global trade-offs
-
-% % luis
-% O minas abre espaço para diferentes estratégias de paralelismo e distribuição.
-
-% % hermes
-% escalabilidade do algoritmo
-
-% Kafka particiona e expõem esse particionamento ao consumidor.
-% Tentei usar Python + Kafka, mas não escalou.
-
-% Detalhar a implementação
-
-% % hermes, esqueça kafka, foque em arquivos
-% ------------------------------------------------------------------------------------------------------
-
-% Hermes 2020-02-04
-% Paralelize o minas no flink.
-% (não se preocupe com o uso, seja ele NIDS ou qualquer outra coisa)
-% Use a detecção de intrusão apenas como validação do algoritmo.
-
-% cenário 2: NIDS é meu foco, esses são os desafios de NIDS, o minas resolve. mas esse cenário é tragico
-% ------------------------------------------------------------------------------------------------------
-
-% cap 1:
-%   - Objetivo paralelizar minas em plataforma de big-data capaz de consumir streams de forma eficiente
-%   - Motivação: Minas é recente, com potencial em várias aplicações, por exemplo (NIDS, sensores, ...)
-%       para isso deseja-se uma implementação eficiente (low power, ou usar todo hardware) e escalável (big-data)
-%/hermes
-% ------------------------------------------------------------------------------------------------------
-
-% a. Cenário: Monitoramento, classificação,
-% b. Problema: detecção de novidades,
-% c. Proposta: executar em nós multi-core de maneira escalável,
-% d. Resultado Esperado: minas com mesma qualidade porém escalável.
-% 
-% Linha de argumentação: iot, nós expostos vitima de ataque, novas funcionalidades ->
-% firewall rigido vs modelos -> streams -> novidade -> minas ->
-% big data -> discussão de localidade de dados e paralelização
-% 
-% motivação: testes preliminares do guilherme que fez teste com tais bases
-% teve resultados promissores
-% - implementar
-% - paralelizar
-% - avaliar
-% - avaliar aprendizado local ou global trade-offs
-
-% Se 3 palavras formam uma ideia atômica, tenha 2 ligações nas pontas
-% 3 ou 4 linhas max, quebrar em sentenças
-% muito Essa, Esse em começo de parágrafo
-
-% \textit{A Internet das Coisas, tema frequentemente abordado nos últimos anos,
-% atrelado ao crescimento sem precedentes do número de dispositivos conectados.
-% Tais dispositivos captam informações através de sensores e outros meios de
-% entrada e geram dados que podem trazer conhecimentos relevantes através de sua  
-% análise.}
 \acronym{IoT}{Internet of Things, Internet das Coisas}
+\newcommand{\iot}{IoT\xspace}
 
 A Internet das Coisas (\emph{Internet of Things} - IoT) é um sistema global de
 dispositivos (máquinas, objetos físicos ou virtuais, sensores, atuadores e
@@ -118,11 +21,8 @@ Nesse cenário, fatores que possibilitam a subversão desses dispositivos:
 falta de controle sobre a origem do hardware e software embarcado nos
 dispositivos além das cruciais atualizações de segurança.
 
-% The Internet of Things (IoT) has been defined in Recommendation ITU-T Y.2060 (06/2012) as
-% a global infrastructure for the information society, enabling advanced services
-% by interconnecting (physical and virtual) things based on existing and evolving
-% interoperable information and communication technologies.
 \acronym{DS}{\emph{Data Stream}, Fluxo de Dados}
+\newcommand{\ds}{DS\xspace}
 
 Com milhares de dispositivos em redes distantes gerando dados (diretamente
 ligados a sua função original e também metadados produzidos como subproduto) com
@@ -145,8 +45,9 @@ Técnicas de \emph{Data Stream Mining} envolvem mineração de dados
 (\emph{Data Mining}), aprendizado de
 máquina (\emph{Machine Learning}) e recentemente Detecção de Novidades
 (\emph{Novelty Detection}, \nd).
-ND além de classificar em modelos conhecidos
-permite classificar novos padrões e, consequentemente, atuar corretamente mesmo
+ND além de classificar em modelos conhecidos permite classificar novos padrões
+já que trata problemas como evolução e deriva de conceito que são característicos
+de fluxos contínuos e, consequentemente, atuar corretamente mesmo
 em face a padrões nunca vistos.
 Essa capacidade é relevante em especial para o
 exemplo de detecção de intrusão, onde novidades na rede podem distinguir novas
@@ -167,17 +68,17 @@ consumo computacional ou energético.
 
 \section{Motivação}\label{sec:motivo}
 
-\nota{incompleto :(}
-No contexto de detecção de novidades para fluxos de dados em \emph{fog}, uma
-arquitetura recente proposta por \citeonline{Cassales2019a} mostra resultados promissores.
+Um problema recente que une, em um único contexto, os métodos de computação em
+névoa, processamento de fluxo de dados e detecção de novidades nesses fluxos é a
+detecção de intrusão em redes de dispositivos \iot.
+Para tratar esse problema, uma arquitetura recente proposta por
+\citeonline{Cassales2019a} aplica ao problema algoritmos atuais de detecção de
+novidades em fluxos executando esses algoritmos em ambiente próximo aos
+dispositivos e avaliando-os quanto a detecção de intrusão.
 
-% baseada nos algoritmos de detecção de novidades em fluxo de dados ECSMiner, AnyNovel e MINAS \cite{Faria2016minas},
-ECSMiner, AnyNovel e MINAS
-
-No contexto de detecção de novidades para fluxos de dados em \emph{fog}, uma
-arquitetura recente proposta por \citeonline{Cassales2019a}, baseada no algoritmo
-de detecção de novidades em fluxo de dados MINAS
-\cite{Faria2016minas}, mostra resultados promissores.
+Na arquitetura proposta, \citeonline{Cassales2019a} avaliou os algoritmos
+ECSMiner \cite{Masud2010ECSMiner}, AnyNovel \cite{Abdallah2016anynovel} e MINAS
+\cite{Faria2016minas} onde o último mostra resultados promissores.
 A arquitetura proposta foi avaliada com conjunto de dados (\emph{data set}) \emph{Kyoto 2006+} 
 composto de dados coletados de 348 \emph{Honeypots} (máquinas isoladas com diversos softwares
 com vulnerabilidades conhecidas expostas à Internet com propósito de atrair
@@ -186,8 +87,9 @@ O \emph{data set} \emph{Kyoto 2006+} contém 24 atributos, 3 etiquetas atribuíd
 detectores de intrusão comerciais e uma etiqueta
 distinguindo o tráfego entre normal, ataque conhecido e ataque desconhecido
 \cite{Cassales2019a}.
-Contudo, o algoritmo MINAS ainda não foi implementado e avaliado com paralelismo
-multi-processamento ou distribuído.
+Contudo, o algoritmo MINAS ainda não foi implementado e avaliado com paralelismo,
+multi-processamento ou distribuição computacional que são necessárias para
+tratar fluxos de dados com grandes volumes e velocidades.
 
 Outras propostas tratam do caso de grandes volumes e velocidades, como é o caso
 de \citeonline{Viegas2019} que apresenta o \emph{BigFlow} no intuito de detectar
@@ -249,21 +151,25 @@ com um algoritmo menos preparado para os desafios de detecção de novidades.
 
 \section{Objetivos}\label{sec:objetivos}
 
-\nota{a ausencia nao é de um algoritmo de deteccao de novidade com paralelismo?}
+% \nota{
+%     a ausencia nao é de um algoritmo de deteccao de novidade com paralelismo?\\
+%     é, mas tem o contexto de ids agora
+% }
 
 Como estabelecido na \refsec{motivo}, a lacuna no estado da arte observada é
 a ausência de uma implementação de algoritmo de detecção de
-novidade que trate adequadamente os desafios de fluxo de dados contínuos e
-considere o ambiente de computação em névoa aplicada à detecção de
+novidade que trate adequadamente os desafios de fluxo de dados contínuos
+(como volume e velocidade do fluxo, evolução e deriva de conceito)
+e considere o ambiente de computação em névoa aplicada à detecção de
 intrusão.
 Seguindo a comparação entre algoritmos desse gênero realizada por
 \citeonline{Cassales2019a}, elege-se que o algoritmo MINAS \cite{Faria2016minas}
 receberá o tratamento proposto.
 
-\nota{GSDR da universidade federal de sao carlos...}
+% \nota{GSDR da universidade federal de sao carlos...}
 
 Portanto, seguindo os trabalhos do Grupo de Sistemas Distribuídos e Redes
-(GSDR), propõem-se a construção de uma aplicação que implemente o algoritmo MINAS
+(GSDR) da \ABNTinstituicaodata (UFSCar), propõem-se a construção de uma aplicação que implemente o algoritmo MINAS
 de maneira escalável e distribuível para ambientes de computação em névoa e a avaliação
 dessa implementação com experimentos baseados na literatura e conjunto de dados
 públicos relevantes.
