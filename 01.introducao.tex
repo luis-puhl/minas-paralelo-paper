@@ -48,9 +48,9 @@ Técnicas de \emph{Data Stream Mining} envolvem mineração de dados
 (\emph{Data Mining}), aprendizado de
 máquina (\emph{Machine Learning}) e recentemente Detecção de Novidades
 (\emph{Novelty Detection}, \nd).
-ND além de classificar em modelos conhecidos permite classificar novos padrões
+ND além de classificar em modelos conhecidos permite classificar novos padrões,
 já que trata problemas como evolução e deriva de conceito que são característicos
-de fluxos contínuos e, consequentemente, atuar corretamente mesmo
+de fluxos contínuos e, consequentemente, permite atuar corretamente mesmo
 em face a padrões nunca vistos.
 Essa capacidade é relevante em especial para o
 exemplo de detecção de intrusão, onde novidades na rede podem distinguir novas
@@ -71,10 +71,12 @@ consumo computacional ou energético.
 
 \section{Motivação}\label{sec:motivo}
 
+\newcommand{\idsiot}{IDSA-IoT\xspace}
+
 Um problema recente que une, em um único contexto, os métodos de computação em
 névoa, processamento de fluxo de dados e detecção de novidades nesses fluxos é a
 detecção de intrusão em redes de dispositivos \iot.
-Para tratar esse problema, uma arquitetura recente proposta por
+Para tratar esse problema, a arquitetura \idsiot recente proposta por
 \citeonline{Cassales2019a} aplica ao problema algoritmos atuais de detecção de
 novidades em fluxos executando esses algoritmos em ambiente próximo aos
 dispositivos e avaliando-os quanto a detecção de intrusão.
@@ -221,7 +223,7 @@ Com foco no objetivo geral, alguns objetivos secundários são propostos:
     distribuída de fluxos de dados;
 
     \item Avaliar a qualidade de detecção de intrusão em ambiente distribuído 
-    conforme a arquitetura IDSa-IOT;
+    conforme a arquitetura \idsiot;
     
     \item Avaliar o desempenho da implementação em ambiente de computação em névoa.
 

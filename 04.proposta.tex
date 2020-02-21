@@ -13,8 +13,8 @@
 \newcommand{\mfog}{M-FOG\xspace}
 \newcommand{\flink}{\emph{Apache Flink}\xspace}
 
-A Internet das Coisas (\iot) é composta por milhares de dispositivos distribuídos
-geograficamente conectados à Internet.
+A Internet das Coisas (\iot) é composta por milhares de dispositivos
+conectados à Internet e distribuídos geograficamente.
 Com capacidades diversas como sensores e atuadores, esses dispositivos produzem e
 consomem Fluxos Contínuos de Dados (\streams) com diversos objetivos.
 Alguns objetivos envolvem a mineração desses fluxos (\streamMining) em busca de
@@ -61,39 +61,53 @@ considera distribuição em um ambiente de \fog.
 
 \section{Descrição da Implementação}\label{sec:descricao}
 
-\newcommand{\source}{\emph{source}\xspace}
-\newcommand{\sink}{\emph{sink}\xspace}
+\newcommand{\source}{módulo auxiliar \emph{source}\xspace}
+\newcommand{\sink}{módulo auxiliar \emph{sink}\xspace}
 
-\newcommand{\offline}{treinamento\xspace}
-\newcommand{\classify}{classificador\xspace}
-\newcommand{\detector}{detector\xspace}
+\newcommand{\offline}{módulo treinamento\xspace}
+\newcommand{\classify}{módulo classificador\xspace}
+\newcommand{\detector}{módulo detector\xspace}
 
 Nesta Seção, apresenta-se o \mfog, objeto proposta deste trabalho.
-O \mfog é composto pelos módulos: \offline, \classify e \detector.
+O \mfog é composto em módulos, sendo eles: \offline, \classify e \detector.
 Para correta avaliação, \mfog é acompanhado de dois módulos auxiliares:
-módulo fonte (\source) e módulo \sink.
-
-% \nota{métodos para alcançar os objetivos}
-
-% \nota{o que fazer e como fazer, resultados esperados}
+\source (fonte) e \sink (sorvedouro, consumidor final).
 
 A implementação proposta segue a arquitetura \idsiot formalizada por
 \citeonline{Cassales2019a} discutido na \refsec{cassales}.
-A arquitetura \idsiot estabelece que um serviço de captura e tratamento de dados
-é instalado na borda de uma rede local com dispositivos \iot.
-Na presente implementação
-esse serviço de captura e tratamento é representado pelo módulo \source.
+A arquitetura \idsiot (e outras arquiteturas) estabelece que um serviço de
+captura e tratamento de dados é instalado na borda de uma rede local com
+dispositivos \iot.
+Na presente implementação esse serviço de captura e tratamento é representado
+pelo \source.
 
-O módulo auxiliar \source é dependente da fonte de dados, executando a transformação dos
+O \source é dependente da fonte de dados, executando a transformação dos
 formatos dos \datasets para um fluxo de dados compatível com o restante da
 implementação.
-Além de fornecer dados tratados para \mfog, o módulo \source também fornece
-dados para o módulo \sink e \offline.
+Além de fornecer dados tratados para \mfog, o \source também fornece
+dados para o \sink e \offline.
 
-O módulo auxiliar \sink é responsável por agregar todos resultados do \mfog e,
-juntamente com os valores do \dataset fornecidos pelo módulo \source, computar
+O \sink é responsável por agregar todos resultados do \mfog e,
+juntamente com os valores do \dataset fornecidos pelo \source, computar
 as métricas de qualidade de classificação e métricas base para as métricas de
 escalabilidade e métricas de recursos computacionais.
+
+Os dados resultantes do serviço de captura e tratamento são ingeridos pela
+aplicação no módulo \classify por meio de conexão TCP (\emph{Transmission
+Control Protocol}) fornecida pela plataforma \flink.
+Na plataforma, com o modelo de classificação disponível, os exemplos são
+classificados seguindo o algoritmo MINAS original discutido na \refsec{minas-og}.
+A etiqueta atribuída pela classificação, ou meta-etiqueta de desconhecido,
+juntamente com o exemplo original são enviados para o módulo \sink.
+Além disso, se o exemplo não for classificado, o mesmo é enviado para o módulo
+\detector.
+
+O \detector é responsável por executar o processo de detecção de
+novidade, atualizando o modelo de classificação, e entrega do novo modelo
+ao \classify.
+Este também envia meta-informações sobre o processo de detecção de
+novidade para o \sink.
+
 
 % \[ \begin{tikzcd}
 % A \arrow{r}{\varphi} \arrow[swap]{d}{\varrho_f} & B \arrow{d}{\varrho_g} \\%
@@ -111,8 +125,17 @@ escalabilidade e métricas de recursos computacionais.
 % }
 % }
 
-% \begin{figure}[!htb]
-% \centering
+
+% \nota{
+% nao seria legal fazer um diagrama pq ai vc pode usar ate nos slides de como eh
+% essa implementacao. Faz no draw io pra que de pra usar na monografia e de para
+% enxergar na apresentacao
+% }
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=\textwidth]{figuras/bwt_photo_arch.png}
+\caption{Arquitetura \mfog.}
+\label{fig:arch}
 % \begin{tikzpicture}[auto, node distance=2cm,>=latex']
 %     \node [input, name=rinput] (rinput) {};
 %     \node [sum, right of=rinput] (sum1) {};
@@ -138,34 +161,7 @@ escalabilidade e métricas de recursos computacionais.
 %     \draw [->] (extra)--(sum2);
 %     \draw [->] ($(0,1.5cm)+(extra)$)node[above]{$d_{\beta 2}$} -- (extra);
 %     \end{tikzpicture}
-% \caption{A PID Control System} \label{fig6_10}
-% \end{figure}
-
-Os dados resultantes do serviço de captura e tratamento são ingeridos pela
-aplicação no módulo \classify por meio de conexão TCP (\emph{Transmission
-Control Protocol}) fornecida pela plataforma \flink.
-Na plataforma, com o modelo de classificação disponível, os exemplos são
-classificados seguindo o algoritmo MINAS original discutido na \refsec{minas-og}.
-A etiqueta atribuída pela classificação, ou meta-etiqueta de desconhecido,
-juntamente com o exemplo original são enviados para o módulo \sink.
-Além disso, se o exemplo não for classificado, o mesmo é enviado para o módulo
-\detector.
-
-O módulo \detector é responsável por executar o processo de detecção de
-novidade, atualizando o modelo de classificação, e entrega do novo modelo
-ao módulo \classify.
-Este módulo também envia meta-informações sobre o processo de detecção de
-novidade para o módulo \sink.
-
-\nota{citar ferramentas e a escolha só depois do python e kafka}
-
-\nota{entre flink e spark, outro grupo de pesquisa já está explorando spark}
-
-\nota{
-nao seria legal fazer um diagrama pq ai vc pode usar ate nos slides de como eh
-essa implementacao. Faz no draw io pra que de pra usar na monografia e de para
-enxergar na apresentacao
-}
+\end{figure}
 
 \section{Metodologia de Avaliação e Resultados Esperados}\label{sec:esperados}
 
@@ -185,12 +181,19 @@ de aprendizado de máquina não são adequadas para avaliar detecção de novida
 \streams sem tratamento inicial, felizmente o tratamento necessário é
 estabelecido por \citeonline{Faria2013} e expandido por
 \citeonline{DaSilva2018,DaSilva2018thesis,Costa2019,Costa2019thesis}.
-O tratamento estabelece que as métricas são extraídas de uma matriz de erro de
-classificação multi-classe \ref{eq:matrix} adaptada para detecção de novidade.
-A matriz é preenchida com o número de eventos da classe $c_i$ classificados com
+Além do tratamento estabelecido, as métricas tradicionais não são calculadas
+somente para o conjunto completo, e sim para cada exemplo classificado, portanto
+as métricas tem como índice o instante $n$, informando a posição do exemplo em
+relação ao fluxo.
+
+O tratamento estabelecido das métricas de qualidade para \streamMining define
+que as métricas são extraídas de uma matriz de erro de classificação
+multi-classe $\mathbf{E}_n$ (\refequ{matrix}) adaptada para detecção de
+novidade.
+A matriz de erro é preenchida com o número de eventos da classe $c_i$ classificados com
 etiqueta $l_j$ até o instante $n$.
-A equação \ref{eq:classes} representa o conjunto de classes presentes nos eventos
-do fluxo até o instante $n$ e a equação \ref{eq:labels} representa o conjunto
+A \refequ{classes} representa o conjunto de classes presentes nos eventos
+do fluxo até o instante $n$ e a \refequ{labels} representa o conjunto
 de etiquetas atribuídas pelo classificador a eventos até o mesmo instante.
 
 \begin{align}
@@ -206,11 +209,14 @@ de etiquetas atribuídas pelo classificador a eventos até o mesmo instante.
   \end{pmatrix}  \label{eq:matrix}
 \end{align}
 
-\nota{as metricas de qualidade de classificacao sao}
-
-As métricas selecionadas são taxa de desconhecidos ($UnkR$) \cite{Faria2013},
-acurácia média ($acc$) e Macro F-score ($Fscore$, F1M)
-\cite{Sokolova2009,DaSilva2018thesis}.
+As métricas de qualidade de classificação selecionadas para avaliar a
+implementação \mfog são 
+taxa de desconhecidos ($UnkR$ na \refequ{unkr}) \cite{Faria2013},
+acurácia média ($acc$ na \refequ{acc})
+e Macro F-score ($Fscore$ na \refequ{fscore}, também referido na literatura por
+F1M) \cite{Sokolova2009,DaSilva2018thesis}.
+As métricas são extraídas para todos os instantes $n$ da respectiva matriz de
+erro $\mathbf{E}_n$.
 
 % e \emph{Logarithm Loss} ($\mathcal{L}$).
 
@@ -225,9 +231,9 @@ acurácia média ($acc$) e Macro F-score ($Fscore$, F1M)
 % \mathit{UnkR}_n   &= \frac{ \#Unk }{n}
 
 \begin{align}
-  \mathit{UnkR}       &= \frac{1}{M} \sum_{i=1}^{M} \frac{\#Unk_i}{\#ExC_i}\\
+  \mathit{UnkR}       &= \frac{1}{M} \sum_{i=1}^{M} \frac{\#Unk_i}{\#ExC_i} \label{eq:unkr} \\
   \mathit{acc}        &= \frac{1}{M} \sum_{i=1}^{M} \frac{tp_i + tn_i}{tp_i+fn_i+fp_i+tn_i}
-  = \frac{1}{M} \sum_{i=1}^{M} \frac{\#Acc_i}{\#ExC_i}\\
+  = \frac{1}{M} \sum_{i=1}^{M} \frac{\#Acc_i}{\#ExC_i}  \label{eq:acc} \\
   \mathit{Precision}  &= \frac{1}{M} \sum_{i=1}^{M} \frac{tp_i}{tp_i+fp_i} \\
   \mathit{Recall}     &= \frac{1}{M} \sum_{i=1}^{M} \frac{tp_i}{tp_i+fn_i} \\
   \mathit{Fscore}_\beta &= (\beta^2 +1) \cdot
@@ -240,35 +246,32 @@ acurácia média ($acc$) e Macro F-score ($Fscore$, F1M)
     \mathit{Precision} \cdot \mathit{Recall}
     }{
       \mathit{Precision} +\mathit{Recall}
-    } 
+    } \label{eq:fscore}
 \end{align}
 % = 2 \cdot \frac{tp}{2 \cdot tp + fn + fp}
 % \mathcal{L}         &= \frac{-1}{N} \sum_{i=1}^{M} \sum_{j=1}^{J} y_{i,j} \log(p_{i,j})
 
+% \nota{usar coeficiente d-intra vs d-extra grupo para determinar K de
+% cada label. Também pode-se usar os mesmos coeficientes para _log_}
 
+A transformação do fluxo de saída em uma matriz de erro é realizada no \sink
+onde tem-se disponível o fluxo original com as etiquetas corretas e o fluxo
+resultante da classificação.
+Esse módulo deve levar em consideração que pode haver reclassificação de um
+evento, previamente rotulado como desconhecido, em padrões oriundos de classe
+novidade ou extensão devido ao processo de detecção de novidades executado
+posteriormente ao surgimento do padrão em questão.
 
-\nota{usar coeficiente d-intra vs d-extra grupo para determinar K de
-cada label}
+% Portanto os resultados são computados em função do fluxo de saída, então os $n$ nas
+% equações são o índice do evento de saída.
+% $\mathbf{unk}$ é o conjunto de eventos marcados como desconhecidos.
+% \nota{oque eh unk? nesse paragrafo acima, erro de compilacao do latex?}
 
-
-O tratamento do fluxo de saída é realizado no módulo \sink onde tem-se
-disponível o fluxo original com as etiquetas corretas.
-Esse módulo deve levar em consideração que
-como pode haver reclassificação de um evento, previamente rotulado como
-desconhecido, em padrões oriundos de classe novidade ou extensão devido ao
-processo de detecção de novidades executado posteriormente ao surgimento
-do padrão em questão.
-Portanto os resultados são computados em função do fluxo de saída, então os $n$ nas
-equações são o índice do evento de saída.
-$\mathbf{unk}$ é o conjunto de eventos marcados como desconhecidos.
-
-\nota{oque eh unk? nesse paragrafo acima, erro de compilacao do latex?}
-
-\nota{frase confusa, eh so tirar o COMO e quebrar a frase: Esse módulo deve levar em consideração que
-COMO pode haver reclassificação de um evento, previamente rotulado como
-desconhecido, em padrões oriundos de classe novidade ou extensão devido ao
-processo de detecção de novidades executado posteriormente ao surgimento
-do padrão em questão}
+% \nota{frase confusa, eh so tirar o COMO e quebrar a frase: Esse módulo deve levar em consideração que
+% COMO pode haver reclassificação de um evento, previamente rotulado como
+% desconhecido, em padrões oriundos de classe novidade ou extensão devido ao
+% processo de detecção de novidades executado posteriormente ao surgimento
+% do padrão em questão}
 
 % \begin{align}
 %   E_{n,i,j} &= \bordermatrix{~ & c_i & \neg c_i \cr
@@ -290,8 +293,8 @@ do padrão em questão}
 %           & \text{soma de uma linha (classe)}
 % \end{align}
 
-As métricas de escalabilidade selecionadas são: número de nós processadores, tipo
-de processadores, uso de memória, tempo de processamento, taxa de eventos
+As métricas de escalabilidade selecionadas são: número de nós processadores,
+tipo de processadores, uso de memória, tempo de processamento, taxa de eventos
 processados e latência entre a produção e classificação de um evento.
 
 \nota{
@@ -314,7 +317,9 @@ para o \mfog: \begin{enumerate*}[label={\alph*)}]
 \end{enumerate*}
 e para o minas somente as métricas de qualidade de classificação.
 
-\nota{AQUI NO PARAGRAFO ANTERIOR, NAOOOOO!! Nao colocar frase depois do enumerate. Comeca um paragrafo novo ou continua ele com uma frase nova, nao pode fazer isso}
+\nota{AQUI NO PARAGRAFO ANTERIOR, NAOOOOO!! Nao colocar frase depois do
+enumerate. Comeca um paragrafo novo ou continua ele com uma frase nova, nao pode
+fazer isso}
 
 \section{Resultados preliminares}\label{sec:resultados}
 
@@ -322,6 +327,11 @@ e para o minas somente as métricas de qualidade de classificação.
 
 \newcommand{\kafka}{\emph{Apache Kafka}\xspace}
 \newcommand{\python}{\emph{Python}\xspace}
+
+\nota{citar ferramentas e a escolha só depois do python e kafka}
+
+\nota{entre flink e spark, outro grupo de pesquisa já está explorando spark}
+
 
 \subsection{Implementação com \python e \kafka}
 
