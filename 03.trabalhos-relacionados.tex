@@ -313,10 +313,10 @@ realismo, validade, etiquetamento, grande variabilidade e reprodutividade
 (disponibilidade pública).
 
 Para avaliar o desempenho de NIDS o \dataset MAWIFlow é proposto. Originário do
-\dataset \emph{Packet traces from WIDE backbone, samplepoint-F} composto por seções de captura
-de pacotes diárias de 15 minutos de um link de $1 \mathrm{Gbps}$ entre Japão e EUA, com
-inicio em 2006 continuamente até hoje, anonimizados e etiquetados por
-MAWILab \cite{mawiSamplepointF,Fontugne2010}.
+\dataset \emph{Packet traces from WIDE backbone, samplepoint-F} composto por
+seções de captura de pacotes diárias de 15 minutos de um link de $1
+\mathrm{Gbps}$ entre Japão e EUA, com inicio em 2006 continuamente até hoje,
+anonimizados e etiquetados por MAWILab \cite{mawiSamplepointF,Fontugne2010}.
 Desse data set original apenas os eventos de 2016 são utilizados e desses 158
 atributos são extraídas resultando em 7.9 TB de captura de pacotes.
 Além disso, os dados são estratificados para redução de seu tamanho a um
@@ -335,6 +335,15 @@ mencionadas.
 % anterior como treinamento e a seguinte como teste. Demostrando, com 62
 % atributos, que a qualidade da classificação retrai com o tempo quando não há
 % atualização frequente do modelo classificador.
+
+% Outras propostas tratam do caso de grandes volumes e velocidades, como ́e o caso
+% de Viegaset al. (2019) que apresenta oBigFlowno intuito de detectar intrus ̃ao
+% em redes10 GigabitEthernet, que ́e um volume consider ́avel atualmente imposs
+% ́ıvel de ser processado em um ́unicon ́ucleo de processador (single-threaded).
+% Essa implementac ̧ ̃ao ́e feita sobre uma plataformadistribu ́ıda processadora
+% de fluxos (Apache Flink) executada em um cluster com at ́e 10 n ́os detrabalho,
+% cada um com 4 n ́ucleos de processamento totalizando 40 n ́ucleos para atingir
+% taxas deat ́e 10,72Gb ps.
 
 \subsection{Ferramenta CATRACA}
 
