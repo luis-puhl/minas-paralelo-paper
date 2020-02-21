@@ -174,7 +174,7 @@ e considere o ambiente de computação em névoa aplicada à detecção de
 intrusão.
 Seguindo a comparação entre algoritmos desse gênero realizada por
 \citeonline{Cassales2019a}, escolhemos o algoritmo MINAS \cite{Faria2016minas}
-para receber o tratamento necessário para adequa-lo ao ambiente de névoa e para
+para receber o tratamento necessário para adequa-lo ao ambiente de névoa e para
 fluxos de grandes volumes e velocidades.
 
 % \nota{GSDR da universidade federal de sao carlos...}
@@ -194,8 +194,9 @@ de computação em névoa aplicado à detecção de intrusão.
 % \nota{Falar do resultado bem resumuidamente}
 % \nota{Porem a implementação não distribuída.}
 
-%Com a avaliação inicial formulou-se a questão \emph{``quais resultados podem ser esperados de um sistema que implementa um algoritmo de detecção de novidades em fluxo de dados?"} que engloba sucintamente
-% os temas abordados nesse trabalho.
+% Com a avaliação inicial formulou-se a questão \emph{``quais resultados podem ser
+% esperados de um sistema que implementa um algoritmo de detecção de novidades em
+% fluxo de dados?"} que engloba sucintamente os temas abordados nesse trabalho.
 
 % c. Proposta: executar em nós multi-core de maneira escalável,
 % d. Resultado Esperado: minas com mesma qualidade porém escalável.
@@ -271,49 +272,19 @@ públicos relevantes para detecção de novidades em DS.
 
 Uma vez definidos o estado da arte, as ferramentas técnicas e os
 \emph{data sets}, o passo seguinte é a experimentação.
-Nesse passo é desenvolvida uma aplicação na plataforma escolhida que, com base no
-algoritmo MINAS \cite{Faria2016minas}, classifica e detecta novidades em DS.
-Também nesse passo a implementação é validada comparando os resultados de
+Nesse passo será desenvolvida uma aplicação na plataforma escolhida que, com base no
+algoritmo MINAS \cite{Faria2016minas}, irá classificar e detectar novidades em DS.
+Também nesse passo, a implementação será validada comparando os resultados de
 classificação obtidos com os resultados de classificação do algoritmo original
 MINAS.
 Posteriormente, serão realizados experimentos com a implementação e variações em \emph{data sets} e
-cenários de distribuição em \emph{fog} coletando as métricas de classificação e escalabilidade.
+cenários de distribuição em \emph{fog}, coletando as métricas de classificação e escalabilidade.
 
 Ao final, a aplicação, resultados, comparações e discussões serão publicados
-nos meios e formatos adequados como repositórios técnicos, eventos ou revistas
+nos meios e formatos adequados, como repositórios técnicos, eventos ou revistas
 acadêmicas.
 
 \section{Organização do trabalho}
-
-
-% Flink  - dizer que vai usar, para fazer o que e porque escolheu 
-
-% Kafka ?
-
-% Raspberry - para todos
-
-% A base - 
-
-% 1.2 (Cassales)
-%  Metodologia
-% A seguir será descrita a metodologia que pretende-se utilizar para atingir aos objetivos e
-% responder às questões de pesquisa propostas.
-% Primeiramente será realizado um levantamento do estado da arte no que diz respeito aos
-% Sistemas de Detecção de Intrusão e às técnicas de Detecção de Novidade aplicadas aos Fluxos
-% Contı́nuos de Dados. Com base neste levantamento, serão determinadas as lacunas dos sistemas
-% da área e quais as técnicas mais adequadas para a utilização neste trabalho. Dado o foco nas
-% técnicas e na arquitetura, é necessário que se possua mais de uma base de dados para realizar
-% 1.2 Metodologia
-%  13
-% a avaliação. Tendo em vista que existem bases de dados de segurança que não representam
-% o cenário atual de maneira fidedigna, é necessário selecionar bases que possibilitem que os
-% resultados sejam confiáveis.
-% Além das bases, serão utilizadas diversas técnicas, as quais deverão ser avaliadas e estuda-
-% das para que possam ser propostas melhorias ou mesmo uma nova técnica. Finalmente, serão
-% implementadas melhorias e, se necessário, uma nova técnica e será feita avaliação do desempe-
-% nho desta técnica.
-
-% \section{Organização do trabalho}
 
 O restante desse trabalho segue a estrutura:
 \refcap{fundamentos} aborda conceitos teóricos e técnicos que embasam
