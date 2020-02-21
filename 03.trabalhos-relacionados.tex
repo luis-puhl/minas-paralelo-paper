@@ -281,47 +281,62 @@ novidades para fins diversos em fluxos de dados reais.
 
 \subsection{Ferramenta BigFlow}
 
-\nota{Incompleto}
-
 Proposta por \citeonline{Viegas2019}, a ferramenta BigFlow é um sistema de
-detecção de intrusão em rede, 
+detecção de intrusão em rede (\emph{Network Intrusion Detection System}, NIDS),
+baseado em detecção de anomalias, abordagem preferida por esses sistemas em
+contraste com a abordagem de detecção por assinatura que tem tempo de resposta
+a novos tipos de ataque (\emph{zero day}) grande demais para detectar esse tipo
+de intrusão.
 
+A ferramenta BigFlow é composta por dois módulos e múltiplos submódulos.
+O módulo de extração de atributos é responsável por transformar pacotes em fluxos
+e fluxos em exemplos para o módulo de aprendizado confiável.
+O módulo de aprendizado confiável é composto pelos submódulos:
+classificador, responsável por classificar exemplos;
+verificação, responsável por verificar o resultado de classificação;
+submódulo de exemplos rejeitados, responsável por requisitar etiquetas para exemplos rejeitados e;
+submódulo de atualização incremental que atualiza e distribui o modelo aos classificadores.
 
-\cite{mawiSamplepointF,Fontugne2010}
-BigFlow destaca em sua secção 2 (backgroud) o processamento de streams [18, 19],
-a preferencia de NIDS por anomalia em contraste aos NIDS por assinatura [30, 31, 32],
-a variabilidade e evolução dos padrões de tráfego em redes de propósito geral [9, 11, 20],
-a necessidade de atualização regular do modelo classificador [8, 9, 10, 20] e
-o tratamento de eventos onde a confiança resultante da classificação é baixa [9, 12, 13].
+% BigFlow destaca em sua secção 2 (backgroud) o processamento de streams [18, 19],
+% a preferencia de NIDS por anomalia em contraste aos NIDS por assinatura [30, 31, 32],
+% a variabilidade e evolução dos padrões de tráfego em redes de propósito geral [9, 11, 20],
+% a necessidade de atualização regular do modelo classificador [8, 9, 10, 20] e
+% o tratamento de eventos onde a confiança resultante da classificação é baixa [9, 12, 13].
 
-Também destaca em sua secção 3 (MAWIFlow) 
-que data sets adequados para NIDS são poucos devido o conjunto de qualidades que os mesmos
-devem atender como realismo, validade, etiquetamento, grande variabilidade
-e reprodutividade (disponibilidade pública) [8, 9, 10, 17, 38].
+% [22] MAWI Working Group Traffic Archive, http://mawi.wide.ad.jp/mawi/samplepoint-F/.
+% [24] H. He, E.A. Garcia, Learning from imbalanced data, IEEE Trans. Knowl. Data Eng.
+% 21 (2009) 1263–1284. doi:10.1109/TKDE.2008.239.
 
-% discutir somente técnicas e estratégias
-% dão dê aval aos dados, especialmente os de 'venda' do artigo.
+\citeonline{Viegas2019} destaca que data sets adequados para NIDS são
+poucos devido o conjunto de qualidades que os mesmos devem atender como
+realismo, validade, etiquetamento, grande variabilidade e reprodutividade
+(disponibilidade pública).
 
-Para avaliar o desempenho de NIDS o data set MAWIFlow é proposto. Originário do
-'Packet traces from WIDE backbone, samplepoint-F' composto por seções de captura
-de pacotes diárias de 15 minutos de um link de 1Gbps entre Japão e EUA, com
-inicio em 2006 continuamente até hoje, anonimizados [22], etiquetados por
-MAWILab [8].
+Para avaliar o desempenho de NIDS o \dataset MAWIFlow é proposto. Originário do
+\dataset \emph{Packet traces from WIDE backbone, samplepoint-F} composto por seções de captura
+de pacotes diárias de 15 minutos de um link de $1 \mathrm{Gbps}$ entre Japão e EUA, com
+inicio em 2006 continuamente até hoje, anonimizados e etiquetados por
+MAWILab \cite{mawiSamplepointF,Fontugne2010}.
 Desse data set original apenas os eventos de 2016 são utilizados e desses 158
 atributos são extraídas resultando em 7.9 TB de captura de pacotes.
-Além disso, os dados são estratificados [24] para redução de seu tamanho a um
+Além disso, os dados são estratificados para redução de seu tamanho a um
 centésimo mantendo as proporções de etiquetas (Ataque e Normal) facilitando o
 compartilhamento e avaliação de NIDS além de atender as qualidades anteriormente
 mencionadas.
 
-Com o data set MAWIFlow original e reduzido foram avaliados quatro classificadores [42, 43, 44, 45]
-da literatura em dois modos de operação quanto seus dados de treinamento
-(ambos contendo uma semana de captura) o primeiro usando somente a primeira semana do ano e as demais
-como teste e o segundo modo usando a semana anterior como treinamento e a seguinte como teste.
-Demostrando, com 62 atributos, que a qualidade da classificação retrai com o tempo quando não há
-atualização frequente do modelo classificador.
+% [42, 43, 44, 45]
 
-\subsection{A Ferramenta CATRACA}
+\nota{Incompleto}
+
+% Com o data set MAWIFlow original e reduzido foram avaliados quatro
+% classificadores da literatura em dois modos de operação quanto seus dados de
+% treinamento (ambos contendo uma semana de captura) o primeiro usando somente a
+% primeira semana do ano e as demais como teste e o segundo modo usando a semana
+% anterior como treinamento e a seguinte como teste. Demostrando, com 62
+% atributos, que a qualidade da classificação retrai com o tempo quando não há
+% atualização frequente do modelo classificador.
+
+\subsection{Ferramenta CATRACA}
 
 O trabalho \citeonline{Lopez2018} aborda a detecção de ameaças a redes de
 computadores em tempo real e para atingir esse objetivo, propôs a ferramenta
@@ -364,9 +379,6 @@ visualização dos fluxos processados bem como os conhecimentos extraídos e
 armazenados no banco de dados (SGBD).
 Ambas camadas de processamento e visualização são executadas em ambiente de
 computação em nuvem (\cloud).
-
-
-% \nota{com o conjunto de dados sintético UFRJ/GTA --> coloca a referencia}
 
 Para o desenvolvimento da ferramenta CATRACA, \citeonline{Lopez2018} avaliou e
 comparou as plataformas de processamento de fluxo de dados em tempo real
