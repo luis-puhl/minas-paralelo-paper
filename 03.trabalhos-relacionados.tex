@@ -204,8 +204,8 @@ Os resultados apresentados indicam que MINAS-BR capturou todas as novidades dos
 4 algoritmos equivalentes da literatura ficando abaixo dos 3 com \emph{feedback}
 externo.
 
-Os trabalhos relacionados nessa \refsec{alg-nd}, tem em comum, além do algoritmo
-base, métricas de avaliação acurácia (\emph{Macro F-Score} e \emph{Macro
+Os trabalhos relacionados nessa \refsec{alg-nd}, tem em
+comum, além do algoritmo base, métricas de avaliação acurácia (\emph{Macro F-Score} e \emph{Macro
 F-Measure} F1M) e taxa de desconhecidos, aplicadas com devido tratamento.
 Também é comum entre eles o uso de \datasets sintéticos.
 Outro potencial não explorado do MINAS é em aplicações de reais, ou seja,
@@ -284,7 +284,7 @@ novidades para fins diversos em fluxos de dados reais.
 \nota{Incompleto}
 
 Proposta por \citeonline{Viegas2019}, a ferramenta BigFlow é um sistema de
-detecção de intrusão em rede, focado em processar o voluem
+detecção de intrusão em rede, 
 
 
 \cite{mawiSamplepointF,Fontugne2010}
@@ -323,7 +323,9 @@ atualização frequente do modelo classificador.
 
 \subsection{A Ferramenta CATRACA}
 
-O trabalho \citeonline{Lopez2018} aborda detecção de ameaças a redes de
+\nota{LOPEZ ESTÁ EM MAIUSCULA}
+
+O trabalho \citeonline{Lopez2018} aborda a detecção de ameaças a redes de
 computadores em tempo real e para atingir esse objetivo, propôs a ferramenta
 CATRACA\footnote{
     A ferramenta e sua documentação estão disponíveis em \url{http://gta.ufrj.br/catraca}
@@ -339,8 +341,10 @@ ilustradas na Figura \ref{fig:catraca}.
 \label{fig:catraca}
 \end{figure}
 
+\nota{deu pra entender,mas coloca ou vírgula, ou divide as frases:
+baseada na biblioteca flowbag. Essa biblioteca é embalada ou a funcao em python esta embalada em um funcao virtual de rede?}
 
-Na camada de de captura, pacotes de rede são transformadas em fluxos e enviadas
+Na camada de de captura, pacotes de rede são transformadas em fluxos e enviados
 para um tópico de um sistema de fila de mensagens (\emph{Apache Kafka})
 hospedada em nuvem por uma aplicação \emph{Python} baseada na biblioteca
 \emph{flowtbag}\footnote{
@@ -348,7 +352,7 @@ hospedada em nuvem por uma aplicação \emph{Python} baseada na biblioteca
     \url{https://dan.arndt.ca/projects/netmate-flowcalc/}.
 }
 embaladas em uma função virtual de rede (\emph{Network Function Virtualization}) 
-executadas em dispositivos de de rede virtuais.
+executadas em dispositivos de rede virtuais.
 
 % estabelecendo um ambiente de computação em névoa.
 A camada de processamento consome o tópico de mensagens que contém os fluxos
@@ -361,7 +365,10 @@ armazenados no banco de dados (SGBD).
 Ambas camadas de processamento e visualização são executadas em ambiente de
 computação em nuvem (\cloud).
 
-Para desenvolvimento da ferramenta CATRACA, \citeonline{Lopez2018} avaliou e
+
+\nota{com o conjunto de dados sintético UFRJ/GTA --> coloca a referencia}
+
+Para o desenvolvimento da ferramenta CATRACA, \citeonline{Lopez2018} avaliou e
 comparou as plataformas de processamento de fluxo de dados em tempo real
 disponíveis.
 A avaliação extraiu a velocidade máxima, em mensagens por minuto,
@@ -371,7 +378,7 @@ de mensagens (\emph{Apache Kafka}) e produziam para outro tópico.
 O primeiro programa consiste de um detector de ameças composto por
 uma rede neural classificadora escrito em \emph{Java} e é testado
 com o conjunto de dados sintético (UFRJ/GTA).
-O segundo programa conta quantas repetições de uma palavra exitem em um 
+O segundo programa conta quantas repetições de uma palavra existem em um 
 fluxo de dados, exemplo muito comum em tutoriais de plataformas desse gênero,
 e é avaliado com um conjunto de \emph{Tweets}.
 
@@ -400,6 +407,8 @@ O modelo é criado na fase \emph{Offline} e utilizado na classificação binári
 (normal e ameaça) da fase \emph{Online}, sendo recalculado quando uma ameaça
 é encontrada.
 
+\nota{com o conjunto de dados sintético UFRJ/GTA --> coloca a referencia}
+
 Pra avaliação da ferramenta CATRACA dois conjuntos de dados são utilizados.
 Um conjunto sintético (UFRJ/GTA) criado por uma simulação de rede de
 computadores com 214,200 fluxos de rede totalizando 95 GB de pacotes capturados,
@@ -409,15 +418,19 @@ atende 373 residências na cidade do Rio de Janeiro em 2017.
 O conjunto NetOp é formado por 5 TB de pacotes capturados e etiquetados por um
 detector de intrusão comercial.
 
+\nota{tambem para a avaliacao do que?}
+
 Também para a avaliação utiliza as métricas de qualidade de classificação
 acurácia, precisão, sensibilidade e F1M com intervalo de confiança de 95\%
-As métricas de qualidade, dependendo tamanho do conjunto, foram extraídas por
+As métricas de qualidade, dependendo do tamanho do conjunto, foram extraídas por
 métodos de avaliação amplamente utilizados para avaliar modelos de aprendizado
 de máquina (\emph{machine learning}) como validação cruzada com proporção
 70\% do conjunto base para treinamento e 30\% para teste.
-Para as métrics de escalabilidade utiliza latência e fator de aceleração
+Para as métricas de escalabilidade utiliza latência e fator de aceleração
 \emph{speedup factor} (latência observada com paralelismo 1 dividida pela
 latência observada com paralelismo variável).
+
+\nota{se vc fala de deteccao de anomalia aqui em baixo, nao eh interessante colocar ele no meio da explicacao nos paragrafos anteriores tambem? E outra, deteccao de anomalia ou novidade que ele usa?}
 
 Em conclusão, a ferramenta CATRACA apresenta uma arquitetura de divisão em
 camadas alocadas em ambientes de névoa (\fog) e nuvem (\cloud) avaliado com
@@ -426,6 +439,9 @@ No entanto, o algoritmo de detecção de anomalias consiste de um modelo de
 classificação pelo método árvore de decisão e atualização do modelo durante a
 fase \emph{Online} depende de todos exemplos do último intervalo de atualização,
 portanto não é capaz de reconhecer novidades.
+
+\nota{Discutir que o data set não é de borda de uma rede, portanto não tem
+relevância para fog.}
 
 % A monitoring and threat detection system using stream processing as a virtual 
 % function for Big Data
