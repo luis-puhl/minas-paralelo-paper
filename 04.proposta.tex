@@ -343,11 +343,6 @@ MINAS.
 \newcommand{\kafka}{\emph{Apache Kafka}\xspace}
 \newcommand{\python}{\emph{Python}\xspace}
 
-\nota{citar ferramentas e a escolha só depois do python e kafka}
-
-\nota{entre flink e spark, outro grupo de pesquisa já está explorando spark}
-
-
 \subsection{Implementação com \python e \kafka}
 
 A primeira implementação e avaliação do \mfog realizada foi construída sobre a
@@ -367,15 +362,16 @@ mantidas pelo \kafka.
 No entanto, a hipótese de que a distribuição de mensagens gerenciada pelo \kafka
 se estenderia a processos consumidores, efetivamente distribuindo o volume de
 mensagens entre eles igualmente, não se realizou nos experimentos realizados.
-Os experimentos em questão foram compostos de 8 processos consumidores, 1
-processo produtor, 1 instância \kafka com 8 partições em seu tópico principal
+Os experimentos em questão foram compostos de 8 processos consumidores, um
+processo produtor, uma instância \kafka com 8 partições em seu tópico principal
 e uma instância \emph{Apache ZooKeeper} associada à instância \kafka.
 
-\nota{A hipótese era que o número de partições se igualaria ao número de 
-produtores e cada produtor associaria-se a uma partição.}
+% \nota{A hipótese era que o número de partições se igualaria ao número de 
+% produtores e cada produtor associaria-se a uma partição.}
 
-A hipótese era que como o número de partições igualava o número de produtores e
-cada produtor associaria-se a uma partição.
+A hipótese era que, como o número de partições igualava o número de consumidores,
+cada consumidores associaria-se a uma partição, distribuído os dados igualmente
+entre os consumidores paralelização a execução.
 No entanto, essa hipótese foi refutada quando observou-se que o número de
 mensagens consumidas por um dos 8 processos representava a maioria (mais de
 80\%) do volume introduzido no sistema, o restante sendo distribuído entre
@@ -386,8 +382,32 @@ plataformas escolhidas.
 
 \subsection{Implementação com \flink}
 
+% \nota{citar ferramentas e a escolha só depois do python e kafka}
+% \nota{entre flink e spark, outro grupo de pesquisa já está explorando spark}
+
 A segunda alternativa explorada teve por inspiração o trabalho de
-\citeonline{Viegas2019}
+\citeonline{Viegas2019} e, como outro grupo de pesquisa já estava explorando
+o algoritmo na plataforma \emph{Apache Spark}, a segunda implementação
+é baseada na plataforma \flink.
+
+A plataforma flink tem modelos de processamento tanto de fluxos como em lotes.
+O modelo em lotes é implementada como extensão do modelo de fluxos e, apesar
+de não ser foco desse trabalho, mostrou-se útil para a construção do \offline,
+já que o conjunto consumido por esse módulo é limitado.
+
+Um desafio encontrado durante o desenvolvimento da implementação \mfog é a falta
+de bibliotecas para a plataforma \flink que disponibilizem versões adaptadas
+à plataforma de algoritmos base para o algoritmo MINAS.
+Em especial, a ausência dos algoritmos \emph{K-means} e \emph{CluStream} tem
+atribuído carga não prevista sobre o processo de desenvolvimento.
+
+% \nota{
+% - offline, online, ND, Clustering \\
+% - observação/Considerações de paralelização \\
+% - Notas sobre implementação Python/Kafka/Minas (não escala como esperado) \\
+% - Dificuldade no processamento distribuido em Flink. \\
+% - complexidade bigO (?)
+% }
 
 % \chapter{Resultados Preliminares: implementação e testes}\label{cha:imp}
 % cap 4: Implementação e testes
@@ -405,7 +425,7 @@ A segunda alternativa explorada teve por inspiração o trabalho de
 % \begin{resumocap}
 % \end{resumocap}
 
-\nota{Esse trabalho propos-se a fazer}
+% \nota{Esse trabalho propos-se a fazer}
 
 % % hélio
 % notas sobre a distribuição do modelo
@@ -455,25 +475,52 @@ A segunda alternativa explorada teve por inspiração o trabalho de
 
 % % hermes, esqueça kafka, foque em arquivos
 
-
-% \section{Descrição da Implementação}
-% \section{Objetivos a serem alcançados}
-% O que de fato vc irá fazer 
-
-\nota{
-- offline, online, ND, Clustering \\
-- observação/Considerações de paralelização \\
-- Notas sobre implementação Python/Kafka/Minas (não escala como esperado) \\
-- Dificuldade no processamento distribuido em Flink. \\
-- complexidade bigO (?)
-}
-
 \subsection{Ambiente de Teste}
 
-Para testar e demonstrar essa implementação um cenário de aplicação é construído
-onde seria vantajoso distribuir o processamento segundo o modelo \emph{fog}. Alguns
-cenários de exemplo são
-casos onde deve-se tomar ação caso uma classe ou anomalia seja detectada
+Para realização dos experimentos diversas configurações de ambientes são
+propostas.
+Os ambientes selecionados são local, nuvem e névoa.
+As configurações consistem na distribuição de módulos da implementação \mfog
+sendo executadas em combinações de ambientes nuvem e névoa com variada
+quantidade de nós.
+
+O ambiente local é composto por um único nó computacional, consistindo de um
+computador pessoal equipado com um processador de 8 núcleos, $16GB$ de memória e
+armazenamento em estado sólido (SSD) usado para o desenvolvimento e referência
+em comparações.
+O ambiente nuvem é provido pela utilização da infraestrutura de nuvem da
+Universidade Federal de São Carlos (Cloud@UFSCar\footnote{Disponível em
+\url{http://portalcloud.ufscar.br/servicos}}).
+O ambiente de névoa (\fog) é composto por computadores de única placa
+(\emph{Single Board Computer}) equipados com processador de arquitetura ARM de 4
+núcleos, $1GB$ de memória, armazenamento em cartão SD (\emph{SD-card}) e
+conectados por rede sem fio.
+
+A combinação de diferentes distribuições tem por objetivo emergir padrões de
+latência e qualidade que podem afetar implantações em ambientes reais que não
+são geralmente destacados quando os experimentos são realizados em um único
+nó ou ambiente.
+
+Faz parte também do ambiente de teste os conjuntos de dados (\datasets)
+\emph{KDD99} e \emph{Kyoto 2006+} que foram selecionados por motivos distintos.
+O \dataset \emph{Kyoto 2006+} é foco desse trabalho pois contém dados ainda
+representativos (até 2015) as característica desejáveis de um conjunto de dados
+(realismo, validade, etiquetas previamente definidas, alta variabilidade,
+reprodutibilidade e disponibilidade pública) são atendidas.
+O \dataset \emph{KDD99} é amplamente utilizado em trabalhos de detecção de
+anomalia e aqui é utilizado somente para que o leitor possa comparar com outros
+trabalhos pois não possui mais a característica de realismo.
+
+% Realism: The network traffic used for building the dataset was obtained from real network traces. Moreover, MAWIFlow was built from over a year-long observation data of real network traces, enabling not only evaluation of the detection system during a specific period of time, but also the evaluation of its behavior over time, when facing new network traffic behavior;
+% Validity: The network traces used for building the MAWIFlow dataset were collected from real network traces. Although MAWI (network traces used in MAWIFlow) is provided in a sanitized manner, i.e., payload is removed and sensitive data from network packet headers are encrypted, the network flow reconstruction is still possible. In this manner, the sanitization process used by MAWI does not affect the features’ values;
+% Prior labeling: The event labels were identified by state-of-the- art unsupervised ML techniques (assessed by MAWILab). In this manner, supervised ML techniques can be evaluated regarding their performance as compared to unsupervised techniques;
+% High Variability: MAWIFlow is highly variable not only owing to the used network traces but also owing to its long period of recording. The used network traces are real, valid, and collected from real network infrastructure, thereby it presents the expected variability from production environments. Nonetheless, owing to its long period of recording (the entire year 2016), the detection
+% Reproducibility and Public Availability: The used network traces were collected from publicly available sources (MAWI). Moreover, BigFlow (Section 4) source code is also publicly available
+
+% Para testar e demonstrar essa implementação um cenário de aplicação é construído
+% onde seria vantajoso distribuir o processamento segundo o modelo \emph{fog}. Alguns
+% cenários de exemplo são
+% casos onde deve-se tomar ação caso uma classe ou anomalia seja detectada
 
 
 % In time, process control and automation of industrial facilities, ranging from
@@ -481,47 +528,47 @@ casos onde deve-se tomar ação caso uma classe ou anomalia seja detectada
 
 % dataset kyoto não está disponível {http://www.takakura.com/Kyoto_data/}
 
-\nota{- detecção de intrusão\\
-- Arquitetura guilherme (dispositivos pequenos vs cloud)\\
-- Descrever a arquitetura IDS-IoT do paper do Guilherme \ cite{Cassales2019a}\\
-- dataset kyoto não está disponível\\
-- \ dataset kdd99\\
-- BigFlow com \ dataset atual e maior
-}
+% \nota{- detecção de intrusão\\
+% - Arquitetura guilherme (dispositivos pequenos vs cloud)\\
+% - Descrever a arquitetura IDS-IoT do paper do Guilherme \ cite{Cassales2019a}\\
+% - dataset kyoto não está disponível\\
+% - \ dataset kdd99\\
+% - BigFlow com \ dataset atual e maior
+% }
 
-% \subsection{Experimentos e Resultados}
+% % \subsection{Experimentos e Resultados}
 
-\nota{
-- gráficos, tempos, tabelas...\\
-- análises e comentários\\
-- Mostrar alguma implementação já feita e que esteja funcionando minimamente
-}
+% \nota{
+% - gráficos, tempos, tabelas...\\
+% - análises e comentários\\
+% - Mostrar alguma implementação já feita e que esteja funcionando minimamente
+% }
 
-\nota{Mostrar resultados mesmo que sejam bem simples e básicos,
-apenas para demonstrar que vc domina o ambiente e as ferramentas e
-que está apto a avançar no trabalho}
+% \nota{Mostrar resultados mesmo que sejam bem simples e básicos,
+% apenas para demonstrar que vc domina o ambiente e as ferramentas e
+% que está apto a avançar no trabalho}
 
-\nota{discussão de 2020-02-01:\\
-passos feitos/a fazer\\
-1. Entender Minas\\
-2. Analisar/descrever data set KDD\\
-3. Notas sobre implementação Python/Kafka/Minas (não escala como esperado)\\
-4. BigFlow (data set mais novo, usa flink)\\
-5. Plataforma Flink (processamento distribuído)\\
-Proposta\\
-6. Implementar minas em Scala/Flink\\
-7. Testar com data sets KDD e BigFlow\\
-8. Validar/Comparar métricas com seus trabalhos correspondentes
-}
+% \nota{discussão de 2020-02-01:\\
+% passos feitos/a fazer\\
+% 1. Entender Minas\\
+% 2. Analisar/descrever data set KDD\\
+% 3. Notas sobre implementação Python/Kafka/Minas (não escala como esperado)\\
+% 4. BigFlow (data set mais novo, usa flink)\\
+% 5. Plataforma Flink (processamento distribuído)\\
+% Proposta\\
+% 6. Implementar minas em Scala/Flink\\
+% 7. Testar com data sets KDD e BigFlow\\
+% 8. Validar/Comparar métricas com seus trabalhos correspondentes
+% }
 
-\nota{lendo Quali Casssales:\\
-- Descrição do hardware utilizado pode conter:\\
-    - Arch, OS, Kernel,\\
-    - CPU (core, thread, freq),\\
-    - RAM (total/free size, freq),\\
-    - Disk (total/free size, seq RW, rand RW),\\
-    - Net IO between nodes (direct crossover, switched, wireless, to cloud) (bandwidth, latency).\\
-essas métricas permitem relacionar trade-offs para as questões de fog: Processar em node, edge ou cloud?
-}
+% \nota{lendo Quali Casssales:\\
+% - Descrição do hardware utilizado pode conter:\\
+%     - Arch, OS, Kernel,\\
+%     - CPU (core, thread, freq),\\
+%     - RAM (total/free size, freq),\\
+%     - Disk (total/free size, seq RW, rand RW),\\
+%     - Net IO between nodes (direct crossover, switched, wireless, to cloud) (bandwidth, latency).\\
+% essas métricas permitem relacionar trade-offs para as questões de fog: Processar em node, edge ou cloud?
+% }
 
-\nota{Provavelmente vou retirar o kafka da jogada em node/edge, deixando apenas em cloud.}
+% \nota{Provavelmente vou retirar o kafka da jogada em node/edge, deixando apenas em cloud.}
