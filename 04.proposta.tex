@@ -297,29 +297,44 @@ As métricas de escalabilidade selecionadas são: número de nós processadores,
 tipo de processadores, uso de memória, tempo de processamento, taxa de eventos
 processados e latência entre a produção e classificação de um evento.
 
-\nota{
-como assim os resultados sao validos so se tiverem essas metricas? Entao quer
-dizer que qual medida eh valida? Vc quis dizer que se as medicoes que vc extrair
-com essas metricas forem iguais as medicoes do minas original, entao ai eh
-valido. Eh Isso?
-}
+% \begin{align}
+%   \Delta { } t_n       &= t_{n,sink} - t_{n,source} \label{eq:delta-t} \\
+%   \overline{\Delta { } t}_n       &= \frac{1}{N} \sum_{i=1}^{N} \Delta { } t_n  \label{eq:avg-delta-t} \\
+%   \alpha &= \# processors \\
+%   \gamma &= \frac{\overline{\Delta { } t}}{}
+% \end{align}
 
-\nota{NAOOOOO!! Nao colocar frase depois do enumerate.
-Comeca um paragrafo novo ou continua ele com uma frase nova, nao pode fazer isso}
+% \nota{
+% como assim os resultados sao validos so se tiverem essas metricas? Entao quer
+% dizer que qual medida eh valida? Vc quis dizer que se as medicoes que vc extrair
+% com essas metricas forem iguais as medicoes do minas original, entao ai eh
+% valido. Eh Isso?
+% }
+
+% \nota{NAOOOOO!! Nao colocar frase depois do enumerate.
+% Comeca um paragrafo novo ou continua ele com uma frase nova, nao pode fazer isso}
 
 Da implementação \mfog é prevista execução de experimentos com \datasets
-diversos, em especial os \datasets reais que contém evolução de conceitos.
-Os resultados desses experimentos são válidos se contém as seguintes métricas
-para o \mfog: \begin{enumerate*}[label={\alph*)}]
-  \item qualidade de classificação (taxa de desconhecidos, F1M)
-  \item escalabilidade (número de processadores, volume processado, tempo decorrido)
-  \item recursos computacionais utilizados (memória, tempo de processamento, operações de leitura e escrita)
-\end{enumerate*}
-e para o minas somente as métricas de qualidade de classificação.
+diversos, em especial os \datasets reais como \emph{Kyoto 2006+},
+que contenham evolução de conceitos.
+Os resultados desses experimentos contém as seguintes métricas:
 
-\nota{AQUI NO PARAGRAFO ANTERIOR, NAOOOOO!! Nao colocar frase depois do
-enumerate. Comeca um paragrafo novo ou continua ele com uma frase nova, nao pode
-fazer isso}
+\begin{enumerate}[label={\alph*)}]
+  \item Qualidade de classificação (taxa de desconhecidos, F1M);
+  \item Escalabilidade (número de processadores, volume processado, tempo
+  decorrido);
+  \item Recursos computacionais utilizados (memória, tempo de processamento,
+  operações de leitura e escrita).
+\end{enumerate}
+
+Para a validação da implementação, as métricas de qualidade de classificação
+serão comparadas com as mesmas métricas extraídas do com os mesmo \datasets
+de experimentos semelhantes executados com a implementação original do algoritmo
+MINAS.
+
+% \nota{AQUI NO PARAGRAFO ANTERIOR, NAOOOOO!! Nao colocar frase depois do
+% enumerate. Comeca um paragrafo novo ou continua ele com uma frase nova, nao pode
+% fazer isso}
 
 \section{Resultados preliminares}\label{sec:resultados}
 
