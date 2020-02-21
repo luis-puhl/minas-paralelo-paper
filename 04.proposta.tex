@@ -39,8 +39,6 @@ volume de eventos do sistema.
 Volumes elevados são dificilmente computados em apenas um nó e muito menos em um
 único núcleo computacional, por esse motivo esses sistemas são distribuídos.
 
-\nota{separa ND}
-
 Sistemas que utilizam \nd para \streams gerados por dispositivos \iot devem
 utilizar algoritmos que considerem os desafios inerentes de fluxos de dados
 (\evolution e \drift) para adequada detecção de novidades e arquiteturas
@@ -52,8 +50,6 @@ especialmente para aplicações \iot onde um ambiente de \fog é atrativo.
 Para preencher a lacuna de algoritmo de \nd em ambiente \fog, propõem-se então
 \mfog, uma implementação do algoritmo MINAS sobre a plataforma \flink que
 considera distribuição em um ambiente de \fog.
-
-
 
 % \nota{Reestruturar:
 %   A - remember,
@@ -72,12 +68,10 @@ considera distribuição em um ambiente de \fog.
 \newcommand{\classify}{classificador\xspace}
 \newcommand{\detector}{detector\xspace}
 
-\nota{sorvedouro??? kkkkk nao tem termo melhor, ou eh esse mesmo kk tipo saida de dados}
-
 Nesta Seção, apresenta-se o \mfog, objeto proposta deste trabalho.
 O \mfog é composto pelos módulos: \offline, \classify e \detector.
 Para correta avaliação, \mfog é acompanhado de dois módulos auxiliares:
-módulo fonte (\source) e módulo sorvedouro (\sink).
+módulo fonte (\source) e módulo \sink.
 
 % \nota{métodos para alcançar os objetivos}
 
@@ -100,6 +94,52 @@ O módulo auxiliar \sink é responsável por agregar todos resultados do \mfog e
 juntamente com os valores do \dataset fornecidos pelo módulo \source, computar
 as métricas de qualidade de classificação e métricas base para as métricas de
 escalabilidade e métricas de recursos computacionais.
+
+% \[ \begin{tikzcd}
+% A \arrow{r}{\varphi} \arrow[swap]{d}{\varrho_f} & B \arrow{d}{\varrho_g} \\%
+% A_f \arrow{r}{\varphi_f}& B_g
+% \end{tikzcd}
+% \]
+
+% \tikzset{
+% block/.style = {draw, fill=white, rectangle, minimum height=3em, minimum width=3em},
+% tmp/.style  = {coordinate}, 
+% sum/.style= {draw, fill=white, circle, node distance=1cm},
+% input/.style = {coordinate},
+% output/.style= {coordinate},
+% pinstyle/.style = {pin edge={to-,thin,black}
+% }
+% }
+
+% \begin{figure}[!htb]
+% \centering
+% \begin{tikzpicture}[auto, node distance=2cm,>=latex']
+%     \node [input, name=rinput] (rinput) {};
+%     \node [sum, right of=rinput] (sum1) {};
+%     \node [block, right of=sum1] (controller) {$k_{p\beta}$};
+%     \node [block, above of=controller,node distance=1.3cm] (up){$\frac{k_{i\beta}}{s}$};
+%     \node [block, below of=controller,node distance=1.3cm] (rate) {$sk_{d\beta}$};
+%     \node [sum, right of=controller,node distance=2cm] (sum2) {};
+%     \node [block, above = 2cm of sum2](extra){$\frac{1}{\alpha_{\beta2}}$};  %
+%     \node [block, right of=sum2,node distance=2cm] (system) 
+% {$\frac{a_{\beta 2}}{s+a_{\beta 1}}$};
+%     \node [output, right of=system, node distance=2cm] (output) {};
+%     \node [tmp, below of=controller] (tmp1){$H(s)$};
+%     \draw [->] (rinput) -- node{$R(s)$} (sum1);
+%     \draw [->] (sum1) --node[name=z,anchor=north]{$E(s)$} (controller);
+%     \draw [->] (controller) -- (sum2);
+%     \draw [->] (sum2) -- node{$U(s)$} (system);
+%     \draw [->] (system) -- node [name=y] {$Y(s)$}(output);
+%     \draw [->] (z) |- (rate);
+%     \draw [->] (rate) -| (sum2);
+%     \draw [->] (z) |- (up);
+%     \draw [->] (up) -| (sum2);
+%     \draw [->] (y) |- (tmp1)-| node[pos=0.99] {$-$} (sum1);
+%     \draw [->] (extra)--(sum2);
+%     \draw [->] ($(0,1.5cm)+(extra)$)node[above]{$d_{\beta 2}$} -- (extra);
+%     \end{tikzpicture}
+% \caption{A PID Control System} \label{fig6_10}
+% \end{figure}
 
 Os dados resultantes do serviço de captura e tratamento são ingeridos pela
 aplicação no módulo \classify por meio de conexão TCP (\emph{Transmission
