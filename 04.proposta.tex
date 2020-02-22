@@ -10,45 +10,52 @@
 
 % Uma Implementação paralela do algoritmo de Detecção de Novidade em Streams MINAS 
 
-\newcommand{\mfog}{M-FOG\xspace}
-\newcommand{\flink}{\emph{Apache Flink}\xspace}
-
 A Internet das Coisas (\iot) é composta por milhares de dispositivos
 conectados à Internet e distribuídos geograficamente.
-Com capacidades diversas como sensores e atuadores, esses dispositivos produzem e
+Com capacidades diversas providas por elementos como sensores e atuadores, esses dispositivos produzem e
 consomem Fluxos Contínuos de Dados (\streams) com diversos objetivos.
-Alguns objetivos envolvem a mineração desses fluxos (\streamMining) em busca de
+\nota{?}
+Alguns cenários envolvem a mineração desses fluxos (\streamMining) em busca de
 padrões para tomada de decisão e, por vezes requerem também baixa latência.
 Para casos de baixa latência ou alta vazão, conexões adequadas para
 processamento em nuvem nem sempre são possíveis ou desejáveis, para esses casos
 computação em névoa (\fog) é uma solução.
 
-O tema de \streamMining envolve a classificação de novos elementos com base em
+\nota{?}
+O tema de \streamMining envolve a classificação de novos elementos,
+que podem tanto estar relacionados aos dados ou aos metadados das comunicações,
+com base em
 um modelo, porém como \streams variam temporalmente e são ilimitados, todas
 classes contidas em um \stream não são previamente conhecidas.
-A identificação e classificação de novas classes em \streams é denominado
+A identificação e classificação de novas classes em \streams é denominada
 Detecção de Novidades (\novelty, \nd) em \streams.
+% \nota{?}
 No tema de \nd, o surgimento e desaparecimento de classes é nomeado Evolução de Conceito
 (\evolution) e a mudança no decorrer do \stream é denominado Mudança ou Deriva
 de Conceito (\drift).
 
-Além dos aspectos inerentes \streamMining, são considerados na construção de um
+\nota{?}
+Além dos aspectos inerentes a \streamMining, são considerados na construção de um
 sistema que computa \streams a taxa de eventos (itens atômicos de um \stream)
-gerados por cada produtor e o número de produtores nesse sistema totalizando o
+gerados por cada produtor e o número de produtores nesse sistema, totalizando o
 volume de eventos do sistema.
-Volumes elevados são dificilmente computados em apenas um nó e muito menos em um
-único núcleo computacional, por esse motivo esses sistemas são distribuídos.
+% Além do volume de eventos é necessário
+Volumes elevados são dificilmente computados em apenas um nó (e muito menos em
+um único núcleo processador) por esse motivo esses sistemas são distribuídos.
 
 Sistemas que utilizam \nd para \streams gerados por dispositivos \iot devem
 utilizar algoritmos que considerem os desafios inerentes de fluxos de dados
-(\evolution e \drift) para adequada detecção de novidades e arquiteturas
+(\evolution e \drift) para adequada detecção de novidades e para tanto, requerem processamento em arquiteturas
 que atendam os requisitos de volume de mensagens e latência de detecção.
-O algoritmo MINAS é adequado pois trata os desafios de \streamMining porém não
+O algoritmo MINAS é adequado para esse caso, pois trata os desafios de \streamMining porém não
 tem ainda implementação que atenda os requisitos de volume e latência,
 especialmente para aplicações \iot onde um ambiente de \fog é atrativo.
 
+\newcommand{\flink}{\emph{Apache Flink}\xspace}
+\newcommand{\mfog}{sistema M-FOG\xspace}
+
 Para preencher a lacuna de algoritmo de \nd em ambiente \fog, propõem-se então
-\mfog, uma implementação do algoritmo MINAS sobre a plataforma \flink que
+o \mfog, uma implementação do algoritmo MINAS sobre a plataforma \flink que
 considera distribuição em um ambiente de \fog.
 
 % \nota{Reestruturar:
@@ -69,16 +76,18 @@ considera distribuição em um ambiente de \fog.
 \newcommand{\detector}{módulo detector\xspace}
 
 Nesta Seção, apresenta-se o \mfog, objeto proposta deste trabalho.
-O \mfog é composto em módulos, sendo eles: \offline, \classify e \detector.
-Para correta avaliação, \mfog é acompanhado de dois módulos auxiliares:
+O \mfog é composto de três módulos principais e dois auxiliares.
+Os módulos principais implementam o algoritmo MINAS, sendo eles: \offline, \classify e \detector.
+Dois módulos auxiliares são utilizados para correta avaliação:
 \source (fonte) e \sink (sorvedouro, consumidor final).
+Os módulos e as interações entre eles são ilustradas na \reffig{arch}.
 
 A implementação proposta segue a arquitetura \idsiot formalizada por
-\citeonline{Cassales2019a} discutido na \refsec{cassales}.
-A arquitetura \idsiot (e outras arquiteturas) estabelece que um serviço de
+\citeonline{Cassales2019a}, discutida na \refsec{cassales}.
+A arquitetura \idsiot [e outras arquiteturas] estabelece que um serviço de
 captura e tratamento de dados é instalado na borda de uma rede local com
 dispositivos \iot.
-Na presente implementação esse serviço de captura e tratamento é representado
+Na presente implementação, esse serviço de captura e tratamento é representado
 pelo \source.
 
 O \source é dependente da fonte de dados, executando a transformação dos
@@ -88,18 +97,18 @@ Além de fornecer dados tratados para \mfog, o \source também fornece
 dados para o \sink e \offline.
 
 O \sink é responsável por agregar todos resultados do \mfog e,
-juntamente com os valores do \dataset fornecidos pelo \source, computar
+juntamente com os valores do \dataset fornecidos pelo \source, por computar
 as métricas de qualidade de classificação e métricas base para as métricas de
 escalabilidade e métricas de recursos computacionais.
 
 Os dados resultantes do serviço de captura e tratamento são ingeridos pela
-aplicação no módulo \classify por meio de conexão TCP (\emph{Transmission
+aplicação no módulo \classify, por meio de conexão TCP (\emph{Transmission
 Control Protocol}) fornecida pela plataforma \flink.
 Na plataforma, com o modelo de classificação disponível, os exemplos são
 classificados seguindo o algoritmo MINAS original discutido na \refsec{minas-og}.
 A etiqueta atribuída pela classificação, ou meta-etiqueta de desconhecido,
 juntamente com o exemplo original são enviados para o módulo \sink.
-Além disso, se o exemplo não for classificado, o mesmo é enviado para o módulo
+Além disso, se o exemplo não for classificado, o mesmo é enviado para o
 \detector.
 
 O \detector é responsável por executar o processo de detecção de
@@ -107,24 +116,6 @@ novidade, atualizando o modelo de classificação, e entrega do novo modelo
 ao \classify.
 Este também envia meta-informações sobre o processo de detecção de
 novidade para o \sink.
-
-
-% \[ \begin{tikzcd}
-% A \arrow{r}{\varphi} \arrow[swap]{d}{\varrho_f} & B \arrow{d}{\varrho_g} \\%
-% A_f \arrow{r}{\varphi_f}& B_g
-% \end{tikzcd}
-% \]
-
-% \tikzset{
-% block/.style = {draw, fill=white, rectangle, minimum height=3em, minimum width=3em},
-% tmp/.style  = {coordinate}, 
-% sum/.style= {draw, fill=white, circle, node distance=1cm},
-% input/.style = {coordinate},
-% output/.style= {coordinate},
-% pinstyle/.style = {pin edge={to-,thin,black}
-% }
-% }
-
 
 % \nota{
 % nao seria legal fazer um diagrama pq ai vc pode usar ate nos slides de como eh
@@ -136,32 +127,11 @@ novidade para o \sink.
 \includegraphics[width=\textwidth]{figuras/bwt_photo_arch.png}
 \caption{Arquitetura \mfog.}
 \label{fig:arch}
-% \begin{tikzpicture}[auto, node distance=2cm,>=latex']
-%     \node [input, name=rinput] (rinput) {};
-%     \node [sum, right of=rinput] (sum1) {};
-%     \node [block, right of=sum1] (controller) {$k_{p\beta}$};
-%     \node [block, above of=controller,node distance=1.3cm] (up){$\frac{k_{i\beta}}{s}$};
-%     \node [block, below of=controller,node distance=1.3cm] (rate) {$sk_{d\beta}$};
-%     \node [sum, right of=controller,node distance=2cm] (sum2) {};
-%     \node [block, above = 2cm of sum2](extra){$\frac{1}{\alpha_{\beta2}}$};  %
-%     \node [block, right of=sum2,node distance=2cm] (system) 
-% {$\frac{a_{\beta 2}}{s+a_{\beta 1}}$};
-%     \node [output, right of=system, node distance=2cm] (output) {};
-%     \node [tmp, below of=controller] (tmp1){$H(s)$};
-%     \draw [->] (rinput) -- node{$R(s)$} (sum1);
-%     \draw [->] (sum1) --node[name=z,anchor=north]{$E(s)$} (controller);
-%     \draw [->] (controller) -- (sum2);
-%     \draw [->] (sum2) -- node{$U(s)$} (system);
-%     \draw [->] (system) -- node [name=y] {$Y(s)$}(output);
-%     \draw [->] (z) |- (rate);
-%     \draw [->] (rate) -| (sum2);
-%     \draw [->] (z) |- (up);
-%     \draw [->] (up) -| (sum2);
-%     \draw [->] (y) |- (tmp1)-| node[pos=0.99] {$-$} (sum1);
-%     \draw [->] (extra)--(sum2);
-%     \draw [->] ($(0,1.5cm)+(extra)$)node[above]{$d_{\beta 2}$} -- (extra);
-%     \end{tikzpicture}
+% \begin{tikzpicture}
+% \end{tikzpicture}
 \end{figure}
+
+\nota{[Hélio] Como fica a distribuição do processamento?}
 
 \section{Metodologia de Avaliação e Resultados Esperados}\label{sec:esperados}
 
@@ -178,17 +148,17 @@ e métricas de escalabilidade.
 
 Métricas tradicionais de qualidade de classificação estabelecidas por trabalhos
 de aprendizado de máquina não são adequadas para avaliar detecção de novidades em
-\streams sem tratamento inicial, felizmente o tratamento necessário é
+\streams sem tratamento inicial. Felizmente, o tratamento necessário é
 estabelecido por \citeonline{Faria2013} e expandido por
 \citeonline{DaSilva2018,DaSilva2018thesis,Costa2019,Costa2019thesis}.
 Além do tratamento estabelecido, as métricas tradicionais não são calculadas
-somente para o conjunto completo, e sim para cada exemplo classificado, portanto
-as métricas tem como índice o instante $n$, informando a posição do exemplo em
+somente para o conjunto completo, e sim para cada exemplo classificado; portanto,
+as métricas têm como índice o instante $n$, informando a posição do exemplo em
 relação ao fluxo.
 
 O tratamento estabelecido das métricas de qualidade para \streamMining define
 que as métricas são extraídas de uma matriz de erro de classificação
-multi-classe $\mathbf{E}_n$ (\refequ{matrix}) adaptada para detecção de
+multi-classe $\mathbf{E}_n$ (\refequ{matrix}), adaptada para detecção de
 novidade.
 A matriz de erro é preenchida com o número de eventos da classe $c_i$ classificados com
 etiqueta $l_j$ até o instante $n$.
@@ -218,17 +188,7 @@ F1M) \cite{Sokolova2009,DaSilva2018thesis}.
 As métricas são extraídas para todos os instantes $n$ da respectiva matriz de
 erro $\mathbf{E}_n$.
 
-% e \emph{Logarithm Loss} ($\mathcal{L}$).
-
-%   \mathbf{C} &= [c_1, c_2, \cdots, c_I] \\
-%   \mathbf{L} &= [l_1, l_2, \cdots, l_J] \\
-%   \forall n\to\infty: & \\
-%   \mathbf{C}_{n}  &= \mathbf{C}_{n-1} \cup c \in \mathbf{C} \\
-%   \mathbf{L}_{n}  &= \mathbf{L}_{n-1} \cup l \in \mathbf{L} \\
-%   X               &= (n, \overrightarrow{x}, c) \\
-%   Y = \mathrm{classifica}(X) &= (n, \overrightarrow{x}, l \vee \text{unk}) \\
-%   \mathbf{Unk}    &= \{ Y : (_, _, l = \text{unk}) \} \\
-% \mathit{UnkR}_n   &= \frac{ \#Unk }{n}
+\nota{'para todos os instantes n' ??}
 
 \begin{align}
   \mathit{UnkR}       &= \frac{1}{M} \sum_{i=1}^{M} \frac{\#Unk_i}{\#ExC_i} \label{eq:unkr} \\
@@ -317,7 +277,7 @@ processados e latência entre a produção e classificação de um evento.
 Da implementação \mfog é prevista execução de experimentos com \datasets
 diversos, em especial os \datasets reais como \emph{Kyoto 2006+},
 que contenham evolução de conceitos.
-Os resultados desses experimentos contém as seguintes métricas:
+Os resultados desses experimentos contêm as seguintes métricas:
 
 \begin{enumerate}[label={\alph*)}]
   \item Qualidade de classificação (taxa de desconhecidos, F1M);
@@ -327,18 +287,17 @@ Os resultados desses experimentos contém as seguintes métricas:
   operações de leitura e escrita).
 \end{enumerate}
 
-Para a validação da implementação, as métricas de qualidade de classificação
-serão comparadas com as mesmas métricas extraídas do com os mesmo \datasets
-de experimentos semelhantes executados com a implementação original do algoritmo
-MINAS.
-
-% \nota{AQUI NO PARAGRAFO ANTERIOR, NAOOOOO!! Nao colocar frase depois do
-% enumerate. Comeca um paragrafo novo ou continua ele com uma frase nova, nao pode
-% fazer isso}
+Para a validação da corretude da implementação com relação ao algoritmo MINAS
+original, as métricas de qualidade de classificação serão extraídas com o mesmo
+procedimento experimental previamente definido de ambos, \mfog e da
+implementação original do algoritmo MINAS, e comparadas.
 
 \section{Resultados preliminares}\label{sec:resultados}
 
-\nota{introdução dizendo que já foi caminhada/explorada uma parte}
+No desenvolvimento parcial desta pesquisa, algumas experimentações e algumas
+ferramentas de teste já forma desenvolvidas.
+Alguns aspectos desses desenvolvimentos são descritos a seguir.
+% obrigado hélio.
 
 \newcommand{\kafka}{\emph{Apache Kafka}\xspace}
 \newcommand{\python}{\emph{Python}\xspace}
@@ -351,7 +310,7 @@ biblioteca de conexão.
 A escolha desse conjunto para a implementação deu-se devido a ampla
 disponibilidade de bibliotecas de aprendizagem de máquina no ecossistema
 \python e simplicidade geral da linguagem.
-O sistema \kafka recebe mensagens e as armazena em tópicos distribuídos em
+Na implementação desenvolvida, o sistema \kafka recebe mensagens e as armazena em tópicos distribuídos em
 partições replicadas em nós de um \cluster, gerenciados por um nó mestre e
 suportado pelo serviço de gerenciamento de configuração distribuída \emph{Apache
 ZooKeeper}.
