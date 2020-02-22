@@ -292,6 +292,42 @@ original, as métricas de qualidade de classificação serão extraídas com o m
 procedimento experimental previamente definido de ambos, \mfog e da
 implementação original do algoritmo MINAS, e comparadas.
 
+\subsection{Ambiente de Teste}
+
+Para realização dos experimentos diversas configurações de ambientes são
+propostas.
+Os ambientes selecionados são local, nuvem e névoa.
+As configurações consistem na distribuição de módulos da implementação \mfog
+sendo executadas em combinações de ambientes nuvem e névoa com variada
+quantidade de nós.
+
+O ambiente local é composto por um único nó computacional, consistindo de um
+computador pessoal equipado com um processador de 8 núcleos, $16GB$ de memória e
+armazenamento em estado sólido (SSD) usado para o desenvolvimento e referência
+em comparações.
+O ambiente nuvem é provido pela utilização da infraestrutura de nuvem da
+Universidade Federal de São Carlos (Cloud@UFSCar\footnote{Disponível em
+\url{http://portalcloud.ufscar.br/servicos}}).
+O ambiente de névoa (\fog) é composto por computadores de única placa
+(\emph{Single Board Computer}) equipados com processador de arquitetura ARM de 4
+núcleos, $1GB$ de memória, armazenamento em cartão SD (\emph{SD-card}) e
+conectados por rede sem fio.
+
+A combinação de diferentes distribuições tem por objetivo emergir padrões de
+latência e qualidade que podem afetar implantações em ambientes reais que não
+são geralmente destacados quando os experimentos são realizados em um único
+nó ou ambiente.
+
+Faz parte também do ambiente de teste os conjuntos de dados (\datasets)
+\emph{KDD99} e \emph{Kyoto 2006+} que foram selecionados por motivos distintos.
+O \dataset \emph{Kyoto 2006+} é foco desse trabalho pois contém dados ainda
+representativos (até 2015) as característica desejáveis de um conjunto de dados
+(realismo, validade, etiquetas previamente definidas, alta variabilidade,
+reprodutibilidade e disponibilidade pública) são atendidas.
+O \dataset \emph{KDD99} é amplamente utilizado em trabalhos de detecção de
+anomalia e aqui é utilizado somente para que o leitor possa comparar com outros
+trabalhos pois não possui mais a característica de realismo.
+
 \section{Resultados preliminares}\label{sec:resultados}
 
 No desenvolvimento parcial desta pesquisa, algumas experimentações e algumas
@@ -307,15 +343,15 @@ Alguns aspectos desses desenvolvimentos são descritos a seguir.
 A primeira implementação e avaliação do \mfog realizada foi construída sobre a
 linguagem \python com o sistema de fila de mensagens \kafka e a respectiva
 biblioteca de conexão.
-A escolha desse conjunto para a implementação deu-se devido a ampla
+A escolha desse conjunto para a implementação deu-se devido à ampla
 disponibilidade de bibliotecas de aprendizagem de máquina no ecossistema
 \python e simplicidade geral da linguagem.
 Na implementação desenvolvida, o sistema \kafka recebe mensagens e as armazena em tópicos distribuídos em
 partições replicadas em nós de um \cluster, gerenciados por um nó mestre e
 suportado pelo serviço de gerenciamento de configuração distribuída \emph{Apache
 ZooKeeper}.
-A aplicação \emph{Python} consome eventos através da biblioteca \emph{Consumer API}
-que expõem a distribuição através da associação de um consumidor às partições
+A aplicação \emph{Python} consome eventos através da interface \emph{Consumer API},
+que expõe a distribuição através da associação de um consumidor às partições
 mantidas pelo \kafka.
 
 No entanto, a hipótese de que a distribuição de mensagens gerenciada pelo \kafka
@@ -329,14 +365,14 @@ e uma instância \emph{Apache ZooKeeper} associada à instância \kafka.
 % produtores e cada produtor associaria-se a uma partição.}
 
 A hipótese era que, como o número de partições igualava o número de consumidores,
-cada consumidores associaria-se a uma partição, distribuído os dados igualmente
-entre os consumidores paralelização a execução.
+cada consumidor associaria-se a uma partição, distribuindo os dados igualmente
+entre os consumidores para a paralelização a execução.
 No entanto, essa hipótese foi refutada quando observou-se que o número de
 mensagens consumidas por um dos 8 processos representava a maioria (mais de
 80\%) do volume introduzido no sistema, o restante sendo distribuído entre
 outros 3 processos e o restante dos processos não recebia nenhuma mensagem.
 Portanto, a iniciativa de implementar o algoritmo MINAS em \python com \kafka e
-atingir os objetivos de distribuição falhou, o que levou a reconsideração das
+atingir os objetivos de distribuição falhou, o que levou à reconsideração das
 plataformas escolhidas.
 
 \subsection{Implementação com \flink}
@@ -347,15 +383,15 @@ plataformas escolhidas.
 A segunda alternativa explorada teve por inspiração o trabalho de
 \citeonline{Viegas2019} e, como outro grupo de pesquisa já estava explorando
 o algoritmo na plataforma \emph{Apache Spark}, a segunda implementação
-é baseada na plataforma \flink.
+foi baseada na plataforma \flink.
 
 A plataforma flink tem modelos de processamento tanto de fluxos como em lotes.
-O modelo em lotes é implementada como extensão do modelo de fluxos e, apesar
+O modelo em lotes é implementado como extensão do modelo de fluxos e, apesar
 de não ser foco desse trabalho, mostrou-se útil para a construção do \offline,
 já que o conjunto consumido por esse módulo é limitado.
 
 Um desafio encontrado durante o desenvolvimento da implementação \mfog é a falta
-de bibliotecas para a plataforma \flink que disponibilizem versões adaptadas
+de bibliotecas para a plataforma \flink, que disponibilizem versões adaptadas
 à plataforma de algoritmos base para o algoritmo MINAS.
 Em especial, a ausência dos algoritmos \emph{K-means} e \emph{CluStream} tem
 atribuído carga não prevista sobre o processo de desenvolvimento.
@@ -433,42 +469,6 @@ atribuído carga não prevista sobre o processo de desenvolvimento.
 % Detalhar a implementação
 
 % % hermes, esqueça kafka, foque em arquivos
-
-\subsection{Ambiente de Teste}
-
-Para realização dos experimentos diversas configurações de ambientes são
-propostas.
-Os ambientes selecionados são local, nuvem e névoa.
-As configurações consistem na distribuição de módulos da implementação \mfog
-sendo executadas em combinações de ambientes nuvem e névoa com variada
-quantidade de nós.
-
-O ambiente local é composto por um único nó computacional, consistindo de um
-computador pessoal equipado com um processador de 8 núcleos, $16GB$ de memória e
-armazenamento em estado sólido (SSD) usado para o desenvolvimento e referência
-em comparações.
-O ambiente nuvem é provido pela utilização da infraestrutura de nuvem da
-Universidade Federal de São Carlos (Cloud@UFSCar\footnote{Disponível em
-\url{http://portalcloud.ufscar.br/servicos}}).
-O ambiente de névoa (\fog) é composto por computadores de única placa
-(\emph{Single Board Computer}) equipados com processador de arquitetura ARM de 4
-núcleos, $1GB$ de memória, armazenamento em cartão SD (\emph{SD-card}) e
-conectados por rede sem fio.
-
-A combinação de diferentes distribuições tem por objetivo emergir padrões de
-latência e qualidade que podem afetar implantações em ambientes reais que não
-são geralmente destacados quando os experimentos são realizados em um único
-nó ou ambiente.
-
-Faz parte também do ambiente de teste os conjuntos de dados (\datasets)
-\emph{KDD99} e \emph{Kyoto 2006+} que foram selecionados por motivos distintos.
-O \dataset \emph{Kyoto 2006+} é foco desse trabalho pois contém dados ainda
-representativos (até 2015) as característica desejáveis de um conjunto de dados
-(realismo, validade, etiquetas previamente definidas, alta variabilidade,
-reprodutibilidade e disponibilidade pública) são atendidas.
-O \dataset \emph{KDD99} é amplamente utilizado em trabalhos de detecção de
-anomalia e aqui é utilizado somente para que o leitor possa comparar com outros
-trabalhos pois não possui mais a característica de realismo.
 
 % Realism: The network traffic used for building the dataset was obtained from real network traces. Moreover, MAWIFlow was built from over a year-long observation data of real network traces, enabling not only evaluation of the detection system during a specific period of time, but also the evaluation of its behavior over time, when facing new network traffic behavior;
 % Validity: The network traces used for building the MAWIFlow dataset were collected from real network traces. Although MAWI (network traces used in MAWIFlow) is provided in a sanitized manner, i.e., payload is removed and sensitive data from network packet headers are encrypted, the network flow reconstruction is still possible. In this manner, the sanitization process used by MAWI does not affect the features’ values;
