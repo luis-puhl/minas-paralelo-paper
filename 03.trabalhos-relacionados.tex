@@ -18,7 +18,7 @@
 \begin{resumocap}
 
 Este Capítulo trata dos trabalhos relacionados e estabelece o estado da arte
-dos tópicos Detecção de Novidades em Fluxos de Dados, e 
+dos tópicos Detecção de Novidades em Fluxos de Dados, e
 Processamento Distribuído de Fluxos de Dados.
 
 \end{resumocap}
@@ -169,6 +169,8 @@ contidas no conjunto de testes podem não ter correlação direta com os padrõe
 pelos algoritmos.
 Para tratar a divergência, uma estratégia baseada em proposta anterior por
 \citeonline{Faria2016nd} é apresentada com alterações para exemplos multi-rótulo.
+Após associação entre padrões de novidade e classes novidade é possível calcular
+métricas tradicionais.
 A estratégia é executada na fase de classificação seguindo as regras:
 
 \begin{enumerate}
@@ -193,9 +195,6 @@ A estratégia é executada na fase de classificação seguindo as regras:
     se $\mathit{F1}_{(i,j)}$ é máximo.
 
 \end{enumerate}
-
-Após associação entre padrões de novidade e classes novidade é possível calcular
-métricas tradicionais.
 
 As métricas utilizadas por \citeonline{Costa2019} após a associação de classes e
 padrões são as tradicionais taxa de desconhecidos (\emph{UnkRM}) e \emph{F1M}.
@@ -272,7 +271,7 @@ porém alguns exemplos mencionados ainda não abordados são:
 
 % \citeonline{Abdallah2016anynovel}
 
-\nota{helio: Mining wireless networks}
+% \nota{helio: Mining wireless networks}
 
 \section{Processamento Distribuído de Fluxo de Dados em Tempo Real}
 
@@ -282,20 +281,39 @@ novidades para fins diversos em fluxos de dados reais.
 \subsection{Ferramenta BigFlow}
 
 Proposta por \citeonline{Viegas2019}, a ferramenta BigFlow é um sistema de
-detecção de intrusão em rede (\emph{Network Intrusion Detection System}, NIDS),
-baseado em detecção de anomalias, abordagem preferida por esses sistemas em
-contraste com a abordagem de detecção por assinatura que tem tempo de resposta
-a novos tipos de ataque (\emph{zero day}) grande demais para detectar esse tipo
-de intrusão.
+detecção de intrusão em rede (\emph{Network Intrusion Detection System}, NIDS)
+baseado em detecção de anomalias.
+Duas abordagens, detecção por assinatura e dedecção por anomalia, são de uso
+frequente como o mecanismo de detecção de intrusão em NIDS.
+Para a detecção de novos tipos de ataque (\emph{zero day}), a abordagem de
+detecção por anomalia é vantajosa em contraste com a abordagem de detecção por
+assinatura, devido o tempo de resposta (que evolve a identificação e criação de
+uma assinatura) grande demais para prevenir esse tipo de intrusão.
 
-A ferramenta BigFlow é composta por dois módulos e múltiplos submódulos.
-O módulo de extração de atributos é responsável por transformar pacotes em fluxos
-e fluxos em exemplos para o módulo de aprendizado confiável.
-O módulo de aprendizado confiável é composto pelos submódulos:
+A ferramenta BigFlow é composta por dois módulos: extração de atributos e .
+O módulo de extração de atributos, ilustrado na \reffig{bigflow-pcap},
+é responsável por coletar pactoes da rede monitorada, transformar esses
+pacotes em fluxos com as estatísticas de comunicação e enviar os fluxos como
+exemplos para o módulo de aprendizado confiável.
+O módulo de aprendizado confiável, ilustrado na \reffig{bigflow-ml}, é composto pelos submódulos:
 classificador, responsável por classificar exemplos;
 verificação, responsável por verificar o resultado de classificação;
-submódulo de exemplos rejeitados, responsável por requisitar etiquetas para exemplos rejeitados e;
+submódulo de exemplos rejeitados, responsável por requisitar a um especialista etiquetas para exemplos rejeitados e;
 submódulo de atualização incremental que atualiza e distribui o modelo aos classificadores.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/bigflow-fig2-feature_extraction_module.png}
+\caption{Módulo de extração de atributos da ferramenta BigFlow \cite{Viegas2019}.}
+\label{fig:bigflow-pcap}
+\end{figure}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/bigflow-fig4-reliable_learning_module.png}
+\caption{Módulo de aprendizado confiável da ferramenta BigFlow \cite{Viegas2019}.}
+\label{fig:bigflow-ml}
+\end{figure}
 
 % BigFlow destaca em sua secção 2 (backgroud) o processamento de streams [18, 19],
 % a preferencia de NIDS por anomalia em contraste aos NIDS por assinatura [30, 31, 32],
@@ -324,17 +342,61 @@ centésimo mantendo as proporções de etiquetas (Ataque e Normal) facilitando o
 compartilhamento e avaliação de NIDS além de atender as qualidades anteriormente
 mencionadas.
 
-% [42, 43, 44, 45]
+% classifiers that are usually employed for intrusion detection: decision tree
+% (DT) [42], random forest (RF) [43], gradient boosting (GB) [44], and an ensemble
+% [45] classifier composed from DT, RF, and GB that decides based on majority
+% voting across each classifier’s decisions.
 
-\nota{Incompleto}
+Com o \dataset MAWIFlow reduzido a 62 atributos foram avaliados quatro
+classificadores da literatura em dois modos de operação quanto seus dados de
+treinamento (ambos contendo uma semana de captura).
+O primeiro modo de operação usa somente a primeira semana do ano como conjunto
+de treinamento e as demais como conjunto teste.
+O segundo modo usando o conjunto da semana anterior como treinamento e o
+conjunto da semana seguinte como teste.
+Comparando os resultados entre os modos de operação, demostra que a qualidade da
+classificação reduz com o tempo quando não há atualização frequente do modelo
+classificador.
 
-% Com o data set MAWIFlow original e reduzido foram avaliados quatro
-% classificadores da literatura em dois modos de operação quanto seus dados de
-% treinamento (ambos contendo uma semana de captura) o primeiro usando somente a
-% primeira semana do ano e as demais como teste e o segundo modo usando a semana
-% anterior como treinamento e a seguinte como teste. Demostrando, com 62
-% atributos, que a qualidade da classificação retrai com o tempo quando não há
-% atualização frequente do modelo classificador.
+Com base na avaliação dos classificadores da literatura, para a ferramenta
+BigFlow é proposta a utilização de 4 algoritmos de classificação com capacidade
+de atualização, todos algoritmos são variações de árvore de decisão
+\emph{Hoeffding} \cite{Viegas2019,Domingos2000}.
+A avaliação da ferramenta foi executada de maneira semelhante à avaliação
+dos algoritmos da literatura, onde o conjunto de dados da primeira semana foi
+usado para treinamento e o conjunto de dados do restante do ano como conjunto
+de teste.
+Além do conjunto de treinamento, o modelo é atualizado semanalmente com base nas
+instâncias rejeitadas pelo submódulo de verificação, como ilustrado na
+\reffig{bigflow-ml}.
+
+% four stream learning classifiers were evaluated:
+% Hoeffding Tree [51], OzaBoosting [54], Leveraging Bag [55],
+% and an Ensemble of the prior three classifiers that performs
+% majority voting on the individual outcomes.
+
+\newcommand{\kafka}{\emph{Apache Kafka}\xspace}
+\newcommand{\flink}{\emph{Apache Flink}\xspace}
+
+Quanto a distribuição do processamento, ilustrada na \reffig{bigflow-arch},
+a ferramenta BigFlow faz uso das plataformas \flink e \kafka.
+Em especial, destaca-se o uso do serviço gerenciador de trabalhos (\emph{Job
+Manager}) e as multiplas instâncias do serviço gerenciador de tarefas
+(\emph{Task Manager}).
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figuras/bigflow-fig5-bigflow_arch.png}
+    \caption{Visão geral da arquitetura e distribuição da ferramenta BigFlow \cite{Viegas2019}.}
+    \label{fig:bigflow-arch}
+\end{figure}
+
+Em conclusão, a ferramenta bigflow demonstra a capacidade de classificação e
+detecção de anomalias em fluxos de dados de alta velocidade no contexto de
+detecção de intrusão.
+No entanto a atualização semanal e, mais importante, por meio de avaliação de um
+especialista não é ideal para detecção de novidades e respectiva ação sobre a
+descoberta de novos padrões.
 
 % Outras propostas tratam do caso de grandes volumes e velocidades, como ́e o caso
 % de Viegaset al. (2019) que apresenta oBigFlowno intuito de detectar intrus ̃ao
@@ -499,7 +561,7 @@ monitorar uma rede local com dispositivos
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.8\textwidth]{figuras/cassales-service-physical-pt.png}
+\includegraphics[width=0.8\textwidth]{figuras/idsa-iot-quali-004.png}
 \caption{Distribuição de Serviços da Arquitetura \idsiot.
 Produzida e traduzida por \citeonline{Cassales2019a}.}
 \label{fig:ids-iot}
