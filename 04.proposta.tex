@@ -8,13 +8,14 @@
 
 \end{resumocap}
 
-% Uma Implementação paralela do algoritmo de Detecção de Novidade em Streams MINAS 
+% Uma Implementação paralela do algoritmo de Detecção de Novidade em Streams MINAS
 
+\nota{?}
 A Internet das Coisas (\iot) é composta por milhares de dispositivos
 conectados à Internet e distribuídos geograficamente.
-Com capacidades diversas providas por elementos como sensores e atuadores, esses dispositivos produzem e
-consomem Fluxos Contínuos de Dados (\streams) com diversos objetivos.
-\nota{?}
+Com capacidades diversas providas por elementos como sensores e atuadores, esses
+dispositivos produzem e consomem Fluxos Contínuos de Dados (\streams) com
+diversos objetivos.
 Alguns cenários envolvem a mineração desses fluxos (\streamMining) em busca de
 padrões para tomada de decisão e, por vezes requerem também baixa latência.
 Para casos de baixa latência ou alta vazão, conexões adequadas para
@@ -41,11 +42,12 @@ gerados por cada produtor e o número de produtores nesse sistema, totalizando o
 volume de eventos do sistema.
 % Além do volume de eventos é necessário
 Volumes elevados são dificilmente computados em apenas um nó (e muito menos em
-um único núcleo processador) por esse motivo esses sistemas são distribuídos.
+um único núcleo processador) e por isso, esses sistemas geralmente são distribuídos.
 
 Sistemas que utilizam \nd para \streams gerados por dispositivos \iot devem
 utilizar algoritmos que considerem os desafios inerentes de fluxos de dados
-(\evolution e \drift) para adequada detecção de novidades e para tanto, requerem processamento em arquiteturas
+(\evolution e \drift) para adequada detecção de novidades e para tanto,
+requerem processamento em arquiteturas
 que atendam os requisitos de volume de mensagens e latência de detecção.
 O algoritmo MINAS é adequado para esse caso, pois trata os desafios de \streamMining porém não
 tem ainda implementação que atenda os requisitos de volume e latência,
@@ -124,8 +126,8 @@ novidade para o \sink.
 % }
 \begin{figure}[!htb]
 \centering
-\includegraphics[width=\textwidth]{figuras/bwt_photo_arch.png}
-\caption{Arquitetura \mfog.}
+\includegraphics[width=\textwidth]{figuras/mfog.png}
+\caption{Arquitetura do \mfog.}
 \label{fig:arch}
 % \begin{tikzpicture}
 % \end{tikzpicture}
@@ -471,11 +473,30 @@ atribuído carga não prevista sobre o processo de desenvolvimento.
 
 % % hermes, esqueça kafka, foque em arquivos
 
-% Realism: The network traffic used for building the dataset was obtained from real network traces. Moreover, MAWIFlow was built from over a year-long observation data of real network traces, enabling not only evaluation of the detection system during a specific period of time, but also the evaluation of its behavior over time, when facing new network traffic behavior;
-% Validity: The network traces used for building the MAWIFlow dataset were collected from real network traces. Although MAWI (network traces used in MAWIFlow) is provided in a sanitized manner, i.e., payload is removed and sensitive data from network packet headers are encrypted, the network flow reconstruction is still possible. In this manner, the sanitization process used by MAWI does not affect the features’ values;
-% Prior labeling: The event labels were identified by state-of-the- art unsupervised ML techniques (assessed by MAWILab). In this manner, supervised ML techniques can be evaluated regarding their performance as compared to unsupervised techniques;
-% High Variability: MAWIFlow is highly variable not only owing to the used network traces but also owing to its long period of recording. The used network traces are real, valid, and collected from real network infrastructure, thereby it presents the expected variability from production environments. Nonetheless, owing to its long period of recording (the entire year 2016), the detection
-% Reproducibility and Public Availability: The used network traces were collected from publicly available sources (MAWI). Moreover, BigFlow (Section 4) source code is also publicly available
+% - Realism: The network traffic used for building the dataset was obtained from
+%   real network traces. Moreover, MAWIFlow was built from over a year-long
+%   observation data of real network traces, enabling not only evaluation of the
+%   detection system during a specific period of time, but also the evaluation of
+%   its behavior over time, when facing new network traffic behavior;
+% - Validity: The network traces used for building the MAWIFlow dataset were
+%   collected from real network traces. Although MAWI (network traces used in
+%   MAWIFlow) is provided in a sanitized manner, i.e., payload is removed and
+%   sensitive data from network packet headers are encrypted, the network flow
+%   reconstruction is still possible. In this manner, the sanitization process
+%   used by MAWI does not affect the features’ values;
+% - Prior labeling: The event labels were identified by state-of-the- art
+%   unsupervised ML techniques (assessed by MAWILab). In this manner, supervised
+%   ML techniques can be evaluated regarding their performance as compared to
+%   unsupervised techniques;
+% - High Variability: MAWIFlow is highly variable not only owing to the used
+%   network traces but also owing to its long period of recording. The used
+%   network traces are real, valid, and collected from real network
+%   infrastructure, thereby it presents the expected variability from production
+%   environments. Nonetheless, owing to its long period of recording (the entire
+%   year 2016), the detection
+% - Reproducibility and Public Availability: The used network traces were
+%   collected from publicly available sources (MAWI). Moreover, BigFlow (Section
+%   4) source code is also publicly available
 
 % Para testar e demonstrar essa implementação um cenário de aplicação é construído
 % onde seria vantajoso distribuir o processamento segundo o modelo \emph{fog}. Alguns
