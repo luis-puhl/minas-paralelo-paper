@@ -22,13 +22,13 @@ falta de controle sobre a origem do hardware e software embarcado nos
 dispositivos além das cruciais atualizações de segurança.
 
 \acronym{DS}{\emph{Data Stream}, Fluxo de Dados}
-\acronym{NIDS}{\emph{Network Intrusion System}, sistema de detecção de intrusão}
+\acronym{NIDS}{\emph{Network Intrusion Detection System}, sistema de detecção de intrusão em redes}
 \newcommand{\ds}{DS\xspace}
 
 Com milhares de dispositivos em redes distantes gerando dados (diretamente
-ligados ás suas funções originais ou metadados produzidos como subproduto) em
+ligados às suas funções originais ou metadados produzidos como subproduto) em
 volumes e velocidades consideráveis, formando fluxos contínuos de dados (\emph{Data
-Stream} - DS) , técnicas de mineração de fluxos de dados
+Stream} - DS), técnicas de mineração de fluxos de dados
 (\emph{Data Stream Mining}) são amplamente necessárias.
 % parágrafo anterior marcado com '?', muito longo será? ou fora de contexto?
 Nesses cenários, essas técnicas são
@@ -37,23 +37,24 @@ originários de sensores para tomada de decisão tanto em nível micro, como na
 modificação de atuadores remotos, ou macro, na otimização de processos
 industriais.
 Analogamente, as mesmas técnicas de classificação podem ser aplicadas para os
-metadados gerados pela comunicação entre esses nós e a Internet num serviço de
-detecção de intrusão (\emph{Network Intrusion System}, NIDS).
+metadados gerados pela comunicação entre esses nós e a Internet, detectando
+alterações nos padrões de comunicação num serviço de detecção de intrusão
+(\emph{Network Intrusion Detection System}, NIDS).
 
-\nota{ou de alterações nos padrões de comunicação}
+% \nota{ou de alterações nos padrões de comunicação}
 
-\nota{essa Introdução deixa claro que é IDS?}
+% \nota{essa Introdução deixa claro que é IDS?}
 
 \acronym{ND}{\emph{Novelty Detection}, Detecção de Novidade}
 \newcommand{\nd}{ND\xspace}
 
 Técnicas de \emph{Data Stream Mining} envolvem mineração de dados
 (\emph{Data Mining}), aprendizado de
-máquina (\emph{Machine Learning}) e, recentemente, Detecção de Novidades
+máquina (\emph{Machine Learning}) e, recentemente, detecção de novidades
 (\emph{Novelty Detection}, \nd).
 ND além de classificar em modelos conhecidos permite classificar novos padrões,
 já que trata problemas como evolução e deriva de conceito que são característicos
-de fluxos contínuos e, consequentemente, permite que ações sejam tomadas corretamente mesmo
+de fluxos contínuos de dados e, consequentemente, permite que ações sejam tomadas corretamente mesmo
 em face a padrões nunca vistos.
 Essa capacidade é relevante em especial para o
 exemplo de detecção de intrusão, onde novidades na rede podem distinguir novas
@@ -88,7 +89,7 @@ Na arquitetura proposta, \citeonline{Cassales2019a} avaliou os algoritmos
 ECSMiner \cite{Masud2010ECSMiner}, AnyNovel \cite{Abdallah2016anynovel} e MINAS
 \cite{Faria2016minas}, onde o último mostrou resultados promissores.
 A arquitetura proposta foi avaliada com o conjunto de dados (\emph{data set}) \emph{Kyoto 2006+},
-composto de dados coletados de 348 \emph{Honeypots} (máquinas isoladas com diversos softwares
+composto de dados coletados de 348 \emph{Honeypots} (máquinas isoladas equipadas com diversos softwares
 com vulnerabilidades conhecidas expostas à Internet com propósito de atrair
 ataques) de 2006 até dezembro 2015.
 O \emph{data set} \emph{Kyoto 2006+} contém 24 atributos, 3 etiquetas atribuídas por
@@ -146,9 +147,9 @@ algoritmo genérico de detecção de novidade.
 O segundo trabalho observa \emph{backbones} e processamento em \emph{cloud},
 implementa o próprio algoritmo de detecção de novidade.
 Essas diferenças deixam uma lacuna onde de um lado tem-se uma
-arquitetura mais adequada para \emph{fog} com um algoritmo estado da arte de
+arquitetura mais adequada para o ambiente \emph{fog} com um algoritmo estado da arte de
 detecção de novidades, porém sem paralelismo e, de outro, tem-se um sistema
-escalável de alto desempenho porém almejando outra arquitetura (\emph{cloud}) e
+escalável de alto desempenho porém almejando outro ambiente (\emph{cloud}) e
 com um algoritmo menos preparado para os desafios de detecção de novidades.
 
 % \nota{
@@ -167,13 +168,13 @@ com um algoritmo menos preparado para os desafios de detecção de novidades.
 
 Como estabelecido na \refsec{motivo}, a lacuna no estado da arte observada é
 a ausência de uma implementação de algoritmo de detecção de
-novidade que trate adequadamente os desafios de fluxo de dados contínuos
+novidades que trate adequadamente os desafios de fluxo de dados contínuos
 (como volume e velocidade do fluxo, evolução e deriva de conceito)
 e considere o ambiente de computação em névoa aplicada à detecção de
 intrusão.
 Seguindo a comparação entre algoritmos desse gênero realizada por
 \citeonline{Cassales2019a}, escolhemos o algoritmo MINAS \cite{Faria2016minas}
-para receber o tratamento necessário para adequa-lo ao ambiente de névoa e para
+para receber o tratamento necessário para adequá-lo ao ambiente de névoa e para
 fluxos de grandes volumes e velocidades.
 
 % \nota{GSDR da universidade federal de sao carlos...}
@@ -182,7 +183,7 @@ Portanto, seguindo os trabalhos do Grupo de Sistemas Distribuídos e Redes
 (GSDR) da Universidade Federal de São Carlos (UFSCar), propõem-se a construção
 de uma aplicação que implemente o algoritmo MINAS
 de maneira escalável e distribuível para ambientes de computação em névoa e a avaliação
-dessa implementação com experimentos baseados na literatura e, usando conjunto de dados
+dessa implementação com experimentos baseados na literatura usando conjunto de dados
 públicos relevantes.
 O resultado esperado é uma implementação compatível em qualidade de
 classificação ao algoritmo MINAS e passível de ser distribuída em um ambiente
@@ -253,7 +254,7 @@ através de implementação de aplicação e testes.
 
 O foco da revisão da literatura acadêmica é em trabalhos que abordem:
 processamento de fluxos de dados, classificação de fluxo de dados, detecção de
-novidades em fluxo de dados e processamento e distribuído de fluxo de dados.
+novidades em fluxo de dados e processamento distribuído de fluxo de dados.
 O objetivo da revisão é o estabelecimento do estado da arte desses assuntos,
 de forma que alguns desses trabalhos sirvam para comparações e relacionamentos.
 Além disso, desses trabalhos busca-se métricas de qualidade de classificação
