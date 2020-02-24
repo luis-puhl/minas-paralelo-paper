@@ -492,7 +492,7 @@ O modelo é criado na fase \emph{Offline} e utilizado na classificação binári
 
 Pra avaliação da ferramenta CATRACA dois conjuntos de dados são utilizados.
 O primeiro conjunto, UFRJ/GTA, é sintético criado por uma simulação de rede de
-computadores com 214,200 fluxos de rede totalizando 95 GB de pacotes capturados,
+computadores com $214200$ fluxos de rede totalizando $95 \mathrm{GB}$ de pacotes capturados,
 é composto de 24 atributos e 16 classes.
 O outro conjunto, referido como NetOp, foi coletado de um operador de rede que
 atende 373 residências na cidade do Rio de Janeiro em 2017.
@@ -555,11 +555,78 @@ novidade.
 \section{Arquitetura \idsiot}\label{sec:cassales}
 
 Arquitetura \idsiot, proposta por \citeonline{Cassales2019a}, tem por objetivo
-monitorar uma rede local com dispositivos
+monitorar uma rede local com dispositivos \iot e detectar tentativas de intrusão
+e até possível subersão destes dispositivos.
+O principal destaque da arquitetura é a distribuição de tarefas do sistema de
+detecção de intrusão entre nós na rede de borda (\fog) e nós em nuvem pública
+(\fog).
+O objetivo dessa distribuição é a redução de latência que torna inviável a
+hospedagem de um sistema detector de intrusão somente em ambiente \cloud e
+também possibilitar a análise de grandes volumes de dados por algoritmos de
+maior complexidade que são de custo computacional proibitivo para nós de borda.
+A \reffig{ids-iot-phy} ilustra a estrutura física da arquitetura \idsiot,
+destacando os dispositivos \iot, dispositivos de borda e nuvem pública.
 
-\nota{Falar do modelo de distribuição.}
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.8\textwidth]{figuras/idsa-iot-quali-000.png}
+\caption{Estrutura Física da Arquitetura \idsiot.
+Produzida e traduzida por \citeonline{Cassales2019a}.}
+\label{fig:ids-iot-phy}
+\end{figure}
 
-\begin{figure}[ht]
+A arquitetura proposta é avaliada com três algoritmos de detecção de novidade:
+ECSMiner \cite{Masud2010ECSMiner}, AnyNovel \cite{Abdallah2016anynovel} e MINAS
+\cite{Faria2016minas}.
+A avaliação foi feita com o \dataset \emph{Kyoto 2006+}, composto de
+dados coletados de 348 \emph{Honeypots} (máquinas isoladas com diversos
+softwares com vulnerabilidades conhecidas expostas à Internet com propósito de
+atrair ataques) de 2006 até dezembro 2015.
+Esse \dataset tem as características desejáveis de um conjunto para detectção de
+novidades como: realismo, validade, etiquetas previamente definidas, alta
+variabilidade, reprodutibilidade e disponibilidade pública.
+O \dataset \emph{Kyoto 2006+} contém 24 atributos, 3 etiquetas atribuídas por
+detectores de intrusão comerciais e uma etiqueta
+distinguindo o tráfego entre normal, ataque conhecido e ataque desconhecido.
+
+A avaliação da arquitetura foi realizada utilizando as métricas de qualidade
+Fnew, Mnew e erro.
+A métrica Fnew (ou Falso Positivo) é a fração dos exemplos de uma classe normal
+classificados com etiqueta novidade ou etiqueta extensão.
+A métrica Mnew (ou Falso Negativo) é a fração dos exemplos de uma classe novidade
+classificados com etiqueta normal.
+A métrica erro é a soma dos valores falso positivo e falso negativo dividida
+pelo número de exemplos classificados.
+Além das métricas de qualidade de classificação tradicionais, também foi medida
+a quatidade de requisções de classificação por especialista.
+
+Outra avaliação dos algoritmos foi a extração de métricas de uso de recursos
+computacionais e tempo total de processamento em dispositivos limitados.
+Essa avalição envolveu dois computadores, um computador pessoal com recursos
+convecionais produzia exmplos e adicionava como mensagens em um tópico no
+sistema de fila de mensagens \kafka, já o outro computador com recursos
+limitados consumia as mensagens do tópico e classificava os exemplos.
+
+Ambas avaliações demonstraram o equilibrio entre qualidade de classificação e
+velocidade ou uso de recursos.
+O algoritmo ECSMiner mostrou melhor qualidade de classificação porém com
+velocidade e consumo de recursos próximos de uma ordem de magnitude pior.
+Já o algoritmo MINAS, apesar de maiores valores na métrica erro, mostrou-se
+adequado para dispositivos limitados com baixo consumo de recursos
+computacionais e manteve constante e baixa métrica Fnew.
+O algoritmo AnyNovel não apresentou consistência nos resultados e o consumo
+de recurusos computacionais (memória) foi elevado.
+
+% MINAS technique presented high error rates. However, the
+% small and constant Fnew coupled with the smallest execution
+% time and memory consumption, indicates MINAS is suitable
+% for IoT scenarios.
+
+Com as avaliações realizadas, a arquitetura \idsiot opta por distribuir as
+tarefas de mineração dos fluxos para detecção de intrusão em serviços e aloca os
+serviços em diferentes camadas físicas conforme ilustrado na \reffig{ids-iot}.
+
+\begin{figure}[hbt]
 \centering
 \includegraphics[width=0.8\textwidth]{figuras/idsa-iot-quali-004.png}
 \caption{Distribuição de Serviços da Arquitetura \idsiot.
@@ -567,6 +634,12 @@ Produzida e traduzida por \citeonline{Cassales2019a}.}
 \label{fig:ids-iot}
 \end{figure}
 
+A distribuição das tarefas em serviços proposta abre oportunidades para a
+discussão de diferentes métodos de distribuição dessas tarefas em diferentes
+ambientes computacionais.
+Contudo, o algoritmo MINAS ainda não foi implementado e avaliado com
+paralelismo, multi-processamento ou distribuição computacional, que são
+necessários para tratar fluxos de dados com grandes volumes e velocidades.
 
 \nota{Também discutir a classificação dos fluxos por endpoint
 exarcerbando assim a distinção na fog com o efeito de particionamento dos dados.
