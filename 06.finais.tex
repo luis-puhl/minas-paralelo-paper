@@ -10,14 +10,14 @@ Este trabalho reúne conceitos de aprendizado de máquina com ênfase em detecç
 de novidades em fluxos contínuos de dados e conceitos de processamento
 distribuído de fluxos contínuos, com o objetivo de unir a lacuna no estado da
 arte desses conceitos à luz de uma implementação e avaliação no cenário de
-fluxos de dispositivos da Internet das Coisas (\iot) em ambiente de computação
-em névoa (\fog).
+detecção de intrusão em redes de dispositivos da Internet das Coisas (\iot) em
+ambiente de computação em névoa (\fog).
 
 O objeto central desse trabalho (\mfog) trata da implementação do algoritmo MINAS na
 plataforma de processamento de fluxos \flink, em três módulos que podem ser
 distribuídos em um ambiente de \fog.
 Sua distribuição permite selecionar o nó que tem os recursos computacionais mais
-adequada para cada tarefa.
+adequados para cada tarefa.
 A avaliação do \mfog será feita por meio de métricas de qualidade de classificação
 e métricas de escalabilidade.
 
@@ -27,22 +27,27 @@ Dando continuidade a este trabalho, segue-se com o desenvolvimento da implementa
 (\mfog) bem como a contínua avaliação comparativa dos resultados
 produzidos pelo \mfog com seu algoritmo base, MINAS.
 Também será dada continuidade nos experimentos com os conjuntos de dados (\datasets)
-diversos e configurações de distribuição de processamento em \fog variadas
+diversos e configurações variadas de distribuição de processamento em \fog
 extraindo desses experimentos as métricas previamente discutidas.
 
-\nota{configurações variadas de distribuição..}
+% \nota{configurações variadas de distribuição..}
 
-\nota{falar/resumir os resultados esperados}
+% \nota{falar/resumir os resultados esperados}
 
 % As métricas extraídas servirão, além de resultado final para este trabalho,
 % para a construção de artigos usados para compra
 
-Dessa forma, contribui-se com uma adição de uma ferramenta para os interessados
-em construir sistemas que dependem de detecção de novidades para seu bom
-funcionamento, especialmente os baseados em dispositivos \iot e/ou com fluxos
-contínuos que tradicionalmente sofrem com os ônus de latência e largura de banda
-na comunicação dos resultados da borda para a nuvem onde são normalmente
-executadas as técnicas de mineração usuais.
+% O resultado esperado ́e uma implementac ̧ ̃aocompat ́ıvel em qualidade de
+% classificac ̧ ̃ao ao algoritmo MINAS e pass ́ıvel de ser distribu ́ıda emum
+% ambiente de computac ̧ ̃ao em n ́evoa aplicado`a detecc ̧ ̃ao de intrus ̃ao
+
+Dessa forma, o \mfog pode contribuir com adição de uma ferramenta para os interessados
+em sistemas de detecção de intrusão de redes de dispositivos \iot
+ou outros sistemas que tratam de fluxos contínuos que tradicionalmente sofrem
+com os ônus de latência e largura de banda na comunicação entre borda e nuvem.
+Além disso, o \mfog objetiva contribuir com a adição de uma implementação
+distribuída de um algoritmo cujo modelo é estado da arte em detecção de
+novidades em fluxos contínuos de dados.
 
 
 \section{Cronograma}\label{sec:crono}
@@ -90,7 +95,7 @@ final deste trabalho de pesquisa.
   \item \label{task:C} Experimentos com \emph{data sets} e estratégias de 
   distribuição em \emph{fog};
   \item \label{task:D} Submissão de artigos com resultados de (\ref{task:C}
-  \item \label{task:E} Defesa da Disertação.
+  \item \label{task:E} Defesa da Dissertação.
   % \item \label{task:E} Comparação com outros trabalhos, envolvendo:
   %   \begin{itemize}
   %     \item preparação e, se necessário, adaptação dos programas e \emph{data sets};
