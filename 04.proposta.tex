@@ -103,12 +103,12 @@ as métricas de qualidade de classificação e métricas base para as métricas 
 escalabilidade e métricas de recursos computacionais.
 
 Os dados resultantes do serviço de captura e tratamento são ingeridos pela
-aplicação no módulo \classify, por meio de conexão TCP (\emph{Transmission
+aplicação no \classify, por meio de conexão TCP (\emph{Transmission
 Control Protocol}) fornecida pela plataforma \flink.
 Na plataforma, com o modelo de classificação disponível, os exemplos são
 classificados seguindo o algoritmo MINAS original discutido na \refsec{minas-og}.
 A etiqueta atribuída pela classificação, ou meta-etiqueta de desconhecido,
-juntamente com o exemplo original são enviados para o módulo \sink.
+juntamente com o exemplo original são enviados para o \sink.
 Além disso, se o exemplo não for classificado, o mesmo é enviado para o
 \detector.
 
@@ -132,7 +132,20 @@ novidade para o \sink.
 % \end{tikzpicture}
 \end{figure}
 
-\nota{[Hélio] Como fica a distribuição do processamento?}
+O \mfog utiliza em seus módulos a distribuição oferecida pela plataforma \flink
+como paralelização, ou seja, utiliza uma instância de trabalho (\emph{job}) por
+dispositivo de classificação, sendo que cada instância de trabalho aloca um
+gerenciador de tarefas por processador.
+Dessa forma atinge-se a escalabilidade no ambiente de \fog para o \classify.
+O \offline, por ser utilizado somente uma vez para gerar o modelo
+de classificação inicial, não tem impacto na escalabilidade geral do sistema.
+O \detector também é implementado na plataforma \flink e por ser hospedado em
+ambiente de \cloud herda as qualidades desse ambiente incluindo escalabilidade.
+O restante do sistema (\source, \sink, armazenamento de modelo) não é foco deste
+estudo e sua escalabilidade, desde que não afete a escalabilidade do \classify e
+\detector, não é relevante.
+
+% \nota{[Hélio] Como fica a distribuição do processamento?}
 
 \section{Metodologia de Avaliação e Resultados Esperados}\label{sec:esperados}
 
