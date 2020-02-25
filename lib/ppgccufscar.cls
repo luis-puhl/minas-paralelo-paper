@@ -50,10 +50,10 @@
 
 %% carregando pacote para formatacao das citacoes e referencias
 %% conforme a ABNT [norma de 2006 - mas nao deve ter mudado muita coisa ;)]
-%% \RequirePackage[alf]{abntcite}
-\RequirePackage[alf,abnt-etal-cite=3,abnt-etal-list=0,bibjustif]{abntex2cite}
 % \RequirePackage[breaklinks=true]{hyperref}
+%% \RequirePackage[alf]{abntcite}
 % \RequirePackage[alf]{abntex2cite}
+\RequirePackage[alf,abnt-etal-cite=3,abnt-etal-list=0,bibjustif]{abntex2cite}
 \RequirePackage[english,brazil]{babel}
 \RequirePackage{ifthen}
 
