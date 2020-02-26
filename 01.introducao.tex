@@ -17,9 +17,13 @@ Contudo, por tratar-se comumente de dispositivos pouco robustos, para propósito
 além dos dados de sensores e atuadores esses dispositivos, quando subvertidos,
 podem gerar outro tipo de tráfego, maligno à sociedade, como o gerado pela
 \emph{botnet} mirai em 2016 \cite{Kambourakis2017}.
-Nesse cenário, fatores que possibilitam a subversão dos dispositivos incluem a
+Nesse cenário, fatores que podem favorecer a subversão dos dispositivos incluem a
 falta de controle sobre a origem do hardware e software embarcado nos
 dispositivos além das cruciais atualizações de segurança.
+
+\notahelio{não está clara qual é a implicação de serem dispositivos pouco robustos… \\
+… contendo implementações comumente apenas dedicada a propósitos específicos?\\
+… comumente sem mecanismos de segurança robustos?}
 
 \acronym{DS}{\emph{Data Stream}, Fluxo de Dados}
 \acronym{NIDS}{\emph{Network Intrusion Detection System}, sistema de detecção de intrusão em redes}
@@ -87,7 +91,7 @@ dispositivos e avaliando-os quanto à detecção de intrusão.
 
 Na arquitetura proposta, \citeonline{Cassales2019a} avaliou os algoritmos
 ECSMiner \cite{Masud2010ECSMiner}, AnyNovel \cite{Abdallah2016anynovel} e MINAS
-\cite{Faria2016minas}, onde o último mostrou resultados promissores.
+\cite{Faria2016minas}, sendo que o último mostrou resultados promissores.
 A arquitetura proposta foi avaliada com o conjunto de dados (\emph{data set}) \emph{Kyoto 2006+},
 composto de dados coletados de 348 \emph{Honeypots} (máquinas isoladas equipadas com diversos softwares
 com vulnerabilidades conhecidas expostas à Internet com propósito de atrair
@@ -96,6 +100,10 @@ O \emph{data set} \emph{Kyoto 2006+} contém 24 atributos, 3 etiquetas atribuíd
 detectores de intrusão comerciais e uma etiqueta
 distinguindo o tráfego entre normal, ataque conhecido e ataque desconhecido
 \cite{Cassales2019a}.
+
+\notahelio{ Por que a necessidade paralelismo? O que falta que justifica essa
+avaliação? Tempo de resposta?\\
+Necessidade de tratar os dados próximo a onde são produzidos? Uso da cloud? ….}
 Contudo, o algoritmo MINAS ainda não foi implementado e avaliado com paralelismo,
 multi-processamento ou distribuição computacional, que são necessários para
 tratar fluxos de dados com grandes volumes e velocidades.
@@ -103,9 +111,10 @@ tratar fluxos de dados com grandes volumes e velocidades.
 Ainda no contexto de \nd como método de detecção de intrusão,
 outras propostas tratam do caso de grandes volumes e velocidades, como é o caso
 de \citeonline{Viegas2019}, que apresenta o \emph{BigFlow} no intuito de detectar
-intrusão em redes \emph{10 Gigabit Ethernet}, que é um volume considerável
+intrusão em redes \emph{10 Gigabit Ethernet}, que é um volume considerável,
 atualmente impossível de ser processado em um único núcleo de processador
-(\emph{single-threaded}). Essa implementação é feita sobre uma plataforma
+(\emph{single-threaded}).
+Essa implementação foi feita sobre uma plataforma
 distribuída processadora de fluxos (\emph{Apache Flink}) executada em um cluster
 com até 10 nós de trabalho, cada um com 4 núcleos de processamento totalizando
 40 núcleos para atingir taxas de até $10,72 \ Gbps$.
@@ -173,7 +182,7 @@ novidades que trate adequadamente os desafios de fluxo de dados contínuos
 e considere o ambiente de computação em névoa aplicada à detecção de
 intrusão.
 Seguindo a comparação entre algoritmos desse gênero realizada por
-\citeonline{Cassales2019a}, escolhemos o algoritmo MINAS \cite{Faria2016minas}
+\citeonline{Cassales2019a}, esta pesquisa escolheu investigar o algoritmo MINAS \cite{Faria2016minas}
 para receber o tratamento necessário para adequá-lo ao ambiente de névoa e para
 fluxos de grandes volumes e velocidades.
 
@@ -252,7 +261,7 @@ de um processo exploratório seguido de experimentação. Tal processo inclui a
 revisão da literatura, tanto acadêmica quanto técnica, seguida da experimentação
 através de implementação de aplicação e testes.
 
-O foco da revisão da literatura acadêmica é em trabalhos que abordem:
+O foco da revisão da literatura acadêmica é em trabalhos que abordem
 processamento de fluxos de dados, classificação de fluxo de dados, detecção de
 novidades em fluxo de dados e processamento distribuído de fluxo de dados.
 O objetivo da revisão é o estabelecimento do estado da arte desses assuntos,

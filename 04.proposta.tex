@@ -10,7 +10,7 @@
 
 % Uma Implementação paralela do algoritmo de Detecção de Novidade em Streams MINAS
 
-A Internet das Coisas (\iot) é composta por milhares de dispositivos
+A Internet das Coisas (\iot) é composta por vastas quantidades de dispositivos
 conectados à Internet e distribuídos geograficamente.
 Com capacidades diversas providas por elementos como sensores e atuadores, esses
 dispositivos produzem e consomem Fluxos Contínuos de Dados (\streams) com
@@ -18,13 +18,13 @@ diversos objetivos.
 Alguns cenários envolvem a mineração desses fluxos (\streamMining) em busca de
 padrões para tomada de decisão e, por vezes requerem também baixa latência.
 Para casos de baixa latência ou alta vazão, conexões adequadas para
-processamento em nuvem nem sempre são possíveis ou desejáveis, para esses casos
+processamento em nuvem nem sempre são possíveis ou desejáveis; para esses casos,
 a computação em névoa (\fog) é uma solução.
 
 O tema de \streamMining envolve a classificação de novos elementos,
 que podem tanto estar relacionados aos dados ou aos metadados das comunicações,
 com base em
-um modelo, porém como \streams variam temporalmente e são ilimitados, todas
+um modelo; porém, como \streams variam temporalmente e são ilimitados, todas
 as classes contidas em um \stream não são previamente conhecidas.
 A identificação e classificação de novas classes em \streams é denominada
 Detecção de Novidades (\novelty, \nd) em \streams.
@@ -45,14 +45,15 @@ utilizar algoritmos que considerem os desafios inerentes de fluxos de dados
 (\evolution e \drift) para adequada detecção de novidades e para tanto,
 requerem processamento em arquiteturas
 que atendam os requisitos de volume de mensagens e latência de detecção.
-O algoritmo MINAS é adequado para esse caso, pois trata os desafios de \streamMining porém não
-tem ainda implementação que atenda os requisitos de volume e latência,
-especialmente para aplicações \iot onde um ambiente de \fog é atrativo.
+O algoritmo MINAS é adequado para esse caso, pois trata os desafios de
+\streamMining, porém não tem ainda implementação que atenda os requisitos de
+volume e latência, especialmente para aplicações \iot onde um ambiente de \fog é
+atrativo.
 
 \newcommand{\mfog}{sistema M-FOG\xspace}
 
 Para preencher a lacuna de algoritmo de \nd em ambiente \fog, propõem-se então
-o \mfog, uma implementação do algoritmo MINAS sobre a plataforma \flink que
+o \mfog, uma implementação do algoritmo MINAS sobre a plataforma \flink, que
 considera distribuição em um ambiente de \fog.
 
 % \nota{Reestruturar:
@@ -90,7 +91,9 @@ Os módulos e as interações entre eles são ilustradas na \reffig{arch}.
 
 A implementação do \mfog segue a arquitetura \idsiot formalizada por
 \citeonline{Cassales2019a}, discutida na \refsec{cassales}.
-A arquitetura \idsiot (e outras arquiteturas de NIDS) estabelece que um serviço de
+A arquitetura \idsiot
+% (e outras arquiteturas de NIDS)
+estabelece que um serviço de
 captura e tratamento de dados é instalado na borda de uma rede local com
 dispositivos \iot.
 Na presente implementação, esse serviço de captura e tratamento é representado
@@ -310,7 +313,7 @@ Os resultados desses experimentos contêm as seguintes métricas:
 
 Para a validação da corretude da implementação do \mfog com relação ao algoritmo
 MINAS original, as métricas de qualidade de classificação serão extraídas de
-ambas implantações e comparadas.
+ambas as implantações e comparadas.
 
 % procedimento experimental previamente definido de ambos, \mfog e da
 % implementação original do algoritmo MINAS, e comparadas.
@@ -319,7 +322,7 @@ ambas implantações e comparadas.
 
 Para realização dos experimentos diversas configurações de ambientes são
 propostas.
-Os ambientes selecionados são local, nuvem e névoa.
+Os ambientes selecionados são: local, nuvem e névoa.
 As configurações consistem na distribuição de módulos da implementação \mfog
 sendo executadas em combinações de ambientes nuvem e névoa com variada
 quantidade de nós.
@@ -381,7 +384,7 @@ Para essa implementação havia a hipótese de que a distribuição de
 mensagens gerenciada pelo \kafka
 se estenderia a processos consumidores, efetivamente distribuindo o volume de
 mensagens entre eles igualmente.
-No entanto a hipótese foi refutada nos experimentos realizados.
+No entanto, a hipótese foi refutada nos experimentos realizados.
 Os experimentos em questão foram compostos de 8 processos consumidores, um
 processo produtor, uma instância \kafka com 8 partições em seu tópico principal
 e uma instância \emph{Apache ZooKeeper} associada à instância \kafka.
@@ -411,11 +414,12 @@ O modelo em lotes é implementado como extensão do modelo de fluxos e, apesar
 de não ser foco desse trabalho, mostrou-se útil para a construção do \offline,
 já que o conjunto consumido por esse módulo é limitado.
 
-Um desafio encontrado durante o desenvolvimento da implementação do \mfog é a falta
+Um desafio encontrado durante o desenvolvimento da implementação do \mfog foi a falta
 de bibliotecas na plataforma \flink que disponibilizem versões adaptadas
 à plataforma de algoritmos base para o algoritmo MINAS.
-Em especial, a ausência dos algoritmos \emph{K-means} e \emph{CluStream} tem
-atribuído carga não prevista sobre o processo de desenvolvimento.
+Em especial, a ausência dos algoritmos \emph{K-means} e \emph{CluStream}
+gerou carga imprevista sobre o processo de desenvolvimento
+resultando atraso neste processo.
 
 Esta implementação segue a arquitetura descrita na \refsec{descricao} e as
 avaliações e resultados esperados descritos neste \refcap{proposta}
