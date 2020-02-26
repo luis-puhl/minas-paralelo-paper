@@ -328,8 +328,8 @@ Programa de P\'os-Gradua\c{c}\~ao Em Ci\^encia da Computa\c{c}\~ao}
    
    	Membros da banca:
 
-    %  \vspace*{1.3cm}
-    \vspace*{0.5cm}
+	 	%  \vspace*{1.3cm}
+	 	\vspace*{0.5cm}
 	
 	 	\rule{8.9cm}{1pt}
 	
