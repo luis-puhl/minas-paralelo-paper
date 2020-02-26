@@ -15,17 +15,39 @@
 %     2.6. Novelty Detection
 %     2.7. O algoritmo Minas
 
+% \notahermes{Seria bom incluir algum texto aqui, pelo menos um paragrafo dizendo do que
+% trata este capitulo }
 
-\nota{Seria bom incluir algum texto aqui, pelo menos um paragrafo dizendo do que
-trata este capitulo }
+\begin{resumocap}
+  Este Capítulo aborda conceitos que embasam esse trabalho,
+  os conceitos teóricos de
+  ambientes e arquiteturas de computação distribuída e detecção de novidade
+  e conceitos técnicos como plataformas de processamento distribuído de fluxo
+  de dados e o algoritmo MINAS.
+\end{resumocap}
 
-\section{Computação em Nuvem, Borda e Névoa}
+\section{Ambientes de Computação Distribuída}
 
-\nota{Falta algum texto introdutorio aqui, fazendo a
-``cola'' entre as 3 plataformas.  \\  Se você não conseguir fazer essa ``cola''
-(isto é, pensar em um titulo de seção melhor e colocar o texto, pode
-simplesmente remover a seção 2.1 e promover as 3 subseções (computação em nuvem,
-borda e Fog) para o nível de seção. }
+\newcommand{\cloud}{\emph{cloud computing}\xspace}
+
+% \notahermes{Falta algum texto introdutorio aqui, fazendo a
+% ``cola'' entre as 3 plataformas.  \\  Se você não conseguir fazer essa ``cola''
+% (isto é, pensar em um titulo de seção melhor e colocar o texto, pode
+% simplesmente remover a seção 2.1 e promover as 3 subseções (computação em nuvem,
+% borda e Fog) para o nível de seção. }
+
+Esta \Section relaciona três ambientes de computação distribuída habitualmente
+utilizados para o processamento de dados massivos relacionados à redes de
+dispositivos \iot entre outras aplicações.
+Iniciando com o ambiente mais tradicional, a computação em nuvem (\cloud) é
+aplicada a vários problemas e neste trabalho seu papel em sistemas \iot é
+fornecer recursos e garantias ilimitadas e em que dispositivos enviam todos
+dados relevantes ao sistema.
+O segundo e terceiro ambiente é a computação de borda (\emph{edge computing})
+e computação em névoa (\emph{fog computing}) que passa a utilizar os recursos
+computacionais distribuídos presentes em nós localizados entre os dispositivos
+de borda e a nuvem com diversas intensões desde privacidade até redução de
+latência.
 
 % Para descrever os modelos de computação em nuvem, borda e névoa, é necessário
 % abordar o conceito de distância e densidade em redes. Distância pode ser definida como o número de saltos (\emph{hops}), latência, distância geográfica ou combinação destas.
@@ -325,10 +347,10 @@ Modelos de mineração de fluxo de dados atendem a esses desafios utilizando
 restrições como apenas uma leitura do conjunto de dados e complexidade
 de processamento menor que linear \cite{Gama2007, Gaber2005}.
 
-\nota{Não faz sentido considerar como fluxo somente se a taxa for muito alta.
+\notahermes{Não faz sentido considerar como fluxo somente se a taxa for muito alta.
 Precisa rever isto.}
 
-\nota{O que é complexidade menor que linear em fluxos? }
+\notahermes{O que é complexidade menor que linear em fluxos? }
 
 % \nota{falta abordar processamento paralelo e distribuído}
 
@@ -444,7 +466,7 @@ falhas em partes independentes \cite{TanenbaumSteen2018}.
 % KREPS, J. Questioning the Lambda Architecture. 2014. Disponível em:
 % https://www.oreilly.com/ideas/questioning-the-lambda-architecture
 
-\nota{Os conceitos ficaram um tanto misturados nesta seção. Acho que ficaria
+\notahermes{Os conceitos ficaram um tanto misturados nesta seção. Acho que ficaria
 melhor se dividisse em 2 ou 3 seções, por exemplo: uma seção sobre processamento
 em batch ou {\it offline} como Mapreduce/Hadoop, ou o Spark originalmente; uma
 segunda seção poderia falar somente de plataformas de processamento de fluxos;
@@ -460,7 +482,7 @@ foi evoluída e simplificada iterativamente durante décadas de uso, porém ela 
 é adequada para sistemas em tempo real, como os sistema de fluxo de dados.
 
 
-\nota{Eu nem citaria SGBD, isso foi novidade há uns 30 ou 40 anos. Mapreduce já
+\notahermes{Eu nem citaria SGBD, isso foi novidade há uns 30 ou 40 anos. Mapreduce já
 tem praticamente 20 anos ... }
 
 \newcommand{\lambdaa}{\xspace\emph{Lambda}\xspace}
@@ -476,7 +498,7 @@ de dados distribuído, como arquitetura \lambdaa \cite{marz2015big} e \kappaa \c
 diversas plataformas tanto de \emph{Big Data} com características de tempo real
 como especializadas em fluxo de dados.
 
-\nota{Tem referências para Lambda e Kappa? }
+\notahermes{Tem referências para Lambda e Kappa? }
 
 A arquitetura \lambdaa divide o processamento em três camadas: lotes, serviço
 e velocidade. A camada de lotes atua sobre o conjunto mestre em modo de leitura
@@ -917,7 +939,7 @@ a possível presença de ruído e \emph{outliers} \cite{Gama2010}.
 % \nota{separar ai - ndpara\\
 % padroes novidade? reconhecomemnto de padroes novidade?}
 
-Os métodos de \nd são utlizados no reconhecimento de diversos padrões novidade
+Os métodos de \nd são utilizados no reconhecimento de diversos padrões novidade
 ou anomalias e são aplicadas a diversos problemas como
 Detecção de Intrusos \cite{Coull2003,Spinosa2008,Viegas2019,Cassales2019a},
 Detecção de Falhas \cite{Zhang2006},
