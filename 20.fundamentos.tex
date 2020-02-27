@@ -468,15 +468,14 @@ falhas em partes independentes \cite{TanenbaumSteen2018}.
 % KREPS, J. Questioning the Lambda Architecture. 2014. Disponível em:
 % https://www.oreilly.com/ideas/questioning-the-lambda-architecture
 
-\notahermes{Os conceitos ficaram um tanto misturados nesta seção.
-Acho que ficaria 
-melhor se dividisse em 2 ou 3 seções, por exemplo: uma seção sobre processamento
-em batch ou {\it offline} como Mapreduce/Hadoop, ou o Spark originalmente;
-uma segunda seção poderia falar somente de plataformas de processamento de fluxos;
-terceira poderia falar sobre as arquiteturas (lambda, kappa) que combinam de
-certa forma as plataformas offline e de fluxos. Acho que kafka poderia aparecer
-dentro dessa terceira seção.}
-
+% \notahermes{Os conceitos ficaram um tanto misturados nesta seção.
+% Acho que ficaria 
+% melhor se dividisse em 2 ou 3 seções, por exemplo: uma seção sobre processamento
+% em batch ou {\it offline} como Mapreduce/Hadoop, ou o Spark originalmente;
+% uma segunda seção poderia falar somente de plataformas de processamento de fluxos;
+% terceira poderia falar sobre as arquiteturas (lambda, kappa) que combinam de
+% certa forma as plataformas offline e de fluxos. Acho que kafka poderia aparecer
+% dentro dessa terceira seção.}
 
 Tradicionalmente, aplicações foram construídas com um sistema gerenciador de
 banco de dados (SGBD) relacional ou não-relacional associado. Essa arquitetura,
@@ -501,7 +500,7 @@ Para mitigar problemas associados a construção de sistemas \emph{Big Data}
 e \emph{Data Streams}
 foram propostas arquiteturas de processamento de fluxo
 de dados distribuído, como arquitetura \lambdaa
-\cite{Dean2004,dean2008mapreduce,marz2015big} e \kappaa \cite{Kreps2014}, além
+\cite{marz2015big} e \kappaa \cite{Kreps2014}, além
 de
 diversas plataformas tanto de \emph{Big Data} com características de tempo real
 como especializadas em fluxo de dados.
@@ -511,7 +510,7 @@ como especializadas em fluxo de dados.
 \subsection{Arquitetura \lambdaa}
 
 A arquitetura \lambdaa divide o processamento em três camadas: lotes, serviço
-e velocidade \cite{Dean2004}.
+e velocidade \cite{marz2015big}.
 A camada de lotes atua sobre o conjunto mestre em modo de leitura
 sequencial, armazenando-o em sistema de arquivos distribuído e pré-processando
 várias visões sobre esse conjunto mestre. Essas visões (armazenadas num SGBD
@@ -521,7 +520,7 @@ No entanto, as garantias oferecidas pela camada de
 lotes (escalabilidade, consistência, tolerância a falhas) não atendem os requisitos
 de latência em um sistema em tempo real, portanto a camada de velocidade
 complementa os dados das visões com dados diretamente do conjunto mestre em
-tempo real diretamente para a camada de serviço \cite{dean2008mapreduce,marz2015big}.
+tempo real diretamente para a camada de serviço \cite{marz2015big}.
 
 A Figura \ref{fig:lambda} ilustra uma implementação da arquitetura \lambdaa
 onde a \emph{Apache Kafka}, \emph{Apache Storm}, \emph{Apache Hadoop}
