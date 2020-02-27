@@ -341,16 +341,18 @@ como memória ou armazenamento principal.
 
 Além da dimensão de armazenamento outra dimensão que afeta a maneira como dados
 são modelados e manipulados é o tempo. Um Fluxo de Dados (\emph{Data Stream}) é
-uma sequência de registros produzidos a uma taxa muito alta, associadas ao tempo
+uma sequência de registros
+% produzidos a uma taxa muito alta,
+associados ao tempo
 real, ilimitados, que excede recursos de armazenamento \cite{Gaber2005}.
 Modelos de mineração de fluxo de dados atendem a esses desafios utilizando
-restrições como apenas uma leitura do conjunto de dados e complexidade
-de processamento menor que linear \cite{Gama2007, Gaber2005}.
+restrições como apenas uma leitura do conjunto de dados e baixo tempo de
+processamento na construção de seus algoritmos \cite{Gama2007, Gaber2005}.
 
-\notahermes{Não faz sentido considerar como fluxo somente se a taxa for muito alta.
-Precisa rever isto.}
+% \notahermes{Não faz sentido considerar como fluxo somente se a taxa for muito alta.
+% Precisa rever isto.}
 
-\notahermes{O que é complexidade menor que linear em fluxos? }
+% \notahermes{O que é complexidade menor que linear em fluxos? }
 
 % \nota{falta abordar processamento paralelo e distribuído}
 
@@ -466,10 +468,11 @@ falhas em partes independentes \cite{TanenbaumSteen2018}.
 % KREPS, J. Questioning the Lambda Architecture. 2014. Disponível em:
 % https://www.oreilly.com/ideas/questioning-the-lambda-architecture
 
-\notahermes{Os conceitos ficaram um tanto misturados nesta seção. Acho que ficaria
+\notahermes{Os conceitos ficaram um tanto misturados nesta seção.
+Acho que ficaria 
 melhor se dividisse em 2 ou 3 seções, por exemplo: uma seção sobre processamento
-em batch ou {\it offline} como Mapreduce/Hadoop, ou o Spark originalmente; uma
-segunda seção poderia falar somente de plataformas de processamento de fluxos;
+em batch ou {\it offline} como Mapreduce/Hadoop, ou o Spark originalmente;
+uma segunda seção poderia falar somente de plataformas de processamento de fluxos;
 terceira poderia falar sobre as arquiteturas (lambda, kappa) que combinam de
 certa forma as plataformas offline e de fluxos. Acho que kafka poderia aparecer
 dentro dessa terceira seção.}
@@ -480,28 +483,36 @@ banco de dados (SGBD) relacional ou não-relacional associado. Essa arquitetura,
 nomeada de arquitetura totalmente incremental por \citeonline{marz2015big},
 foi evoluída e simplificada iterativamente durante décadas de uso, porém ela não
 é adequada para sistemas em tempo real, como os sistema de fluxo de dados.
+O volume e velocidade de dados em um \emph{Data Stream} leva a necessidade de
+distribuir o processamento acrescentando poder computacional a cada nó
+adicionado.
+Porém, desafios como comunicação eficiente e sincronização de estado
+entre os nós assim como tolerância a falhas aumentam a complexidade de
+construção de um sistema distribuído em relação a um sistema tradicional.
 
-
-\notahermes{Eu nem citaria SGBD, isso foi novidade há uns 30 ou 40 anos. Mapreduce já
-tem praticamente 20 anos ... }
+% \notahermes{Eu nem citaria SGBD, isso foi novidade há uns 30 ou 40 anos. Mapreduce já
+% tem praticamente 20 anos ... }
+% \nota{citei somente para ter uma base introdutória, seguindo o livro \cite{marz2015big}}
 
 \newcommand{\lambdaa}{\xspace\emph{Lambda}\xspace}
 \newcommand{\kappaa}{\xspace\emph{Kappa}\xspace}
 
-O volume e velocidade de dados em um \emph{Data Stream} leva a necessidade de
-distribuir o processamento acrescentando poder computacional a cada nó
-adicionado, porém desafios como comunicação eficiente e sincronização de estado
-entre os nós assim como tolerância a falhas aumentam a complexidade de
-construção de um sistema distribuído em relação a um sistema tradicional.
-Para mitigar esses problemas foram propostas arquiteturas de processamento de fluxo
-de dados distribuído, como arquitetura \lambdaa \cite{marz2015big} e \kappaa \cite{Kreps2014}, além de
+Para mitigar problemas associados a construção de sistemas \emph{Big Data}
+e \emph{Data Streams}
+foram propostas arquiteturas de processamento de fluxo
+de dados distribuído, como arquitetura \lambdaa
+\cite{Dean2004,dean2008mapreduce,marz2015big} e \kappaa \cite{Kreps2014}, além
+de
 diversas plataformas tanto de \emph{Big Data} com características de tempo real
 como especializadas em fluxo de dados.
 
-\notahermes{Tem referências para Lambda e Kappa? }
+% \notahermes{Tem referências para Lambda e Kappa? }
+
+\subsection{Arquitetura \lambdaa}
 
 A arquitetura \lambdaa divide o processamento em três camadas: lotes, serviço
-e velocidade. A camada de lotes atua sobre o conjunto mestre em modo de leitura
+e velocidade \cite{Dean2004}.
+A camada de lotes atua sobre o conjunto mestre em modo de leitura
 sequencial, armazenando-o em sistema de arquivos distribuído e pré-processando
 várias visões sobre esse conjunto mestre. Essas visões (armazenadas num SGBD
 tradicional) são consumidas pela camada de serviço, que portanto tem acesso
@@ -510,7 +521,7 @@ No entanto, as garantias oferecidas pela camada de
 lotes (escalabilidade, consistência, tolerância a falhas) não atendem os requisitos
 de latência em um sistema em tempo real, portanto a camada de velocidade
 complementa os dados das visões com dados diretamente do conjunto mestre em
-tempo real diretamente para a camada de serviço \cite{marz2015big}.
+tempo real diretamente para a camada de serviço \cite{dean2008mapreduce,marz2015big}.
 
 A Figura \ref{fig:lambda} ilustra uma implementação da arquitetura \lambdaa
 onde a \emph{Apache Kafka}, \emph{Apache Storm}, \emph{Apache Hadoop}
@@ -523,6 +534,8 @@ respectivamente.
 \caption{Arquitetura \lambdaa com detalhes práticos \cite{Kreps2014}.}
 \label{fig:lambda}
 \end{figure}
+
+\subsection{Arquitetura \kappaa}
 
 Em contraposição à arquitetura \lambdaa, observações práticas de 
 \citeonline{Kreps2014} mostram que o sistema de fila de mensagens
@@ -550,6 +563,8 @@ Em sincronia com os desenvolvimentos em arquiteturas de processamento de fluxo d
 durante as últimas duas décadas foram construídas diversas plataformas de
 processamento para \emph{Big Data} e \emph{Data Streams}.
 % A seguir descrevemos algumas das mais notáveis (?)
+
+\subsection{Plataformas \emph{MapReduce} e \emph{Apache Hadoop}}
 
 \emph{MapReduce} é a primeira plataforma de processamento de conjuntos massivos
 de dados que atingiu uso generalizado.
@@ -598,6 +613,8 @@ YARN} um gerenciador de recursos em cluster e escalonador de trabalhos e,
 % tools including Spark SQL for SQL and structured data processing, MLlib for
 % machine learning, GraphX for graph processing, and Spark Streaming.
 
+\subsection{Plataforma \emph{Apache Spark}}
+
 \emph{Apache Spark}, analogamente ao \emph{Hadoop}, é um \emph{framework} para
 construção de sistemas de computação distribuída em \emph{cluster} com garantias
 de tolerância a falhas. No entanto, o modelo de processamento diverge
@@ -630,6 +647,8 @@ Essa estratégia traz benefícios sobre os sistemas de fluxos de dados distribu�
 tradicionais, pois permite a consistência e recuperação de falhas rapidamente
 devido a linhagem de RDD (\emph{RDD lineage}) e combinação do fluxo de dados com
 consultas em lotes e interativas \cite{sparkStreaming2016,Lopez2018}.
+
+\subsection{Plataforma \emph{Apache Storm}}
 
 O \emph{Apache Storm} é um sistema de computação tolerante a falhas em tempo
 real que facilita o processamento de fluxo de dados
@@ -682,7 +701,7 @@ paralelismo é que ele pode ser alterado em tempo de execução da topologia.
 
 % api em Python (dataframe de pandas)
 % ------------------------------------------------------------------------------------------------------
-\section{Apache Flink}
+\section{Plataforma \emph{Apache Flink}}
 
 O \emph{Apache Flink} é uma plataforma de processamento distribuído para
 computação \emph{stateful} sobre fluxo de dados limitados (tem um início e um
