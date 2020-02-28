@@ -1,0 +1,219 @@
+\documentclass[aspectratio=43,10pt]{beamer}
+
+\usetheme[progressbar=frametitle]{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs}
+% \usepackage[scale=2]{ccicons}
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+\usepackage{xspace}
+\usepackage[english,main=brazilian]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[alf]{abntex2cite}
+\usepackage{multirow}
+\usepackage{ragged2e}
+
+\title[Experimental Design]{Experimentos - \textit{Experimental Design}}
+\subtitle{Seminários de Metodologia Científica}
+\author{Luís Henrique Puhl de Souza}
+\institute{
+Universidade Federal de São Carlos \\
+Centro de Ciências Exatas e de Tecnologia \\
+Departamento de Computação \\
+Programa de Pós-Graduação em Ciência da Computação}
+% \date{\today}
+\date{Outubro 2018}
+% \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Índice}
+  \setbeamertemplate{section in toc}[sections numbered]
+  \tableofcontents[hideallsubsections]
+\end{frame}
+
+\section{Introdução}
+\begin{frame}[fragile]{Introdução}
+    Dentro da rotina de experimentos, onde preocupa-se em relacionar fatores (variáveis),
+    o \textbf{planejamento de experimentos} (\textit{Experimental Design} ou \textit{Design of Experiments -- DoE})
+    é o momento dedicado a formular métricas e organizar a sua extração de maneira a
+    estatisticamente garantir a modificação das variáveis de interesse e minimizar a interferência 
+    de todas as outras variáveis.
+\end{frame}
+
+% sugestão da carol para layout
+% contexto
+% definição
+% componentes
+% aplicação (artigo)
+
+\begin{frame}[fragile]{Histórico}
+    \citeonline{montgomery2008} descreve as 4 eras do desenho experimental estatístico:
+
+    \begin{alertblock}{Agrícola}
+        \citeonline{fisher1935} apresenta os princípios de \textbf{aleatoriedade}, \textbf{blocos} e \textbf{replicação}
+        e introduz entre outros  \textbf{desenho de conceito fatorial} e análise de variança (\textbf{ANOVA}).
+    \end{alertblock}
+    \begin{alertblock}{Industrial}
+        \citeonline{box1951} aponta as características de experimentos industriais e propõe: 
+        \textbf{imediatismo} e \textbf{sequencialidade}.
+    \end{alertblock}
+    \begin{alertblock}{Design de experimento ótimo}
+        \citeonline{KieferJ;WolfowitzJ1959} apresentam esse método \textbf{formal} de selecionar um desenho ótimo.
+        Não difundidos por limitações computacionais.
+    \end{alertblock}
+    \begin{alertblock}{Design robusto de parâmetros}
+        Introduzido por \citeonline{taguchi1979introduction} e extremamente popular (aplicado \textbf{industrialmente}) 
+        e controverso (inicialmente não referendado).
+    \end{alertblock}
+    
+\end{frame}
+
+\begin{frame}{Por que adotar o design de experimentos?}
+   Segundo \citeonline{Coleman1993} não adotar métodos estatísticos em experimentos pode causar:
+   \begin{itemize}
+       \item Pressupostos injustificáveis;
+       \item Combinações e controles indesejáveis de variáveis;
+       \item Design excessivamente grandes ou pequenos;
+       \item Precisão de medição inadequada;
+       \item Erros de predição inaceitáveis;
+       \item Ordem de execução indesejada;
+       \item Não entendimento dos efeitos de uma interação;
+       \item Identificação inadequada de fatores;
+       \item Propagação de erros para futuros experimentos.
+   \end{itemize}
+\end{frame}
+
+\section{Referencial Teórico}
+
+\begin{frame}[allowframebreaks]{Terminologia de experimentos}
+    \metroset{block=fill}
+    \begin{exampleblock}{Fatores}
+        ou entradas, podem ser mensuráveis, controláveis e/ou influenciar as variáveis de resposta.
+    \end{exampleblock}
+    \begin{exampleblock}{Níveis}
+        configurações de cada fator no estudo, ou seja, diferentes
+        valores que um determinado fator pode assumir.
+    \end{exampleblock}
+    \begin{exampleblock}{Variável de Resposta}
+        saída do experimento.
+    \end{exampleblock}
+    \begin{exampleblock}{Placebo}
+        Tratamento falso, frequentemente usado com o grupo de controle.
+    \end{exampleblock}
+    \begin{exampleblock}{Efeito Placebo}
+        Quando a unidade experimental apresenta resultado porque acredita estar recebendo 
+        o tratamento.
+    \end{exampleblock}
+    \begin{exampleblock}{Experimento cego:}
+        É o experimento em que somente o pesquisador conhece quais 
+        os tratamentos foram alocados às unidades experimentais
+        ou parcelas. O avaliador desconhece essa informação.
+    \end{exampleblock}
+    \begin{exampleblock}{Experimento duplo-cego:}
+        É o experimento em que o pesquisador e o avaliador desconhecem quais
+        os tratamentos foram alocados às unidades experimentais ou parcelas.
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}{Categorias de fatores em experimentos}
+    \begin{figure}
+      \centering
+      \includegraphics[width=0.9\textwidth]{fatores.png}
+      \caption{Diferentes categorias de fatores que afetam as variáveis de resposta. Fonte: \citeonline{Coleman1993}}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Métodos de Fisher}
+    Segundo \citeonline{fisher1935}, há três métodos que objetivam o isolamento de fatores
+    não controlados:
+    \metroset{block=fill}
+    \begin{exampleblock}{Aleatoriedade}
+        da ordem de aplicação do experimento (fatores desconhecidos).
+    \end{exampleblock}
+    \begin{exampleblock}{Blocos}
+        homogêneos de sujeitos (fatores conhecidos).
+    \end{exampleblock}
+    \begin{exampleblock}{Replicação}
+        em escala suficientemente grande (previne erros de medição).
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}{Exemplo não científico}
+    \begin{figure}
+      \centering
+      \includegraphics[width=0.8\textwidth]{exemplo.png}
+      \caption{Exemplo ilustrando fatores, níveis e respostas. Fonte: \citeonline{Skrivanek2011}}
+    \end{figure}
+\end{frame}
+\begin{frame}[fragile]{Processo de Experimento}
+    \begin{figure}
+      \centering
+      \includegraphics[width=\textwidth]{refs/montgomery-1993-table.PNG}
+      \caption{Orientações para planejamento de um experimento. Fonte: \citeonline{Coleman1993}.}
+    \end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Modelos de design}
+
+\begin{frame}{Completamente aleatorizado}
+    Os tratamentos são distribuídos em \textbf{ordem aleatória}.
+    O ambiente deve ser \textbf{homogêneo}. Segue os princípios da \textbf{repetição e aleatorização}.
+    
+    \begin{exampleblock}{Exemplo}
+    Um engenheiro tem como objetivo verificar o desgaste de pneus de carros de diferentes marcas.
+    Quatro marcas diferentes são testadas em quatro carros diferentes.
+    
+    Fichas de 1 a 16 são distribuídas para cada um dos pneus.
+    A análise de variância é feita, então determina-se os desgastes de cada marca de pneu.
+    \end{exampleblock}
+      
+\end{frame}
+
+\begin{frame}{Conclusão do Artigo}
+  \justifying Essa otimização pode reduzir o custo total do armazenamento sem adição ou troca de hardware.
+  \vspace{0.5cm}
+
+  Os resultados mostram que o DoE pode ser aplicado como método heurístico para determinar um aumento de desempenho apenas realizando ajustes em configurações.
+\end{frame}
+
+\section{Conclusão}
+
+\begin{frame}{Conclusão}
+    Esse tema é de extrema importância para muitos tipos de pesquisa por ser uma ferramenta
+    formalizada. No entanto, o domínio das ferramentas estatísticas são uma barreira
+    para maior adoção dessa metodologia.
+    
+    Em destaque a clara diferença que encontramos em nossas pesquisas entre material didático ou empírico (comum)
+    e material referendado (artigos), onde o comum cita muito o DoE clássico de Fisher e os artigos 
+    se utilizam de técnicas modernas altamente fundamentadas em estatística.
+\end{frame}
+
+\begin{frame}{Sumário}
+    DoE foca em preparar o experimento considerado fatores e resultados de modo à minimizar fatores não controlados.
+    
+    Com isso define diferentes desenhos para tratar diferentes fatores e volumes de fatores.
+\end{frame}
+
+{\setbeamercolor{palette primary}{fg=black, bg=yellow}\begin{frame}[standout]
+  Dúvidas?
+\end{frame}}
+
+\appendix
+
+\begin{frame}[fragile]{Recomendações de Leitura}
+   \begin{figure}
+      \centering
+      \includegraphics[height=0.75\textheight]{refs/Montgomery-cover.jpg}
+      \caption{\textit{Design and Analysis of Experiments -- Eighth edition} de \citeonline{montgomery2008}.}
+    \end{figure}
+\end{frame}
+
+\begin{frame}[allowframebreaks]{Referências}
+  \bibliography{99.referencias.bib}
+\end{frame}
+
+\end{document}
