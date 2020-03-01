@@ -12,6 +12,7 @@
 \usepackage[alf]{abntex2cite}
 \usepackage{multirow}
 \usepackage{ragged2e}
+\usepackage{xspace}
 
 \title[]{Uma Implementação Distribuída em Névoa do Algoritmo de Detecção de Novidade em Fluxos de Dados MINAS}
 % \subtitle{Seminários de Metodologia Científica}
@@ -67,6 +68,44 @@ qualidade de detecção.
 \end{itemize}
 \end{frame}
 
+
+\begin{frame}[fragile]{Fundamentos}
+Ambientes de computação Distribuída;
+
+\begin{itemize}
+  \item Computação em Nuvem (\emph{Cloud Computing}) como definido em \citeonline{NIST2011}:
+  \begin{itemize}
+    
+    \item \textbf{Características:}
+    Serviço sob Demanda,
+    Amplo acesso à rede,
+    Agrupamento de recursos,
+    Elasticidade,
+    Serviço mensurado;
+    
+    \item \textbf{Implementações:}
+    Nuvem privada,
+    Nuvem comunitária,
+    Nuvem pública,
+    Nuvem híbrida.
+
+  \end{itemize}
+  \item Computação de Borda (\emph{Edge Computing}) como definido em \citeonline{Shi2016}:
+  
+  \item Computação em Névoa (\emph{Fog Computing})
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Fundamentos}
+Plataformas de processamento distribuído de fluxos;
+\end{frame}
+
+\begin{frame}[fragile]{Fundamentos}
+Métodos Detecção de Novidade;
+\end{frame}
+
+
+
 \section{Estado da Arte e Trabalhos Relacionados}
 \begin{frame}[fragile]{Estado da Arte e Trabalhos Relacionados}
 \begin{itemize}
@@ -75,6 +114,8 @@ qualidade de detecção.
 \end{itemize}
 \end{frame}
 
+\newcommand{\mfog}{sistema M-FOG\xspace}
+
 \section{Proposta}
 \begin{frame}[fragile]{Proposta}
 \begin{itemize}
@@ -82,6 +123,15 @@ qualidade de detecção.
 \item Arquitetura IDS-IoT;
 \item M-FOG e a distribuição do algoritmo MINAS;
 \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Proposta}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/mfog.png}
+  \caption{Arquitetura e fluxos de dados do \mfog.}
+  \label{fig:arch}
+\end{figure}
 \end{frame}
 
 \section{Resultados Preliminares}
