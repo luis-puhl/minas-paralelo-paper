@@ -139,10 +139,50 @@ qualidade de detecção.
 \end{figure}
 \end{frame}
 
+\newcommand{\novelty}{\emph{Novelty Detection}\xspace}
+\newcommand{\nd}{ND\xspace}
+\newcommand{\drift}{\emph{Concept Drift}\xspace}
+\newcommand{\evolution}{\emph{Concept Evolution}\xspace}
+
 \begin{frame}[fragile]{Fundamentos}
-Métodos Detecção de Novidade;
+\begin{alertblock}{Métodos Detecção de Novidade}
+  
+  \vspace{5mm}
+  Métodos Detecção de Novidade (\novelty) lidam com o reconhecimento e
+  classificação de exemplos em padrões que diferem de padrões anteriores
+  \cite{PERNER2007,Gama2010}.
+
+  Conforme \citeonline{Gama2010}, são características de fluxos de dados contínuos:
+  \begin{itemize}
+    \item Evolução de conceito (\evolution);
+    \item Mudança de conceito (\drift, deriva ou desvio);
+    \item Ruído e \emph{outliers};
+  \end{itemize}
+\end{alertblock}
+\end{frame}
+\begin{frame}[fragile]{Fundamentos}
+\begin{alertblock}{Algoritmo MINAS}
+  \vspace{5mm}
+  Algoritmo e suas estratégias:
+  \begin{itemize}
+    \item Modelo de aprendizado \emph{Offline-Online};
+    \item Transformação dos dados analisados para o espaço $\mathbb{R}^d$;
+    \item Função de classificação baseada em distância euclideana;
+    \item Modelo de classificação com \emph{Clusters};
+    \item Algoritmo de agrupamento para identificação de padrões;
+  \end{itemize}
+\end{alertblock}
 \end{frame}
 
+\begin{frame}[fragile]{Fundamentos}
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{figuras/FariaMinas2015-fases.png}
+\caption{Visão geral do algoritmo MINAS com fases \emph{Offline} (a) e 
+\emph{Online} (b) \cite{Faria2016minas}}
+\label{fig:minas}
+\end{figure}
+\end{frame}
 
 
 \section{Estado da Arte e Trabalhos Relacionados}
@@ -151,6 +191,55 @@ Métodos Detecção de Novidade;
 \item Extensões do Algoritmo MINAS;
 \item Sistemas de detecção de intrusão em redes;
 \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Estado da Arte e Trabalhos Relacionados}
+\begin{alertblock}{Extensões do Algoritmo MINAS}
+  \begin{itemize}
+    \item FuzzyND: extensão do algoritmo original para classificação com
+    conjunto de etiquetas \emph{fuzzy} \cite{DaSilva2018,DaSilva2018thesis};
+    \item MINAS-LC e MINAS-BR: extensão do algoritmo original tratando
+    classificação multi-etiquetas \cite{Costa2019,Costa2019thesis};
+  \end{itemize}
+\end{alertblock}
+\end{frame}
+
+\newcommand{\idsiot}{IDSA-IoT\xspace}
+
+\begin{frame}[fragile]{Estado da Arte e Trabalhos Relacionados}
+\begin{alertblock}{Sistemas de detecção de intrusão em redes}
+  \begin{itemize}
+    \item Ferramenta BigFlow \cite{Viegas2019};
+    \item Ferramenta CATRACA \cite{Lopez2018};
+    \item Arquitetura \idsiot \cite{Cassales2019a};
+  \end{itemize}
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Estado da Arte e Trabalhos Relacionados}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{figuras/bigflow-fig5-bigflow_arch.png}
+  \caption{Visão geral da arquitetura e distribuição da ferramenta BigFlow \cite{Viegas2019}.}
+  \label{fig:bigflow-arch}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]{Estado da Arte e Trabalhos Relacionados}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/catraca-arch.png}
+  \caption{Arquitetura em camadas da ferramenta CATRACA \cite{Lopez2018}.}
+  \label{fig:catraca}
+\end{figure}
+\end{frame}
+\begin{frame}[fragile]{Estado da Arte e Trabalhos Relacionados}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/idsa-iot-quali-004.png}
+  \caption{Distribuição de Serviços da Arquitetura \idsiot.
+  Produzida e traduzida por \citeonline{Cassales2019a}.}
+  \label{fig:ids-iot}
+\end{figure}
 \end{frame}
 
 \newcommand{\mfog}{sistema M-FOG\xspace}
