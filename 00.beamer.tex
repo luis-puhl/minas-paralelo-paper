@@ -249,8 +249,37 @@ qualidade de detecção.
 \begin{itemize}
 \item Plataforma de processamento distribuído;
 \item Arquitetura IDS-IoT;
-\item M-FOG e a distribuição do algoritmo MINAS;
+\item Distribuição do algoritmo MINAS;
+\item Validação da implementação por comparação de métricas de qualidade;
+\item Métricas de escalabilidade;
 \end{itemize}
+\end{frame}
+
+
+\newcommand{\source}{módulo auxiliar \emph{source}\xspace}
+\newcommand{\sink}{módulo auxiliar \emph{sink}\xspace}
+
+\newcommand{\offline}{módulo treinamento\xspace}
+\newcommand{\classify}{módulo classificador\xspace}
+\newcommand{\detector}{módulo detector de novidades\xspace}
+
+\begin{frame}[fragile]{Proposta}
+
+  O \mfog é dividido em 5 módulos subdivididos em 2 grupos.
+  
+  \begin{alertblock}{Módulos principais implementam o algoritmo MINAS}
+    \begin{itemize}
+      \item \offline (\emph{Training Module});
+      \item \classify (\emph{Classification Module});
+      \item \detector (\emph{Novelty Detection Module}).
+    \end{itemize}
+  \end{alertblock}
+  \begin{alertblock}{Módulos auxiliares, utilizados para avaliação}
+    \begin{itemize}
+      \item \source (fonte);
+      \item \sink (sorvedouro, consumidor final).
+    \end{itemize}
+  \end{alertblock}
 \end{frame}
 
 \begin{frame}[fragile]{Proposta}
@@ -264,10 +293,57 @@ qualidade de detecção.
 
 \section{Resultados Preliminares}
 \begin{frame}[fragile]{Resultados Preliminares}
-\begin{itemize}
-\item Python e Kafka;
-\item Flink;
-\end{itemize}
+
+  \begin{alertblock}{Primeira Implementação com \emph{Python} e \emph{Apache Kafka}}
+    \begin{itemize}
+      \item \emph{Python} é acessível e fornece bibliotecas diversas;
+      \item \emph{Apache Kafka} é um sistema de mensagens distribuído;
+      \begin{itemize}
+        \item Interface de programação com cliente produtor e consumidor;
+        \item Mensagens organizadas em tópicos que são distribuídos em partições;
+      \end{itemize}
+      \item A hipótese de que a carga seria distribuída entre os consumidores,
+      uma vez que o consumidor pode selecionar uma partição para leitura;
+      \item Em experimento com um produtor, 8 partições e 8 consumidores,
+      observou-se que um consumidor processava a maior parte das mensagens,
+      poucos consumidores recebiam algumas mensagens e a maioria dos consumidores
+      não recebia mensagem alguma.
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Resultados Preliminares}
+  \begin{alertblock}{Segunda Implementação com \emph{Apache Flink}}
+    \begin{itemize}
+      \item Implementação escrita em Scala ou Java;
+      \item Processamento de fluxos \emph{Stateful};
+      \item Falta de bibliotecas que distribuam algoritmos base como \emph{K-means};
+      \item Sistema \emph{M-FOG} em desenvolvimento, atualmente na fase de
+      validação através das métricas de qualidade de classificação.
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Resultados Preliminares}
+  \begin{alertblock}{Métricas e Ambientes}
+    \begin{itemize}
+      \item Métricas de qualidade de classificação:
+      \begin{itemize}
+        \item Avaliação do fluxo de saída do classificador;
+        \item Uso de uma matriz de confusão ou erro;
+        \item Taxa de desconhecidos;
+        \item Macro F-score;
+      \end{itemize}
+      \item Métricas de escalabilidade:
+      \begin{itemize}
+        \item Número e tipo de processadores;
+        \item Uso de memória;
+        \item Tempo de processamento;
+        \item Taxa de eventos;
+        \item Latência entre a produção e classificação.
+      \end{itemize}
+    \end{itemize}
+  \end{alertblock}
 \end{frame}
 
 \section{Considerações Finais}
