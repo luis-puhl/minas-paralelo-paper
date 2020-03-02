@@ -70,34 +70,73 @@ qualidade de detecção.
 
 
 \begin{frame}[fragile]{Fundamentos}
-Ambientes de computação Distribuída;
-
+\begin{alertblock}{Ambientes de computação Distribuída}
 \begin{itemize}
-  \item Computação em Nuvem (\emph{Cloud Computing}) como definido em \citeonline{NIST2011}:
-  \begin{itemize}
-    
-    \item \textbf{Características:}
-    Serviço sob Demanda,
-    Amplo acesso à rede,
-    Agrupamento de recursos,
-    Elasticidade,
-    Serviço mensurado;
-    
-    \item \textbf{Implementações:}
+  \item Computação em Nuvem (\emph{Cloud Computing}):
+  \\ \textbf{Características:}
+  Serviço sob Demanda,
+  Amplo acesso à rede,
+  Agrupamento de recursos,
+  Elasticidade,
+  Serviço mensurado;
+  \\ \textbf{Implementações:}
     Nuvem privada,
     Nuvem comunitária,
     Nuvem pública,
-    Nuvem híbrida.
-
-  \end{itemize}
-  \item Computação de Borda (\emph{Edge Computing}) como definido em \citeonline{Shi2016}:
+    Nuvem híbrida
+    \cite{NIST2011}.
   
-  \item Computação em Névoa (\emph{Fog Computing})
 \end{itemize}
+\end{alertblock}
+\end{frame}
+
+{%
+\setbeamertemplate{frame footer}{Terminologia continua incerta entre \emph{fog} e \emph{edge}.}
+\begin{frame}[fragile]{Fundamentos}
+  \begin{alertblock}{Ambientes de computação Distribuída}
+  \begin{itemize}
+    
+  \item Computação de Borda (\emph{Edge Computing}) \cite{Shi2016}:
+  \\ Refere-se a qualquer recurso computacional ou de rede entre os dispositivos
+  de borda e centro de dados hospedados em nuvem.
+  
+  \item Computação em Névoa (\emph{Fog Computing}) \cite{Bonomi2012,dastjerdi2016}:
+  \\ \textbf{Características:}
+  Mobilidade,
+  Heterogeneidade,
+  Baixa Latência,
+  Distribuição geográfica,
+  Alto número de nós,
+  Interoperabilidade e federação,
+  Uso de fluxo de dados e aplicações em tempo real
+  \cite{IEEECommunicationsSociety2018}.
+\end{itemize}
+\end{alertblock}
+\end{frame}
+}
+
+
+\begin{frame}[fragile]{Fundamentos}
+\begin{alertblock}{Plataformas de processamento distribuído de fluxos}
+  \begin{itemize}
+    \item Mineração de Dados e Fluxo de Dados;
+    \item Arquiteturas \emph{Lambda} e \emph{Kappa};
+    \item \emph{MapReduce} e \emph{Apache Hadoop};
+    \item \emph{Apache Spark}, \emph{Resilient Distributed Dataset} e
+    \emph{micro-batching} para \emph{Spark Streaming};
+    \item \emph{Apache Storm};
+    \item \emph{Apache Flink};
+  \end{itemize}
+\end{alertblock}
 \end{frame}
 
 \begin{frame}[fragile]{Fundamentos}
-Plataformas de processamento distribuído de fluxos;
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.85\textwidth]{figuras/dataflow-code-flink.png}
+\caption{Exemplo de código e \emph{data flow} do \emph{Apache Flink} \cite{ApacheFlink2020}}
+\label{fig:dataflow-flink}
+\end{figure}
 \end{frame}
 
 \begin{frame}[fragile]{Fundamentos}
