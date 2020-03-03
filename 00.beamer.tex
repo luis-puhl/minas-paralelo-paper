@@ -27,6 +27,8 @@ Programa de Pós-Graduação em Ciência da Computação}
 \date{Fevereiro 2020}
 % \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
 
+\newcommand{\nota}[1]{\hspace*{-0.5cm}\textit{{\color[rgb]{1,0,0}Nota: #1}}}
+
 \begin{document}
 
 \maketitle
@@ -56,6 +58,11 @@ nós de nuvem e névoa reduzindo a latência e com pouco comprometimento na
 qualidade de detecção.
 
 \end{itemize}
+
+\nota{pode falar:\\
+- dificuldade de atualização de SW\\
+- como foi o ataque MIRAI? (só curiosidade)\\
+- capacidade de autodefesa? mesmo outros computadores não têm...}
 \end{frame}
 
 
@@ -66,6 +73,7 @@ qualidade de detecção.
 \item Plataformas de processamento distribuído de fluxos;
 \item Métodos Detecção de Novidade;
 \end{itemize}
+\nota{Por que "seria dificil processar de forma centralizado"?}
 \end{frame}
 
 
@@ -88,6 +96,7 @@ qualidade de detecção.
   
 \end{itemize}
 \end{alertblock}
+\nota{Separar os items em bullets (sub-bullets)}
 \end{frame}
 
 {%
@@ -112,6 +121,9 @@ qualidade de detecção.
   \cite{IEEECommunicationsSociety2018}.
 \end{itemize}
 \end{alertblock}
+\nota{Definição de Fog e borda...\\
+São intercambeáveis mesmo?\\
+(*Evite colocar questões inconclusivas)}
 \end{frame}
 }
 
@@ -128,6 +140,14 @@ qualidade de detecção.
     \item \emph{Apache Flink};
   \end{itemize}
 \end{alertblock}
+\nota{Faltou definir antes o que é processamento de fluxo.\\
+\textbf{fluxo vs lote} deixar mais claro a diferença}
+
+\nota{O slide fala de plataformas, mas vc falou de kappa e lambda
+que não deveria falar neste slide}
+
+\nota{Muita fala p/ esse slide (ficou explicando cada fundamento).
+Deveria quebrar o slide em 3 ou 4 slides ao menos.}
 \end{frame}
 
 \begin{frame}[fragile]{Fundamentos}
@@ -159,7 +179,10 @@ qualidade de detecção.
     \item Ruído e \emph{outliers};
   \end{itemize}
 \end{alertblock}
+\nota{Poderia explicar melhor a evolução de modelos, "concept drift"
+(precisa estudar um pouco + a teoria).}
 \end{frame}
+
 \begin{frame}[fragile]{Fundamentos}
 \begin{alertblock}{Algoritmo MINAS}
   \vspace{5mm}
@@ -172,6 +195,7 @@ qualidade de detecção.
     \item Algoritmo de agrupamento para identificação de padrões;
   \end{itemize}
 \end{alertblock}
+\nota{MINAS: Use figura!\\pseudocodigo?}
 \end{frame}
 
 \begin{frame}[fragile]{Fundamentos}
@@ -182,6 +206,7 @@ qualidade de detecção.
 \emph{Online} (b) \cite{Faria2016minas}}
 \label{fig:minas}
 \end{figure}
+\nota{Explique o desenho! o que significa cada objeto da figura? explique na figura.}
 \end{frame}
 
 
@@ -191,6 +216,9 @@ qualidade de detecção.
 \item Extensões do Algoritmo MINAS;
 \item Sistemas de detecção de intrusão em redes;
 \end{itemize}
+\nota{Trabalhos relacionados * extensões? esses são seus concorrentes?\\
+qual é a relação?\\
+MEIO FORA DE FOCO!}
 \end{frame}
 
 \begin{frame}[fragile]{Estado da Arte e Trabalhos Relacionados}
@@ -214,6 +242,9 @@ qualidade de detecção.
     \item Arquitetura \idsiot \cite{Cassales2019a};
   \end{itemize}
 \end{alertblock}
+\nota{OK, isso é trabalho relacionado!\\
+Dissecar melhor [bigflow, catraca, idsa-iot]\\
+passar mais rápido, detalhar nos próximos.}
 \end{frame}
 
 \begin{frame}[fragile]{Estado da Arte e Trabalhos Relacionados}
@@ -223,7 +254,11 @@ qualidade de detecção.
   \caption{Visão geral da arquitetura e distribuição da ferramenta BigFlow \cite{Viegas2019}.}
   \label{fig:bigflow-arch}
 \end{figure}
+\nota{BigFlow usa stream mining?\\
+- qual é a grande contribuição?\\
+- qual é a limitação?}
 \end{frame}
+
 \begin{frame}[fragile]{Estado da Arte e Trabalhos Relacionados}
 \begin{figure}[ht]
   \centering
@@ -231,7 +266,9 @@ qualidade de detecção.
   \caption{Arquitetura em camadas da ferramenta CATRACA \cite{Lopez2018}.}
   \label{fig:catraca}
 \end{figure}
+\nota{catraca: contribuição? limitação?}
 \end{frame}
+
 \begin{frame}[fragile]{Estado da Arte e Trabalhos Relacionados}
 \begin{figure}[ht]
   \centering
@@ -253,6 +290,9 @@ qualidade de detecção.
 \item Validação da implementação por comparação de métricas de qualidade;
 \item Métricas de escalabilidade;
 \end{itemize}
+\nota{Proposta\\
+- poderia fazer algumas "perguntas" antes de fazer a sua proposta\\
+=> quais perguntas? (voce precisa saber quais)}
 \end{frame}
 
 
@@ -283,6 +323,10 @@ qualidade de detecção.
 \end{frame}
 
 \begin{frame}[fragile]{Proposta}
+\nota{Modulo ou componente?\\
+Achei meio confusa a figura, difícil de distinguir:\\
+- parte offline vs Online\\
+- roda na fog vs roda na nuvem}
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.8\textwidth]{figuras/mfog.png}
@@ -310,6 +354,8 @@ qualidade de detecção.
       não recebia mensagem alguma.
     \end{itemize}
   \end{alertblock}
+\nota{\textsc{cuidado,} o fato de vc não ter conseguido não significa que não é possível\\
+concluir que "o sistema não escala ..." (pode citar, só tome cuidado com a conclusão tirada)}
 \end{frame}
 
 \begin{frame}[fragile]{Resultados Preliminares}
@@ -322,6 +368,11 @@ qualidade de detecção.
       validação através das métricas de qualidade de classificação.
     \end{itemize}
   \end{alertblock}
+\nota{métricas: Tem a fórmula? expressão?}
+
+\nota{"Avaliação do fluxo de saída do classificador" isto é uma métrica?}
+
+\nota{Incluir CR}
 \end{frame}
 
 \begin{frame}[fragile]{Resultados Preliminares}
