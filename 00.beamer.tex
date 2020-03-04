@@ -14,7 +14,11 @@
 \usepackage{ragged2e}
 \usepackage{xspace}
 
-\title[]{Uma Implementação Distribuída em Névoa do Algoritmo de Detecção de Novidade em Fluxos de Dados MINAS}
+\usepackage{pgfgantt}
+\usepackage[inline]{enumitem}
+
+\title[]{Uma Implementação Distribuída em Névoa do Algoritmo de Detecção de
+Novidade em Fluxos de Dados MINAS}
 % \subtitle{Seminários de Metodologia Científica}
 \author{Luís Henrique Puhl de Souza\\
 Orientador: Prof. Dr. Hermes Senger}
@@ -76,6 +80,46 @@ qualidade de detecção.
 \nota{Por que "seria dificil processar de forma centralizado"?}
 \end{frame}
 
+\begin{frame}[fragile]{Fundamentos}
+
+\metroset{block=fill}
+
+\begin{block}{Definição de Fluxo de Dados}
+  
+  \vspace{5mm}
+  Defu
+
+  \begin{itemize}
+    \item Evolução;
+    \item Mudança;
+    \item Ruído;
+  \end{itemize}
+\end{block}
+\end{frame}
+
+\newcommand{\novelty}{\emph{Novelty Detection}\xspace}
+\newcommand{\nd}{ND\xspace}
+\newcommand{\drift}{\emph{Concept Drift}\xspace}
+\newcommand{\evolution}{\emph{Concept Evolution}\xspace}
+
+\begin{frame}[fragile]{Fundamentos}
+  \begin{alertblock}{Métodos Detecção de Novidade}
+    
+    \vspace{5mm}
+    Métodos Detecção de Novidade (\novelty) lidam com o reconhecimento e
+    classificação de exemplos em padrões que diferem de padrões anteriores
+    \cite{PERNER2007,Gama2010}.
+  
+    Conforme \citeonline{Gama2010}, são características de fluxos de dados contínuos:
+    \begin{itemize}
+      \item Evolução de conceito (\evolution);
+      \item Mudança de conceito (\drift, deriva ou desvio);
+      \item Ruído e \emph{outliers};
+    \end{itemize}
+  \end{alertblock}
+\nota{Poderia explicar melhor a evolução de modelos, "concept drift"
+(precisa estudar um pouco + a teoria).}
+\end{frame}
 
 \begin{frame}[fragile]{Fundamentos}
 \begin{alertblock}{Ambientes de computação Distribuída}
@@ -157,30 +201,6 @@ Deveria quebrar o slide em 3 ou 4 slides ao menos.}
 \caption{Exemplo de código e \emph{data flow} do \emph{Apache Flink} \cite{ApacheFlink2020}}
 \label{fig:dataflow-flink}
 \end{figure}
-\end{frame}
-
-\newcommand{\novelty}{\emph{Novelty Detection}\xspace}
-\newcommand{\nd}{ND\xspace}
-\newcommand{\drift}{\emph{Concept Drift}\xspace}
-\newcommand{\evolution}{\emph{Concept Evolution}\xspace}
-
-\begin{frame}[fragile]{Fundamentos}
-\begin{alertblock}{Métodos Detecção de Novidade}
-  
-  \vspace{5mm}
-  Métodos Detecção de Novidade (\novelty) lidam com o reconhecimento e
-  classificação de exemplos em padrões que diferem de padrões anteriores
-  \cite{PERNER2007,Gama2010}.
-
-  Conforme \citeonline{Gama2010}, são características de fluxos de dados contínuos:
-  \begin{itemize}
-    \item Evolução de conceito (\evolution);
-    \item Mudança de conceito (\drift, deriva ou desvio);
-    \item Ruído e \emph{outliers};
-  \end{itemize}
-\end{alertblock}
-\nota{Poderia explicar melhor a evolução de modelos, "concept drift"
-(precisa estudar um pouco + a teoria).}
 \end{frame}
 
 \begin{frame}[fragile]{Fundamentos}
@@ -400,6 +420,55 @@ concluir que "o sistema não escala ..." (pode citar, só tome cuidado com a con
 \section{Considerações Finais}
 \begin{frame}{Considerações Finais}
 Trabalho continua com a finalização da implementação e validação do MFOG com MINAS.
+\end{frame}
+
+\begin{frame}{Considerações Finais}
+
+% \begin{enumerate}[label=\Alph*)]
+%   \item \label{task:Z} Exame de Qualificação;
+%   \item \label{task:A} Desenvolvimento da aplicação;
+%   \item \label{task:B} Validação da aplicação em contraste com a implementação
+%   MINAS original:
+%     \begin{itemize}
+%       \item preparação e, se necessário, adaptação da implementação
+%       original e \emph{data sets};
+%       \item comparação e, se necessário, ajustes à implementação.
+%     \end{itemize}
+%   \item \label{task:C} Experimentos com \emph{data sets} e estratégias de 
+%   distribuição em \emph{fog};
+%   \item \label{task:D} Submissão de artigos com resultados de (\ref{task:C}
+%   \item \label{task:E} Defesa da Dissertação.
+%   % \item \label{task:E} Comparação com outros trabalhos, envolvendo:
+%   %   \begin{itemize}
+%   %     \item preparação e, se necessário, adaptação dos programas e \emph{data sets};
+%   %     \item comparação e publicação dos resultados.
+%   %   \end{itemize}
+% \end{enumerate}
+
+\noindent\begin{ganttchart}[
+  vgrid,
+  time slot format=isodate-yearmonth,
+  time slot unit=month,
+  expand chart=\textwidth,
+  inline,
+  title height = 1,
+  y unit title = 0.6cm,
+  y unit chart = 0.7cm,
+  bar height = .8,
+  bar left shift=.05,
+  bar right shift=-.05,
+  bar/.style={fill=blue!55, rounded corners=3pt}
+]{2020-03}{2020-07}
+  \gantttitlecalendar{year, month} \\
+  % \ganttmilestone{(\ref{task:Z}}{2020-03-02} \\
+  \ganttbar{(Exame de Qualificação)}{2020-03}{2020-03} \\
+  \ganttbar{(Desenvolvimento da aplicação)}{2020-03}{2020-03} \\
+  \ganttbar{(Validação da aplicação em contraste com a implementaçã)}{2020-03}{2020-04} \\
+  \ganttbar{(Experimentos com \emph{data sets} e estratégias de)}{2020-03}{2020-05} \\
+  \ganttbar{(Submissão de artigos com resultados de (\ref{task:C)}{2020-04}{2020-07} \\
+  \ganttbar{(Defesa da Dissertação)}{2020-06}{2020-07} \\
+\end{ganttchart}
+
 \end{frame}
 
 {\setbeamercolor{palette primary}{fg=black, bg=yellow}\begin{frame}[standout]
