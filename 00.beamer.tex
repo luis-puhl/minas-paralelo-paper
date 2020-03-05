@@ -343,13 +343,16 @@ passar mais rápido, detalhar nos próximos.}
 \end{frame}
 
 \begin{frame}[fragile]{Proposta}
-\nota{Modulo ou componente?\\
-Achei meio confusa a figura, difícil de distinguir:\\
-- parte offline vs Online\\
-- roda na fog vs roda na nuvem}
+% \nota{Modulo ou componente?\\
+% Achei meio confusa a figura, difícil de distinguir:\\
+% - parte offline vs Online\\
+% - roda na fog vs roda na nuvem}
+% \hspace*{-2cm}
+\vspace{-0.5cm}
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.8\textwidth]{figuras/mfog-arch-v2_pt-br.png}
+  \hspace*{-0.9cm}
+  \includegraphics[width=1.15\textwidth]{figuras/mfog-arch-v3_pt-br.png}
   \caption{Arquitetura e fluxos de dados do \mfog.}
   \label{fig:arch}
 \end{figure}
@@ -422,30 +425,9 @@ concluir que "o sistema não escala ..." (pode citar, só tome cuidado com a con
 Trabalho continua com a finalização da implementação e validação do MFOG com MINAS.
 \end{frame}
 
-\begin{frame}{Considerações Finais}
-
-% \begin{enumerate}[label=\Alph*)]
-%   \item \label{task:Z} Exame de Qualificação;
-%   \item \label{task:A} Desenvolvimento da aplicação;
-%   \item \label{task:B} Validação da aplicação em contraste com a implementação
-%   MINAS original:
-%     \begin{itemize}
-%       \item preparação e, se necessário, adaptação da implementação
-%       original e \emph{data sets};
-%       \item comparação e, se necessário, ajustes à implementação.
-%     \end{itemize}
-%   \item \label{task:C} Experimentos com \emph{data sets} e estratégias de 
-%   distribuição em \emph{fog};
-%   \item \label{task:D} Submissão de artigos com resultados de (\ref{task:C}
-%   \item \label{task:E} Defesa da Dissertação.
-%   % \item \label{task:E} Comparação com outros trabalhos, envolvendo:
-%   %   \begin{itemize}
-%   %     \item preparação e, se necessário, adaptação dos programas e \emph{data sets};
-%   %     \item comparação e publicação dos resultados.
-%   %   \end{itemize}
-% \end{enumerate}
-
-\noindent\begin{ganttchart}[
+\begin{frame}{Cronograma}
+\noindent{
+  \begin{ganttchart}[
   vgrid,
   time slot format=isodate-yearmonth,
   time slot unit=month,
@@ -460,15 +442,14 @@ Trabalho continua com a finalização da implementação e validação do MFOG c
   bar/.style={fill=blue!55, rounded corners=3pt}
 ]{2020-03}{2020-07}
   \gantttitlecalendar{year, month} \\
-  % \ganttmilestone{(\ref{task:Z}}{2020-03-02} \\
-  \ganttbar{(Exame de Qualificação)}{2020-03}{2020-03} \\
-  \ganttbar{(Desenvolvimento da aplicação)}{2020-03}{2020-03} \\
-  \ganttbar{(Validação da aplicação em contraste com a implementaçã)}{2020-03}{2020-04} \\
-  \ganttbar{(Experimentos com \emph{data sets} e estratégias de)}{2020-03}{2020-05} \\
-  \ganttbar{(Submissão de artigos com resultados de (\ref{task:C)}{2020-04}{2020-07} \\
-  \ganttbar{(Defesa da Dissertação)}{2020-06}{2020-07} \\
+  \ganttbar{Qualificação}{2020-03}{2020-03} \\
+  \ganttbar{Desenvol.}{2020-03}{2020-03} \\
+  \ganttbar{Validação}{2020-03}{2020-04} \\
+  \ganttbar{Experimentos}{2020-03}{2020-05} \\
+  \ganttbar{Submissão}{2020-04}{2020-07} \\
+  \ganttbar{Defesa}{2020-06}{2020-07} \\
 \end{ganttchart}
-
+}
 \end{frame}
 
 {\setbeamercolor{palette primary}{fg=black, bg=yellow}\begin{frame}[standout]
