@@ -92,14 +92,12 @@ qualidade de detecção.
 
 \begin{block}{Definição de Fluxo de Dados}
   
-  \vspace{5mm}
-  Defu
+  \vspace{1mm}
 
-  \begin{itemize}
-    \item Evolução;
-    \item Mudança;
-    \item Ruído;
-  \end{itemize}
+  Um fluxo de dados (\emph{Data Stream}) é uma sequencia massiva possivelmente
+  ilimitada de exemplos multi-dimensionais $x_1, x_2, \dots, x_n, \dots$
+  recebidos em instantes associados $t_1, t_2, \dots, t_n, \dots$
+
 \end{block}
 \end{frame}
 
@@ -111,20 +109,28 @@ qualidade de detecção.
 \begin{frame}[fragile]{Fundamentos}
   \begin{alertblock}{Métodos Detecção de Novidade}
     
-    \vspace{5mm}
+    \vspace{1mm}
     Métodos Detecção de Novidade (\novelty) lidam com o reconhecimento e
     classificação de exemplos em padrões que diferem de padrões anteriores
     \cite{PERNER2007,Gama2010}.
   
     Conforme \citeonline{Gama2010}, são características de fluxos de dados contínuos:
     \begin{itemize}
-      \item Evolução de conceito (\evolution);
-      \item Mudança de conceito (\drift, deriva ou desvio);
-      \item Ruído e \emph{outliers};
+      
+      \item Evolução de Conceito (\evolution): surgimento de um conceito durante
+      o fluxo;
+      
+      \item Mudança de Conceito (\drift, deriva ou desvio): modificação da
+      distribuição de um padrão conhecido. A modificação pode ser repentina,
+      incremental ou recorrente;
+      
+      \item Ruído e \emph{Outliers}: que não pertencem a um conceito ou
+      pertencem a um conceito porém estão fora da distribuição conhecida.
+      
     \end{itemize}
   \end{alertblock}
-\nota{Poderia explicar melhor a evolução de modelos, "concept drift"
-(precisa estudar um pouco + a teoria).}
+% \nota{Poderia explicar melhor a evolução de modelos, "concept drift"
+% (precisa estudar um pouco + a teoria).}
 \end{frame}
 
 \begin{frame}[fragile]{Fundamentos}
