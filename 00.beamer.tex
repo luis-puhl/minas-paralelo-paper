@@ -503,8 +503,8 @@ qualidade de detecção.
       não recebia mensagem alguma.
     \end{itemize}
   \end{alertblock}
-\nota{\textsc{cuidado,} o fato de vc não ter conseguido não significa que não é possível\\
-concluir que "o sistema não escala ..." (pode citar, só tome cuidado com a conclusão tirada)}
+% \nota{\textsc{cuidado,} o fato de vc não ter conseguido não significa que não é possível\\
+% concluir que "o sistema não escala ..." (pode citar, só tome cuidado com a conclusão tirada)}
 \end{frame}
 
 \begin{frame}[fragile]{Resultados Preliminares}
@@ -517,11 +517,11 @@ concluir que "o sistema não escala ..." (pode citar, só tome cuidado com a con
       validação através das métricas de qualidade de classificação.
     \end{itemize}
   \end{alertblock}
-\nota{métricas: Tem a fórmula? expressão?}
+% \nota{métricas: Tem a fórmula? expressão?}
 
-\nota{"Avaliação do fluxo de saída do classificador" isto é uma métrica?}
+% \nota{"Avaliação do fluxo de saída do classificador" isto é uma métrica?}
 
-\nota{Incluir CR}
+% \nota{Incluir CR}
 \end{frame}
 
 \begin{frame}[fragile]{Resultados Preliminares}
@@ -534,6 +534,38 @@ concluir que "o sistema não escala ..." (pode citar, só tome cuidado com a con
         \item Taxa de desconhecidos;
         \item Macro F-score;
       \end{itemize}
+    \end{itemize}
+  \end{alertblock}
+
+  \begin{columns}[T,onlytextwidth]
+    \column{0.5\textwidth}
+  %   \begin{equation*}
+  %     \mathbf{E}_n = \begin{pmatrix}
+  %       e_{1,1} & e_{1,2} & \cdots & e_{1,J} \\
+  %       e_{2,1} & e_{2,2} & \cdots & e_{2,J} \\
+  %       \vdots  & \vdots  & \ddots & \vdots  \\
+  %       e_{M,1} & e_{M,2} & \cdots & e_{M,J} 
+  %     \end{pmatrix}
+  %   \end{equation*}
+    \includegraphics[width=0.9\textwidth]{figuras/eq-matrix.png}
+    \column{0.5\textwidth}
+    \includegraphics[width=0.9\textwidth]{figuras/eq-unk.png}
+    \includegraphics[width=0.9\textwidth]{figuras/eq-fscore1.png}
+  %   \begin{equation*}
+  %       \mathit{UnkR}_n      = \frac{1}{M} \sum_{i=1}^{M} \frac{\#Unk_i}{\#ExC_i} \\
+  %       \mathit{Fscore}1_n   = 2 \cdot \frac{
+  %         \mathit{Precision} \cdot \mathit{Recall}
+  %         }{
+  %           \mathit{Precision} +\mathit{Recall}
+  %         }
+  %   \end{equation*}
+  \end{columns}
+\end{frame}
+
+
+\begin{frame}[fragile]{Resultados Preliminares}
+  \begin{alertblock}{Métricas e Ambientes}
+    \begin{itemize}
       \item Métricas de escalabilidade:
       \begin{itemize}
         \item Número e tipo de processadores;
@@ -541,6 +573,12 @@ concluir que "o sistema não escala ..." (pode citar, só tome cuidado com a con
         \item Tempo de processamento;
         \item Taxa de eventos;
         \item Latência entre a produção e classificação.
+      \end{itemize}
+      \item Ambientes de teste:
+      \begin{itemize}
+        \item Computador Pessoal (para desenvolvimento);
+        \item Nuvem UFSCar;
+        \item Nevoa composta de SBC (\emph{Sigle Board Computer}) ARM 4 núcleos;
       \end{itemize}
     \end{itemize}
   \end{alertblock}
@@ -552,8 +590,9 @@ Trabalho continua com a finalização da implementação e validação do MFOG c
 \end{frame}
 
 \begin{frame}{Cronograma}
-\noindent{
-  \begin{ganttchart}[
+  
+  % \begin{figure}[ht]
+\noindent\centering\begin{ganttchart}[
   vgrid,
   time slot format=isodate-yearmonth,
   time slot unit=month,
@@ -575,7 +614,10 @@ Trabalho continua com a finalização da implementação e validação do MFOG c
   \ganttbar{Submissão}{2020-04}{2020-07} \\
   \ganttbar{Defesa}{2020-06}{2020-07} \\
 \end{ganttchart}
-}
+% }
+  %   \caption{Cronograma}
+  %   \label{fig:crono}
+  % \end{figure}
 \end{frame}
 
 {\setbeamercolor{palette primary}{fg=black, bg=yellow}\begin{frame}[standout]
