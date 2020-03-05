@@ -15,7 +15,8 @@
 \usepackage{xspace}
 
 \usepackage{pgfgantt}
-% \usepackage[inline]{enumitem}
+\usepackage{algorithmic}
+\usepackage[portuguese,ruled,vlined,linesnumbered]{algorithm2e}
 
 \title[]{Uma Implementação Distribuída em Névoa do Algoritmo de Detecção de
 Novidade em Fluxos de Dados MINAS}
@@ -82,7 +83,7 @@ qualidade de detecção.
 \item Plataformas de processamento distribuído de fluxos;
 \item Métodos Detecção de Novidade;
 \end{itemize}
-\nota{Por que "seria dificil processar de forma centralizado"?}
+% \nota{Por que "seria dificil processar de forma centralizado"? [tg] corrigir no discurso}
 \end{frame}
 
 \begin{frame}[fragile]{Fundamentos}
@@ -217,45 +218,80 @@ Deveria quebrar o slide em 3 ou 4 slides ao menos.}
     \item Transformação dos dados analisados para o espaço $\mathbb{R}^d$;
     \item Função de classificação baseada em distância euclideana;
     \item Modelo de classificação com \emph{Clusters};
-    \item Algoritmo de agrupamento para identificação de padrões;
+    \item Algoritmo de agrupamento para identificação de novos padrões;
+    \item Classificação de novos padrões entre recorrência, extensão e novidade;
   \end{itemize}
 \end{alertblock}
-\nota{MINAS: Use figura!\\pseudocodigo?}
+% \nota{MINAS: Use figura!\\pseudocodigo?}
 \end{frame}
 
 \begin{frame}[fragile]{Fundamentos}
-\begin{figure}[ht]
-\centering
-\includegraphics[width=\textwidth]{figuras/FariaMinas2015-fases.png}
-\caption{Visão geral do algoritmo MINAS com fases \emph{Offline} (a) e 
-\emph{Online} (b) \cite{Faria2016minas}}
-\label{fig:minas}
-\end{figure}
-\nota{Explique o desenho! o que significa cada objeto da figura? explique na figura.}
+  \begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{figuras/FariaMinas2015-fases.png}
+    \caption{Visão geral do algoritmo MINAS com fases \emph{Offline} (a) e 
+    \emph{Online} (b) \cite{Faria2016minas}}
+    \label{fig:minas}
+  \end{figure}
+  % \nota{Explique o desenho! o que significa cada objeto da figura? explique na figura.}
 \end{frame}
 
+\begin{frame}[fragile]{Fundamentos}
+  % MINAS \cite{Faria2016minas,Cassales2019a}
+  \begin{algorithm}[H]
+    \caption{MINAS, trecho de classificação}
+    \label{alg:MINAS}
+    \renewcommand{\algorithmicrequire}{\textbf{Entrada:}}
+    \begin{algorithmic}[1]
+      %T = limiar de distância para pertencer ao grupo
+      %P = tempo de "inatividade" para passar para memória sleep
+      %ts = limiar para remoção de exemplos da memória temporária
+      \REQUIRE $Modelo,FCD,params,MemTmp,MemSleep$
+      % \STATE $MemTmp \leftarrow \emptyset$ ; $MemSleep \leftarrow \emptyset$
+      \FORALL{$exemplo \in FCD$}
+      \STATE $(Dist,micro) \leftarrow$ micro-mais-proximo($exemplo,Modelo$)
+      \IF{$Dist < $ raio($micro$)}
+      \STATE $exemplo.classe \leftarrow micro.rotulo$
+      \STATE atualizar-micro($micro,exemplo$)
+      \ELSE
+      \STATE $exemplo.classe \leftarrow desconhecido$
+      \STATE $MemTmp \leftarrow MemTmp \cup exemplo$
+      \IF{$|MemTmp| \geq params.NumMinExemplos$}
+      \STATE $Modelo \leftarrow $ deteccao-novidade($Modelo,MemTmp,params$)
+      \ENDIF
+      \ENDIF
+      \STATE gerenciamento-memoria(\dots)
+      % \STATE $TempoAtual \leftarrow exemplo.T$
+      % \IF{$TempoAtual$ mod $TamJanela == 0$}
+      % \STATE $Modelo \leftarrow$ mover-micro-grupos-mem-sleep($Modelo,MemSleep,params$)
+      % \STATE $MemTmp \leftarrow$ remover-exemplos-antigos($MemTmp,params$)
+      % \ENDIF
+      \ENDFOR
+    \end{algorithmic}
+  \end{algorithm}
+\end{frame}
+
+\begin{frame}[fragile]{Fundamentos}
+  \begin{alertblock}{Extensões do Algoritmo MINAS}
+    \begin{itemize}
+      \item FuzzyND: extensão do algoritmo original para classificação com
+      conjunto de etiquetas \emph{fuzzy} \cite{DaSilva2018,DaSilva2018thesis};
+      \item MINAS-LC e MINAS-BR: extensão do algoritmo original tratando
+      classificação multi-etiquetas \cite{Costa2019,Costa2019thesis};
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
 
 \section{Estado da Arte e Trabalhos Relacionados}
-\begin{frame}[fragile]{Estado da Arte e Trabalhos Relacionados}
-\begin{itemize}
-\item Extensões do Algoritmo MINAS;
-\item Sistemas de detecção de intrusão em redes;
-\end{itemize}
-\nota{Trabalhos relacionados * extensões? esses são seus concorrentes?\\
-qual é a relação?\\
-MEIO FORA DE FOCO!}
-\end{frame}
-
-\begin{frame}[fragile]{Estado da Arte e Trabalhos Relacionados}
-\begin{alertblock}{Extensões do Algoritmo MINAS}
-  \begin{itemize}
-    \item FuzzyND: extensão do algoritmo original para classificação com
-    conjunto de etiquetas \emph{fuzzy} \cite{DaSilva2018,DaSilva2018thesis};
-    \item MINAS-LC e MINAS-BR: extensão do algoritmo original tratando
-    classificação multi-etiquetas \cite{Costa2019,Costa2019thesis};
-  \end{itemize}
-\end{alertblock}
-\end{frame}
+% \begin{frame}[fragile]{Estado da Arte e Trabalhos Relacionados}
+% \begin{itemize}
+% \item Extensões do Algoritmo MINAS;
+% \item Sistemas de detecção de intrusão em redes;
+% \end{itemize}
+% \nota{Trabalhos relacionados * extensões? esses são seus concorrentes?\\
+% qual é a relação?\\
+% MEIO FORA DE FOCO!}
+% \end{frame}
 
 \newcommand{\idsiot}{IDSA-IoT\xspace}
 
@@ -267,7 +303,7 @@ MEIO FORA DE FOCO!}
     \item Arquitetura \idsiot \cite{Cassales2019a};
   \end{itemize}
 \end{alertblock}
-\nota{OK, isso é trabalho relacionado!\\
+\nota{% OK, isso é trabalho relacionado!\\
 Dissecar melhor [bigflow, catraca, idsa-iot]\\
 passar mais rápido, detalhar nos próximos.}
 \end{frame}
