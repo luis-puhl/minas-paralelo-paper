@@ -46,7 +46,7 @@ Programa de Pós-Graduação em Ciência da Computação}
 \section{Introdução}
 
 \begin{frame} [fragile]{Introdução}
-\begin{itemize}
+\begin{itemize}[<+- | alert@+>]
 
 % Contexto Geral
 \item Crescimento do número de dispositivos IoT e riscos associados;
@@ -58,7 +58,12 @@ Programa de Pós-Graduação em Ciência da Computação}
 \end{itemize}
 
 % Contexto Específico
-\item Detecção de intrusão em redes: por assinatura ou por anomalia;
+\item Detecção de intrusão em redes:
+\begin{itemize}
+  \item detecção por assinatura;
+  \item detecção por anomalia;
+  \item ambiente de névoa e redes IoT.
+\end{itemize}
 
 % Proposta
 \item Um sistema para detecção de intrusão em Redes IoT implementando em névoa;
@@ -81,7 +86,7 @@ qualidade de detecção.
 \begin{itemize}
   \item Métodos Detecção de Novidade;
   \item Ambientes de computação Distribuída;
-  \item Plataformas de processamento distribuído de fluxos;
+  \item Plataformas de processamento distribuído de fluxos.
 \end{itemize}
 % \nota{Por que "seria dificil processar de forma centralizado"? [tg] corrigir no discurso}
 \end{frame}
@@ -94,7 +99,7 @@ qualidade de detecção.
   
   \vspace{1mm}
 
-  Um fluxo de dados (\emph{Data Stream}) é uma sequencia massiva possivelmente
+  Um fluxo de dados (\emph{Data Stream}) é uma sequência massiva possivelmente
   ilimitada de exemplos multi-dimensionais $x_1, x_2, \dots, x_n, \dots$
   recebidos em instantes associados $t_1, t_2, \dots, t_n, \dots$
 
@@ -115,7 +120,7 @@ qualidade de detecção.
     \cite{PERNER2007,Gama2010}.
   
     Conforme \citeonline{Gama2010}, são características de fluxos de dados contínuos:
-    \begin{itemize}
+    \begin{itemize}[<+- | alert@+>]
       
       \item Evolução de Conceito (\evolution): surgimento de um conceito durante
       o fluxo;
@@ -137,11 +142,11 @@ qualidade de detecção.
 \begin{alertblock}{Algoritmo MINAS}
   \vspace{5mm}
   Algoritmo e suas estratégias:
-  \begin{itemize}
+  \begin{itemize}[<+- | alert@+>]
     \item Modelo de aprendizado \emph{Offline-Online};
     \item Transformação dos dados analisados para o espaço $\mathbb{R}^d$;
-    \item Função de classificação baseada em distância euclideana;
     \item Modelo de classificação com \emph{Clusters};
+    \item Função de classificação baseada em distância euclideana;
     \item Algoritmo de agrupamento para identificação de novos padrões;
     \item Classificação de novos padrões entre recorrência, extensão e novidade;
   \end{itemize}
@@ -210,7 +215,7 @@ qualidade de detecção.
 \begin{alertblock}{Ambientes de computação Distribuída}
 \begin{itemize}
   \item Computação em Nuvem (\emph{Cloud Computing}) é um modelo que permite
-  acesso conveniente à recursos computacionais compartilhados \cite{NIST2011}
+  acesso conveniente a recursos computacionais compartilhados \cite{NIST2011}
   \begin{columns}[T,onlytextwidth]
     \column{0.5\textwidth}
     \begin{itemize}
@@ -294,7 +299,7 @@ qualidade de detecção.
 
 \begin{frame}[fragile]{Fundamentos}
 \begin{alertblock}{Plataformas de processamento distribuído}
-  \begin{itemize}
+  \begin{itemize}[<+- | alert@+>]
     \item Mineração de Dados:
     \begin{itemize}
       \item \emph{MapReduce} e \emph{Apache Hadoop};
@@ -307,14 +312,14 @@ qualidade de detecção.
       \item \emph{Apache Flink};
     \end{itemize}
     \item Arquiteturas \emph{Lambda} e \emph{Kappa};
+    \begin{figure}[ht]
+      \centering
+      \includegraphics[width=0.6\textwidth]{figuras/lambda.png}
+      \caption{Arquitetura \emph{Lambda} com detalhes práticos \cite{Kreps2014}.}
+      \label{fig:lambda}
+    \end{figure}
   \end{itemize}
 \end{alertblock}
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.6\textwidth]{figuras/lambda.png}
-  \caption{Arquitetura \emph{Lambda} com detalhes práticos \cite{Kreps2014}.}
-  \label{fig:lambda}
-\end{figure}
 
 % \nota{Faltou definir antes o que é processamento de fluxo.\\
 % \textbf{fluxo vs lote} deixar mais claro a diferença}
@@ -437,18 +442,18 @@ qualidade de detecção.
     \item Implementar a distribuição do algoritmo MINAS em nuvem e névoa
     conforme arquitetura \idsiot;
     
-    \item Paralelizar o método de classificação do algoritmo MINAS;
+    \item Paralelizar o método de classificação do algoritmo MINAS.
   \end{itemize}
 \end{block}
 
 \metroset{block=transparent}
-\begin{alertblock}{Método}
-  \begin{itemize}
+\begin{alertblock}{Métodologia}
+  \begin{itemize}[<+- | alert@+>]
     \item Plataforma de processamento distribuído;
-    \item Arquitetura IDS-IoT;
-    \item Distribuição do algoritmo MINAS;
-    \item Validação da implementação por comparação de métricas de qualidade;
-    \item Métricas de escalabilidade;
+    \item Estratégias de implementação da arquitetura \idsiot;
+    \item Experimentação com a distribuição do algoritmo MINAS em ambientes;
+    \item Métricas de qualidade de classificação para validação da implementação;
+    \item Métricas de escalabilidade.
   \end{itemize}
 \end{alertblock}
 % \nota{Proposta\\
@@ -503,7 +508,7 @@ qualidade de detecção.
 \begin{frame}[fragile]{Resultados Preliminares}
 
   \begin{alertblock}{Primeira Implementação com \emph{Python} e \emph{Apache Kafka}}
-    \begin{itemize}
+    \begin{itemize}[<+- | alert@+>]
       \item \emph{Python} é acessível e fornece bibliotecas diversas;
       \item \emph{Apache Kafka} é um sistema de mensagens distribuído;
       \begin{itemize}
@@ -524,7 +529,7 @@ qualidade de detecção.
 
 \begin{frame}[fragile]{Resultados Preliminares}
   \begin{alertblock}{Segunda Implementação com \emph{Apache Flink}}
-    \begin{itemize}
+    \begin{itemize}[<+- | alert@+>]
       \item Implementação escrita em Scala ou Java;
       \item Processamento de fluxos \emph{Stateful};
       \item Falta de bibliotecas que distribuam algoritmos base como \emph{K-means};
@@ -645,8 +650,14 @@ Trabalho continua com a finalização da implementação e validação do MFOG c
 
 \appendix
 
-\begin{frame}[fragile]{Recomendações de Leitura}
-empty
+\begin{frame}[fragile]{Extra}
+  \begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figuras/idsa-iot-quali-000.png}
+  \caption{Estrutura Física da Arquitetura \idsiot.
+  Produzida e traduzida por \citeonline{Cassales2019a}.}
+  \label{fig:ids-iot-phy}
+  \end{figure}
 \end{frame}
 
 \end{document}
