@@ -1,0 +1,73 @@
+
+\clearpage
+{\Huge\textbf{Notas da Banca de Qualificação}}
+
+\begin{itemize}
+  \item Acentuação e frases longas;
+  \item Erro de terminologia de ML:
+    \begin{itemize}
+      \item ``Mudança de Conceito'' como padrão;
+      \item Separação de ``classificação'', ``detecção de novidade'' e ``detecção de anomalia'' (referenciar definição);
+      \item Referências ao mesmo artigo no cap 2 (provável ser o livro do Gama);
+      \item Definir com referência: ``stream'', ``data stream'', ``modelo'' ...
+      \item ``Big Data Streams'';
+    \end{itemize}
+  \item Expansão da motivação, observar trabalhos de paralelização;
+  \item Justificativa clara da distribuição e paralelismo das fases do MINAS:
+    \begin{itemize}
+      \item Motivar e justificar paralelismo;
+      \item Identificar oportunidades de paralelismo;
+      \item Clarificar a distribuição e escolha do que paralelizar;
+      \item MINAS não armazena centro e raio, mas calcula à partir de $(ls, ss)$
+      (soma linear e quadrada)
+      \\ \textit{Isso abre oportunidade para uma função de redução (merge) de
+      clusters}
+    \end{itemize}
+  \item Figuras com licença explicita de uso ou reconstruídas;
+  \item Ver Albert Befit para processamento de Data Streams;
+  \item Definir ``Conjunto mestre'' (master data set) ou ``fonte de verdade'';
+  \item Apache Flink:
+  \begin{itemize}
+    \item ``Data Flow'' na explicação de Apache Flink;
+    \item Justificar Apache Flink;
+    \item Clarificar o TCP (source);
+  \end{itemize}
+  \item Revisar estrutura narrativa do chap. fundamentos;
+  \item Abordar nos relacionados trabalhos sobre clustering e classificação
+  distribuída, como SAMOA por Befit e X por Naldi;
+  \item Remover derivados do minas dos relacionados;
+  \item Aprofundar a distinção escrita entre o Casales e este trabalho;
+  \item Detalhamento da comunicação entre os módulos;
+  \item Definição e detalhamento da matriz de confusão;
+  \item Sugestão de data sets sintéticos que realcem aspectos detecção e mudança
+  (estressar algoritmo);
+  \item [diverge] Prazo parece apertado para conclusões;
+  \item Tabela sumarizando os algoritmos e técnicas tratados nos trabalhos relacionados;
+  \item Data sets para detecção de intrusão:
+    \begin{itemize}
+      \item x 2014
+      \item y 2016
+    \end{itemize}
+  \item Teste (métrica) de wincoxon eucutson(?);
+  \item Mais referências para os trabalhos relacionados;
+  \item Definição de ``Online'' vs ``Real Time'';
+  \item Distinção mais clara entre ``modelo'' e ``algoritmo'';
+  \item Adicionar métricas ao chap. fundamentos;
+  \item Helio:
+  \begin{itemize}
+    \item Fonte de dados;
+    \item Ação tomada após detecção (nova etiqueta ou novidade);
+    \item Distribuição regional do modelo (efeitos de partições de rede);
+    \item Arquitetura física;
+    \item Ian Foster aborda processamento e aglomeração;
+    \item Desambiguação de Fog e Edge;
+  \end{itemize}
+\end{itemize}
+
+\begin{align}
+  \mathtt{take \ } & (n,\ \mathbf{ls},\ \mathbf{ss})_{local}\textnormal{ \ and  \ }(n,\ \mathbf{ls},\ \mathbf{ss})_{remote}\\
+  n &= \mathit{max}(n_l,\ n_r) \\
+  \mathbf{ls} &= \frac{1}{2} (\mathbf{ls}_l + \mathbf{ls}_r) \\
+  \mathbf{ss} &= \frac{1}{2} (\mathbf{ss}_l + \mathbf{ss}_r)
+\end{align}
+
