@@ -639,10 +639,11 @@ YARN} um gerenciador de recursos em cluster e escalonador de trabalhos e,
 \subsection{Plataforma \emph{Apache Spark}}
 
 \emph{Apache Spark}, analogamente ao \emph{Hadoop}, é um \emph{framework} para
-construção de sistemas de computação distribuída em \emph{cluster} com garantias
-de tolerância a falhas. No entanto, o modelo de processamento diverge
-significativamente do tradicional \emph{MapReduce} utilizando em lugar do HDFS
-um multiconjunto de apenas leitura distribuído (\emph{Resilient Distributed Dataset}
+construção de sistemas de computação distribuída em \emph{cluster}, com garantias
+de tolerância a falhas.
+No entanto, o modelo de processamento diverge
+significativamente do tradicional \emph{MapReduce}, utilizando em lugar do HDFS
+um \notahelio{com operações somente...}\hl{multiconjunto de apenas leitura distribuído} (\emph{Resilient Distributed Dataset}
 - RDD) com um escalonador de trabalhos representados por grafos acíclicos
 direcionados (\emph{directed acyclic graph} - DAG), otimizador de consultas e
 motor de execução \cite{ApacheSpark2020}.
@@ -652,35 +653,37 @@ motor de execução \cite{ApacheSpark2020}.
 % Spark's RDDs function as a working set for distributed programs that offers a
 % (deliberately) restricted form of distributed shared memory.[8]
 
-Enquanto programas \emph{MapReduce} fazem sua entrada de dados por leitura de um
+Enquanto programas \emph{MapReduce} fazem sua entrada de dados por leitura de
 disco, executam a função \emph{Map} em todos os items, agrupam, executam
-\emph{Reduce} e armazenam o resultado em disco novamente, o RDD opera com um
+\emph{Reduce} e armazenam o resultado em disco novamente, RDD opera com um
 conjunto de trabalho distribuído em formato de memória compartilhada com
-restrições. Esse conjunto de trabalho distribuído facilita programas iterativos
+restrições. Esse conjunto de trabalho distribuído facilita a operação de programas iterativos
 que são típicos de análise, mineração de dados e aprendizado de máquina.
 
-Uma das extensões do \emph{Apache Spark} é o \emph{Spark Streaming} que é um
-sistema de processamento de fluxo de dados escalável e tolerante a falhas
+Uma das extensões de \emph{Apache Spark} é \emph{Spark Streaming}, que é um
+sistema de processamento de fluxo de dados 
+\notahelio{quem disse?!}\hl{escalável e tolerante a falhas}
 \cite{zaharia2016,sparkStreaming2016}.
-O \emph{Spark Streaming} implementa o processamento incremental de fluxo de
-dados usando o modelo de fluxos discretizados em que divide-se os dados de entrada
-em micro-lotes (ex: a cada 100 milissegundos) e combina-se regularmente com o
+\emph{Spark Streaming} implementa processamento incremental de fluxo de
+dados usando o modelo de fluxos discretizados em que dividem-se os dados de entrada
+em micro-lotes (ex: a cada 100 milissegundos) e combinam-se regularmente com o
 estado nos RDDs para produzir novos resultados \cite{zaharia2016}.
 Essa estratégia traz benefícios sobre os sistemas de fluxos de dados distribuídos
-tradicionais, pois permite a consistência e recuperação de falhas rapidamente
-devido a linhagem de RDD (\emph{RDD lineage}) e combinação do fluxo de dados com
+tradicionais, pois permite a consistência e recuperação de falhas rapidamente,
+devido à \notahelio{?}\hl{linhagem de RDD} (\emph{RDD lineage})
+e à combinação do fluxo de dados com
 consultas em lotes e interativas \cite{sparkStreaming2016,Lopez2018}.
 
 \subsection{Plataforma \emph{Apache Storm}}
 
-O \emph{Apache Storm} é um sistema de computação tolerante a falhas em tempo
-real que facilita o processamento de fluxo de dados
+\emph{Apache Storm} é um sistema de computação tolerante a falhas em tempo
+real que \notahelio{quem disse?!}\hl{facilita o processamento} de fluxo de dados
 \cite{ApacheStorm2020,Lopez2018}.
 Ao invés de executar trabalhos (\emph{jobs}) como algumas ferramentas citadas
-anteriormente, o \emph{Apache Storm} executa topologias.
+anteriormente, \emph{Apache Storm} \notahelio{?}\hl{executa topologias}.
 Os \emph{jobs} eventualmente finalizam, e as topologias executam continuamente até
 serem finalizadas por comandos.
-Uma topologia constitui de processos \emph{workers} sendo executados
+Uma topologia constitui-se de processos trabalhadores (\emph{workers}) sendo executados
 em um \emph{cluster} de nós que são gerenciados pelo nó mestre que além de
 coordenar e distribuir execução, monitora falhas.
 Uma topologia pode ser representada por um grafo de computação direcionado
@@ -688,14 +691,14 @@ acíclico (DAG).
 
 Além de topologias e nós mestre, outros componentes do funcionamento dessa
 ferramenta são os \emph{spouts} e os \emph{bolts}.
-O \emph{spout} representa uma fonte de dado da ferramenta, sendo um ponto de
+\emph{Spout} representa uma fonte de dado da ferramenta, sendo um ponto de
 entrada que lê os dados de fontes externas, converte-os para um fluxo de dados e
 emite-os para dentro da topologia.
-Os \emph{bolts} recebem os dados de um \emph{spout} e processam esses dados
+\emph{Bolts} recebem os dados de um \emph{spout} e processam esses dados
 (filtragem, funções de agregação e união, etc.).
 
 Cada processo \emph{worker} no \emph{Storm} é uma instância de Java Virtual Machine (JVM)
-e executa um conjunto de tarefas para uma topologia processando um ou mais
+que executa um conjunto de tarefas para uma topologia, processando um ou mais
 executores.
 Um executor é uma \emph{thread} gerada por um processo \emph{worker}.
 Cada executor pode processar uma ou mais tarefas para um mesmo componente
@@ -727,8 +730,8 @@ paralelismo é que ele pode ser alterado em tempo de execução da topologia.
 \section{Plataforma \emph{Apache Flink}}
 
 O \emph{Apache Flink} é uma plataforma de processamento distribuído para
-computação \emph{stateful} sobre fluxo de dados limitados (tem um início e um
-fim) e ilimitados (não tem um fim definido) \cite{ApacheFlink2020}.
+computação com estado gerenciado (\emph{stateful}) sobre fluxo de dados limitados (têm início e
+fim) e ilimitados (não têm fim definido) \cite{ApacheFlink2020}.
 Essa plataforma segue um paradigma que abrange o processamento de fluxos de
 dados contínuos e o processamento em lote \cite{Carbone2015,Lopez2018}.
 O \emph{Apache Flink} pode ser integrado a vários gerenciadores de \emph{cluster}
@@ -739,18 +742,18 @@ Java, Scala ou Python.
 
 \subsection{Arquitetura}
 
-Quando o \emph{Flink} é inicializado, o \emph{Job Manager} e um ou mais
-\emph{Task Manager} são criados.
+Quando \emph{Flink} é inicializado, um processo gerenciador de trabalhos
+(\emph{Job Manager}) e múltiplos gerenciadores de tarefa \emph{Task Manager} são criados.
 Quando um código de programa é submetido, o cliente transforma-o em um grafo
-acíclico direcionado - \emph{data flow} - e submete-o ao \emph{Job Manager},
-como pode ser observado na Figura Figura \ref{fig:processo-flink}.
+acíclico direcionado - \emph{data flow} - e submete-o ao \emph{Job Manager}.
+% como pode ser observado na Figura Figura \ref{fig:processo-flink}.
 Segundo \citeonline{Carbone2015}, essa fase de transformação examina o esquema
 dos dados trocados entre os operadores e cria serializadores e
 outros códigos para otimização da futura execução.
 O \emph{Job Manager} coordena toda execução distribuída do grafo \emph{data
 flow}. Ele rastreia o estado e o progresso de cada fluxo, agenda novos
 operadores e coordena os \emph{checkpoints} e recuperação.
-Para alta disponibilidade, o \emph{Job Manager} persiste um conjunto mínimo de
+Para alta disponibilidade, o \emph{Job Manager} persiste em disco um conjunto mínimo de
 metadados em cada \emph{checkpoint} para um armazenamento tolerante a falhas, de
 modo que esse gerenciador possa recuperar a execução do grafo a partir desse
 ponto.
@@ -758,12 +761,12 @@ O processamento de dados ocorre no \emph{Task Manager} que executa um ou mais
 operadores que produzem fluxos de dados, e reportam seus estados ao \emph{Job
 Manager}.
 
-\begin{figure}[hbt]
-\centering
-\includegraphics[width=0.8\textwidth]{figuras/processo-flink.png}
-\caption{Processo do \emph{Apache Flink} \cite{ApacheFlink2020}}
-\label{fig:processo-flink}
-\end{figure}
+% \begin{figure}[hbt]
+% \centering
+% \includegraphics[width=0.8\textwidth]{figuras/processo-flink.png}
+% \caption{Processo do \emph{Apache Flink} \cite{ApacheFlink2020}}
+% \label{fig:processo-flink}
+% \end{figure}
 
 A pilha de componentes de software do \emph{Apache Flink} é composta pelas
 seguintes camadas da Figura \ref{fig:software-flink}.
