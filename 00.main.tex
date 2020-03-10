@@ -25,12 +25,13 @@
 
 \usepackage{pgfgantt}
 
-\usepackage{xargs,soul}
+\usepackage{xargs}
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 \newcounter{todocounter}
 \newcommandx{\nota}[2][1=]{\stepcounter{todocounter}\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{[\thetodocounter] #2}}
 \newcommandx{\notahelio}[2][1=]{\stepcounter{todocounter}\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{[Helio \thetodocounter] #2}}
 \newcommandx{\notahermes}[2][1=]{\stepcounter{todocounter}\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{[Hermes \thetodocounter] #2}}
+\newcommand{\hl}[1]{\colorbox{green}{#1}}
 
 % \usepackage[showframe]{geometry}
 \usepackage{geometry}

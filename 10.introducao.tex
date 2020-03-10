@@ -79,7 +79,7 @@ Análises como \emph{Data Stream Mining} e \nd são \hl{tradicionalmente} implem
 sobre o paradigma de computação na nuvem
 (\emph{Cloud Computing}) e, recentemente, sobre paradigmas
 \notahelio{O que (referências) reslpalda essa afirmação?}
-\hl{como} computação em névoa
+como \hl{computação em névoa}
 (\emph{Fog Computing}). Para \emph{fog}, além dos recursos em \emph{cloud}, são
 explorados os recursos distribuídos pela rede desde o nó remoto até a
 \emph{cloud}. Processos que dependem desses recursos são distribuídos de acordo
@@ -130,13 +130,13 @@ para a identificação de intrusões.
 Ainda no contexto de \nd como método de detecção de intrusão,
 outras propostas tratam do caso de fluxos com grandes volumes e velocidades, como é o caso
 de \citeonline{Viegas2019}, que apresenta o \emph{BigFlow} no intuito de detectar
-intrusão em redes \emph{10 Gigabit Ethernet}, um volume considerável,
+intrusão em redes do tipo \emph{10 Gigabit Ethernet}, que podem produzir um volume considerável,
 atualmente impossível de ser processado em um único núcleo de processador
 (\emph{single-threaded}).
 Essa implementação foi feita sobre uma plataforma
 distribuída processadora de fluxos (\emph{Apache Flink}) executada em um cluster
-com até 10 nós de trabalho, cada um com 4 núcleos de processamento totalizando
-40 núcleos para atingir taxas de até $10,72 \ Gbps$.
+com até 10 nós de trabalho, cada um com 4 núcleos de processamento, totalizando
+40 núcleos, para atingir taxas de até $10,72 \ Gbps$.
 
 % Além de apresentar uma implementação, \citeonline{Viegas2019} também apresenta o
 % \emph{data set} \emph{MAWIFlow}. Esse conjunto é derivado do ponto de coleta
@@ -168,13 +168,13 @@ com até 10 nós de trabalho, cada um com 4 núcleos de processamento totalizand
 % tratados em outros algoritmos como o MINAS \cite{Faria2016minas}.
 
 Os trabalhos de \citeonline{Cassales2019a} e \citeonline{Viegas2019} abordam
-detecção de intrusão em redes utilizando algoritmos de ND em DS porém com
+detecção de intrusão em redes utilizando algoritmos de ND em DS, porém com
 perspectivas diferentes.
-O primeiro observa \emph{IoT} e processamento em \emph{fog}, baseia-se em um
+O primeiro investiga \emph{IoT} e processamento em \emph{fog} e baseia-se em um
 algoritmo genérico de detecção de novidade.
-O segundo trabalho observa \emph{backbones} e processamento em \emph{cloud},
+O segundo trabalho trata de \emph{backbones} e processamento em \emph{cloud} e
 implementa o próprio algoritmo de detecção de novidade.
-Essas diferenças deixam uma lacuna onde de um lado tem-se uma
+Essas diferenças deixam uma lacuna onde, de um lado, tem-se uma
 arquitetura mais adequada para o ambiente \emph{fog} com um algoritmo estado da arte de
 detecção de novidades, porém sem paralelismo e, de outro, tem-se um sistema
 escalável de alto desempenho porém almejando outro ambiente (\emph{cloud}) e
@@ -195,7 +195,7 @@ com um algoritmo menos preparado para os desafios de detecção de novidades.
 % }
 
 Como estabelecido na \refsec{motivo}, a lacuna no estado da arte observada é
-a ausência de uma implementação de algoritmo de detecção de
+a \hl{ausência de uma} implementação de algoritmo de detecção de
 novidades que trate adequadamente os desafios de fluxo de dados contínuos
 (como volume e velocidade do fluxo, evolução e deriva de conceito)
 e considere o ambiente de computação em névoa aplicada à detecção de
@@ -280,27 +280,27 @@ de um processo exploratório seguido de experimentação. Tal processo inclui a
 revisão da literatura, tanto acadêmica quanto técnica, seguida da experimentação
 através de implementação de aplicação e testes.
 
-O foco da revisão da literatura acadêmica é em trabalhos que abordem
+O foco da \notahelio{estão nas referências?}\hl{revisão da literatura acadêmica} é em trabalhos que abordem
 processamento de fluxos de dados, classificação de fluxo de dados, detecção de
 novidades em fluxo de dados e processamento distribuído de fluxo de dados.
 O objetivo da revisão é o estabelecimento do estado da arte desses assuntos,
 de forma que alguns desses trabalhos sirvam para comparações e relacionamentos.
-Além disso, desses trabalhos busca-se métricas de qualidade de classificação
-(por exemplo taxa de falso positivo e matriz de confusão) e métricas de
-escalabilidade (taxa de mensagens por segundo e escalabilidade vertical ou
+Além disso, desses trabalhos buscam-se métricas de qualidade de classificação
+(por exemplo, taxa de falso positivo e matriz de confusão) e métricas de
+escalabilidade (como taxa de mensagens por segundo e escalabilidade vertical ou
 horizontal).
 
 A revisão da literatura técnica será focada em plataformas, ferramentas e técnicas
 para realizar a implementação proposta.
 Portanto, são selecionadas plataformas de processamento distribuído de DS
 e técnicas de aprendizado de máquina associadas a elas.
-Dessa revisão também são obtidas técnicas ou ferramentas necessárias
+Dessa revisão também serão obtidas técnicas ou ferramentas necessárias
 para extração das métricas de avaliação, bem como \emph{data sets}
 públicos relevantes para detecção de novidades em DS.
 
 Uma vez definidos o estado da arte, as ferramentas técnicas e os
 \emph{data sets}, o passo seguinte é a experimentação.
-Nesse passo será desenvolvida uma aplicação na plataforma escolhida que, com base no
+Nesse passo, será desenvolvida uma aplicação na plataforma escolhida que, com base no
 algoritmo MINAS \cite{Faria2016minas}, irá classificar e detectar novidades em DS.
 Também nesse passo, a implementação será validada comparando os resultados de
 classificação obtidos com os resultados de classificação do algoritmo original
