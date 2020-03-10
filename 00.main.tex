@@ -12,7 +12,7 @@
 % \usepackage{graphicx}
 % \usepackage{caption,subcaption}
 \usepackage{subfigure}
-\usepackage[table,xcdraw]{xcolor}
+\usepackage[table,xcdraw,pdftex,dvipsnames]{xcolor}
 
 \usepackage[portuguese,ruled,vlined,linesnumbered]{algorithm2e}
 \usepackage{algorithmic}
@@ -25,7 +25,18 @@
 
 \usepackage{pgfgantt}
 
-\usepackage{todonotes}
+\usepackage{xargs}
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+
+\usepackage[showframe]{geometry}
+\marginparwidth=4cm
+\hoffset=-25mm
+\textwidth=16cm
+
+\newcounter{todocounter}
+\newcommandx{\nota}[2][1=]{\stepcounter{todocounter}\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{[\thetodocounter] #2}}
+\newcommandx{\notahelio}[2][1=]{\stepcounter{todocounter}\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{[Helio \thetodocounter] #2}}
+\newcommandx{\notahermes}[2][1=]{\stepcounter{todocounter}\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{[Hermes \thetodocounter] #2}}
 
 % \usepackage{minted}
 % \usemintedstyle{emacs}
@@ -51,19 +62,6 @@
 \newcommand{\refsec}[1]{Seção \ref{sec:#1}\xspace}
 \newcommand{\reffig}[1]{Figura \ref{fig:#1}\xspace}
 \newcommand{\refequ}[1]{Equação \ref{eq:#1}\xspace}
-\newcommand{\nota}[1]{\hspace*{-1.5cm}\textit{{\color[rgb]{1,0,0}Nota: #1}}}
-\newcommand{\notahelio}[1]{\hspace*{-1.5cm}\textit{{\color[rgb]{1,0,0}Nota [Helio]: #1}}}
-\newcommand{\notahermes}[1]{\hspace*{-1.5cm}\textit{{\color[rgb]{1,0,0}Nota [Hermes]: #1}}}
-% \newenvironment{nota}%
-% {\hspace*{-1.5cm}\textit{{\color[rgb]{1,0,0}Nota: }}
-%     \begin{tabular}{|p{0.9\textwidth}|}
-%     \hline\\
-%     }
-%     { 
-%     \\\\\hline
-%     \end{tabular} 
-%     \end{center}
-% }
 
 % ---------------------------------------------------------
 % \notahelio{[helio] "Uma Implementação paralela": Disso, subentende0se foco no paralelismo...}

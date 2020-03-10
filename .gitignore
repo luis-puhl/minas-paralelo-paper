@@ -19,6 +19,7 @@
 *.nav
 *.snm
 *.vrb
+*.tdo
 
 # resultantes, adicionar com -f
 *.pdf
