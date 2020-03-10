@@ -8,8 +8,10 @@ A Internet das Coisas (\emph{Internet of Things} - IoT) é um sistema global de
 dispositivos (máquinas, objetos físicos ou virtuais, sensores, atuadores e
 pessoas) com capacidade de comunicação pela Internet, sem depender de
 interação com interface humano-computador tradicional.
-Outra característica de dispositivos \iot são os recursos computacionais
-dimensionados, por vezes omitindo sistema operacional e outros sistemas, para
+Outra característica de dispositivos \iot são os 
+\notahelio{?}\hl{recursos computacionais dimensionados},
+% por vezes omitindo sistema operacional e outros sistemas,
+para
 propósitos específicos que limitam a capacidade de computar outras funções além
 da função original do dispositivo.
 O número de dispositivos categorizados como IoT na última década teve
@@ -17,12 +19,14 @@ crescimento sem precedentes e, proporcionalmente, cresceu o volume de dados
 gerados por esses dispositivos.
 A análise desses dados pode trazer novos conhecimentos e tem sido um tema frequentemente
 abordado por trabalhos de pesquisa.
-Contudo, além dos dados de sensores e atuadores, esses dispositivos se subvertidos
-podem gerar outro tipo de tráfego, maligno à sociedade, como o gerado pela
+Contudo, além dos dados de sensores e atuadores, esses dispositivos se subvertidos,
+podem gerar tráfego maligno
+% à sociedade
+, como o gerado pela
 \emph{botnet} mirai em 2016 \cite{Kambourakis2017}.
 Nesse cenário, fatores que podem favorecer a subversão dos dispositivos incluem a
 falta de controle sobre a origem do hardware e software embarcado nos
-dispositivos além das cruciais atualizações de segurança.
+dispositivos, além da falta das cruciais atualizações de segurança.
 
 % \notahelio{não está clara qual é a implicação de serem dispositivos pouco robustos… \\
 % … contendo implementações comumente apenas dedicada a propósitos específicos?\\
@@ -59,21 +63,23 @@ Técnicas de \emph{Data Stream Mining} envolvem mineração de dados
 (\emph{Data Mining}), aprendizado de
 máquina (\emph{Machine Learning}) e, recentemente, detecção de novidades
 (\emph{Novelty Detection}, \nd).
-ND além de classificar em modelos conhecidos permite classificar novos padrões,
-já que trata problemas como evolução e deriva de conceito que são característicos
+\nd, além de classificar em modelos conhecidos, permite classificar novos padrões,
+já que trata problemas como evolução e deriva de conceito, que são característicos
 de fluxos contínuos de dados e, consequentemente, permite que ações sejam tomadas corretamente mesmo
 em face a padrões nunca vistos.
 Essa capacidade é relevante em especial para o
 exemplo de detecção de intrusão, onde novidades na rede podem distinguir novas
 funcionalidades (entregues aos dispositivos após sua implantação em campo) de
-ataques por agentes externos sem assinatura existente em bancos de
+ataques por agentes externos, sem assinaturas existentes em bancos de
 dados de ataques conhecidos.
 
 % finalizo com "por exemplo"?
 
-Análises como \emph{Data Stream Mining} e ND são tradicionalmente implementadas
+Análises como \emph{Data Stream Mining} e \nd são \hl{tradicionalmente} implementadas
 sobre o paradigma de computação na nuvem
-(\emph{Cloud Computing}) e, recentemente, sobre paradigmas como computação em névoa
+(\emph{Cloud Computing}) e, recentemente, sobre paradigmas
+\notahelio{O que (referências) reslpalda essa afirmação?}
+\hl{como} computação em névoa
 (\emph{Fog Computing}). Para \emph{fog}, além dos recursos em \emph{cloud}, são
 explorados os recursos distribuídos pela rede desde o nó remoto até a
 \emph{cloud}. Processos que dependem desses recursos são distribuídos de acordo
@@ -88,8 +94,8 @@ consumo computacional ou energético.
 Um problema recente que une, em um único contexto, os métodos de computação em
 névoa, processamento de fluxo de dados e detecção de novidades nesses fluxos é a
 detecção de intrusão em redes de dispositivos \iot.
-Para tratar esse problema, a arquitetura \idsiot recentemente proposta por
-\citeonline{Cassales2019a} aplica ao problema algoritmos atuais de detecção de
+Para tratar esse problema, a arquitetura \idsiot, recentemente proposta por
+\citeonline{Cassales2019a}, aplica ao problema algoritmos atuais de detecção de
 novidades em fluxos, executando esses algoritmos em ambiente próximo aos
 dispositivos e avaliando-os quanto à detecção de intrusão.
 
@@ -113,12 +119,12 @@ Contudo, o algoritmo MINAS ainda não foi implementado e avaliado com paralelism
 multi-processamento ou distribuição computacional, que são necessários para
 tratar fluxos de dados com grandes volumes e velocidades.
 O tratamento de distribuição em ambiente \fog é essencial para aplicação deste
-algoritmo ao problema de detecção de intrusão em redes \iot pois esta aplicação
-requer tempo de resposta mínimo e mínima comunicação entre nós distantes como
-borda e nuvem.
+algoritmo ao problema de detecção de intrusão em redes \iot, pois esta aplicação
+requer tempo de resposta mínimo e mínima comunicação entre nós distantes, como
+aqueles na borda e na nuvem.
 Ainda observando o algoritmo MINAS, destaca-se a possível divisão em três partes
 semi-independentes, sendo elas treinamento, classificação e detecção de
-novidade; sendo a classificação elemento central cujos resultados são utilizados
+novidade; a classificação é o elemento central cujos resultados são utilizados
 para a identificação de intrusões.
 
 Ainda no contexto de \nd como método de detecção de intrusão,

@@ -25,18 +25,18 @@
 
 \usepackage{pgfgantt}
 
-\usepackage{xargs}
+\usepackage{xargs,soul}
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
-
-\usepackage[showframe]{geometry}
-\marginparwidth=4cm
-\hoffset=-25mm
-\textwidth=16cm
-
 \newcounter{todocounter}
 \newcommandx{\nota}[2][1=]{\stepcounter{todocounter}\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{[\thetodocounter] #2}}
 \newcommandx{\notahelio}[2][1=]{\stepcounter{todocounter}\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{[Helio \thetodocounter] #2}}
 \newcommandx{\notahermes}[2][1=]{\stepcounter{todocounter}\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{[Hermes \thetodocounter] #2}}
+
+% \usepackage[showframe]{geometry}
+\usepackage{geometry}
+\marginparwidth=35mm
+\hoffset=-25mm
+\textwidth=160mm
 
 % \usepackage{minted}
 % \usemintedstyle{emacs}
@@ -111,11 +111,11 @@ Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq).
 %     - Motivação: Minas é recente, com potencial em várias aplicações, por exemplo (NIDS, sensores, ...)
 %         para isso deseja-se uma implementação eficiente (low power, ou usar todo hardware) e escalável (big-data)
 % cap 2: fundamentos científicos e tecnológicos
-%     (pege apenas os mais citados, siga a Elaine)
+%     (pegue apenas os mais citados, siga a Elaine)
 %     2.1. Computação em Núvem, Fog e Edge
 %     2.2. Plataformas de processamento distribuído
 %         - arq labmda, kappa, (vide guilherme)
-%         - MapReduce, Haddop, Spark, Storm
+%         - MapReduce, Hadoop, Spark, Storm
 %     2.3. Apache Flink
 %     2.4. Mineração de Dados
 %     2.5. Mineração de Stream
