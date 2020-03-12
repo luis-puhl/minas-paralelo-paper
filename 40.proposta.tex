@@ -15,7 +15,7 @@ conectados à Internet e distribuídos geograficamente.
 Com capacidades diversas providas por elementos como sensores e atuadores, esses
 dispositivos produzem e consomem Fluxos Contínuos de Dados (\streams) com
 diversos objetivos.
-Alguns cenários envolvem a mineração desses fluxos (\streamMining) em busca de
+Alguns cenários de \iot envolvem a mineração desses fluxos (\streamMining) em busca de
 padrões para tomada de decisão e, por vezes requerem também baixa latência.
 Para casos de baixa latência ou alta vazão, conexões adequadas para
 processamento em nuvem nem sempre são possíveis ou desejáveis; para esses casos,
@@ -23,26 +23,31 @@ a computação em névoa (\fog) é uma solução.
 
 O tema de \streamMining envolve a classificação de novos elementos,
 que podem tanto estar relacionados aos dados ou aos metadados das comunicações,
-com base em
-um modelo; porém, como \streams variam temporalmente e são ilimitados, todas
-as classes contidas em um \stream não são previamente conhecidas.
+com base em um modelo.
+Porém, como \streams variam temporalmente e são ilimitados,
+as classes contidas em um \stream não são todas previamente conhecidas.
 A identificação e classificação de novas classes em \streams é denominada
 Detecção de Novidades (\novelty, \nd) em \streams.
 % No tema de \nd, o surgimento e desaparecimento de classes é nomeado Evolução de Conceito
 % (\evolution) e a mudança no decorrer do \stream é denominado Mudança ou Deriva
 % de Conceito (\drift).
 
+\notahl{Poderia reescrever a frase, evitando inversões na estrutura
+sujeito/verbo e complementos. Yoda!}
 Além dos aspectos inerentes a \streamMining, são considerados na construção de um
-sistema que computa \streams a taxa de eventos (itens atômicos de um \stream)
+\hl{sistema} que computa \streams a taxa de eventos
+% (itens atômicos de um \stream)
 gerados por cada produtor e o número de produtores nesse sistema, totalizando o
-volume de eventos do sistema.
+volume de eventos 
+\notahl{qual sistema?}
+\hl{do sistema}.
 % Além do volume de eventos é necessário
-Volumes elevados são dificilmente computados em apenas um nó (e muito menos em
-um único núcleo processador) e por isso, esses sistemas geralmente são distribuídos.
+Volumes elevados dificilmente são computados em apenas um nó (e muito menos em
+um único núcleo processador) e por isso, esses sistemas \hl{geralmente} são distribuídos.
 
 Sistemas que utilizam \nd para \streams gerados por dispositivos \iot devem
-utilizar algoritmos que considerem os desafios inerentes de fluxos de dados
-(\evolution e \drift) para adequada detecção de novidades e para tanto,
+utilizar algoritmos que considerem os desafios inerentes a fluxos de dados
+(\evolution e \drift) para adequada detecção de novidades e, para tanto,
 requerem processamento em arquiteturas
 que atendam os requisitos de volume de mensagens e latência de detecção.
 O algoritmo MINAS é adequado para esse caso, pois trata os desafios de
@@ -90,9 +95,9 @@ Dois módulos auxiliares são utilizados para avaliação do \mfog:
 \source (fonte) e \sink (sorvedouro, consumidor final).
 Os módulos e as interações entre eles são ilustradas na \reffig{arch}.
 
-\begin{figure}[hbt]
+\begin{figure}[ht]
 \centering
-\includegraphics[width=\textwidth]{figuras/mfog.png}
+\includegraphics[width=\textwidth]{figuras/mfog-arch-v3_pt-br.png}
 \caption{Arquitetura e fluxos de dados do \mfog.}
 \label{fig:arch}
 \end{figure}
@@ -116,29 +121,31 @@ para o \sink e para o \offline.
 
 O \sink é responsável por agregar todos resultados do \mfog e,
 juntamente com os valores do \dataset fornecidos pelo \source, por computar
-as métricas de qualidade de classificação e métricas base para as métricas de
-escalabilidade e métricas de recursos computacionais.
+as métricas de qualidade de classificação.
+Além disso, esse módulo também coleta e agrega métricas base para as avaliação de
+escalabilidade e métricas de uso de recursos computacionais.
 
 Os dados resultantes do serviço de captura e tratamento 
-(representado no \mfog pelo \source)
-são ingeridos pela
-aplicação no \classify, por meio de conexão TCP (\emph{Transmission
-Control Protocol}) fornecida pela plataforma \flink.
+(representado no \mfog pelo \source) são ingeridos pela aplicação no \classify.
+A ingestão é feita por meio de um operador fonte, fornecida pela plataforma
+\flink.
+% conexão TCP (\emph{Transmission Control Protocol}).
 Na plataforma, com o modelo de classificação disponível, os exemplos são
 classificados seguindo o algoritmo MINAS original discutido na \refsec{minas-og}.
 A etiqueta atribuída pela classificação, ou meta-etiqueta de desconhecido,
 juntamente com o exemplo original (representado por $x,l$ na \reffig{arch})
 são enviados para o \sink.
 Além disso, se o exemplo não for classificado, o exemplo e a meta-etiqueta de
-desconhecido (representado por $x,u$ na \reffig{arch}) é enviado para o
+desconhecido (representado por $x,u$ na \reffig{arch}) são enviados para o
 \detector.
+\notahl{processaa ND em paralelo?}
 Outra comunicação é o envio periódico do sumário estatístico do modelo de
 classificação (representado por $Summary$ na \reffig{arch}) do \classify para o
 \detector.
 
 O \detector é responsável por executar o processo de detecção de novidade,
-atualizando o modelo de classificação, e entrega do novo modelo às instâncias do
-\classify através do serviço de armazenamento de modelo (\emph{Model Store} na
+atualizando o modelo de classificação, e entregar o novo modelo às instâncias do
+\classify, através do serviço de armazenamento de modelo (\emph{Model Store} na
 \reffig{arch}).
 O \detector também envia meta-informações sobre o processo de detecção de
 novidade (representado por $Log$ na \reffig{arch}) para o \sink.
@@ -153,16 +160,18 @@ O \mfog utiliza em seus módulos a distribuição oferecida pela plataforma \fli
 como paralelização, ou seja, utiliza uma instância de trabalho (\emph{job}) por
 dispositivo de classificação, sendo que cada instância de trabalho aloca um
 gerenciador de tarefas por processador.
-Dessa forma atinge-se a escalabilidade no ambiente de \fog para o \classify.
+Dessa forma, busca-se a escalabilidade no ambiente de \fog para o \classify.
 O \offline, por ser utilizado somente uma vez para gerar o modelo
 de classificação inicial, não tem impacto na escalabilidade geral do sistema.
-O \detector também é implementado na plataforma \flink e por ser hospedado em
-ambiente de \cloud herda as qualidades desse ambiente incluindo escalabilidade.
+O \detector também é implementado na plataforma \flink e, por ser hospedado em
+ambiente de \cloud, herda as qualidades desse ambiente incluindo escalabilidade.
 O restante do sistema (\source, \sink, armazenamento de modelo) não é foco deste
 estudo e sua escalabilidade, desde que não afete a escalabilidade do \classify e
 \detector.
-
-% \nota{[Hélio] Como fica a distribuição do processamento?}
+\notahl{Questões que precisam ser tratadas:\\
+- Paralelização da classificação: como agrupar os dados e dividir o processamento?\\
+- ND: como saber o que agrupar (dos nós) e como dividir?
+Padrões podem ser locais? Ou sempre se aplicam a todos os nós?}
 
 \section{Metodologia de Avaliação e Resultados Esperados}\label{sec:esperados}
 
@@ -210,7 +219,7 @@ de etiquetas atribuídas pelo classificador a eventos até o mesmo instante.
 \end{align}
 
 As métricas de qualidade de classificação selecionadas para avaliar a
-implementação do \mfog são
+implementação do \mfog serão
 taxa de desconhecidos ($UnkR$ na \refequ{unkr}) \cite{Faria2013},
 acurácia média ($acc$ na \refequ{acc})
 e Macro F-score ($Fscore$ na \refequ{fscore}, também referido na literatura por
@@ -246,9 +255,13 @@ da respectiva matriz de erro $\mathbf{E}_n$.
 % \nota{usar coeficiente d-intra vs d-extra grupo para determinar K de
 % cada label. Também pode-se usar os mesmos coeficientes para _log_}
 
-A transformação do fluxo de saída em uma matriz de erro é realizada no \sink
-onde tem-se disponível o fluxo original com as etiquetas corretas e o fluxo
-resultante da classificação.
+A transformação do fluxo de saída em uma matriz de erro é realizada no \sink,
+\notahl{como tratar o paralelismo desse elemento?\\
+Ele dá conta de todo o fluxo recebido dos classificadores?}
+\hl{onde} 
+\hl{tem-se disponível o fluxo original}
+\hl{com as etiquetas corretas e o fluxo resultante}
+\hl{da classificação.}
 Esse módulo deve levar em consideração que pode haver reclassificação de um
 evento, previamente rotulado como desconhecido, em padrões oriundos de classe
 novidade ou extensão devido ao processo de detecção de novidades executado
@@ -306,10 +319,10 @@ processados e latência entre a produção e classificação de um evento.
 % \nota{NAOOOOO!! Nao colocar frase depois do enumerate.
 % Comeca um paragrafo novo ou continua ele com uma frase nova, nao pode fazer isso}
 
-Da implementação do \mfog é prevista execução de experimentos com \datasets
+Da implementação do \mfog é prevista a execução de experimentos com \datasets
 diversos, em especial os \datasets reais como \emph{Kyoto 2006+},
 que contenham evolução de conceitos.
-Os resultados desses experimentos contêm as seguintes métricas:
+Os resultados desses experimentos irão conter as seguintes métricas:
 
 \begin{enumerate}[label={\alph*)}]
   \item Qualidade de classificação (taxa de desconhecidos, F1M);
@@ -321,16 +334,19 @@ Os resultados desses experimentos contêm as seguintes métricas:
 
 Para a validação da corretude da implementação do \mfog com relação ao algoritmo
 MINAS original, as métricas de qualidade de classificação serão extraídas de
-ambas as implantações e comparadas.
+ambas as Implementação e comparadas.
 
 % procedimento experimental previamente definido de ambos, \mfog e da
 % implementação original do algoritmo MINAS, e comparadas.
 
 \subsection{Ambiente de Teste}
 
-Para realização dos experimentos diversas configurações de ambientes são
+Para realização dos experimentos, diversas configurações de ambientes são
 propostas.
-Os ambientes selecionados são: local, nuvem e névoa.
+Os ambientes selecionados são: local, 
+\notahl{o que muda na paralelização e na \textbf{distribuição} de instâncias
+do módulo \textbf{classificador}?}
+\hl{nuvem e névoa}.
 As configurações consistem na distribuição de módulos da implementação \mfog
 sendo executadas em combinações de ambientes nuvem e névoa com variada
 quantidade de nós.
@@ -347,8 +363,8 @@ O ambiente de névoa (\fog) é composto por computadores de única placa
 núcleos, $1GB$ de memória, armazenamento em cartão SD (\emph{SD-card}) e
 conectados por rede sem fio.
 
-A combinação de diferentes distribuições tem por objetivo demonstrar padrões de
-latência e qualidade que podem afetar implantações em ambientes reais que não
+A combinação de diferentes distribuições tem por objetivo \hl{demonstrar padrões de
+latência} e qualidade que podem afetar implantações em ambientes reais que não
 são geralmente destacados quando os experimentos são realizados em um único
 nó ou ambiente.
 
@@ -377,18 +393,18 @@ Aspectos desses desenvolvimentos são descritos a seguir.
 A primeira implementação e avaliação do \mfog realizada foi construída sobre a
 linguagem \python com o sistema de fila de mensagens \kafka e a respectiva
 biblioteca de conexão.
-A escolha desse conjunto para a implementação ocorreu devido à ampla
+A escolha desse conjunto para a implementação ocorreu \hl{devido à ampla}
 disponibilidade de bibliotecas de aprendizagem de máquina no ecossistema
-\python e simplicidade geral da linguagem.
-Na implementação desenvolvida, o sistema \kafka recebe mensagens e as armazena em tópicos distribuídos em
-partições replicadas em nós de um \cluster, gerenciados por um nó mestre e
-suportado pelo serviço de gerenciamento de configuração distribuída \emph{Apache
-ZooKeeper}.
+\python e, à simplicidade geral da linguagem.
+Na implementação desenvolvida, o sistema \kafka recebe mensagens e as armazena
+em tópicos distribuídos em partições replicadas em nós de um \cluster,
+gerenciados por um nó mestre e suportados pelo serviço de gerenciamento de
+configuração distribuída \emph{Apache ZooKeeper}.
 A aplicação \emph{Python} consome eventos através da interface \emph{Consumer API},
 que expõe a distribuição através da associação de um consumidor às partições
 mantidas pelo \kafka.
 
-Para essa implementação havia a hipótese de que a distribuição de
+Para essa implementação, havia a hipótese de que a distribuição de
 mensagens gerenciada pelo \kafka
 se estenderia a processos consumidores, efetivamente distribuindo o volume de
 mensagens entre eles igualmente.
