@@ -17,7 +17,7 @@
 
 \begin{resumocap}
 
-Este Capítulo trata dos trabalhos relacionados e estabelece o estado da arte
+Este Capítulo trata dos trabalhos relacionados e apresenta aspectos do estado da arte
 dos tópicos Detecção de Novidades em Fluxos de Dados, e
 Processamento Distribuído de Fluxos de Dados.
 
@@ -39,9 +39,10 @@ exemplos e detecta
 novidades em DS e considera em sua composição \emph{concept drift} e
 \emph{concept evolution}, sendo capaz de classificar como extensão de classe
 conhecida e reconhecer novas classes sem intervenção de especialista
-\cite{Faria2016minas}. Neste trabalho, consideram-se algoritmos derivados
-aqueles apresentados em trabalhos publicados após 2016 que estendem a
-implementação original do MINAS seguindo sua estrutura básica.
+\cite{Faria2016minas}.
+Neste trabalho, consideram-se algoritmos derivados do algoritmo MINAS
+aqueles apresentados em trabalhos publicados após 2016, que estendem a
+implementação original seguindo sua estrutura básica.
 
 \subsection{Algoritmo FuzzyND}
 
@@ -51,19 +52,19 @@ implementação original do MINAS seguindo sua estrutura básica.
 % A nova estrutura contrapõem a estrutura original
 % substituindo a soma linear dos elementos ($LS$) por  e $SS$ por $M$ e $$
 
-O algoritmo FuzzyND, derivado do MINAS é proposto por \citeonline{DaSilva2018}.
-FuzzyND incrementa o algoritmo original aplicando a ele teorias de
+O algoritmo FuzzyND, derivado do MINAS foi proposto por \citeonline{DaSilva2018}.
+FuzzyND incrementa o algoritmo original, aplicando a ele teorias de
 conjuntos \emph{fuzzy} pela modificação da representação dos \clusters.
-A modificação afeta os métodos de construção de \clusters, classificação
-de exemplos e detecção de novidades de acordo com a nova representação.
+A modificação afeta o método de construção de \clusters, método de classificação
+de exemplos e método de detecção de novidades de acordo com a nova representação.
 
 \acronym{F1M}{\emph{Macro F-Score}, acurácia }
 
-A avaliação do algoritmo FuzzyND é feita por meio de experimentos usando 3 
+A avaliação do algoritmo FuzzyND foi feita por meio de experimentos usando 3 
 \datasets sintéticos (\emph{MOA3}, \emph{RBF}, \emph{SynEDC})
-e comparação com o MINAS.
+e por comparação com o MINAS.
 O método de avaliação utilizado baseia-se na matriz de confusão incremental
-descrita por \citeonline{Faria2016nd} extraindo dessa matriz duas métricas:
+descrita por \citeonline{Faria2016nd}, extraindo dessa matriz duas métricas:
 acurácia (\emph{Macro F-Score}) \cite{Sokolova2009} e
 taxa de desconhecidos (\emph{UnkR}) \cite{Faria2016minas}.
 Em geral, o algoritmo FuzzyND detecta melhor novidades e, consequentemente,
@@ -101,7 +102,7 @@ de reconhecer padrões recorrentes.
 
 \subsection{Algoritmos MINAS-LC e MINAS-BR}\label{sub:minas-derivados}
 
-O algoritmo MINAS-LC é proposto por \citeonline{Costa2019thesis} e trata a classificação
+O algoritmo MINAS-LC foi proposto por \citeonline{Costa2019thesis} e trata a classificação
 multi-rótulo, porém não trata evoluções de conceito (\emph{Concept Evolution}).
 As alterações fundamentais propostas são:
 a representação de \cluster onde MINAS-LC troca a etiqueta, que era única, por uma multi-rótulo;
@@ -129,10 +130,10 @@ mineração de conjunto de itens frequentes.
 
 Já o trabalho de \citeonline{Costa2019}, estende o algoritmo original para que
 classifique um exemplo com uma ou mais etiquetas usando a transformação
-\emph{Binary Relevance} propondo o algoritmo MINAS-BR.
+\emph{Binary Relevance}, o que deu origem ao algoritmo MINAS-BR.
 O algoritmo modifica a representação do modelo, originalmente conjunto de \clusters, para
 um grupo de \clusters por classe (etiqueta).
-Também modifica o método de agrupamento substituindo a inicialização do 
+Também modifica o método de agrupamento, substituindo a inicialização do 
 algoritmo \emph{K-means}, originalmente aleatória, pelo algoritmo 
 \emph{Leader Incremental Clustering} \cite{Vijaya2004505}.
 
@@ -151,12 +152,14 @@ ferramenta MOA \cite{MOA} e \emph{4CRE-V2}
     https://sites.google.com/site/nonstationaryarchive/home
 }
 gerados pelo método \emph{Radial Basis Function} \cite{souza2015}.
-O MINAS-BR é comparado com 7 algoritmos da literatura também disponíveis na ferramenta
+O algoritmo MINAS-BR foi comparado com 7 algoritmos da literatura também disponíveis na ferramenta
 MOA \cite{MOA},
 diferente da avaliação do FuzzyND que compara diretamente com MINAS.
-Os 7 algoritmos são divididos em dois grupos: 3 com acesso às etiquetas corretas para
+Para análise, os 7 algoritmos foram divididos em dois grupos.
+O primeiro grupo de 3 algoritmos com acesso às etiquetas corretas para
 atualização do modelo e com a técnica ADWIN (\emph{ADaptive WINdowing}) para detectar
-mudanças de conceito (\emph{Concept Drift}); 4 algoritmos sem acesso às etiquetas corretas,
+mudanças de conceito (\emph{Concept Drift})
+O segundo grupo com os 4 algoritmos sem acesso às etiquetas corretas,
 ou seja, sem \emph{feedback} externo, mesma condição do MINAS-BR.
 
 % Esse trecho parece mais fundamentação.
@@ -165,8 +168,8 @@ A avaliação elencada por \citeonline{Costa2019} leva em consideração que as 
 contidas no conjunto de testes podem não ter correlação direta com os padrões identificados
 pelos algoritmos.
 Para tratar a divergência, uma estratégia baseada em proposta anterior por
-\citeonline{Faria2016nd} é apresentada com alterações para exemplos multi-rótulo.
-Após associação entre padrões de novidade e classes novidade é possível calcular
+\citeonline{Faria2016nd} foi apresentada com alterações para exemplos multi-rótulo.
+Após associação entre padrões de novidade e classes novidade foi possível calcular
 métricas tradicionais.
 A estratégia é executada na fase de classificação seguindo as regras:
 
@@ -200,8 +203,8 @@ Os resultados apresentados indicam que MINAS-BR capturou todas as novidades dos
 4 algoritmos equivalentes da literatura ficando abaixo dos 3 com \emph{feedback}
 externo.
 
-Os trabalhos relacionados nessa \refsec{alg-nd}, tem em
-comum, além do algoritmo base, métricas de avaliação acurácia (\emph{Macro F-Score} e \emph{Macro
+Os trabalhos relacionados nessa \refsec{alg-nd}, têm em
+comum, além do algoritmo base, as métricas de avaliação acurácia (\emph{Macro F-Score} e \emph{Macro
 F-Measure} F1M) e taxa de desconhecidos, aplicadas com devido tratamento.
 Também é comum entre eles o uso de \datasets sintéticos.
 Outro potencial não explorado do MINAS é em aplicações reais, ou seja,
@@ -229,12 +232,12 @@ porém alguns exemplos mencionados ainda não abordados são:
     
     \item um modo interativo onde o \cluster é formado, mostrado ao especialista
     que o classifica como inválido (ruído ou não representativo) ou válido,
-    podendo conter uma ou mais classes e, se conter mais que uma classe corte em
+    podendo conter uma ou mais classes e, se contiver mais que uma classe corte em
     grupos menores até conter somente uma classe;
     
-    \item ainda considerando interação com especialista, a possibilidade dele
+    \item ainda considerando interação com especialista, a possibilidade de
     injetar um exemplo não pertencente a uma classe, ou seja, marcar o exemplo
-    como não pertencente a uma classe para manter ele na memória de
+    como não pertencente a uma classe para mantê-lo na memória de
     desconhecidos e, eventualmente forçar criação de um \cluster que represente
     uma classe geometricamente próxima mas semanticamente distinta;
     
@@ -270,10 +273,13 @@ porém alguns exemplos mencionados ainda não abordados são:
 
 % \nota{helio: Mining wireless networks}
 
+\clearpage
+% \pagebreak[1]
+
 \section{Processamento Distribuído de Fluxo de Dados em Tempo Real}
 
-Nesta \Section aborda-se trabalhos que aplicam algoritmos de detecção de
-novidades em ambiente de processamento distribuído de fluxo de dados em tempo
+Nesta \Section, abordam-se trabalhos que aplicam \hl{algoritmos de detecção de
+novidades} em \hl{ambiente de processamento distribuído} de fluxo de dados em tempo
 real.
 
 \subsection{Ferramenta BigFlow}
@@ -281,37 +287,45 @@ real.
 Proposta por \citeonline{Viegas2019}, a ferramenta BigFlow é um sistema de
 detecção de intrusão em rede (\emph{Network Intrusion Detection System}, NIDS)
 baseado em detecção de anomalias.
-Duas abordagens, detecção por assinatura e detecção por anomalia, são de uso
-frequente como o mecanismo de detecção de intrusão na construção de NIDS.
+Duas abordagens, detecção por assinatura e detecção por anomalia, 
+\notahelio{?}\hl{são de uso frequente,}
+\hl{como o mecanismo}
+\hl{de detecção de intrusão na construção de NIDS}.
 Para a detecção de novos tipos de ataque (\emph{zero day}), a abordagem de
-detecção por anomalia é vantajosa em contraste com a abordagem de detecção por
-assinatura, devido ao tempo de resposta (que evolve a identificação e criação de
-uma assinatura) grande demais para prevenir esse tipo de intrusão.
+detecção por anomalia é vantajosa, em contraste com a abordagem de detecção por
+assinatura, devido ao tempo de resposta (que envolve a identificação e criação de
+uma assinatura), grande demais para prevenir esse tipo de intrusão.
 
-A ferramenta BigFlow é composta por dois módulos: extração de atributos e aprendizado confiável.
-O módulo de extração de atributos, ilustrado na \reffig{bigflow-pcap},
-é responsável por coletar pactoes da rede monitorada, transformar esses
-pacotes em fluxos com as estatísticas de comunicação e enviar os fluxos como
+A ferramenta BigFlow é composta pelos módulos de extração de atributos e de aprendizado confiável.
+O módulo de extração de atributos
+% , ilustrado na \reffig{bigflow-pcap},
+é responsável por coletar \hl{pacotes} da rede monitorada,
+\notahelio{extrair as características dos desses pacotes... não "transformar pacotes"...}
+\hl{transformar esses pacotes em fluxos}
+com estatísticas de comunicação e enviar informações desses fluxos como
 exemplos para o módulo de aprendizado confiável.
-O módulo de aprendizado confiável, ilustrado na \reffig{bigflow-ml}, é composto pelos submódulos:
-classificador, responsável por classificar exemplos;
-verificação, responsável por verificar o resultado de classificação;
-submódulo de exemplos rejeitados, responsável por requisitar a um especialista etiquetas para exemplos rejeitados e;
-submódulo de atualização incremental que atualiza e distribui o modelo aos classificadores.
+O módulo de aprendizado confiável,
+%  ilustrado na \reffig{bigflow-ml},
+é composto pelos submódulos:
+submódulo classificador, responsável por classificar exemplos;
+submódulo de verificação, responsável por verificar o resultado de classificação;
+submódulo de exemplos rejeitados, responsável por requisitar a um especialista
+etiquetas para exemplos rejeitados e;
+submódulo de atualização incremental, que atualiza e distribui o modelo aos classificadores.
 
-\begin{figure}[!h]
-\centering
-\includegraphics[width=\textwidth]{figuras/bigflow-fig2-feature_extraction_module.png}
-\caption{Módulo de extração de atributos da ferramenta BigFlow \cite{Viegas2019}.}
-\label{fig:bigflow-pcap}
-\end{figure}
+% \begin{figure}[!h]
+% \centering
+% \includegraphics[width=\textwidth]{figuras/bigflow-fig2-feature_extraction_module.png}
+% \caption{Módulo de extração de atributos da ferramenta BigFlow \cite{Viegas2019}.}
+% \label{fig:bigflow-pcap}
+% \end{figure}
 
-\begin{figure}[!ht]
-\centering
-\includegraphics[width=\textwidth]{figuras/bigflow-fig4-reliable_learning_module.png}
-\caption{Módulo de aprendizado confiável da ferramenta BigFlow \cite{Viegas2019}.}
-\label{fig:bigflow-ml}
-\end{figure}
+% \begin{figure}[!ht]
+% \centering
+% \includegraphics[width=\textwidth]{figuras/bigflow-fig4-reliable_learning_module.png}
+% \caption{Módulo de aprendizado confiável da ferramenta BigFlow \cite{Viegas2019}.}
+% \label{fig:bigflow-ml}
+% \end{figure}
 
 % BigFlow destaca em sua secção 2 (backgroud) o processamento de streams [18, 19],
 % a preferencia de NIDS por anomalia em contraste aos NIDS por assinatura [30, 31, 32],
@@ -324,21 +338,21 @@ submódulo de atualização incremental que atualiza e distribui o modelo aos cl
 % 21 (2009) 1263–1284. doi:10.1109/TKDE.2008.239.
 
 \citeonline{Viegas2019} destaca que \datasets adequados para NIDS são
-poucos devido o conjunto de qualidades que os mesmos devem atender como
+poucos, devido ao conjunto de qualidades que os mesmos devem atender, como
 realismo, validade, etiquetamento, grande variabilidade e reprodutividade
 (disponibilidade pública).
 
-Para avaliar o desempenho de NIDS o \dataset MAWIFlow é proposto por \citeonline{Viegas2019}.
-Originário do
-\dataset \emph{Packet traces from WIDE backbone, samplepoint-F} composto por
+Para avaliar o desempenho de NIDS, o \dataset MAWIFlow é proposto por \citeonline{Viegas2019}.
+Este \dataset é derivado do
+\dataset \emph{Packet traces from WIDE backbone, samplepoint-F}, composto por
 seções de captura de pacotes diárias de 15 minutos de um link de $1
 \mathrm{Gbps}$ entre Japão e EUA, com início em 2006 continuamente até hoje,
 anonimizados e etiquetados por MAWILab \cite{mawiSamplepointF,Fontugne2010}.
-Desse \dataset original, o \dataset MAWIFlow utiliza apenas os eventos de 2016
+Desse \dataset original, o \dataset MAWIFlow utiliza apenas os eventos de 2016,
 dos quais 158 atributos são extraídos resultando em 7.9 TB de captura de pacotes.
 Além disso, os dados são estratificados para redução de seu tamanho a um
-centésimo mantendo as proporções de etiquetas (Ataque e Normal) facilitando o
-compartilhamento e avaliação de NIDS além de atender às qualidades anteriormente
+centésimo, \hl{mantendo} as proporções de etiquetas (Ataque e Normal), \hl{facilitando} o
+compartilhamento e avaliação de NIDS, além de atender às qualidades anteriormente
 mencionadas.
 
 % classifiers that are usually employed for intrusion detection: decision tree
@@ -346,28 +360,28 @@ mencionadas.
 % [45] classifier composed from DT, RF, and GB that decides based on majority
 % voting across each classifier’s decisions.
 
-Com o \dataset MAWIFlow reduzido a 62 atributos foram avaliados quatro
+Com o \dataset MAWIFlow reduzido a 62 atributos, foram avaliados quatro
 classificadores da literatura em dois modos de operação.
 % quanto aoseus dados de treinamento (ambos contendo uma semana de captura).
 O primeiro modo de operação usa somente a primeira semana do ano como conjunto
 de treinamento e as demais como conjunto teste.
-O segundo modo usando o conjunto da semana anterior como treinamento e o
+O segundo modo usa o conjunto da semana anterior como treinamento e o
 conjunto da semana seguinte como teste.
 Comparando os resultados entre os modos de operação, os autores demonstram que a qualidade da
-classificação reduz com o tempo quando não há atualização frequente do modelo
+classificação reduz-se com o tempo, quando não há atualização frequente do modelo
 classificador.
 
 Com base na avaliação dos classificadores da literatura, para a ferramenta
 BigFlow é proposta a utilização de 4 algoritmos de classificação com capacidade
-de atualização, todos algoritmos são variações de árvore de decisão
+de atualização, sendo todos variações de árvore de decisão
 \emph{Hoeffding} \cite{Viegas2019,Domingos2000}.
 A avaliação da ferramenta foi executada de maneira semelhante à avaliação
 dos algoritmos da literatura, onde o conjunto de dados da primeira semana foi
 usado para treinamento e o conjunto de dados do restante do ano como conjunto
 de teste.
 Além do conjunto de treinamento, o modelo é atualizado semanalmente com base nas
-instâncias rejeitadas pelo submódulo de verificação, como ilustrado na
-\reffig{bigflow-ml}.
+instâncias rejeitadas pelo submódulo de verificação.
+% , como ilustrado na \reffig{bigflow-ml}.
 
 % four stream learning classifiers were evaluated:
 % Hoeffding Tree [51], OzaBoosting [54], Leveraging Bag [55],
@@ -377,64 +391,71 @@ instâncias rejeitadas pelo submódulo de verificação, como ilustrado na
 \newcommand{\kafka}{\emph{Apache Kafka}\xspace}
 \newcommand{\flink}{\emph{Apache Flink}\xspace}
 
-Quanto a distribuição do processamento, ilustrada na \reffig{bigflow-arch},
+Quanto à distribuição do processamento,
+%  ilustrada na \reffig{bigflow-arch},
 a ferramenta BigFlow faz uso das plataformas \flink e \kafka.
 Em especial, destaca-se o uso do serviço gerenciador de trabalhos (\emph{Job
 Manager}) e as múltiplas instâncias do serviço gerenciador de tarefas
 (\emph{Task Manager}).
 
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\textwidth]{figuras/bigflow-fig5-bigflow_arch.png}
-  \caption{Visão geral da arquitetura e distribuição da ferramenta BigFlow \cite{Viegas2019}.}
-  \label{fig:bigflow-arch}
-\end{figure}
+% \begin{figure}[ht]
+%   \centering
+%   \includegraphics[width=\textwidth]{figuras/bigflow-fig5-bigflow_arch.png}
+%   \caption{Visão geral da arquitetura e distribuição da ferramenta BigFlow \cite{Viegas2019}.}
+%   \label{fig:bigflow-arch}
+% \end{figure}
 
-Em conclusão, a ferramenta BigFlow demonstra a capacidade de classificação e
+Em conclusão, a ferramenta BigFlow demonstra capacidade de classificação e
 detecção de anomalias em fluxos de dados de alta velocidade no contexto de
 detecção de intrusão.
-No entanto, a atualização semanal e, mais importante, dependendo de avaliação de um
-especialista, não é ideal para detecção de novidades e respectiva ação sobre a
-descoberta de novos padrões.
+\notahelio{?}\hl{No entanto, a atualização semanal e, mais importante,}
+\hl{dependendo de avaliação de}\\
+\hl{um especialista não é ideal}
+\hl{para detecção de novidades e}
+\hl{respectiva ação sobre a descoberta}\\
+\hl{de novos padrões.}
 
 % Outras propostas tratam do caso de grandes volumes e velocidades, como ́e o caso
-% de Viegaset al. (2019) que apresenta oBigFlowno intuito de detectar intrus ̃ao
-% em redes10 GigabitEthernet, que ́e um volume consider ́avel atualmente imposs
-% ́ıvel de ser processado em um ́unicon ́ucleo de processador (single-threaded).
-% Essa implementac ̧ ̃ao ́e feita sobre uma plataformadistribu ́ıda processadora
-% de fluxos (Apache Flink) executada em um cluster com at ́e 10 n ́os detrabalho,
-% cada um com 4 n ́ucleos de processamento totalizando 40 n ́ucleos para atingir
-% taxas deat ́e 10,72Gb ps.
+% de Viegas et al. (2019) que apresenta oBigFlow no intuito de detectar intrusão
+% em redes10 GigabitEthernet, que ́e um volume considerável atualmente 
+% impossível de ser processado em um ́único núcleo de processador (single-threaded).
+% Essa implementação ́e feita sobre uma plataforma distribuída processadora
+% de fluxos (Apache Flink) executada em um cluster com at ́e 10 n os de trabalho,
+% cada um com 4 núcleos de processamento totalizando 40 núcleos para atingir
+% taxas de até 10,72Gb ps.
 
 \subsection{Ferramenta CATRACA}
 
 O trabalho de \citeonline{Lopez2018} aborda a detecção de ameaças a redes de
-computadores em tempo real e para atingir esse objetivo, propôs a ferramenta
+computadores em tempo real e, para atingir esse objetivo, propôs a ferramenta
 CATRACA\footnote{
-    A ferramenta e sua documentação estão disponíveis em \url{http://gta.ufrj.br/catraca}
+    A ferramenta e sua documentação estão disponíveis em
+    \url{http://gta.ufrj.br/catraca}
     e \url{https://github.com/tinchoa/catraca}.
 }.
 A ferramenta CATRACA é composta de três camadas: captura, processamento e
-visualização, ilustradas na Figura \ref{fig:catraca}.
+visualização.
+%  ilustradas na Figura \ref{fig:catraca}.
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.8\textwidth]{figuras/catraca-arch.png}
-\caption{Arquitetura em camadas da ferramenta CATRACA \cite{Lopez2018}.}
-\label{fig:catraca}
-\end{figure}
+% \begin{figure}[ht]
+% \centering
+% \includegraphics[width=0.8\textwidth]{figuras/catraca-arch.png}
+% \caption{Arquitetura em camadas da ferramenta CATRACA \cite{Lopez2018}.}
+% \label{fig:catraca}
+% \end{figure}
 
 % \nota{deu pra entender,mas coloca ou vírgula, ou divide as frases: baseada na
 % biblioteca flowbag. Essa biblioteca é embalada ou a funcao em python esta
 % embalada em um funcao virtual de rede?}
 
-Na camada de captura, pacotes são capturados da rede e transformadas em fluxos
+Na camada de captura, pacotes são capturados da rede e 
+são geradas informações sumário de fluxos
 por uma aplicação \emph{Python} utilizando a biblioteca \emph{flowtbag}\footnote{
     Disponível em \url{https://github.com/danielarndt/flowtbag} e
     \url{https://dan.arndt.ca/projects/netmate-flowcalc/}.
-}
-e os fluxos são enviados para um tópico de um sistema de fila de mensagens
-(\emph{Apache Kafka}) hospedada em nuvem.
+}.
+Esses sumários são enviados para um tópico de um sistema de fila de mensagens
+(\emph{Apache Kafka}) hospedado em nuvem.
 Essa aplicação \emph{Python} é distribuída como uma função virtual de rede
 (\emph{Network Function Virtualization}) executada em dispositivos de rede
 virtuais.
@@ -447,18 +468,19 @@ próxima camada na arquitetura por meio de um banco de dados (SGBD).
 A última camada da ferramenta fornece uma interface gráfica que apresentada a
 visualização dos fluxos processados bem como os conhecimentos extraídos e
 armazenados no banco de dados (SGBD).
-Ambas camadas de processamento e visualização são executadas em ambiente de
+Ambas as camadas de processamento e visualização são executadas em ambiente de
 computação em nuvem (\cloud).
 
 Para o desenvolvimento da ferramenta CATRACA, \citeonline{Lopez2018} avaliou e
 comparou as plataformas de processamento de fluxo de dados em tempo real
 disponíveis (\emph{Apache Storm}, \emph{Apache Flink}, \emph{Apache Spark Streaming}).
 A avaliação extraiu a velocidade máxima, em mensagens por minuto,
-de cada plataforma variando a configuração de paralelismo
-em dois programas, ambos consumiam de um tópico de um sistema de fila
+de cada plataforma, variando a configuração de paralelismo
+em dois programas.
+Ambos consumiam dados de um tópico de um sistema de fila
 de mensagens (\emph{Apache Kafka}) e produziam para outro tópico.
 O primeiro programa consiste de um detector de ameças composto por
-uma rede neural classificadora escrito em \emph{Java} e é testado
+uma rede neural classificadora escrito em \emph{Java}, que foi testado
 com o conjunto de dados sintético UFRJ/GTA \cite{Lopez2018}.
 O segundo programa conta quantas repetições de uma palavra existem em um
 fluxo de dados, exemplo muito comum em tutoriais de plataformas desse gênero,
@@ -470,7 +492,7 @@ e é avaliado com um conjunto de \emph{Tweets}.
 % We described and compared the three-major open source distributed stream
 % processing systems: Apache Storm, Apache Flink, and Apache Spark Streaming. We
 % performed throughput analysis, allocating more processing cores to achieve
-% higher processing rates, Apache Stormwas able to process up to 15 million
+% higher processing rates, Apache Storm was able to process up to 15 million
 % samples per minute. Moreover, we performed fault tolerance test to compare these
 % three most popular open-source Distribute Stream Processors (DSP). In this case,
 % we showed that Spark streaming, using micro-batch processing model, can recover
@@ -494,46 +516,58 @@ e é avaliado com um conjunto de \emph{Tweets}.
 % Os resultados apresentados por essa avaliação mostraram que Apache Storm 
 
 Para o modelo de classificação, a ferramenta CATRACA utiliza o método árvore de
-decisão, escolhido pelo rápido treinamento e alta precisão e acurácia\footnote{
-    A precisão e acurácia do método árvore de decisão pode estar associado
-    a independência entre as características (\emph{features}) de cada exemplo
-    típicos de conjuntos derivados de pacotes de rede.
+decisão, escolhido pelo rápido treinamento e pela alta precisão e acurácia\footnote{
+    A precisão e a acurácia do método árvore de decisão podem estar associadas
+    à independência entre as características (\emph{features}) de cada exemplo,
+    típico de conjuntos derivados de pacotes de rede.
 }.
 O modelo é criado na fase \emph{Offline} e utilizado na classificação binária
 (normal e ameaça) da fase \emph{Online}, sendo recalculado quando uma ameaça
 é encontrada.
 
+% test\\
+% $214200$\\
+% $214\,200$\\
+% $214\, 200$\\
+% $214\;200$\\
+% $214\; 200$\\
+% $214200$\\
+
 Pra avaliação da ferramenta CATRACA dois conjuntos de dados são utilizados.
-O primeiro conjunto, UFRJ/GTA, é sintético criado por uma simulação de rede de
-computadores com $214200$ fluxos de rede totalizando $95 \mathrm{GB}$ de pacotes capturados,
+O primeiro conjunto, UFRJ/GTA, é sintético e foi criado por uma simulação de
+rede de computadores, contendo $214\;200$ fluxos de rede e totalizando $95
+\mathrm{GB}$ de pacotes capturados, este \dataset
 é composto de 24 atributos e 16 classes.
 O outro conjunto, referido como NetOp, foi coletado de um operador de rede que
-atende 373 residências na cidade do Rio de Janeiro em 2017.
+atendia 373 residências na cidade do Rio de Janeiro em 2017.
 O conjunto NetOp é formado por 5 TB de pacotes capturados e etiquetados por um
 detector de intrusão comercial.
 
-Também para a avaliação da ferramenta CATRACA, utilizou-se as métricas de qualidade
-de classificação acurácia, precisão, sensibilidade e F1M com intervalo de
+Também para a avaliação da ferramenta CATRACA, foram utilizadas as métricas de qualidade
+de classificação acurácia, precisão, sensibilidade e F1M, com intervalo de
 confiança de 95\%.
 As métricas de qualidade, dependendo do tamanho do conjunto, foram extraídas por
 métodos de avaliação amplamente utilizados para avaliar modelos de aprendizado
 de máquina (\emph{machine learning}) como validação cruzada com proporção
 70\% do conjunto base para treinamento e 30\% para teste.
-Para as métricas de escalabilidade utiliza latência e fator de aceleração
+Para as métricas de escalabilidade foram utilizadas a latência e fator de aceleração
 \emph{speedup factor} (latência observada com paralelismo 1 dividida pela
 latência observada com paralelismo variável).
 
 Em conclusão, a ferramenta CATRACA apresenta uma arquitetura dividida em camadas
-alocadas em ambientes de névoa (\fog) e nuvem (\cloud), essa ferramenta é
-avaliada com métricas e dois conjuntos de dados relevantes.
+alocadas em ambientes de névoa (\fog) e nuvem (\cloud).
+Essa ferramenta foi avaliada com métricas de qualidade, métricas de
+escalabilidade e dois conjuntos de dados relevantes.
 No entanto, o algoritmo de detecção de anomalias desenvolvido para a ferramenta
 consiste de um modelo de classificação pelo método árvore de decisão e
 a atualização do modelo durante a fase \emph{Online} depende de todos os exemplos do
 último intervalo de atualização.
-Esse tipo de algoritmo de detecção de anomalias não é capaz de lidar
-adequadamente com as características de fluxos contínuos de dados como os
+Esse tipo de algoritmo de detecção de anomalias 
+\notahelio{por que não?}
+\hl{não é capaz de lidar}
+\hl{adequadamente com as características de fluxos contínuos} de dados, como os
 descritos na \refsec{nd} (\drift, \evolution, limitado a ler o conjunto somente
-uma vez) que são atendidos por algoritmos de detecção de novidade.
+uma vez), que são atendidos por algoritmos de detecção de novidade.
 
 % A monitoring and threat detection system using stream processing as a virtual 
 % function for Big Data
@@ -569,14 +603,14 @@ uma vez) que são atendidos por algoritmos de detecção de novidade.
 
 A arquitetura \idsiot, proposta por \citeonline{Cassales2019a}, tem por objetivo
 monitorar uma rede local com dispositivos \iot e detectar tentativas de intrusão
-e alguma subversão destes dispositivos.
+e alguma subversão do comportamento das transmissões destes dispositivos.
 O principal destaque da arquitetura é a distribuição de tarefas do sistema de
-detecção de intrusão entre nós na rede de borda (\fog) e nós em nuvem pública
+detecção de intrusão entre nós na \notahelio{ou edge?}\hl{rede de borda (\fog)} e nós em nuvem pública
 (\cloud).
-O objetivo dessa distribuição é a redução de latência que torna inviável a
-hospedagem de um sistema detector de intrusão somente em ambiente \cloud e
+O objetivo dessa distribuição é a redução de latência, que torna inviável a
+hospedagem de um sistema detector de intrusão somente em ambiente \cloud, e
 também possibilitar a análise de grandes volumes de dados por algoritmos de
-maior complexidade que são de custo computacional proibitivo para nós de borda.
+maior complexidade, que são de custo computacional proibitivo para nós de borda.
 A \reffig{ids-iot-phy} ilustra a estrutura física da arquitetura \idsiot,
 destacando os dispositivos \iot, dispositivos de borda e nuvem pública.
 
@@ -592,8 +626,9 @@ A arquitetura proposta é avaliada com três algoritmos de detecção de novidad
 ECSMiner \cite{Masud2010ECSMiner}, AnyNovel \cite{Abdallah2016anynovel} e MINAS
 \cite{Faria2016minas}.
 A avaliação foi feita com o \dataset \emph{Kyoto 2006+}, composto de
-dados coletados de 348 \emph{Honeypots} (máquinas isoladas com diversos
-softwares com vulnerabilidades conhecidas expostas à Internet com propósito de
+dados coletados de 348 \emph{Honeypots} 
+(máquinas isoladas, equipadas com diversos
+softwares com vulnerabilidades conhecidas e expostas à Internet, com propósito de
 atrair ataques) de 2006 até dezembro 2015.
 Esse \dataset tem as características desejáveis de um conjunto para detectção de
 novidades como: realismo, validade, etiquetas previamente definidas, alta
@@ -615,10 +650,11 @@ a quantidade de requisições de classificação por especialista.
 
 Outra avaliação dos algoritmos foi a extração de métricas de uso de recursos
 computacionais e tempo total de processamento em dispositivos limitados.
-Essa avalição envolveu dois computadores, um computador pessoal com recursos
-convecionais produzia exemplos e adicionava como mensagens em um tópico no
-sistema de fila de mensagens \kafka, já o outro computador com recursos
-limitados consumia as mensagens do tópico e classificava os exemplos.
+Essa avaliação envolveu dois computadores.
+Para tanto, um computador pessoal com recursos
+convencionais produzia exemplos e adicionava como mensagens em um tópico no
+sistema de fila de mensagens \kafka; já o outro computador, com recursos
+limitados, consumia as mensagens do tópico e classificava os exemplos.
 
 Ambas as avaliações demonstraram o equilíbrio entre qualidade de classificação e
 velocidade ou uso de recursos.
@@ -626,7 +662,7 @@ O algoritmo ECSMiner mostrou melhor qualidade de classificação, porém com
 velocidade inferior e maior consumo de recursos comparado aos outros algoritmos.
 Já o algoritmo MINAS, apesar de maiores valores na métrica erro, mostrou-se
 adequado para dispositivos limitados com baixo consumo de recursos
-computacionais e manteve constante e baixa métrica Fnew.
+computacionais e manteve a métrica Fnew constante e baixa.
 O algoritmo AnyNovel não apresentou consistência nos resultados e o consumo
 de recursos computacionais (memória) foi elevado.
 
@@ -635,9 +671,9 @@ de recursos computacionais (memória) foi elevado.
 % time and memory consumption, indicates MINAS is suitable
 % for IoT scenarios.
 
-Com as avaliações realizadas, a arquitetura \idsiot opta por distribuir as
+Com as avaliações realizadas, a arquitetura \idsiot \hl{opta por distribuir} as
 tarefas de mineração dos fluxos para detecção de intrusão em serviços e aloca os
-serviços em diferentes camadas físicas conforme ilustrado na \reffig{ids-iot}.
+serviços em diferentes camadas físicas, conforme ilustrado na \reffig{ids-iot}.
 
 \begin{figure}[hbt]
 \centering
@@ -651,7 +687,7 @@ A distribuição das tarefas em serviços proposta abre oportunidades para a
 discussão de diferentes métodos de distribuição dessas tarefas em diferentes
 ambientes computacionais.
 Contudo, o algoritmo MINAS ainda não foi implementado e avaliado com
-paralelismo, multi-processamento ou distribuição computacional, que são
+\hl{paralelismo, multi-processamento} ou \hl{distribuição computacional}, que são
 necessários para tratar fluxos de dados com grandes volumes e velocidades.
 
 % \nota{Também discutir a classificação dos fluxos por endpoint
@@ -694,7 +730,7 @@ necessários para tratar fluxos de dados com grandes volumes e velocidades.
 
 % \nota{coloca uma secao de SINTESE dos trabalhos relacionados ou sintese do capitulo}
 
-Em conclusão, os trabalhos discutidos nesse Capítulo tem temas complementares em
+Em conclusão, os trabalhos discutidos nesse Capítulo têm temas complementares em
 áreas distintas.
 A área de aprendizado de máquina, com o tema detecção de novidades em fluxos de
 dados, preocupa-se em fornecer melhores previsões através de algoritmos
@@ -704,7 +740,7 @@ de fluxos contínuos em ambientes de computação em nuvem e em névoa, fornecen
 métodos para processar grandes volume de dados com mínima latência.
 
 Apesar de já existirem propostas que estabelecem o estado da arte separadamente
-em cada um dos temas, falta ainda uma abordagem que estabeleça uma união entre o
-estado da arte em algoritmos de detecção de novidade e o estado da arte em
-processamento distribuído de fluxos de dados, em especial para o ambiente de
-computação em névoa focado em fluxos de dados relacionados a dispositivos \iot.
+em cada um dos temas, \hl{falta ainda uma abordagem que estabeleça uma união} entre o
+estado da arte em \hl{algoritmos de detecção} de novidade e o estado da arte em
+\hl{processamento distribuído} de fluxos de dados, em especial para \hl{o ambiente de
+computação em névoa} focado em \hl{fluxos de dados} relacionados a \hl{dispositivos \iot.}
