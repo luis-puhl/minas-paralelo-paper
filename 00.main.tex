@@ -29,15 +29,24 @@
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 \newcounter{todocounter}
 \newcommandx{\nota}[2][1=]{\stepcounter{todocounter}\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{[\thetodocounter] #2}}
-\newcommandx{\notahelio}[2][1=]{\stepcounter{todocounter}\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{[Helio \thetodocounter] #2}}
-\newcommandx{\notahermes}[2][1=]{\stepcounter{todocounter}\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{[Hermes \thetodocounter] #2}}
+% \newcommandx{\notahermes}[2][1=]{\stepcounter{todocounter}\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{[Hermes \thetodocounter] #2}}
+
+\newcommandx{\notahl}[2][1=]{\stepcounter{todocounter}\todo[
+  linecolor=green,
+  backgroundcolor=green!25,
+  bordercolor=green,#1]{[Helio \thetodocounter] #2}}
 \newcommand{\hl}[1]{\colorbox{green}{#1}}
 
-% \usepackage[showframe]{geometry}
-\usepackage{geometry}
-\marginparwidth=35mm
+\newcommandx{\notase}[2][1=]{\stepcounter{todocounter}\todo[
+  linecolor=yellow,
+  backgroundcolor=yellow!25,
+  bordercolor=yellow,#1]{[Hermes \thetodocounter] #2}}
+\newcommand{\hlse}[1]{\colorbox{yellow}{#1}}
+
+\usepackage[showframe,layoutvoffset=0mm,includeall,tmargin=15mm,bmargin=20mm]{geometry}
+\marginparwidth=34mm
 \hoffset=-25mm
-\textwidth=160mm
+\textwidth=165mm
 
 % \usepackage{minted}
 % \usemintedstyle{emacs}
@@ -65,7 +74,6 @@
 \newcommand{\refequ}[1]{Equação \ref{eq:#1}\xspace}
 
 % ---------------------------------------------------------
-% \notahelio{[helio] "Uma Implementação paralela": Disso, subentende0se foco no paralelismo...}
 \titulo{Uma Implementação distribuída em Névoa do algoritmo de Detecção de Novidade em Fluxos de Dados MINAS}
 \autor{Luís Henrique Puhl de Souza}
 \orientador[Orientador]{Prof. Dr. Hermes Senger}
@@ -142,12 +150,12 @@ Conselho Nacional de Desenvolvimento Científico e Tecnológico (CNPq).
 % cap 5: Cronograma até a defesa
 
 %% capítulos
-\input{11.quali.tex}
 \input{10.introducao.tex}
 \input{20.fundamentos.tex}
 \input{30.trabalhos-relacionados.tex}
 \input{40.proposta.tex}
 \input{50.finais.tex}
+\input{11.quali.tex}
 
 \bibliography{99.referencias}
 
