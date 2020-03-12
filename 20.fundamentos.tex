@@ -544,17 +544,17 @@ de latência em um sistema em tempo real, para isso a camada de velocidade
 complementa os dados das visões com dados diretamente do conjunto mestre em
 tempo real diretamente para a camada de serviço \cite{marz2015big}.
 
-A Figura \ref{fig:lambda} ilustra uma implementação da arquitetura \lambdaa
-onde \emph{Apache Kafka}, \emph{Apache Storm}, \emph{Apache Hadoop}
-implementam o conjunto mestre, camada de velocidade e camada de lotes
-respectivamente.
+% A Figura \ref{fig:lambda} ilustra uma implementação da arquitetura \lambdaa
+% onde \emph{Apache Kafka}, \emph{Apache Storm}, \emph{Apache Hadoop}
+% implementam o conjunto mestre, camada de velocidade e camada de lotes
+% respectivamente.
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.6\textwidth]{figuras/lambda.png}
-\caption{Arquitetura \lambdaa com detalhes práticos \cite{Kreps2014}.}
-\label{fig:lambda}
-\end{figure}
+% \begin{figure}[ht]
+% \centering
+% \includegraphics[width=0.6\textwidth]{figuras/lambda.png}
+% \caption{Arquitetura \lambdaa com detalhes práticos \cite{Kreps2014}.}
+% \label{fig:lambda}
+% \end{figure}
 
 \subsection{Arquitetura \kappaa}
 
@@ -742,24 +742,26 @@ Java, Scala ou Python.
 
 \subsection{Arquitetura}
 
-Quando \emph{Flink} é inicializado, um processo gerenciador de trabalhos
-(\emph{Job Manager}) e múltiplos gerenciadores de tarefa \emph{Task Manager} são criados.
+\newcommand{\jobmngr}{\xspace{}gerenciador de trabalho\xspace}
+\newcommand{\taskmngr}{\xspace{}gerenciador de tarefa\xspace}
+
+Quando \emph{Flink} é inicializado, um processo \jobmngr
+(\emph{Job Manager}) e múltiplos gerenciadores de tarefa (\emph{Task Manager}) são criados.
 Quando um código de programa é submetido, o cliente transforma-o em um grafo
-acíclico direcionado - \emph{data flow} - e submete-o ao \emph{Job Manager}.
+acíclico direcionado - \emph{data flow} - e submete-o ao \jobmngr.
 % como pode ser observado na Figura Figura \ref{fig:processo-flink}.
 Segundo \citeonline{Carbone2015}, essa fase de transformação examina o esquema
 dos dados trocados entre os operadores e cria serializadores e
 outros códigos para otimização da futura execução.
-O \emph{Job Manager} coordena toda execução distribuída do grafo \emph{data
+O \jobmngr coordena toda execução distribuída do grafo \emph{data
 flow}. Ele rastreia o estado e o progresso de cada fluxo, agenda novos
 operadores e coordena os \emph{checkpoints} e recuperação.
-Para alta disponibilidade, o \emph{Job Manager} persiste em disco um conjunto mínimo de
+Para alta disponibilidade, o \jobmngr \hl{persiste} em disco um conjunto mínimo de
 metadados em cada \emph{checkpoint} para um armazenamento tolerante a falhas, de
 modo que esse gerenciador possa recuperar a execução do grafo a partir desse
 ponto.
 O processamento de dados ocorre no \emph{Task Manager} que executa um ou mais
-operadores que produzem fluxos de dados, e reportam seus estados ao \emph{Job
-Manager}.
+operadores que produzem fluxos de dados, e reportam seus estados ao \jobmngr.
 
 % \begin{figure}[hbt]
 % \centering
@@ -768,13 +770,13 @@ Manager}.
 % \label{fig:processo-flink}
 % \end{figure}
 
-A pilha de componentes de software do \emph{Apache Flink} é composta pelas
-seguintes camadas da Figura \ref{fig:software-flink}.
+A pilha de componentes de software do \emph{Apache Flink} é composta em camadas.
+% da Figura \ref{fig:software-flink}.
 A camada \emph{core} é vista como um mecanismo de processamento e execução de
 fluxo de dados, enxergando o processamento em lote como um caso especial
 \cite{Lopez2018,Carbone2015}.
-A camada de APIs é composta pelo \emph{DataStream API} que processa dados
-infinitos ou fluxos de dados e pelo \emph{DataSet API} que processa dados
+A camada de APIs é composta pelo \emph{DataStream API}, que processa dados
+infinitos ou fluxos de dados, e pelo \emph{DataSet API}, que processa dados
 finitos ou dados em lote.
 Junto ao \emph{core}, essas APIs montam planos de execução otimizados para cada
 tipo de conjuntos de dados, gerando programas executáveis pelo \emph{core}.
@@ -785,26 +787,26 @@ Essas bibliotecas são: \emph{FlinkML} para aprendizado de máquina, \emph{Gelly
 para processamento de grafos, \emph{Table} para domínios relacionais (SQL), e
 CEP (\emph{Complex Event Processing}) para processamento de eventos.
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.7\textwidth]{figuras/software-flink.png}
-\caption{Componentes de software do \emph{Apache Flink} \cite{Carbone2015}.}
-\label{fig:software-flink}
-\end{figure}
+% \begin{figure}[ht]
+% \centering
+% \includegraphics[width=0.7\textwidth]{figuras/software-flink.png}
+% \caption{Componentes de software do \emph{Apache Flink} \cite{Carbone2015}.}
+% \label{fig:software-flink}
+% \end{figure}
 
 \subsection{\emph{Data flow} e \emph{data streams}}
 
-Os \emph{data streams} ou fluxo de dados e as transformações são as principais
+Os \emph{data streams}, ou fluxo de dados, e as transformações são as principais
 abstrações do \emph{Apache Flink} \cite{Lopez2018,ApacheFlink2020}.
-Esse fluxo de dados é definido como um fluxo de registros.
+Um fluxo de dados é definido como um fluxo de registros.
 Já as transformações são operações (\emph{map, filtering, reduction, join},
 etc.) aplicadas de forma incremental nos \emph{data streams}, gerando um novo
 fluxo de dados.
 Cada uma dessas transformações pode ser paralelizada por um parâmetro de
 paralelismo \cite{Lopez2018}.
 
-Um programa \emph{Flink} é mapeado para um grafo acíclico direcionado \emph{data
-flow} utilizado pelo \emph{Job Manager} \cite{Carbone2015}.
+Um programa \emph{Flink} é mapeado para um grafo acíclico direcionado, \emph{data
+flow}, utilizado pelo \emph{Job Manager} \cite{Carbone2015}.
 Esse grafo é composto por operadores de transformação e fluxo de dados
 \cite{ApacheFlink2020}.
 Para facilitar o paralelismo desse grafo de execução, os operadores que agem
@@ -812,27 +814,27 @@ sobres os fluxos de dados podem ser divididos em sub-tarefas que são executadas
 pelos \emph{slots} dos \emph{Task Manager}, e os fluxos de dados podem ser
 particionados entre os operadores consumidores e produtores.
 
-Cada \emph{data flow} dos programas do \emph{Apache Flink} iniciam com uma fonte
-de dados e terminam com um \emph{sink} que escreve os dados de saída em algum
-sistema de armazenamento suportado, como: \emph{Apache Kafka, Amazon Kinesis Streams,
-Hadoop Filesystem, Apache Cassandra} \cite{ApacheFlink2020}.
-Na Figura \ref{fig:dataflow-flink}, pode-se observar um exemplo de programa
-\emph{Apache Flink} escrito em Java e seu grafo de execução.
-Nesse exemplo, define-se como fonte de dados o \emph{Apache Kafka}.
-Em seguida, aplica-se uma transformação \emph{map}, e depois outra transformação
-de agrupamento por um dos atributos dos dados e por uma janela de 10 segundos.
-Por fim, o resultado é passado para um \emph{sink}.
+Cada \emph{data flow} dos programas do \emph{Apache Flink} inicia execução com uma fonte
+de dados e termina com um \emph{sink} que escreve os dados de saída em algum
+sistema de armazenamento suportado, como \emph{Apache Kafka, Amazon Kinesis Streams,
+Hadoop Filesystem} e \emph{Apache Cassandra} \cite{ApacheFlink2020}.
+% Na Figura \ref{fig:dataflow-flink}, pode-se observar um exemplo de programa
+% \emph{Apache Flink} escrito em Java e seu grafo de execução.
+% Nesse exemplo, define-se como fonte de dados o \emph{Apache Kafka}.
+% Em seguida, aplica-se uma transformação \emph{map}, e depois outra transformação
+% de agrupamento por um dos atributos dos dados e por uma janela de 10 segundos.
+% Por fim, o resultado é passado para um \emph{sink}.
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.85\textwidth]{figuras/dataflow-code-flink.png}
-\caption{Exemplo de código e \emph{data flow} do \emph{Apache Flink} \cite{ApacheFlink2020}}
-\label{fig:dataflow-flink}
-\end{figure}
+% \begin{figure}[ht]
+% \centering
+% \includegraphics[width=0.85\textwidth]{figuras/dataflow-code-flink.png}
+% \caption{Exemplo de código e \emph{data flow} do \emph{Apache Flink} \cite{ApacheFlink2020}}
+% \label{fig:dataflow-flink}
+% \end{figure}
 
 \subsection{Tolerância a falhas}
 
-O \emph{Apache Flink} implementa a tolerância a falhas combinando repetição e
+O \emph{Apache Flink} implementa um mecanismo de tolerância a falhas combinando repetição e
 \emph{checkpoint} dos fluxos \cite{Carbone2015,ApacheFlink2020}.
 Um \emph{checkpoint} está relacionado com pontos específicos dos fluxos de
 entrada, juntamente com o estado dos operadores.
@@ -843,24 +845,24 @@ momento.
 Portanto, as falhas são tratadas de forma transparente e não afetam a exatidão
 da execução de um programa \emph{Flink} \cite{ApacheFlink2020}.
 
-O algoritmo de \emph{checkpoint} assíncrono e incremental garante um impacto
+O algoritmo de \emph{checkpoint} assíncrono e incremental \notahelio{?}\hl{garante} um impacto
 mínimo em latência no processamento \cite{Carbone2015}.
-Além disso, para reduzir o tempo de recuperação, o \emph{Apache Flink} tira um
-\emph{snapshot} do estado dos operadores, incluindo a posição atual dos fluxos
-de entrada em intervalos regulares.
+Além disso, para reduzir o tempo de recuperação, o \emph{Apache Flink} gera
+\emph{snapshots} do estado dos operadores, incluindo a posição atual dos fluxos
+de entrada, em intervalos regulares.
 
 % \subsection{Operações com Estado}
 
 O \emph{Apache Flink} realiza computações com estado (\emph{stateful}) que guardam
 eventos ou resultados intermediários para acessá-los posteriormente,
-contribuindo para planos de execução, mecanismo de recuperação de falhas e
+contribuindo para planos de execução, mecanismo de recuperação de falhas e para
 lembrar de eventos passados para agregar dados \cite{ApacheFlink2020, Carbone2015}.
 
 % \subsection{Processamento em lotes}
 
 O \emph{Apache Flink} considera o processamento em lotes como um caso especial
 de fluxo de dados, que nesse caso é limitado em número de elementos.
-Para esse tipo de dados, há estrutura de dados e algoritmos específicos, como o
+Para esse tipo de dados existem estruturas de dados e algoritmos específicos, como o
 \emph{DataSet API} e operações próprias (agregações, uniões, interações)
 \cite{Carbone2015}.
 
@@ -869,130 +871,42 @@ para o fluxo de dados.
 No lugar, a recuperação é feita repetindo completamente o fluxo ou repetindo as
 últimas partições perdidas do fluxo intermediário materializado.
 
-
-
-% \nota{Descrever o flink, diferenças entre as outras plataformas e dar exemplos de código}
-% Breve descrição do Flink (como esse vai ser usado, precisa explicar um pouco melhor - 2 paginas pelo menos):\\
-% - arquitetura\\
-% - modelo de programacao\\
-% - 1 pequeno exemplo de codigo explicando
-
-
-% These stream applications are characterized by an unbounded sequence of
-% events, or tuples, that arrive continuously [4]. \cite{Stonebraker2005}
-
-% A number of requirements must be met on distributed stream processing
-% platforms, \citeonline{Stonebraker2005} Stonebraker et al. highlight the most
-% important [4].
-
-
-% the difficulties in anonymizing and extracting knowledge from
-% anonymized data, and discuss the main datasets available [6].
-% Among the datasets for security research, the most commonly
-% used is KDD [10], whose characterization was performed by
-% Tavallaee et al. [15]. \cite{Lopez2017}
-
-% \cite{Lopez2017}
-% In this paper, we analyze and characterize the traffic of a broadband Internet
-% access network by differentiating normal from anomalous traffic, that is marked
-% as threat by an IDS. We collected real and anonymized data from a major
-% telecommu- nications operator ^1. The dataset is created by capturing 5 TB of
-% access data of 373 residential broadband users in the city of Rio de Janeiro,
-% Brazil. The dataset contains legitimate traffic, attacks and other security
-% threats
-% ^1 Anonymized data can be consulted through email contact with authors.
-
-% [4] STONEBRAKER, M., C¸ ETINTEMEL, U., ZDONIK, S. “The 8 requirements of
-% real-time stream processing”, ACM SIGMOD Record, v. 34, n. 4, pp. 42–
-% 47, 12 2005. ISSN: 01635808. doi: 10.1145/1107499.1107504.
-% \cite{Stonebraker2005}
-% [80] ANDREONI LOPEZ, M., LOBATO, A. G. P., MATTOS, D. M. F., et al. “Um
-% Algoritmo Não Supervisionado e Rápido para Seleção de Caracterı́sticas
-% em Classificação de Tráfego”. In: XXXV SBRC’2017, Belém- Pará, PA,,
-% 2017.
-% [81] ANDREONI LOPEZ, M., LOBATO, A. G. P., DUARTE, O. C. M. B., et al.
-% “An evaluation of a virtual network function for real-time threat detection
-% using stream processing”. In: IEEE Fourth International Conference on
-% Mobile and Secure Services (MobiSecServ), pp. 1–5, 2018. doi: 10.1109/
-% MOBISECSERV.2018.8311440.
-% [82] CHENG, Z., CAVERLEE, J., LEE, K. “You Are Where You Tweet: A Content-
-% based Approach to Geo-locating Twitter Users”. In: Proceedings of the
-% 19th ACM International Conference on Information and Knowledge Man-
-% agement, CIKM ’10, pp. 759–768. ACM, 2010. ISBN: 978-1-4503-0099-5.
-% [83] LOBATO, A. G. P., ANDREONI LOPEZ, M., DUARTE, O. C. M. B. “Um
-% Sistema Acurado de Detecção de Ameaças em Tempo Real por Processa-
-% mento de Fluxos”. In: SBRC’2016, pp. 572–585, Salvador, Bahia, 2016.
-
-
-% \{Messa queueing systems - Sistemas de filas de mensagens}
-% O que são, para que servem e citar alguns exemplos
-% \{Kafka}
-% 1 pag
-
-% Apache Flink % Apache Flink is an open-source platform for distributed stream
-% and batch data processing. Flink’s core is a streaming data flow engine that
-% provides data distribution, communication, and fault tolerance for distributed
-% computations over data streams. Flink also builds batch processing on top of the
-% streaming engine, overlaying native iteration support, managed memory, and
-% program optimization.
-
-% Advantages of Flink:
-
-% Flink streaming processes data streams as true streams, i.e. data elements are
-% immediately “pipelined” through a streaming program as soon as they arrive. This
-% allows performing flexible window operations on streams.
-
-% Better memory management: Explicit memory management gets rid of the occasional spikes found in Spark framework.
-
-% Speed: It manages faster speeds by allowing iterative processing to take place
-% on the same node rather than having the cluster run them independently. Its
-% performance can be further tuned by tweaking it to re-process only that part of
-% data that has changed rather than the entire set. It offers up to a five-fold
-% boost in speed when compared to the standard processing algorithm.
-
-% Apache Spark is considered a replacement for the batch-oriented Hadoop system.
-% But it includes a component called Apache Spark Streaming, as well. Contrast
-% this with Apache Flink, which is a Big Data processing tool and it is known to
-% process big data quickly with low data latency and high fault tolerance on
-% distributed systems on a large scale. Its defining feature is its ability to
-% process streaming data in real time.
-
 \section{Detecção de Novidade}\label{sec:nd}
 
 \newcommand{\novelty}{\emph{Novelty Detection}\xspace}
-% \newcommand{\nd}{ND\xspace}
 \newcommand{\drift}{\emph{Concept Drift}\xspace}
 \newcommand{\evolution}{\emph{Concept Evolution}\xspace}
 
 No âmbito de classificação de dados, parte da área de aprendizado de máquina, os
 métodos de detecção de novidade (também nomeado detecção de anomalia, \novelty,
-\nd) lidam com o reconhecimento e classificação de exemplos que diferem de
+\nd) lidam com o reconhecimento e a classificação de exemplos que diferem de
 exemplos anteriores \cite{PERNER2007,Gama2010}.
-Esses métodos tratam da classificação em fluxos de dados que evolvem com o
+Esses métodos tratam da classificação em fluxos de dados que evoluem com o
 tempo, levando em consideração as características desse tipo de fluxos.
 
 % \nota{"As características desse tipo de fluxo de dados são?".. mas que tipo?}
 
-Tratando-se de fluxos de dados contínuos, são características dos padrões observados:
-a evolução de conceito (\evolution) onde novos padrões podem surgir;
-desaparecimento ou recorrência de conceito, onde padrões podem desaparecer e
+Tratando-se de fluxos de dados contínuos, são características
+\notahelio{quais?}\hl{dos padrões observados}:
+evolução de conceito (\evolution) em que novos padrões podem surgir;
+desaparecimento ou recorrência de conceito, em que padrões podem desaparecer e
 também podem reaparecer;
-a mudança de conceito (\drift, também nomeado deriva ou desvio) onde um padrão
+mudança de conceito (\drift, também nomeado deriva ou desvio) onde um padrão
 gradualmente se transforma;
-a possível presença de ruído e \emph{outliers} \cite{Gama2010}.
+presença de ruído e \emph{outliers} \cite{Gama2010}.
 
 % \nota{separar ai - ndpara\\
 % padroes novidade? reconhecomemnto de padroes novidade?}
 
-Os métodos de \nd são utilizados no reconhecimento de diversos padrões novidade
+Os métodos de \nd são utilizados no reconhecimento de \notahelio{?}\hl{diversos padrões novidade}
 ou anomalias e são aplicadas a diversos problemas como
-Detecção de Intrusos \cite{Coull2003,Spinosa2008,Viegas2019,Cassales2019a},
-Detecção de Falhas \cite{Zhang2006},
-Diagnósticos Médicos \cite{Perner2009},
-Detecção de Regiões de Interesse em Imagens \cite{singh2004approach},
-Detecção de Fraudes \cite{wang2003mining,Abdallah201690}, 
-Filtros de Spam \cite{Hayat2010dct} e
-Detecção de Variações Comportamentais em um Jogador \cite{Vallim20136258}.
+detecção de intrusos \cite{Coull2003,Spinosa2008,Viegas2019,Cassales2019a},
+detecção de falhas \cite{Zhang2006},
+diagnósticos médicos \cite{Perner2009},
+detecção de regiões de interesse em imagens \cite{singh2004approach},
+detecção de fraudes \cite{wang2003mining,Abdallah201690}, 
+filtros de spam \cite{Hayat2010dct} e
+detecção de variações comportamentais em um jogador \cite{Vallim20136258}.
 
 % breve descrição do que sao algoritmos para DN
 
@@ -1003,8 +917,8 @@ como um segundo conceito no modelo.
 No entanto, a abordagem de classificação binária não é adequada para representar
 múltiplos conceitos em um mesmo conjunto de dados, para isso é necessário abordar
 \nd como classificação multi-classe.
-Entretanto, alguns métodos que abordam \nd como classificação multi-classe não
-atendem completamente características de conjuntos com evolução temporal
+Alguns métodos que abordam \nd como classificação multi-classe não
+atendem completamente características de conjuntos com evolução temporal,
 como \evolution e \drift, deixando de detectar múltiplos padrões que surgem
 simultaneamente num intervalo de avaliação \cite{Faria2016nd,Gama2010}.
 
@@ -1014,7 +928,7 @@ duas fases:
 a primeira fase (\emph{Offline}) usa um conjunto de exemplos rotulados para
 deles extrair conceitos conhecidos e gerar um modelo;
 a segunda fase (\emph{Online}) consome um conjunto ou fluxo de exemplos não
-rotulados e classifica cada exemplo em um dos conceitos do modelo ou marca o
+rotulados e classifica cada exemplo em um dos conceitos do modelo, ou marca o
 exemplo como desconhecido.
 Ainda na segunda fase, para atualizar o modelo, os exemplos marcados como
 desconhecidos são utilizados para a extração de novos conceitos ou variações em
@@ -1040,54 +954,56 @@ exemplos não explicados pelo modelo marcados como desconhecidos
 \section{O algoritmo MINAS}\label{sec:minas-og}
 
 Um algoritmo de \nd que tem recebido atenção nos últimos anos é o algoritmo
-MINAS originalmente proposto por \citeonline{Faria2013}, refinado por
+MINAS, originalmente proposto por \citeonline{Faria2013}, refinado por
 \citeonline{Faria2016minas} e recentemente aprimorado por
-\citeonline{DaSilva2018thesis} com uso de conceitos \emph{Fuzzy} e expandido por
-\citeonline{Costa2019thesis} para tratar problemas multi-rótulo além dos problemas
+\citeonline{DaSilva2018thesis}, com o uso de conceitos \emph{Fuzzy}, e expandido por
+\citeonline{Costa2019thesis}, para tratar problemas multi-rótulo além dos problemas
 multi-classe já tratados na versão original.
 Esse algoritmo segue a abordagem de duas fases no modelo \emph{Offline-Online} e
 usa por base algoritmos de agrupamento não supervisionados como \emph{K-means} e
 \emph{CluStream}.
-As duas fases, com exceção do método de detecção de padrões novidade da fase
-\emph{Online}, são ilustradas na \reffig{minas}.
+% As duas fases, com exceção do método de detecção de padrões novidade da fase
+% \emph{Online}, são ilustradas na \reffig{minas}.
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=1\textwidth]{figuras/FariaMinas2015-fases.png}
-\caption{Visão geral do algoritmo MINAS com fases \emph{Offline} (a) e 
-\emph{Online} (b) \cite{Faria2016minas}}
-\label{fig:minas}
-\end{figure}
+% \begin{figure}[ht]
+% \centering
+% \includegraphics[width=1\textwidth]{figuras/FariaMinas2015-fases.png}
+% \caption{Visão geral do algoritmo MINAS com fases \emph{Offline} (a) e 
+% \emph{Online} (b) \cite{Faria2016minas}}
+% \label{fig:minas}
+% \end{figure}
 
 \newcommand{\mcluster}{\emph{micro-cluster}\xspace}
 \newcommand{\mclusters}{\emph{micro-clusters}\xspace}
 
 % \nota{talvez mencionar que o minas trabalha no dominio de Double[]}
 
-O algoritmo MINAS em sua fase \emph{Offline} consome um conjunto treinamento
+O algoritmo MINAS em sua fase \emph{Offline} consome um conjunto de treinamento
 contendo exemplos etiquetados.
 Esse conjunto de treinamento é dividido em grupos usando como chave a etiqueta,
 e para cada grupo de exemplos o método de agrupamento (\emph{clustering}) é executado.
-O método de agrupamento objetiva resumir um conjunto maior de exemplos em 
-um conjunto menor de \mclusters que representem por meio de um sumário
+O método de agrupamento objetiva resumir um conjunto maior de exemplos em
+um conjunto menor de \mclusters que representem por meio de um sumário,
 contendo, entre outras estatísticas, o centro e raio.
-A cada \mcluster é adicionada a etiqueta do grupo original e todos
-os conjuntos são unidos formando o modelo de decisão.
+A cada \mcluster é adicionada a etiqueta do grupo original e 
+\notahelio{?}
+\hl{todos os conjuntos são unidos} formando o modelo de decisão.
 
 Na fase \emph{Online}, listada no Algoritmo \ref{alg:MINAS}, o algoritmo MINAS
 opera com dois métodos.
 O primeiro método é o de classificação, onde exemplos do fluxo de dados
 são consumidos e avaliados pelo modelo de decisão.
-O modelo de decisão avalia cada exemplo calculando a distância euclideana
+O modelo de decisão avalia cada exemplo calculando a distância euclidiana
 entre o exemplo e todos \mclusters do modelo, selecionando o
 \mcluster de menor distância.
 Se a distância entre o exemplo e o centro do \mcluster for menor que
-o raio do \mcluster o exemplo é classificado com a etiqueta do \mcluster
+o raio do \mcluster, o exemplo é classificado com a etiqueta do \mcluster
 e o sumário estatístico do \mcluster é atualizado.
-Caso a distância seja maior o exemplo é marcado como desconhecido e armazenado
+Caso a distância (mínima no modelo) seja maior que o raio,
+o exemplo é marcado como desconhecido e armazenado
 em conjunto próprio.
 
-O segundo método da fase \emph{Online} é a detecção de padrões novidade
+O segundo método da fase \emph{Online} é a detecção de padrões novidade,
 que é executada quando o tamanho do conjunto de desconhecidos é maior
 que um parâmetro predefinido.
 Esse método executa o agrupamento (\emph{clustering} descrito na fase
@@ -1126,7 +1042,7 @@ e coesão.
   \end{algorithmic}
 \end{algorithm}
 
-Para atribuição de etiquetas aos \mclusters gerados o algoritmo MINAS
+Para atribuição de etiquetas aos \mclusters gerados, o algoritmo MINAS
 encontra no modelo atual o \mcluster mais próximo pela distância
 euclidiana e classifica em dois tipos de conceito.
 Se a distância é menor que um parâmetro predefinido,
