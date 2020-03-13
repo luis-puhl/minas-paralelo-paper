@@ -8,7 +8,7 @@ A Internet das Coisas (\emph{Internet of Things} - IoT) é um sistema global de
 dispositivos (máquinas, objetos físicos ou virtuais, sensores, atuadores e
 pessoas) com capacidade de comunicação pela Internet, sem depender de
 interação com interface humano-computador tradicional.
-Outra característica de dispositivos \iot são os 
+\notafa{referencia}\hlfa{Outra} característica de dispositivos \iot são os 
 \notahl{?}\hlhl{recursos computacionais dimensionados},
 % por vezes omitindo sistema operacional e outros sistemas,
 para
@@ -16,7 +16,7 @@ propósitos específicos que limitam a capacidade de computar outras funções a
 da função original do dispositivo.
 O número de dispositivos categorizados como IoT na última década teve
 crescimento sem precedentes e, proporcionalmente, cresceu o volume de dados
-gerados por esses dispositivos.
+\notafa{referencia}\hlfa{gerados por esses dispositivos.}
 A análise desses dados pode trazer novos conhecimentos e tem sido um tema frequentemente
 abordado por trabalhos de pesquisa.
 Contudo, além dos dados de sensores e atuadores, esses dispositivos se subvertidos,
@@ -59,12 +59,18 @@ alterações nos padrões de comunicação num serviço de detecção de intrus�
 \acronym{ND}{\emph{Novelty Detection}, Detecção de Novidade}
 \newcommand{\nd}{ND\xspace}
 
-\hlke{Técnicas} de \emph{Data Stream Mining} envolvem mineração de dados
-\notake{parágrafo marcado}
-(\emph{Data Mining}), aprendizado de
-máquina (\emph{Machine Learning}) e, recentemente, detecção de novidades
+\hlke{Técnicas}\notake{parágrafo marcado}
+de \emph{Data Stream Mining} envolvem mineração de dados
+(\emph{Data Mining}), 
+\notafa{eu considero detecção de novidade como data mining ou machine learning :-)}
+\hlfa{aprendizado} de máquina
+(\emph{Machine Learning}) e, recentemente, detecção de novidades
 (\emph{Novelty Detection}, \nd).
-\nd, além de classificar em modelos conhecidos, permite classificar novos padrões,
+\notafa{(sentença marcada) essa frase merece revisão. Temos vários conceitos
+incorretos. classificar modelos conhecidos? classificação os dados usando um
+modelo gerado a partir do comportamento normal.... ND não trata necessariamente
+concept drift nem concept evolution..... é uma forma de tratar essas questões}
+\hlfa{\nd, além de classificar em modelos conhecidos}, permite classificar novos padrões,
 já que trata problemas como evolução e deriva de conceito, que são característicos
 de fluxos contínuos de dados e, consequentemente, permite que ações sejam tomadas corretamente mesmo
 em face a padrões nunca vistos.
@@ -76,7 +82,9 @@ dados de ataques conhecidos.
 
 % finalizo com "por exemplo"?
 
-Análises como \emph{Data Stream Mining} e \nd são \hlhl{tradicionalmente} implementadas
+Análises como \emph{Data Stream Mining} e \nd 
+\notafa{será que são tradicionalmente implementadas?? acho que não. Eu diria que recentemente elas estão indo nesse caminho.}
+\hlfa{são} \hlhl{tradicionalmente} implementadas
 sobre o paradigma de computação na nuvem
 (\emph{Cloud Computing}) e, recentemente, sobre paradigmas
 \notahl{O que (referências) reslpalda essa afirmação?}
@@ -119,7 +127,10 @@ distinguindo o tráfego entre normal, ataque conhecido e ataque desconhecido
 Contudo, o algoritmo MINAS ainda não foi implementado e avaliado com paralelismo,
 multi-processamento ou distribuição computacional, que são necessários para
 tratar fluxos de dados com grandes volumes e velocidades.
-O tratamento de distribuição em ambiente \fog é essencial para aplicação deste
+\notafa{Por que isso é importante. Acho que convém ressaltar a importancia da sua
+proposta. O que o MINAS original não trata, em quais cenários ele apresenta um
+gargalo? como ele está dividido?}
+\hlfa{O tratamento} de distribuição em ambiente \fog é essencial para aplicação deste
 algoritmo ao problema de detecção de intrusão em redes \iot, pois esta aplicação
 requer tempo de resposta mínimo e mínima comunicação entre nós distantes, como
 aqueles na borda e na nuvem.
@@ -179,7 +190,9 @@ Essas diferenças deixam uma lacuna onde, de um lado, tem-se uma
 arquitetura mais adequada para o ambiente \emph{fog} com um algoritmo estado da arte de
 detecção de novidades, porém sem paralelismo e, de outro, tem-se um sistema
 escalável de alto desempenho porém almejando outro ambiente (\emph{cloud}) e
-com um algoritmo menos preparado para os desafios de detecção de novidades.
+com um algoritmo menos preparado para os desafios de detecção de 
+\notafa{cuidado: vc usa frases grandes com pouca virgula}
+\hlfa{novidades.}
 
 % \nota{
 % \\ deixar mais claro o contraste entre cassales e bigflow
@@ -210,7 +223,9 @@ fluxos de grandes volumes e velocidades.
 
 Portanto, seguindo os trabalhos do Grupo de Sistemas Distribuídos e Redes
 (GSDR) da Universidade Federal de São Carlos (UFSCar), propõem-se a construção
-de uma aplicação que implemente o algoritmo MINAS
+de uma 
+\notafa{construção de uma aplicação que implemente..... na verdade nao é implementar o minas de forma distribuida?}
+\hlfa{aplicação que implemente} o algoritmo MINAS
 de maneira escalável e distribuível para ambientes de computação em névoa e a avaliação
 dessa implementação com experimentos baseados na literatura usando conjunto de dados
 públicos relevantes.
@@ -236,7 +251,9 @@ de computação em névoa aplicado à detecção de intrusão.
 % - avaliar
 % - avaliar aprendizado local ou global trade-offs
 
-Com foco no objetivo geral, alguns objetivos \hlke{secundários} são propostos:
+Com foco no objetivo geral, alguns 
+\notafa{nao seria específicos?}
+\hlfa{objetivos} \hlke{secundários} são propostos:
 
 % \nota{citar ferramentas e a escolha só depois do python e kafka}
 
