@@ -39,10 +39,10 @@
 Esta \Section relaciona três ambientes de computação distribuída habitualmente
 utilizados para o processamento de dados massivos relacionados a redes de
 dispositivos \iot, entre outras aplicações.
-% Iniciando com o ambiente \hl{mais tradicional},
+% Iniciando com o ambiente \hlhl{mais tradicional},
 A computação em nuvem (\cloud) é
 aplicada a vários problemas e neste trabalho seu papel em sistemas \iot é
-fornecer \notahl{?}\hl{vastos recursos e garantias e em que dispositivos enviam todos
+fornecer \notahl{?}\hlhl{vastos recursos e garantias e em que dispositivos enviam todos
 dados relevantes ao sistema}.
 O segundo e terceiro ambiente são computação de borda (\emph{edge computing})
 e a computação em névoa (\emph{fog computing}), que utiliza os recursos
@@ -82,7 +82,7 @@ demanda rapidamente com o mínimo esforço de gerenciamento ou interação com o
 provedor de serviços \cite{NIST2011}. As principais características do
 \notahl{o texto pode ficar mais claro se você evitar inversões na estrutura
 da frase e usar parágrafos curtos.}
-\hl{ambiente \emph{cloud computing} são}:
+\hlhl{ambiente \emph{cloud computing} são}:
 
 % Alternativamente, a Computação na Borda (\emph{Edge Computing}) destaca-se no
 % processamento em tempo real de dados originários da própria borda além de atender
@@ -183,7 +183,7 @@ processamento distribuído de sensoriamento massivo em cidades inteligentes \cit
 
 \citeonline{Dastjerdi2016} e \citeonline{IEEECommunicationsSociety2018}
 mencionam que a enorme massa de dados gerados por ambientes IoT pode ser
-processada em nuvem, entretanto \hl{a latência} produzida pela transferência desses
+processada em nuvem, entretanto \hlhl{a latência} produzida pela transferência desses
 dados para a nuvem e o retorno do resultado pode não ser toleradas por sistemas
 críticos que sejam sensíveis a latência (monitoramento de saúde e resposta a
 emergências).
@@ -202,9 +202,9 @@ capacidade limitada dos dispositivos de borda, a computação em névoa foi prop
 
 A computação em névoa (\emph{fog computing}) é um paradigma que distribui
 as capacidades de computação, armazenamento e rede entre os nós próximos
-\hl{das fontes dados}
+\hlhl{das fontes dados}
 \notahl{nós finais não são as fontes?}
-e dos \hl{dispositivos finais}, mas não necessariamente localizados na borda,
+e dos \hlhl{dispositivos finais}, mas não necessariamente localizados na borda,
 dando a esses nós características de uma nuvem
 \cite{Bonomi2012,Dastjerdi2016,IEEECommunicationsSociety2018}.
 Esse tipo de computação evita a sobrecarga dos dispositivos de borda.
@@ -216,7 +216,7 @@ nuvem e da borda.
 principal diferença entre esses dois tipos de computação está no número de
 camadas.
 Enquanto \emph{edge computing} tem
-\notahl{o que são ``camadas''?}\hl{camadas menores}, pois atua só nos
+\notahl{o que são ``camadas''?}\hlhl{camadas menores}, pois atua só nos
 dispositivos de borda, \emph{fog computing} tem mais camadas e um modelo
 hierárquico, pois não atua só na camada de borda.
 
@@ -233,7 +233,7 @@ características da computação em névoa são:
     configurações e formatos diferentes e podem estar implantados em ambientes
     distintos;
 
-    \item \textbf{Baixa Latência:} \hl{computação em névoa} foi proposta para
+    \item \textbf{Baixa Latência:} \hlhl{computação em névoa} foi proposta para
     atender aplicações que requeiram baixa latência (monitoramento de saúde,
     jogos, realidade aumentada, etc.);
 
@@ -246,7 +246,7 @@ características da computação em névoa são:
 
     \item \textbf{Interoperabilidade e federação:} os componentes da computação
     em névoa devem ser capazes de interoperar, e o serviços devem ser federados
-    \hl{ao longo de diferentes domínios};
+    \hlhl{ao longo de diferentes domínios};
 
     \item \textbf{Uso de fluxo de dados e aplicações em tempo real:} a
     computação em névoa pode envolver aplicações que processam em lote, mas na
@@ -365,7 +365,7 @@ uma sequência de registros
 associados ao tempo
 real, ilimitados, que excede recursos de armazenamento \cite{Gaber2005}.
 Modelos de mineração de fluxo de dados atendem a esses desafios utilizando
-restrições \hl{como apenas uma leitura do conjunto de dados} e baixo tempo de
+restrições \hlhl{como apenas uma leitura do conjunto de dados} e baixo tempo de
 processamento na construção de seus algoritmos \cite{Gama2007, Gaber2005}.
 
 % \notahermes{Não faz sentido considerar como fluxo somente se a taxa for muito alta.
@@ -497,7 +497,7 @@ falhas em partes independentes \cite{TanenbaumSteen2018}.
 % certa forma as plataformas offline e de fluxos. Acho que kafka poderia aparecer
 % dentro dessa terceira seção.}
 
-Tradicionalmente, \notahl{quais? de que tipo?}\hl{aplicações} foram construídas com um sistema gerenciador de
+Tradicionalmente, \notahl{quais? de que tipo?}\hlhl{aplicações} foram construídas com um sistema gerenciador de
 banco de dados (SGBD) relacional ou não-relacional associado. Essa arquitetura,
 nomeada de arquitetura totalmente incremental por \citeonline{marz2015big},
 foi evoluída e simplificada iterativamente durante décadas de uso, porém ela não
@@ -531,8 +531,8 @@ como especializadas em fluxo de dados.
 
 A arquitetura de processamento distribuído de fluxos de grande volume de dados
 \lambdaa divide o processamento em três camadas:
-\notahl{isso é camada?}\hl{lotes, serviço e velocidade} \cite{marz2015big}.
-A camada de lotes atua sobre o conjunto \hl{mestre} em modo de leitura
+\notahl{isso é camada?}\hlhl{lotes, serviço e velocidade} \cite{marz2015big}.
+A camada de lotes atua sobre o conjunto \hlhl{mestre} em modo de leitura
 sequencial, armazenando-o em sistema de arquivos distribuído e pré-processando
 várias visões sobre esse conjunto mestre.
 Essas visões (armazenadas num SGBD
@@ -591,7 +591,7 @@ processamento para \emph{Big Data} e \emph{Data Streams}.
 de dados que atingiu uso generalizado.
 Nessa implementação, uma 
 \notahl{a biblioteca é só a interface de uso. Deve haver serviços que gerenciam}
-\hl{biblioteca gerencia} 
+\hlhl{biblioteca gerencia} 
 a distribuição, paralelização, tolerância a falhas e balanceamento de
 carga.
 Ao usuário da biblioteca resta implementar duas funções:
@@ -600,9 +600,9 @@ $(chave, valor)$ e emite um conjunto de pares intermediários na mesma estrutura
 \emph{Reduce}, que recebe uma chave e um conjunto de valores gerado pelo agrupamento
 de pares com essa mesma chave \cite{Dean2004}.
 
-Em prática, um \notahl{!!}\hl{\emph{cluster MapReduce}} tem \hl{centenas de} processadores e o conjunto de dados é
+Em prática, um \notahl{!!}\hlhl{\emph{cluster MapReduce}} tem \hlhl{centenas de} processadores e o conjunto de dados é
 armazenado em um sistema de arquivos distribuído que é lido pela plataforma com
-programas escritos \hl{por usuários sendo executados sob supervisão de um nó mestre}.
+programas escritos \hlhl{por usuários sendo executados sob supervisão de um nó mestre}.
 Essa implementação tem esquema geral de processamento em lotes que não atende o
 requisito de baixa latência.
 \nobreakdash \emph{MapReduce} é uma das principais influências na criação da arquitetura
@@ -643,7 +643,7 @@ construção de sistemas de computação distribuída em \emph{cluster}, com gar
 de tolerância a falhas.
 No entanto, o modelo de processamento diverge
 significativamente do tradicional \emph{MapReduce}, utilizando em lugar do HDFS
-um \notahl{com operações somente...}\hl{multiconjunto de apenas leitura distribuído} (\emph{Resilient Distributed Dataset}
+um \notahl{com operações somente...}\hlhl{multiconjunto de apenas leitura distribuído} (\emph{Resilient Distributed Dataset}
 - RDD) com um escalonador de trabalhos representados por grafos acíclicos
 direcionados (\emph{directed acyclic graph} - DAG), otimizador de consultas e
 motor de execução \cite{ApacheSpark2020}.
@@ -662,7 +662,7 @@ que são típicos de análise, mineração de dados e aprendizado de máquina.
 
 Uma das extensões de \emph{Apache Spark} é \emph{Spark Streaming}, que é um
 sistema de processamento de fluxo de dados 
-\notahl{quem disse?!}\hl{escalável e tolerante a falhas}
+\notahl{quem disse?!}\hlhl{escalável e tolerante a falhas}
 \cite{zaharia2016,sparkStreaming2016}.
 \emph{Spark Streaming} implementa processamento incremental de fluxo de
 dados usando o modelo de fluxos discretizados em que dividem-se os dados de entrada
@@ -670,17 +670,17 @@ em micro-lotes (ex: a cada 100 milissegundos) e combinam-se regularmente com o
 estado nos RDDs para produzir novos resultados \cite{zaharia2016}.
 Essa estratégia traz benefícios sobre os sistemas de fluxos de dados distribuídos
 tradicionais, pois permite a consistência e recuperação de falhas rapidamente,
-devido à \notahl{?}\hl{linhagem de RDD} (\emph{RDD lineage})
+devido à \notahl{?}\hlhl{linhagem de RDD} (\emph{RDD lineage})
 e à combinação do fluxo de dados com
 consultas em lotes e interativas \cite{sparkStreaming2016,Lopez2018}.
 
 \subsection{Plataforma \emph{Apache Storm}}
 
 \emph{Apache Storm} é um sistema de computação tolerante a falhas em tempo
-real que \notahl{quem disse?!}\hl{facilita o processamento} de fluxo de dados
+real que \notahl{quem disse?!}\hlhl{facilita o processamento} de fluxo de dados
 \cite{ApacheStorm2020,Lopez2018}.
 Ao invés de executar trabalhos (\emph{jobs}) como algumas ferramentas citadas
-anteriormente, \emph{Apache Storm} \notahl{?}\hl{executa topologias}.
+anteriormente, \emph{Apache Storm} \notahl{?}\hlhl{executa topologias}.
 Os \emph{jobs} eventualmente finalizam, e as topologias executam continuamente até
 serem finalizadas por comandos.
 Uma topologia constitui-se de processos trabalhadores (\emph{workers}) sendo executados
@@ -756,7 +756,7 @@ outros códigos para otimização da futura execução.
 O \jobmngr coordena toda execução distribuída do grafo \emph{data
 flow}. Ele rastreia o estado e o progresso de cada fluxo, agenda novos
 operadores e coordena os \emph{checkpoints} e recuperação.
-Para alta disponibilidade, o \jobmngr \hl{persiste} em disco um conjunto mínimo de
+Para alta disponibilidade, o \jobmngr \hlhl{persiste} em disco um conjunto mínimo de
 metadados em cada \emph{checkpoint} para um armazenamento tolerante a falhas, de
 modo que esse gerenciador possa recuperar a execução do grafo a partir desse
 ponto.
@@ -845,7 +845,7 @@ momento.
 Portanto, as falhas são tratadas de forma transparente e não afetam a exatidão
 da execução de um programa \emph{Flink} \cite{ApacheFlink2020}.
 
-O algoritmo de \emph{checkpoint} assíncrono e incremental \notahl{?}\hl{garante} um impacto
+O algoritmo de \emph{checkpoint} assíncrono e incremental \notahl{?}\hlhl{garante} um impacto
 mínimo em latência no processamento \cite{Carbone2015}.
 Além disso, para reduzir o tempo de recuperação, o \emph{Apache Flink} gera
 \emph{snapshots} do estado dos operadores, incluindo a posição atual dos fluxos
@@ -887,7 +887,7 @@ tempo, levando em consideração as características desse tipo de fluxos.
 % \nota{"As características desse tipo de fluxo de dados são?".. mas que tipo?}
 
 Tratando-se de fluxos de dados contínuos, são características
-\notahl{quais?}\hl{dos padrões observados}:
+\notahl{quais?}\hlhl{dos padrões observados}:
 evolução de conceito (\evolution) em que novos padrões podem surgir;
 desaparecimento ou recorrência de conceito, em que padrões podem desaparecer e
 também podem reaparecer;
@@ -898,7 +898,7 @@ presença de ruído e \emph{outliers} \cite{Gama2010}.
 % \nota{separar ai - ndpara\\
 % padroes novidade? reconhecomemnto de padroes novidade?}
 
-Os métodos de \nd são utilizados no reconhecimento de \notahl{?}\hl{diversos padrões novidade}
+Os métodos de \nd são utilizados no reconhecimento de \notahl{?}\hlhl{diversos padrões novidade}
 ou anomalias e são aplicadas a diversos problemas como
 detecção de intrusos \cite{Coull2003,Spinosa2008,Viegas2019,Cassales2019a},
 detecção de falhas \cite{Zhang2006},
@@ -987,7 +987,7 @@ um conjunto menor de \mclusters que representem por meio de um sumário,
 contendo, entre outras estatísticas, o centro e raio.
 A cada \mcluster é adicionada a etiqueta do grupo original e 
 \notahl{?}
-\hl{todos os conjuntos são unidos} formando o modelo de decisão.
+\hlhl{todos os conjuntos são unidos} formando o modelo de decisão.
 
 Na fase \emph{Online}, listada no Algoritmo \ref{alg:MINAS}, o algoritmo MINAS
 opera com dois métodos.

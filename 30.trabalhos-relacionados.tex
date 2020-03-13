@@ -278,8 +278,8 @@ porém alguns exemplos mencionados ainda não abordados são:
 
 \section{Processamento Distribuído de Fluxo de Dados em Tempo Real}
 
-Nesta \Section, abordam-se trabalhos que aplicam \hl{algoritmos de detecção de
-novidades} em \hl{ambiente de processamento distribuído} de fluxo de dados em tempo
+Nesta \Section, abordam-se trabalhos que aplicam \hlhl{algoritmos de detecção de
+novidades} em \hlhl{ambiente de processamento distribuído} de fluxo de dados em tempo
 real.
 
 \subsection{Ferramenta BigFlow}
@@ -288,9 +288,9 @@ Proposta por \citeonline{Viegas2019}, a ferramenta BigFlow é um sistema de
 detecção de intrusão em rede (\emph{Network Intrusion Detection System}, NIDS)
 baseado em detecção de anomalias.
 Duas abordagens, detecção por assinatura e detecção por anomalia, 
-\notahl{?}\hl{são de uso frequente,}
-\hl{como o mecanismo}
-\hl{de detecção de intrusão na construção de NIDS}.
+\notahl{?}\hlhl{são de uso frequente,}
+\hlhl{como o mecanismo}
+\hlhl{de detecção de intrusão na construção de NIDS}.
 Para a detecção de novos tipos de ataque (\emph{zero day}), a abordagem de
 detecção por anomalia é vantajosa, em contraste com a abordagem de detecção por
 assinatura, devido ao tempo de resposta (que envolve a identificação e criação de
@@ -299,9 +299,9 @@ uma assinatura), grande demais para prevenir esse tipo de intrusão.
 A ferramenta BigFlow é composta pelos módulos de extração de atributos e de aprendizado confiável.
 O módulo de extração de atributos
 % , ilustrado na \reffig{bigflow-pcap},
-é responsável por coletar \hl{pacotes} da rede monitorada,
+é responsável por coletar \hlhl{pacotes} da rede monitorada,
 \notahl{extrair as características dos desses pacotes... não "transformar pacotes"...}
-\hl{transformar esses pacotes em fluxos}
+\hlhl{transformar esses pacotes em fluxos}
 com estatísticas de comunicação e enviar informações desses fluxos como
 exemplos para o módulo de aprendizado confiável.
 O módulo de aprendizado confiável,
@@ -351,7 +351,7 @@ anonimizados e etiquetados por MAWILab \cite{mawiSamplepointF,Fontugne2010}.
 Desse \dataset original, o \dataset MAWIFlow utiliza apenas os eventos de 2016,
 dos quais 158 atributos são extraídos resultando em 7.9 TB de captura de pacotes.
 Além disso, os dados são estratificados para redução de seu tamanho a um
-centésimo, \hl{mantendo} as proporções de etiquetas (Ataque e Normal), \hl{facilitando} o
+centésimo, \hlhl{mantendo} as proporções de etiquetas (Ataque e Normal), \hlhl{facilitando} o
 compartilhamento e avaliação de NIDS, além de atender às qualidades anteriormente
 mencionadas.
 
@@ -408,12 +408,12 @@ Manager}) e as múltiplas instâncias do serviço gerenciador de tarefas
 Em conclusão, a ferramenta BigFlow demonstra capacidade de classificação e
 detecção de anomalias em fluxos de dados de alta velocidade no contexto de
 detecção de intrusão.
-\notahl{?}\hl{No entanto, a atualização semanal e, mais importante,}
-\hl{dependendo de avaliação de}\\
-\hl{um especialista não é ideal}
-\hl{para detecção de novidades e}
-\hl{respectiva ação sobre a descoberta}\\
-\hl{de novos padrões.}
+\notahl{?}\hlhl{No entanto, a atualização semanal e, mais importante,}
+\hlhl{dependendo de avaliação de}\\
+\hlhl{um especialista não é ideal}
+\hlhl{para detecção de novidades e}
+\hlhl{respectiva ação sobre a descoberta}\\
+\hlhl{de novos padrões.}
 
 % Outras propostas tratam do caso de grandes volumes e velocidades, como ́e o caso
 % de Viegas et al. (2019) que apresenta oBigFlow no intuito de detectar intrusão
@@ -564,8 +564,8 @@ a atualização do modelo durante a fase \emph{Online} depende de todos os exemp
 último intervalo de atualização.
 Esse tipo de algoritmo de detecção de anomalias 
 \notahl{por que não?}
-\hl{não é capaz de lidar}
-\hl{adequadamente com as características de fluxos contínuos} de dados, como os
+\hlhl{não é capaz de lidar}
+\hlhl{adequadamente com as características de fluxos contínuos} de dados, como os
 descritos na \refsec{nd} (\drift, \evolution, limitado a ler o conjunto somente
 uma vez), que são atendidos por algoritmos de detecção de novidade.
 
@@ -605,7 +605,7 @@ A arquitetura \idsiot, proposta por \citeonline{Cassales2019a}, tem por objetivo
 monitorar uma rede local com dispositivos \iot e detectar tentativas de intrusão
 e alguma subversão do comportamento das transmissões destes dispositivos.
 O principal destaque da arquitetura é a distribuição de tarefas do sistema de
-detecção de intrusão entre nós na \notahl{ou edge?}\hl{rede de borda (\fog)} e nós em nuvem pública
+detecção de intrusão entre nós na \notahl{ou edge?}\hlhl{rede de borda (\fog)} e nós em nuvem pública
 (\cloud).
 O objetivo dessa distribuição é a redução de latência, que torna inviável a
 hospedagem de um sistema detector de intrusão somente em ambiente \cloud, e
@@ -671,7 +671,7 @@ de recursos computacionais (memória) foi elevado.
 % time and memory consumption, indicates MINAS is suitable
 % for IoT scenarios.
 
-Com as avaliações realizadas, a arquitetura \idsiot \hl{opta por distribuir} as
+Com as avaliações realizadas, a arquitetura \idsiot \hlhl{opta por distribuir} as
 tarefas de mineração dos fluxos para detecção de intrusão em serviços e aloca os
 serviços em diferentes camadas físicas, conforme ilustrado na \reffig{ids-iot}.
 
@@ -687,7 +687,7 @@ A distribuição das tarefas em serviços proposta abre oportunidades para a
 discussão de diferentes métodos de distribuição dessas tarefas em diferentes
 ambientes computacionais.
 Contudo, o algoritmo MINAS ainda não foi implementado e avaliado com
-\hl{paralelismo, multi-processamento} ou \hl{distribuição computacional}, que são
+\hlhl{paralelismo, multi-processamento} ou \hlhl{distribuição computacional}, que são
 necessários para tratar fluxos de dados com grandes volumes e velocidades.
 
 % \nota{Também discutir a classificação dos fluxos por endpoint
@@ -740,7 +740,7 @@ de fluxos contínuos em ambientes de computação em nuvem e em névoa, fornecen
 métodos para processar grandes volume de dados com mínima latência.
 
 Apesar de já existirem propostas que estabelecem o estado da arte separadamente
-em cada um dos temas, \hl{falta ainda uma abordagem que estabeleça uma união} entre o
-estado da arte em \hl{algoritmos de detecção} de novidade e o estado da arte em
-\hl{processamento distribuído} de fluxos de dados, em especial para \hl{o ambiente de
-computação em névoa} focado em \hl{fluxos de dados} relacionados a \hl{dispositivos \iot.}
+em cada um dos temas, \hlhl{falta ainda uma abordagem que estabeleça uma união} entre o
+estado da arte em \hlhl{algoritmos de detecção} de novidade e o estado da arte em
+\hlhl{processamento distribuído} de fluxos de dados, em especial para \hlhl{o ambiente de
+computação em névoa} focado em \hlhl{fluxos de dados} relacionados a \hlhl{dispositivos \iot.}

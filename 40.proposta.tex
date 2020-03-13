@@ -35,15 +35,15 @@ Detecção de Novidades (\novelty, \nd) em \streams.
 \notahl{Poderia reescrever a frase, evitando inversões na estrutura
 sujeito/verbo e complementos. Yoda!}
 Além dos aspectos inerentes a \streamMining, são considerados na construção de um
-\hl{sistema} que computa \streams a taxa de eventos
+\hlhl{sistema} que computa \streams a taxa de eventos
 % (itens atômicos de um \stream)
 gerados por cada produtor e o número de produtores nesse sistema, totalizando o
 volume de eventos 
 \notahl{qual sistema?}
-\hl{do sistema}.
+\hlhl{do sistema}.
 % Além do volume de eventos é necessário
 Volumes elevados dificilmente são computados em apenas um nó (e muito menos em
-um único núcleo processador) e por isso, esses sistemas \hl{geralmente} são distribuídos.
+um único núcleo processador) e por isso, esses sistemas \hlhl{geralmente} são distribuídos.
 
 Sistemas que utilizam \nd para \streams gerados por dispositivos \iot devem
 utilizar algoritmos que considerem os desafios inerentes a fluxos de dados
@@ -258,10 +258,10 @@ da respectiva matriz de erro $\mathbf{E}_n$.
 A transformação do fluxo de saída em uma matriz de erro é realizada no \sink,
 \notahl{como tratar o paralelismo desse elemento?\\
 Ele dá conta de todo o fluxo recebido dos classificadores?}
-\hl{onde} 
-\hl{tem-se disponível o fluxo original}
-\hl{com as etiquetas corretas e o fluxo resultante}
-\hl{da classificação.}
+\hlhl{onde} 
+\hlhl{tem-se disponível o fluxo original}
+\hlhl{com as etiquetas corretas e o fluxo resultante}
+\hlhl{da classificação.}
 Esse módulo deve levar em consideração que pode haver reclassificação de um
 evento, previamente rotulado como desconhecido, em padrões oriundos de classe
 novidade ou extensão devido ao processo de detecção de novidades executado
@@ -346,7 +346,7 @@ propostas.
 Os ambientes selecionados são: local, 
 \notahl{o que muda na paralelização e na \textbf{distribuição} de instâncias
 do módulo \textbf{classificador}?}
-\hl{nuvem e névoa}.
+\hlhl{nuvem e névoa}.
 As configurações consistem na distribuição de módulos da implementação \mfog
 sendo executadas em combinações de ambientes nuvem e névoa com variada
 quantidade de nós.
@@ -363,7 +363,7 @@ O ambiente de névoa (\fog) é composto por computadores de única placa
 núcleos, $1GB$ de memória, armazenamento em cartão SD (\emph{SD-card}) e
 conectados por rede sem fio.
 
-A combinação de diferentes distribuições tem por objetivo \hl{demonstrar padrões de
+A combinação de diferentes distribuições tem por objetivo \hlhl{demonstrar padrões de
 latência} e qualidade que podem afetar implantações em ambientes reais que não
 são geralmente destacados quando os experimentos são realizados em um único
 nó ou ambiente.
@@ -393,7 +393,7 @@ Aspectos desses desenvolvimentos são descritos a seguir.
 A primeira implementação e avaliação do \mfog realizada foi construída sobre a
 linguagem \python com o sistema de fila de mensagens \kafka e a respectiva
 biblioteca de conexão.
-A escolha desse conjunto para a implementação ocorreu \hl{devido à ampla}
+A escolha desse conjunto para a implementação ocorreu \hlhl{devido à ampla}
 disponibilidade de bibliotecas de aprendizagem de máquina no ecossistema
 \python e, à simplicidade geral da linguagem.
 Na implementação desenvolvida, o sistema \kafka recebe mensagens e as armazena
