@@ -32,10 +32,14 @@ Detecção de Novidades (\novelty, \nd) em \streams.
 % (\evolution) e a mudança no decorrer do \stream é denominado Mudança ou Deriva
 % de Conceito (\drift).
 
+\hlfa{Além dos aspectos}
+\notafa{rever o parágrafo. Varios conceitos errados... a identificação de novas
+classes é denominada detecção de novidade.... data stream variam temporalmente}
+inerentes a \streamMining, são considerados na construção de um
+\hlhl{sistema}
 \notahl{Poderia reescrever a frase, evitando inversões na estrutura
 sujeito/verbo e complementos. Yoda!}
-Além dos aspectos inerentes a \streamMining, são considerados na construção de um
-\hlhl{sistema} que computa \streams a taxa de eventos
+que computa \streams a taxa de eventos
 % (itens atômicos de um \stream)
 gerados por cada produtor e o número de produtores nesse sistema, totalizando o
 volume de eventos 
@@ -117,7 +121,8 @@ formatos dos \datasets para um fluxo de exemplos (representado por $x$ na \reffi
 compatível com o restante da implementação.
 Além de fornecer exemplos tratados para o \classify, o \source também fornece
 exemplos com a classe original (representado por $x,c$ na \reffig{arch})
-para o \sink e para o \offline.
+\notafa{somente na fase de treinamento o source fornece exemplos rotulados par ao sink, certo?}
+\hlfa{para o \sink e para o \offline}.
 
 O \sink é responsável por agregar todos resultados do \mfog e,
 juntamente com os valores do \dataset fornecidos pelo \source, por computar
@@ -140,7 +145,7 @@ Além disso, se o exemplo não for classificado, o exemplo e a meta-etiqueta de
 desconhecido (representado por $x,u$ na \reffig{arch}) são enviados para o
 \detector.
 \notahl{processaa ND em paralelo?}
-Outra comunicação é o envio periódico do sumário estatístico do modelo de
+Outra comunicação é o envio das modificações ao sumário estatístico do modelo de
 classificação (representado por $Summary$ na \reffig{arch}) do \classify para o
 \detector.
 
@@ -174,6 +179,7 @@ estudo e sua escalabilidade, desde que não afete a escalabilidade do \classify 
 - Paralelização da classificação: como agrupar os dados e dividir o processamento?\\
 - ND: como saber o que agrupar (dos nós) e como dividir?
 Padrões podem ser locais? Ou sempre se aplicam a todos os nós?}
+\notafa{frase incompleta}
 
 \section{Metodologia de Avaliação e Resultados Esperados}\label{sec:esperados}
 
@@ -372,7 +378,11 @@ nó ou ambiente.
 
 Faz parte também do ambiente de teste os conjuntos de dados (\datasets)
 \notake{CICIDS2017 e ISCXTor2016}\hlke{\emph{KDD99}}
-e \emph{Kyoto 2006+} que foram selecionados por motivos distintos.
+\notafa{Uma sugestão seria usar datasets artificiais também a fim de avaliar
+outras caracteristicas tais como: nro de atributos, frequencia do surgimento de
+novidades, mudanças abruptas, graduais, etc. }
+\hlfa{e \emph{Kyoto 2006+}}
+que foram selecionados por motivos distintos.
 O \dataset \emph{Kyoto 2006+} é o foco deste trabalho, pois contém dados ainda
 representativos (até 2015) e as característica desejáveis de um conjunto de dados
 (realismo, validade, etiquetas previamente definidas, alta variabilidade,

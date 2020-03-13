@@ -40,15 +40,16 @@ Esta \Section relaciona três ambientes de computação distribuída habitualmen
 utilizados para o processamento de dados massivos relacionados a redes de
 dispositivos \iot, entre outras aplicações.
 % Iniciando com o ambiente \hlhl{mais tradicional},
-A computação em nuvem (\cloud) é
+\notafa{rever a frase} \hlfa{A computação em nuvem (\cloud) é}
 aplicada a vários problemas e neste trabalho seu papel em sistemas \iot é
 fornecer \notahl{?}\hlhl{vastos recursos e garantias e em que dispositivos}
 \hlhl{enviam todos dados} \hlhl{relevantes ao sistema}.
 O segundo e terceiro ambiente são computação de borda (\emph{edge computing})
 e a computação em névoa (\emph{fog computing}), que utiliza os recursos
 computacionais distribuídos presentes em nós localizados entre os dispositivos
-de borda e a nuvem, com diversas intenções, desde privacidade até redução de
-latência.
+de borda e a nuvem, com diversas 
+intenções, desde privacidade até redução de latência.
+% \notafa{por favor, use um corretor ortográfico. Intenção}
 
 % Para descrever os modelos de computação em nuvem, borda e névoa, é necessário
 % abordar o conceito de distância e densidade em redes. Distância pode ser definida 
@@ -74,15 +75,18 @@ latência.
 
 \subsection{Computação em Nuvem}
 
-A computação em nuvem (\emph{cloud computing}), ou simplesmente nuvem
+A computação em nuvem (\cloud), ou simplesmente nuvem
 (\emph{cloud}), habilita o acesso através da rede a um grupo compartilhado de
 recursos de computação configuráveis (servidores, redes, aplicativo,
+\notafa{frase grande, falta de pontuação. O leitor se perde!}
 armazenamento, serviços, etc.), que podem ser provisionados ou liberados sob
 demanda rapidamente com o mínimo esforço de gerenciamento ou interação com o
-provedor de serviços \cite{NIST2011}. As principais características do
+\hlhl{provedor de serviços} \cite{NIST2011}.
 \notahl{o texto pode ficar mais claro se você evitar inversões na estrutura
 da frase e usar parágrafos curtos.}
-\hlhl{ambiente \emph{cloud computing} são}:
+As principais características do ambiente \cloud, segundo \citeonline{NIST2011}
+são:
+% \notafa{referencia}
 
 % Alternativamente, a Computação na Borda (\emph{Edge Computing}) destaca-se no
 % processamento em tempo real de dados originários da própria borda além de atender
@@ -144,7 +148,8 @@ ocorrer através dos seguintes modelos:
 % Definição de Computação de Borda 
 \subsection{Computação de Borda}
 
-A computação de borda (\emph{edge computing}) refere-se às
+\notafa{repare que cada uma das seções referencia um único autor. Seria interessante ter várias referências}
+\hlfa{A computação de borda} (\emph{edge computing}) refere-se às
 tecnologias que permitem que a computação seja executada na borda da rede.
 Define-se borda ou \emph{edge} como qualquer recurso de computação e de rede ao
 longo do caminho entre as fontes de dados e os data centers da nuvem
@@ -210,7 +215,7 @@ dando a esses nós características de uma nuvem
 \cite{Bonomi2012,Dastjerdi2016,IEEECommunicationsSociety2018}.
 Esse tipo de computação evita a sobrecarga dos dispositivos de borda.
 \citeonline{Bonomi2012} e
-\citeonline{Dastjerdi2016} veem computação em névoa como complementar da
+\citeonline{Dastjerdi2016} consideram computação em névoa como complementar da
 computação em borda, podendo a computação em névoa aproveitar os recursos da
 nuvem e da borda.
 \citeonline{IEEECommunicationsSociety2018} considera que a
@@ -327,7 +332,8 @@ emergência.
 A Mineração de Dados é o processo de descoberta de padrões em conjuntos de dados
 utilizando métodos derivados de aprendizagem de máquina, estatística e banco de
 dados \cite{Gaber2005}.
-Um caso de mineração de dados é o \emph{Big Data}, enque o
+\notafa{eu não acho que Big Data é uma caso de mineração}
+\hlfa{Um caso de mineração} de dados é o \emph{Big Data}, enque o
 conjunto de dados comumente não pode ser processado em tempo viável, devido a limitações
 como memória ou armazenamento principal.
 
@@ -360,12 +366,18 @@ como memória ou armazenamento principal.
 % the past few years to address these challenges [5, 44]
 
 Além da dimensão de armazenamento, outra dimensão que afeta a maneira como dados
-são modelados e manipulados é o tempo. Um Fluxo de Dados (\emph{Data Stream}) é
+são modelados e manipulados é o tempo.
+\notafa{rever a definição. Você referencia o Gaber (autor do any novel), mas eu não
+encontrei essa definição lá. Use definições classicas como as do João, do
+Aggarwal.}
+\hlfa{Um Fluxo de Dados} (\emph{Data Stream}) é
 uma sequência de registros
 % produzidos a uma taxa muito alta,
 associados ao tempo
 real, ilimitados, que excede recursos de armazenamento \cite{Gaber2005}.
-Modelos de mineração de fluxo de dados atendem a esses desafios utilizando
+\notafa{o que são modelo de mineração?
+Um modelo é produzido a partir de um algoritmo de mineração}
+\hlfa{Modelos de mineração} de fluxo de dados atendem a esses desafios utilizando
 restrições \hlhl{como apenas uma leitura do conjunto de dados} e baixo tempo de
 processamento na construção de seus algoritmos \cite{Gama2007, Gaber2005}.
 
@@ -453,6 +465,8 @@ falhas em partes independentes \cite{TanenbaumSteen2018}.
 % [5] Fayyad, Usama; Piatetsky-Shapiro, Gregory; Smyth, Padhraic (1996).
 % "From Data Mining to Knowledge Discovery in Databases" (PDF). Retrieved 17 December 2008.
 
+\notafa{ aqui o parágrafo ficou perdido. Ao fim de seção de mineração você vai
+falar de computação distribuída}
 
 \section{Arquiteturas e Plataformas de Processamento de Fluxos}
 
@@ -502,7 +516,9 @@ Tradicionalmente, \notahl{quais? de que tipo?}\hlhl{aplicações} foram constru�
 banco de dados (SGBD) relacional ou não-relacional associado. Essa arquitetura,
 nomeada de arquitetura totalmente incremental por \citeonline{marz2015big},
 foi evoluída e simplificada iterativamente durante décadas de uso, porém ela não
-é adequada para sistemas em tempo real, como os sistema de fluxo de dados.
+é adequada para sistemas em 
+\notafa{o que é tempo real}
+\hlfa{tempo real}, como os sistema de fluxo de dados.
 O volume e a velocidade de dados em um \emph{Data Stream} leva à necessidade de
 distribuir o processamento, acrescentando poder computacional a cada nó
 adicionado.
@@ -533,7 +549,10 @@ como especializadas em fluxo de dados.
 A arquitetura de processamento distribuído de fluxos de grande volume de dados
 \lambdaa divide o processamento em três camadas:
 \notahl{isso é camada?}\hlhl{lotes, serviço e velocidade} \cite{marz2015big}.
-A camada de lotes atua sobre o conjunto \hlhl{mestre} em modo de leitura
+A camada de lotes atua sobre o 
+\notafa{o que é conjunto mestre?}
+\hlfa{conjunto} \hlhl{mestre}
+ em modo de leitura
 sequencial, armazenando-o em sistema de arquivos distribuído e pré-processando
 várias visões sobre esse conjunto mestre.
 Essas visões (armazenadas num SGBD
@@ -550,6 +569,7 @@ tempo real diretamente para a camada de serviço \cite{marz2015big}.
 % implementam o conjunto mestre, camada de velocidade e camada de lotes
 % respectivamente.
 
+% \notafa{aqui vale o mesmo questionamento da figura 2.1}
 % \begin{figure}[ht]
 % \centering
 % \includegraphics[width=0.6\textwidth]{figuras/lambda.png}
@@ -599,7 +619,9 @@ Ao usuário da biblioteca resta implementar duas funções:
 \emph{Map}, que recebe um par ordenado
 $(chave, valor)$ e emite um conjunto de pares intermediários na mesma estrutura;
 \emph{Reduce}, que recebe uma chave e um conjunto de valores gerado pelo agrupamento
-de pares com essa mesma chave \cite{Dean2004}.
+de pares com essa
+\notafa{e a saída?}
+\hlfa{mesma chave} \cite{Dean2004}.
 
 Em prática, um \notahl{!!}\hlhl{\emph{cluster MapReduce}} tem \hlhl{centenas de} processadores e o conjunto de dados é
 armazenado em um sistema de arquivos distribuído que é lido pela plataforma com
@@ -644,7 +666,7 @@ construção de sistemas de computação distribuída em \emph{cluster}, com gar
 de tolerância a falhas.
 No entanto, o modelo de processamento diverge
 significativamente do tradicional \emph{MapReduce}, utilizando em lugar do HDFS
-um \notahl{com operações somente...}\hlhl{multiconjunto de apenas leitura distribuído} (\emph{Resilient Distributed Dataset}
+um multiconjunto imutável distribuído (\emph{Resilient Distributed Dataset}
 - RDD) com um escalonador de trabalhos representados por grafos acíclicos
 direcionados (\emph{directed acyclic graph} - DAG), otimizador de consultas e
 motor de execução \cite{ApacheSpark2020}.
@@ -764,7 +786,7 @@ ponto.
 O processamento de dados ocorre no \emph{Task Manager} que executa um ou mais
 operadores que produzem fluxos de dados, e reportam seus estados ao \jobmngr.
 
-\notake{em portugês}
+% \notake{em portugês}
 % \begin{figure}[hbt]
 % \centering
 % \includegraphics[width=0.8\textwidth]{figuras/processo-flink.png}
@@ -799,7 +821,9 @@ CEP (\emph{Complex Event Processing}) para processamento de eventos.
 
 \subsection{\emph{Data flow} e \emph{data streams}}
 
-Os \emph{data streams}, ou fluxo de dados, e as transformações são as principais
+\notafa{aqui eu baguncei os conceitos. Esse data streams é um terminologia do
+Apache Flink ou é o data stream que você definiu anteriormente?}
+\hlfa{Os \emph{data streams},} ou fluxo de dados, e as transformações são as principais
 abstrações do \emph{Apache Flink} \cite{Lopez2018,ApacheFlink2020}.
 Um fluxo de dados é definido como um fluxo de registros.
 Já as transformações são operações (\emph{map, filtering, reduction, join},
@@ -813,7 +837,7 @@ flow}, utilizado pelo \emph{Job Manager} \cite{Carbone2015}.
 Esse grafo é composto por operadores de transformação e fluxo de dados
 \cite{ApacheFlink2020}.
 Para facilitar o paralelismo desse grafo de execução, os operadores que agem
-sobres os fluxos de dados podem ser divididos em sub-tarefas que são executadas
+sobre os fluxos de dados podem ser divididos em sub-tarefas que são executadas
 pelos \emph{slots} dos \emph{Task Manager}, e os fluxos de dados podem ser
 particionados entre os operadores consumidores e produtores.
 
@@ -880,7 +904,9 @@ No lugar, a recuperação é feita repetindo completamente o fluxo ou repetindo 
 \newcommand{\drift}{\emph{Concept Drift}\xspace}
 \newcommand{\evolution}{\emph{Concept Evolution}\xspace}
 
-No âmbito de classificação de dados, parte da área de aprendizado de máquina, os
+\notafa{(senteça marcada) Alguns autores consideram novidade e anomalia como a
+mesma coisa. Outros não (eu sou um dos que não considera)}
+\hlfa{No âmbito de classificação de dados,} parte da área de aprendizado de máquina, os
 métodos de detecção de novidade (também nomeado detecção de anomalia, \novelty,
 \nd) lidam com o reconhecimento e a classificação \hlke{de exemplos que diferem de
 exemplos anteriores} \cite{PERNER2007,Gama2010}.
@@ -915,13 +941,20 @@ detecção de variações comportamentais em um jogador \cite{Vallim20136258}.
 
 Alguns métodos tratam de novidades e anomalias como uma classificação de uma
 ou duas classes (binariamente) onde um conceito representa a classe normal e
-as anomalias são representadas pela falta de conceito no modelo ou
+as 
+\notafa{frase estranha}
+\hlfa{anomalias são representadas pela falta de conceito no modelo} ou
 como um segundo conceito no modelo.
 No entanto, a abordagem de classificação binária não é adequada para representar
-múltiplos conceitos em um mesmo conjunto de dados, para isso é necessário abordar
+\notafa{alguns trabalhos fazem isso, mas nem todos. É importante destacar que
+isso é a visão de um grupo de autor.}
+\hlfa{múltiplos conceitos}
+em um mesmo conjunto de dados, para isso é necessário abordar
 \nd como classificação multi-classe.
 Alguns métodos que abordam \nd como classificação multi-classe não
-atendem completamente características de conjuntos com evolução temporal,
+atendem completamente características de conjuntos com 
+\notafa{o que é evolução temporal?}
+\hlfa{evolução temporal,}
 como \evolution e \drift, deixando de detectar múltiplos padrões que surgem
 simultaneamente num intervalo de avaliação \cite{Faria2016nd,Gama2010}.
 
@@ -931,7 +964,8 @@ duas fases:
 a primeira fase (\emph{Offline}) usa um conjunto de exemplos rotulados para
 deles extrair conceitos conhecidos e gerar um modelo;
 a segunda fase (\emph{Online}) consome um conjunto ou fluxo de exemplos não
-rotulados e classifica cada exemplo em um dos conceitos do modelo, ou marca o
+\notafa{um grupo de algoritmos fazem isso, mas nem todos}
+\hlfa{rotulados e classifica cada exemplo} em um dos conceitos do modelo, ou marca o
 exemplo como desconhecido.
 Ainda na segunda fase, para atualizar o modelo, os exemplos marcados como
 desconhecidos são utilizados para a extração de novos conceitos ou variações em
@@ -986,14 +1020,18 @@ contendo exemplos etiquetados.
 Esse conjunto de treinamento é dividido em grupos usando como chave a etiqueta,
 e para cada grupo de exemplos o método de agrupamento (\emph{clustering}) é executado.
 O método de agrupamento objetiva resumir um conjunto maior de exemplos em
-um conjunto menor de \mclusters que representem por meio de um sumário,
+um conjunto menor de \mclusters que representem por meio de um 
+\notafa{essas estatisitcas podem ser deduzidas pelos sumario, mas nao sao o sumario}
+\hlfa{sumário,}
 contendo, entre outras estatísticas, o centro e raio.
 A cada \mcluster é adicionada a etiqueta do grupo original e 
 \notahl{?}
 \hlhl{todos os conjuntos são unidos} formando o modelo de decisão.
 
 Na fase \emph{Online}, listada no Algoritmo \ref{alg:MINAS}, o algoritmo MINAS
-opera com dois métodos.
+opera com 
+\notafa{é composto de duas etapas ou de dois métodos}
+\hlfa{dois métodos}.
 O primeiro método é o de classificação, onde exemplos do fluxo de dados
 são consumidos e avaliados pelo modelo de decisão.
 O modelo de decisão avalia cada exemplo calculando a distância euclidiana
@@ -1052,7 +1090,7 @@ Se a distância é menor que um parâmetro predefinido,
 o novo \mcluster gerado recebe como etiqueta o valor de extensão
 de conceito conhecido.
 Caso contrário, se o novo \mcluster está mais distante,
-um novo conceito foi encontrado e a etiqueta marca uma novidade.
+um novo conceito foi encontrado e a etiqueta marca um padrão novidade.
 Após a atribuição da etiqueta do novo \mcluster, ele é adicionado
 ao modelo de decisão.
 
