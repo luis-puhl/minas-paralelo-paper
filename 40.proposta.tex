@@ -24,7 +24,7 @@ a computação em névoa (\fog) é uma solução.
 O tema de \streamMining envolve a classificação de novos elementos,
 que podem tanto estar relacionados aos dados ou aos metadados das comunicações,
 com base em um modelo.
-Porém, como \streams variam temporalmente e são ilimitados,
+\hlke{Porém, como \streams variam temporalmente e são ilimitados,}
 as classes contidas em um \stream não são todas previamente conhecidas.
 A identificação e classificação de novas classes em \streams é denominada
 Detecção de Novidades (\novelty, \nd) em \streams.
@@ -129,6 +129,7 @@ Os dados resultantes do serviço de captura e tratamento
 (representado no \mfog pelo \source) são ingeridos pela aplicação no \classify.
 A ingestão é feita por meio de um operador fonte, fornecida pela plataforma
 \flink.
+\notake{TCP e apache flink}
 % conexão TCP (\emph{Transmission Control Protocol}).
 Na plataforma, com o modelo de classificação disponível, os exemplos são
 classificados seguindo o algoritmo MINAS original discutido na \refsec{minas-og}.
@@ -165,6 +166,7 @@ O \offline, por ser utilizado somente uma vez para gerar o modelo
 de classificação inicial, não tem impacto na escalabilidade geral do sistema.
 O \detector também é implementado na plataforma \flink e, por ser hospedado em
 ambiente de \cloud, herda as qualidades desse ambiente incluindo escalabilidade.
+\notake{destaque sentença}
 O restante do sistema (\source, \sink, armazenamento de modelo) não é foco deste
 estudo e sua escalabilidade, desde que não afete a escalabilidade do \classify e
 \detector.
@@ -182,7 +184,7 @@ Padrões podem ser locais? Ou sempre se aplicam a todos os nós?}
 %   D - resultados preliminares (python/kafka, flink)
 % }
 
-A avaliação da proposta apresentada será feita por meio de métricas extraídas da
+A avaliação da proposta apresentada \hlke{\xcancel{será}} feita por meio de métricas extraídas da
 literatura, divididas em duas partes: métricas de qualidade de classificação
 e métricas de escalabilidade.
 Métricas tradicionais de qualidade de classificação estabelecidas por trabalhos
@@ -369,7 +371,8 @@ são geralmente destacados quando os experimentos são realizados em um único
 nó ou ambiente.
 
 Faz parte também do ambiente de teste os conjuntos de dados (\datasets)
-\emph{KDD99} e \emph{Kyoto 2006+} que foram selecionados por motivos distintos.
+\notake{CICIDS2017 e ISCXTor2016}\hlke{\emph{KDD99}}
+e \emph{Kyoto 2006+} que foram selecionados por motivos distintos.
 O \dataset \emph{Kyoto 2006+} é o foco deste trabalho, pois contém dados ainda
 representativos (até 2015) e as característica desejáveis de um conjunto de dados
 (realismo, validade, etiquetas previamente definidas, alta variabilidade,
