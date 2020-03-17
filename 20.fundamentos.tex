@@ -1096,3 +1096,252 @@ ao modelo de decisão.
 %     - Restrição hardware (Energia, CPU, Mem, Rede)
 %     - Consideração FOG vs Cloud
 % %/discussão
+
+
+% \section{Algoritmos de Detecção de Novidades}\label{sec:alg-nd}
+
+\newcommand{\cluster}{\emph{cluster}\xspace}
+\newcommand{\clusters}{\emph{clusters}\xspace}
+
+\newcommand{\dataset}{\emph{data set}\xspace}
+\newcommand{\datasets}{\emph{data sets}\xspace}
+% \clusters é um conjunto de \cluster feito de um \dataset.
+
+O algoritmo MINAS, como já foi discutido na Seção \ref{sec:minas-og}, classifica
+exemplos e detecta
+novidades em DS e considera em sua composição \emph{concept drift} e
+\emph{concept evolution}, sendo capaz de classificar como extensão de classe
+conhecida e identificar padrões novidade sem intervenção de especialista
+\cite{Faria2016minas}.
+Neste trabalho, consideram-se algoritmos derivados do algoritmo MINAS
+aqueles apresentados em trabalhos publicados após 2016, que estendem a
+implementação original seguindo sua estrutura básica.
+
+\subsection{Algoritmo FuzzyND}
+
+% FuzzyND
+% $(n, \mathit{M}, \overline{CF1^x}, SSD^e, t, l)$
+% $(n, LS, SS, t, l)$
+% A nova estrutura contrapõem a estrutura original
+% substituindo a soma linear dos elementos ($LS$) por  e $SS$ por $M$ e $$
+
+O algoritmo FuzzyND, derivado do MINAS foi proposto por \citeonline{DaSilva2018}.
+FuzzyND incrementa o algoritmo original, aplicando a ele teorias de
+conjuntos \emph{fuzzy} pela modificação da representação dos \clusters.
+A modificação afeta o método de construção de \clusters, método de classificação
+de exemplos e método de detecção de novidades de acordo com a nova representação.
+
+\acronym{F1M}{\emph{Macro F-Score}, acurácia }
+
+A avaliação do algoritmo FuzzyND foi feita por meio de experimentos usando 3 
+\datasets sintéticos (\emph{MOA3}, \emph{RBF}, \emph{SynEDC})
+e por comparação com o MINAS.
+O método de avaliação utilizado baseia-se na matriz de confusão incremental
+descrita por \citeonline{Faria2016nd}, extraindo dessa matriz duas métricas:
+acurácia (\emph{Macro F-Score}) \cite{Sokolova2009} e
+taxa de desconhecidos (\emph{UnkR}) \cite{Faria2016minas}.
+Em geral, o algoritmo FuzzyND detecta melhor novidades e, consequentemente,
+é mais robusto a valores atípicos (\emph{outlier}), porém perde a capacidade
+de reconhecer padrões recorrentes.
+
+
+% Experiments were evaluated using the incremental confusion-matrix proposed by [27],
+% recently been proposed [5]–[9]
+% [5] T. Al-Khateeb, M. M. Masud, L. Khan, C. Aggarwal, J. Han, and B.
+% Thuraisingham, “Stream classification with recurring and novel class detection
+% using class-based ensemble,” in Data Mining (ICDM), 2012 IEEE 12th International
+% Conference on. IEEE, 2012, pp. 31–40.
+% [6] E. R. de Faria, A. C. P. de Leon Ferreira, J. Gama et al., “Minas:
+% multiclass learning algorithm for novelty detection in data streams,” Data
+% Mining and Knowledge Discovery, vol. 30, no. 3, pp. 640–680, 2016.
+% [7] M. Masud, J. Gao, L. Khan, J. Han, and B. M. Thuraisingham, “Classification
+% and novel class detection in concept-drifting data streams under time
+% constraints,” IEEE Transactions on Knowledge and Data Engineering, vol. 23, no.
+% 6, pp. 859–874, 2011.
+% [8] M. M. Masud, Q. Chen, L. Khan, C. Aggarwal, J. Gao, J. Han, and B.
+% Thuraisingham, “Addressing concept-evolution in concept-drifting data streams,”
+% in Data Mining (ICDM), 2010 IEEE 10th International Conference on. IEEE, 2010,
+% pp. 929–934.
+% [9] Z. S. Abdallah, M. M. Gaber, B. Srinivasan, and S. Krishnaswamy, “Anynovel:
+% detection of novel concepts in evolving data streams,” Evolving Systems, vol. 7,
+% no. 2, pp. 73–93, 2016.
+% [27] E. R. de Faria, I. R. Goncalves, J. Gama, A. C. P. de Leon Ferreira et al.,
+% “Evaluation of multiclass novelty detection algorithms for data streams,” IEEE
+% Transactions on Knowledge and Data Engineering, vol. 27, no. 11, pp. 2961–2973,
+% 2015.
+% [28] M. Sokolova and G. Lapalme, “A systematic analysis of performance measures
+% for classification tasks,” Information Processing & Manage- ment, vol. 45, no.
+% 4, pp. 427–437, 2009.
+
+\subsection{Algoritmos MINAS-LC e MINAS-BR}\label{sub:minas-derivados}
+
+O algoritmo MINAS-LC foi proposto por \citeonline{Costa2019thesis} e trata a classificação
+multi-rótulo, porém não trata evoluções de conceito (\emph{Concept Evolution}).
+As alterações fundamentais propostas são:
+a representação de \cluster onde MINAS-LC troca a etiqueta, que era única, por uma multi-rótulo;
+a transformação de problema aplicada ao conjunto de treinamento para transformá-lo de um
+conjunto multi-rótulo para um conjunto multi-classe (simplificação)
+em duas variações \emph{Label Powerset} e \emph{Pruned Sets} com
+mineração de conjunto de itens frequentes.
+
+% Este capítulo apresentou o método MultI-label learNing Algorithm for data
+% Streams with Label Combination-based methods (MINAS-LC) e o MultI-label learNing
+% Algorithm for data Streams with Binary Relevance transformation (MINAS-BR) para
+% CMFCD com latência extrema de rótulos. O MINAS-LC lida com problemas apenas com
+% mudanças de conceito. O seu modelo de decisão e composto por microgrupos
+% multirrotulados sendo capaz de classificar exemplos em várias classes
+% simultaneamente e evoluir ao longo do fluxo de dados. Foram propostas duas
+% variações do método: utilizando o método de transformação de problema Label
+% Powerset (LP) e, utilizando o método Pruned Sets (PS) com mineração de conjunto
+% de itens frequentes. O MINAS-BR lida com problemas tanto com mudanças de
+% conceito, como com evo- luções de conceito. Ele possui um conjunto de modelos de
+% decisão, um para cada classe do problema. Esses modelos de decisão podem ser
+% entendidos adaptando-se às mudanças de con- ceito, ou novos modelos de decisão
+% podem ser criados, adaptando-se às evoluções de conceito. O próximo capítulo
+% apresenta os experimentos realizados envolvendo os dois métodos propostos neste
+% trabalho.
+
+Já o trabalho de \citeonline{Costa2019}, estende o algoritmo original para que
+classifique um exemplo com uma ou mais etiquetas usando a transformação
+\emph{Binary Relevance}, o que deu origem ao algoritmo MINAS-BR.
+O algoritmo modifica a representação do modelo, originalmente conjunto de \clusters, para
+um grupo de \clusters por classe (etiqueta).
+Também modifica o método de agrupamento, substituindo a inicialização do 
+algoritmo \emph{K-means}, originalmente aleatória, pelo algoritmo 
+\emph{Leader Incremental Clustering} \cite{Vijaya2004505}.
+
+% as 4CRE-V13, 4CRE-V24 e 5CVT5 6 foram geradas originalmente em Souza et al. (2015b)
+% SOUZA, V. M. A.; SILVA, D. F.; GAMA, J.; BATISTA, G. E. A. P. A. Data stream
+% classification guided by clustering on nonstationary environments and extreme
+% verification latency. In: Procee- dings ofSIAM International Conference on Data
+% Mining (SDM). [S.l.: s.n.], 2015. p. 873–881. Citado 4 vezes nas páginas 17, 65,
+% 87 e 89.
+
+O algoritmo MINAS-BR também é experimentalmente avaliado com 4 \emph{data sets}
+sintéticos: \emph{MOA-3C-5C-2D}, \emph{MOA-5C-7C-2D}, \emph{MOA-5C-7C-3} da
+ferramenta MOA \cite{MOA} e \emph{4CRE-V2}
+\footnote{
+    A versão original do \dataset 4CRE-V2 está disponível em 
+    https://sites.google.com/site/nonstationaryarchive/home
+}
+gerados pelo método \emph{Radial Basis Function} \cite{souza2015}.
+O algoritmo MINAS-BR foi comparado com 7 algoritmos da literatura também disponíveis na ferramenta
+MOA \cite{MOA},
+diferente da avaliação do FuzzyND que compara diretamente com MINAS.
+Para análise, os 7 algoritmos foram divididos em dois grupos.
+O primeiro grupo de 3 algoritmos com acesso às etiquetas corretas para
+atualização do modelo e com a técnica ADWIN (\emph{ADaptive WINdowing}) para detectar
+mudanças de conceito (\emph{Concept Drift})
+O segundo grupo com os 4 algoritmos sem acesso às etiquetas corretas,
+ou seja, sem \emph{feedback} externo, mesma condição do MINAS-BR.
+
+% Esse trecho parece mais fundamentação.
+
+A avaliação elencada por \citeonline{Costa2019} leva em consideração que as classes
+contidas no conjunto de testes podem não ter correlação direta com os padrões identificados
+pelos algoritmos.
+Para tratar a divergência, uma estratégia baseada em proposta anterior por
+\citeonline{Faria2016nd} foi apresentada com alterações para exemplos multi-rótulo.
+Após associação entre padrões de novidade e classes novidade foi possível calcular
+métricas tradicionais.
+A estratégia é executada na fase de classificação seguindo as regras:
+
+\begin{enumerate}
+
+    \item após o consumo do exemplo $X_n$;
+    
+    \item para todo padrão $P_i$ (etiqueta atribuída) identificado sem
+    associação até o momento;
+    
+    \item com classes novidade $y_j$ (etiqueta real) presentes em exemplos antes
+    $X_n$;
+    
+    \item preenche-se a tabela de contingência $\mathbf{T}_{(i,j)}$ relacionando
+    padrão $P_i$ e classe $y_j$;
+    
+    \item calcula-se o grau de dependência $\mathit{F1}$ derivado da tabela de
+    contingência $\mathit{F1}_{(i,j)} = f(\mathbf{T}_{(i,j)})$;
+    
+    \item valores $\mathit{F1}_{(i,j)} = 0$ são descartados;
+    
+    \item dentre os valores restantes: o padrão $P_i$ é associado à classe $y_j$
+    se $\mathit{F1}_{(i,j)}$ é máximo.
+
+\end{enumerate}
+
+As métricas utilizadas por \citeonline{Costa2019} após a associação de classes e
+padrões são as tradicionais taxa de desconhecidos (\emph{UnkRM}) e \emph{F1M}.
+Os resultados apresentados indicam que MINAS-BR capturou todas as novidades dos
+\datasets sintéticos de teste e mostrou, como esperado, melhores métricas que os
+4 algoritmos equivalentes da literatura ficando abaixo dos 3 com \emph{feedback}
+externo.
+
+Os trabalhos relacionados nessa \refsec{alg-nd}, têm em
+comum, além do algoritmo base, as métricas de avaliação acurácia (\emph{Macro F-Score} e \emph{Macro
+F-Measure} F1M) e taxa de desconhecidos, aplicadas com devido tratamento.
+Também é comum entre eles o uso de \datasets sintéticos.
+Outro potencial não explorado do MINAS é em aplicações reais, ou seja,
+consumindo além de \datasets reais, fluxos realistas em ambientes simulados ou
+reais porém considerando uso de recursos computacionais.
+
+Observando a arquitetura dos algoritmos abordados na \refsec{alg-nd}, nota-se as semelhanças:
+a fase offline centrada no processo de agrupamento e criação de modelo;
+a fase online dividida em classificação (com atualização das estatísticas do modelo)
+e detecção de padrões, onde novamente o processo de agrupamento é central.
+Portanto, apesar de outros trabalhos expandirem o algoritmo com diferentes técnicas, seu
+núcleo continua relevante\footnote{
+Propostas de modificação do algoritmo MINAS estão longe de serem exauridas.
+Não cabe ao presente trabalho expandir e validar conceitos de aprendizagem de máquina,
+porém alguns exemplos mencionados ainda não abordados são:
+\begin{enumerate*}[label={\alph*)}]
+    
+    \item diferentes métodos de cálculo de distância entre pontos além da
+    distância euclidiana;
+    
+    \item a mudança de representação de \clusters, atualmente hiper-esferas
+    \cite{Costa2019thesis}, para hiper-cubos tratando \datasets onde as
+    características representadas pelas dimensões são completamente
+    independentes;
+    
+    \item um modo interativo onde o \cluster é formado, mostrado ao especialista
+    que o classifica como inválido (ruído ou não representativo) ou válido,
+    podendo conter uma ou mais classes e, se contiver mais que uma classe corte em
+    grupos menores até conter somente uma classe;
+    
+    \item ainda considerando interação com especialista, a possibilidade de
+    injetar um exemplo não pertencente a uma classe, ou seja, marcar o exemplo
+    como não pertencente a uma classe para mantê-lo na memória de
+    desconhecidos e, eventualmente forçar criação de um \cluster que represente
+    uma classe geometricamente próxima mas semanticamente distinta;
+    
+    \item na fase \emph{offline} a verificação de sobreposição de \clusters
+    pertencentes a classes distintas e tratamento adequado.
+
+\end{enumerate*}
+} \cite{DaSilva2018,DaSilva2018thesis,Costa2019}.
+
+% >>>>>>> master
+% \citeonline{DaSilva2018}
+
+% \citeonline{Costa2019} estende o algoritmo original na sua capacidade de
+% classificar um exemplo com uma ou mais etiquetas usando a transformação
+% \emph{Binary Relevance}. Essa versão modificada é testada e comparada com 7
+% algoritmos por meio de experimentos com 4 \emph{data sets} sintéticos gerados
+% pelo método \emph{Radial Basis Function}. Os 7 algoritmos e o método estão
+% disponíveis na ferramenta MOA \cite{MOA}.
+% w
+
+% Apesar de outros trabalhos expandirem o algoritmo com diferentes técnicas, seu
+% núcleo continua relevante \cite{DaSilva2018,DaSilva2018thesis,Costa2019}.
+% <<<<<<
+
+% \section{AnyNovel}
+% \nota{Incompleto}
+
+% \nota{também é da mesma classe do minas porém \citeonline{Cassales2019a} destaca um
+% desempenho inferior para o \emph{data set} testado.}
+%  a atividade de detecção de intrusão
+
+% \citeonline{Abdallah2016anynovel}
+
+% \nota{helio: Mining wireless networks}
