@@ -1,13 +1,25 @@
+\clearpage
+
 \section{Detecção de Novidade}\label{sec:nd}
 
 \newcommand{\novelty}{\emph{Novelty Detection}\xspace}
 \newcommand{\drift}{\emph{Concept Drift}\xspace}
 \newcommand{\evolution}{\emph{Concept Evolution}\xspace}
 
-\notafa{(senteça marcada) Alguns autores consideram novidade e anomalia como a
-mesma coisa. Outros não (eu sou um dos que não considera)}
-\hlfa{No âmbito de classificação de dados,} parte da área de aprendizado de máquina, os
-métodos de detecção de novidade (\novelty, \nd) lidam com o reconhecimento e a classificação \hlke{de exemplos que diferem de
+\begin{definition}
+    Um \textit{Fluxo de Dados} $S$ é uma sequência massiva, potencialmente
+    ilimitada de exemplos multi-dimensionais
+    $\mathbf{x}_1, \mathbf{x}_2, \dots, \mathbf{x}_n, \dots$
+    recebida em instantes
+    $\mathbf{T}_1, \mathbf{T}_2, \dots, \mathbf{T}_n, \dots$
+    \cite{Aggarwal2003}.
+\end{definition}
+
+% \notafa{(senteça marcada) Alguns autores consideram novidade e anomalia como a
+% mesma coisa. Outros não (eu sou um dos que não considera)}
+No âmbito de classificação de dados, parte da área de aprendizado de máquina, os
+métodos de detecção de novidade (\novelty, \nd) lidam com o reconhecimento e a 
+classificação \hlke{de exemplos que diferem de
 exemplos anteriores} \cite{PERNER2007,Gama2010}.
 Esses métodos tratam da classificação em fluxos de dados que evoluem com o
 tempo, levando em consideração as características desse tipo de fluxos.
@@ -26,8 +38,7 @@ presença de ruído e \emph{outliers} \cite{Gama2010}.
 % \nota{separar ai - ndpara\\
 % padroes novidade? reconhecomemnto de padroes novidade?}
 
-Os métodos de \nd são utilizados no reconhecimento de \notahl{?}\hlhl{diversos padrões novidade}
-ou anomalias e são aplicadas a diversos problemas como
+Os métodos de \nd são aplicados a diversos problemas como
 detecção de intrusos \cite{Coull2003,Spinosa2008,Viegas2019,Cassales2019a},
 detecção de falhas \cite{Zhang2006},
 diagnósticos médicos \cite{Perner2009},
@@ -38,15 +49,18 @@ detecção de variações comportamentais em um jogador \cite{Vallim20136258}.
 
 % breve descrição do que sao algoritmos para DN
 
-Alguns métodos tratam de novidades e anomalias como uma classificação de uma
-ou duas classes (binariamente) onde um conceito representa a classe normal e
-as 
+Alguns métodos de \nd utilizam 
 \notafa{frase estranha}
-\hlfa{anomalias são representadas pela falta de conceito no modelo} ou
+tratam de novidades como uma classificação de uma
+ou duas classes () onde um conceito representa a classe normal e
+as 
+\hlfa{anomalias são representadas}
+\hlfa{pela falta de conceito no modelo} ou
 como um segundo conceito no modelo.
-No entanto, a abordagem de classificação binária não é adequada para representar
-\notafa{alguns trabalhos fazem isso, mas nem todos. É importante destacar que
-isso é a visão de um grupo de autor.}
+Além da abordagem de classificação binária, 
+% não é adequada para representar
+% \notafa{alguns trabalhos fazem isso, mas nem todos. É importante destacar que
+% isso é a visão de um grupo de autor.}
 \hlfa{múltiplos conceitos}
 em um mesmo conjunto de dados, para isso é necessário abordar
 \nd como classificação multi-classe.
@@ -57,15 +71,16 @@ atendem completamente características de conjuntos com
 como \evolution e \drift, deixando de detectar múltiplos padrões que surgem
 simultaneamente num intervalo de avaliação \cite{Faria2016nd,Gama2010}.
 
+% \notafa{um grupo de algoritmos fazem isso, mas nem todos}
 A maioria dos métodos de \nd são construídos seguindo a abordagem de aprendizado
 \emph{Offline-Online}. Essa abordagem estabelece que o método seja dividido em
 duas fases:
 a primeira fase (\emph{Offline}) usa um conjunto de exemplos rotulados para
 deles extrair conceitos conhecidos e gerar um modelo;
 a segunda fase (\emph{Online}) consome um conjunto ou fluxo de exemplos não
-\notafa{um grupo de algoritmos fazem isso, mas nem todos}
-\hlfa{rotulados e classifica cada exemplo} em um dos conceitos do modelo, ou marca o
-exemplo como desconhecido.
+rotulados e detecta padrões-novidade.
+Além de detectar padrões-novidade, alguns algoritmos classificam cada exemplo
+em um dos conceitos do modelo, ou marca o exemplo como desconhecido.
 Ainda na segunda fase, para atualizar o modelo, os exemplos marcados como
 desconhecidos são utilizados para a extração de novos conceitos ou variações em
 conceitos conhecidos \cite{Gama2010}.
@@ -119,18 +134,23 @@ contendo exemplos etiquetados.
 Esse conjunto de treinamento é dividido em grupos usando como chave a etiqueta,
 e para cada grupo de exemplos o método de agrupamento (\emph{clustering}) é executado.
 O método de agrupamento objetiva resumir um conjunto maior de exemplos em
-um conjunto menor de \mclusters que representem por meio de um 
-\notafa{essas estatisitcas podem ser deduzidas pelos sumario, mas nao sao o sumario}
-\hlfa{sumário,}
-contendo, entre outras estatísticas, o centro e raio.
-A cada \mcluster é adicionada a etiqueta do grupo original e 
-\notahl{?}
-\hlhl{todos os conjuntos são unidos} formando o modelo de decisão.
+um conjunto menor de \mclusters.
+
+% \notafa{essas estatisitcas podem ser deduzidas pelos sumario, mas nao sao o sumario}
+Um \mcluster é uma tupla de quatro components $(N, \mathbf{LS}, \mathbf{SS}, T)$
+derivados dos exemplos representados por este \mcluster, onde:
+$N$ número de exemplos,
+$\mathbf{LS}$ soma linear dos exemplos,
+$\mathbf{SS}$ soma quadrada dos exemplos,
+$T$ instante de chegada do último exemplo adicionado ao \mcluster.
+Deste sumário extrai-se, entre outras estatísticas, o centro e raio que são
+utilizados na operação de classificação da fase \emph{Online}.
+A cada \mcluster é adicionada a etiqueta do grupo original e todos \mclusters
+são arranjados em um único conjunto formando o modelo de decisão.
 
 Na fase \emph{Online}, listada no Algoritmo \ref{alg:MINAS}, o algoritmo MINAS
-opera com 
-\notafa{é composto de duas etapas ou de dois métodos}
-\hlfa{dois métodos}.
+opera com três operações: classificação de novos exemplos, detecção de 
+padrões-novidade e atualização do modelo de decisão \cite{Faria2014}.
 O primeiro método é o de classificação, onde exemplos do fluxo de dados
 são consumidos e avaliados pelo modelo de decisão.
 O modelo de decisão avalia cada exemplo calculando a distância euclidiana
@@ -141,7 +161,7 @@ o raio do \mcluster, o exemplo é classificado com a etiqueta do \mcluster
 e o sumário estatístico do \mcluster é atualizado.
 Caso a distância (mínima no modelo) seja maior que o raio,
 o exemplo é marcado como desconhecido e armazenado
-em conjunto próprio.
+em conjunto próprio \cite{Faria2014,Faria2016minas}.
 
 O segundo método da fase \emph{Online} é a detecção de padrões novidade,
 que é executada quando o tamanho do conjunto de desconhecidos é maior
@@ -420,7 +440,7 @@ Os resultados apresentados indicam que MINAS-BR capturou todas as novidades dos
 4 algoritmos equivalentes da literatura ficando abaixo dos 3 com \emph{feedback}
 externo.
 
-Os trabalhos relacionados nessa \refsec{alg-nd}, têm em
+Os trabalhos abordados nessa \refsec{nd}, têm em
 comum, além do algoritmo base, as métricas de avaliação acurácia (\emph{Macro F-Score} e \emph{Macro
 F-Measure} F1M) e taxa de desconhecidos, aplicadas com devido tratamento.
 Também é comum entre eles o uso de \datasets sintéticos.
@@ -428,7 +448,7 @@ Outro potencial não explorado do MINAS é em aplicações reais, ou seja,
 consumindo além de \datasets reais, fluxos realistas em ambientes simulados ou
 reais porém considerando uso de recursos computacionais.
 
-Observando a arquitetura dos algoritmos abordados na \refsec{alg-nd}, nota-se as semelhanças:
+Observando a arquitetura dos algoritmos abordados na \refsec{nd}, nota-se as semelhanças:
 a fase offline centrada no processo de agrupamento e criação de modelo;
 a fase online dividida em classificação (com atualização das estatísticas do modelo)
 e detecção de padrões, onde novamente o processo de agrupamento é central.

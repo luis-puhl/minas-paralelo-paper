@@ -187,7 +187,7 @@ Padrões podem ser locais? Ou sempre se aplicam a todos os nós?}
 %   D - resultados preliminares (python/kafka, flink)
 % }
 
-A avaliação da proposta apresentada \hlke{\xcancel{será}} feita por meio de métricas extraídas da
+A avaliação da proposta apresentada é feita por meio de métricas extraídas da
 literatura, divididas em duas partes: métricas de qualidade de classificação
 e métricas de escalabilidade.
 Métricas tradicionais de qualidade de classificação estabelecidas por trabalhos
@@ -391,6 +391,42 @@ O \dataset \emph{KDD99} é amplamente utilizado em trabalhos de detecção de
 anomalia e neste trabalho é utilizado somente para que o leitor possa comparar com outros
 trabalhos, pois não possui mais a característica de realismo, uma vez que foi
 construído em 1998.
+
+\begin{table}[ht]
+  \caption{Sumário dos conjuntos de dados}
+  \centering
+  \begin{scriptsize}
+  \begin{tabularx}{\linewidth}{c|X|X|X}
+    Nome &
+      Origem &
+      Descrição &
+      Acesso Público \\
+    \hline
+    \hline
+    \emph{KDD99} &
+      Captura de Fluxos de rede com ataques simulados &
+      Descrição &
+      \url{https://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html} \\
+    \hline
+    \emph{Kyoto 2006+} &
+      Captura de Fluxos de rede com HoneyPot simulados &
+      Descrição &
+      \url{https://www.takakura.com/Kyoto_data/new_data201704/} \\
+    \hline
+    ISCXTor2016 &
+      Origem &
+      Descrição &
+      \url{https://github.com/ahlashkari/CICFlowMeter} \\
+    \hline
+    CICIDS2017 &
+      Origem &
+      Descrição &
+      \url{https://www.unb.ca/cic/datasets/ids-2017.html} \\
+    \hline
+  \end{tabularx}
+  \label{tab:summary-dataset}
+  \end{scriptsize}
+\end{table}
 
 \section{Resultados preliminares}\label{sec:resultados}
 

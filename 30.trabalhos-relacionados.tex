@@ -20,7 +20,6 @@
 Este Capítulo trata dos trabalhos relacionados e apresenta aspectos do estado da arte
 dos tópicos Detecção de Novidades em Fluxos de Dados, e
 Processamento Distribuído de Fluxos de Dados.
-\notake{inserir uma tabela sumarizada com a descrição dos autores.}
 
 \end{resumocap}
 
@@ -34,20 +33,19 @@ Um sumário dos trabalhos abordados pode ser visto na Tabela \ref{tab:summary}.
 \newcommand{\spark}{\emph{Apache Spark}\xspace}
 \newcommand{\python}{\emph{Python}\xspace}
 
+% \notake{inserir uma tabela sumarizada com a descrição dos autores.}
 \begin{table}[ht]
   \caption{Sumário dos trabalhos relacionados}
   \centering
   \begin{scriptsize}
-%  \begin{tabularx}{\textwidth}{ l m{2cm} | m{2cm} l m{2cm} | m{2cm} | m{2cm} | m{2cm} }
   \begin{tabularx}{\linewidth}{X|X|X|X|X}
-%  \begin{tabularx}{\textwidth}{l|l|X|X|m{3.0cm}}
     Trabalho & Plataforma  & Técnica & Conjunto de dados & Métricas \\
     \hline
     \hline
     Ferramenta BigFlow \cite{Viegas2019} &
         \python, \emph{flowtbag}, \kafka e \flink &
-        Hoeffding Tree, OzaBoosting, Leveraging Bag e combinação &
-        MAWILab &
+        \emph{Hoeffding Tree}, \emph{OzaBoosting}, \emph{Leveraging Bag} e comitê &
+        \emph{MAWILab} &
         Acurácia (geral e por classe), Taxa de bytes \\
     \hline
     Ferramenta CATRACA \cite{Lopez2018} &
