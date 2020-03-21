@@ -559,25 +559,12 @@ isbn="978-3-540-73435-2"
   ISBN="9781439826119"
 }
 
-@misc {Kyoto,
-    author = {J SONG AND H Takakura AND Y Okabe},
-    title = {Kyoto 2006+ New version data},
-    year = {2017},
-    url = {http://www.takakura.com/Kyoto_data/new_data201704/}
+@misc{Kyoto,
+  author = {J SONG AND H Takakura AND Y Okabe},
+  title = {Kyoto 2006+ New version data},
+  year = {2020},
+  url = {http://www.takakura.com/Kyoto_data/new_data201704/}
 }
-
-@inproceedings{Song:2011:SAH:1978672.1978676,
-author = {Song, Jungsuk and Takakura, Hiroki and Okabe, Yasuo and Eto, Masashi and Inoue, Daisuke and Nakao, Koji},
-title = {Statistical Analysis of Honeypot Data and Building of {K}yoto 2006+ Dataset for NIDS Evaluation},
-booktitle = {Proc.of Workshop on Building Analysis Datasets and Gathering Experience Returns for Security},
-year = {2011},
-isbn = {978-1-4503-0768-0},
-location = {Salzburg, Austria},
-pages = {29--36},
-numpages = {8},
-publisher = {ACM},
-address = {New York, NY, USA}
-} 
 
 @article{Mukkamala2005,
 author = {Mukkamala, Srinivas and Sung, Andrew and Abraham, Ajith},
@@ -1685,4 +1672,71 @@ author = {de {Faria Paiva}, Elaine Ribeiro},
 abstract = {Minera{\c{c}}{\~{a}}o de fluxos cont{\'{i}}nuos de dados {\'{e}} uma {\'{a}}rea de pesquisa emergente que visa extrair conhe- cimento a partir de grandes quantidades de dados, gerados continuamente. Detec{\c{c}}{\~{a}}o de novidade {\'{e}} uma tarefa de classifica{\c{c}}{\~{a}}o que consiste em reconhecer que um exemplo ou conjunto de exem- plos em um fluxo de dados diferem significativamente dos exemplos vistos anteriormente. Essa {\'{e}} uma importante tarefa para fluxos cont{\'{i}}nuos de dados, principalmente porque novos conceitos podem aparecer, desaparecer ou evoluir ao longo do tempo. A maioria dos trabalhos da literatura apresentam a detec{\c{c}}{\~{a}}o de novidade como uma tarefa de classifica{\c{c}}{\~{a}}o bin{\'{a}}ria. Poucos trabalhos tratam essa tarefa como multiclasse, mas usam medidas de avalia{\c{c}}{\~{a}}o bin{\'{a}}ria. Em v{\'{a}}rios proble- mas, o correto seria tratar a detec{\c{c}}{\~{a}}o de novidade em fluxos cont{\'{i}}nuos de dados como uma tarefa multiclasse, no qual o conceito conhecido do problema {\'{e}} formado por uma ou mais classes, e di- ferentes novas classes podem aparecer ao longo do tempo. Esta tese prop{\~{o}}e um novo algoritmo – MINAS – para detec{\c{c}}{\~{a}}o de novidade em fluxos cont{\'{i}}nuos de dados. MINAS considera que a detec{\c{c}}{\~{a}}o de novidade {\'{e}} uma tarefa multiclasse. Na fase de treinamento, MINAS constr{\'{o}}i um mo- delo de decis{\~{a}}o com base em um conjunto de exemplos rotulados. Na fase de aplica{\c{c}}{\~{a}}o, novos exemplos s{\~{a}}o classificados usando o modelo de decis{\~{a}}o atual, ou marcados como desconhecidos. Grupos de exemplos desconhecidos podem formar padr{\~{o}}es-novidade v{\'{a}}lidos, que s{\~{a}}o ent{\~{a}}o adici- onados ao modelo de decis{\~{a}}o. O modelo de decis{\~{a}}o {\'{e}} atualizado ao longo do fluxo a fim de refletir mudan{\c{c}}as nas classes conhecidas e permitir inser{\c{c}}{\~{a}}o de padr{\~{o}}es-novidade. Esta tese tamb{\'{e}}m prop{\~{o}}e uma nova metodologia para avalia{\c{c}}{\~{a}}o de algoritmos para detec{\c{c}}{\~{a}}o de novidade em fluxos cont{\'{i}}nuos de dados. Essa metodologia associa os padr{\~{o}}es-novidade n{\~{a}}o rotulados {\`{a}}s classes reais do problema, permitindo assim avaliar a matriz de confus{\~{a}}o que {\'{e}} incremental e retangular. Al{\'{e}}m disso, a metodologia de avalia{\c{c}}{\~{a}}o prop{\~{o}}e avaliar os exemplos desconhecidos separadamente e uti- lizar medidas de avalia{\c{c}}{\~{a}}o multiclasse. Por {\'{u}}ltimo, esta tese apresenta uma s{\'{e}}rie de experimentos executados usando o MINAS e os principais algoritmos da literatura em bases de dados artificiais e reais. Al{\'{e}}m disso, o MINAS foi aplicado a um problema real, que consiste no reconhecimento de atividades humanas usando dados de aceler{\^{o}}metro. Os resultados experimentais mostram o potencial},
 pages = {161},
 year = {2014}
+}
+
+@inproceedings{Song2011kyoto,
+  title = {Statistical Analysis of Honeypot Data and Building of Kyoto 2006+ Dataset for NIDS Evaluation},
+  author = {Song, Jungsuk and Takakura, Hiroki and Okabe, Yasuo and Eto, Masashi and Inoue, Daisuke and Nakao, Koji},
+  year = {2011},
+  isbn = {9781450307680},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  url = {https://doi.org/10.1145/1978672.1978676},
+  doi = {10.1145/1978672.1978676},
+  booktitle = {Proceedings of the First Workshop on Building Analysis Datasets and Gathering Experience Returns for Security},
+  pages = {29–36},
+  numpages = {8},
+  keywords = {NIDS, honeypot data, Kyoto 2006+ dataset},
+  location = {Salzburg, Austria},
+  series = {BADGERS ’11}
+}
+
+@article{Lashkari2017,
+  title = {Characterization of tor traffic using time based features},
+  author = {Lashkari, Arash Habibi and Gil, Gerard Draper and Mamun, Mohammad Saiful Islam and Ghorbani, Ali A.},
+  abstract = {Traffic classification has been the topic of many research
+  efforts, but the quick evolution of Internet services and the pervasive use of
+  encryption makes it an open challenge. Encryption is essential in protecting
+  the privacy of Internet users, a key technology used in the different privacy
+  enhancing tools that have appeared in the recent years. Tor is one of the most
+  popular of them, it decouples the sender from the receiver by encrypting the
+  traffic between them, and routing it through a distributed network of servers.
+  In this paper, we present a time analysis on Tor traffic flows, captured
+  between the client and the entry node. We define two scenarios, one to detect
+  Tor traffic flows and the other to detect the application type: Browsing,
+  Chat, Streaming, Mail, Voip, P2P or File Transfer. In addition, with this
+  paper we publish the Tor labelled dataset we generated and used to test our
+  classifiers.},
+  doi = {10.5220/0006105602530262},
+  isbn = {9789897582097},
+  journal = {ICISSP 2017 - Proceedings of the 3rd International Conference on Information Systems Security and Privacy},
+  keywords = {Machine Learning,Network Traffic Analysis,Network Traffic Characterization,Time-based Features,Tor},
+  number = {Cic},
+  pages = {253--262},
+  volume = {2017-January},
+  year = {2017}
+}
+@article{Draper-Gil2016,
+  title = {Characterization of encrypted and VPN traffic using time-related features},
+  author = {Draper-Gil, Gerard and Lashkari, Arash Habibi and Mamun, Mohammad Saiful Islam and Ghorbani, Ali A.},
+  abstract = {Traffic characterization is one of the major challenges in today's
+  security industry. The continuous evolution and generation of new applications
+  and services, together with the expansion of encrypted communications makes it a
+  difficult task. Virtual Private Networks (VPNs) are an example of encrypted
+  communication service that is becoming popular, as method for bypabing
+  censorship as well as accebing services that are geographically locked. In this
+  paper, we study the effectiveneb of flow-based time-related features to detect
+  VPN traffic and to characterize encrypted traffic into different categories,
+  according to the type of traffic e.g., browsing, streaming, etc. We use two
+  different well-known machine learning techniques (C4.5 and KNN) to test the
+  accuracy of our features. Our results show high accuracy and performance,
+  confirming that time-related features are good clabifiers for encrypted traffic
+  characterization.},
+  doi = {10.5220/0005740704070414},
+  isbn = {9789897581670},
+  journal = {ICISSP 2016 - Proceedings of the 2nd International Conference on Information Systems Security and Privacy},
+  keywords = {Encrypted Traffic Characterization,Flow Time-based Features,Flow Timeout Value,Traffic Clabification,VPN Traffic Characterization},
+  number = {February},
+  pages = {407--414},
+  year = {2016}
 }

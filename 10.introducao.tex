@@ -8,7 +8,9 @@ A Internet das Coisas (\emph{Internet of Things} - IoT) é um sistema global de
 dispositivos (máquinas, objetos físicos ou virtuais, sensores, atuadores e
 pessoas) com capacidade de comunicação pela Internet, sem depender de
 interação com interface humano-computador tradicional.
-\notafa{referencia}\hlfa{Outra} característica de dispositivos \iot são os 
+% \cite{itu}
+% \notafa{referencia}\hlfa{Outra} \nota{Cassales não referencia também}
+Outra característica de dispositivos \iot são os 
 \notahl{?}\hlhl{recursos computacionais dimensionados},
 % por vezes omitindo sistema operacional e outros sistemas,
 para
@@ -59,21 +61,26 @@ alterações nos padrões de comunicação num serviço de detecção de intrus�
 \acronym{ND}{\emph{Novelty Detection}, Detecção de Novidade}
 \newcommand{\nd}{ND\xspace}
 
-\hlke{Técnicas}\notake{parágrafo marcado}
-de \emph{Data Stream Mining} envolvem mineração de dados
+% \hlke{Técnicas}\notake{parágrafo marcado}
+Técnicas
+de Mineração de Fluxo de Dados (\emph{Data Stream Mining}) envolvem mineração de dados
 (\emph{Data Mining}), 
-\notafa{eu considero detecção de novidade como data mining ou machine learning :-)}
-\hlfa{aprendizado} de máquina
-(\emph{Machine Learning}) e, recentemente, detecção de novidades
+% \notafa{eu considero detecção de novidade como data mining ou machine learning :-)}
+aprendizado de máquina
+(\emph{Machine Learning}) e, dentro destes tópicos, detecção de novidades
 (\emph{Novelty Detection}, \nd).
-\notafa{(sentença marcada) essa frase merece revisão. Temos vários conceitos
-incorretos. classificar modelos conhecidos? classificação os dados usando um
-modelo gerado a partir do comportamento normal.... ND não trata necessariamente
-concept drift nem concept evolution..... é uma forma de tratar essas questões}
-\hlfa{\nd, além de classificar em modelos conhecidos}, permite classificar novos padrões,
-já que trata problemas como evolução e mudança de conceito, que são característicos
-de fluxos contínuos de dados e, consequentemente, permite que ações sejam tomadas corretamente mesmo
-em face a padrões nunca vistos.
+% \notafa{(sentença marcada) essa frase merece revisão. Temos vários conceitos
+% incorretos. classificar modelos conhecidos? classificação os dados usando um
+% modelo gerado a partir do comportamento normal.... ND não trata necessariamente
+% concept drift nem concept evolution..... é uma forma de tratar essas questões}
+% \hlfa{\nd, além de classificar em modelos conhecidos}, 
+% permite classificar novos padrões
+% já que trata problemas como evolução e mudança de conceito, que são característicos
+% de fluxos contínuos de dados e, consequentemente, permite que ações sejam tomadas corretamente mesmo
+% em face a padrões nunca vistos.
+Dentre as técnicas de mineração de fluxo de dados, classificadores podem ser
+utilizados para detectar padrões conhecidos e, em conjunto com algoritmos de
+detecção de novidades ou detecção de anomalias, detectar novos padrões.
 Essa capacidade é relevante em especial para o
 exemplo de detecção de intrusão, onde novidades na rede podem distinguir novas
 funcionalidades (entregues aos dispositivos após sua implantação em campo) de
@@ -82,14 +89,17 @@ dados de ataques conhecidos.
 
 % finalizo com "por exemplo"?
 
-Análises como \emph{Data Stream Mining} e \nd 
-\notafa{será que são tradicionalmente implementadas?? acho que não. Eu diria que recentemente elas estão indo nesse caminho.}
-\hlfa{são} \hlhl{tradicionalmente} implementadas
+Análises como \emph{Data Stream Mining} e \nd
+% \notafa{será que são tradicionalmente implementadas?? acho que não. Eu diria que
+% recentemente elas estão indo nesse caminho.}
+% \hlfa{são} \hlhl{tradicionalmente} implementadas
+são geralmente implementadas
 sobre o paradigma de computação na nuvem
 (\emph{Cloud Computing}) e, recentemente, sobre paradigmas
 \notahl{O que (referências) reslpalda essa afirmação?}
 como \hlhl{computação em névoa}
-(\emph{Fog Computing}). Para \emph{fog}, além dos recursos em \emph{cloud}, são
+(\emph{Fog Computing}).
+Para \emph{fog}, além dos recursos em \emph{cloud}, são
 explorados os recursos distribuídos pela rede desde o nó remoto até a
 \emph{cloud}. Processos que dependem desses recursos são distribuídos de acordo
 com características como sensibilidade à latência, privacidade,
@@ -127,10 +137,11 @@ distinguindo o tráfego entre normal, ataque conhecido e ataque desconhecido
 Contudo, o algoritmo MINAS ainda não foi implementado e avaliado com paralelismo,
 multi-processamento ou distribuição computacional, que são necessários para
 tratar fluxos de dados com grandes volumes e velocidades.
-\notafa{Por que isso é importante. Acho que convém ressaltar a importancia da sua
-proposta. O que o MINAS original não trata, em quais cenários ele apresenta um
-gargalo? como ele está dividido?}
-\hlfa{O tratamento} de distribuição em ambiente \fog é essencial para aplicação deste
+% \notafa{Por que isso é importante. Acho que convém ressaltar a importancia da sua
+% proposta. O que o MINAS original não trata, em quais cenários ele apresenta um
+% gargalo? como ele está dividido?}
+% \hlfa{O tratamento} de distribuição em ambiente \fog é essencial para aplicação deste
+O tratamento de distribuição em ambiente \fog é essencial para aplicação deste
 algoritmo ao problema de detecção de intrusão em redes \iot, pois esta aplicação
 requer tempo de resposta mínimo e mínima comunicação entre nós distantes, como
 aqueles na borda e na nuvem.

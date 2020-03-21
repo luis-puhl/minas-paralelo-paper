@@ -127,11 +127,10 @@ as métricas de qualidade de classificação.
 Além disso, esse módulo também coleta e agrega métricas base para as avaliação de
 escalabilidade e métricas de uso de recursos computacionais.
 
-Os dados resultantes do serviço de captura e tratamento 
-(representado no \mfog pelo \source) são ingeridos pela aplicação no \classify.
-A ingestão é feita por meio de um operador fonte, fornecida pela plataforma
-\flink.
-\notake{TCP e apache flink}
+Os dados resultantes do serviço de captura e tratamento (representado no \mfog
+pelo \source) são ingeridos pela aplicação no \classify. A ingestão é feita por
+meio de um operador fonte, fornecida pela plataforma \flink.
+% \notake{TCP e apache flink}
 % conexão TCP (\emph{Transmission Control Protocol}).
 Na plataforma, com o modelo de classificação disponível, os exemplos são
 classificados seguindo o algoritmo MINAS original discutido na \refsec{minas-og}.
@@ -374,13 +373,8 @@ são geralmente destacados quando os experimentos são realizados em um único
 nó ou ambiente.
 
 Faz parte também do ambiente de teste os conjuntos de dados (\datasets)
-\notake{
-  CICIDS2017 {https://www.unb.ca/cic/datasets/ids-2017.html} e
-  ISCXTor2016 {https://github.com/ahlashkari/CICFlowMeter}
-}\hlke{\emph{KDD99}}
-\notafa{Uma sugestão seria usar datasets artificiais também a fim de avaliar
-outras caracteristicas tais como: nro de atributos, frequencia do surgimento de
-novidades, mudanças abruptas, graduais, etc. }
+\emph{KDD99}
+
 \hlfa{e \emph{Kyoto 2006+}}
 que foram selecionados por motivos distintos.
 O \dataset \emph{Kyoto 2006+} é o foco deste trabalho, pois contém dados ainda
@@ -392,11 +386,18 @@ anomalia e neste trabalho é utilizado somente para que o leitor possa comparar 
 trabalhos, pois não possui mais a característica de realismo, uma vez que foi
 construído em 1998.
 
+% \notake{
+%   CICIDS2017 {https://www.unb.ca/cic/datasets/ids-2017.html} e
+%   ISCXTor2016 {https://github.com/ahlashkari/CICFlowMeter}
+% }
+% \notafa{Uma sugestão seria usar datasets artificiais também a fim de avaliar
+% outras caracteristicas tais como: nro de atributos, frequencia do surgimento de
+% novidades, mudanças abruptas, graduais, etc. }
 \begin{table}[ht]
   \caption{Sumário dos conjuntos de dados}
   \centering
   \begin{scriptsize}
-  \begin{tabularx}{\linewidth}{c|X|X|X}
+  \begin{tabularx}{\linewidth}{X|X|X|X}
     Nome &
       Origem &
       Descrição &
@@ -405,23 +406,37 @@ construído em 1998.
     \hline
     \emph{KDD99} &
       Captura de Fluxos de rede com ataques simulados &
-      Descrição &
+      41 atributos, 23 classes, $4\,898\,431$ instâncias, $709$ MB &
       \url{https://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html} \\
     \hline
-    \emph{Kyoto 2006+} &
-      Captura de Fluxos de rede com HoneyPot simulados &
-      Descrição &
+    \emph{Kyoto 2006+} \cite{Song2011kyoto}&
+      Captura de Fluxos de rede com HoneyPot &
+      23 atributos, 3 classes, $22$ GB (2015) &
       \url{https://www.takakura.com/Kyoto_data/new_data201704/} \\
     \hline
-    ISCXTor2016 &
+    ISCXTor2016 \cite{Draper-Gil2016} &
       Origem &
-      Descrição &
-      \url{https://github.com/ahlashkari/CICFlowMeter} \\
+      28 atributos,  &
+      \url{https://www.unb.ca/cic/datasets/tor.html} \\
+    \hline
+    ISCXVPN2016 \cite{Lashkari2017} &
+      Origem &
+      28 atributos,  &
+      \url{https://www.unb.ca/cic/datasets/tor.html} \\
     \hline
     CICIDS2017 &
+      Captura de Fluxos de rede com ataques simulados com perfil de trafego de 25
+      usuários normais e de 6 perfis de ataques durante 5 dias (1º dia sem ataque) &
+      80 atributos (CICFlowMeter), 15 classes, $2\,830\,751$ instâncias
+      1.2GB
+      &
+      \url{https://www.unb.ca/cic/datasets/ids-2017.html} \\
+    \hline
+    \emph{Radial Basis Function} (RBF) da biblioteca \emph{Massive Online Analysis} (MOA)
+    \emph{4CRE-V2} &
       Origem &
       Descrição &
-      \url{https://www.unb.ca/cic/datasets/ids-2017.html} \\
+      \url{https://sites.google.com/site/nonstationaryarchive/home} \\
     \hline
   \end{tabularx}
   \label{tab:summary-dataset}
