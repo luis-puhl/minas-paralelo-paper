@@ -775,18 +775,21 @@ CEP (\emph{Complex Event Processing}) para processamento de eventos.
 % \label{fig:software-flink}
 % \end{figure}
 
-\subsection{\emph{Data flow} e \emph{data streams}}
+\newcommand{\flink}{\emph{Apache Flink}\xspace}
 
-\notafa{aqui eu baguncei os conceitos. Esse data streams é um terminologia do
-Apache Flink ou é o data stream que você definiu anteriormente?}
-\hlfa{Os \emph{data streams},} ou fluxo de dados, e as transformações são as principais
-abstrações do \emph{Apache Flink} \cite{Lopez2018,ApacheFlink2020}.
-Um fluxo de dados é definido como um fluxo de registros.
+\subsection{Abstrações e estruturas do \flink}
+
+% \notafa{aqui eu baguncei os conceitos. Esse data streams é um terminologia do
+% Apache Flink ou é o data stream que você definiu anteriormente?}
+Na plataforma \flink, as principais abstrações são programas, \emph{Dataflows}
+(fluxo de dados), e transformações (operações ou operadores)
+\cite{Carbone2015,ApacheFLinkDataFlow}.
+Um fluxo de dados (\emph{Dataflow}) é definido como um fluxo de registros.
 Já as transformações são operações (\emph{map, filtering, reduction, join},
-etc.) aplicadas de forma incremental nos \emph{data streams}, gerando um novo
-fluxo de dados.
+etc.) onde um \emph{data stream} é consumido, processado, e um novo
+fluxo de dados gerado como saída.
 Cada uma dessas transformações pode ser paralelizada por um parâmetro de
-paralelismo \cite{Lopez2018}.
+paralelismo \cite{ApacheFlink2020}.
 
 Um programa \emph{Flink} é mapeado para um grafo acíclico direcionado, \emph{data
 flow}, utilizado pelo \emph{Job Manager} \cite{Carbone2015}.
