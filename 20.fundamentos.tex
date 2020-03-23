@@ -77,13 +77,15 @@ intenções, desde privacidade até redução de latência.
 
 A computação em nuvem (\cloud), ou simplesmente nuvem
 (\emph{cloud}), habilita o acesso através da rede a um grupo compartilhado de
-recursos de computação configuráveis (servidores, redes, aplicativo,
-\notafa{frase grande, falta de pontuação. O leitor se perde!}
-armazenamento, serviços, etc.), que podem ser provisionados ou liberados sob
-demanda rapidamente com o mínimo esforço de gerenciamento ou interação com o
-\hlhl{provedor de serviços} \cite{NIST2011}.
-\notahl{o texto pode ficar mais claro se você evitar inversões na estrutura
-da frase e usar parágrafos curtos.}
+recursos de computação configuráveis, como servidores, redes, aplicações,
+% \notafa{frase grande, falta de pontuação. O leitor se perde!}
+armazenamento, etc.
+Tais recursos podem ser provisionados ou liberados sob
+demanda rapidamente com o mínimo esforço de gerenciamento
+e mínima interação com o provedor destes recursos \cite{NIST2011}.
+% \hlhl{provedor de serviços} \cite{NIST2011}.
+% \notahl{o texto pode ficar mais claro se você evitar inversões na estrutura
+% da frase e usar parágrafos curtos.}
 As principais características do ambiente \cloud, segundo \citeonline{NIST2011}
 são:
 % \notafa{referencia}
@@ -321,27 +323,36 @@ como memória ou armazenamento principal.
 % systems. Systems, models and techniques have been proposed and developed over
 % the past few years to address these challenges [5, 44]
 
+\begin{definition}
+    Um \textit{Fluxo de Dados} $S$ é uma sequência massiva, potencialmente
+    ilimitada de exemplos multi-dimensionais
+    $\mathbf{x}_1, \mathbf{x}_2, \dots, \mathbf{x}_n, \dots$
+    recebida em instantes
+    $\mathbf{T}_1, \mathbf{T}_2, \dots, \mathbf{T}_n, \dots$
+    \cite{Aggarwal2003}.
+\end{definition}
+
 Além da dimensão de armazenamento, outra dimensão que afeta a maneira como dados
 são modelados e manipulados é o tempo.
-\notafa{rever a definição. Você referencia o Gaber (autor do any novel), mas eu não
-encontrei essa definição lá. Use definições classicas como as do João, do
-Aggarwal.}
-\hlfa{Um Fluxo de Dados} (\emph{Data Stream}) é
-uma sequência de registros
-% produzidos a uma taxa muito alta,
-associados ao tempo
-real, ilimitados, que excede recursos de armazenamento \cite{Gaber2005}.
-\notafa{o que são modelo de mineração?
-Um modelo é produzido a partir de um algoritmo de mineração}
-\hlfa{Modelos de mineração} de fluxo de dados atendem a esses desafios utilizando
-restrições \hlhl{como apenas uma leitura do conjunto de dados} e baixo tempo de
+% \notafa{rever a definição. Você referencia o Gaber (autor do any novel), mas eu não
+% encontrei essa definição lá. Use definições classicas como as do João, do
+% Aggarwal.}
+% \hlfa{Um Fluxo de Dados} (\emph{Data Stream}) é
+% uma sequência de registros
+% % produzidos a uma taxa muito alta,
+% associados ao tempo
+% real, ilimitados, que excede recursos de armazenamento \cite{Gaber2005}.
+% \notafa{o que são modelo de mineração?
+% Um modelo é produzido a partir de um algoritmo de mineração}
+% \hlfa{Modelos de mineração} de fluxo de dados atendem a esses desafios utilizando
+Técnicas e algoritmos de mineração de fluxo de dados atendem a esses desafios utilizando
+% restrições \hlhl{como apenas uma leitura do conjunto de dados} e baixo tempo de
+restrições como apenas uma leitura do conjunto de dados e baixo tempo de
 processamento na construção de seus algoritmos \cite{Gama2007, Gaber2005}.
 
 % \notahermes{Não faz sentido considerar como fluxo somente se a taxa for muito alta.
 % Precisa rever isto.}
-
 % \notahermes{O que é complexidade menor que linear em fluxos? }
-
 % \nota{falta abordar processamento paralelo e distribuído}
 
 As características de fluxos de dados e mineração de dados e os requisitos de
@@ -357,6 +368,12 @@ seja atingido, a cooperação entre os nós é necessária.
 Outras propriedades de um sistema distribuído são a concorrência entre os nós e
 possibilidade de
 falhas em partes independentes \cite{TanenbaumSteen2018}.
+
+% \notafa{ aqui o parágrafo ficou perdido. Ao fim de seção de mineração você vai
+% falar de computação distribuída}
+Para a construção de sistemas que apliquem técnicas de mineração de fluxos de
+dados são necessárias bibliotecas e plataformas (\emph{frameworks})
+que são abordadas na \refsec{frameworks}.
 
 % - quem são, o que consomem
 % (\citeonline{Viegas2019} \emph{apud} \citeonline{Gaber2005}) Mining data streams: A Review.
@@ -421,10 +438,8 @@ falhas em partes independentes \cite{TanenbaumSteen2018}.
 % [5] Fayyad, Usama; Piatetsky-Shapiro, Gregory; Smyth, Padhraic (1996).
 % "From Data Mining to Knowledge Discovery in Databases" (PDF). Retrieved 17 December 2008.
 
-\notafa{ aqui o parágrafo ficou perdido. Ao fim de seção de mineração você vai
-falar de computação distribuída}
-
 \section{Arquiteturas e Plataformas de Processamento de Fluxos}
+\label{sec:frameworks}
 
 % - arq lambda, kappa, (vide guilherme)
 
