@@ -33,32 +33,46 @@
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 \newcounter{todocounter}
 
-\newcommandx{\nota}[2][1=]{\stepcounter{todocounter}\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{[\thetodocounter] #2}}
-\newcommand{\hl}[1]{\colorbox{red!25}{#1}}
+% \newcommand{\toreview}{}
 
-\newcommandx{\notahl}[2][1=]{\stepcounter{todocounter}\todo[
-  linecolor=green,
-  backgroundcolor=green!25,
-  bordercolor=green,#1]{[Helio \thetodocounter] #2}}
-\newcommand{\hlhl}[1]{\colorbox{green}{#1}}
+\ifx\toreview\undefined
+  \newcommandx{\nota}[2][1=]{}
+  \newcommand{\hl}[1]{}
 
-\usepackage{cancel}
-\newcommandx{\notake}[2][1=]{\stepcounter{todocounter}\todo[
-  linecolor=yellow,
-  backgroundcolor=yellow!25,
-  bordercolor=yellow,#1]{[Kelton \thetodocounter] #2}}
-\newcommand{\hlke}[1]{\colorbox{yellow}{#1}}
+  \newcommandx{\notahl}[2][1=]{}
+  \newcommand{\hlhl}[1]{}
+  \newcommandx{\notake}[2][1=]{}
+  \newcommand{\hlke}[1]{}
+  \newcommandx{\notafa}[2][1=]{}
+  \newcommand{\hlfa}[1]{}
+\else
+  \newcommandx{\nota}[2][1=]{\stepcounter{todocounter}\todo[linecolor=red,backgroundcolor=red!25,bordercolor=red,#1]{[\thetodocounter] #2}}
+  \newcommand{\hl}[1]{\colorbox{red!25}{#1}}
 
-\newcommandx{\notafa}[2][1=]{\stepcounter{todocounter}\todo[
-  linecolor=blue,
-  backgroundcolor=blue!25,
-  bordercolor=blue,#1]{[Faria \thetodocounter] #2}}
-\newcommand{\hlfa}[1]{\colorbox{blue!30}{#1}}
+  \newcommandx{\notahl}[2][1=]{\stepcounter{todocounter}\todo[
+    linecolor=green,
+    backgroundcolor=green!25,
+    bordercolor=green,#1]{[Helio \thetodocounter] #2}}
+  \newcommand{\hlhl}[1]{\colorbox{green}{#1}}
 
-\usepackage[showframe,layoutvoffset=0mm,includeall,tmargin=15mm,bmargin=20mm]{geometry}
-\marginparwidth=34mm
-\hoffset=-25mm
-\textwidth=165mm
+  \usepackage{cancel}
+  \newcommandx{\notake}[2][1=]{\stepcounter{todocounter}\todo[
+    linecolor=yellow,
+    backgroundcolor=yellow!25,
+    bordercolor=yellow,#1]{[Kelton \thetodocounter] #2}}
+  \newcommand{\hlke}[1]{\colorbox{yellow}{#1}}
+
+  \newcommandx{\notafa}[2][1=]{\stepcounter{todocounter}\todo[
+    linecolor=blue,
+    backgroundcolor=blue!25,
+    bordercolor=blue,#1]{[Faria \thetodocounter] #2}}
+  \newcommand{\hlfa}[1]{\colorbox{blue!30}{#1}}
+
+  \usepackage[showframe,layoutvoffset=0mm,includeall,tmargin=15mm,bmargin=20mm]{geometry}
+  \marginparwidth=34mm
+  \hoffset=-25mm
+  \textwidth=165mm
+\fi
 
 % \usepackage{minted}
 % \usemintedstyle{emacs}
