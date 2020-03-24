@@ -59,20 +59,94 @@ Um sumário dos trabalhos abordados pode ser visto na Tabela \ref{tab:summary}.
         \emph{Kyoto 2006+} &
         Fnew, Mnew e erro \\
     \hline
-    % \cite{dos-6lowpan-iot} & 6LoWPAN & Suricata & Dados reais com metasploit & Acurácia, pacotes/segundo\\
-    % \cite{Hybrid-ids-arch-iot} & 6LoWPAN & Hibrida - MR OPF & NSL-KDD e ataque simulados & FAR e revocação \\
-    % \cite{SVELTE} & 6LoWPAN & Análise de DAG & Sem informações & revocação, consumo de energia e memória\\
-    % \cite{Fault-tolerance-disaster} & WSN & MLP do Weka & Dados reais & MAE, RMSE, R², R, acurácia, revocação, precisão, especificidade \\
-    % \cite{Kalis} & WSN & Módulos independentes, cada qual com uma técnica & Replay de \textit{traces} e injeção de ataques & revocação, acurácia, consumo de CPU e memória\\
-    % \cite{IoT-arch-smartmeter} & \textit{Smart City} & Agrupamento, MLP e modelos estatísticos & Dados reais dos medidores & Consumo de energia elétrica e água\\
-    % \cite{scalable-anomaly-detection-smart-city} & Smart City & LiSA, função de suavização & Dados reais & \textit{Outliers}, comparação entre simulação e dados coletados\\
-    % \cite{DS-based-IDS-SmartGrid} & \textit{Smart Grid} & 7 classificadores do MOA & KDD99 & Acurácia, \textit{Kappa}, consumo de memória, tempo, FAR e FNR \\
-    % \cite{GT-BIS} & Big Data & Random Forest & Logs de servidores Http e MySQL & Acurácia \\
-    %\cite{anomalies-adaptive-detection} & Big Data & Agrupamento, Algoritmos Genéticos e redução de atributos & KDD99 & Tempo, FAR, revocação, acurácia e memória \\
+    \ifx\toreview\undefined
+    \else
+    Murilo Naldi da UFSCAR &
+        plataforma &
+        técnica &
+        \dataset &
+        métricas \\
+    \hline
+    Latifur &
+        plataforma &
+        técnica &
+        \dataset &
+        métricas \\
+    \hline
+    CLAM &
+        plataforma &
+        técnica &
+        \dataset &
+        métricas \\
+    \hline
+    trabalhos do Bifet e o framework baseado no MOA (samoa) &
+        plataforma &
+        técnica &
+        \dataset &
+        métricas \\
+    \hline
+    \fi
+    % \cite{dos-6lowpan-iot} 
+    %    & 6LoWPAN 
+    %    & Suricata 
+    %    & Dados reais com metasploit 
+    %    & Acurácia, pacotes/segundo\\
+    % \cite{Hybrid-ids-arch-iot} 
+    %    & 6LoWPAN 
+    %    & Hibrida - MR OPF 
+    %    & NSL-KDD e ataque simulados 
+    %    & FAR e revocação \\
+    % \cite{SVELTE} 
+    %    & 6LoWPAN 
+    %    & Análise de DAG 
+    %    & Sem informações 
+    %    & revocação, consumo de energia e memória\\
+    % \cite{Fault-tolerance-disaster} 
+    %    & WSN 
+    %    & MLP do Weka 
+    %    & Dados reais 
+    %    & MAE, RMSE, R², R, acurácia, revocação, precisão, especificidade \\
+    % \cite{Kalis} 
+    %    & WSN 
+    %    & Módulos independentes, cada qual com uma técnica 
+    %    & Replay de \textit{traces} e injeção de ataques 
+    %    & revocação, acurácia, consumo de CPU e memória\\
+    % \cite{IoT-arch-smartmeter} 
+    %    & \textit{Smart City} 
+    %    & Agrupamento, MLP e modelos estatísticos 
+    %    & Dados reais dos medidores 
+    %    & Consumo de energia elétrica e água\\
+    % \cite{scalable-anomaly-detection-smart-city} 
+    %    & Smart City 
+    %    & LiSA, função de suavização 
+    %    & Dados reais 
+    %    & \textit{Outliers}, comparação entre simulação e dados coletados\\
+    % \cite{DS-based-IDS-SmartGrid} 
+    %    & \textit{Smart Grid} 
+    %    & 7 classificadores do MOA 
+    %    & KDD99 
+    %    & Acurácia, \textit{Kappa}, consumo de memória, tempo, FAR e FNR \\
+    % \cite{GT-BIS} 
+    %    & Big Data 
+    %    & Random Forest 
+    %    & Logs de servidores Http e MySQL 
+    %    & Acurácia \\
+    % \cite{anomalies-adaptive-detection} 
+    %    & Big Data 
+    %    & Agrupamento, Algoritmos Genéticos e redução de atributos 
+    %    & KDD99 
+    %    & Tempo, FAR, revocação, acurácia e memória \\
   \end{tabularx}
   \label{tab:summary}
   \end{scriptsize}
 \end{table}
+
+\notafa{
+    você não discutiu sobre trabalhos anteriores que fizeram distribuição de
+    algoritmos de fluxos de dados.... o que eles tem de bom e ruim (ex: trabalhos
+    do Murilo Naldi da UFSCAR, trabalhos do Latifur, CLAM, trabalhos do Bifet e o
+    framework baseado no MOA, mas distribuído)
+}
 
 \section{Ferramenta BigFlow}
 
@@ -533,10 +607,3 @@ em cada um dos temas, \hlhl{falta ainda uma abordagem que estabeleça uma união
 estado da arte em \hlhl{algoritmos de detecção} de novidade e o estado da arte em
 \hlhl{processamento distribuído} de fluxos de dados, em especial para \hlhl{o ambiente de
 computação em névoa} focado em \hlhl{fluxos de dados} relacionados a \hlhl{dispositivos \iot.}
-
-\notafa{
-    você não discutiu sobre trabalhos anteriores que fizeram distribuição de
-    algoritmos de fluxos de dados.... o que eles tem de bom e ruim (ex: trabalhos
-    do Murilo Naldi da UFSCAR, trabalhos do Latifur, CLAM, trabalhos do Bifet e o
-    framework baseado no MOA, mas distribuído)
-}
