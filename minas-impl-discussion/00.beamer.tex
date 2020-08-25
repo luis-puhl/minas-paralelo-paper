@@ -16,6 +16,9 @@
 \usepackage{xspace}
 \usepackage{ulem}
 
+\usepackage{siunitx}
+\sisetup{output-exponent-marker=\ensuremath{\mathrm{e}}}
+
 \usepackage{pgfgantt}
 \usepackage{algorithmic}
 \usepackage[portuguese,ruled,vlined,linesnumbered]{algorithm2e}
@@ -78,17 +81,17 @@ qualidade de detecção.
 \end{itemize}
 \end{frame}
 
-\newcommand{\novelty}{\emph{Novelty Detection}\xspace}
+\newcommand{\novelty}{\textit{Novelty Detection}\xspace}
 \newcommand{\nd}{ND\xspace}
-\newcommand{\drift}{\emph{Concept Drift}\xspace}
-\newcommand{\evolution}{\emph{Concept Evolution}\xspace}
+\newcommand{\drift}{\textit{Concept Drift}\xspace}
+\newcommand{\evolution}{\textit{Concept Evolution}\xspace}
 
 \begin{frame}[fragile]{Algoritmo MINAS}
 \begin{alertblock}{Algoritmo MINAS}
   \begin{itemize}%[<+- | alert@+>]
-    \item Modelo de aprendizado \emph{Offline-Online};
+    \item Modelo de aprendizado \textit{Offline-Online};
     \item Transformação dos dados analisados para o espaço $\mathbb{R}^d$;
-    \item Modelo de classificação com \emph{Clusters};
+    \item Modelo de classificação com \textit{Clusters};
     \item Função de classificação baseada em distância euclideana;
     \item Algoritmo de agrupamento para identificação de novos padrões;
     \item Classificação de novos padrões entre recorrência, extensão e novidade;
@@ -121,8 +124,8 @@ qualidade de detecção.
 \end{frame}
 
 
-\newcommand{\source}{módulo auxiliar \emph{source}\xspace}
-\newcommand{\sink}{módulo auxiliar \emph{sink}\xspace}
+\newcommand{\source}{módulo auxiliar \textit{source}\xspace}
+\newcommand{\sink}{módulo auxiliar \textit{sink}\xspace}
 
 \newcommand{\offline}{módulo treinamento\xspace}
 \newcommand{\classify}{módulo classificador\xspace}
@@ -134,9 +137,9 @@ qualidade de detecção.
   
   \begin{alertblock}{Módulos principais implementam o algoritmo MINAS}
     \begin{itemize}
-      \item \offline (\emph{Training Module});
-      \item \classify (\emph{Classification Module});
-      \item \detector (\emph{Novelty Detection Module}).
+      \item \offline (\textit{Training Module});
+      \item \classify (\textit{Classification Module});
+      \item \detector (\textit{Novelty Detection Module}).
     \end{itemize}
   \end{alertblock}
   \begin{alertblock}{Módulos auxiliares, utilizados para avaliação}
@@ -223,7 +226,7 @@ qualidade de detecção.
       \begin{itemize}
         \item Computador Pessoal (para desenvolvimento);
         \item Nuvem UFSCar;
-        \item Nevoa composta de SBC (\emph{Sigle Board Computer}) ARM 4 núcleos;
+        \item Nevoa composta de SBC (\textit{Sigle Board Computer}) ARM 4 núcleos;
       \end{itemize}
     \end{itemize}
   \end{alertblock}
@@ -233,10 +236,10 @@ qualidade de detecção.
 \section{Resultados Preliminares}
 \begin{frame}[fragile]{Resultados Preliminares}
 
-  \begin{alertblock}{Primeira Implementação com \emph{Python} e \emph{Apache Kafka}}
+  \begin{alertblock}{Primeira Implementação com \textit{Python} e \textit{Apache Kafka}}
     \begin{itemize}%[<+- | alert@+>]
-      \item \emph{Python} é acessível e fornece bibliotecas diversas;
-      \item \emph{Apache Kafka} é um sistema de mensagens distribuído;
+      \item \textit{Python} é acessível e fornece bibliotecas diversas;
+      \item \textit{Apache Kafka} é um sistema de mensagens distribuído;
       \begin{itemize}
         \item Interface de programação com cliente produtor e consumidor;
         \item Mensagens organizadas em tópicos que são distribuídos em partições;
@@ -252,13 +255,13 @@ qualidade de detecção.
 \end{frame}
 
 \begin{frame}[fragile]{Resultados Preliminares}
-  \begin{alertblock}{Segunda Implementação com \emph{Apache Flink}}
+  \begin{alertblock}{Segunda Implementação com \textit{Apache Flink}}
     \begin{itemize}%[<+- | alert@+>]
       \item Implementação escrita em Scala ou Java;
-      \item Processamento de fluxos \emph{Stateful};
-      \item Falta de bibliotecas que distribuam algoritmos base como \emph{K-means};
-      \item Ambiente de execução (\emph{Flink Cluster}) consome mais memória do
-      que disponível no \emph{hardware};
+      \item Processamento de fluxos \textit{Stateful};
+      \item Falta de bibliotecas que distribuam algoritmos base como \textit{K-means};
+      \item Ambiente de execução (\textit{Flink Cluster}) consome mais memória do
+      que disponível no \textit{hardware};
       \item Tempo de execução não foi melhor que a implementação original mesmo
       sem o trecho de detecção de novidades;
     \end{itemize}
@@ -266,15 +269,15 @@ qualidade de detecção.
 \end{frame}
 
 \begin{frame}[fragile]{Resultados Preliminares}
-  \begin{alertblock}{Terceira Implementação com \emph{OpenMPI}}
+  \begin{alertblock}{Terceira Implementação com \textit{OpenMPI}}
     \begin{itemize}%[<+- | alert@+>]
       \item Implementação escrita em C;
-      \item Versão serial e versão paralela e distribuída com \emph{MPI};
-      \item Reimplementação de algoritmos base como \emph{K-means};
-      \item Sistema \emph{M-FOG} em desenvolvimento, atualmente na fase de
+      \item Versão serial e versão paralela e distribuída com \textit{MPI};
+      \item Reimplementação de algoritmos base como \textit{K-means};
+      \item Sistema \textit{M-FOG} em desenvolvimento, atualmente na fase de
       validação através das métricas de qualidade de classificação.
       \begin{itemize}
-        \item Diferença entre os modelos iniciais gerados pelo algoritmo \emph{K-means};re
+        \item Diferença entre os modelos iniciais gerados pelo algoritmo \textit{K-means};re
         \item Diferença na matriz de confusão resultante da avaliação dos fluxos de saída;
       \end{itemize}
     \end{itemize}
@@ -282,7 +285,7 @@ qualidade de detecção.
 \end{frame}
 
 \begin{frame}[fragile]{Resultados Preliminares}
-  \begin{alertblock}{Terceira Implementação com \emph{OpenMPI}}
+  \begin{alertblock}{Terceira Implementação com \textit{OpenMPI}}
     \includegraphics[width=1\textwidth]{ref/eval/speeup-chart.png}
   \end{alertblock}
 \end{frame}
@@ -454,7 +457,7 @@ params->thresholdForgettingPast = 10000;
   A implementação de referência gera um arquivo (fluxo) de saída e arquivo de
   matriz de confusão.
 
-  Além disso é gerado um gráfico das métricas (\emph{Err, FNew, Mnew}) calculadas para cada item do fluxo.
+  Além disso é gerado um gráfico das métricas (\textit{Err, FNew, Mnew}) calculadas para cada item do fluxo.
 \end{frame}
 
 \begin{frame}[fragile]{Implementação Referência e Avaliação de Referência}
@@ -497,7 +500,7 @@ params->thresholdForgettingPast = 10000;
 
       \column{0.5\textwidth}
       Aplicando a técnica de associação de etiquetas à classes descrita em \citeonline{Faria2016minas},
-      tem-se que $208935$ itens foram etiquetados corretamente (\emph{true positive}).
+      tem-se que $208935$ itens foram etiquetados corretamente (\textit{true positive}).
       Portanto a \textsl{taxa de acerto} é $208935 / 653457 = 0.319737948$.
     \end{columns}
   \end{alertblock}
@@ -630,18 +633,18 @@ params->thresholdForgettingPast = 10000;
 
 % ------------------------------------------------------------------------------
 
-\begin{frame}[fragile]{Implementação \emph{Baseline} e Nova Avaliação}
+\begin{frame}[fragile]{Implementação \textit{Baseline} e Nova Avaliação}
   Implementação serial, não distribuída, do algorítmo MINAS em C que serve de
   base (biblioteca) para a implementação \mfog e para cálculo de speed-up.
 \end{frame}
 
-\begin{frame}[fragile]{Implementação \emph{Baseline} e Nova Avaliação}
+\begin{frame}[fragile]{Implementação \textit{Baseline} e Nova Avaliação}
   \begin{alertblock}{Baseline Output Stream, Evaluation}
     \includegraphics[width=1\textwidth]{ref/baseline-hits.png}
   \end{alertblock}
 \end{frame}
 
-\begin{frame}[fragile]{Implementação \emph{Baseline} e Nova Avaliação}
+\begin{frame}[fragile]{Implementação \textit{Baseline} e Nova Avaliação}
   \begin{alertblock}{Matriz de confusão e avaliação, Novo formato Fluxo de saída}
     % \includegraphics[width=1\textwidth]{ref/eval/MINAS.java-conf_mat.png}
     \hspace{0.5em}
@@ -683,7 +686,8 @@ params->thresholdForgettingPast = 10000;
       }
 
       \begin{Verbatim}[fontsize=\small]
-        k=100; radiusF = 0.25; minExamplesPerCluster = 20;
+        k=100; radiusF = 0.25;
+        minExamplesPerCluster = 20;
         noveltyF = 1.4
       \end{Verbatim}
 
@@ -693,8 +697,8 @@ params->thresholdForgettingPast = 10000;
 
 % ------------------------------------------------------------------------------
 
-\begin{frame}[fragile]{Implementação Referência \emph{versus} Baseline}
-  \begin{alertblock}{Matriz de confusão e avaliação na Referência \emph{versus} Avaliação \mfog}
+\begin{frame}[fragile]{Implementação Referência \textit{versus} Baseline}
+  \begin{alertblock}{Matriz de confusão e avaliação na Referência \textit{versus} Avaliação \mfog}
     \hspace{0.5em}
 
     Nota-se que como o novo método de avaliação utiliza o fluxo de saída do algoritmo,
@@ -738,41 +742,91 @@ params->thresholdForgettingPast = 10000;
   \end{alertblock}
 \end{frame}
 
+\begin{frame}[fragile]{Discussões de Implementação}
+  \begin{alertblock}{Otimizações}
+      Complexidade do cálculo de distância mínima (\textit{Nearest neighbor search -- NNS})
+      de $O(n d)$ para $O(n \log d)$ com integração do cálculo de distância evitando
+      percorrer todas as dimensões se a distância não for mínima;
+      
+      \footnotesize{\begin{tabular}
+        {l                | r               | r               | r             }
+        function          & common          & fast            & ratio         \\\hline\hline
+        training          & \num{6.850990e+01}  & \num{3.009816e+01}  & \num{0.439325703}   \\\hline
+        noveltyDetection  & \num{2.555810e-01}  & \num{-}             & \num{-}             \\\hline
+        minasOnline       & \num{1.187446e+01}  & \num{1.674746e+01}  & \num{1.410376556}   \\\hline
+      \end{tabular}}
+  \end{alertblock}
+\end{frame}
+\begin{frame}[fragile]{Discussões de Implementação}
+  \begin{alertblock}{Otimizações}
+    Maximização do número de items classificados corretamente (\textit{true positive}) por manipulação dos parâmetros:
+    \footnotesize{
+      \begin{itemize}%[<+- | alert@+>]
+      \item \textit{A}: Número mínimo de exemplos por \textit{Cluster} válido;
+      \item \textit{R}: Fator de raio. Multiplica o desvio padrão das distâncias dos elementos do \textit{Cluster} e seu centro;
+      \item \textit{Q}: Fator de novidade. Para distinção entre padrões novidade e extensões;
+    \end{itemize}}
 
+    \normalsize{Observando as métricas:}
+    \footnotesize{\begin{itemize}%[<+- | alert@+>]
+      \item \textit{Unk}: Contagem de items classificados como desconhecidos;
+      \item \textit{Repro}: Contagem de items classificados como desconhecidos e reprocessados com nova etiqueta;
+      \item \textit{Lbs}: Contagem de etiquetas distintas no fluxo de saída;
+      \item \textit{Hits}: Contagem de items na matriz de confusão onde a classe atribuída à etiqueta é igual à classe real dos exemplos (\textit{true positive});
+      \item \textit{Online}: Tempo em segundos (\textit{wall clock}) de execução da fase \textit{online};
+    \end{itemize}}
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Discussões de Implementação}
+  \begin{alertblock}{Otimizações: Manipulação de Parâmetros}
+    \footnotesize{
+      \begin{tabular}
+      {l          | l           | l           || r            | r               | r             | r                      | r                }
+      \textit{A}  & \textit{R}  & \textit{Q}  & \textit{Unk.} & \textit{Repro.} & \textit{Lbs}. & \textit{Hits}          & \textit{Online}  \\\hline\hline
+      20          & 0.25        & 1.4         & 12844         &                 & 15            & 31.134635\%            & 16.74746         \\\hline
+      20          & 0.25        & 1.4         & 13385         & 13122           & 12            & 212248 (31.8\%)        & 8.180662         \\\hline
+      50          & 0.05        & 0.20        & 186433        & 185853          & 102           & \textbf{294306} (35\%) & 30.56771         \\\hline
+      50          & 0.05        & 0.25        & 186433        & 185853          & 74            & 273008 (32\%)          & 32.22774         \\\hline
+      25          & 0.05        & 0.20        & 175904        & 175642          & 204           & 279672 (33\%)          & 34.10292         \\\hline
+      100         & 0.05        & 0.20        & 167496        & 166759          & 49            & 242318 (29\%)          & 29.80112         \\
+      \end{tabular}}
+  \end{alertblock}
+\end{frame}
 
 % \begin{frame}[fragile]{Algoritmo MINAS}
-%   % MINAS \cite{Faria2016minas,Cassales2019a}
-%   \begin{algorithm}[H]
-%     \caption{MINAS, trecho de classificação}
-%     \label{alg:MINAS}
-%     \renewcommand{\algorithmicrequire}{\textbf{Entrada:}}
-%     \begin{algorithmic}[1]
-%       %T = limiar de distância para pertencer ao grupo
-%       %P = tempo de "inatividade" para passar para memória sleep
-%       %ts = limiar para remoção de exemplos da memória temporária
-%       \REQUIRE $Modelo,FCD,params,MemTmp,MemSleep$
-%       % \STATE $MemTmp \leftarrow \emptyset$ ; $MemSleep \leftarrow \emptyset$
-%       \FORALL{$exemplo \in FCD$}
-%       \STATE $(Dist,micro) \leftarrow$ micro-mais-proximo($exemplo,Modelo$)
-%       \IF{$Dist < $ raio($micro$)}
-%       \STATE $exemplo.classe \leftarrow micro.rotulo$
-%       \STATE atualizar-micro($micro,exemplo$)
-%       \ELSE
-%       \STATE $exemplo.classe \leftarrow desconhecido$
-%       \STATE $MemTmp \leftarrow MemTmp \cup exemplo$
-%       \IF{$|MemTmp| \geq params.NumMinExemplos$}
-%       \STATE $Modelo \leftarrow $ deteccao-novidade($Modelo,MemTmp,params$)
-%       \ENDIF
-%       \ENDIF
-%       \STATE gerenciamento-memoria(\dots)
-%       % \STATE $TempoAtual \leftarrow exemplo.T$
-%       % \IF{$TempoAtual$ mod $TamJanela == 0$}
-%       % \STATE $Modelo \leftarrow$ mover-micro-grupos-mem-sleep($Modelo,MemSleep,params$)
-%       % \STATE $MemTmp \leftarrow$ remover-exemplos-antigos($MemTmp,params$)
-%       % \ENDIF
-%       \ENDFOR
-%     \end{algorithmic}
-%   \end{algorithm}
+  %   % MINAS \cite{Faria2016minas,Cassales2019a}
+  %   \begin{algorithm}[H]
+  %     \caption{MINAS, trecho de classificação}
+  %     \label{alg:MINAS}
+  %     \renewcommand{\algorithmicrequire}{\textbf{Entrada:}}
+  %     \begin{algorithmic}[1]
+  %       %T = limiar de distância para pertencer ao grupo
+  %       %P = tempo de "inatividade" para passar para memória sleep
+  %       %ts = limiar para remoção de exemplos da memória temporária
+  %       \REQUIRE $Modelo,FCD,params,MemTmp,MemSleep$
+  %       % \STATE $MemTmp \leftarrow \emptyset$ ; $MemSleep \leftarrow \emptyset$
+  %       \FORALL{$exemplo \in FCD$}
+  %       \STATE $(Dist,micro) \leftarrow$ micro-mais-proximo($exemplo,Modelo$)
+  %       \IF{$Dist < $ raio($micro$)}
+  %       \STATE $exemplo.classe \leftarrow micro.rotulo$
+  %       \STATE atualizar-micro($micro,exemplo$)
+  %       \ELSE
+  %       \STATE $exemplo.classe \leftarrow desconhecido$
+  %       \STATE $MemTmp \leftarrow MemTmp \cup exemplo$
+  %       \IF{$|MemTmp| \geq params.NumMinExemplos$}
+  %       \STATE $Modelo \leftarrow $ deteccao-novidade($Modelo,MemTmp,params$)
+  %       \ENDIF
+  %       \ENDIF
+  %       \STATE gerenciamento-memoria(\dots)
+  %       % \STATE $TempoAtual \leftarrow exemplo.T$
+  %       % \IF{$TempoAtual$ mod $TamJanela == 0$}
+  %       % \STATE $Modelo \leftarrow$ mover-micro-grupos-mem-sleep($Modelo,MemSleep,params$)
+  %       % \STATE $MemTmp \leftarrow$ remover-exemplos-antigos($MemTmp,params$)
+  %       % \ENDIF
+  %       \ENDFOR
+  %     \end{algorithmic}
+  %   \end{algorithm}
 % \end{frame}
 
 {\setbeamercolor{palette primary}{fg=black, bg=yellow}\begin{frame}[standout]
