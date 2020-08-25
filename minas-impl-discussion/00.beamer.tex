@@ -1,4 +1,5 @@
 \documentclass[aspectratio=43,10pt]{beamer}
+% \documentclass[aspectratio=169,10pt]{beamer}
 
 \usetheme[progressbar=frametitle]{metropolis}
 \usepackage{appendixnumberbeamer}
@@ -12,6 +13,8 @@
 \usepackage[alf]{abntex2cite}
 \usepackage{multirow}
 \usepackage{ragged2e}
+\usepackage{xspace}
+\usepackage{ulem}
 
 \usepackage{pgfgantt}
 \usepackage{algorithmic}
@@ -20,7 +23,7 @@
 % \usepackage{listings}
 \usepackage{fancyvrb}
 
-\title[]{Discussão das Diferenças entre Implementações do Algoritmo MINAS}
+\title[]{Discussão de Implementação do Algoritmo MINAS}
 % \subtitle{Seminários de Metodologia Científica}
 \author{Luís Henrique Puhl de Souza\\
 Orientador: Prof. Dr. Hermes Senger}
@@ -34,6 +37,9 @@ Programa de Pós-Graduação em Ciência da Computação}
 % \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
 
 \newcommand{\nota}[1]{\hspace*{-0.5cm}\textit{{\color[rgb]{1,0,0}Nota: #1}}}
+
+\newcommand{\mfog}{sistema M-FOG\xspace}
+\newcommand{\idsiot}{IDSA-IoT\xspace}
 
 \begin{document}
 
@@ -50,6 +56,8 @@ Programa de Pós-Graduação em Ciência da Computação}
 
   Este documento tem por objetivo apresentar o algoritmo Minas e suas implementações
   guiando discussões sobre os detalhes e decisões nas implementações.
+
+  Recorda-se que o contexto dessa discussão é o mesmo do \mfog:
 
 \begin{itemize}%[<+- | alert@+>]
 
@@ -87,9 +95,6 @@ qualidade de detecção.
   \end{itemize}
 \end{alertblock}
 \end{frame}
-
-\newcommand{\mfog}{sistema M-FOG\xspace}
-\newcommand{\idsiot}{IDSA-IoT\xspace}
 
 \begin{frame}[fragile]{Proposta}
   \metroset{block=fill}
@@ -195,13 +200,13 @@ qualidade de detecção.
   \end{columns}
 \end{frame}
 
-\begin{frame}[fragile]{Método de Avaliação}
+% \begin{frame}[fragile]{Método de Avaliação}
 
-  Métricas de referência
-  \vspace{0.5cm}
+%   Métricas de referência
+%   \vspace{0.5cm}
   
-  \includegraphics[width=0.9\textwidth]{ref/Faria2015-CER-UnkR.png}
-\end{frame}
+%   \includegraphics[width=0.9\textwidth]{ref/Faria2015-CER-UnkR.png}
+% \end{frame}
 
 \begin{frame}[fragile]{Método de Avaliação}
   \begin{alertblock}{Métricas e Ambientes}
@@ -269,7 +274,7 @@ qualidade de detecção.
       \item Sistema \emph{M-FOG} em desenvolvimento, atualmente na fase de
       validação através das métricas de qualidade de classificação.
       \begin{itemize}
-        \item Diferença entre os modelos iniciais gerados pelo algoritmo \emph{K-means};
+        \item Diferença entre os modelos iniciais gerados pelo algoritmo \emph{K-means};re
         \item Diferença na matriz de confusão resultante da avaliação dos fluxos de saída;
       \end{itemize}
     \end{itemize}
@@ -285,12 +290,14 @@ qualidade de detecção.
 \begin{frame}[fragile]{Resultados Preliminares}
   \begin{alertblock}{Desafios Atuais}
     \begin{itemize}
-      \item Diferença entre \texttt{double} e \texttt{float};
-      \item Formato do fluxo de saída;
-      \item Tratamento de exemplos com etiqueta \textit{desconhecido} utilizados
-      para atualização do modelo;
-      \item Diferença entre incluir ou não a borda do cluster;
-      \item Definição de raio;
+      \item \sout{Diferença entre \texttt{double} e \texttt{float};}
+      \item \sout{Formato do fluxo de saída;}
+      \item \sout{Tratamento de exemplos com etiqueta \textit{desconhecido} utilizados para atualização do modelo;}
+      \item \sout{Diferença entre incluir ou não a borda do cluster;}
+      \item \sout{Definição de raio;}
+      \item Distribuição e paralelização para minimização de latência entre
+      novo item no fluxo e sua classificação;
+      \item Detecção de novidades e manutenção de modelo em ambiente distribuído.
     \end{itemize}
   \end{alertblock}
 \end{frame}
@@ -310,11 +317,11 @@ qualidade de detecção.
   \end{alertblock}
 \end{frame}
 
-\begin{frame}[fragile]{Algoritmo MINAS}
-  \begin{alertblock}{Parâmetros}
-    \includegraphics[width=1\textwidth]{ref/Faria2015-parameters.png}
-  \end{alertblock}
-\end{frame}
+% \begin{frame}[fragile]{Algoritmo MINAS}
+%   \begin{alertblock}{Parâmetros}
+%     \includegraphics[width=1\textwidth]{ref/Faria2015-parameters.png}
+%   \end{alertblock}
+% \end{frame}
 
 \begin{frame}[fragile]{Implementação referência}
   \begin{alertblock}{Parâmetros}
@@ -355,183 +362,358 @@ params->thresholdForgettingPast = 10000;
   \end{alertblock}
 \end{frame}
 
-\begin{frame}[fragile]{Algoritmo MINAS}
-  \begin{alertblock}{Fase offline}
-    \includegraphics[width=1.1\textwidth]{ref/Faria2015-Alg1-Off.png}
-  \end{alertblock}
-\end{frame}
+% \begin{frame}[fragile]{Algoritmo MINAS}
+%   \begin{alertblock}{Fase offline}
+%     \includegraphics[width=1.1\textwidth]{ref/Faria2015-Alg1-Off.png}
+%   \end{alertblock}
+% \end{frame}
 
-\begin{frame}[fragile]{Algoritmo MINAS}
-  \begin{alertblock}{Final da fase offline, inicio da fase online}
-    \begin{quotation}
+% \begin{frame}[fragile]{Algoritmo MINAS}
+%   \begin{alertblock}{Final da fase offline, inicio da fase online}
+%     \begin{quotation}
     
-      [\dots] N number of examples, LS linear sum of the examples, SS squared sum of the
-      elements and T timestamp of the arrival of the last example classified in
-      this micro-cluster.
+%       [\dots] N number of examples, LS linear sum of the examples, SS squared sum of the
+%       elements and T timestamp of the arrival of the last example classified in
+%       this micro-cluster.
 
-      [\dots]
-      After the execution of the clustering algorithm, each micro-cluster is
-      represented by \alert{four components (N, LS, SS and T)}.
+%       [\dots]
+%       After the execution of the clustering algorithm, each micro-cluster is
+%       represented by \alert{four components (N, LS, SS and T)}.
       
-      [\dots]
-      MINAS uses these measures to classify new examples. For such, it computes
-      the distance between a new example and the closest centroid. If this
-      distance is less than the micro-cluster radius, the example is classified
+%       [\dots]
+%       MINAS uses these measures to classify new examples. For such, it computes
+%       the distance between a new example and the closest centroid. If this
+%       distance is less than the micro-cluster radius, the example is classified
       
-      [\dots]
-      MINAS calculates the \alert{radius of a micro-cluster as the standard
-      deviation} of the distance between the examples and the centroid, multiplied
-      by a \alert{factor f}.
+%       [\dots]
+%       MINAS calculates the \alert{radius of a micro-cluster as the standard
+%       deviation} of the distance between the examples and the centroid, multiplied
+%       by a \alert{factor f}.
     
-    \end{quotation}
-  \end{alertblock}
-\end{frame}
+%     \end{quotation}
+%   \end{alertblock}
+% \end{frame}
 
-\begin{frame}[fragile]{Implementação referência}
-  \begin{alertblock}{Fase Offline, definição de raio}
-    \includegraphics[width=1\textwidth]{ref/MINAS.java-createKMeans.png}
+% \begin{frame}[fragile]{Implementação referência}
+%   \begin{alertblock}{Fase Offline, definição de raio}
+%     \includegraphics[width=1\textwidth]{ref/MINAS.java-createKMeans.png}
     
-    Detalhe:
-    \includegraphics[width=1\textwidth]{ref/MINAS.java-createKMeans-detail.png}
-  \end{alertblock}
-\end{frame}
-\begin{frame}[fragile]{Implementação referência}
-  \begin{alertblock}{Fase Offline, definição de raio}
-    \includegraphics[width=1\textwidth]{ref/MINAS.java-Kmeans.png}
-  \end{alertblock}
-\end{frame}
-\begin{frame}[fragile]{Implementação referência}
-  \includegraphics[width=1\textwidth]{ref/MINAS.java-Kmeans-radius2.png}
-\end{frame}
+%     Detalhe:
+%     \includegraphics[width=1\textwidth]{ref/MINAS.java-createKMeans-detail.png}
+%   \end{alertblock}
+% \end{frame}
+% \begin{frame}[fragile]{Implementação referência}
+%   \begin{alertblock}{Fase Offline, definição de raio}
+%     \includegraphics[width=1\textwidth]{ref/MINAS.java-Kmeans.png}
+%   \end{alertblock}
+% \end{frame}
+% \begin{frame}[fragile]{Implementação referência}
+%   \includegraphics[width=1\textwidth]{ref/MINAS.java-Kmeans-radius2.png}
+% \end{frame}
 
 
-\begin{frame}[fragile]{Algoritmo MINAS}
-  \begin{alertblock}{Fase online}
-    \includegraphics[width=1\textwidth]{ref/Faria2015-Alg2-On.png}
-  \end{alertblock}
+% \begin{frame}[fragile]{Algoritmo MINAS}
+%   \begin{alertblock}{Fase online}
+%     \includegraphics[width=1\textwidth]{ref/Faria2015-Alg2-On.png}
+%   \end{alertblock}
+% \end{frame}
+
+% \begin{frame}[fragile]{Implementação referência}
+%   \begin{alertblock}{Fase online}
+%     \includegraphics[width=1\textwidth]{ref/MINAS.java-identify.png}
+%   \end{alertblock}
+% \end{frame}
+
+% \begin{frame}[fragile]{Nova Implementação}
+%   \begin{alertblock}{Fase online}
+%     \includegraphics[width=1\textwidth]{ref/MFOG-identify.png}
+%   \end{alertblock}
+% \end{frame}
+
+% \begin{frame}[fragile]{Algoritmo MINAS}
+%   \begin{alertblock}{Fase online, Detecção de novidades}
+%     \includegraphics[width=1\textwidth]{ref/Faria2015-Alg3-ND.png}
+%   \end{alertblock}
+% \end{frame}
+
+% \begin{frame}[fragile]{Implementação referência}
+%   \begin{alertblock}{Output Stream}
+%     \includegraphics[width=1\textwidth]{ref/MINAS.java-outstream.png}
+%   \end{alertblock}
+% \end{frame}
+
+% \begin{frame}[fragile]{Nova Implementação}
+%   \begin{alertblock}{Output Stream}
+%     \includegraphics[width=1\textwidth]{ref/MFOG-outstream.png}
+%   \end{alertblock}
+% \end{frame}
+
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]{Implementação Referência e Avaliação de Referência}
+  A implementação de referência gera um arquivo (fluxo) de saída e arquivo de
+  matriz de confusão.
+
+  Além disso é gerado um gráfico das métricas (\emph{Err, FNew, Mnew}) calculadas para cada item do fluxo.
 \end{frame}
 
-\begin{frame}[fragile]{Implementação referência}
-  \begin{alertblock}{Fase online}
-    \includegraphics[width=1\textwidth]{ref/MINAS.java-identify.png}
-  \end{alertblock}
-\end{frame}
-
-\begin{frame}[fragile]{Nova Implementação}
-  \begin{alertblock}{Fase online}
-    \includegraphics[width=1\textwidth]{ref/MFOG-identify.png}
-  \end{alertblock}
-\end{frame}
-
-\begin{frame}[fragile]{Algoritmo MINAS}
-  \begin{alertblock}{Fase online, Detecção de novidades}
-    \includegraphics[width=1\textwidth]{ref/Faria2015-Alg3-ND.png}
-  \end{alertblock}
-\end{frame}
-
-\begin{frame}[fragile]{Implementação referência}
-  \begin{alertblock}{Output Stream}
-    \includegraphics[width=1\textwidth]{ref/MINAS.java-outstream.png}
-  \end{alertblock}
-\end{frame}
-
-\begin{frame}[fragile]{Nova Implementação}
-  \begin{alertblock}{Output Stream}
-    \includegraphics[width=1\textwidth]{ref/MFOG-outstream.png}
-  \end{alertblock}
-\end{frame}
-
-\begin{frame}[fragile]{Implementação referência}
-  \begin{alertblock}{Output Stream, Evaluation}
+\begin{frame}[fragile]{Implementação Referência e Avaliação de Referência}
+  \begin{alertblock}{Reference Output Stream, Reference Evaluation}
     \includegraphics[width=1\textwidth]{ref/MINAS.java-graph.png}
   \end{alertblock}
 \end{frame}
+
+\begin{frame}[fragile]{Implementação Referência e Avaliação de Referência}
+  \begin{alertblock}{Matriz de confusão gerada pela Implementação referência}
+    % \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|c|c|c}
+    %   & C N       & N 1   & N 2   & N 3   & N 4   & N 5   & N 6   & N 7   & N 8   & N 9   & N 10  & N 11  & N 12  & Unk   \\
+    %   \hline
+    %   C N   & 199263    & 0     & 79    & 44    & 0     & 0     & 0     & 229   & 181   & 826   & 5088  & 289   & 0     & 279   \\
+    %   C A   & 439530    & 123   & 145   & 368   & 8     & 52    & 165   & 1     & 1046  & 2133  & 3467  & 71    & 26    & 44    \\
+    % \end{tabular}
+    \vspace{0.5em}
+    
+    \begin{columns}[T,onlytextwidth]
+      \column{0.5\textwidth}
+      \small{
+      \begin{tabular}{ l| r| r }
+                       & \textbf{C N} & \textbf{C A}\\ \hline \hline
+        \textbf{C N }  & $199263$    & $439530$    \\ \hline
+        \textbf{N 1 }  & $0$         & $123$       \\ \hline
+        \textbf{N 2 }  & $79$        & $145$       \\ \hline
+        \textbf{N 3 }  & $44$        & $368$       \\ \hline
+        \textbf{N 4 }  & $0$         & $8$         \\ \hline
+        \textbf{N 5 }  & $0$         & $52$        \\ \hline
+        \textbf{N 6 }  & $0$         & $165$       \\ \hline
+        \textbf{N 7 }  & $229$       & $1$         \\ \hline
+        \textbf{N 8 }  & $181$       & $1046$      \\ \hline
+        \textbf{N 9 }  & $826$       & $2133$      \\ \hline
+        \textbf{N 10}  & $5088$      & $3467$      \\ \hline
+        \textbf{N 11}  & $289$       & $71$        \\ \hline
+        \textbf{N 12}  & $0$         & $26$        \\ \hline
+        \textbf{Unk }  & $279$       & $44$        \\
+      \end{tabular}
+      }
+
+      \column{0.5\textwidth}
+      Aplicando a técnica de associação de etiquetas à classes descrita em \citeonline{Faria2016minas},
+      tem-se que $208935$ itens foram etiquetados corretamente (\emph{true positive}).
+      Portanto a \textsl{taxa de acerto} é $208935 / 653457 = 0.319737948$.
+    \end{columns}
+  \end{alertblock}
+\end{frame}
+
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]{Implementação de Referência e Nova Avaliação}
+  O fluxo de saída da implementação de referência pode ser consumido pelo módulo
+  de avaliação da nova implementação (\mfog).
+\end{frame}
+
+\begin{frame}[fragile]{Implementação de Referência e Nova Avaliação}
+  \begin{alertblock}{Fluxo de saída Original, Grafico da Nova Avaliação}
+    \includegraphics[width=1\textwidth]{ref/MINAS.java-outstream-results-hits.png}
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Implementação de Referência e Nova Avaliação}
+  \begin{alertblock}{Matriz de confusão e avaliação, Fluxo de saída Original}
+    % \includegraphics[width=1\textwidth]{ref/eval/MINAS.java-conf_mat.png}
+    \hspace{0.5em}
+    
+    \begin{columns}[T,onlytextwidth]
+      \column{0.5\textwidth}
+      \footnotesize{
+      \begin{tabular}
+        { l                     | r          | r           }
+        \textbf{Classes (act)}  & \textbf{A} & \textbf{N}  \\% assigned    hits          og_labels
+        \textbf{Labels (pred)}  &            &             \\
+        \hline
+        \hline \textbf{-}       &   $3774$    &   $8206$  \\% -              0               [Unk]
+        \hline \textbf{1}       &    $123$    &      $0$  \\% A            123          [ExtNov 1]
+        \hline \textbf{10}      &   $2489$    &   $4066$  \\% N           4066   [ExtNov 10, N 10]
+        \hline \textbf{11}      &     $71$    &    $289$  \\% N            289   [ExtNov 11, N 11]
+        \hline \textbf{12}      &     $26$    &      $0$  \\% A             26   [N 12, ExtNov 12]
+        \hline \textbf{2}       &    $145$    &     $79$  \\% A            145          [ExtNov 2]
+        \hline \textbf{3}       &    $368$    &     $44$  \\% A            368          [ExtNov 3]
+        \hline \textbf{4}       &      $8$    &      $0$  \\% A              8          [ExtNov 4]
+        \hline \textbf{5}       &     $52$    &      $0$  \\% A             52          [ExtNov 5]
+        \hline \textbf{6}       &    $165$    &      $0$  \\% A            165     [N 6, ExtNov 6]
+        \hline \textbf{7}       &      $1$    &    $229$  \\% N            229          [ExtNov 7]
+        \hline \textbf{8}       &   $1046$    &    $181$  \\% A           1046     [N 8, ExtNov 8]
+        \hline \textbf{9}       &    $161$    &    $154$  \\% A            161               [N 9]
+        \hline \textbf{N}       & $438750$    & $193030$  \\% N         193030     [C N, ExtCon N]
+      \end{tabular}
+      }
+      \column{0.5\textwidth}
+      
+      \footnotesize{
+      \begin{tabular}
+        { l                     | r                 r             }
+        \textbf{Métrica}        & \textbf{Valor}  &               \\ \hline
+        \hline Total examples   & $653457$        &               \\
+        \hline Total matches    & $653457$        &               \\
+        \hline Hits             & $199708$        & $0.30561766$  \\
+        \hline Misses           & $441769$        & $0.67604907$ \\
+        \hline Unknowns         & $11980$         & $0.01833326$ \\
+        \hline Unk. reprocessed & $0$             & $0.00000000$ \\
+
+      \end{tabular}
+      }
+
+    \end{columns}
+  \end{alertblock}
+\end{frame}
+
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]{Implementação de Referência e Nova Avaliação}
+  Além do consumo do fluxo com formato original, foi adicionado à implementação
+  de referência o passo de reprocessamento e saída no novo formato.
+\end{frame}
+
+\begin{frame}[fragile]{Implementação de Referência e Nova Avaliação}
+  \begin{alertblock}{New Format, Reference Output Stream, Evaluation}
+    \includegraphics[width=1\textwidth]{ref/MINAS.java-outstream-hits.png}
+  \end{alertblock}
+\end{frame}
+
 \begin{frame}[fragile]{Implementação referência}
-  \begin{alertblock}{Output Stream, Evaluation}
-    \includegraphics[width=1\textwidth]{ref/MINAS.java-outstream-plot.png}
+  \begin{alertblock}{Matriz de confusão e avaliação, Novo formato Fluxo de saída}
+    % \includegraphics[width=1\textwidth]{ref/eval/MINAS.java-conf_mat.png}
+    \hspace{0.5em}
+    
+    \begin{columns}[T,onlytextwidth]
+      \column{0.5\textwidth}
+      \footnotesize{
+      \begin{tabular}
+        { l                     | r          | r           }%| c                 | c }
+        \textbf{Classes (act)}  & \textbf{A} & \textbf{N}  \\ %& \textbf{assigned} & \textbf{hits} \\
+        \textbf{Labels (pred)}  &            &             \\ %&                   &               \\
+        % Classes (act) & A     & N   & assigned  & hits  \\
+        % Labels (pred) &       &     &           &       \\
+        \hline
+        \hline \textbf{-}       &   $3774$   &   $8206$   \\ % &   -                &       0 \\
+        \hline \textbf{1}       &    $123$   &      $0$   \\ % &   A                &     123 \\
+        \hline \textbf{10}      &   $3520$   &   $5130$   \\ % &   N                &    5130 \\
+        \hline \textbf{11}      &     $71$   &    $289$   \\ % &   N                &     289 \\
+        \hline \textbf{12}      &     $26$   &      $0$   \\ % &   A                &      26 \\
+        \hline \textbf{2}       &    $152$   &     $82$   \\ % &   A                &     152 \\
+        \hline \textbf{3}       &    $368$   &     $44$   \\ % &   A                &     368 \\
+        \hline \textbf{4}       &      $8$   &      $0$   \\ % &   A                &       8 \\
+        \hline \textbf{5}       &     $82$   &      $1$   \\ % &   A                &      82 \\
+        \hline \textbf{6}       &    $165$   &      $0$   \\ % &   A                &     165 \\
+        \hline \textbf{7}       &      $8$   &    $396$   \\ % &   N                &     396 \\
+        \hline \textbf{8}       &   $1054$   &    $183$   \\ % &   A                &    1054 \\
+        \hline \textbf{9}       &    $161$   &    $154$   \\ % &   A                &     161 \\
+        \hline \textbf{N}       & $441395$   & $199715$   \\ % &   N                &  199715 \\
+      \end{tabular}
+      }
+      \column{0.5\textwidth}
+      
+      \footnotesize{
+      \begin{tabular}
+        { l                     | r                 r             }
+        \textbf{Métrica}        & \textbf{Valor}  &               \\ \hline
+        \hline Total examples   & $653457$        &               \\
+        \hline Total matches    & $665107$        &               \\
+        \hline Hits             & $207669$        & $0.31223397$  \\
+        \hline Misses           & $445458$        & $0.66975389$  \\
+        \hline Unknowns         & $11980$         & $0.01801214$  \\
+        \hline Unk. reprocessed & $11650$         & $0.97245409$  \\
+      \end{tabular}
+      }
+
+    \end{columns}
   \end{alertblock}
 \end{frame}
 
-\begin{frame}[fragile]{Nova Implementação}
-  \begin{alertblock}{Output Stream, Evaluation}
-    \includegraphics[width=1\textwidth]{ref/MFOG-outstream-plot.png}
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]{Implementação \emph{Baseline} e Nova Avaliação}
+  Implementação serial, não distribuída, do algorítmo MINAS em C que serve de
+  base (biblioteca) para a implementação \mfog e para cálculo de speed-up.
+\end{frame}
+
+\begin{frame}[fragile]{Implementação \emph{Baseline} e Nova Avaliação}
+  \begin{alertblock}{Baseline Output Stream, Evaluation}
+    \includegraphics[width=1\textwidth]{ref/baseline-hits.png}
   \end{alertblock}
 \end{frame}
 
-\begin{frame}[fragile]{Implementação referência}
-  \begin{alertblock}{Matrix de confusão e avaliação}
-    \includegraphics[width=1\textwidth]{ref/eval/MINAS.java-conf_mat.png}
-  \end{alertblock}
-\end{frame}
-% Confusion Matrix
-% Classes (act)       A       N assigned    hits  misses
-% Labels (pred)                                         
-% -                3774    8206        -       0       0
-% 1                 123       0        A     123     123
-% 10               3520    5130        N    5130    5130
-% 11                 71     289        N     289     289
-% 12                 26       0        A      26      26
-% 2                 152      82        A     152     152
-% 3                 368      44        A     368     368
-% 4                   8       0        A       8       8
-% 5                  82       1        A      82      82
-% 6                 165       0        A     165     165
-% 7                   8     396        N     396     396
-% 8                1054     183        A    1054    1054
-% 9                 161     154        A     161     161
-% N              441395  199715        N  199715  199715
-% Classes           ['A' 'N']
-% Initial labels    ['-', 'N']
-% Labels            ['-', '1', '10', '11', '12', '2', '3', '4', '5', '6', '7', '8', '9', 'N'] 14
-% Total examples    (653457, 25)
-% Total matches     (665107, 9)
-% Hits               207669 ( 31.223397%)
-% Misses             445458 ( 66.975389%)
-% Unknowns            11980 (  1.801214%)
-% Unk. reprocessed    11650 ( 97.245409%)
-% Total              665107 (100.000000%)
+\begin{frame}[fragile]{Implementação \emph{Baseline} e Nova Avaliação}
+  \begin{alertblock}{Matriz de confusão e avaliação, Novo formato Fluxo de saída}
+    % \includegraphics[width=1\textwidth]{ref/eval/MINAS.java-conf_mat.png}
+    \hspace{0.5em}
+    
+    \begin{columns}[T,onlytextwidth]
+      \column{0.5\textwidth}
+      \footnotesize{
+      \begin{tabular}
+        { l                     | r          | r           }
+        \textbf{Classes (act)}  & \textbf{A} & \textbf{N}  \\
+        \textbf{Labels (pred)}  &            &             \\\hline
+        \hline \textbf{-}       & $10263$   &  $3122$   \\% -       0
+        \hline \textbf{0}       & $1798$    &  $48$     \\% A    1798
+        \hline \textbf{1}       & $315$     &  $0$      \\% A     315
+        \hline \textbf{2}       & $1098$    &  $156$    \\% A    1098
+        \hline \textbf{3}       & $0$       &  $318$    \\% N     318
+        \hline \textbf{4}       & $1510$    &  $20$     \\% A    1510
+        \hline \textbf{5}       & $2$       &  $53$     \\% N      53
+        \hline \textbf{6}       & $1560$    &  $2$      \\% A    1560
+        \hline \textbf{7}       & $31$      &  $0$      \\% A      31
+        \hline \textbf{8}       & $31$      &  $3$      \\% A      31
+        \hline \textbf{9}       & $58$      &  $3$      \\% A      58
+        \hline \textbf{N}       & $440712$  &  $205476$ \\% N  205476
+      \end{tabular}
+      }
+      \column{0.5\textwidth}
+      
+      \footnotesize{
+      \begin{tabular}
+        { l                     | r                 r             }
+        \textbf{Métrica}        & \textbf{Valor}  &               \\ \hline
+        \hline Total examples   & $653457$        &               \\
+        \hline Total matches    & $666579$        &               \\
+        \hline Hits             & $212248$        & $0.31841387$  \\
+        \hline Misses           & $440946$        & $0.66150599$  \\
+        \hline Unknowns         & $13385$         & $0.02008014$  \\
+        \hline Unk. reprocessed & $13122$         & $0.98035114$  \\
+      \end{tabular}
+      }
 
-\begin{frame}[fragile]{Nova Implementação}
-  \begin{alertblock}{Matrix de confusão e avaliação}
-    \includegraphics[width=1\textwidth]{ref/eval/MFOG-conf_mat.png}
+      \begin{Verbatim}[fontsize=\small]
+        k=100; radiusF = 0.25; minExamplesPerCluster = 20;
+        noveltyF = 1.4
+      \end{Verbatim}
+
+    \end{columns}
   \end{alertblock}
 \end{frame}
+
+% ------------------------------------------------------------------------------
+
+\begin{frame}[fragile]{Implementação Referência \emph{versus} Baseline}
+  \begin{alertblock}{Matriz de confusão e avaliação na Referência \emph{versus} Avaliação \mfog}
+    \hspace{0.5em}
+
+    Nota-se que como o novo método de avaliação utiliza o fluxo de saída do algoritmo,
+    as métricas tem valores semelhantes mas não idênticos.
+    
+    Em especial, a soma de todas as células da matriz de confusão na referência é de $653457$
+    (contagem de itens no fluxo de entrada)
+    e na avaliação atual (\mfog) é de $665107$ (contagem de itens no fluxo de saída).
+    
+    O mesmo acontece no número de acertos:
+    Na referência $208935$ com taxa $0.319737948$ e na avaliação atual
+    $207669$ com taxa $0.31223397$.
+
+  \end{alertblock}
+\end{frame}
+
 % \begin{frame}[fragile]{Nova Implementação}
-%   \begin{alertblock}{Matrix de confusão e avaliação}
-%     \begin{Verbatim}[fontsize=\tiny]
-% Classes (act)       A       N assigned    hits  misses
-% Labels (pred)                                         
-% -                8306     355        -       0       0
-% N              435763  205887        N  205887  205887
-% a                 236       0        A     236     236
-% b                 756      81        A     756     756
-% c                 574       0        A     574     574
-% d                 214       0        A     214     214
-% e                 243       0        A     243     243
-% f                 499       0        A     499     499
-% g                 431       0        A     431     431
-% h                 495       0        A     495     495
-% i                 237       0        A     237     237
-% j                 640       0        A     640     640
-% k                  57       0        A      57      57
-% l                 539       0        A     539     539
-% m                  55       0        A      55      55
-% n                  91       0        A      91      91
-% o                  69       0        A      69      69
-% p                3464       0        A    3464    3464
-% q                 169       0        A     169     169
-% r                 269       0        A     269     269
-% Classes           ['A' 'N']
-% Initial labels    ['-', 'N']
-% Labels            ['-', 'N', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r'] 20
-% Total examples    (653457, 25)
-% Total matches     (659430, 9)
-% Hits               214925 ( 32.592542%)
-% Misses             435844 ( 66.094051%)
-% Unknowns             8661 (  1.313407%)
-% Unk. reprocessed     5973 ( 68.964323%)
-% Total              659430 (100.000000%)
-%     \end{Verbatim}
+%   \begin{alertblock}{Matriz de confusão e avaliação}
+%     \includegraphics[width=1\textwidth]{ref/eval/MFOG-conf_mat.png}
 %   \end{alertblock}
 % \end{frame}
 
@@ -591,6 +773,26 @@ params->thresholdForgettingPast = 10000;
 %       \ENDFOR
 %     \end{algorithmic}
 %   \end{algorithm}
+% \end{frame}
+
+{\setbeamercolor{palette primary}{fg=black, bg=yellow}\begin{frame}[standout]
+  Obrigado!
+\end{frame}}
+
+\begin{frame}[allowframebreaks]{Referências}
+  \bibliography{99.referencias.bib}
+\end{frame}
+
+\appendix
+
+% \begin{frame}[fragile]{Extra}
+%   \begin{figure}[ht]
+%   \centering
+%   \includegraphics[width=0.8\textwidth]{figuras/idsa-iot-quali-000.png}
+%   \caption{Estrutura Física da Arquitetura \idsiot.
+%   Produzida e traduzida por \citeonline{Cassales2019a}.}
+%   \label{fig:ids-iot-phy}
+%   \end{figure}
 % \end{frame}
 
 \end{document}
