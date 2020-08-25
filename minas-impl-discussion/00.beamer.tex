@@ -291,16 +291,42 @@ qualidade de detecção.
 \end{frame}
 
 \begin{frame}[fragile]{Resultados Preliminares}
-  \begin{alertblock}{Desafios Atuais}
+  \begin{alertblock}{Desafios Passados}
+    % Desafio, resposta, justificativa
+    % Artigo para setembro ou outubro.
+    % Revisão dos valores da avaliação
     \begin{itemize}
       \item \sout{Diferença entre \texttt{double} e \texttt{float};}
+        Use Float, diferença para o dataset pequena, economize os bits.
       \item \sout{Formato do fluxo de saída;}
+        Estrutura de dados X;
       \item \sout{Tratamento de exemplos com etiqueta \textit{desconhecido} utilizados para atualização do modelo;}
+
       \item \sout{Diferença entre incluir ou não a borda do cluster;}
+      \begin{itemize}
+        \item Usar desvio padrão na classificação;
+        \item Usar máximo após ND para buffer de desconhecidos;
+      \end{itemize}
       \item \sout{Definição de raio;}
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+\begin{frame}[fragile]{Resultados Preliminares}
+  \begin{alertblock}{Desafios Atuais}
+    \begin{itemize}
       \item Distribuição e paralelização para minimização de latência entre
-      novo item no fluxo e sua classificação;
-      \item Detecção de novidades e manutenção de modelo em ambiente distribuído.
+      novo item no fluxo e sua classificação:
+      \begin{itemize}
+        \item Tempo de passagem da instancia pelo classificador;
+        \item Volume máximo do sistema;
+        \item Diferenças de precisão de acordo com a carga;
+      \end{itemize}
+      \item Detecção de novidades e manutenção de modelo em ambiente distribuído:
+      \begin{itemize}
+        \item Mecanismo de ND local (síncrono) vs nuvem quanto à atraso de definição de modelo;
+        \item Mecanismo de esquecimento local vs global (modelo único ou por nó);
+        \item Atraso na reclassificação dos desconhecidos;
+      \end{itemize}
     \end{itemize}
   \end{alertblock}
 \end{frame}
@@ -742,8 +768,54 @@ params->thresholdForgettingPast = 10000;
   \end{alertblock}
 \end{frame}
 
+\section{Discussões de Implementação}
+
 \begin{frame}[fragile]{Discussões de Implementação}
   \begin{alertblock}{Otimizações}
+
+    Parâmetros:
+    \footnotesize{
+      \begin{itemize}%[<+- | alert@+>]
+      \item \textit{A}: Número mínimo de exemplos por \textit{Cluster} válido;
+      \item \textit{R}: Fator de raio. Multiplica o desvio padrão das distâncias dos elementos do \textit{Cluster} e seu centro;
+      \item \textit{Q}: Fator de novidade. Para distinção entre padrões novidade e extensões;
+    \end{itemize}}
+
+    \normalsize{Métricas:}
+    \footnotesize{\begin{itemize}%[<+- | alert@+>]
+      \item \textit{Unk}: Contagem de items classificados como desconhecidos;
+      \item \textit{Repro}: Contagem de items classificados como desconhecidos e reprocessados com nova etiqueta;
+      \item \textit{Lbs}: Contagem de etiquetas distintas no fluxo de saída;
+      \item \textit{Hits}: Contagem de items na matriz de confusão onde a classe atribuída à etiqueta é igual à classe real dos exemplos (\textit{true positive});
+      \item \textit{Online}: Tempo em segundos (\textit{wall clock}) de execução da fase \textit{online};
+    \end{itemize}}
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Discussões de Implementação}
+  \begin{alertblock}{Atualização constante do centro e raio}
+
+    Use floating cluster. Meaning the summary is updated for each match.
+
+    \footnotesize{\begin{tabular}
+    {l          | l           | l           || r            | r               | r             | r                      | r                }
+    \textit{A}  & \textit{R}  & \textit{Q}  & \textit{Unk.} & \textit{Repro.} & \textit{Lbs}. & \textit{Hits}          & \textit{Online}  \\\hline\hline
+    20 (1)      & 0.10        & 2.0         & 72830         & 72587           & 8             & 208056 (28\%)          & 18.63111e        \\\hline
+    20          & 0.10        & 2.0         & 622312        & 622066          & 24            & 213911 (16\%)          & 86.12032e        \\\hline
+    50 (1)      & 0.05        & 0.20        & 186433        & 185853          & 102           & 294306 (35\%)          & 30.56771e        \\\hline
+    50          & 0.05        & 0.20        & 614597        & 613930          & 95            & 295251 (23\%)          & 64.90573e        \\\hline
+    \end{tabular}}
+    \normalsize
+
+    1. Sans moving cluster.
+
+    Moving cluster, better but only 10k more matches.
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Discussões de Implementação}
+  \begin{alertblock}{Otimizações}
+
       Complexidade do cálculo de distância mínima (\textit{Nearest neighbor search -- NNS})
       de $O(n d)$ para $O(n \log d)$ com integração do cálculo de distância evitando
       percorrer todas as dimensões se a distância não for mínima;
@@ -757,33 +829,15 @@ params->thresholdForgettingPast = 10000;
       \end{tabular}}
   \end{alertblock}
 \end{frame}
-\begin{frame}[fragile]{Discussões de Implementação}
-  \begin{alertblock}{Otimizações}
-    Maximização do número de items classificados corretamente (\textit{true positive}) por manipulação dos parâmetros:
-    \footnotesize{
-      \begin{itemize}%[<+- | alert@+>]
-      \item \textit{A}: Número mínimo de exemplos por \textit{Cluster} válido;
-      \item \textit{R}: Fator de raio. Multiplica o desvio padrão das distâncias dos elementos do \textit{Cluster} e seu centro;
-      \item \textit{Q}: Fator de novidade. Para distinção entre padrões novidade e extensões;
-    \end{itemize}}
-
-    \normalsize{Observando as métricas:}
-    \footnotesize{\begin{itemize}%[<+- | alert@+>]
-      \item \textit{Unk}: Contagem de items classificados como desconhecidos;
-      \item \textit{Repro}: Contagem de items classificados como desconhecidos e reprocessados com nova etiqueta;
-      \item \textit{Lbs}: Contagem de etiquetas distintas no fluxo de saída;
-      \item \textit{Hits}: Contagem de items na matriz de confusão onde a classe atribuída à etiqueta é igual à classe real dos exemplos (\textit{true positive});
-      \item \textit{Online}: Tempo em segundos (\textit{wall clock}) de execução da fase \textit{online};
-    \end{itemize}}
-  \end{alertblock}
-\end{frame}
 
 \begin{frame}[fragile]{Discussões de Implementação}
   \begin{alertblock}{Otimizações: Manipulação de Parâmetros}
+    Maximização do número de items classificados corretamente (\textit{true positive}) por manipulação dos parâmetros
     \footnotesize{
       \begin{tabular}
       {l          | l           | l           || r            | r               | r             | r                      | r                }
       \textit{A}  & \textit{R}  & \textit{Q}  & \textit{Unk.} & \textit{Repro.} & \textit{Lbs}. & \textit{Hits}          & \textit{Online}  \\\hline\hline
+      20          & 1.0\footnote{Distância máxima}        & 2.0\footnote{Dobro da distância máxima}        & 15020         & 0               & 16            & 197285 (30.190969\%)   & 52.964           \\\hline\hline
       20          & 0.25        & 1.4         & 12844         &                 & 15            & 31.134635\%            & 16.74746         \\\hline
       20          & 0.25        & 1.4         & 13385         & 13122           & 12            & 212248 (31.8\%)        & 8.180662         \\\hline
       50          & 0.05        & 0.20        & 186433        & 185853          & 102           & \textbf{294306} (35\%) & 30.56771         \\\hline
