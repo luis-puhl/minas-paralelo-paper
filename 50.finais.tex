@@ -51,81 +51,81 @@ distribuída de um algoritmo cujo modelo é estado da arte em detecção de
 novidades em fluxos contínuos de dados.
 
 
-\section{Cronograma}\label{sec:crono}
-% cap 5: Cronograma até a defesa
-% (quando)
+% \section{Cronograma}\label{sec:crono}
+% % cap 5: Cronograma até a defesa
+% % (quando)
 
-Nesta Seção apresentam-se as etapas previstas e sua distribuição temporal até o
-final deste trabalho de pesquisa.
+% Nesta Seção apresentam-se as etapas previstas e sua distribuição temporal até o
+% final deste trabalho de pesquisa.
 
-% \begin{itemize}
-%   \item Enumerar métricas de qualidade de classificação e métricas de
-%     escalabilidade encontradas na literatura;
-%   \item Avaliar plataformas de processamento distribuído de fluxos como:
+% % \begin{itemize}
+% %   \item Enumerar métricas de qualidade de classificação e métricas de
+% %     escalabilidade encontradas na literatura;
+% %   \item Avaliar plataformas de processamento distribuído de fluxos como:
+% %     \begin{itemize}
+% %         \item \emph{Apache Kafka} com \emph{Python};
+% %         \item \emph{Apache Kafka Streams};
+% %         \item \emph{Apache Spark Streaming};
+% %         \item \emph{Apache Storm};
+% %         \item \emph{Apache Flink};
+% %     \end{itemize}
+% %   \item Implementar algoritmo MINAS sobre \emph{Apache Flink};
+% %   \item Executar a implementação com \emph{data sets} públicos relevantes;
+% %   \item Validar, por meio de comparação com o algoritmo original, se a
+% %     implementação gera os mesmos resultados quanto a classificação;
+% %   \item Extrair métricas de escalabilidade por meio de experimentação;
+% %   \item Avaliar estratégias de distribuição do algoritmo em \emph{fog} como:
+% %   \begin{itemize}
+% %     \item Detecção de novidade nas pontas;
+% %     \item Detecção de novidade na nuvem;
+% %     \item Detecção de novidade nas pontas e em nuvem;
+% %   \end{itemize}
+% %     e seu o impacto na qualidade de classificação e volume computado.
+% % \end{itemize}
+
+% \begin{enumerate}[label=\Alph*)]
+%   \item \label{task:Z} Exame de Qualificação;
+%   \item \label{task:A} Desenvolvimento da aplicação;
+%   \item \label{task:B} Validação da aplicação em contraste com a implementação
+%   MINAS original:
 %     \begin{itemize}
-%         \item \emph{Apache Kafka} com \emph{Python};
-%         \item \emph{Apache Kafka Streams};
-%         \item \emph{Apache Spark Streaming};
-%         \item \emph{Apache Storm};
-%         \item \emph{Apache Flink};
+%       \item preparação e, se necessário, adaptação da implementação
+%       original e \emph{data sets};
+%       \item comparação e, se necessário, ajustes à implementação.
 %     \end{itemize}
-%   \item Implementar algoritmo MINAS sobre \emph{Apache Flink};
-%   \item Executar a implementação com \emph{data sets} públicos relevantes;
-%   \item Validar, por meio de comparação com o algoritmo original, se a
-%     implementação gera os mesmos resultados quanto a classificação;
-%   \item Extrair métricas de escalabilidade por meio de experimentação;
-%   \item Avaliar estratégias de distribuição do algoritmo em \emph{fog} como:
-%   \begin{itemize}
-%     \item Detecção de novidade nas pontas;
-%     \item Detecção de novidade na nuvem;
-%     \item Detecção de novidade nas pontas e em nuvem;
-%   \end{itemize}
-%     e seu o impacto na qualidade de classificação e volume computado.
-% \end{itemize}
+%   \item \label{task:C} Experimentos com \hlke{\datasets} e estratégias de 
+%   \notake{Testes com Wilcoxon
+%   outras técnicas inteligentes que poderiam ser aplicadas para comparar com a sua}
+%   distribuição em \emph{fog};
+%   \item \label{task:D} Submissão de artigos com resultados de (\ref{task:C}
+%   \item \label{task:E} Defesa da Dissertação.
+%   % \item \label{task:E} Comparação com outros trabalhos, envolvendo:
+%   %   \begin{itemize}
+%   %     \item preparação e, se necessário, adaptação dos programas e \emph{data sets};
+%   %     \item comparação e publicação dos resultados.
+%   %   \end{itemize}
+% \end{enumerate}
 
-\begin{enumerate}[label=\Alph*)]
-  \item \label{task:Z} Exame de Qualificação;
-  \item \label{task:A} Desenvolvimento da aplicação;
-  \item \label{task:B} Validação da aplicação em contraste com a implementação
-  MINAS original:
-    \begin{itemize}
-      \item preparação e, se necessário, adaptação da implementação
-      original e \emph{data sets};
-      \item comparação e, se necessário, ajustes à implementação.
-    \end{itemize}
-  \item \label{task:C} Experimentos com \hlke{\datasets} e estratégias de 
-  \notake{Testes com Wilcoxon
-  outras técnicas inteligentes que poderiam ser aplicadas para comparar com a sua}
-  distribuição em \emph{fog};
-  \item \label{task:D} Submissão de artigos com resultados de (\ref{task:C}
-  \item \label{task:E} Defesa da Dissertação.
-  % \item \label{task:E} Comparação com outros trabalhos, envolvendo:
-  %   \begin{itemize}
-  %     \item preparação e, se necessário, adaptação dos programas e \emph{data sets};
-  %     \item comparação e publicação dos resultados.
-  %   \end{itemize}
-\end{enumerate}
-
-\noindent\begin{ganttchart}[
-  vgrid,
-  time slot format=isodate-yearmonth,
-  time slot unit=month,
-  expand chart=\textwidth,
-  inline,
-  title height = 1,
-  y unit title = 0.6cm,
-  y unit chart = 0.7cm,
-  bar height = .8,
-  bar left shift=.05,
-  bar right shift=-.05,
-  bar/.style={fill=blue!55, rounded corners=3pt}
-]{2020-03}{2020-08}
-  \gantttitlecalendar{year, month} \\
-  % \ganttmilestone{(\ref{task:Z}}{2020-03-02} \\
-  \ganttbar{(\ref{task:Z}}{2020-03}{2020-03} \\
-  \ganttbar{(\ref{task:A}}{2020-03}{2020-04} \\
-  \ganttbar{(\ref{task:B}}{2020-03}{2020-04} \\
-  \ganttbar{(\ref{task:C}}{2020-03}{2020-06} \\
-  \ganttbar{(\ref{task:D}}{2020-05}{2020-08} \\
-  \ganttbar{(\ref{task:E}}{2020-06}{2020-08} \\
-\end{ganttchart}
+% \noindent\begin{ganttchart}[
+%   vgrid,
+%   time slot format=isodate-yearmonth,
+%   time slot unit=month,
+%   expand chart=\textwidth,
+%   inline,
+%   title height = 1,
+%   y unit title = 0.6cm,
+%   y unit chart = 0.7cm,
+%   bar height = .8,
+%   bar left shift=.05,
+%   bar right shift=-.05,
+%   bar/.style={fill=blue!55, rounded corners=3pt}
+% ]{2020-03}{2020-08}
+%   \gantttitlecalendar{year, month} \\
+%   % \ganttmilestone{(\ref{task:Z}}{2020-03-02} \\
+%   \ganttbar{(\ref{task:Z}}{2020-03}{2020-03} \\
+%   \ganttbar{(\ref{task:A}}{2020-03}{2020-04} \\
+%   \ganttbar{(\ref{task:B}}{2020-03}{2020-04} \\
+%   \ganttbar{(\ref{task:C}}{2020-03}{2020-06} \\
+%   \ganttbar{(\ref{task:D}}{2020-05}{2020-08} \\
+%   \ganttbar{(\ref{task:E}}{2020-06}{2020-08} \\
+% \end{ganttchart}
