@@ -125,7 +125,7 @@ During its online phase, which is the main focus of our work, \minas performs
 three tasks in (near) real-time,
 in summary,
 classification, novelty detection, and model update tasks
-in a potentially infinite data stream, as shown in Algorithm \ref{alg:MINAS}.
+in a potentially infinite data stream, as shown in Algorithm \ref{alg:minas-main}.
 
 \minas attempts to classify each incoming unlabeled instance according to the
 current decision model. Instances not explained by the current model
@@ -191,7 +191,7 @@ detection \cite{Faria2015minas}.
         }
     }
 \caption{Our interpretation of \minas \cite{Faria2015minas}}
-\label{alg:MINAS}
+\label{alg:minas-main}
 \end{algorithm}
 
 The Novelty Detection function, illustrated in Algorithm \ref{alg:MINAS-nd},
@@ -307,7 +307,7 @@ higher is the latency.
 
 \begin{figure}[hb]
   \centering
-  \includegraphics[width=00.5\linewidth]{figures/cassalesimgs-000.png}
+  \includegraphics[width=0.5\linewidth]{figures/cassalesimgs-000.png}
   \caption{\arch \cite{Cassales2019a} physical architecture and deployment scenario overview.}
   \label{fig:mfog-phy-arch-cloud}
 \end{figure}
@@ -803,7 +803,7 @@ One complete matrix is shown in Tab. \ref{tab:java-matrix}.
     \label{tab:libc-matrix}
     \vspace{5mm}
 % \end{center}\end{subtable}
-% \begin{subtable}[h]{00.5\linewidth}\begin{center}
+% \begin{subtable}[h]{0.5\linewidth}\begin{center}
   \caption{Parallel single-node}
   \begin{tabular}{l|r|r|r|r|r|r|r}
     Labels &      - &       N &    0 &    1 &   2 &  3 &  4 \\\hline
@@ -817,7 +817,7 @@ One complete matrix is shown in Tab. \ref{tab:java-matrix}.
     \end{tabular}
   \label{tab:single-node-matrix}
 % \end{center}\end{subtable}
-% \begin{subtable}[h]{00.5\linewidth}\begin{center}
+% \begin{subtable}[h]{0.5\linewidth}\begin{center}
   \caption{Parallel multi-node}
   \begin{tabular}{l|r|r|r|r|r|r|r}
     Labels &      - &       N &    0 &    1 &    2 &    3 &  4 \\\hline
@@ -874,37 +874,45 @@ for reference (showing every label would turn this feature unreadable due
 to overlapping).
 Figure \ref{fig:visualization} shows complete stream visualization charts.
 
-\begin{figure*}[hbt]
-    \begin{subfigure}{0.5\linewidth}
+% \begin{figure*}[hbt]
+    % \begin{subfigure}{0.5\linewidth}
+    \begin{figure}
         \centering
         \includegraphics[width=\linewidth]{experiments/revised-java.log.png}
         \caption{Reference Implementation}
         \label{fig:validation-sub-java}
-    \end{subfigure}
-    \begin{subfigure}{0.5\linewidth}
+    % \end{subfigure}
+    \end{figure}
+    % \begin{subfigure}{0.5\linewidth}
+    \begin{figure}
         \centering
         \includegraphics[width=\linewidth]{experiments/online-nd.log.png}
         \caption{Serial Implementation}
         \label{fig:validation-sub-serial}
-    \end{subfigure}
+    % \end{subfigure}
+    \end{figure}
   \vspace{5mm}
-    \begin{subfigure}{0.5\linewidth}
+    % \begin{subfigure}{0.5\linewidth}
+    \begin{figure}
       \centering
       \includegraphics[width=\linewidth]{experiments/tmi-base.log.png}
       \caption{Parallel single-node}
       \label{fig:cluster-sub-single}
-    \end{subfigure}
-    \begin{subfigure}{0.5\linewidth}
+    % \end{subfigure}
+    \end{figure}
+    % \begin{subfigure}{0.5\linewidth}
+    \begin{figure}
       \centering
       \includegraphics[width=\linewidth]{experiments/tmi-n12.log.png}
       \caption{Parallel multi-node}
       \label{fig:cluster-sub-multi}
-    \end{subfigure}
+    % \end{subfigure}
+    \end{figure}
   % \caption{Validation Comparison: Stream hits and novelties visualization}
   % \label{fig:validation-java-serial}
-  \caption{Stream hits and novelties visualization}
-  \label{fig:visualization}
-\end{figure*}
+%   \caption{Stream hits and novelties visualization}
+%   \label{fig:visualization}
+% \end{figure*}
 
 \subsubsection{Discussion}
 
@@ -992,7 +1000,7 @@ scaling to more than $4$ instances.
 
 \begin{figure}[hbt]
   \centering
-  \includegraphics[width=\whencolumns{0.6}{1}\linewidth,page=1]{experiments/speedup-clean.pdf}
+  \includegraphics[width=\linewidth,page=1]{experiments/speedup-clean.pdf}
   \caption{Time measurements per added instance}
   \label{fig:speedup}
 \end{figure}
