@@ -1,0 +1,51 @@
+title Mfog Sequence
+
+participantgroup #lightgreen **Root**
+#participant Root
+participant Sampler
+participant Detector
+end
+participantgroup #lightblue **Leaf**
+#participant Leaf
+participant Classifier
+participant Model Rec
+end
+
+#Root-->*Detector:<<create>>
+#Root-->Sampler:call
+activate Sampler
+#activate Detector
+
+#Leaf-->*Classifier:<<create N>>
+#Leaf-->Model Rec:call
+#Root-->(2)Model Rec:initial model
+Sampler-->>(2)Model Rec:Initial Model
+activate Model Rec
+deactivate Sampler
+#note over Classifier,Model Rec:Shared Model
+Model Rec<->Classifier:Shared Model
+deactivate Model Rec
+
+loop input samples
+activate Sampler
+note over Sampler:input
+Sampler->>(2)Classifier:Sample
+activate Classifier
+end
+deactivate Sampler
+Classifier->Classifier:NearestCluster()
+# Classifier-->(2)Detector:unknown / intrest
+
+Classifier-->>(2)Detector:Labeled Sample
+deactivate Classifier
+activate Detector
+note over Detector:output
+Detector->Detector:Novelty Detection()
+activate Detector
+Detector-->>(2)Model Rec:Update Model
+deactivate Detector
+activate Model Rec
+#Model Rec<->Classifier:lock
+Model Rec<->Classifier:Shared Model
+deactivate Model Rec
+#end

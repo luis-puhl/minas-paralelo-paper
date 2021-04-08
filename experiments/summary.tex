@@ -1,0 +1,40 @@
+% \begin{tabular}{l|r|r|r|r}
+%          &    Exp. (a)  & Exp. (b)   & Exp. (c)    & Exp. (d)   \\\hline
+% Hits     &     0.305618 &   0.298438 &    0.312416 &    0.312478    \\\hline
+% Misses   &     0.676049 &   0.657843 &    0.664061 &    0.663802    \\\hline
+% Unknowns &     0.018333 &   0.043717 &    0.023521 &    0.023718    \\\hline
+% Time     &  2761.830000 &  80.790000 &  522.100000 &  207.140000    \\\hline
+% System   &     7.150000 &  11.510000 &   47.770000 &  157.610000    \\\hline
+% Elapsed  &  2772.070000 &  93.030000 &  145.040000 &   95.380000    
+% \end{tabular}
+
+% java -ea -classpath bin/minas/revised.jar: NoveltyDetection.MinasRevised datasets/training.csv datasets/test.csv out/revised-java.log true
+% 	2761.82 user	7.15 system	46:12.07 elapsed
+
+% ./bin/offline
+% 	193.94 user	0.05 system	3:14.04 elapsed
+
+% "./bin/ond
+% 	80.79 user	11.51 system	1:33.02 elapsed
+
+% mpirun -n 12 -hostfile ./conf/hostsfile ./bin/tmpi
+% 	207.13 user	157.61 system	1:35.38 elapsed
+
+\newcommand{\mr}[1]{\multirow{2}{*}{#1}}
+
+\begin{tabular}{l|r|r|r|r|r}
+                & \refminas (a)  & Offline       & Serial (b)      & Single Node (c) & Multi Node (d)  \\\hline
+\mr{Hits}       & $\ 199708\ $   &               & $\ 195017\ $    & $\ 204151\ $    & $\ 204191\ $    \\
+                & $\ 0.305618\ $ &               & $\ 0.298438\ $  & $\ 0.312416\ $  & $\ 0.312478\ $  \\
+\hline
+\mr{Misses}     & $\ 441769\ $   &               & $\ 429873\ $    & $\ 433936\ $    & $\ 433767\ $    \\
+                & $\ 0.676049\ $ &               & $\ 0.657843\ $  & $\ 0.664061\ $  & $\ 0.663802\ $  \\
+\hline
+\mr{Unknowns}   & $\ 11980\ $    &               & $\ 28567\ $     & $\ 15370\ $     & $\ 15499\ $     \\
+                & $\ 0.018333\ $ &               & $\ 0.043717\ $  & $\ 0.023521\ $  & $\ 0.023718\ $  \\
+\hline
+Time            & $\ 2761.83\ $  & $\ 194.12\ $  & $\ 80.79000\ $  & $\ 522.1000\ $  & $\ 207.1400\ $  \\\hline
+System          & $\ 7.15\ $     & $\  0.075\ $  & $\ 11.51000\ $  & $\  47.7700\ $  & $\ 157.6100\ $  \\\hline
+Elapsed         & $\ 2772.07\ $  & $\ 194.27\ $  & $\ 93.03000\ $  & $\ 145.0400\ $  & $\  95.3800\ $  
+\end{tabular}
+

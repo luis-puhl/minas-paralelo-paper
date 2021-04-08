@@ -1,0 +1,68 @@
+@startuml lifecycle
+skinparam Style strictuml
+!define LIGHTBLUE
+!$FONTNAME = "Ubuntu Mono"
+' !$FONTSIZE = 13
+skinparam ArrowMessageAlignment center
+!includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
+
+autonumber
+skinparam ParticipantPadding 20
+skinparam BoxPadding 20
+
+box "Root" #LightGreen
+' participant Root as r
+participant Sampler as s
+participant Detector as d
+end box
+box "Leaf" #LightBlue
+collections Classifier as c
+participant "Model Rec" as m
+' participant Leaf as l
+end box
+
+' == Initialization ==
+' activate r
+' activate l
+' r -> d ** : <<create>>
+' r -> s ** :call
+
+' l -> c ** : <<create>>
+' l -> m ** :call
+
+activate s
+s --> m ++ : Initial Model
+s -> d : Initial Model
+' group shared Memory
+c <- m : Shared Model
+deactivate m
+' end
+
+' == Running ==
+' loop input samples
+skinparam SequenceGroupBodyBackgroundColor #LightGreen
+group loop 
+activate s
+note over s : input
+s --> c ++ : Sample
+end
+deactivate s
+
+' c -> c ++ :NearestCluster()
+' deactivate c
+
+c --> d ++ : Labeled Sample
+deactivate c
+note over d:output
+d -> d : NoveltyDetection()
+activate d
+deactivate d
+d --> m : Update Model
+' activate m
+' ... time ...
+' |||
+deactivate d
+' deactivate m
+
+
+@enduml
