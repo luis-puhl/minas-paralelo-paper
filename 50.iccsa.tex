@@ -770,35 +770,65 @@ in the summary table and stream visualization chart.
 % accuracy.
 One complete matrix is shown in Tab. \ref{tab:java-matrix}.
 
-% \begin{table*}[htb]\begin{center}
-%   \caption{Reference implementation: Confusion Matrix and Qualitative Metrics}
-%   \input{experiments/revised-java.log.tex}
-%   \label{tab:java-matrix}
-% \end{center}\end{table*}
-
 \begin{table*}[htb]
 \caption{Confusion Matrixes and Qualitative measurements}
 \label{tab:confusion-matrixes-ref-serial}
 % \begin{subtable}[h]{\linewidth}\begin{center}
     \caption{Reference implementation}
-    \input{experiments/revised-java.log.tex}
+    \begin{tabular}{l|r|r|r|r|r|r|r|r|r|r|r|r|r|r}
+        Labels &     - &       N &    1 &    2 &    3 &  4 &   5 &    6 &    7 &     8 &    9 &    10 &   11 &  12 \\\hline
+        Classes  &       &         &      &      &      &    &     &      &      &       &      &       &      &     \\\hline
+        \hline
+        A        &  3774 &  438750 &  123 &  145 &  368 &  8 &  52 &  165 &    1 &  1046 &  161 &  2489 &   71 &  26 \\\hline
+        N        &  8206 &  193030 &    0 &   79 &   44 &  0 &   0 &    0 &  229 &   181 &  154 &  4066 &  289 &   0 \\\hline
+        \hline
+        Assigned &     - &       N &    A &    A &    A &  A &   A &    A &    N &     A &    A &     N &    N &   A \\\hline
+        Hits     &     0 &  193030 &  123 &  145 &  368 &  8 &  52 &  165 &  229 &  1046 &  161 &  4066 &  289 &  26 
+    \end{tabular}
     \label{tab:java-matrix}
 % \end{center}\end{subtable}
 % \begin{subtable}[h]{\linewidth}\begin{center}
     \vspace{5mm}
     \caption{Serial implementation}
-    \input{experiments/online-nd.log.tex}
+    \begin{tabular}{l|r|r|r|r|r|r|r|r|r|r|r}
+        Labels &      - &       N &   0 &    1 &    2 &   4 &   5 &  6 &   7 &   8 &  10 \\\hline
+        Classes  &        &         &     &      &      &     &     &    &     &     &     \\\hline
+        \hline
+        A        &  16086 &  429765 &  94 &  995 &  104 &   0 &  23 &  3 &  29 &  46 &  34 \\\hline
+        N        &  12481 &  193642 &   3 &   94 &    0 &  47 &   0 &  0 &   0 &  11 &   0 \\\hline
+        \hline
+        Assigned &      - &       N &   A &    A &    A &   N &   A &  A &   A &   A &   A \\\hline
+        Hits     &      0 &  193642 &  94 &  995 &  104 &  47 &  23 &  3 &  29 &  46 &  34 
+    \end{tabular}
     \label{tab:libc-matrix}
     \vspace{5mm}
 % \end{center}\end{subtable}
 % \begin{subtable}[h]{0.5\linewidth}\begin{center}
   \caption{Parallel single-node}
-  \input{experiments/tmi-base.log.tex}
+  \begin{tabular}{l|r|r|r|r|r|r|r}
+    Labels &      - &       N &    0 &    1 &   2 &  3 &  4 \\\hline
+    Classes  &        &         &      &      &     &    &    \\\hline
+    \hline
+    A        &  12282 &  433797 &  147 &  952 &   0 &  0 &  1 \\\hline
+    N        &   3088 &  203019 &   40 &   99 &  27 &  5 &  0 \\\hline
+    \hline
+    Assigned &      - &       N &    A &    A &   N &  N &  A \\\hline
+    Hits     &      0 &  203019 &  147 &  952 &  27 &  5 &  1 
+    \end{tabular}
   \label{tab:single-node-matrix}
 % \end{center}\end{subtable}
 % \begin{subtable}[h]{0.5\linewidth}\begin{center}
   \caption{Parallel multi-node}
-  \input{experiments/tmi-n12.log.tex}
+  \begin{tabular}{l|r|r|r|r|r|r|r}
+    Labels &      - &       N &    0 &    1 &    2 &    3 &  4 \\\hline
+    Classes  &        &         &      &      &      &      &    \\\hline
+    \hline
+    A        &  12378 &  433631 &  117 &  886 &    0 &  162 &  5 \\\hline
+    N        &   3121 &  202916 &   40 &   96 &  105 &    0 &  0 \\\hline
+    \hline
+    Assigned &      - &       N &    A &    A &    N &    A &  A \\\hline
+    Hits     &      0 &  202916 &  117 &  886 &  105 &  162 &  5 
+  \end{tabular}
   \label{tab:multi-node-matrix}
 % \end{center}\end{subtable}
 \end{table*}
@@ -892,7 +922,22 @@ The summary of all four experiments is shown in Table \ref{tab:exper-summary}.
 \begin{center}
   \caption{Collected Measures Summary.}
   \label{tab:exper-summary}
-  \input{experiments/summary.tex}
+  \newcommand{\mr}[1]{\multirow{2}{*}{#1}}
+  \begin{tabular}{l|r|r|r|r|r}
+                    & \refminas (a)  & Offline       & Serial (b)      & Single Node (c) & Multi Node (d)  \\\hline
+    \mr{Hits}       & $\ 199708\ $   &               & $\ 195017\ $    & $\ 204151\ $    & $\ 204191\ $    \\
+                    & $\ 0.305618\ $ &               & $\ 0.298438\ $  & $\ 0.312416\ $  & $\ 0.312478\ $  \\
+    \hline
+    \mr{Misses}     & $\ 441769\ $   &               & $\ 429873\ $    & $\ 433936\ $    & $\ 433767\ $    \\
+                    & $\ 0.676049\ $ &               & $\ 0.657843\ $  & $\ 0.664061\ $  & $\ 0.663802\ $  \\
+    \hline
+    \mr{Unknowns}   & $\ 11980\ $    &               & $\ 28567\ $     & $\ 15370\ $     & $\ 15499\ $     \\
+                    & $\ 0.018333\ $ &               & $\ 0.043717\ $  & $\ 0.023521\ $  & $\ 0.023718\ $  \\
+    \hline
+    Time            & $\ 2761.83\ $  & $\ 194.12\ $  & $\ 80.79000\ $  & $\ 522.1000\ $  & $\ 207.1400\ $  \\\hline
+    System          & $\ 7.15\ $     & $\  0.075\ $  & $\ 11.51000\ $  & $\  47.7700\ $  & $\ 157.6100\ $  \\\hline
+    Elapsed         & $\ 2772.07\ $  & $\ 194.27\ $  & $\ 93.03000\ $  & $\ 145.0400\ $  & $\  95.3800\ $  
+  \end{tabular}
 \end{center}
 \end{table*}
 
