@@ -20,9 +20,10 @@
 *.snm
 *.vrb
 *.tdo
+*.nlo
 
 # resultantes, adicionar com -f
-*.pdf
+# *.pdf
 *.dvi
 !00.beamer.pdf
 !00.main.pdf

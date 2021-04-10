@@ -1,0 +1,289 @@
+%% Este arquivo foi modificado de:
+%% modeloABNT2, v1.0 athila
+%% Copyright 2013 by Athila e Monaro
+%% Desenvolvido para EESC-USP
+
+% ------------------------------------------------------------------------
+% Opções:
+% 	tesedr:     Formata documento para tese de doutorado
+% 	qualidr:    Formata documento para qualificação de doutorado
+% 	dissertmst: Formata documento para dissertação de mestrado
+% 	qualimst:   Formata documento para qualificação de mestrado
+% ------------------------------------------------------------------------
+\documentclass[dissertmst]{lib/ufscar}
+% \documentclass[openany,twoside]{abntex2}
+
+% PACOTES
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+
+% Pacotes fundamentais
+\usepackage{cmap}				% Mapear caracteres especiais no PDF
+\usepackage{lmodern}				% Usa a fonte Latin Modern
+\usepackage{makeidx}            	% Cria o indice
+\usepackage{hyperref}  			% Controla a formação do índice
+\usepackage{lastpage}			% Usado pela Ficha catalográfica
+\usepackage{indentfirst}			% Indenta o primeiro parágrafo de cada seção.
+\usepackage{nomencl} 			% Lista de simbolos
+\usepackage{graphicx}			% Inclusão de gráficos
+% ---
+
+% Pacotes adicionais
+\usepackage{lipsum}				       % para geração de dummy text
+\usepackage[printonlyused]{acronym}
+\usepackage[table]{xcolor}
+\usepackage[noalgohanging,lined,noend,linesnumbered]{algorithm2e}
+% ---
+
+% Informações de dados para CAPA e FOLHA DE ROSTO
+% ---
+% Título:
+%	1. Título em português
+%	2. Título em inglês
+\titulo{Uma Implementação distribuída em Névoa do algoritmo de Detecção de 
+Novidade em Fluxos de Dados MINAS}{
+   % Distributed Novelty Detection at the Edge for IoT Network Security
+   A distributed fog implementation of the data stream novelty detection algorithm MINAS
+}
+% Autor:
+%	1. Nome completo do autor
+%	2. Formato de nome para bibliografia
+\autor{Luís Henrique Puhl de Souza}{Puhl, Luís}
+% Cidade
+\local{São Carlos}
+% Ano de defesa
+\data{2021}
+\universidade{Universidade Federal de São Carlos}{UFSCar}
+\centro{Centro de Ciências Exatas e de Tecnologia}{CCET}
+\departamento{Departamento de Computação}{DC}
+\programa{Programa de Pós-Graduação em Ciência da Computação}{PPGCC}
+\curso{Ciência da Computação}
+\areaconcentracao{Sistemas de Computação}
+% Nome do orientador
+\orientador{Prof. Dr. Hermes Senger}
+% Nome do coorientador
+% \coorientador{Nome completo do coorientador}
+% ---
+
+% ---
+% compila o indice
+% ---
+\makeindex
+% ---
+
+% ---
+% Compila a lista de abreviaturas e siglas
+% ---
+\makenomenclature
+% ---
+
+% ----
+% Início do documento
+% ----
+
+\begin{document}
+
+% ----------------------------------------------------------
+% ELEMENTOS PRÉ-TEXTUAIS
+% ----------------------------------------------------------
+\pretextual
+
+% ---
+% Insere Capa, Folha de rosto.
+% ---
+\maketitle
+
+
+% % ---
+% % Dedicatória
+% % ---
+% \imprimirdedicatoria{Este trabalho é dedicado às crianças adultas que,\\
+%    quando pequenas, sonharam em se tornar cientistas.}
+% % ---
+
+% % ---
+% % Agradecimentos
+% % ---
+
+% \imprimiragradecimentos{
+% Agradecimentos à Roberto Santos Inoue e Tatiane Cristina da Costa Fernandes da
+% Universidade Federal de São Carlos -- UFSCar que adaptaram a classe desenvolvida
+% por Athila Quaresma Santos e Renato Machado Monaro para o Programa em Engenharia
+% Elétrica da Escola de Engenharia de São Carlos.
+
+
+% Também agradecemos à Athila Quaresma Santos e
+% Renato Machado Monaro pela adaptação da classe \abnTeX~, bem como à
+% todos aqueles que contribuíram para que a produção de trabalhos acadêmicos
+% conforme as normas ABNT com \LaTeX\ fosse possível.
+
+% Parte do desenvolvimento deste modelo, especialmente os elementos
+% pré-textuais, foi inspirado no modelo desenvolvido por Samir e modificado por
+% Marcelo Suetake.
+
+% Agradecimentos especiais são direcionados aos voluntários do grupo de usuários
+% \emph{latex-br}\footnote{\url{http://groups.google.com/group/latex-br}} e aos
+% novos voluntários do grupo
+% \emph{\abnTeX}\footnote{\url{http://groups.google.com/group/abntex2} e
+% \url{http://abntex2.googlecode.com/}}~que contribuíram e que ainda
+% contribuirão para a evolução do \abnTeX.
+
+% }
+% ---
+
+% % ---
+% % Epígrafe
+% % ---
+% \imprimirepigrafe{
+% 		``Somos essencialmente profissionais do sentido. Educamos, \\
+% 		 quando ensinamos com sentido. Educar é impregnar de sentido\\
+% 		 a vida. A profissão docente está centrada na vida, no bem querer.''\\
+% 		(Prof. Gilberto Teixeira)
+% }
+% % ---
+
+% ---
+% RESUMO e ABSTRACT
+% ---
+\input{01.abstract}
+
+% Resumo em português
+% \begin{resumo}{Latex. Abntex.}
+
+%    Segundo a \citeonline[3.1-3.2]{NBR6028:2003}, o resumo deve ressaltar o
+%    objetivo, o método, os resultados e as conclusões do documento. A ordem e a
+%    extensão destes itens dependem do tipo de resumo (informativo ou indicativo)
+%    e do tratamento que cada item recebe no documento original. O resumo deve ser
+%    precedido da referência do documento, com exceção do resumo inserido no
+%    próprio documento. (\ldots) As palavras-chave devem figurar logo abaixo do
+%    resumo, antecedidas da expressão Palavras-chave:, separadas entre si por
+%    ponto e finalizadas também por ponto.
+
+% \end{resumo}
+
+% % Resumo em inglês
+% \begin{abstract}{Latex. Abntex}
+% This is the english abstract.
+	
+% \end{abstract}
+% ---
+
+% ---
+% inserir lista de ilustrações
+% ---
+\listailustracoes
+% ---
+
+% ---
+% inserir lista de tabelas
+% ---
+\listatabelas
+% ---
+
+% ---
+% inserir lista de abreviaturas e siglas
+% ---
+\listasiglas{lib/Abreviaturas}
+% ---
+
+% ---
+% inserir o sumario
+% ---
+\sumario
+% ---
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\mainmatter
+
+% ----------------------------------------------------------
+% Introdução
+% ----------------------------------------------------------
+\include{10.introducao}
+
+% ----------------------------------------------------------
+% Capitulo com exemplos de comandos inseridos de arquivo externo 
+% ----------------------------------------------------------
+\input{20.fundamentos}
+\input{30.trabalhos-relacionados}
+% \input{40.proposta}
+% \input{50.iccsa}
+\input{60.concusao}
+% \input{98.quali}
+
+% % ---
+% % Capitulo Genérico
+% % ---
+% \chapter{Capítulo genérico}
+
+% % ---
+% \section{Seção genérica}
+% % ---
+
+% \lipsum[1]
+
+% \lipsum[2-3]
+
+% % ---
+% % Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
+% % ---
+% \bookmarksetup{startatroot}% 
+% % ---
+
+% % Conclusão
+% % ---
+% \chapter*[Conclusão]{Conclusão}
+% \addcontentsline{toc}{chapter}{Conclusão}
+
+% \lipsum[31-33]
+
+% ----------------------------------------------------------
+% ELEMENTOS PÓS-TEXTUAIS
+% ----------------------------------------------------------
+\postextual
+
+% ----------------------------------------------------------
+% Referências bibliográficas
+% ----------------------------------------------------------
+\bibliography{99.referencias}
+
+% Glossário
+% ----------------------------------------------------------
+%\glossary
+
+% % Apêndices
+% % ----------------------------------------------------------
+% % ---
+% % Inicia os apêndices
+% % ---
+% \begin{apendicesenv}
+% % Imprime uma página indicando o início dos apêndices
+% \partapendices
+% % ----------------------------------------------------------
+% % Incluir Apêndice
+% % ----------------------------------------------------------
+% \chapter{Quisque libero justo}
+% \lipsum[1-5]
+
+% \end{apendicesenv}
+% % ---
+
+% % Anexos
+% % ----------------------------------------------------------
+% % ---
+% % Inicia os anexos
+% % ---
+% \begin{anexosenv}
+% % Imprime uma página indicando o início dos anexos
+% \partanexos
+% % ---
+% % Incluir Anexo
+% % ---
+% \chapter{Morbi ultrices rutrum lorem.}
+% \lipsum[1-25]
+% \section{Test}
+% \lipsum[1-20]
+% \end{anexosenv}
+
+\end{document}
