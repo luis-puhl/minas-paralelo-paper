@@ -1,17 +1,26 @@
 % !TeX root = ./00.main.tex
 
-\@ifundefined{resumo}{%
-    \newenvironment{resumo}%
-  {\ttfamily}%
-  {}
-    % {\begin{abstract}
-    % {\end{abstract}
-}{}
+% \@ifundefined{resumo}{%
+%     \newenvironment{resumo}%
+%   {\ttfamily}%
+%   {}
+%     % {\begin{abstract}
+%     % {\end{abstract}
+% }{}
 
-% ajusta o espaçamento dos parágrafos do resumo}
-\@ifundefined{absparsep}{\setlength{\absparsep}{18pt}}
+% % ajusta o espaçamento dos parágrafos do resumo}
+% \@ifundefined{absparsep}{\setlength{\absparsep}{18pt}}
 
-\begin{resumo}
+% \newcommand{\resumoname}{Resumo}
+% \newenvironment{resumo}[1][Resumo]{%
+%     \PRIVATEbookmarkthis{#1}
+%     \renewcommand{\abstractnamefont}{\chaptitlefont}
+%     \renewcommand{\abstractname}{\ABNTEXchapterupperifneeded{#1}}
+%     \begin{abstract}
+% }{\end{abstract}\PRIVATEclearpageifneeded}
+% \newenvironment{resumo}[1]{\renewcommand{\abstractname}{#1}\begin{abstract}}{\end{abstract}}
+
+\begin{abstract}
 
     Em um cenário de crescente número de dispositivos na Internet das Coisas
     (IoT), gerando proporcional crescimento no volume dos fluxos de dados
@@ -64,7 +73,7 @@
 \palavraschave{Detecção de Novidades, Detecção de Intrusão, Fluxos de Dados,
 Computação Distribuída, Computação em Névoa, Internet das Coisas.}
 
-\end{resumo}
+\end{abstract}
 
 \begin{abstract}
     
