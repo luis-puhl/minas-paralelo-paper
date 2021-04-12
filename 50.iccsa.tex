@@ -111,133 +111,6 @@ the discuss results we found.
 Finally, Section \ref{sec:conclusion} summarizes the main findings and presents
 possible future work.
 
-\subsection{MINAS}
-\label{sec:minas}
-
-\minas \cite{Faria2013Minas,Faria2015minas} is an offline-online \nd algorithm,
-meaning it has two distinct phases. The first phase (offline) creates an initial
-model set with several clusters based on a clustering algorithm with a training
-set.
-Each cluster can be associated with only one class of the problem, but each
-class can have many clusters.
-
-During its online phase, which is the main focus of our work, \minas performs
-three tasks in (near) real-time,
-in summary,
-classification, novelty detection, and model update tasks
-in a potentially infinite data stream, as shown in Algorithm \ref{alg:minas-main}.
-
-\minas attempts to classify each incoming unlabeled instance according to the
-current decision model. Instances not explained by the current model
-receive an \textit{unknown} label and are stored in an unknowns-buffer.
-When the unknowns-buffer reaches a preset threshold, \minas executes the
-Novelty Detection function.
-After a set interval, samples in the unknowns-buffer are considered to be
-noise or outliers and removed.
-The algorithm also has a mechanism to forget clusters that became obsolete and
-unrepresentative of the current data stream distribution, removing them from
-the Model and storing in a Sleep Model for possible recurring pattern
-detection \cite{Faria2015minas}.
-
-\begin{algorithm}[htb]
-    % \DontPrintSemicolon
-    \SetKwFunction{nearestCluster}{nearestCluster}
-    \SetKwFunction{clustering}{clustering}
-    \SetKwFunction{NoveltyDetection}{NoveltyDetection}
-    \SetKwFunction{handleModelSleep}{moveToSleep}
-    \SetKwFunction{removeOldSamples}{removeOldSamples}
-    % 
-    \SetKwProg{Function}{Function}{:}{}
-    \SetKwFor{With}{with}{}{}
-    \SetKw{continue}{continue}
-    % 
-    \KwIn{ModelSet, inputStream}
-    \KwOut{outputStream}
-    % 
-    \SetKwData{cleaningWindow}{cleaningWindow}
-    \SetKwData{noveltyDetectionTrigger}{noveltyDetectionTrigger}
-    \SetKwInOut{KwParams}{Parameters}
-    \KwParams{\cleaningWindow, \noveltyDetectionTrigger}
-    % \KwSty{Parameters}: \cleaningWindow, \noveltyDetectionTrigger\\
-    % 
-    \SetKwFunction{MinasOnline}{MinasOnline}
-    \Function{\MinasOnline{ModelSet, inputStream}}{
-        UnkownSet $\leftarrow$ $\emptyset$, ModelSleepSet $\leftarrow$ $\emptyset$ \;
-        lastCleanup $\leftarrow 0$ , noveltyIndex $\leftarrow 0$\;
-        % sampleIn $\leftarrow 0$\;
-        \ForEach{ {$sample_{i}$} $\in$ inputStream }{
-            % sample.label $\leftarrow$ unknown\;
-            % (distance, cluster) $\leftarrow$ \nearestCluster(sample, ModelSet)\;
-            nearest $\leftarrow$ \nearestCluster(sample, ModelSet)\;
-            \eIf{nearest.distance $<$ nearest.cluster.radius}{
-                sample.label $\leftarrow$ nearest.cluster.label\;
-                nearest.cluster.lastUsed $ \leftarrow i $ \;
-            }
-            {
-                sample.label $\leftarrow$ unknown\;
-                UnkownSet $\leftarrow$ UnkownSet $\cup$ sample\;
-                \If{$|\;UnkownSet\;| \geq$ \noveltyDetectionTrigger}{
-                    % \tcc{Novelty Detection}
-                    novelties $\leftarrow$ \NoveltyDetection(ModelSet $\cup$ ModelSleepSet, *UnkownSet)\;
-                    ModelSet $\leftarrow$ ModelSet $\cup$ novelties\;
-                }
-                \If{ $ i > $ ( lastCleanup $ + $ \cleaningWindow )}{
-                    ModelSet $\leftarrow$ \handleModelSleep(ModelSet, *ModelSleepSet, lastCleanup)\;
-                    UnkownSet $\leftarrow$ \removeOldSamples(UnkownSet, lastCleanup)\;
-                    lastCleanup $ \leftarrow i $\;
-                }
-            }
-            outputStream.append(sample)\;
-        }
-    }
-\caption{Our interpretation of \minas \cite{Faria2015minas}}
-\label{alg:minas-main}
-\end{algorithm}
-
-The Novelty Detection function, illustrated in Algorithm \ref{alg:MINAS-nd},
-groups the instances to form new clusters, and each new cluster is validated to
-discard the non-cohesive or unrepresentative ones.
-Valid clusters are analyzed to decide if they represent an extension of a
-known pattern or a completely new pattern. In both cases, the model absorbs the
-valid clusters and starts using them to classify new instances.
-
-\begin{algorithm}[htb]
-    \SetKwProg{Function}{Function}{:}{}
-    \SetKwData{minExamplesPerCluster}{minExamplesPerCluster}
-    \SetKwData{noveltyFactor}{noveltyFactor}
-    \SetKwInOut{KwParams}{Parameters}
-    \KwParams{\minExamplesPerCluster, \noveltyFactor}
-    % 
-    \SetKwFunction{nearestCluster}{nearestCluster}
-    \SetKwFunction{clustering}{clustering}
-    \SetKwFunction{NoveltyDetection}{NoveltyDetection}
-    \SetKwFunction{handleModelSleep}{moveToSleep}
-    \SetKwFunction{removeOldSamples}{removeOldSamples}
-    % 
-    \Function{\NoveltyDetection{Model, Unknowns}}{
-        newModelSet $\leftarrow$ $\emptyset$\;
-        \ForEach{cl in \clustering(Unknowns)}{
-            \If{$|\;cl.sampleSet\;| \geq$ \minExamplesPerCluster}{
-                (distance, near) $\leftarrow$ \nearestCluster(cl, Model)\;
-                \eIf{distance $<$ near.radius $\times$ \noveltyFactor}{
-                    cl.label $\leftarrow$ near.label\;
-                    cl.type $\leftarrow$ extension\;
-                }{
-                    cl.label $\leftarrow$ noveltyIndex\;
-                    noveltyIndex $\leftarrow$ noveltyIndex $+ 1$\;
-                    cl.type $\leftarrow$ novelty\;
-                }
-                Unknowns $\leftarrow$ Unknowns $-$ cl.sampleSet\;
-                \label{alg:MINAS-nd:reclassify}
-                newModelSet $\leftarrow$ newModelSet $\cup$ cl\;
-            }
-        }
-        \Return{newModelSet}\;
-    }
-    \caption{\minas \cite{Faria2015minas} Novelty Detection task.}
-    \label{alg:MINAS-nd}
-\end{algorithm}
-
 \subsection{Proposal}
 \label{sec:prop}
 
@@ -773,64 +646,94 @@ One complete matrix is shown in Tab. \ref{tab:java-matrix}.
 \begin{table*}[htb]
 \caption{Confusion Matrixes and Qualitative measurements}
 \label{tab:confusion-matrixes-ref-serial}
-% \begin{subtable}[h]{\linewidth}\begin{center}
-    \caption{Reference implementation}
-    \begin{tabular}{l|r|r|r|r|r|r|r|r|r|r|r|r|r|r}
-        Labels &     - &       N &    1 &    2 &    3 &  4 &   5 &    6 &    7 &     8 &    9 &    10 &   11 &  12 \\\hline
-        Classes  &       &         &      &      &      &    &     &      &      &       &      &       &      &     \\\hline
-        \hline
-        A        &  3774 &  438750 &  123 &  145 &  368 &  8 &  52 &  165 &    1 &  1046 &  161 &  2489 &   71 &  26 \\\hline
-        N        &  8206 &  193030 &    0 &   79 &   44 &  0 &   0 &    0 &  229 &   181 &  154 &  4066 &  289 &   0 \\\hline
-        \hline
-        Assigned &     - &       N &    A &    A &    A &  A &   A &    A &    N &     A &    A &     N &    N &   A \\\hline
-        Hits     &     0 &  193030 &  123 &  145 &  368 &  8 &  52 &  165 &  229 &  1046 &  161 &  4066 &  289 &  26 
-    \end{tabular}
-    \label{tab:java-matrix}
-% \end{center}\end{subtable}
-% \begin{subtable}[h]{\linewidth}\begin{center}
-    \vspace{5mm}
-    \caption{Serial implementation}
-    \begin{tabular}{l|r|r|r|r|r|r|r|r|r|r|r}
-        Labels &      - &       N &   0 &    1 &    2 &   4 &   5 &  6 &   7 &   8 &  10 \\\hline
-        Classes  &        &         &     &      &      &     &     &    &     &     &     \\\hline
-        \hline
-        A        &  16086 &  429765 &  94 &  995 &  104 &   0 &  23 &  3 &  29 &  46 &  34 \\\hline
-        N        &  12481 &  193642 &   3 &   94 &    0 &  47 &   0 &  0 &   0 &  11 &   0 \\\hline
-        \hline
-        Assigned &      - &       N &   A &    A &    A &   N &   A &  A &   A &   A &   A \\\hline
-        Hits     &      0 &  193642 &  94 &  995 &  104 &  47 &  23 &  3 &  29 &  46 &  34 
-    \end{tabular}
-    \label{tab:libc-matrix}
-    \vspace{5mm}
-% \end{center}\end{subtable}
-% \begin{subtable}[h]{0.5\linewidth}\begin{center}
-  \caption{Parallel single-node}
-  \begin{tabular}{l|r|r|r|r|r|r|r}
-    Labels &      - &       N &    0 &    1 &   2 &  3 &  4 \\\hline
-    Classes  &        &         &      &      &     &    &    \\\hline
-    \hline
-    A        &  12282 &  433797 &  147 &  952 &   0 &  0 &  1 \\\hline
-    N        &   3088 &  203019 &   40 &   99 &  27 &  5 &  0 \\\hline
-    \hline
-    Assigned &      - &       N &    A &    A &   N &  N &  A \\\hline
-    Hits     &      0 &  203019 &  147 &  952 &  27 &  5 &  1 
-    \end{tabular}
-  \label{tab:single-node-matrix}
-% \end{center}\end{subtable}
-% \begin{subtable}[h]{0.5\linewidth}\begin{center}
-  \caption{Parallel multi-node}
-  \begin{tabular}{l|r|r|r|r|r|r|r}
-    Labels &      - &       N &    0 &    1 &    2 &    3 &  4 \\\hline
-    Classes  &        &         &      &      &      &      &    \\\hline
-    \hline
-    A        &  12378 &  433631 &  117 &  886 &    0 &  162 &  5 \\\hline
-    N        &   3121 &  202916 &   40 &   96 &  105 &    0 &  0 \\\hline
-    \hline
-    Assigned &      - &       N &    A &    A &    N &    A &  A \\\hline
-    Hits     &      0 &  202916 &  117 &  886 &  105 &  162 &  5 
-  \end{tabular}
-  \label{tab:multi-node-matrix}
-% \end{center}\end{subtable}
+
+\begin{subtable}[h]{\linewidth}
+{\scriptsize
+\setlength\tabcolsep{0.5em}
+\begin{center}
+\caption{Reference implementation}
+\label{tab:java-matrix}
+\begin{tabular}{l *{14}{|r} }
+  Labels   &     - &       N &    1 &    2 &    3 &  4 &   5 &    6 &    7 &     8 &    9 &    10 &   11 &  12 \\\hline
+  Classes  &       &         &      &      &      &    &     &      &      &       &      &       &      &     \\\hline
+  \hline
+  A        &  3774 &  438750 &  123 &  145 &  368 &  8 &  52 &  165 &    1 &  1046 &  161 &  2489 &   71 &  26 \\\hline
+  N        &  8206 &  193030 &    0 &   79 &   44 &  0 &   0 &    0 &  229 &   181 &  154 &  4066 &  289 &   0 \\\hline
+  \hline
+  Assigned &     - &       N &    A &    A &    A &  A &   A &    A &    N &     A &    A &     N &    N &   A \\\hline
+  Hits     &     0 &  193030 &  123 &  145 &  368 &  8 &  52 &  165 &  229 &  1046 &  161 &  4066 &  289 &  26 
+\end{tabular}
+\end{center}
+}
+\end{subtable}
+
+\vspace{3ex}
+
+\begin{subtable}[h]{\linewidth}
+{\scriptsize
+\setlength\tabcolsep{0.5em}
+\begin{center}
+\caption{Serial implementation}
+\label{tab:libc-matrix}
+\begin{tabular}{l|r|r|r|r|r|r|r|r|r|r|r}
+  Labels &      - &       N &   0 &    1 &    2 &   4 &   5 &  6 &   7 &   8 &  10 \\\hline
+  Classes  &        &         &     &      &      &     &     &    &     &     &     \\\hline
+  \hline
+  A        &  16086 &  429765 &  94 &  995 &  104 &   0 &  23 &  3 &  29 &  46 &  34 \\\hline
+  N        &  12481 &  193642 &   3 &   94 &    0 &  47 &   0 &  0 &   0 &  11 &   0 \\\hline
+  \hline
+  Assigned &      - &       N &   A &    A &    A &   N &   A &  A &   A &   A &   A \\\hline
+  Hits     &      0 &  193642 &  94 &  995 &  104 &  47 &  23 &  3 &  29 &  46 &  34 
+\end{tabular}
+\end{center}
+}
+\end{subtable}
+
+\vspace{3ex}
+
+\begin{subtable}[h]{0.48\linewidth}
+{\scriptsize
+\setlength\tabcolsep{0.35em}
+\begin{center}
+\caption{Parallel single-node}
+\label{tab:single-node-matrix}
+\begin{tabular}{l|r|r|r|r|r|r|r}
+  Lab. &      - &       N &    0 &    1 &   2 &  3 &  4 \\\hline
+  Cla.  &        &         &      &      &     &    &    \\\hline
+  \hline
+  A        &  12282 &  433797 &  147 &  952 &   0 &  0 &  1 \\\hline
+  N        &   3088 &  203019 &   40 &   99 &  27 &  5 &  0 \\\hline
+  \hline
+  Ass. &      - &       N &    A &    A &   N &  N &  A \\\hline
+  Hits     &      0 &  203019 &  147 &  952 &  27 &  5 &  1 
+\end{tabular}
+\end{center}
+}
+\end{subtable}
+% 
+% \quad
+% &
+% 
+\begin{subtable}[h]{0.48\linewidth}
+{\scriptsize
+\setlength\tabcolsep{0.35em}
+\begin{center}
+\caption{Parallel multi-node}
+\label{tab:multi-node-matrix}
+\begin{tabular}{l|r|r|r|r|r|r|r}
+  Lab.   &      - &       N &    0 &    1 &    2 &    3 &  4 \\\hline
+  Cla.   &        &         &      &      &      &      &    \\\hline
+  \hline
+  A      &  12378 &  433631 &  117 &  886 &    0 &  162 &  5 \\\hline
+  N      &   3121 &  202916 &   40 &   96 &  105 &    0 &  0 \\\hline
+  \hline
+  Ass.   &      - &       N &    A &    A &    N &    A &  A \\\hline
+  Hits   &      0 &  202916 &  117 &  886 &  105 &  162 &  5 
+\end{tabular}
+\end{center}
+}
+\end{subtable}
+
 \end{table*}
 
 For the measurements summary table, six measurements from two sources are displayed. Three
@@ -874,45 +777,39 @@ for reference (showing every label would turn this feature unreadable due
 to overlapping).
 Figure \ref{fig:visualization} shows complete stream visualization charts.
 
-% \begin{figure*}[hbt]
-    % \begin{subfigure}{0.5\linewidth}
-    \begin{figure}
-        \centering
-        \includegraphics[width=\linewidth]{experiments/revised-java.log.png}
-        \caption{Reference Implementation}
-        \label{fig:validation-sub-java}
-    % \end{subfigure}
-    \end{figure}
-    % \begin{subfigure}{0.5\linewidth}
-    \begin{figure}
-        \centering
-        \includegraphics[width=\linewidth]{experiments/online-nd.log.png}
-        \caption{Serial Implementation}
-        \label{fig:validation-sub-serial}
-    % \end{subfigure}
-    \end{figure}
+\begin{figure}[htb]
+  \centering
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{experiments/revised-java.log.png}
+    % \caption{Reference Implementation}
+    \legend{Reference Implementation}
+    \label{fig:validation-sub-java}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{experiments/online-nd.log.png}
+    \caption{Serial Implementation}
+    \label{fig:validation-sub-serial}
+  \end{minipage}
   \vspace{5mm}
-    % \begin{subfigure}{0.5\linewidth}
-    \begin{figure}
-      \centering
-      \includegraphics[width=\linewidth]{experiments/tmi-base.log.png}
-      \caption{Parallel single-node}
-      \label{fig:cluster-sub-single}
-    % \end{subfigure}
-    \end{figure}
-    % \begin{subfigure}{0.5\linewidth}
-    \begin{figure}
-      \centering
-      \includegraphics[width=\linewidth]{experiments/tmi-n12.log.png}
-      \caption{Parallel multi-node}
-      \label{fig:cluster-sub-multi}
-    % \end{subfigure}
-    \end{figure}
-  % \caption{Validation Comparison: Stream hits and novelties visualization}
-  % \label{fig:validation-java-serial}
-%   \caption{Stream hits and novelties visualization}
-%   \label{fig:visualization}
-% \end{figure*}
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{experiments/tmi-base.log.png}
+    \caption{Parallel single-node}
+    \label{fig:cluster-sub-single}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{experiments/tmi-n12.log.png}
+    \caption{Parallel multi-node}
+    \label{fig:cluster-sub-multi}
+  \end{minipage}
+  \caption{Stream hits and novelties visualization}
+  \label{fig:visualization}
+\end{figure}
 
 \subsubsection{Discussion}
 
@@ -994,7 +891,6 @@ the \emph{system} increases gradually while \emph{user} decreases at the same ra
 We interpret this behavior as a display of potential for gains using a better
 load balancing than our choice of round-robin such as micro-batching for better
 compute-to-communication ratio (CCR).
-% legal!
 In general, Figure \ref{fig:speedup} shows no speedup but also no penalty for
 scaling to more than $4$ instances.
 
@@ -1018,7 +914,7 @@ Comparing \emph{c} and \emph{d} the difference is even smaller,
 (figs. \ref{fig:validation-sub-serial} and \ref{fig:cluster-sub-single})
 as they both suffer the expected delay in the feedback loop.
 
-\subsection{Conclusion} 
+\subsection{Conclusion}
 \label{sec:conclusion}
 
 Data Stream Novelty Detection (\nd) can be a useful mechanism for Network
@@ -1051,7 +947,9 @@ algorithms in \minas and analysis of varying load balancing strategies.
 
 \subsection*{Acknowledgment}
 
-This study was financed in part by the Coordenação de Aperfeiçoamento de Pessoal de
-Nível Superior - Brasil (CAPES) - Finance Code 001,
-and Programa Institucional de Internacionalização – CAPES-PrInt UFSCar (Contract 88887.373234/2019-00). 
-Authors also thank Stic AMSUD (project 20-STIC-09), FAPESP (contract numbers  2018/22979-2, and 2015/24461-2) and CNPq (Contract 167345/2018-4) for their support.
+This study was financed in part by the Coordenação de Aperfeiçoamento de Pessoal
+de Nível Superior - Brasil (CAPES) - Finance Code 001, and Programa
+Institucional de Internacionalização – CAPES-PrInt UFSCar (Contract
+88887.373234/2019-00). Authors also thank Stic AMSUD (project 20-STIC-09),
+FAPESP (contract numbers 2018/22979-2, and 2015/24461-2) and CNPq (Contract
+167345/2018-4) for their support.

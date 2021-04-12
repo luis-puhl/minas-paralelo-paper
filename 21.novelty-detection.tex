@@ -1,4 +1,4 @@
-\clearpage
+% \clearpage
 
 \section{Detecção de Novidade}\label{sec:nd}
 
@@ -98,7 +98,7 @@ exemplos não explicados pelo modelo marcados como desconhecidos
 
 Um algoritmo de \nd que tem recebido atenção nos últimos anos é o algoritmo
 MINAS, originalmente proposto por \citeonline{Faria2013}, refinado por
-\citeonline{Faria2016minas} e recentemente aprimorado por
+\citeonline{Faria2015minas} e recentemente aprimorado por
 \citeonline{DaSilva2018thesis}, com o uso de conceitos \emph{Fuzzy}, e expandido por
 \citeonline{Costa2019thesis}, para tratar problemas multi-rótulo além dos problemas
 multi-classe já tratados na versão original.
@@ -112,7 +112,7 @@ usa por base algoritmos de agrupamento não supervisionados como \emph{K-means} 
 % \centering
 % \includegraphics[width=1\textwidth]{figuras/FariaMinas2015-fases.png}
 % \caption{Visão geral do algoritmo MINAS com fases \emph{Offline} (a) e 
-% \emph{Online} (b) \cite{Faria2016minas}}
+% \emph{Online} (b) \cite{Faria2015minas}}
 % \label{fig:minas}
 % \end{figure}
 
@@ -153,7 +153,7 @@ o raio do \mcluster, o exemplo é classificado com a etiqueta do \mcluster
 e o sumário estatístico do \mcluster é atualizado.
 Caso a distância (mínima no modelo) seja maior que o raio,
 o exemplo é marcado como desconhecido e armazenado
-em conjunto próprio \cite{Faria2014,Faria2016minas}.
+em conjunto próprio \cite{Faria2014,Faria2015minas}.
 
 O segundo método da fase \emph{Online} é a detecção de padrões novidade,
 que é executada quando o tamanho do conjunto de desconhecidos é maior
@@ -162,36 +162,131 @@ Esse método executa o agrupamento (\emph{clustering} descrito na fase
 \emph{Offline}) e valida os \mclusters gerados verificando sua representatividade
 e coesão.
 
-\begin{algorithm}[ht]
-  \caption{MINAS \cite{Faria2016minas,Cassales2019a}}
-  \label{alg:MINAS}
-  \renewcommand{\algorithmicrequire}{\textbf{Entrada:}}
-  \begin{algorithmic}[1]
-    %T = limiar de distância para pertencer ao grupo
-    %P = tempo de "inatividade" para passar para memória sleep
-    %ts = limiar para remoção de exemplos da memória temporária
-    \REQUIRE $Modelo,FCD,T,NumMinExemplos,ts,P$
-    \STATE $MemTmp \leftarrow \emptyset$
-    \STATE $MemSleep \leftarrow \emptyset$
-    \FORALL{$exemplo \in FCD$}
-    \STATE $(Dist,micro) \leftarrow$ micro-mais-proximo($exemplo,Modelo$)
-    \IF{$Dist < $ raio($micro$)}
-    \STATE $exemplo.classe \leftarrow micro.rotulo$
-    \STATE atualizar-micro($micro,exemplo$)
-    \ELSE
-    \STATE $exemplo.classe \leftarrow desconhecido$
-    \STATE $MemTmp \leftarrow MemTmp \cup exemplo$
-    \IF{$|MemTmp| \geq NumMinExemplos$}
-    \STATE $Modelo \leftarrow $ deteccao-novidade($Modelo,MemTmp,T$)
-    \ENDIF
-    \ENDIF
-    \STATE $TempoAtual \leftarrow exemplo.T$
-    \IF{$TempoAtual$ mod $TamJanela == 0$}
-    \STATE $Modelo \leftarrow$ mover-micro-grupos-mem-sleep($Modelo,MemSleep,P$)
-    \STATE $MemTmp \leftarrow$ remover-exemplos-antigos($MemTmp,ts$)
-    \ENDIF
-    \ENDFOR
-  \end{algorithmic}
+\subsection{MINAS}
+\label{sec:minas}
+
+\minas \cite{Faria2013Minas,Faria2015minas} is an offline-online \nd algorithm,
+meaning it has two distinct phases. The first phase (offline) creates an initial
+model set with several clusters based on a clustering algorithm with a training
+set.
+Each cluster can be associated with only one class of the problem, but each
+class can have many clusters.
+
+During its online phase, which is the main focus of our work, \minas performs
+three tasks in (near) real-time,
+in summary,
+classification, novelty detection, and model update tasks
+in a potentially infinite data stream, as shown in Algorithm \ref{alg:minas-main}.
+
+\minas attempts to classify each incoming unlabeled instance according to the
+current decision model. Instances not explained by the current model
+receive an \textit{unknown} label and are stored in an unknowns-buffer.
+When the unknowns-buffer reaches a preset threshold, \minas executes the
+Novelty Detection function.
+After a set interval, samples in the unknowns-buffer are considered to be
+noise or outliers and removed.
+The algorithm also has a mechanism to forget clusters that became obsolete and
+unrepresentative of the current data stream distribution, removing them from
+the Model and storing in a Sleep Model for possible recurring pattern
+detection \cite{Faria2015minas}.
+
+\begin{algorithm}[htb]
+    % \DontPrintSemicolon
+    \SetKwFunction{nearestCluster}{nearestCluster}
+    \SetKwFunction{clustering}{clustering}
+    \SetKwFunction{NoveltyDetection}{NoveltyDetection}
+    \SetKwFunction{handleModelSleep}{moveToSleep}
+    \SetKwFunction{removeOldSamples}{removeOldSamples}
+    % 
+    \SetKwProg{Function}{Function}{:}{}
+    \SetKwFor{With}{with}{}{}
+    \SetKw{continue}{continue}
+    % 
+    \KwIn{ModelSet, inputStream}
+    \KwOut{outputStream}
+    % 
+    \SetKwData{cleaningWindow}{cleaningWindow}
+    \SetKwData{noveltyDetectionTrigger}{noveltyDetectionTrigger}
+    \SetKwInOut{KwParams}{Parameters}
+    \KwParams{\cleaningWindow, \noveltyDetectionTrigger}
+    % \KwSty{Parameters}: \cleaningWindow, \noveltyDetectionTrigger\\
+    % 
+    \SetKwFunction{MinasOnline}{MinasOnline}
+    \Function{\MinasOnline{ModelSet, inputStream}}{
+        UnkownSet $\leftarrow$ $\emptyset$, ModelSleepSet $\leftarrow$ $\emptyset$ \;
+        lastCleanup $\leftarrow 0$ , noveltyIndex $\leftarrow 0$\;
+        % sampleIn $\leftarrow 0$\;
+        \ForEach{ {$sample_{i}$} $\in$ inputStream }{
+            % sample.label $\leftarrow$ unknown\;
+            % (distance, cluster) $\leftarrow$ \nearestCluster(sample, ModelSet)\;
+            nearest $\leftarrow$ \nearestCluster(sample, ModelSet)\;
+            \eIf{nearest.distance $<$ nearest.cluster.radius}{
+                sample.label $\leftarrow$ nearest.cluster.label\;
+                nearest.cluster.lastUsed $ \leftarrow i $ \;
+            }
+            {
+                sample.label $\leftarrow$ unknown\;
+                UnkownSet $\leftarrow$ UnkownSet $\cup$ sample\;
+                \If{$|\;UnkownSet\;| \geq$ \noveltyDetectionTrigger}{
+                    % \tcc{Novelty Detection}
+                    novelties $\leftarrow$ \NoveltyDetection(ModelSet $\cup$ ModelSleepSet, *UnkownSet)\;
+                    ModelSet $\leftarrow$ ModelSet $\cup$ novelties\;
+                }
+                \If{ $ i > $ ( lastCleanup $ + $ \cleaningWindow )}{
+                    ModelSet $\leftarrow$ \handleModelSleep(ModelSet, *ModelSleepSet, lastCleanup)\;
+                    UnkownSet $\leftarrow$ \removeOldSamples(UnkownSet, lastCleanup)\;
+                    lastCleanup $ \leftarrow i $\;
+                }
+            }
+            outputStream.append(sample)\;
+        }
+    }
+\caption{Our interpretation of \minas baseado em \cite{Faria2015minas}}
+\label{alg:minas-main}
+\end{algorithm}
+
+The Novelty Detection function, illustrated in Algorithm \ref{alg:MINAS-nd},
+groups the instances to form new clusters, and each new cluster is validated to
+discard the non-cohesive or unrepresentative ones.
+Valid clusters are analyzed to decide if they represent an extension of a
+known pattern or a completely new pattern. In both cases, the model absorbs the
+valid clusters and starts using them to classify new instances.
+
+\begin{algorithm}[htb]
+    \SetKwProg{Function}{Function}{:}{}
+    \SetKwData{minExamplesPerCluster}{minExamplesPerCluster}
+    \SetKwData{noveltyFactor}{noveltyFactor}
+    \SetKwInOut{KwParams}{Parameters}
+    \KwParams{\minExamplesPerCluster, \noveltyFactor}
+    % 
+    \SetKwFunction{nearestCluster}{nearestCluster}
+    \SetKwFunction{clustering}{clustering}
+    \SetKwFunction{NoveltyDetection}{NoveltyDetection}
+    \SetKwFunction{handleModelSleep}{moveToSleep}
+    \SetKwFunction{removeOldSamples}{removeOldSamples}
+    % 
+    \Function{\NoveltyDetection{Model, Unknowns}}{
+        newModelSet $\leftarrow$ $\emptyset$\;
+        \ForEach{cl in \clustering(Unknowns)}{
+            \If{$|\;cl.sampleSet\;| \geq$ \minExamplesPerCluster}{
+                (distance, near) $\leftarrow$ \nearestCluster(cl, Model)\;
+                \eIf{distance $<$ near.radius $\times$ \noveltyFactor}{
+                    cl.label $\leftarrow$ near.label\;
+                    cl.type $\leftarrow$ extension\;
+                }{
+                    cl.label $\leftarrow$ noveltyIndex\;
+                    noveltyIndex $\leftarrow$ noveltyIndex $+ 1$\;
+                    cl.type $\leftarrow$ novelty\;
+                }
+                Unknowns $\leftarrow$ Unknowns $-$ cl.sampleSet\;
+                \label{alg:MINAS-nd:reclassify}
+                newModelSet $\leftarrow$ newModelSet $\cup$ cl\;
+            }
+        }
+        \Return{newModelSet}\;
+    }
+    \caption{\minas \cite{Faria2015minas} Novelty Detection task.}
+    \label{alg:MINAS-nd}
 \end{algorithm}
 
 Para atribuição de etiquetas aos \mclusters gerados, o algoritmo MINAS
@@ -268,7 +363,7 @@ exemplos e detecta
 novidades em DS e considera em sua composição \emph{concept drift} e
 \emph{concept evolution}, sendo capaz de classificar como extensão de classe
 conhecida e identificar padrões novidade sem intervenção de especialista
-\cite{Faria2016minas}.
+\cite{Faria2015minas}.
 Neste trabalho, consideram-se algoritmos derivados do algoritmo MINAS
 aqueles apresentados em trabalhos publicados após 2016, que estendem a
 implementação original seguindo sua estrutura básica.
@@ -295,7 +390,7 @@ e por comparação com o MINAS.
 O método de avaliação utilizado baseia-se na matriz de confusão incremental
 descrita por \citeonline{Faria2016nd}, extraindo dessa matriz duas métricas:
 acurácia (\emph{Macro F-Score}) \cite{Sokolova2009} e
-taxa de desconhecidos (\emph{UnkR}) \cite{Faria2016minas}.
+taxa de desconhecidos (\emph{UnkR}) \cite{Faria2015minas}.
 Em geral, o algoritmo FuzzyND detecta melhor novidades e, consequentemente,
 é mais robusto a valores atípicos (\emph{outlier}), porém perde a capacidade
 de reconhecer padrões recorrentes.

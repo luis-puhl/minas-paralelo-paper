@@ -1,0 +1,43 @@
+\documentclass[a4paper]{report}
+
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{xspace}
+% \usepackage{cite}
+\usepackage{bookmark}
+\usepackage{mathtools,amsmath,amssymb,amsfonts,mathrsfs,amsthm}
+\usepackage[noalgohanging,lined,noend,linesnumbered]{algorithm2e}
+% \SetAlCapSkip{1.5ex}
+\SetAlFnt{\small}
+\setlength{\algomargin}{0.5em}
+\SetInd{.1em}{.5em}
+\usepackage[inline]{enumitem}
+\usepackage{textcomp}
+\usepackage{graphicx,tabularx,placeins,multirow}
+\usepackage{xcolor}
+\usepackage{soul}
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+\hypersetup{colorlinks=true, allcolors=black}
+\usepackage{subcaption}
+\usepackage[colorinlistoftodos,prependcaption]{todonotes}
+% \usepackage{lscape}
+% \captionsetup{belowskip=0.2ex,aboveskip=0.01ex}
+% \captionsetup{aboveskip=0.1mm}
+% \captionsetup{belowskip=0.1mm}
+
+\begin{document}
+
+\input{01.abstract.tex}
+
+\input{10.introducao.tex}
+\input{20.fundamentos.tex}
+\input{30.trabalhos-relacionados.tex}
+\input{40.proposta.tex}
+\input{50.iccsa.tex}
+\input{60.concusao.tex}
+% \input{98.quali.tex}
+
+\bibliographystyle{lib/abntex2-alf}
+\bibliography{99.referencias}
+
+\end{document}

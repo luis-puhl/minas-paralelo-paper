@@ -1,6 +1,16 @@
 % !TeX root = ./00.main.tex
 
-\setlength{\absparsep}{18pt} % ajusta o espaçamento dos parágrafos do resumo
+\@ifundefined{resumo}{%
+    \newenvironment{resumo}%
+  {\ttfamily}%
+  {}
+    % {\begin{abstract}
+    % {\end{abstract}
+}{}
+
+% ajusta o espaçamento dos parágrafos do resumo}
+\@ifundefined{absparsep}{\setlength{\absparsep}{18pt}}
+
 \begin{resumo}
 
     Em um cenário de crescente número de dispositivos na Internet das Coisas
@@ -14,7 +24,7 @@
     informação, onde são necessárias ferramentas de detecção de intrusão em
     redes que operem em ambientes de computação em névoa, devido aos custos de
     comunicação associados a operar estas ferramentas 
-    \notahl{?}
+    % \notahl{?}
     % \hlhl{
         somente em ambiente de nuvem
     % }

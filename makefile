@@ -6,4 +6,8 @@
 	pdflatex -synctex=1 -interaction=nonstopmode -file-line-error 00.main.tex
 	pdflatex -synctex=1 -interaction=nonstopmode -file-line-error 00.main.tex
 
-
+00.report.pdf: *.tex *.bib
+	pdflatex -synctex=1 -interaction=nonstopmode -file-line-error 00.report.tex
+	bibtex 00.report.tex
+	pdflatex -synctex=1 -interaction=nonstopmode -file-line-error 00.report.tex
+	pdflatex -synctex=1 -interaction=nonstopmode -file-line-error 00.report.tex
