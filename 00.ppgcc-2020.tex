@@ -37,7 +37,26 @@
 \usepackage{algorithmic}
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{xspace}
 % ---
+
+\newcommand{\palavraschave}[1]{\noindent\textbf{Palavras-chaves}: #1}
+\newcommand{\keywords}[1]{\noindent\textbf{Keywords}: #1}
+% \newcommand{\acronym}[2]{}
+
+% \newcommand{\nota}[1]{}\newcommand{\hl}[1]{}
+\newcommand{\notahl}[1]{}\newcommand{\hlhl}[1]{}
+\newcommand{\notafa}[1]{}\newcommand{\hlfa}[1]{}
+% \newcommand{acronym}[3]{\acro{#1}[#2]{#3}}
+
+\newcommand{\refcap}[1]{Capítulo \ref{cha:#1}\xspace}
+\newcommand{\Section}{Seção\xspace}
+\newcommand{\refsec}[1]{Seção \ref{sec:#1}\xspace}
+\newcommand{\reffig}[1]{Figura \ref{fig:#1}\xspace}
+\newcommand{\refequ}[1]{Equação \ref{eq:#1}\xspace}
+
+\newtheorem{definition}{Definição}
+\newenvironment{resumocap}{\par\medskip\noindent\rmfamily}{\medskip}
 
 % Informações de dados para CAPA e FOLHA DE ROSTO
 % ---

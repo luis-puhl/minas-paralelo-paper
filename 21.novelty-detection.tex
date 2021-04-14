@@ -223,60 +223,60 @@ detection \cite{Faria2015minas}.
 \end{algorithm}
 
 
-\begin{algorithm}[htb]
-    % \DontPrintSemicolon
-    \SetKwFunction{nearestCluster}{nearestCluster}
-    \SetKwFunction{clustering}{clustering}
-    \SetKwFunction{NoveltyDetection}{NoveltyDetection}
-    \SetKwFunction{handleModelSleep}{moveToSleep}
-    \SetKwFunction{removeOldSamples}{removeOldSamples}
-    % 
-    \SetKwProg{Function}{Function}{:}{}
-    \SetKwFor{With}{with}{}{}
-    \SetKw{continue}{continue}
-    % 
-    \KwIn{ModelSet, inputStream}
-    \KwOut{outputStream}
-    % 
-    \SetKwData{cleaningWindow}{cleaningWindow}
-    \SetKwData{noveltyDetectionTrigger}{noveltyDetectionTrigger}
-    \SetKwInOut{KwParams}{Parameters}
-    \KwParams{\cleaningWindow, \noveltyDetectionTrigger}
-    % \KwSty{Parameters}: \cleaningWindow, \noveltyDetectionTrigger\\
-    % 
-    \SetKwFunction{MinasOnline}{MinasOnline}
-    \Function{\MinasOnline{ModelSet, inputStream}}{
-        UnkownSet $\leftarrow$ $\emptyset$, ModelSleepSet $\leftarrow$ $\emptyset$ \;
-        lastCleanup $\leftarrow 0$ , noveltyIndex $\leftarrow 0$\;
-        % sampleIn $\leftarrow 0$\;
-        \ForEach{ {$sample_{i}$} $\in$ inputStream }{
-            % sample.label $\leftarrow$ unknown\;
-            % (distance, cluster) $\leftarrow$ \nearestCluster(sample, ModelSet)\;
-            nearest $\leftarrow$ \nearestCluster(sample, ModelSet)\;
-            \eIf{nearest.distance $<$ nearest.cluster.radius}{
-                sample.label $\leftarrow$ nearest.cluster.label\;
-                nearest.cluster.lastUsed $ \leftarrow i $ \;
-            }
-            {
-                sample.label $\leftarrow$ unknown\;
-                UnkownSet $\leftarrow$ UnkownSet $\cup$ sample\;
-                \If{$|\;UnkownSet\;| \geq$ \noveltyDetectionTrigger}{
-                    % \tcc{Novelty Detection}
-                    novelties $\leftarrow$ \NoveltyDetection(ModelSet $\cup$ ModelSleepSet, *UnkownSet)\;
-                    ModelSet $\leftarrow$ ModelSet $\cup$ novelties\;
-                }
-                \If{ $ i > $ ( lastCleanup $ + $ \cleaningWindow )}{
-                    ModelSet $\leftarrow$ \handleModelSleep(ModelSet, *ModelSleepSet, lastCleanup)\;
-                    UnkownSet $\leftarrow$ \removeOldSamples(UnkownSet, lastCleanup)\;
-                    lastCleanup $ \leftarrow i $\;
-                }
-            }
-            outputStream.append(sample)\;
-        }
-    }
-\caption{Our interpretation of \minas baseado em \cite{Faria2015minas}}
-\label{alg:minas-main}
-\end{algorithm}
+% \begin{algorithm}[htb]
+%     % \DontPrintSemicolon
+%     \SetKwFunction{nearestCluster}{nearestCluster}
+%     \SetKwFunction{clustering}{clustering}
+%     \SetKwFunction{NoveltyDetection}{NoveltyDetection}
+%     \SetKwFunction{handleModelSleep}{moveToSleep}
+%     \SetKwFunction{removeOldSamples}{removeOldSamples}
+%     % 
+%     \SetKwProg{Function}{Function}{:}{}
+%     \SetKwFor{With}{with}{}{}
+%     \SetKw{continue}{continue}
+%     % 
+%     \KwIn{ModelSet, inputStream}
+%     \KwOut{outputStream}
+%     % 
+%     \SetKwData{cleaningWindow}{cleaningWindow}
+%     \SetKwData{noveltyDetectionTrigger}{noveltyDetectionTrigger}
+%     \SetKwInOut{KwParams}{Parameters}
+%     \KwParams{\cleaningWindow, \noveltyDetectionTrigger}
+%     % \KwSty{Parameters}: \cleaningWindow, \noveltyDetectionTrigger\\
+%     % 
+%     \SetKwFunction{MinasOnline}{MinasOnline}
+%     \Function{\MinasOnline{ModelSet, inputStream}}{
+%         UnkownSet $\leftarrow$ $\emptyset$, ModelSleepSet $\leftarrow$ $\emptyset$ \;
+%         lastCleanup $\leftarrow 0$ , noveltyIndex $\leftarrow 0$\;
+%         % sampleIn $\leftarrow 0$\;
+%         \ForEach{ {$sample_{i}$} $\in$ inputStream }{
+%             % sample.label $\leftarrow$ unknown\;
+%             % (distance, cluster) $\leftarrow$ \nearestCluster(sample, ModelSet)\;
+%             nearest $\leftarrow$ \nearestCluster(sample, ModelSet)\;
+%             \eIf{nearest.distance $<$ nearest.cluster.radius}{
+%                 sample.label $\leftarrow$ nearest.cluster.label\;
+%                 nearest.cluster.lastUsed $ \leftarrow i $ \;
+%             }
+%             {
+%                 sample.label $\leftarrow$ unknown\;
+%                 UnkownSet $\leftarrow$ UnkownSet $\cup$ sample\;
+%                 \If{$|\;UnkownSet\;| \geq$ \noveltyDetectionTrigger}{
+%                     % \tcc{Novelty Detection}
+%                     novelties $\leftarrow$ \NoveltyDetection(ModelSet $\cup$ ModelSleepSet, *UnkownSet)\;
+%                     ModelSet $\leftarrow$ ModelSet $\cup$ novelties\;
+%                 }
+%                 \If{ $ i > $ ( lastCleanup $ + $ \cleaningWindow )}{
+%                     ModelSet $\leftarrow$ \handleModelSleep(ModelSet, *ModelSleepSet, lastCleanup)\;
+%                     UnkownSet $\leftarrow$ \removeOldSamples(UnkownSet, lastCleanup)\;
+%                     lastCleanup $ \leftarrow i $\;
+%                 }
+%             }
+%             outputStream.append(sample)\;
+%         }
+%     }
+% \caption{Our interpretation of \minas baseado em \cite{Faria2015minas}}
+% \label{alg:minas-main}
+% \end{algorithm}
 
 The Novelty Detection function, illustrated in Algorithm \ref{alg:MINAS-nd},
 groups the instances to form new clusters, and each new cluster is validated to
@@ -285,42 +285,42 @@ Valid clusters are analyzed to decide if they represent an extension of a
 known pattern or a completely new pattern. In both cases, the model absorbs the
 valid clusters and starts using them to classify new instances.
 
-\begin{algorithm}[htb]
-    \SetKwProg{Function}{Function}{:}{}
-    \SetKwData{minExamplesPerCluster}{minExamplesPerCluster}
-    \SetKwData{noveltyFactor}{noveltyFactor}
-    \SetKwInOut{KwParams}{Parameters}
-    \KwParams{\minExamplesPerCluster, \noveltyFactor}
-    % 
-    \SetKwFunction{nearestCluster}{nearestCluster}
-    \SetKwFunction{clustering}{clustering}
-    \SetKwFunction{NoveltyDetection}{NoveltyDetection}
-    \SetKwFunction{handleModelSleep}{moveToSleep}
-    \SetKwFunction{removeOldSamples}{removeOldSamples}
-    % 
-    \Function{\NoveltyDetection{Model, Unknowns}}{
-        newModelSet $\leftarrow$ $\emptyset$\;
-        \ForEach{cl in \clustering(Unknowns)}{
-            \If{$|\;cl.sampleSet\;| \geq$ \minExamplesPerCluster}{
-                (distance, near) $\leftarrow$ \nearestCluster(cl, Model)\;
-                \eIf{distance $<$ near.radius $\times$ \noveltyFactor}{
-                    cl.label $\leftarrow$ near.label\;
-                    cl.type $\leftarrow$ extension\;
-                }{
-                    cl.label $\leftarrow$ noveltyIndex\;
-                    noveltyIndex $\leftarrow$ noveltyIndex $+ 1$\;
-                    cl.type $\leftarrow$ novelty\;
-                }
-                Unknowns $\leftarrow$ Unknowns $-$ cl.sampleSet\;
-                \label{alg:MINAS-nd:reclassify}
-                newModelSet $\leftarrow$ newModelSet $\cup$ cl\;
-            }
-        }
-        \Return{newModelSet}\;
-    }
-    \caption{\minas \cite{Faria2015minas} Novelty Detection task.}
-    \label{alg:MINAS-nd}
-\end{algorithm}
+% \begin{algorithm}[htb]
+%     \SetKwProg{Function}{Function}{:}{}
+%     \SetKwData{minExamplesPerCluster}{minExamplesPerCluster}
+%     \SetKwData{noveltyFactor}{noveltyFactor}
+%     \SetKwInOut{KwParams}{Parameters}
+%     \KwParams{\minExamplesPerCluster, \noveltyFactor}
+%     % 
+%     \SetKwFunction{nearestCluster}{nearestCluster}
+%     \SetKwFunction{clustering}{clustering}
+%     \SetKwFunction{NoveltyDetection}{NoveltyDetection}
+%     \SetKwFunction{handleModelSleep}{moveToSleep}
+%     \SetKwFunction{removeOldSamples}{removeOldSamples}
+%     % 
+%     \Function{\NoveltyDetection{Model, Unknowns}}{
+%         newModelSet $\leftarrow$ $\emptyset$\;
+%         \ForEach{cl in \clustering(Unknowns)}{
+%             \If{$|\;cl.sampleSet\;| \geq$ \minExamplesPerCluster}{
+%                 (distance, near) $\leftarrow$ \nearestCluster(cl, Model)\;
+%                 \eIf{distance $<$ near.radius $\times$ \noveltyFactor}{
+%                     cl.label $\leftarrow$ near.label\;
+%                     cl.type $\leftarrow$ extension\;
+%                 }{
+%                     cl.label $\leftarrow$ noveltyIndex\;
+%                     noveltyIndex $\leftarrow$ noveltyIndex $+ 1$\;
+%                     cl.type $\leftarrow$ novelty\;
+%                 }
+%                 Unknowns $\leftarrow$ Unknowns $-$ cl.sampleSet\;
+%                 \label{alg:MINAS-nd:reclassify}
+%                 newModelSet $\leftarrow$ newModelSet $\cup$ cl\;
+%             }
+%         }
+%         \Return{newModelSet}\;
+%     }
+%     \caption{\minas \cite{Faria2015minas} Novelty Detection task.}
+%     \label{alg:MINAS-nd}
+% \end{algorithm}
 
 Para atribuição de etiquetas aos \mclusters gerados, o algoritmo MINAS
 encontra no modelo atual o \mcluster mais próximo pela distância
