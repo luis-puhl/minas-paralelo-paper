@@ -190,6 +190,39 @@ unrepresentative of the current data stream distribution, removing them from
 the Model and storing in a Sleep Model for possible recurring pattern
 detection \cite{Faria2015minas}.
 
+\begin{algorithm}[ht]
+  \caption{MINAS \cite{Faria2016minas,Cassales2019a}}
+  \label{alg:MINAS}
+  \renewcommand{\algorithmicrequire}{\textbf{Entrada:}}
+  \begin{algorithmic}[1]
+    %T = limiar de distância para pertencer ao grupo
+    %P = tempo de "inatividade" para passar para memória sleep
+    %ts = limiar para remoção de exemplos da memória temporária
+    \REQUIRE $Modelo,FCD,T,NumMinExemplos,ts,P$
+    \STATE $MemTmp \leftarrow \emptyset$
+    \STATE $MemSleep \leftarrow \emptyset$
+    \FORALL{$exemplo \in FCD$}
+    \STATE $(Dist,micro) \leftarrow$ micro-mais-proximo($exemplo,Modelo$)
+    \IF{$Dist < $ raio($micro$)}
+    \STATE $exemplo.classe \leftarrow micro.rotulo$
+    \STATE atualizar-micro($micro,exemplo$)
+    \ELSE
+    \STATE $exemplo.classe \leftarrow desconhecido$
+    \STATE $MemTmp \leftarrow MemTmp \cup exemplo$
+    \IF{$|MemTmp| \geq NumMinExemplos$}
+    \STATE $Modelo \leftarrow $ deteccao-novidade($Modelo,MemTmp,T$)
+    \ENDIF
+    \ENDIF
+    \STATE $TempoAtual \leftarrow exemplo.T$
+    \IF{$TempoAtual$ mod $TamJanela == 0$}
+    \STATE $Modelo \leftarrow$ mover-micro-grupos-mem-sleep($Modelo,MemSleep,P$)
+    \STATE $MemTmp \leftarrow$ remover-exemplos-antigos($MemTmp,ts$)
+    \ENDIF
+    \ENDFOR
+  \end{algorithmic}
+\end{algorithm}
+
+
 \begin{algorithm}[htb]
     % \DontPrintSemicolon
     \SetKwFunction{nearestCluster}{nearestCluster}
