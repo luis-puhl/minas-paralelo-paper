@@ -142,7 +142,7 @@ são arranjados em um único conjunto formando o modelo de decisão.
 
 Na fase \emph{Online}, listada no Algoritmo \ref{alg:MINAS}, o algoritmo MINAS
 opera com três operações: classificação de novos exemplos, detecção de 
-padrões-novidade e atualização do modelo de decisão \cite{Faria2014}.
+padrões-novidade e atualização do modelo de decisão \cite{Faria2015minas}.
 O primeiro método é o de classificação, onde exemplos do fluxo de dados
 são consumidos e avaliados pelo modelo de decisão.
 O modelo de decisão avalia cada exemplo calculando a distância euclidiana
@@ -153,7 +153,7 @@ o raio do \mcluster, o exemplo é classificado com a etiqueta do \mcluster
 e o sumário estatístico do \mcluster é atualizado.
 Caso a distância (mínima no modelo) seja maior que o raio,
 o exemplo é marcado como desconhecido e armazenado
-em conjunto próprio \cite{Faria2014,Faria2015minas}.
+em conjunto próprio \cite{Faria2015minas}.
 
 O segundo método da fase \emph{Online} é a detecção de padrões novidade,
 que é executada quando o tamanho do conjunto de desconhecidos é maior

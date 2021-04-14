@@ -3,7 +3,7 @@
 \usepackage[brazil]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{xspace}
-% \usepackage{cite}
+\usepackage{cite}
 \usepackage{bookmark}
 \usepackage{mathtools,amsmath,amssymb,amsfonts,mathrsfs,amsthm}
 \usepackage[noalgohanging,lined,noend,linesnumbered]{algorithm2e}
@@ -24,8 +24,32 @@
 % \captionsetup{belowskip=0.2ex,aboveskip=0.01ex}
 % \captionsetup{aboveskip=0.1mm}
 % \captionsetup{belowskip=0.1mm}
+% \usepackage[printonlyused,withpage]{acronym}
+\usepackage[acronym,toc]{glossaries}
+
+% \newcommand{\nota}[1]{}\newcommand{\hl}[1]{}
+\newcommand{\notahl}[1]{}\newcommand{\hlhl}[1]{}
+\newcommand{\notafa}[1]{}\newcommand{\hlfa}[1]{}
+% \newcommand{acronym}[3]{\acro{#1}[#2]{#3}}
+
+\newcommand{\palavraschave}[1]{\noindent\textbf{P'alavras-chaves}: #1}
+\newcommand{\keywords}[1]{\noindent\textbf{Keywords}: #1}
+\newcommand{\acronym}[2]{}
+
+\newcommand{\refcap}[1]{Capítulo \ref{cha:#1}\xspace}
+\newcommand{\Section}{Seção\xspace}
+\newcommand{\refsec}[1]{Seção \ref{sec:#1}\xspace}
+\newcommand{\reffig}[1]{Figura \ref{fig:#1}\xspace}
+\newcommand{\refequ}[1]{Equação \ref{eq:#1}\xspace}
+
+\title{Uma Implementação distribuída em Névoa do algoritmo de Detecção de 
+Novidade em Fluxos de Dados MINAS}
+\author{Luís Henrique Puhl de Souza}
+\date{\today}
 
 \begin{document}
+
+\maketitle
 
 \input{01.abstract.tex}
 
@@ -37,7 +61,8 @@
 \input{60.concusao.tex}
 % \input{98.quali.tex}
 
-\bibliographystyle{lib/abntex2-alf}
+% \bibliographystyle{lib/abntex2-alf}
+\bibliographystyle{apalike}
 \bibliography{99.referencias}
 
 \end{document}
