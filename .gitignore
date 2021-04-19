@@ -21,6 +21,7 @@
 *.vrb
 *.tdo
 *.nlo
+*.ind
 
 # resultantes, adicionar com -f
 # *.pdf

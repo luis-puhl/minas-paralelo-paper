@@ -3,6 +3,9 @@
 %% Copyright 2013 by Athila e Monaro
 %% Desenvolvido para EESC-USP
 
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{naturalnames}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
 % ------------------------------------------------------------------------
 % Opções:
 % 	tesedr:     Formata documento para tese de doutorado
@@ -10,33 +13,34 @@
 % 	dissertmst: Formata documento para dissertação de mestrado
 % 	qualimst:   Formata documento para qualificação de mestrado
 % ------------------------------------------------------------------------
-\documentclass[dissertmst]{lib/ufscar}
+% \documentclass[dissertmst]{lib/ufscar}
+% 105 -> 75 errors
+\documentclass[dissertmst]{ufscar}
 % \documentclass[openany,twoside]{abntex2}
 
 % PACOTES
+% \usepackage[T1]{fontenc}
+% \usepackage[utf8]{inputenc}
+\usepackage{lmodern}
 \usepackage[brazil]{babel}
-\usepackage[utf8]{inputenc}
-
-% Pacotes fundamentais
-\usepackage{cmap}				% Mapear caracteres especiais no PDF
-\usepackage{lmodern}				% Usa a fonte Latin Modern
-\usepackage{makeidx}            	% Cria o indice
-\usepackage{hyperref}  			% Controla a formação do índice
-\usepackage{lastpage}			% Usado pela Ficha catalográfica
-\usepackage{indentfirst}			% Indenta o primeiro parágrafo de cada seção.
-\usepackage{nomencl} 			% Lista de simbolos
-\usepackage{graphicx}			% Inclusão de gráficos
-% ---
+% \usepackage{cmap}% Mapear caracteres especiais no PDF
+\usepackage{makeidx}% Cria o indice
+\usepackage{hyperref}% Controla a formação do índice
+\usepackage{lastpage}% Usado pela Ficha catalográfica
+\usepackage{indentfirst}% Indenta o primeiro parágrafo de cada seção.
+\usepackage{nomencl}% Lista de simbolos
+\usepackage{graphicx}% Inclusão de gráficos
 
 % Pacotes adicionais
 \usepackage{lipsum}				       % para geração de dummy text
 \usepackage[printonlyused]{acronym}
 \usepackage[table]{xcolor}
+% ---
 \usepackage{mathtools,amsmath,amssymb,amsfonts,mathrsfs,amsthm}
-% \usepackage[noalgohanging,lined,noend,linesnumbered]{algorithm2e}
-\usepackage{algorithmic}
+\usepackage[noalgohanging,lined,noend,linesnumbered]{algorithm2e}
+% \usepackage{algorithmic}
 \usepackage{caption}
-\usepackage{subcaption}
+% \usepackage{subcaption}
 \usepackage{xspace}
 % ---
 
@@ -88,174 +92,178 @@ Novidade em Fluxos de Dados MINAS}{
 % \coorientador{Nome completo do coorientador}
 % ---
 
-% ---
+% \newcommand{\@tipotrabalho}{Dissertação}
+% \newcommand{\@worktype}{Master Thesis}
+% \newcommand{\@nivelPos}{Mestre}
+% \newcommand{\@niveltrabalho}{dissertação}
+% \def\@tipotrabalho{Dissertação}
+% \def\@worktype{Master Thesis}
+% \def\@nivelPos{Mestre}
+% \def\@niveltrabalho{dissertação}
+
+% ----------------------------------------------------------
 % compila o indice
-% ---
 \makeindex
-% ---
-
-% ---
 % Compila a lista de abreviaturas e siglas
-% ---
 \makenomenclature
-% ---
 
-% ----
 % Início do documento
-% ----
-
 \begin{document}
 
 % ----------------------------------------------------------
 % ELEMENTOS PRÉ-TEXTUAIS
-% ----------------------------------------------------------
 \pretextual
-
-% ---
 % Insere Capa, Folha de rosto.
-% ---
 \maketitle
+% Dedicatória
+\imprimirdedicatoria{Este trabalho é dedicado às crianças adultas que,\\
+   quando pequenas, sonharam em se tornar cientistas.}
+% Agradecimentos
+\imprimiragradecimentos{
+   Agradecimentos à Roberto Santos Inoue e Tatiane Cristina da Costa Fernandes da
+   Universidade Federal de São Carlos -- UFSCar que adaptaram a classe desenvolvida
+   por Athila Quaresma Santos e Renato Machado Monaro para o Programa em Engenharia
+   Elétrica da Escola de Engenharia de São Carlos.
 
+   Também agradecemos à Athila Quaresma Santos e
+   Renato Machado Monaro pela adaptação da classe \abnTeX~, bem como à
+   todos aqueles que contribuíram para que a produção de trabalhos acadêmicos
+   conforme as normas ABNT com \LaTeX\ fosse possível.
 
-% % ---
-% % Dedicatória
-% % ---
-% \imprimirdedicatoria{Este trabalho é dedicado às crianças adultas que,\\
-%    quando pequenas, sonharam em se tornar cientistas.}
-% % ---
+   Parte do desenvolvimento deste modelo, especialmente os elementos
+   pré-textuais, foi inspirado no modelo desenvolvido por Samir e modificado por
+   Marcelo Suetake.
 
-% % ---
-% % Agradecimentos
-% % ---
+   Agradecimentos especiais são direcionados aos voluntários do grupo de usuários
+   \emph{latex-br}\footnote{\url{http://groups.google.com/group/latex-br}} e aos
+   novos voluntários do grupo
+   \emph{\abnTeX}\footnote{\url{http://groups.google.com/group/abntex2} e
+   \url{http://abntex2.googlecode.com/}}~que contribuíram e que ainda
+   contribuirão para a evolução do \abnTeX.
+}
+% Epígrafe
+\imprimirepigrafe{
+		``Somos essencialmente profissionais do sentido. Educamos, \\
+		 quando ensinamos com sentido. Educar é impregnar de sentido\\
+		 a vida. A profissão docente está centrada na vida, no bem querer.''\\
+		(Prof. Gilberto Teixeira)
+}
 
-% \imprimiragradecimentos{
-% Agradecimentos à Roberto Santos Inoue e Tatiane Cristina da Costa Fernandes da
-% Universidade Federal de São Carlos -- UFSCar que adaptaram a classe desenvolvida
-% por Athila Quaresma Santos e Renato Machado Monaro para o Programa em Engenharia
-% Elétrica da Escola de Engenharia de São Carlos.
-
-
-% Também agradecemos à Athila Quaresma Santos e
-% Renato Machado Monaro pela adaptação da classe \abnTeX~, bem como à
-% todos aqueles que contribuíram para que a produção de trabalhos acadêmicos
-% conforme as normas ABNT com \LaTeX\ fosse possível.
-
-% Parte do desenvolvimento deste modelo, especialmente os elementos
-% pré-textuais, foi inspirado no modelo desenvolvido por Samir e modificado por
-% Marcelo Suetake.
-
-% Agradecimentos especiais são direcionados aos voluntários do grupo de usuários
-% \emph{latex-br}\footnote{\url{http://groups.google.com/group/latex-br}} e aos
-% novos voluntários do grupo
-% \emph{\abnTeX}\footnote{\url{http://groups.google.com/group/abntex2} e
-% \url{http://abntex2.googlecode.com/}}~que contribuíram e que ainda
-% contribuirão para a evolução do \abnTeX.
-
-% }
-% ---
-
-% % ---
-% % Epígrafe
-% % ---
-% \imprimirepigrafe{
-% 		``Somos essencialmente profissionais do sentido. Educamos, \\
-% 		 quando ensinamos com sentido. Educar é impregnar de sentido\\
-% 		 a vida. A profissão docente está centrada na vida, no bem querer.''\\
-% 		(Prof. Gilberto Teixeira)
-% }
-% % ---
-
-% ---
 % RESUMO e ABSTRACT
-% ---
-\input{01.abstract}
+\begin{resumo}{Detecção de Novidades. Detecção de Intrusão. Fluxos de Dados.
+   Computação Distribuída. Computação em Névoa. Internet das Coisas}
 
-% Resumo em português
-% \begin{resumo}{Latex. Abntex.}
+   Em um cenário de crescente número de dispositivos na Internet das Coisas
+   (IoT), gerando proporcional crescimento no volume dos fluxos de dados
+   gerados, são necessários métodos robustos para a mineração de fluxos
+   contínuos de dados.
+   % 
+   Uma das áreas afetadas pelo crescimento vertiginoso do número de dispositivos
+   e os fluxos associados a eles é a área de segurança da informação, onde são
+   necessárias ferramentas de detecção de intrusão em redes que operem em
+   ambientes de computação em névoa, devido aos custos de comunicação associados
+   a operar estas ferramentas somente em ambiente de nuvem.
+   % 
+   As ferramentas de detecção de intrusão utilizam extensivamente algoritmos de
+   detecção de novidade em fluxos de dados para identificar padrões no tráfego
+   da rede.
+   % 
+   Porém, os algoritmos que tratam adequadamente dos desafios de detecção de
+   novidade em fluxos de dados, como mudança e evolução de conceito e
+   atualização contínua do modelo de classificação sem interferência de
+   especialistas, ainda são pouco utilizados.
+   % 
+   O algoritmo de detecção de novidade em fluxo de dados MINAS tem recebido
+   atenção de pesquisas recentes por tratar desses desafios de detecção de
+   novidade em fluxos de dados.
+   % 
+   No entanto, apesar de sua divisão em três partes semi-independentes, este
+   algoritmo ainda não foi adaptado para processar grandes volumes de fluxos
+   reais em ambiente de computação em névoa.
+   % 
+   O presente trabalho aborda essa lacuna, propondo um sistema
+   que implementa o algoritmo MINAS de maneira distribuída num contexto
+   de detecção de intrusão e computação em névoa.
+   % 
+   Experimentos mostram que o algoritmo MINAS pode ser paralelizado e
+   distribuído utilizando plataformas de processamento de fluxos como
+   \emph{Apache Flink}.
+\end{resumo}
 
-%    Segundo a \citeonline[3.1-3.2]{NBR6028:2003}, o resumo deve ressaltar o
-%    objetivo, o método, os resultados e as conclusões do documento. A ordem e a
-%    extensão destes itens dependem do tipo de resumo (informativo ou indicativo)
-%    e do tratamento que cada item recebe no documento original. O resumo deve ser
-%    precedido da referência do documento, com exceção do resumo inserido no
-%    próprio documento. (\ldots) As palavras-chave devem figurar logo abaixo do
-%    resumo, antecedidas da expressão Palavras-chave:, separadas entre si por
-%    ponto e finalizadas também por ponto.
+% Resumo em inglês
+\begin{abstract}{Novelty Detection. Intrusion Detection. Data Streams.
+   Distributed Computing. Fog Computing. IoT devices}
 
-% \end{resumo}
+   In a scenario of growing number of devices connected to the Internet of Things (IoT)
+   with proportional growth in the volume of data streams generated, robust
+   methods are needed for mining streams continuous data.
+   %%
+   One of the areas affected by the huge growth in the number of devices
+   and the streams associated with them is the information security, which needs
+   network intrusion detection tools that operate
+   in fog computing environments due to the cost of operating such tools
+   in a cloud only environment.
+   %%
+   These tools make extensive use of algorithms for novelty detection in data
+   streams to identify treat patterns in network traffic.
+   However, algorithms in wide use do not
+   adequately address the challenges of novelty detection in data streams,
+   such as concept drift, concept evolution and continuous update of the
+   classification model, without expert interference.
+   %%
+   The MINAS algorithm addresses those novelty detection in data streams
+   challenges and has received recent research attention.
+   %%
+   However, despite its division in three semi-independent parts, MINAS has
+   not yet been adapted to process large volumes of real streams or to operate
+   in a fog computing environment.
+   %%
+   The present work proposes a system that implements the MINAS algorithm
+   in a distributed fog environment in the context of intrusion detection
+   to addresses this gap.
+   %%
+   Preliminary work shows that it is possible to have a distributed
+   version of the MINAS algorithm by using stream processing platforms
+   such as Apache Flink.
+\end{abstract}
 
-% % Resumo em inglês
-% \begin{abstract}{Latex. Abntex}
-% This is the english abstract.
-	
-% \end{abstract}
-% ---
-
-% ---
-% inserir lista de ilustrações
-% ---
 \listailustracoes
-% ---
 
-% ---
-% inserir lista de tabelas
-% ---
 \listatabelas
-% ---
 
-% ---
-% inserir lista de abreviaturas e siglas
-% ---
 \listasiglas{lib/Abreviaturas}
-% ---
 
-% ---
-% inserir o sumario
-% ---
 \sumario
-% ---
 
 % ----------------------------------------------------------
 % ELEMENTOS TEXTUAIS
-% ----------------------------------------------------------
 \mainmatter
 
 % ----------------------------------------------------------
 % Introdução
-% ----------------------------------------------------------
+% \include{ref/modelo_dissertacoes_teses_ppgcc/cap_comandos/abntex2-modelo-include-comandos}
+
 \include{10.introducao}
+% \include{20.fundamentos}
+% \include{30.trabalhos-relacionados}
+% \include{40.proposta}
+% \include{50.iccsa}
+% \include{60.concusao}
+% \include{98.quali}
+
+\chapter{Capítulo genérico}
+
+\lipsum[1]
+
+\section{Seção genérica}
+
+\lipsum[3]
+
+% Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
+\bookmarksetup{startatroot}
 
 % ----------------------------------------------------------
-% Capitulo com exemplos de comandos inseridos de arquivo externo 
-% ----------------------------------------------------------
-\input{20.fundamentos}
-\input{30.trabalhos-relacionados}
-\input{40.proposta}
-\input{50.iccsa}
-\input{60.concusao}
-% \input{98.quali}
-
-% % ---
-% % Capitulo Genérico
-% % ---
-% \chapter{Capítulo genérico}
-
-% % ---
-% \section{Seção genérica}
-% % ---
-
-% \lipsum[1]
-
-% \lipsum[2-3]
-
-% % ---
-% % Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
-% % ---
-% \bookmarksetup{startatroot}% 
-% % ---
-
-% % Conclusão
-% % ---
+% Conclusão
 % \chapter*[Conclusão]{Conclusão}
 % \addcontentsline{toc}{chapter}{Conclusão}
 
@@ -263,50 +271,42 @@ Novidade em Fluxos de Dados MINAS}{
 
 % ----------------------------------------------------------
 % ELEMENTOS PÓS-TEXTUAIS
-% ----------------------------------------------------------
 \postextual
 
 % ----------------------------------------------------------
 % Referências bibliográficas
-% ----------------------------------------------------------
-\bibliography{99.referencias}
+\bibliography{99.referencias.bib}
 
-% Glossário
 % ----------------------------------------------------------
+% Glossário
 %\glossary
 
-% % Apêndices
-% % ----------------------------------------------------------
-% % ---
-% % Inicia os apêndices
-% % ---
-% \begin{apendicesenv}
-% % Imprime uma página indicando o início dos apêndices
-% \partapendices
-% % ----------------------------------------------------------
-% % Incluir Apêndice
-% % ----------------------------------------------------------
-% \chapter{Quisque libero justo}
-% \lipsum[1-5]
+% ----------------------------------------------------------
+% Apêndices
+% ---
+% Inicia os apêndices
+% ---
+\begin{apendicesenv}
+% Imprime uma página indicando o início dos apêndices
+\partapendices
+% ----------------------------------------------------------
+% Incluir Apêndice
+% ----------------------------------------------------------
+\chapter{Quisque libero justo}
+\lipsum[3]
 
-% \end{apendicesenv}
-% % ---
+\end{apendicesenv}
+% ---
 
-% % Anexos
-% % ----------------------------------------------------------
-% % ---
-% % Inicia os anexos
-% % ---
-% \begin{anexosenv}
-% % Imprime uma página indicando o início dos anexos
-% \partanexos
-% % ---
-% % Incluir Anexo
-% % ---
-% \chapter{Morbi ultrices rutrum lorem.}
-% \lipsum[1-25]
-% \section{Test}
-% \lipsum[1-20]
-% \end{anexosenv}
+% ----------------------------------------------------------
+% Anexos
+\begin{anexosenv}
+   % Imprime uma página indicando o início dos anexos
+   \partanexos
+   \chapter{Morbi ultrices rutrum lorem.}
+   \lipsum[3]
+   \section{Test}
+   \lipsum[3]
+\end{anexosenv}
 
 \end{document}
