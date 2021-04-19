@@ -9,16 +9,16 @@ dispositivos (máquinas, objetos físicos ou virtuais, sensores, atuadores e
 pessoas) com capacidade de comunicação pela Internet, sem depender de
 interação com interface humano-computador tradicional.
 % \cite{itu}
-% \notafa{referencia}\hlfa{Outra} \nota{Cassales não referencia também}
+%  \nota{Cassales não referencia também
 Outra característica de dispositivos \iot são os 
-\notahl{?}\hlhl{recursos computacionais dimensionados},
+recursos computacionais dimensionados,
 % por vezes omitindo sistema operacional e outros sistemas,
 para
 propósitos específicos que limitam a capacidade de computar outras funções além
 da função original do dispositivo.
 O número de dispositivos categorizados como IoT na última década teve
 crescimento sem precedentes e, proporcionalmente, cresceu o volume de dados
-\notafa{referencia}\hlfa{gerados por esses dispositivos.}
+gerados por esses dispositivos.
 A análise desses dados pode trazer novos conhecimentos e tem sido um tema frequentemente
 abordado por trabalhos de pesquisa.
 Contudo, além dos dados de sensores e atuadores, esses dispositivos se subvertidos,
@@ -61,11 +61,11 @@ alterações nos padrões de comunicação num serviço de detecção de intrus�
 % \acronym{ND}{\emph{Novelty Detection}, Detecção de Novidade}
 \newcommand{\nd}{ND\xspace}
 
-% \hlke{Técnicas}\notake{parágrafo marcado}
+% Técnicas}\notake{parágrafo marcado
 Técnicas
 de Mineração de Fluxo de Dados (\emph{Data Stream Mining}) envolvem mineração de dados
 (\emph{Data Mining}), 
-% \notafa{eu considero detecção de novidade como data mining ou machine learning :-)}
+% 
 aprendizado de máquina
 (\emph{Machine Learning}) e, dentro destes tópicos, detecção de novidades
 (\emph{Novelty Detection}, \nd).
@@ -73,7 +73,7 @@ aprendizado de máquina
 % incorretos. classificar modelos conhecidos? classificação os dados usando um
 % modelo gerado a partir do comportamento normal.... ND não trata necessariamente
 % concept drift nem concept evolution..... é uma forma de tratar essas questões}
-% \hlfa{\nd, além de classificar em modelos conhecidos}, 
+% \nd, além de classificar em modelos conhecidos, 
 % permite classificar novos padrões
 % já que trata problemas como evolução e mudança de conceito, que são característicos
 % de fluxos contínuos de dados e, consequentemente, permite que ações sejam tomadas corretamente mesmo
@@ -92,12 +92,11 @@ dados de ataques conhecidos.
 Análises como \emph{Data Stream Mining} e \nd
 % \notafa{será que são tradicionalmente implementadas?? acho que não. Eu diria que
 % recentemente elas estão indo nesse caminho.}
-% \hlfa{são} \hlhl{tradicionalmente} implementadas
+% são} \hlhl{tradicionalmente implementadas
 são geralmente implementadas
 sobre o paradigma de computação na nuvem
 (\emph{Cloud Computing}) e, recentemente, sobre paradigmas
-\notahl{O que (referências) reslpalda essa afirmação?}
-como \hlhl{computação em névoa}
+como computação em névoa
 (\emph{Fog Computing}).
 Para \emph{fog}, além dos recursos em \emph{cloud}, são
 explorados os recursos distribuídos pela rede desde o nó remoto até a
@@ -140,7 +139,7 @@ tratar fluxos de dados com grandes volumes e velocidades.
 % \notafa{Por que isso é importante. Acho que convém ressaltar a importancia da sua
 % proposta. O que o MINAS original não trata, em quais cenários ele apresenta um
 % gargalo? como ele está dividido?}
-% \hlfa{O tratamento} de distribuição em ambiente \fog é essencial para aplicação deste
+% O tratamento de distribuição em ambiente \fog é essencial para aplicação deste
 O tratamento de distribuição em ambiente \fog é essencial para aplicação deste
 algoritmo ao problema de detecção de intrusão em redes \iot, pois esta aplicação
 requer tempo de resposta mínimo e mínima comunicação entre nós distantes, como
@@ -204,8 +203,8 @@ Do outro lado da lacuna, tem-se um sistema
 escalável de alto desempenho porém almejando outro ambiente (\emph{cloud}) e
 com um algoritmo menos preparado para os desafios de detecção de 
 novidades.
-% \notafa{cuidado: vc usa frases grandes com pouca virgula}
-% \hlfa{novidades.}
+% 
+% novidades.
 
 % \nota{
 % \\ deixar mais claro o contraste entre cassales e bigflow
@@ -222,7 +221,7 @@ novidades.
 % }
 
 Como estabelecido na \refsec{motivo}, a lacuna no estado da arte observada é
-a \hlhl{ausência de uma} implementação de algoritmo de detecção de
+a ausência de uma implementação de algoritmo de detecção de
 novidades que trate adequadamente os desafios de fluxo de dados contínuos
 (como volume e velocidade do fluxo, evolução e mudança de conceito)
 e considere o ambiente de computação em névoa aplicada à detecção de
@@ -237,8 +236,8 @@ fluxos de grandes volumes e velocidades.
 Portanto, seguindo os trabalhos do Grupo de Sistemas Distribuídos e Redes
 (GSDR) da Universidade Federal de São Carlos (UFSCar), propõem-se a construção
 de uma 
-\notafa{construção de uma aplicação que implemente..... na verdade nao é implementar o minas de forma distribuida?}
-\hlfa{aplicação que implemente} o algoritmo MINAS
+
+aplicação que implemente o algoritmo MINAS
 de maneira escalável e distribuível para ambientes de computação em névoa e a avaliação
 dessa implementação com experimentos baseados na literatura usando conjunto de dados
 públicos relevantes.
@@ -309,7 +308,7 @@ de um processo exploratório seguido de experimentação. Tal processo inclui a
 revisão da literatura, tanto acadêmica quanto técnica, seguida da experimentação
 através de implementação de aplicação e testes.
 
-O foco da \notahl{estão nas referências?}\hlhl{revisão da literatura acadêmica} é em trabalhos que abordem
+O foco da revisão da literatura acadêmica é em trabalhos que abordem
 processamento de fluxos de dados, classificação de fluxo de dados, detecção de
 novidades em fluxo de dados e processamento distribuído de fluxo de dados.
 O objetivo da revisão é o estabelecimento do estado da arte desses assuntos,

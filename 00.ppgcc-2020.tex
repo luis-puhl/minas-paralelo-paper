@@ -44,13 +44,13 @@
 \usepackage{xspace}
 % ---
 
-\newcommand{\palavraschave}[1]{\noindent\textbf{Palavras-chaves}: #1}
-\newcommand{\keywords}[1]{\noindent\textbf{Keywords}: #1}
+% \newcommand{\palavraschave}[1]{\noindent\textbf{Palavras-chaves}: #1}
+% \newcommand{\keywords}[1]{\noindent\textbf{Keywords}: #1}
 % \newcommand{\acronym}[2]{}
 
 % \newcommand{\nota}[1]{}\newcommand{\hl}[1]{}
-\newcommand{\notahl}[1]{}\newcommand{\hlhl}[1]{}
-\newcommand{\notafa}[1]{}\newcommand{\hlfa}[1]{}
+% \newcommand{\notahl}[1]{}\newcommand{\hlhl}[1]{}
+% \newcommand{\notafa}[1]{}\newcommand{\hlfa}[1]{}
 % \newcommand{acronym}[3]{\acro{#1}[#2]{#3}}
 
 \newcommand{\refcap}[1]{Capítulo \ref{cha:#1}\xspace}
@@ -59,8 +59,15 @@
 \newcommand{\reffig}[1]{Figura \ref{fig:#1}\xspace}
 \newcommand{\refequ}[1]{Equação \ref{eq:#1}\xspace}
 
+\newcommand{\mfog}{sistema M-FOG\xspace}
+\newcommand{\flink}{\emph{Apache Flink}\xspace}
+\newcommand{\cluster}{\emph{cluster}\xspace}
+\newcommand{\clusters}{\emph{clusters}\xspace}
+\newcommand{\dataset}{\emph{data set}\xspace}
+\newcommand{\datasets}{\emph{data sets}\xspace}
+
 \newtheorem{definition}{Definição}
-\newenvironment{resumocap}{\par\medskip\noindent\rmfamily}{\medskip}
+% \newenvironment{resumocap}{\par\medskip\noindent\rmfamily}{\medskip}
 
 % Informações de dados para CAPA e FOLHA DE ROSTO
 % ---
@@ -115,39 +122,39 @@ Novidade em Fluxos de Dados MINAS}{
 \pretextual
 % Insere Capa, Folha de rosto.
 \maketitle
-% Dedicatória
-\imprimirdedicatoria{Este trabalho é dedicado às crianças adultas que,\\
-   quando pequenas, sonharam em se tornar cientistas.}
-% Agradecimentos
-\imprimiragradecimentos{
-   Agradecimentos à Roberto Santos Inoue e Tatiane Cristina da Costa Fernandes da
-   Universidade Federal de São Carlos -- UFSCar que adaptaram a classe desenvolvida
-   por Athila Quaresma Santos e Renato Machado Monaro para o Programa em Engenharia
-   Elétrica da Escola de Engenharia de São Carlos.
+% % Dedicatória
+% \imprimirdedicatoria{Este trabalho é dedicado às crianças adultas que,\\
+%    quando pequenas, sonharam em se tornar cientistas.}
+% % Agradecimentos
+% \imprimiragradecimentos{
+%    Agradecimentos à Roberto Santos Inoue e Tatiane Cristina da Costa Fernandes da
+%    Universidade Federal de São Carlos -- UFSCar que adaptaram a classe desenvolvida
+%    por Athila Quaresma Santos e Renato Machado Monaro para o Programa em Engenharia
+%    Elétrica da Escola de Engenharia de São Carlos.
 
-   Também agradecemos à Athila Quaresma Santos e
-   Renato Machado Monaro pela adaptação da classe \abnTeX~, bem como à
-   todos aqueles que contribuíram para que a produção de trabalhos acadêmicos
-   conforme as normas ABNT com \LaTeX\ fosse possível.
+%    Também agradecemos à Athila Quaresma Santos e
+%    Renato Machado Monaro pela adaptação da classe \abnTeX~, bem como à
+%    todos aqueles que contribuíram para que a produção de trabalhos acadêmicos
+%    conforme as normas ABNT com \LaTeX\ fosse possível.
 
-   Parte do desenvolvimento deste modelo, especialmente os elementos
-   pré-textuais, foi inspirado no modelo desenvolvido por Samir e modificado por
-   Marcelo Suetake.
+%    Parte do desenvolvimento deste modelo, especialmente os elementos
+%    pré-textuais, foi inspirado no modelo desenvolvido por Samir e modificado por
+%    Marcelo Suetake.
 
-   Agradecimentos especiais são direcionados aos voluntários do grupo de usuários
-   \emph{latex-br}\footnote{\url{http://groups.google.com/group/latex-br}} e aos
-   novos voluntários do grupo
-   \emph{\abnTeX}\footnote{\url{http://groups.google.com/group/abntex2} e
-   \url{http://abntex2.googlecode.com/}}~que contribuíram e que ainda
-   contribuirão para a evolução do \abnTeX.
-}
-% Epígrafe
-\imprimirepigrafe{
-		``Somos essencialmente profissionais do sentido. Educamos, \\
-		 quando ensinamos com sentido. Educar é impregnar de sentido\\
-		 a vida. A profissão docente está centrada na vida, no bem querer.''\\
-		(Prof. Gilberto Teixeira)
-}
+%    Agradecimentos especiais são direcionados aos voluntários do grupo de usuários
+%    \emph{latex-br}\footnote{\url{http://groups.google.com/group/latex-br}} e aos
+%    novos voluntários do grupo
+%    \emph{\abnTeX}\footnote{\url{http://groups.google.com/group/abntex2} e
+%    \url{http://abntex2.googlecode.com/}}~que contribuíram e que ainda
+%    contribuirão para a evolução do \abnTeX.
+% }
+% % Epígrafe
+% \imprimirepigrafe{
+% 		``Somos essencialmente profissionais do sentido. Educamos, \\
+% 		 quando ensinamos com sentido. Educar é impregnar de sentido\\
+% 		 a vida. A profissão docente está centrada na vida, no bem querer.''\\
+% 		(Prof. Gilberto Teixeira)
+% }
 
 % RESUMO e ABSTRACT
 \begin{resumo}{Detecção de Novidades. Detecção de Intrusão. Fluxos de Dados.
@@ -248,16 +255,13 @@ Novidade em Fluxos de Dados MINAS}{
 % \include{30.trabalhos-relacionados}
 % \include{40.proposta}
 % \include{50.iccsa}
-% \include{60.concusao}
+\include{60.concusao}
 % \include{98.quali}
 
-\chapter{Capítulo genérico}
-
-\lipsum[1]
-
-\section{Seção genérica}
-
-\lipsum[3]
+% \chapter{Capítulo genérico}
+% \lipsum[1]
+% \section{Seção genérica}
+% \lipsum[3]
 
 % Finaliza a parte no bookmark do PDF, para que se inicie o bookmark na raiz
 \bookmarksetup{startatroot}
@@ -283,30 +287,26 @@ Novidade em Fluxos de Dados MINAS}{
 
 % ----------------------------------------------------------
 % Apêndices
-% ---
 % Inicia os apêndices
-% ---
-\begin{apendicesenv}
-% Imprime uma página indicando o início dos apêndices
-\partapendices
-% ----------------------------------------------------------
-% Incluir Apêndice
-% ----------------------------------------------------------
-\chapter{Quisque libero justo}
-\lipsum[3]
-
-\end{apendicesenv}
-% ---
+% \begin{apendicesenv}
+%    % Imprime uma página indicando o início dos apêndices
+%    \partapendices
+%    % ----------------------------------------------------------
+%    % Incluir Apêndice
+%    % ----------------------------------------------------------
+%    \chapter{Quisque libero justo}
+%    \lipsum[3]
+% \end{apendicesenv}
 
 % ----------------------------------------------------------
 % Anexos
-\begin{anexosenv}
-   % Imprime uma página indicando o início dos anexos
-   \partanexos
-   \chapter{Morbi ultrices rutrum lorem.}
-   \lipsum[3]
-   \section{Test}
-   \lipsum[3]
-\end{anexosenv}
+% \begin{anexosenv}
+%    % Imprime uma página indicando o início dos anexos
+%    \partanexos
+%    \chapter{Morbi ultrices rutrum lorem.}
+%    \lipsum[3]
+%    \section{Test}
+%    \lipsum[3]
+% \end{anexosenv}
 
 \end{document}
