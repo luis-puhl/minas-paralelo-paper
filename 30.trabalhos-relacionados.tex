@@ -474,16 +474,6 @@ O objetivo dessa distribuição é a redução de latência, que torna inviável
 hospedagem de um sistema detector de intrusão somente em ambiente \cloud, e
 também possibilitar a análise de grandes volumes de dados por algoritmos de
 maior complexidade, que são de custo computacional proibitivo para nós de borda.
-A \reffig{ids-iot-phy} ilustra a estrutura física da arquitetura \idsiot,
-destacando os dispositivos \iot, dispositivos de borda e nuvem pública.
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.8\textwidth]{figuras/idsa-iot-quali-000.png}
-\caption{Estrutura Física da Arquitetura \idsiot.
-Produzida e traduzida por \citeonline{Cassales2019a}.}
-\label{fig:ids-iot-phy}
-\end{figure}
 
 A arquitetura proposta é avaliada com três algoritmos de detecção de novidade:
 ECSMiner \cite{Masud2010ECSMiner}, AnyNovel \cite{Abdallah2016anynovel} e MINAS
@@ -533,18 +523,6 @@ de recursos computacionais (memória) foi elevado.
 % small and constant Fnew coupled with the smallest execution
 % time and memory consumption, indicates MINAS is suitable
 % for IoT scenarios.
-
-Com as avaliações realizadas, a arquitetura \idsiot \hlhl{opta por distribuir} as
-tarefas de mineração dos fluxos para detecção de intrusão em serviços e aloca os
-serviços em diferentes camadas físicas, conforme ilustrado na \reffig{ids-iot}.
-
-\begin{figure}[hbt]
-\centering
-\includegraphics[width=0.8\textwidth]{figuras/idsa-iot-quali-004.png}
-\caption{Distribuição de Serviços da Arquitetura \idsiot.
-Produzida e traduzida por \citeonline{Cassales2019a}.}
-\label{fig:ids-iot}
-\end{figure}
 
 A distribuição das tarefas em serviços proposta abre oportunidades para a
 discussão de diferentes métodos de distribuição dessas tarefas em diferentes
