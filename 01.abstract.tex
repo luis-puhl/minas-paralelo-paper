@@ -74,5 +74,33 @@
     Preliminary work shows that it is possible to have a distributed
     version of the MINAS algorithm by using stream processing platforms
     such as Apache Flink.
+
+   The ongoing implementation of the Internet of Things (\iot) is sharply
+   increasing the number and variety of small devices on edge networks.
+   %
+   Likewise, the attack opportunities for hostile agents also
+   increases, requiring more effort from network administrators and strategies
+   to detect and react to those threats.
+   % 
+   For a network security system to operate in the context of edge and
+   \iot, it has to comply with processing, storage, and energy
+   requirements alongside traditional requirements for stream and network
+   analysis like accuracy and scalability.
+   % 
+   Using a previously defined architecture (\arch), we address the construction
+   and evaluation of a support mechanism for distributed Network Intrusion
+   Detection Systems (\nids) based on the \minas Data Stream Novelty Detection
+   (\nd) algorithm.
+   % 
+   We discuss the algorithm steps, how it can be deployed in a distributed
+   environment, the impacts on the accuracy and evaluate performance and
+   scalability using a cluster of constrained devices commonly found in \iot
+   scenarios.
+   % 
+   The obtained results show a negligible accuracy loss in the distributed
+   version but also a small reduction in the execution time using low profile
+   devices. Although not efficient, the parallel version showed to be viable as
+   the proposed granularity provides equivalent accuracy and viable response times.
+
  \end{abstract}
  

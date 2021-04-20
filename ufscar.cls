@@ -53,7 +53,8 @@
 %=========================================================================
 % Herança da classe `abntex2' e inclusão de pacotes e arquivos necessários
 %=========================================================================
-\LoadClass[a4paper,12pt,twoside,openright]{abntex2}
+% \LoadClass[a4paper,12pt,twoside,openright]{abntex2}
+\LoadClass[a4paper,12pt,oneside]{abntex2}
 
 %=========================================================================
 % Herança da classe `abntex2' e inclusão de pacotes e arquivos necessários
@@ -120,7 +121,8 @@
 % Comandos de dados - autor e autorbib
 \newcommand{\@authorbib}{}
 \providecommand{\imprimirautor}{}
-\renewcommand{\autor}[2]{\author{#1}\renewcommand{\imprimirautor}{#1} \renewcommand{\@authorbib}{#2}}
+% \renewcommand{\autor}[2]{\author{#1}\renewcommand{\imprimirautor}{#1} \renewcommand{\@authorbib}{#2}}
+\renewcommand{\autor}[2]{\author{#1}\renewcommand{\imprimirautor}{#1} \renewcommand{\@authorbib}{#2}\newcommand{\authorbib}{#2}}
 
 % --------------------------------
 % Definição Geral
@@ -161,13 +163,13 @@
 
 \instituicao
 {%
-	\@universidade -- \@universidadesigla
+	\@universidade~--~\@universidadesigla
 	\par
-	\@centro -- \@centrosigla
+	\@centro~--~\@centrosigla
 	\par
-	\@departamento -- \@departamentosigla
+	\@departamento~--~\@departamentosigla
 	\par
-	\@programa -- \@programasigla
+	\@programa~--~\@programasigla
 }
 
 \preambulo{
