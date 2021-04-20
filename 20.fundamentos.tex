@@ -279,41 +279,6 @@ de
 diversas plataformas, tanto de \emph{Big Data} com características de tempo real,
 como especializadas em fluxo de dados.
 
-\subsection{Arquitetura \lambdaa}
-
-A arquitetura de processamento distribuído de fluxos de grande volume de dados
-\lambdaa divide o processamento em três camadas:
-lotes, serviço e velocidade \cite{marz2015big}.
-A camada de lotes atua sobre o conjunto mestre em modo de leitura sequencial,
-armazenando-o em sistema de arquivos distribuído e pré-processando várias visões
-sobre esse conjunto mestre.
-Essas visões (armazenadas num SGBD tradicional) são consumidas pela camada de
-serviço, que portanto tem acesso regular (leitura aleatória) dos dados.
-No entanto, as garantias oferecidas pela camada de
-lotes (escalabilidade, consistência, tolerância a falhas) não atendem os requisitos
-de latência em um sistema em tempo real, para isso a camada de velocidade
-complementa os dados das visões com dados diretamente do conjunto mestre em
-tempo real diretamente para a camada de serviço \cite{marz2015big}.
-
-\subsection{Arquitetura \kappaa}
-
-Em contraposição à arquitetura \lambdaa, observações práticas de 
-\citeonline{Kreps2014} mostram que o sistema de fila de mensagens
-(no exemplo \emph{Apache Kafka}) já traz as garantias de
-escalabilidade, consistência, tolerância a falhas, replicação e armazenamento de longo prazo.
-Com isso, \citeonline{Kreps2014} propõe que as camadas de lotes e velocidade sejam
-unificadas em uma camada de processamento de fluxo, cujos resultados sejam entregues
-continuamente para a camada de serviço através de um SGBD, definindo assim a arquitetura \kappaa.
-Essa proposta simplifica a aplicação de três implementações para duas, eliminando a
-repetição de tarefas executadas pelas camadas de lotes e velocidade que
-produziam o mesmo resultado.
-
-Em sincronia com os desenvolvimentos em arquiteturas de processamento de fluxo de dados,
-durante as últimas duas décadas foram construídas diversas plataformas de
-processamento para \emph{Big Data} e \emph{Data Streams}.
-
-\subsection{Plataformas \emph{MapReduce} e \emph{Apache Hadoop}}
-
 \emph{MapReduce} é a primeira plataforma de processamento de conjuntos massivos
 de dados que atingiu uso generalizado.
 Nessa implementação, uma biblioteca gerencia a distribuição, paralelização,
@@ -339,8 +304,6 @@ YARN} um gerenciador de recursos em cluster e escalonador de trabalhos e,
 \emph{Hadoop MapReduce}, um sistema baseado em \emph{YARN}, implementando o modelo
 \emph{MapReduce} \cite{ApacheHadoop2020}.
 
-\subsection{Plataforma \emph{Apache Spark}}
-
 \emph{Apache Spark}, analogamente ao \emph{Hadoop}, é um \emph{framework} para
 construção de sistemas de computação distribuída em \emph{cluster}, com garantias
 de tolerância a falhas.
@@ -350,13 +313,6 @@ um multiconjunto imutável distribuído (\emph{Resilient Distributed Dataset}
 - RDD) com um escalonador de trabalhos representados por grafos acíclicos
 direcionados (\emph{directed acyclic graph} - DAG), otimizador de consultas e
 motor de execução \cite{ApacheSpark2020}.
-
-Enquanto programas \emph{MapReduce} fazem sua entrada de dados por leitura de
-disco, executam a função \emph{Map} em todos os items, agrupam, executam
-\emph{Reduce} e armazenam o resultado em disco novamente, RDD opera com um
-conjunto de trabalho distribuído em formato de memória compartilhada com
-restrições. Esse conjunto de trabalho distribuído facilita a operação de programas iterativos
-que são típicos de análise, mineração de dados e aprendizado de máquina.
 
 Uma das extensões de \emph{Apache Spark} é \emph{Spark Streaming}, que é um
 sistema de processamento de fluxo de dados 
@@ -372,8 +328,6 @@ devido à \notahl{?}\hlhl{linhagem de RDD} (\emph{RDD lineage})
 e à combinação do fluxo de dados com
 consultas em lotes e interativas \cite{sparkStreaming2016,Lopez2018}.
 
-\subsection{Plataforma \emph{Apache Storm}}
-
 \emph{Apache Storm} é um sistema de computação tolerante a falhas em tempo
 real que \notahl{quem disse?!}\hlhl{facilita o processamento} de fluxo de dados
 \cite{ApacheStorm2020,Lopez2018}.
@@ -387,27 +341,6 @@ coordenar e distribuir execução, monitora falhas.
 Uma topologia pode ser representada por um grafo de computação direcionado
 acíclico (DAG).
 
-Além de topologias e nós mestre, outros componentes do funcionamento dessa
-ferramenta são os \emph{spouts} e os \emph{bolts}.
-\emph{Spout} representa uma fonte de dado da ferramenta, sendo um ponto de
-entrada que lê os dados de fontes externas, converte-os para um fluxo de dados e
-emite-os para dentro da topologia.
-\emph{Bolts} recebem os dados de um \emph{spout} e processam esses dados
-(filtragem, funções de agregação e união, etc.).
-
-Cada processo \emph{worker} no \emph{Storm} é uma instância de Java Virtual Machine (JVM)
-que executa um conjunto de tarefas para uma topologia, processando um ou mais
-executores.
-Um executor é uma \emph{thread} gerada por um processo \emph{worker}.
-Cada executor pode processar uma ou mais tarefas para um mesmo componente
-(\emph{spout} ou \emph{bolt}).
-O número de processos \emph{workers}, executores e tarefas (para os
-\emph{spouts} e \emph{bolts}) que são passados como parâmetro (\emph{parallelism
-hint}) definem o ``paralelismo'' do \emph{Storm}. A principal característica desse
-paralelismo é que ele pode ser alterado em tempo de execução da topologia.
-
-\section{Plataforma \emph{Apache Flink}}
-
 O \emph{Apache Flink} é uma plataforma de processamento distribuído para
 computação com estado gerenciado (\emph{stateful}) sobre fluxo de dados limitados (têm início e
 fim) e ilimitados (não têm fim definido) \cite{ApacheFlink2020}.
@@ -418,102 +351,3 @@ comuns, como \emph{Hadoop Yarn}, \emph{Apache Mesos}, e \emph{Kubernetes}, mas t
 configurado para ser executado como um \emph{cluster stand-alone}.
 Já o acesso programático a essa plataforma pode ser feito através das linguagens
 Java, Scala ou Python.
-
-\subsection{Arquitetura}
-
-\newcommand{\jobmngr}{\xspace{}gerenciador de trabalho\xspace}
-\newcommand{\taskmngr}{\xspace{}gerenciador de tarefa\xspace}
-
-Quando \emph{Flink} é inicializado, um processo \jobmngr
-(\emph{Job Manager}) e múltiplos gerenciadores de tarefa (\emph{Task Manager}) são criados.
-Quando um código de programa é submetido, o cliente transforma-o em um grafo
-acíclico direcionado - \emph{data flow} - e submete-o ao \jobmngr.
-Segundo \citeonline{Carbone2015}, essa fase de transformação examina o esquema
-dos dados trocados entre os operadores e cria serializadores e
-outros códigos para otimização da futura execução.
-O \jobmngr coordena toda execução distribuída do grafo \emph{data
-flow}. Ele rastreia o estado e o progresso de cada fluxo, agenda novos
-operadores e coordena os \emph{checkpoints} e recuperação.
-Para alta disponibilidade, o \jobmngr \hlhl{persiste} em disco um conjunto mínimo de
-metadados em cada \emph{checkpoint} para um armazenamento tolerante a falhas, de
-modo que esse gerenciador possa recuperar a execução do grafo a partir desse
-ponto.
-O processamento de dados ocorre no \emph{Task Manager} que executa um ou mais
-operadores que produzem fluxos de dados, e reportam seus estados ao \jobmngr.
-
-A pilha de componentes de software do \emph{Apache Flink} é composta em camadas.
-A camada \emph{core} é vista como um mecanismo de processamento e execução de
-fluxo de dados, enxergando o processamento em lote como um caso especial
-\cite{Lopez2018,Carbone2015}.
-A camada de APIs é composta pelo \emph{DataStream API}, que processa dados
-infinitos ou fluxos de dados, e pelo \emph{DataSet API}, que processa dados
-finitos ou dados em lote.
-Junto ao \emph{core}, essas APIs montam planos de execução otimizados para cada
-tipo de conjuntos de dados, gerando programas executáveis pelo \emph{core}.
-Na camada de bibliotecas (\emph{libraries}), há bibliotecas específicas para
-cada domínio que geram programas API \emph{Data Stream API} ou \emph{DataSet
-API}.
-Essas bibliotecas são: \emph{FlinkML} para aprendizado de máquina, \emph{Gelly}
-para processamento de grafos, \emph{Table} para domínios relacionais (SQL), e
-CEP (\emph{Complex Event Processing}) para processamento de eventos.
-
-\subsection{Abstrações e estruturas do \flink}
-
-Na plataforma \flink, as principais abstrações são programas, \emph{Dataflows}
-(fluxo de dados), e transformações (operações ou operadores)
-\cite{Carbone2015,ApacheFLinkDataFlow}.
-Um fluxo de dados (\emph{Dataflow}) é definido como um fluxo de registros.
-Já as transformações são operações (\emph{map, filtering, reduction, join},
-etc.) onde um \emph{data stream} é consumido, processado, e um novo
-fluxo de dados gerado como saída.
-Cada uma dessas transformações pode ser paralelizada por um parâmetro de
-paralelismo \cite{ApacheFlink2020}.
-
-Um programa \emph{Flink} é mapeado para um grafo acíclico direcionado, \emph{data
-flow}, utilizado pelo \emph{Job Manager} \cite{Carbone2015}.
-Esse grafo é composto por operadores de transformação e fluxo de dados
-\cite{ApacheFlink2020}.
-Para facilitar o paralelismo desse grafo de execução, os operadores que agem
-sobre os fluxos de dados podem ser divididos em sub-tarefas que são executadas
-pelos \emph{slots} dos \emph{Task Manager}, e os fluxos de dados podem ser
-particionados entre os operadores consumidores e produtores.
-
-Cada \emph{data flow} dos programas do \emph{Apache Flink} inicia execução com uma fonte
-de dados e termina com um \emph{sink} que escreve os dados de saída em algum
-sistema de armazenamento suportado, como \emph{Apache Kafka, Amazon Kinesis Streams,
-Hadoop Filesystem} e \emph{Apache Cassandra} \cite{ApacheFlink2020}.
-
-\subsection{Tolerância a falhas}
-
-O \emph{Apache Flink} implementa um mecanismo de tolerância a falhas combinando repetição e
-\emph{checkpoint} dos fluxos \cite{Carbone2015,ApacheFlink2020}.
-Um \emph{checkpoint} está relacionado com pontos específicos dos fluxos de
-entrada, juntamente com o estado dos operadores.
-Um fluxo de dados pode ser retornado a partir de um \emph{checkpoint}, mantendo
-a consistência de ``exatamente uma vez'' (não há dados duplicados e nem dados que
-não sejam processados), e restaurando o estado dos operadores e eventos naquele
-momento.
-Portanto, as falhas são tratadas de forma transparente e não afetam a exatidão
-da execução de um programa \emph{Flink} \cite{ApacheFlink2020}.
-
-O algoritmo de \emph{checkpoint} assíncrono e incremental \notahl{?}\hlhl{garante} um impacto
-mínimo em latência no processamento \cite{Carbone2015}.
-Além disso, para reduzir o tempo de recuperação, o \emph{Apache Flink} gera
-\emph{snapshots} do estado dos operadores, incluindo a posição atual dos fluxos
-de entrada, em intervalos regulares.
-
-O \emph{Apache Flink} realiza computações com estado (\emph{stateful}) que guardam
-eventos ou resultados intermediários para acessá-los posteriormente,
-contribuindo para planos de execução, mecanismo de recuperação de falhas e para
-lembrar de eventos passados para agregar dados \cite{ApacheFlink2020, Carbone2015}.
-
-O \emph{Apache Flink} considera o processamento em lotes como um caso especial
-de fluxo de dados, que nesse caso é limitado em número de elementos.
-Para esse tipo de dados existem estruturas de dados e algoritmos específicos, como o
-\emph{DataSet API} e operações próprias (agregações, uniões, interações)
-\cite{Carbone2015}.
-
-Para o processamento em lote, não há o mecanismo de \emph{checkpoint} como há
-para o fluxo de dados.
-No lugar, a recuperação é feita repetindo completamente o fluxo ou repetindo as
-últimas partições perdidas do fluxo intermediário materializado.

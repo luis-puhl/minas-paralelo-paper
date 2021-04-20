@@ -26,7 +26,7 @@ filtros de spam \cite{Hayat2010dct} e
 detecção de variações comportamentais em um jogador \cite{Vallim20136258}.
 
 Alguns métodos de \nd utilizam tratam de novidades como uma classificação de uma
-ou duas classes () onde um conceito representa a classe normal e as anomalias
+ou duas classes (binariamente) onde um conceito representa a classe normal e as anomalias
 são representadas pela falta de conceito no modelo ou como um segundo conceito
 no modelo.
 Além da abordagem de classificação binária, múltiplos conceitos em um mesmo
@@ -305,7 +305,7 @@ sintéticos: \emph{MOA-3C-5C-2D}, \emph{MOA-5C-7C-2D}, \emph{MOA-5C-7C-3} da
 ferramenta MOA \cite{MOA} e \emph{4CRE-V2}
 \footnote{
     A versão original do \dataset 4CRE-V2 está disponível em
-    \url{https://sites.google.com/site/nonstationaryarchive/home}
+    \url{https://sites.google.com/site/nonstationaryarchive/home}.
 }
 gerados pelo método \emph{Radial Basis Function} \cite{souza2015,Costa2019}.
 O algoritmo MINAS-BR foi comparado com 7 algoritmos da literatura também
@@ -370,11 +370,13 @@ a fase offline centrada no processo de agrupamento e criação de modelo;
 a fase online dividida em classificação (com atualização das estatísticas do modelo)
 e detecção de padrões, onde novamente o processo de agrupamento é central.
 Portanto, apesar de outros trabalhos expandirem o algoritmo com diferentes técnicas, seu
-núcleo continua relevante\footnote{
+núcleo continua relevante.
+
 Propostas de modificação do algoritmo MINAS estão longe de serem exauridas.
 Não cabe ao presente trabalho expandir e validar conceitos de aprendizagem de máquina,
-porém alguns exemplos mencionados ainda não abordados são:
-\begin{enumerate*}[label={\alph*)}]
+porém alguns exemplos mencionados ainda não abordados são \cite{DaSilva2018,DaSilva2018thesis,Costa2019}:
+
+\begin{enumerate}[label={\alph*)}]
     
     \item diferentes métodos de cálculo de distância entre pontos além da
     distância euclidiana;
@@ -398,4 +400,4 @@ porém alguns exemplos mencionados ainda não abordados são:
     \item na fase \emph{offline} a verificação de sobreposição de \clusters
     pertencentes a classes distintas e tratamento adequado.
 
-\end{enumerate*} \cite{DaSilva2018,DaSilva2018thesis,Costa2019}.
+\end{enumerate}
