@@ -90,7 +90,7 @@ utilizados na operação de classificação da fase \emph{Online}.
 A cada \mcluster é adicionada a etiqueta do grupo original e todos \mclusters
 são arranjados em um único conjunto formando o modelo de decisão.
 
-Na fase \emph{Online}, listada no Algoritmo \ref{alg:MINAS}, o algoritmo MINAS
+Na fase \emph{Online}, listada no Algoritmo \ref{alg:minas-main}, o algoritmo MINAS
 opera com três operações: classificação de novos exemplos, detecção de 
 padrões-novidade e atualização do modelo de decisão \cite{Faria2015minas}.
 O primeiro método é o de classificação, onde exemplos do fluxo de dados
@@ -112,8 +112,8 @@ Esse método executa o agrupamento (\emph{clustering} descrito na fase
 \emph{Offline}) e valida os \mclusters gerados verificando sua representatividade
 e coesão.
 
-\subsection{MINAS}
-\label{sec:minas}
+% \subsection{MINAS}
+% \label{sec:minas}
 
 \minas \cite{Faria2015minas} is an offline-online \nd algorithm,
 meaning it has two distinct phases. The first phase (offline) creates an initial
@@ -260,7 +260,7 @@ Neste trabalho, consideram-se algoritmos derivados do algoritmo MINAS
 aqueles apresentados em trabalhos publicados após 2016, que estendem a
 implementação original seguindo sua estrutura básica.
 
-\subsection{Algoritmo FuzzyND}
+\subsubsection{Algoritmo Extensão FuzzyND}
 
 O algoritmo FuzzyND, derivado do MINAS foi proposto por \citeonline{DaSilva2018}.
 FuzzyND incrementa o algoritmo original, aplicando a ele teorias de
@@ -279,7 +279,7 @@ Em geral, o algoritmo FuzzyND detecta melhor novidades e, consequentemente,
 é mais robusto a valores atípicos (\emph{outlier}), porém perde a capacidade
 de reconhecer padrões recorrentes.
 
-\subsection{Algoritmos MINAS-LC e MINAS-BR}
+\subsubsection{Algoritmo Extensão MINAS-LC e MINAS-BR}
 \label{sub:minas-derivados}
 
 O algoritmo MINAS-LC foi proposto por \citeonline{Costa2019thesis} e trata a classificação

@@ -22,7 +22,7 @@ computacionais distribuídos presentes em nós localizados entre os dispositivos
 de borda e a nuvem, com diversas 
 intenções, desde privacidade até redução de latência.
 
-\subsection{Computação em Nuvem}
+% \subsection{Computação em Nuvem}
 
 A computação em nuvem (\cloud), ou simplesmente nuvem
 (\emph{cloud}), habilita o acesso através da rede a um grupo compartilhado de
@@ -31,65 +31,17 @@ armazenamento, etc.
 Tais recursos podem ser provisionados ou liberados sob
 demanda rapidamente com o mínimo esforço de gerenciamento
 e mínima interação com o provedor destes recursos \cite{NIST2011}.
+
 As principais características do ambiente \cloud, segundo \citeonline{NIST2011}
-são:
-
-\begin{itemize}
-    
-    \item \textbf{Serviço sob Demanda:} o cliente pode provisionar ou liberar
-    capacidades de computação (ex: tempo de processamento e armazenamento) conforme o
-    necessário, sem requerer interação com o provedor de serviço;
-    
-    \item \textbf{Amplo acesso à rede:} o acesso aos recursos de computação e
-    capacidades ocorre pela rede através de mecanismos padrões que permitem o
-    acesso por plataformas heterogêneas (celulares, computadores, tablets, etc.)
-      
-    \item \textbf{Agrupamento de recursos:} para servir múltiplos clientes, os
-    recursos de computação são agrupados usando o modelo \emph{multi-tenancy}
-    com recursos físicos e virtuais diferentes dinamicamente atribuídos e
-    reatribuídos de acordo com a demandas do clientes;
-    
-    \item \textbf{Elasticidade:} as capacidades de computação são rapidamente
-    provisionadas ou liberadas, em alguns casos automaticamente, para escalar
-    conforme a demanda;
-    
-    \item \textbf{Serviço mensurado:} os recursos de computação são monitorados,
-    controlados e reportados para o provedor de serviços e para o cliente
-    fornecendo transparência sobre as capacidades que foram consumidas.
-
-\end{itemize}
-
+são: Serviço sob Demanda, Amplo acesso à rede, Agrupamento de recursos,
+Elasticidade e Serviço mensurado.
 Segundo, \citeonline{NIST2011}, a implantação da Computação em Nuvem pode
-ocorrer através dos seguintes modelos:
+ocorrer através dos seguintes modelos: privada, comunitária, pública, híbrida.
+Das implantações, a pública é a mais comum, sendo gerenciada e operada por um
+provedor de nuvem e a infraestrutura é provisionada e oferecida para uso
+público.
 
-\begin{itemize}
-    
-    \item \textbf{Nuvem privada:} a infraestrutura da nuvem é provisionada e
-    dedicada para um único cliente ou organização. Nesse modelo, o cliente
-    gerencia e controla a infraestrutura, ou pode delegar essas tarefas a uma
-    outra empresa. A infraestrutura pode estar dentro ou fora das instalações
-    da organização proprietária;
-
-    \item \textbf{Nuvem comunitária:} a infraestrutura de nuvem é fornecida para
-    um grupo exclusivo de clientes que compartilham um mesmo interesse
-    (requerimentos de segurança, desempenho, políticas, etc.). Esse tipo de
-    nuvem pode ser gerenciado pelo próprio grupo, ou por outra organização,
-    podendo estar dentro ou fora das instalações das empresas proprietárias;
-
-    \item \textbf{Nuvem pública:} É gerenciada e operada por um provedor de nuvem
-    e a infraestrutura é provisionada e oferecida para uso público.
-    
-    \item \textbf{Nuvem híbrida:} a infraestrutura desse tipo de nuvem é uma
-    composição de dois ou mais modelos de implantação de \emph{cloud} (privada,
-    pública e comunitária) que formam uma entidade única e são unidos por
-    tecnologias padronizadas que habilitam a portabilidade de dados e
-    aplicações.
-
-\end{itemize}
-
-% Definição de Computação de Borda 
-\subsection{Computação de Borda}
-
+% \subsection{Computação de Borda}
 
 A computação de borda (\emph{edge computing}) refere-se às
 tecnologias que permitem que a computação seja executada na borda da rede.
@@ -118,7 +70,7 @@ privacidade dos dados produzidos, mantendo-os fora de ambientes públicos;
 redução das cargas de dados na rede e
 processamento distribuído de sensoriamento massivo em cidades inteligentes \cite{Shi2016}.
 
-\subsection{Computação em Névoa}
+% \subsection{Computação em Névoa}
 
 \citeonline{Dastjerdi2016} e \citeonline{IEEECommunicationsSociety2018}
 mencionam que a enorme massa de dados gerados por ambientes IoT pode ser
@@ -351,3 +303,6 @@ comuns, como \emph{Hadoop Yarn}, \emph{Apache Mesos}, e \emph{Kubernetes}, mas t
 configurado para ser executado como um \emph{cluster stand-alone}.
 Já o acesso programático a essa plataforma pode ser feito através das linguagens
 Java, Scala ou Python.
+
+\subsection{\emph{OpenMPI}}
+

@@ -42,13 +42,14 @@ Most existing ML solutions for network-based intrusion detection cannot maintain
 their reliability over time when facing evolving attacks \cite{Viegas2019,AndreoniLopez2019}.
 Unlike traditional methods, stream mining algorithms can be applied to intrusion
 detection with several advantages, such as:
-\begin{enumerate*}[label=(\emph{\roman*})]
+
+\begin{enumerate}[label=(\emph{\roman*})]
     \item processing traffic data with a single read;
     \item working with limited memory (allowing the implementation in small
     devices commonly employed in edge services);
     \item producing real-time response; and
     \item detecting novelty and changes in concepts already learned.
-\end{enumerate*}
+\end{enumerate}
 
 Given the recent \cite{Viegas2019,AndreoniLopez2019,DaCosta2019a} use of Data Stream Novelty
 Detection (\nd) in network data streams, this paper shows the effects of
@@ -94,14 +95,15 @@ edge where small devices and constrained resources may be prevalent.
 
 However, given the distributed nature and the typical use of small computing
 devices in IoT scenarios, new challenges arise:
-\begin{enumerate*}[label=(\emph{\roman*})]
+
+\begin{enumerate}[label=(\emph{\roman*})]
   \item the classification phase of the algorithm must occur in parallel at
   different nodes;
   \item the novelty detection phase, which provides the model evolution, must
   also be asynchronous;
   \item the algorithm complexity (time and space) must allow it to be processed
   by modest computing devices (i.e., small memory and low processor performance).
-\end{enumerate*}
+\end{enumerate}
 
 \nids 
 monitor network traffic, and analyze the characteristics of each flow 
@@ -128,25 +130,25 @@ After the initial classification, the resulting label can be used immediately,
 but if the sample is labeled as \emph{unknown}, this sample must be stored and
 the novelty detection step will be triggered.
 
-To have a better overview of our proposal and how it integrates with existing
-\iot environments, Figure \ref{fig:mfog-phy-arch-cloud} depicts such scenario
-showing from bottom to top:
-\iot devices directly connected to a (local) gateway network;
-this gateway network could be as simple as a single Internet router 
-or be more complex by connecting to private clouds or 
-containing more devices providing fog computing capabilities;
-lastly, available over the internet, the traditional public cloud provides
-inexpensive computing and storage on demand.
-In this scenario, the further apart resources are, the more network
-resources need to be employed, and, as with any networked system, the
-higher is the latency.
+% To have a better overview of our proposal and how it integrates with existing
+% \iot environments, Figure \ref{fig:mfog-phy-arch-cloud} depicts such scenario
+% showing from bottom to top:
+% \iot devices directly connected to a (local) gateway network;
+% this gateway network could be as simple as a single Internet router 
+% or be more complex by connecting to private clouds or 
+% containing more devices providing fog computing capabilities;
+% lastly, available over the internet, the traditional public cloud provides
+% inexpensive computing and storage on demand.
+% In this scenario, the further apart resources are, the more network
+% resources need to be employed, and, as with any networked system, the
+% higher is the latency.
 
-\begin{figure}[hb]
-  \centering
-  \includegraphics[width=0.5\linewidth]{figures/cassalesimgs-000.png}
-  \caption{\arch \cite{Cassales2019a} physical architecture and deployment scenario overview.}
-  \label{fig:mfog-phy-arch-cloud}
-\end{figure}
+% \begin{figure}[hb]
+%   \centering
+%   \includegraphics[width=0.5\linewidth]{figures/cassalesimgs-000.png}
+%   \caption{\arch \cite{Cassales2019a} physical architecture and deployment scenario overview.}
+%   \label{fig:mfog-phy-arch-cloud}
+% \end{figure}
 
 The overall \mfog architecture has two main modules, Classification and Novelty
 Detection, which implement the \minas main tasks.
@@ -606,11 +608,11 @@ in the summary table and stream visualization chart.
 % accuracy.
 One complete matrix is shown in Tab. \ref{tab:java-matrix}.
 
-\begin{table*}[htb]
-\caption{Confusion Matrixes and Qualitative measurements}
-\label{tab:confusion-matrixes-ref-serial}
+% \begin{table*}[htb]
+% \caption{Confusion Matrixes and Qualitative measurements}
+% \label{tab:confusion-matrixes-ref-serial}
 
-\begin{subtable}[h]{\linewidth}
+\begin{table}[h]%{\linewidth}
 {\scriptsize
 \setlength\tabcolsep{0.5em}
 \begin{center}
@@ -628,11 +630,11 @@ One complete matrix is shown in Tab. \ref{tab:java-matrix}.
 \end{tabular}
 \end{center}
 }
-\end{subtable}
+\end{table}
 
-\vspace{3ex}
+% \vspace{3ex}
 
-\begin{subtable}[h]{\linewidth}
+\begin{table}[h]%{\linewidth}
 {\scriptsize
 \setlength\tabcolsep{0.5em}
 \begin{center}
@@ -650,11 +652,11 @@ One complete matrix is shown in Tab. \ref{tab:java-matrix}.
 \end{tabular}
 \end{center}
 }
-\end{subtable}
+\end{table}
 
 \vspace{3ex}
 
-\begin{subtable}[h]{0.48\linewidth}
+\begin{table}[h]%{0.48\linewidth}
 {\scriptsize
 \setlength\tabcolsep{0.35em}
 \begin{center}
@@ -672,12 +674,12 @@ One complete matrix is shown in Tab. \ref{tab:java-matrix}.
 \end{tabular}
 \end{center}
 }
-\end{subtable}
+\end{table}
 % 
 % \quad
 % &
 % 
-\begin{subtable}[h]{0.48\linewidth}
+\begin{table}[h]%{0.48\linewidth}
 {\scriptsize
 \setlength\tabcolsep{0.35em}
 \begin{center}
@@ -695,9 +697,9 @@ One complete matrix is shown in Tab. \ref{tab:java-matrix}.
 \end{tabular}
 \end{center}
 }
-\end{subtable}
+\end{table}
 
-\end{table*}
+% \end{table*}
 
 For the measurements summary table, six measurements from two sources are displayed. Three
 measures \emph{Hits}, \emph{Unknowns} and \emph{Misses} represented as ratio of
