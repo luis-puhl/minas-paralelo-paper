@@ -77,10 +77,14 @@
 \newcommand{\drift}{\emph{Concept Drift}\xspace}
 \newcommand{\evolution}{\emph{Concept Evolution}\xspace}
 
-\newcommand{\iot}{IoT\xspace}
+% \newcommand{\iot}{IoT\xspace}
+\newcommand{\iot}{\ac{IoT}\xspace}
+\newcommand{\mpi}{\ac{MPI}\xspace}
 \newcommand{\arch}{IDSA-IoT\xspace}
-\newcommand{\nids}{NIDS\xspace}
-\newcommand{\nd}{DSND\xspace}
+% \newcommand{\nids}{NIDS\xspace}
+\newcommand{\nids}{\ac{NIDS}\xspace}
+% \newcommand{\nd}{DSND\xspace}
+\newcommand{\nd}{\ac{DNFD}\xspace}
 \newcommand{\refminas}{\textit{Ref}\xspace}
 
 % \acronym{F1M}{\emph{Macro F-Score}, acurácia }
@@ -146,143 +150,11 @@ Novidade em Fluxos de Dados MINAS}{
 % Insere Capa, Folha de rosto.
 \maketitle
 
-\begin{fichacatalografica}
-   %     \includepdf{fig_ficha_catalografica.pdf}
-   \includepdf{ficha-catalografica.pdf}
-   % \includegraphics{ficha-catalografica.pdf}
-   % \sffamily
-   % \vspace*{\fill}                    % Posição vertical
-   % \begin{center}                    % Minipage Centralizado
-   %    \fbox{\begin{minipage}[c][8cm]{13.5cm}        % Largura
-   %       \small
-   %       % \imprimirautor
-   %       % Puhl, Luís
-   %       \authorbib
-   %       %Sobrenome, Nome do autor
-         
-   %       \hspace{0.5cm} \imprimirtitulo  / \imprimirautor. --
-   %       % \imprimirlocal, \imprimirdata-
-         
-   %       \hspace{0.5cm} \thelastpage{}f. : il. (algumas color.) ; 30 cm.\\
-   %       % \pageref{LastPage}
-         
-   %       \hspace{0.5cm} \imprimirorientadorRotulo~\imprimirorientador\\
-         
-   %       \hspace{0.5cm}
-   %       \parbox[t]{\textwidth}{\imprimirtipotrabalho~--~\@universidade
-   %       % \imprimirinstituicao,
-   %       \imprimirdata.}\\
-         
-   %       \hspace{0.5cm}
-   %          1. Detecção de Intrusão.
-   %          2. Internet das Coisas.
-   %          I. Título.
-   %          % I. Orientador.
-   %          % II. Universidade Fede.
-   %          % III. Faculdade de xxx.
-   %          % IV. Título             
-   %    \end{minipage}}
-   % \end{center}
-\end{fichacatalografica}
-
-\begin{folhadeaprovacao}
-   % \includepdf{folhadeaprovacao_final.pdf}
-   %
-   \noindent\begin{minipage}{0.3\textwidth}
-      \includegraphics[width=\linewidth]{lib/ufscar.pdf}
-      \end{minipage}%
-      \hfill%
-      \begin{minipage}{0.7\textwidth}\center
-      \imprimirinstituicao
-   \end{minipage}
-   % \begin{center}
-   %    %   {\ABNTEXchapterfont\large\imprimirautor}
-
-   %    %   \vspace*{\fill}\vspace*{\fill}
-   %    %   \begin{center}
-   %    %     \ABNTEXchapterfont\bfseries\Large\imprimirtitulo
-   %    %   \end{center}
-   %    %   \vspace*{\fill}
-
-   %    %   \hspace{.45\textwidth}
-   %    %   \begin{minipage}{.5\textwidth}
-   %    %       \imprimirpreambulo
-   %    %   \end{minipage}%
-   %    %   \vspace*{\fill}
-   % \end{center}
-   
-   \noindent\begin{minipage}{\textwidth}
-      \begin{center}
-      \rule{\linewidth}{1pt}
-      % \vspace*{0.5ex}
-      \textbf{Folha de Aprovação}\\[-0.5em]
-      % \vspace*{-2ex}
-      \rule{\linewidth}{1pt}
-      % \hrule
-      % \smash{\begin{tabular}{c} \hline  \\ \hline \end{tabular}\hspace*{-\tabcolsep}}
-      % \frenchspacing
-      % \hrulefill\\Folha de Aprovação\\\hrulefill
-      \end{center}
-   \end{minipage}
-
-   % \vspace{2em}
-   \begin{flushleft}
-      Assinaturas dos membros da comissão examinadora que avaliou e aprovou a
-      Defesa de Dissertação de Mestrado do candidato \imprimirautor{}, realizada
-      em \today{}:
-      %  Trabalho aprovado. \imprimirlocal, \today:
-   \end{flushleft}
- 
-    \assinatura{\textbf{\imprimirorientador} \\ Orientador}
-    \assinatura{\textbf{Professor} \\ Convidado 1}
-    \assinatura{\textbf{Professor} \\ Convidado 2}
-    %\assinatura{\textbf{Professor} \\ Convidado 3}
-    %\assinatura{\textbf{Professor} \\ Convidado 4}
-       
-   \vspace*{\fill}
-   \begin{center}
-      \vspace*{0.5cm}
-      {\large\imprimirlocal}
-      \par
-      {\large\imprimirdata}
-      \vspace*{1cm}
-   \end{center}
-\end{folhadeaprovacao}
-
- % % Dedicatória
-% \imprimirdedicatoria{Este trabalho é dedicado às crianças adultas que,\\
-%    quando pequenas, sonharam em se tornar cientistas.}
-% % Agradecimentos
-\imprimiragradecimentos{
-   Agradecimentos à Roberto Santos Inoue e Tatiane Cristina da Costa Fernandes da
-   Universidade Federal de São Carlos -- UFSCar que adaptaram a classe desenvolvida
-   por Athila Quaresma Santos e Renato Machado Monaro para o Programa em Engenharia
-   Elétrica da Escola de Engenharia de São Carlos.
-
-   Também agradecemos à Athila Quaresma Santos e
-   Renato Machado Monaro pela adaptação da classe \abnTeX~, bem como à
-   todos aqueles que contribuíram para que a produção de trabalhos acadêmicos
-   conforme as normas ABNT com \LaTeX\ fosse possível.
-
-   Parte do desenvolvimento deste modelo, especialmente os elementos
-   pré-textuais, foi inspirado no modelo desenvolvido por Samir e modificado por
-   Marcelo Suetake.
-
-   Agradecimentos especiais são direcionados aos voluntários do grupo de usuários
-   \emph{latex-br}\footnote{\url{http://groups.google.com/group/latex-br}} e aos
-   novos voluntários do grupo
-   \emph{\abnTeX}\footnote{\url{http://groups.google.com/group/abntex2} e
-   \url{http://abntex2.googlecode.com/}}~que contribuíram e que ainda
-   contribuirão para a evolução do \abnTeX.
-}
-% % Epígrafe
-% \imprimirepigrafe{
-%         ``Somos essencialmente profissionais do sentido. Educamos, \\
-%          quando ensinamos com sentido. Educar é impregnar de sentido\\
-%          a vida. A profissão docente está centrada na vida, no bem querer.''\\
-%         (Prof. Gilberto Teixeira)
-% }
-
+% ficha catalografica
+% folha de aprovacao
+% Dedicatória
+% Agradecimentos
+% Epígrafe
 % RESUMO e ABSTRACT
 \input{01.abstract}
 
@@ -290,7 +162,7 @@ Novidade em Fluxos de Dados MINAS}{
 
 \listatabelas
 
-\listasiglas{lib/Abreviaturas}
+\listasiglas{01.abreviaturas}
 
 \sumario
 
@@ -306,9 +178,8 @@ Novidade em Fluxos de Dados MINAS}{
 \include{21.novelty-detection}
 \include{30.trabalhos-relacionados}
 \include{40.proposta}
-\include{50.iccsa}
+\include{50.resultados}
 \include{60.concusao}
-% \include{98.quali}
 
 % \chapter{Capítulo genérico}
 % \lipsum[1]

@@ -1,0 +1,239 @@
+% !TeX root = ./00.ppgcc-2020.tex
+
+\chapter{Implementação}\label{cha:proposta}
+
+% procedimento experimental previamente definido de ambos, \mfog e da
+% implementação original do algoritmo MINAS, e comparadas.
+
+\input{52.preliminares.tex}
+\input{53.mpi.tex}
+
+\chapter{Experimentos e Resultados}\label{cha:results}
+
+\input{51.ambiente.tex}
+% \input{54.experimentos.tex}
+
+\section{Métricas e Visualizações}
+\label{sec:experiments}
+
+We have used two types of evaluation measurements for each experiment:
+a measure of the full experiment execution time
+% extracted by using \emph{GNU Time 1.9} measuring 
+and, a set of qualitative measurements extracted by a Python script.
+
+% Our script computed the
+Our evaluation script was build following reference techniques like
+multi-class confusion matrix with label-class association \cite{Faria2015minas}
+to extract classification quality measurements.
+This script takes two inputs, the test data set and the captured output stream,
+and outputs the confusion matrix, label-class association,
+final quality summary with:
+\emph{Hits} (true positive), \emph{Misses} (Err), \emph{Unknowns} (UnkR); and
+stream visualization chart with per example instance summary with novelty label markers.
+% 
+% For clarity, it is necessary to detail how to interpret and compare each measure,
+% as for some it is trivial but others are not so much.
+
+In the confusion matrix $M = m_{ij} \in \mathbb{N} ^{c \times{} l}$, computed by
+our evaluation script, each row denotes % one of the data sets original 
+the actual class $c$ and each column denotes the predicted label $l$ present in
+the captured output stream.
+Thus, each cell $M_{c, l}$ contains the count of examples from the test data set
+of class $c$ found in the output stream with the label $l$ assigned by the under
+evaluation experiment.
+
+For the data set under use, original classes are $c \in \{N, A\}$, and for the
+labels we have the training class
+\emph{``N''}, \emph{unknown} label \emph{``-''} and the novelties $i \in
+\mathbb{N}$ so $l \in \{N, -\} \cup \mathbb{N}$.
+
+Added to the original confusion matrix $M$ are the rows \emph{Assigned} and
+\emph{Hits}.
+\emph{Assigned} row represents which original class $c$ (or if \emph{unknown},
+\emph{``-''}) the label $l$ is assigned to, this is computed by using the
+original class if $c = l$ or by associated novelty label to original class as
+described in \cite{DeFaria2015evaluation} section 4.1
+(class from where the most samples came from).
+\emph{Hits} row shows the true positive count for each label $l$
+with assigned class $c$, being the same value as cell $M_{c, l}$.
+% computed by coping the value of the 
+%  where the label is the same
+% and the class $c$ is the value in the above \emph{Assigned} row.
+The \emph{Hits} row is also used to compute the overall true positive
+in the summary table and stream visualization chart.
+% accuracy.
+One complete matrix is shown in Tab. \ref{tab:java-matrix}.
+
+% \begin{table*}[htb]
+% \caption{Confusion Matrixes and Qualitative measurements}
+% \label{tab:confusion-matrixes-ref-serial}
+
+\begin{table}[hbt]%{\linewidth}
+{\scriptsize
+\setlength\tabcolsep{0.5em}
+\begin{center}
+\caption{Reference implementation}
+\label{tab:java-matrix}
+\begin{tabular}{l *{14}{|r} }
+  Labels   &     - &       N &    1 &    2 &    3 &  4 &   5 &    6 &    7 &     8 &    9 &    10 &   11 &  12 \\\hline
+  Classes  &       &         &      &      &      &    &     &      &      &       &      &       &      &     \\\hline
+  \hline
+  A        &  3774 &  438750 &  123 &  145 &  368 &  8 &  52 &  165 &    1 &  1046 &  161 &  2489 &   71 &  26 \\\hline
+  N        &  8206 &  193030 &    0 &   79 &   44 &  0 &   0 &    0 &  229 &   181 &  154 &  4066 &  289 &   0 \\\hline
+  \hline
+  Assigned &     - &       N &    A &    A &    A &  A &   A &    A &    N &     A &    A &     N &    N &   A \\\hline
+  Hits     &     0 &  193030 &  123 &  145 &  368 &  8 &  52 &  165 &  229 &  1046 &  161 &  4066 &  289 &  26 
+\end{tabular}
+\end{center}
+}
+\end{table}
+
+% \vspace{3ex}
+
+\begin{table}[hbt]%{\linewidth}
+{\scriptsize
+\setlength\tabcolsep{0.5em}
+\begin{center}
+\caption{Serial implementation}
+\label{tab:libc-matrix}
+\begin{tabular}{l|r|r|r|r|r|r|r|r|r|r|r}
+  Labels &      - &       N &   0 &    1 &    2 &   4 &   5 &  6 &   7 &   8 &  10 \\\hline
+  Classes  &        &         &     &      &      &     &     &    &     &     &     \\\hline
+  \hline
+  A        &  16086 &  429765 &  94 &  995 &  104 &   0 &  23 &  3 &  29 &  46 &  34 \\\hline
+  N        &  12481 &  193642 &   3 &   94 &    0 &  47 &   0 &  0 &   0 &  11 &   0 \\\hline
+  \hline
+  Assigned &      - &       N &   A &    A &    A &   N &   A &  A &   A &   A &   A \\\hline
+  Hits     &      0 &  193642 &  94 &  995 &  104 &  47 &  23 &  3 &  29 &  46 &  34 
+\end{tabular}
+\end{center}
+}
+\end{table}
+
+\vspace{3ex}
+
+\begin{table}[hbt]%{0.48\linewidth}
+{\scriptsize
+\setlength\tabcolsep{0.35em}
+\begin{center}
+\caption{Parallel single-node}
+\label{tab:single-node-matrix}
+\begin{tabular}{l|r|r|r|r|r|r|r}
+  Lab. &      - &       N &    0 &    1 &   2 &  3 &  4 \\\hline
+  Cla.  &        &         &      &      &     &    &    \\\hline
+  \hline
+  A        &  12282 &  433797 &  147 &  952 &   0 &  0 &  1 \\\hline
+  N        &   3088 &  203019 &   40 &   99 &  27 &  5 &  0 \\\hline
+  \hline
+  Ass. &      - &       N &    A &    A &   N &  N &  A \\\hline
+  Hits     &      0 &  203019 &  147 &  952 &  27 &  5 &  1 
+\end{tabular}
+\end{center}
+}
+\end{table}
+% 
+% \quad
+% &
+% 
+\begin{table}[hbt]%{0.48\linewidth}
+{\scriptsize
+\setlength\tabcolsep{0.35em}
+\begin{center}
+\caption{Parallel multi-node}
+\label{tab:multi-node-matrix}
+\begin{tabular}{l|r|r|r|r|r|r|r}
+  Lab.   &      - &       N &    0 &    1 &    2 &    3 &  4 \\\hline
+  Cla.   &        &         &      &      &      &      &    \\\hline
+  \hline
+  A      &  12378 &  433631 &  117 &  886 &    0 &  162 &  5 \\\hline
+  N      &   3121 &  202916 &   40 &   96 &  105 &    0 &  0 \\\hline
+  \hline
+  Ass.   &      - &       N &    A &    A &    N &    A &  A \\\hline
+  Hits   &      0 &  202916 &  117 &  886 &  105 &  162 &  5 
+\end{tabular}
+\end{center}
+}
+\end{table}
+
+% \end{table*}
+
+For the measurements summary table, six measurements from two sources are displayed. Three
+measures \emph{Hits}, \emph{Unknowns} and \emph{Misses} represented as ratio of
+the captured output stream, extracted from the evaluation python program,
+computed as follows:
+\emph{Hits} (true positive rate) is the sum of the \emph{Hits} row in the
+extended confusion matrix;
+\emph{Unknowns} is the count of examples in the captured output stream marked
+with the \emph{unknown} label (\emph{``-''});
+\emph{Misses} is the count of all examples in the captured output stream marked
+with a label distinct from the \emph{Assigned} original class and are not marked
+as unknown.
+
+Furthermore in the measurement summary table, \emph{Time}, \emph{System} and \emph{Elapsed}
+ represented in seconds, are extracted from \emph{GNU Time 1.9}.
+\emph{Time} is the amount of CPU seconds expended in user-mode
+(indicates time used doing CPU intensive computing, e.g., math);
+\emph{System} is the amount of CPU seconds expended in kernel-mode
+(for our case, it indicates time doing input or output);
+\emph{Elapsed} is the real-world (wall clock) elapsed time and
+indicates how long the program took to complete.
+The lower the times, the better.
+Our four main experiments are shown in Tab. \ref{tab:exper-summary}.
+
+Lastly, the stream visualization chart shows the summary quality measurement
+(\emph{Hits}, \emph{Unknowns}, \emph{Misses})
+computed for each example in the captured output stream.
+This summary is computed for each example, but it uses the \emph{Assigned} row
+computed previously to evaluate \emph{Hits}; the other measurements are derived as
+described before.
+The Horizontal axis (x, domain) plots the index of the example and the
+vertical axis (y, image) shows the measurement computed until that example index on the captured
+output stream.
+
+Adding to the stream visualization chart, novelty label markers are represented
+as vertical lines indicating \emph{when} in the captured output stream a new
+label first appeared.
+Some of the novelty label markers include the label itself ($l \in \mathbb{N}$)
+for reference (showing every label would turn this feature unreadable due
+to overlapping).
+Figure \ref{fig:visualization} shows complete stream visualization charts.
+
+\begin{figure}[htb]
+  \centering
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{experiments/revised-java.log.png}
+    % \caption{Reference Implementation}
+    \legend{Reference Implementation}
+    \label{fig:validation-sub-java}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{experiments/online-nd.log.png}
+    \caption{Serial Implementation}
+    \label{fig:validation-sub-serial}
+  \end{minipage}
+  \vspace{5mm}
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{experiments/tmi-base.log.png}
+    \caption{Parallel single-node}
+    \label{fig:cluster-sub-single}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{experiments/tmi-n12.log.png}
+    \caption{Parallel multi-node}
+    \label{fig:cluster-sub-multi}
+  \end{minipage}
+  \caption{Stream hits and novelties visualization}
+  \label{fig:visualization}
+\end{figure}
+
+
+\section{Conclusão}
+\label{sec:exp-conclusao}
+
+Portanto ...

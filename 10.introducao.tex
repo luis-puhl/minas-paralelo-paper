@@ -1,5 +1,79 @@
-% !TeX root = ./00.main.tex
+% !TeX root = ./00.ppgcc-2020.tex
+
 \chapter{Introdução}\label{cha:intro}
+
+The Internet of Things (\iot) brings together a wide variety of devices,
+including mobile, wearable, consumer electronics, automotive and sensors of
+various types.
+% 
+Such devices can either be accessed by users through the Internet or connect
+to other devices, servers and applications,
+with little human intervention or supervision
+\cite{Tahsien2020,abane2019,haddadpajouh2019survey,Shanbhag2015}.
+% 
+Security and privacy is a major concern in the \iot, especially regarding
+devices having access to user personal data like
+location, health and many other sensitive data \cite{sengupta2020comprehensive}.
+% 
+Furthermore, if compromised, such devices can also be used to attack other
+devices and systems, steal information, cause immediate physical damage or
+perform various other malicious acts \cite{Kolias2017mirai}.
+% 
+As an additional concern, \iot devices likely have a long lifespan, less frequent
+software patches, growing diversity of technologies combined with lack of
+control over the software and hardware of such devices by the host organization
+(where they are deployed), which considerably increases the attack surface.
+
+Because most \iot devices have limited resources (i.e., battery, processing,
+memory and bandwidth), configurable and expensive algorithm-based
+security techniques are not usual, giving way to network based approaches 
+\cite{Zhou2017}.
+Machine Learning (ML) techniques, for instance, have been studied for years to detect attacks
+from known patterns or to discover new attacks at an early stage
+\cite{buczak2016survey,mitchell2014survey}.
+A recent survey \cite{Tahsien2020} shows that ML based methods are a
+promising alternative which can provide potential security tools for the \iot
+network making them more reliable and accessible than before.
+
+Despite the promising use of ML to secure \iot systems, studies found in the
+literature \cite{buczak2016survey,mitchell2014survey,Tahsien2020} are limited to
+traditional ML methods that use static models of traffic behavior.
+Most existing ML solutions for network-based intrusion detection cannot maintain
+their reliability over time when facing evolving attacks \cite{Viegas2019,AndreoniLopez2019}.
+Unlike traditional methods, stream mining algorithms can be applied to intrusion
+detection with several advantages, such as:
+
+\begin{enumerate}[label=(\emph{\roman*})]
+    \item processing traffic data with a single read;
+    \item working with limited memory (allowing the implementation in small
+    devices commonly employed in edge services);
+    \item producing real-time response; and
+    \item detecting novelty and changes in concepts already learned.
+\end{enumerate}
+
+Given the recent \cite{Viegas2019,AndreoniLopez2019,DaCosta2019a} use of Data Stream Novelty
+Detection (\nd) in network data streams, this paper shows the effects of
+adapting these mechanisms to edge services for use in \iot environments.
+Our proposal, called \mfog, adapted the \arch
+architecture \cite{Cassales2019a} using the \nd algorithm \minas
+\cite{Faria2013Minas,Faria2015minas}, making it suitable to run
+on a distributed system composed of small devices with limited
+resources on the edge of the network.
+Using our newer version of the \minas algorithm, we have experimentally evaluated 
+how the distribution 
+affects the capability to detect changes (novelty) in
+traffic patterns and its impact on the computational efficiency.
+Finally, some distribution strategies and policies for the data stream
+novelty detection system are discussed.
+
+This paper is organized as follows:
+Section \ref{sec:minas} reviews the chosen \nd algorithm \minas.
+A distributed extension of \minas, including its
+implementation and evaluation are presented in Section \ref{sec:prop}
+and in Section \ref{sec:experiments} we show how we evaluated \mfog and
+the discuss results we found.
+Finally, Section \ref{sec:conclusion} summarizes the main findings and presents
+possible future work.
 
 % \acronym{IoT}{\emph{Internet of Things}, Internet das Coisas}
 % \newcommand{\iot}{IoT\xspace}

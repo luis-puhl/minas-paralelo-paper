@@ -1,0 +1,69 @@
+% !TeX root = ./00.ppgcc-2020.tex
+
+\section{Resultados preliminares}\label{sec:resultados}
+
+No desenvolvimento parcial desta pesquisa, algumas experimentações e algumas
+ferramentas de teste já foram desenvolvidas.
+Aspectos desses desenvolvimentos são descritos a seguir.
+% obrigado hélio.
+
+\subsection{Implementação com \python e \kafka}
+
+A primeira implementação e avaliação do \mfog realizada foi construída sobre a
+linguagem \python com o sistema de fila de mensagens \kafka e a respectiva
+biblioteca de conexão.
+A escolha desse conjunto para a implementação ocorreu \hlhl{devido à ampla}
+disponibilidade de bibliotecas de aprendizagem de máquina no ecossistema
+\python e, à simplicidade geral da linguagem.
+Na implementação desenvolvida, o sistema \kafka recebe mensagens e as armazena
+em tópicos distribuídos em partições replicadas em nós de um \cluster,
+gerenciados por um nó mestre e suportados pelo serviço de gerenciamento de
+configuração distribuída \emph{Apache ZooKeeper}.
+A aplicação \emph{Python} consome eventos através da interface \emph{Consumer API},
+que expõe a distribuição através da associação de um consumidor às partições
+mantidas pelo \kafka.
+
+Para essa implementação, havia a hipótese de que a distribuição de
+mensagens gerenciada pelo \kafka
+se estenderia a processos consumidores, efetivamente distribuindo o volume de
+mensagens entre eles igualmente.
+No entanto, a hipótese foi refutada nos experimentos realizados.
+Os experimentos em questão foram compostos de 8 processos consumidores, um
+processo produtor, uma instância \kafka com 8 partições em seu tópico principal
+e uma instância \emph{Apache ZooKeeper} associada à instância \kafka.
+% A hipótese era que, como o número de partições igualava o número de consumidores,
+% cada consumidor associaria-se a uma partição, distribuindo os dados igualmente
+% entre os consumidores para a paralelização a execução.
+A hipótese foi refutada quando observou-se que o número de
+mensagens consumidas por um dos 8 processos representava a maioria (mais de
+80\%) do volume introduzido no sistema, o restante sendo distribuído entre
+outros 3 processos e o restante dos processos não recebia nenhuma mensagem.
+Portanto, a iniciativa de implementar o algoritmo MINAS em \python com \kafka e
+atingir os objetivos de distribuição falhou, o que levou à reconsideração das
+plataformas escolhidas.
+
+\subsection{Implementação com \flink}
+
+% \nota{citar ferramentas e a escolha só depois do python e kafka}
+% \nota{entre flink e spark, outro grupo de pesquisa já está explorando spark}
+
+A segunda alternativa explorada teve por inspiração o trabalho de
+\citeonline{Viegas2019} e, como outro grupo de pesquisa já estava explorando
+o algoritmo na plataforma \emph{Apache Spark}, a segunda implementação
+foi baseada na plataforma \flink.
+
+A plataforma \flink tem modelos de processamento tanto de fluxos como em lotes.
+O modelo em lotes é implementado como extensão do modelo de fluxos e, apesar
+de não ser foco desse trabalho, mostrou-se útil para a construção do \offline,
+já que o conjunto consumido por esse módulo é limitado.
+
+Um desafio encontrado durante o desenvolvimento da implementação do \mfog foi a falta
+de bibliotecas na plataforma \flink que disponibilizem versões adaptadas
+à plataforma de algoritmos base para o algoritmo MINAS.
+Em especial, a ausência dos algoritmos \emph{K-means} e \emph{CluStream}
+gerou carga imprevista sobre o processo de desenvolvimento
+resultando no atraso do processo de desenvolvimento.
+
+Esta implementação segue a arquitetura descrita na \refsec{descricao} e as
+avaliações e resultados esperados descritos neste \refcap{proposta}
+referem-se à implementação do \mfog na plataforma \flink.

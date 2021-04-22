@@ -1,4 +1,5 @@
-% !TeX root = ./00.main.tex
+% !TeX root = ./00.ppgcc-2020.tex
+
 \chapter{Considerações Finais}\label{cha:final}
 
 % \begin{resumocap}
@@ -36,3 +37,38 @@ com os ônus de latência e largura de banda na comunicação entre borda e nuve
 Além disso, o \mfog objetiva contribuir com a adição de uma implementação
 distribuída de um algoritmo cujo modelo é estado da arte em detecção de
 novidades em fluxos contínuos de dados.
+
+% \subsection{Conclusion}
+% \label{sec:conclusion}
+
+Data Stream Novelty Detection (\nd) can be a useful mechanism for Network
+Intrusion Detection (\nids) in IoT environments.
+It can also serve other related applications of \nd using continuous network or
+system behavior monitoring and analysis.
+Regarding the tremendous amount of data that must be processed in the flow
+analysis for \nd, it is relevant that this processing takes place at the edge of
+the network.
+However, one relevant shortcoming of the IoT, in this case, is the reduced
+processing capacity of such edge devices.
+
+In this sense, we have put together and evaluated a distributed architecture for
+performing \nd in network flows at the edge.
+Our proposal, \mfog is a distributed \nd implementation based on the \nd
+algorithm \minas.
+
+The main goal of this work is to observe the effects of our approach to a
+previously serial only algorithm, especially in regards to time and quality
+metrics.
+
+While there is some impact on the predictive metrics, this is not reflected on
+overall classification quality metrics indicating that distribution of \minas
+shows a negligible loss of accuracy.
+In regards to time and scale, our distributed executions was faster than the
+previous sequential implementation of \minas, but efficient data distribution
+was not achieved as the observed time with each added node remained constant.
+
+Overall, \mfog and the idea of using distributed flow classification and novelty
+detection while minimizing memory usage to fit in smaller devices at the edge of
+the network is a viable and promising solution.
+Further work include the investigation of other \nd algorithms, other clustering
+algorithms in \minas and analysis of varying load balancing strategies.

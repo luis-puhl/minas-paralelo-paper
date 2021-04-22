@@ -1,4 +1,5 @@
-% !TeX root = ./00.main.tex
+% !TeX root = ./00.ppgcc-2020.tex
+
 \chapter{Proposta e metodologia}\label{cha:proposta}
 
 % \begin{resumocap}
@@ -7,6 +8,145 @@
   atingir os objetivos.
 
 % \end{resumocap}
+
+In this work, we investigate an appropriate architecture for performing \nd at
+the edge, as a means of allowing small IoT devices to filter and detect undesirable
+network behavior.
+Our approach is based on the \arch architecture \cite{Cassales2019a} and \nd
+techniques provide by the \minas algorithm \cite{Faria2015minas}.
+Named \mfog, our distributed algorithm explores load balancing to enable low
+profile devices at the edge of the internet to also work on the classification
+and detection of unwanted traffic.
+
+In this work, we propose and assess \mfog, a distributed data stream
+novelty detection system based on the algorithm \minas for securing \iot networks.
+\mfog implements a distributed version of \minas according to the \arch
+architecture proposed in a previous work \cite{Cassales2019a}, to execute in the
+edge where small devices and constrained resources may be prevalent.
+
+However, given the distributed nature and the typical use of small computing
+devices in IoT scenarios, new challenges arise:
+
+\begin{enumerate}[label=(\emph{\roman*})]
+  \item the classification phase of the algorithm must occur in parallel at
+  different nodes;
+  \item the novelty detection phase, which provides the model evolution, must
+  also be asynchronous;
+  \item the algorithm complexity (time and space) must allow it to be processed
+  by modest computing devices (i.e., small memory and low processor performance).
+\end{enumerate}
+
+\nids 
+monitor network traffic, and analyze the characteristics of each flow 
+to identify any intrusion or misbehavior.
+However, this problem requires both fast and accurate response \cite{DaCosta2019a}:
+fast response is needed to have a proper reaction before harm can be cast
+to the network and to cope with the traffic without imposing loss or delay
+in the \nids or observed network;
+accurate response is required as not to misidentify,
+especially the case of false positive that leads to false alarms.
+To achieve those goals, we leverage fog computing.
+
+In common \iot scenarios, data is captured by small devices and sent to the
+cloud for any compute or storage tasks, but this is not feasible in a \nids
+scenario.
+Fog computing infrastructure aims to offload processing from the cloud
+providers by placing edge devices closer to end-users and/or data sources.
+
+In our proposal, fog and cloud computing resources are combined to minimize
+the time elapsed between a flow descriptor ingestion and intrusion alarm,
+performing the classification step of \minas running multiple
+classifier instances.
+After the initial classification, the resulting label can be used immediately,
+but if the sample is labeled as \emph{unknown}, this sample must be stored and
+the novelty detection step will be triggered.
+
+% To have a better overview of our proposal and how it integrates with existing
+% \iot environments, Figure \ref{fig:mfog-phy-arch-cloud} depicts such scenario
+% showing from bottom to top:
+% \iot devices directly connected to a (local) gateway network;
+% this gateway network could be as simple as a single Internet router 
+% or be more complex by connecting to private clouds or 
+% containing more devices providing fog computing capabilities;
+% lastly, available over the internet, the traditional public cloud provides
+% inexpensive computing and storage on demand.
+% In this scenario, the further apart resources are, the more network
+% resources need to be employed, and, as with any networked system, the
+% higher is the latency.
+
+% \begin{figure}[hb]
+%   \centering
+%   \includegraphics[width=0.5\linewidth]{figures/cassalesimgs-000.png}
+%   \caption{\arch \cite{Cassales2019a} physical architecture and deployment scenario overview.}
+%   \label{fig:mfog-phy-arch-cloud}
+% \end{figure}
+
+The overall \mfog architecture has two main modules, Classification and Novelty
+Detection, which implement the \minas main tasks.
+The Classification Module performs the same task of the \minas Online phase and
+is the focal point for parallelism and distribution in our proposal.
+It is replicated in the fog and runs on each cluster node, using a configurable
+number of threads (limited to the node CPU core count).
+
+The Novelty Detection Module can also be replicated,
+the choice being one instance per local network, one global cloud instance,
+or both.
+This module also handles the homonymous task of \minas Online phase, receiving
+all the samples labeled with \emph{unknown}, storing them in an internal
+\emph{unknown-buffer}, and, when this buffer is full, performing the \minas
+Novelty Detection task (clustering followed by validation).
+
+\section{Polices}\label{sec:polices}
+
+The design of our distributed \nd architecture includes partitioning the
+functionalities of \minas and establishing the appropriate data flows
+between different actors.
+Changes to placement and behavior can have different impacts and should be
+chosen with care.
+The decisions following these discussions can be organized in several policies,
+some of them were recurring during our implementation discussions and are:
+
+\begin{itemize}
+  \item Regarding the allocation of the Novelty Detection Module:
+  \begin{itemize}
+    
+    \item At each fog node: patterns will be only detected if sufficient samples
+    of them occur in the local observed network, use of the local node
+    processing power, and a model synchronization mechanism between networks
+    must be added;
+
+    \item In the cloud: detect patterns even when scattered on each local
+    network, each sample with \emph{unknown} label must be sent from edge to
+    cloud implying increased internet link usage and increased delay between the
+    appearance of a pattern, its detection and propagation to fog classifiers;
+
+    \item On both: local \emph{unknown} buffer is maintained and novelty
+    detection is local as well, once a sample is considered as noise or outlier
+    it shall be sent to the cloud where the process repeats but with global
+    data.
+    This choice needs an even more complex model synchronization mechanism.
+
+  \end{itemize}
+    
+  \item Regarding the model cleanup (forget mechanism): Even when a global
+  novelty detection is used, local models can be optimized for faster
+  classification using the local model statistics by sorting by (or removing)
+  least used clusters;
+
+  \item Lastly, reclassification of \emph{unknowns}: In the novelty detection
+  task in \minas, the \emph{unknown} sample buffer is effectively classified
+  using the new set of clusters.
+  In Algorithm \ref{alg:MINAS-nd}, at the line \ref{alg:MINAS-nd:reclassify}, the
+  new cluster valid (novelty or extension) includes the set of samples composing
+  that cluster, thus, if this new label assignment was put forth to the system
+  output it would introduce delayed outputs, more recent and perhaps more
+  accurate.
+  Also, it would change the system data stream behavior from a \emph{map}
+  (meaning each input has one output) to a \emph{flatMap} (each input can have
+  many outputs).
+
+\end{itemize}
+
 
 % Uma Implementação paralela do algoritmo de Detecção de Novidade em Streams MINAS
 
@@ -76,7 +216,7 @@ oportunidades de melhoria.
 % }
 % \nota{Falta: fog, processamento distribuído de streams, detecção de novidade}
 
-\section{Descrição da Implementação}\label{sec:descricao}
+\section{Descrição da Arquitetura Proposta}\label{sec:descricao}
 
 \newcommand{\source}{módulo auxiliar \emph{source}\xspace}
 \newcommand{\sink}{módulo auxiliar \emph{sink}\xspace}
@@ -175,7 +315,8 @@ estudo e sua escalabilidade, desde que não afete a escalabilidade do \classify 
 Padrões podem ser locais? Ou sempre se aplicam a todos os nós?}
 \notafa{frase incompleta}
 
-\section{Metodologia de Avaliação e Resultados Esperados}\label{sec:esperados}
+% ------------------------------------------------------------------------------
+\section{Metodologia de Avaliação}\label{sec:esperados}
 
 % \nota{reestrutura 2:
 %   A - cenario
@@ -334,356 +475,3 @@ Os resultados desses experimentos irão conter as seguintes métricas:
 Para a validação da corretude da implementação do \mfog com relação ao algoritmo
 MINAS original, as métricas de qualidade de classificação serão extraídas de
 ambas as Implementação e comparadas.
-
-% procedimento experimental previamente definido de ambos, \mfog e da
-% implementação original do algoritmo MINAS, e comparadas.
-
-\subsection{Ambiente de Teste}
-
-Para realização dos experimentos, diversas configurações de ambientes são
-propostas.
-Os ambientes selecionados são: local, 
-\notahl{o que muda na paralelização e na \textbf{distribuição} de instâncias
-do módulo \textbf{classificador}?}
-\hlhl{nuvem e névoa}.
-As configurações consistem na distribuição de módulos da implementação \mfog
-sendo executadas em combinações de ambientes nuvem e névoa com variada
-quantidade de nós.
-
-O ambiente local é composto por um único nó computacional, consistindo de um
-computador pessoal equipado com um processador de 8 núcleos, $16GB$ de memória e
-armazenamento em estado sólido (SSD) usado para o desenvolvimento e referência
-em comparações.
-O ambiente nuvem é provido pela utilização da infraestrutura de nuvem da
-Universidade Federal de São Carlos (Cloud{@}UFSCar\footnote{Disponível em
-\url{http://portalcloud.ufscar.br/servicos}}).
-O ambiente de névoa (\fog) é composto por computadores de única placa
-(\emph{Single Board Computer}) equipados com processador de arquitetura ARM de 4
-núcleos, $1GB$ de memória, armazenamento em cartão SD (\emph{SD-card}) e
-conectados por rede sem fio.
-
-A combinação de diferentes distribuições tem por objetivo \hlhl{demonstrar padrões de
-latência} e qualidade que podem afetar implantações em ambientes reais que não
-são geralmente destacados quando os experimentos são realizados em um único
-nó ou ambiente.
-
-Faz parte também do ambiente de teste os conjuntos de dados (\datasets)
-\emph{KDD99}
-% \hlfa{e \emph{Kyoto 2006+}}
-e \emph{Kyoto 2006+}
-que foram selecionados por motivos distintos.
-
-O \dataset \emph{Kyoto 2006+} é o foco deste trabalho, pois contém dados ainda
-representativos (até 2015) e as característica desejáveis de um conjunto de
-dados (realismo, validade, etiquetas previamente definidas, alta variabilidade,
-reprodutibilidade e disponibilidade pública) são atendidas
-\cite{KyotoDataset,Song2011kyoto}.
-
-O \dataset \emph{KDD99} é amplamente utilizado em trabalhos de detecção de
-anomalia.
-Porém, como não possui mais a característica de realismo, uma vez que foi
-construído em 1998, neste trabalho o \dataset \emph{KDD99} é utilizado somente
-para que o leitor possa comparar com outros trabalhos
-\cite{Tavallaee2009,Protic2018KddKyoto}.
-
-Os dois \datasets mencionados e outros abordados em discussão e avaliados como
-relevantes são
-
-% Por exemplo, o KDD original tem 41 atributos. A base é rotulada para 24
-% tipos de ataques divididos em 4 grupos: DOS ...
-% 
-% O paper que analisou a fundo o KDD99 foi este: 
-% 
-% M. Tavallaee, E. Bagheri, W. Lu, and A. Ghorbani, “A detailed analysis
-% of the KDD Cup 1999 data set,” in Proc. 2nd IEEE Symp. Comput. Intell.
-% Secur. Defense Appl., 2009, pp. 1–6.
-% 
-% Qual é o defeito dele? tem muitos dados replicdos tanto na base de
-% treinamento quento na de teste, o que gera viés nos resultados. Para
-% resolver isso propuseram o NSL-KDD que é um subconjunto do KDD que evita
-% esse problema
-
-% \notake{
-%   CICIDS2017 {https://www.unb.ca/cic/datasets/ids-2017.html} e
-%   ISCXTor2016 {https://github.com/ahlashkari/CICFlowMeter}
-% }
-% \notafa{Uma sugestão seria usar datasets artificiais também a fim de avaliar
-% outras caracteristicas tais como: nro de atributos, frequencia do surgimento de
-% novidades, mudanças abruptas, graduais, etc. }
-\begin{table}[ht]
-  \caption{Sumário dos conjuntos de dados}
-  \centering
-  \begin{scriptsize}
-  \begin{tabularx}{\linewidth}{X|X|X|X}
-    Nome &
-      Origem &
-      Descrição &
-      Acesso Público \\
-    \hline
-    \hline
-    \emph{KDD99} \cite{Tavallaee2009,Protic2018KddKyoto} &
-      Captura de Fluxos de rede com ataques simulados &
-      41 atributos (sumário de fluxo), 23 classes, $4\;898\;431$ instâncias, $709$ MB &
-      \url{https://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html} \\
-    \hline
-    \emph{Kyoto 2006+} \cite{Song2011kyoto,Protic2018KddKyoto}&
-      Captura de Fluxos de rede com HoneyPot &
-      23 atributos (sumário de fluxo), 3 classes, $7\;865\;245$ instâncias e $1.3$ GB (dez-2015) &
-      \url{https://www.takakura.com/Kyoto_data/new_data201704/} \\
-
-      %  0.000000 other 0 0 0 0.00 0.00 0.00 0 0 0.00 0.00 0.00 S0 00 0 -1
-      %  fdbd:f115:35b2:0424:40aa:098c:03e5:149b 3712
-      %  fdbd:f115:35b2:c891:7db9:2762:6182:03eb 445 00:00:00 tcp
-    
-       \hline
-    % ISCXTor2016 \cite{Draper-Gil2016} &
-    %   Origem &
-    %   28 atributos,  &
-    %   \url{https://www.unb.ca/cic/datasets/tor.html} \\
-    % \hline
-    % ISCXVPN2016 \cite{Lashkari2017} &
-    %   Origem &
-    %   28 atributos,  &
-    %   \url{https://www.unb.ca/cic/datasets/tor.html} \\
-    % \hline
-    CICIDS2017 \cite{Sharafaldin2018cicids2017} &
-      Captura de Fluxos de rede com ataques simulados com perfil de trafego de 25
-      usuários normais e de 6 perfis de ataques durante 5 dias (1º dia sem ataque) &
-      80 atributos (sumário de fluxo extraído de CICFlowMeter), 15 classes,
-      $2\;830\;751$ instâncias e 1.2GB em arquivos \emph{pcap} e \emph{csv} &
-      \url{https://www.unb.ca/cic/datasets/ids-2017.html} \\
-    \hline
-    \emph{Radial Basis Function} (RBF) da biblioteca \emph{Massive Online Analysis} (MOA)
-    \emph{4CRE-V2} &
-      Sintético gerado por função RBF da biblioteca MOA com características de
-      mudança e evolução de conceito &
-      Atributos ($\mathbb{R}$), exemplos, classes, evoluções e mudanças configuráveis &
-      \url{https://sites.google.com/site/nonstationaryarchive/home} \\
-    \hline
-  \end{tabularx}
-  \label{tab:summary-dataset}
-  \end{scriptsize}
-\end{table}
-
-\section{Resultados preliminares}\label{sec:resultados}
-
-No desenvolvimento parcial desta pesquisa, algumas experimentações e algumas
-ferramentas de teste já foram desenvolvidas.
-Aspectos desses desenvolvimentos são descritos a seguir.
-% obrigado hélio.
-
-\subsection{Implementação com \python e \kafka}
-
-A primeira implementação e avaliação do \mfog realizada foi construída sobre a
-linguagem \python com o sistema de fila de mensagens \kafka e a respectiva
-biblioteca de conexão.
-A escolha desse conjunto para a implementação ocorreu \hlhl{devido à ampla}
-disponibilidade de bibliotecas de aprendizagem de máquina no ecossistema
-\python e, à simplicidade geral da linguagem.
-Na implementação desenvolvida, o sistema \kafka recebe mensagens e as armazena
-em tópicos distribuídos em partições replicadas em nós de um \cluster,
-gerenciados por um nó mestre e suportados pelo serviço de gerenciamento de
-configuração distribuída \emph{Apache ZooKeeper}.
-A aplicação \emph{Python} consome eventos através da interface \emph{Consumer API},
-que expõe a distribuição através da associação de um consumidor às partições
-mantidas pelo \kafka.
-
-Para essa implementação, havia a hipótese de que a distribuição de
-mensagens gerenciada pelo \kafka
-se estenderia a processos consumidores, efetivamente distribuindo o volume de
-mensagens entre eles igualmente.
-No entanto, a hipótese foi refutada nos experimentos realizados.
-Os experimentos em questão foram compostos de 8 processos consumidores, um
-processo produtor, uma instância \kafka com 8 partições em seu tópico principal
-e uma instância \emph{Apache ZooKeeper} associada à instância \kafka.
-% A hipótese era que, como o número de partições igualava o número de consumidores,
-% cada consumidor associaria-se a uma partição, distribuindo os dados igualmente
-% entre os consumidores para a paralelização a execução.
-A hipótese foi refutada quando observou-se que o número de
-mensagens consumidas por um dos 8 processos representava a maioria (mais de
-80\%) do volume introduzido no sistema, o restante sendo distribuído entre
-outros 3 processos e o restante dos processos não recebia nenhuma mensagem.
-Portanto, a iniciativa de implementar o algoritmo MINAS em \python com \kafka e
-atingir os objetivos de distribuição falhou, o que levou à reconsideração das
-plataformas escolhidas.
-
-\subsection{Implementação com \flink}
-
-% \nota{citar ferramentas e a escolha só depois do python e kafka}
-% \nota{entre flink e spark, outro grupo de pesquisa já está explorando spark}
-
-A segunda alternativa explorada teve por inspiração o trabalho de
-\citeonline{Viegas2019} e, como outro grupo de pesquisa já estava explorando
-o algoritmo na plataforma \emph{Apache Spark}, a segunda implementação
-foi baseada na plataforma \flink.
-
-A plataforma \flink tem modelos de processamento tanto de fluxos como em lotes.
-O modelo em lotes é implementado como extensão do modelo de fluxos e, apesar
-de não ser foco desse trabalho, mostrou-se útil para a construção do \offline,
-já que o conjunto consumido por esse módulo é limitado.
-
-Um desafio encontrado durante o desenvolvimento da implementação do \mfog foi a falta
-de bibliotecas na plataforma \flink que disponibilizem versões adaptadas
-à plataforma de algoritmos base para o algoritmo MINAS.
-Em especial, a ausência dos algoritmos \emph{K-means} e \emph{CluStream}
-gerou carga imprevista sobre o processo de desenvolvimento
-resultando no atraso do processo de desenvolvimento.
-
-Esta implementação segue a arquitetura descrita na \refsec{descricao} e as
-avaliações e resultados esperados descritos neste \refcap{proposta}
-referem-se à implementação do \mfog na plataforma \flink.
-
-% \nota{
-% - offline, online, ND, Clustering \\
-% - observação/Considerações de paralelização \\
-% - Notas sobre implementação Python/Kafka/Minas (não escala como esperado) \\
-% - Dificuldade no processamento distribuido em Flink. \\
-% - complexidade bigO (?)
-% }
-
-% \chapter{Resultados Preliminares: implementação e testes}\label{cha:imp}
-% cap 4: Implementação e testes
-%     4.1. descrição da implementação
-%         - offline, online, ND, Clustering
-%         - observação de paralelização
-%         - complexidade bigO (?)
-%     4.2. cenário de teste 
-%         - detecção de intrusão
-%         - Arquitetura guilherme (dispositivos pequenos vs cloud)
-%     4.3. Resultados de experimentos
-%         - gráficos, tempos, tabelas...
-%         - análises e comentários
-
-% \begin{resumocap}
-% \end{resumocap}
-
-% \nota{Esse trabalho propos-se a fazer}
-
-% % hélio
-% notas sobre a distribuição do modelo
-% - cenário com o processamento de novidades local
-% - cenário com ND na nuvem
-
-% - minas totalmente active
-
-% helio amanha:
-% a. Cenário, b. Problema, c. Proposta e d. Resultado Esperado.
-% hermes:
-% a. Monitoramento, classificação,
-% b. detecção de novidades,
-% c. executar em nós multi-core de maneira escalável,
-% d. minas com mesma qualidade porém escalável.
-
-% helio:
-% Técnicas de firewall tradicional: allow all, deny all.
-% Firewall moderno usa modelos.
-% Minas como modelo.
-
-% hermes
-% iot, nós expostos vitima de ataque, novas funcionalidades ->
-% firewall rigido vs modelos -> streams ->
-% novidade -> minas -> big data -> discussão de localidade de dados
-% paralelização
-
-% motivação: testes preliminares do guilherme que fez teste com tais bases
-% teve resultados promissores
-
-% - implementar
-% - paralelizar
-% - avaliar
-% - avaliar aprendizado local ou global trade-offs
-
-
-% % luis
-% O minas abre espaço 
-
-% % hermes
-% escalabilidade do algoritmo
-
-% Kafka particiona e expoem esse particionamento ao consumidor.
-% Tentei usar Python + Kafka, mas não escalou.
-
-% Detalhar a implementação
-
-% % hermes, esqueça kafka, foque em arquivos
-
-% - Realism: The network traffic used for building the dataset was obtained from
-%   real network traces. Moreover, MAWIFlow was built from over a year-long
-%   observation data of real network traces, enabling not only evaluation of the
-%   detection system during a specific period of time, but also the evaluation of
-%   its behavior over time, when facing new network traffic behavior;
-% - Validity: The network traces used for building the MAWIFlow dataset were
-%   collected from real network traces. Although MAWI (network traces used in
-%   MAWIFlow) is provided in a sanitized manner, i.e., payload is removed and
-%   sensitive data from network packet headers are encrypted, the network flow
-%   reconstruction is still possible. In this manner, the sanitization process
-%   used by MAWI does not affect the features’ values;
-% - Prior labeling: The event labels were identified by state-of-the- art
-%   unsupervised ML techniques (assessed by MAWILab). In this manner, supervised
-%   ML techniques can be evaluated regarding their performance as compared to
-%   unsupervised techniques;
-% - High Variability: MAWIFlow is highly variable not only owing to the used
-%   network traces but also owing to its long period of recording. The used
-%   network traces are real, valid, and collected from real network
-%   infrastructure, thereby it presents the expected variability from production
-%   environments. Nonetheless, owing to its long period of recording (the entire
-%   year 2016), the detection
-% - Reproducibility and Public Availability: The used network traces were
-%   collected from publicly available sources (MAWI). Moreover, BigFlow (Section
-%   4) source code is also publicly available
-
-% Para testar e demonstrar essa implementação um cenário de aplicação é construído
-% onde seria vantajoso distribuir o processamento segundo o modelo \emph{fog}. Alguns
-% cenários de exemplo são
-% casos onde deve-se tomar ação caso uma classe ou anomalia seja detectada
-
-
-% In time, process control and automation of industrial facilities, ranging from
-% oil refineries to corn flakes factories \cite{Stonebraker2005}
-
-% dataset kyoto não está disponível {http://www.takakura.com/Kyoto_data/}
-
-% \nota{- detecção de intrusão\\
-% - Arquitetura guilherme (dispositivos pequenos vs cloud)\\
-% - Descrever a arquitetura IDS-IoT do paper do Guilherme \ cite{Cassales2019a}\\
-% - dataset kyoto não está disponível\\
-% - \ dataset kdd99\\
-% - BigFlow com \ dataset atual e maior
-% }
-
-% % \subsection{Experimentos e Resultados}
-
-% \nota{
-% - gráficos, tempos, tabelas...\\
-% - análises e comentários\\
-% - Mostrar alguma implementação já feita e que esteja funcionando minimamente
-% }
-
-% \nota{Mostrar resultados mesmo que sejam bem simples e básicos,
-% apenas para demonstrar que vc domina o ambiente e as ferramentas e
-% que está apto a avançar no trabalho}
-
-% \nota{discussão de 2020-02-01:\\
-% passos feitos/a fazer\\
-% 1. Entender Minas\\
-% 2. Analisar/descrever data set KDD\\
-% 3. Notas sobre implementação Python/Kafka/Minas (não escala como esperado)\\
-% 4. BigFlow (data set mais novo, usa flink)\\
-% 5. Plataforma Flink (processamento distribuído)\\
-% Proposta\\
-% 6. Implementar minas em Scala/Flink\\
-% 7. Testar com data sets KDD e BigFlow\\
-% 8. Validar/Comparar métricas com seus trabalhos correspondentes
-% }
-
-% \nota{lendo Quali Casssales:\\
-% - Descrição do hardware utilizado pode conter:\\
-%     - Arch, OS, Kernel,\\
-%     - CPU (core, thread, freq),\\
-%     - RAM (total/free size, freq),\\
-%     - Disk (total/free size, seq RW, rand RW),\\
-%     - Net IO between nodes (direct crossover, switched, wireless, to cloud) (bandwidth, latency).\\
-% essas métricas permitem relacionar trade-offs para as questões de fog: Processar em node, edge ou cloud?
-% }
-
-% \nota{Provavelmente vou retirar o kafka da jogada em node/edge, deixando apenas em cloud.}

@@ -1,0 +1,164 @@
+% !TeX root = ./00.ppgcc-2020.tex
+
+\section{Ambiente de Teste}
+
+Aiming to evaluate our proposal for the effects of distributed novelty detection
+in a \iot \nids scenario, we implemented an experimental setup, composed of three Raspberry Pi 3 model B single board
+computers connected via Ethernet Switch. The idea was to create a simple cluster simulating an
+\iot network with constrained resources at the edge of the network.
+This cluster stored all source code, binaries (compiled and linked in place) and
+% data sets, being accessed via our laboratory network over Secure Shell (SSH).
+data sets.
+In our setup, the data set is stored in the root's node SD card and is read for
+each experiment.
+All experiments were executed in this cluster for isolation of otherwise
+unforeseen variations and for safe software comparison with constant hardware.
+
+The data set used is the December 2015 segment of
+Kyoto 2006+ data set\footnote{Available at \url{http://www.takakura.com/Kyoto\_data/}}
+(Traffic Data from Kyoto University's Honeypots) \cite{Song2011}
+containing $7\:865\:245$ samples.
+From the original data set, we filtered only samples associated with normal traffic
+or known attack types identified by existing \nids, and attack types with more
+than $10\:000$ samples for significance, as previously done by
+\cite{Cassales2019a}.
+% , this removes 46,390 instances. TODO: revisar, pois 7M != 700K.
+The remaining samples then were normalized so each feature value space (e.g., IP
+Address, Duration, Service) is translated to the Real interval $[0, 1]$.
+
+The resulting derived data set is then stored in two sets,
+training set and test set, using the holdout technique.
+However, for the training set we filter in only normal class
+resulting in $72\:000$ instances.
+For the test set we use $653\:457$ instances with
+$206\:278$ instances with ``$N$'' (normal) class and
+$447\:179$ instances with ``$A$'' (attack) class.
+Note that this choice results in possible overfitting for the normal class and,
+under-fitting for the attack class as the system first needs to detect a novel class and
+then add it to the model.
+
+Para realização dos experimentos, diversas configurações de ambientes são
+propostas.
+Os ambientes selecionados são: local, 
+\notahl{o que muda na paralelização e na \textbf{distribuição} de instâncias
+do módulo \textbf{classificador}?}
+\hlhl{nuvem e névoa}.
+As configurações consistem na distribuição de módulos da implementação \mfog
+sendo executadas em combinações de ambientes nuvem e névoa com variada
+quantidade de nós.
+
+O ambiente local é composto por um único nó computacional, consistindo de um
+computador pessoal equipado com um processador de 8 núcleos, $16GB$ de memória e
+armazenamento em estado sólido (SSD) usado para o desenvolvimento e referência
+em comparações.
+O ambiente nuvem é provido pela utilização da infraestrutura de nuvem da
+Universidade Federal de São Carlos (Cloud{@}UFSCar\footnote{Disponível em
+\url{http://portalcloud.ufscar.br/servicos}}).
+O ambiente de névoa (\fog) é composto por computadores de única placa
+(\emph{Single Board Computer}) equipados com processador de arquitetura ARM de 4
+núcleos, $1GB$ de memória, armazenamento em cartão SD (\emph{SD-card}) e
+conectados por rede sem fio.
+
+A combinação de diferentes distribuições tem por objetivo \hlhl{demonstrar padrões de
+latência} e qualidade que podem afetar implantações em ambientes reais que não
+são geralmente destacados quando os experimentos são realizados em um único
+nó ou ambiente.
+
+Faz parte também do ambiente de teste os conjuntos de dados (\datasets)
+\emph{KDD99}
+% \hlfa{e \emph{Kyoto 2006+}}
+e \emph{Kyoto 2006+}
+que foram selecionados por motivos distintos.
+
+O \dataset \emph{Kyoto 2006+} é o foco deste trabalho, pois contém dados ainda
+representativos (até 2015) e as característica desejáveis de um conjunto de
+dados (realismo, validade, etiquetas previamente definidas, alta variabilidade,
+reprodutibilidade e disponibilidade pública) são atendidas
+\cite{KyotoDataset,Song2011kyoto}.
+
+O \dataset \emph{KDD99} é amplamente utilizado em trabalhos de detecção de
+anomalia.
+Porém, como não possui mais a característica de realismo, uma vez que foi
+construído em 1998, neste trabalho o \dataset \emph{KDD99} é utilizado somente
+para que o leitor possa comparar com outros trabalhos
+\cite{Tavallaee2009,Protic2018KddKyoto}.
+
+Os dois \datasets mencionados e outros abordados em discussão e avaliados como
+relevantes são
+
+% Por exemplo, o KDD original tem 41 atributos. A base é rotulada para 24
+% tipos de ataques divididos em 4 grupos: DOS ...
+% 
+% O paper que analisou a fundo o KDD99 foi este: 
+% 
+% M. Tavallaee, E. Bagheri, W. Lu, and A. Ghorbani, “A detailed analysis
+% of the KDD Cup 1999 data set,” in Proc. 2nd IEEE Symp. Comput. Intell.
+% Secur. Defense Appl., 2009, pp. 1–6.
+% 
+% Qual é o defeito dele? tem muitos dados replicdos tanto na base de
+% treinamento quento na de teste, o que gera viés nos resultados. Para
+% resolver isso propuseram o NSL-KDD que é um subconjunto do KDD que evita
+% esse problema
+
+% \notake{
+%   CICIDS2017 {https://www.unb.ca/cic/datasets/ids-2017.html} e
+%   ISCXTor2016 {https://github.com/ahlashkari/CICFlowMeter}
+% }
+% \notafa{Uma sugestão seria usar datasets artificiais também a fim de avaliar
+% outras caracteristicas tais como: nro de atributos, frequencia do surgimento de
+% novidades, mudanças abruptas, graduais, etc. }
+\begin{table}[ht]
+  \caption{Sumário dos conjuntos de dados}
+  \centering
+  \begin{scriptsize}
+  \begin{tabularx}{\linewidth}{X|X|X|X}
+    Nome &
+      Origem &
+      Descrição &
+      Acesso Público \\
+    \hline
+    \hline
+    \emph{KDD99} \cite{Tavallaee2009,Protic2018KddKyoto} &
+      Captura de Fluxos de rede com ataques simulados &
+      41 atributos (sumário de fluxo), 23 classes, $4\;898\;431$ instâncias, $709$ MB &
+      \url{https://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html} \\
+    \hline
+    \emph{Kyoto 2006+} \cite{Song2011kyoto,Protic2018KddKyoto}&
+      Captura de Fluxos de rede com HoneyPot &
+      23 atributos (sumário de fluxo), 3 classes, $7\;865\;245$ instâncias e $1.3$ GB (dez-2015) &
+      \url{https://www.takakura.com/Kyoto_data/new_data201704/} \\
+
+      %  0.000000 other 0 0 0 0.00 0.00 0.00 0 0 0.00 0.00 0.00 S0 00 0 -1
+      %  fdbd:f115:35b2:0424:40aa:098c:03e5:149b 3712
+      %  fdbd:f115:35b2:c891:7db9:2762:6182:03eb 445 00:00:00 tcp
+    
+       \hline
+    % ISCXTor2016 \cite{Draper-Gil2016} &
+    %   Origem &
+    %   28 atributos,  &
+    %   \url{https://www.unb.ca/cic/datasets/tor.html} \\
+    % \hline
+    % ISCXVPN2016 \cite{Lashkari2017} &
+    %   Origem &
+    %   28 atributos,  &
+    %   \url{https://www.unb.ca/cic/datasets/tor.html} \\
+    % \hline
+    CICIDS2017 \cite{Sharafaldin2018cicids2017} &
+      Captura de Fluxos de rede com ataques simulados com perfil de trafego de 25
+      usuários normais e de 6 perfis de ataques durante 5 dias (1º dia sem ataque) &
+      80 atributos (sumário de fluxo extraído de CICFlowMeter), 15 classes,
+      $2\;830\;751$ instâncias e 1.2GB em arquivos \emph{pcap} e \emph{csv} &
+      \url{https://www.unb.ca/cic/datasets/ids-2017.html} \\
+    \hline
+    \emph{Radial Basis Function} (RBF) da biblioteca \emph{Massive Online Analysis} (MOA)
+    \emph{4CRE-V2} &
+      Sintético gerado por função RBF da biblioteca MOA com características de
+      mudança e evolução de conceito &
+      Atributos ($\mathbb{R}$), exemplos, classes, evoluções e mudanças configuráveis &
+      \url{https://sites.google.com/site/nonstationaryarchive/home} \\
+    \hline
+  \end{tabularx}
+  \label{tab:summary-dataset}
+  \end{scriptsize}
+\end{table}
+
