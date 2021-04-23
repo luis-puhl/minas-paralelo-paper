@@ -1,0 +1,144 @@
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{naturalnames}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[a4paper,draft,oneside]{book}
+
+% \usepackage[T1]{fontenc}
+% \usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[brazil]{babel}
+% \usepackage{cmap}
+\usepackage[showframe=true,top=1cm,bottom=1cm,left=1cm,right=1cm,marginparwidth=4cm,includeall]{geometry}
+\usepackage{makeidx}
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{indentfirst}
+\usepackage{nomencl}
+\usepackage{graphicx}
+
+% Pacotes adicionais
+% \usepackage[printonlyused]{acronym}
+\usepackage[table]{xcolor}
+% ---
+\usepackage{mathtools,amsmath,amssymb,amsfonts,mathrsfs,amsthm}
+\usepackage[noalgohanging,lined,noend,linesnumbered]{algorithm2e}
+\usepackage{caption}
+\usepackage{xspace}
+\usepackage{enumitem}
+\usepackage{tabularx,placeins,multirow}
+% ---
+
+% \newcommand{\palavraschave}[1]{\noindent\textbf{Palavras-chaves}: #1}
+% \newcommand{\keywords}[1]{\noindent\textbf{Keywords}: #1}
+% \newcommand{\acronym}[2]{}
+
+% \newcommand{\nota}[1]{}\newcommand{\hl}[1]{}
+\newcommand{\notahl}[1]{}\newcommand{\hlhl}[1]{}
+\newcommand{\notafa}[1]{}\newcommand{\hlfa}[1]{}
+\newcommand{\notake}[1]{}\newcommand{\hlke}[1]{}
+% \newcommand{acronym}[3]{\acro{#1}[#2]{#3}}
+
+\newcommand{\refcap}[1]{Capítulo \ref{cha:#1}\xspace}
+\newcommand{\Section}{Seção\xspace}
+\newcommand{\refsec}[1]{Seção \ref{sec:#1}\xspace}
+\newcommand{\reffig}[1]{Figura \ref{fig:#1}\xspace}
+\newcommand{\refequ}[1]{Equação \ref{eq:#1}\xspace}
+
+\newcommand{\mfog}{sistema M-FOG\xspace}
+\newcommand{\flink}{\emph{Apache Flink}\xspace}
+\newcommand{\cluster}{\emph{cluster}\xspace}
+\newcommand{\clusters}{\emph{clusters}\xspace}
+\newcommand{\dataset}{\emph{data set}\xspace}
+\newcommand{\datasets}{\emph{data sets}\xspace}
+\newcommand{\cloud}{\emph{cloud computing}\xspace}
+\newcommand{\minas}{MINAS\xspace}
+\newcommand{\novelty}{\emph{Novelty Detection}\xspace}
+\newcommand{\drift}{\emph{Concept Drift}\xspace}
+\newcommand{\evolution}{\emph{Concept Evolution}\xspace}
+
+
+% \newcommand{\iot}{IoT\xspace}
+\newcommand{\iot}{\ac{IoT}\xspace}
+\newcommand{\mpi}{\ac{MPI}\xspace}
+\newcommand{\arch}{IDSA-IoT\xspace}
+% \newcommand{\nids}{NIDS\xspace}
+\newcommand{\nids}{\ac{NIDS}\xspace}
+% \newcommand{\nd}{DSND\xspace}
+\newcommand{\nd}{\ac{DNFD}\xspace}
+\newcommand{\refminas}{\textit{Ref}\xspace}
+
+% \acronym{F1M}{\emph{Macro F-Score}, acurácia }
+
+\newtheorem{definition}{Definição}
+% \newenvironment{resumocap}{\par\medskip\noindent\rmfamily}{\medskip}
+
+% proof-reading review layout
+% \usepackage{bibentry}
+% \usepackage{biblatex}
+% \usepackage[hide=true]{lib/nobibprint}
+\newcommand{\citeonline}[1]{\cite{#1}}
+\newcommand{\legend}[1]{#1}
+\newcommand{\ac}[1]{#1}
+% \renewcommand{\@makechapterhead}[1]{%
+%   \vspace*{10\p@}%
+%   {\parindent \z@ \raggedright \normalfont
+%     \ifnum \c@secnumdepth >\m@ne
+%       \if@mainmatter
+%         %\huge
+%         \bfseries \@chapapp\space \thechapter
+%         \par\nobreak
+%         \vskip 10\p@
+%       \fi
+%     \fi
+%     \interlinepenalty\@M
+%     %\Huge
+%     \bfseries #1\par\nobreak
+%     \vskip 10\p@
+%   }
+% }
+
+\makeatletter
+\def\thickhrule{\leavevmode \leaders \hrule height 1ex \hfill \kern \z@}
+\def\position{\centering}
+%% Note the difference between the commands the one is 
+%% make and the other one is makes
+\renewcommand{\@makechapterhead}[1]{%
+\vspace*{10\p@}%
+{\parindent \z@ \position \reset@font
+  {\huge \bfseries \scshape \thechapter { } #1\par\nobreak}
+  \vskip 10\p@
+}}
+\def\@makeschapterhead#1{%
+\vspace*{10\p@}%
+{\parindent \z@ \position \reset@font
+  {\huge \bfseries \scshape \thechapter { } #1\par\nobreak}
+  \vskip 10\p@
+}}
+\renewcommand{\cleardoublepage}{}
+\renewcommand{\clearpage}{}
+
+\title{Uma Implementação distribuída em Névoa do algoritmo de Detecção de Novidade em Fluxos de Dados MINAS}
+\author{Luís Henrique Puhl de Souza}
+\date{\today}
+
+\begin{document}
+\selectlanguage{brazil}
+\frenchspacing
+
+\frontmatter
+\mainmatter
+
+\input{10.introducao}
+\input{20.fundamentos}
+\input{21.novelty-detection}
+\input{30.trabalhos-relacionados}
+\input{40.proposta}
+\input{50.resultados}
+\input{60.concusao}
+
+\bibliographystyle{alpha}
+% \bibliography{99.referencias.bib}
+\newsavebox\mytempbib
+\savebox\mytempbib{\parbox{\textwidth}{\bibliography{99.referencias}}}
+
+\end{document}

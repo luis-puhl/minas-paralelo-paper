@@ -22,6 +22,8 @@
 *.tdo
 *.nlo
 *.ind
+*.bcf
+*.run.xml
 
 # resultantes, adicionar com -f
 # *.pdf
