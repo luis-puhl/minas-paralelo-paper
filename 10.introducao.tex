@@ -2,58 +2,130 @@
 
 \chapter{Introdução}\label{cha:intro}
 
-The Internet of Things (\iot) brings together a wide variety of devices,
-including mobile, wearable, consumer electronics, automotive and sensors of
-various types.
-% 
-Such devices can either be accessed by users through the Internet or connect
-to other devices, servers and applications,
-with little human intervention or supervision
+\todo[inline]{IoT} 
+A \iot conecta globalmente variados dispositivos, incluindo diapositivos móveis,
+\emph{wearables}, eletrônicos domésticos, automóveis e sensores industriais.
+Estes diapositivos podem ser acessados através da Internet ou conectar-se a
+outros dispositivos, servidores e aplicações com mínima intervenção ou
+supervisão humana
 \cite{Tahsien2020,abane2019,haddadpajouh2019survey,Shanbhag2015}.
-% 
-Security and privacy is a major concern in the \iot, especially regarding
-devices having access to user personal data like
-location, health and many other sensitive data \cite{sengupta2020comprehensive}.
-% 
-Furthermore, if compromised, such devices can also be used to attack other
-devices and systems, steal information, cause immediate physical damage or
-perform various other malicious acts \cite{Kolias2017mirai}.
-% 
-As an additional concern, \iot devices likely have a long lifespan, less frequent
-software patches, growing diversity of technologies combined with lack of
-control over the software and hardware of such devices by the host organization
-(where they are deployed), which considerably increases the attack surface.
+Outra característica de dispositivos \iot são os recursos computacionais
+dimensionados, para propósitos específicos que limitam a capacidade de computar
+outras funções além da função original do dispositivo.
 
-Because most \iot devices have limited resources (i.e., battery, processing,
-memory and bandwidth), configurable and expensive algorithm-based
-security techniques are not usual, giving way to network based approaches 
-\cite{Zhou2017}.
-Machine Learning (ML) techniques, for instance, have been studied for years to detect attacks
-from known patterns or to discover new attacks at an early stage
-\cite{buczak2016survey,mitchell2014survey}.
-A recent survey \cite{Tahsien2020} shows that ML based methods are a
-promising alternative which can provide potential security tools for the \iot
-network making them more reliable and accessible than before.
+% O número de dispositivos categorizados como \iot na última década teve
+% crescimento sem precedentes e, proporcionalmente, cresceu o volume de dados
+% gerados por esses dispositivos.
+% % 
+% A análise desses dados pode trazer novos conhecimentos e tem sido um tema
+% frequentemente abordado por trabalhos de pesquisa.
 
-Despite the promising use of ML to secure \iot systems, studies found in the
-literature \cite{buczak2016survey,mitchell2014survey,Tahsien2020} are limited to
-traditional ML methods that use static models of traffic behavior.
-Most existing ML solutions for network-based intrusion detection cannot maintain
-their reliability over time when facing evolving attacks \cite{Viegas2019,AndreoniLopez2019}.
-Unlike traditional methods, stream mining algorithms can be applied to intrusion
-detection with several advantages, such as:
+\todo[inline]{Segurança} 
+Segurança e privacidade é uma grande preocupação em \iot, especialmente em
+relação aos dados pessoais como localização e saúde aos quais dispositivos tem
+acesso \cite{sengupta2020comprehensive}.
+Contudo, além dos dados de sensores e atuadores, esses dispositivos se
+subvertidos, podem gerar tráfego maligno, como o gerado pela \emph{botnet} mirai
+em 2016 \cite{Kambourakis2017,Kolias2017mirai}.
+Nesse cenário, fatores que podem favorecer a subversão dos dispositivos incluem
+a falta de controle sobre a origem do hardware e software embarcado nos
+dispositivos bem como a menor frequência de atualizações deste software.
+Além disso, estes dispositivos tem longa vida e, após implantação, convivem com
+ampla diversidade de outros dispositivos, complicando a manutenção da rede
+hospedeira, aumentando sua superfície de ataque.
 
-\begin{enumerate}[label=(\emph{\roman*})]
-    \item processing traffic data with a single read;
-    \item working with limited memory (allowing the implementation in small
-    devices commonly employed in edge services);
-    \item producing real-time response; and
-    \item detecting novelty and changes in concepts already learned.
-\end{enumerate}
+\todo[inline]{NIDS} 
+No contexto de segurança de redes \iot, ferramentas que facilitem a detecção e
+resposta à ataques são necessárias.
+Como a maioria dos dispositivos \iot tem recursos limitados (como bateria,
+processamento, memória e comunicação), técnicas de segurança tradicionais
+baseadas em algoritmos configuráveis não são usuais, com isso restam as
+técnicas de observação de rede \cite{Zhou2017}.
+Ferramentas como \nids observam o comportamento da rede e de seus dispositivos
+e detectam possíveis ataques.
+% 
+% Analogamente, as mesmas técnicas de classificação podem ser aplicadas para os
+% metadados gerados pela comunicação entre esses nós e a Internet, detectando
+% alterações nos padrões de comunicação num \nids.
+
+\todo[inline]{ML} 
+Para implementação de \nids, técnicas de \ml tem sido empregadas na detecção de
+ataques a partir de ataques conhecidos ou descobrir novos ataques o mais cedo
+possível \cite{buczak2016survey,mitchell2014survey}.
+% 
+Apesar do uso promissor de \ml para segurança para sistemas \iot, muitos estudos
+na literatura \cite{buczak2016survey,mitchell2014survey,Tahsien2020} são
+limitados à métodos tradicionais de \ml que utilizam modelos estáticos para
+comportamento da rede que, por serem estáticos, não mantém confiabilidade quando
+confrontados com a evolução de ataques \cite{Viegas2019,AndreoniLopez2019}.
+
+\todo[inline]{DS} 
+Com milhares de dispositivos em redes distantes gerando dados (diretamente
+ligados às suas funções originais ou metadados produzidos como subproduto) em
+volumes e velocidades consideráveis, formando fluxos contínuos de dados
+(\emph{Data Stream} - DS), técnicas de mineração de fluxos de dados (\emph{Data
+Stream Mining}) são amplamente necessárias.
+% 
+Nesses cenários, essas técnicas são aplicadas, por exemplo, em problemas de
+monitoramento e classificação de valores originários de sensores para tomada de
+decisão tanto em nível micro, como na modificação de atuadores remotos, ou
+macro, na otimização de processos industriais.
+% 
+Quando aplicado a \nids, técnicas de mineração de fluxo de dados possuem
+vantagens como processamento em uma única leitura, reduzindo uso de memória e
+armazenamento possibilitando sua implementação em
+
+% processing traffic data with a single read;
+% working with limited memory (allowing the implementation in small devices
+% commonly employed in edge services);
+Produção de resultados 
+producing real-time response; and
+detecting novelty and changes in concepts already learned.
+
+\todo[inline]{ND} 
+Dentre as técnicas de mineração de fluxo de dados, a \nd 
+Outras características que fazem \nd 
+
+\todo[inline]{Fog} 
+Análises como \emph{Data Stream Mining} e \nd
+são geralmente implementadas
+sobre o paradigma de computação na nuvem
+(\emph{Cloud Computing}) e, recentemente, sobre paradigmas
+como computação em névoa
+(\emph{Fog Computing}).
+Para \emph{fog}, além dos recursos em \emph{cloud}, são
+explorados os recursos distribuídos pela rede desde o nó remoto até a
+\emph{cloud}. Processos que dependem desses recursos são distribuídos de acordo
+com características como sensibilidade à latência, privacidade,
+consumo computacional ou energético.
+
 
 Given the recent \cite{Viegas2019,AndreoniLopez2019,DaCosta2019a} use of Data Stream Novelty
 Detection (\nd) in network data streams, this paper shows the effects of
 adapting these mechanisms to edge services for use in \iot environments.
+
+Técnicas
+de Mineração de Fluxo de Dados (\emph{Data Stream Mining}) envolvem mineração de dados
+(\emph{Data Mining}), 
+% 
+aprendizado de máquina
+(\emph{Machine Learning}) e, dentro destes tópicos, detecção de novidades
+(\emph{Novelty Detection}, \nd).
+Dentre as técnicas de mineração de fluxo de dados, classificadores podem ser
+utilizados para detectar padrões conhecidos e, em conjunto com algoritmos de
+detecção de novidades ou detecção de anomalias, detectar novos padrões.
+Essa capacidade é relevante em especial para o
+exemplo de detecção de intrusão, onde novidades na rede podem distinguir novas
+funcionalidades (entregues aos dispositivos após sua implantação em campo) de
+ataques por agentes externos, sem assinaturas existentes em bancos de
+dados de ataques conhecidos.
+
+\section{Motivação}\label{sec:motivo}
+
+A recent survey \cite{Tahsien2020} shows that ML based methods are a
+promising alternative which can provide potential security tools for the \iot
+network making them more reliable and accessible than before.
+
 Our proposal, called \mfog, adapted the \arch
 architecture \cite{Cassales2019a} using the \nd algorithm \minas
 \cite{Faria2013Minas,Faria2015minas}, making it suitable to run
@@ -66,127 +138,10 @@ traffic patterns and its impact on the computational efficiency.
 Finally, some distribution strategies and policies for the data stream
 novelty detection system are discussed.
 
-This paper is organized as follows:
-Section \ref{sec:minas} reviews the chosen \nd algorithm \minas.
-A distributed extension of \minas, including its
-implementation and evaluation are presented in Section \ref{sec:prop}
-and in Section \ref{sec:experiments} we show how we evaluated \mfog and
-the discuss results we found.
-Finally, Section \ref{sec:conclusion} summarizes the main findings and presents
-possible future work.
-
-% \acronym{IoT}{\emph{Internet of Things}, Internet das Coisas}
-% \newcommand{\iot}{IoT\xspace}
-
-A Internet das Coisas (\emph{Internet of Things} - IoT) é um sistema global de
-dispositivos (máquinas, objetos físicos ou virtuais, sensores, atuadores e
-pessoas) com capacidade de comunicação pela Internet, sem depender de
-interação com interface humano-computador tradicional.
-% \cite{itu}
-%  \nota{Cassales não referencia também
-Outra característica de dispositivos \iot são os 
-recursos computacionais dimensionados,
-% por vezes omitindo sistema operacional e outros sistemas,
-para
-propósitos específicos que limitam a capacidade de computar outras funções além
-da função original do dispositivo.
-O número de dispositivos categorizados como IoT na última década teve
-crescimento sem precedentes e, proporcionalmente, cresceu o volume de dados
-gerados por esses dispositivos.
-A análise desses dados pode trazer novos conhecimentos e tem sido um tema frequentemente
-abordado por trabalhos de pesquisa.
-Contudo, além dos dados de sensores e atuadores, esses dispositivos se subvertidos,
-podem gerar tráfego maligno
-% à sociedade
-, como o gerado pela
-\emph{botnet} mirai em 2016 \cite{Kambourakis2017}.
-Nesse cenário, fatores que podem favorecer a subversão dos dispositivos incluem a
-falta de controle sobre a origem do hardware e software embarcado nos
-dispositivos, além da falta das cruciais atualizações de segurança.
-
-% \notahl{não está clara qual é a implicação de serem dispositivos pouco robustos… \\
-% … contendo implementações comumente apenas dedicada a propósitos específicos?\\
-% … comumente sem mecanismos de segurança robustos?}
-
-% \acronym{DS}{\emph{Data Stream}, Fluxo de Dados}
-% \acronym{NIDS}{\emph{Network Intrusion Detection System}, sistema de detecção de intrusão em redes}
-\newcommand{\ds}{DS\xspace}
-
-Com milhares de dispositivos em redes distantes gerando dados (diretamente
-ligados às suas funções originais ou metadados produzidos como subproduto) em
-volumes e velocidades consideráveis, formando fluxos contínuos de dados (\emph{Data
-Stream} - DS), técnicas de mineração de fluxos de dados
-(\emph{Data Stream Mining}) são amplamente necessárias.
-% parágrafo anterior marcado com '?', muito longo será? ou fora de contexto?
-Nesses cenários, essas técnicas são
-aplicadas, por exemplo, em problemas de monitoramento e classificação de valores
-originários de sensores para tomada de decisão tanto em nível micro, como na
-modificação de atuadores remotos, ou macro, na otimização de processos
-industriais.
-Analogamente, as mesmas técnicas de classificação podem ser aplicadas para os
-metadados gerados pela comunicação entre esses nós e a Internet, detectando
-alterações nos padrões de comunicação num serviço de detecção de intrusão
-(\emph{Network Intrusion Detection System}, NIDS).
-
-% \nota{ou de alterações nos padrões de comunicação}
-
-% \nota{essa Introdução deixa claro que é IDS?}
-
-% \acronym{ND}{\emph{Novelty Detection}, Detecção de Novidade}
-% \newcommand{\nd}{ND\xspace}
-
-% Técnicas}\notake{parágrafo marcado
-Técnicas
-de Mineração de Fluxo de Dados (\emph{Data Stream Mining}) envolvem mineração de dados
-(\emph{Data Mining}), 
-% 
-aprendizado de máquina
-(\emph{Machine Learning}) e, dentro destes tópicos, detecção de novidades
-(\emph{Novelty Detection}, \nd).
-% \notafa{(sentença marcada) essa frase merece revisão. Temos vários conceitos
-% incorretos. classificar modelos conhecidos? classificação os dados usando um
-% modelo gerado a partir do comportamento normal.... ND não trata necessariamente
-% concept drift nem concept evolution..... é uma forma de tratar essas questões}
-% \nd, além de classificar em modelos conhecidos, 
-% permite classificar novos padrões
-% já que trata problemas como evolução e mudança de conceito, que são característicos
-% de fluxos contínuos de dados e, consequentemente, permite que ações sejam tomadas corretamente mesmo
-% em face a padrões nunca vistos.
-Dentre as técnicas de mineração de fluxo de dados, classificadores podem ser
-utilizados para detectar padrões conhecidos e, em conjunto com algoritmos de
-detecção de novidades ou detecção de anomalias, detectar novos padrões.
-Essa capacidade é relevante em especial para o
-exemplo de detecção de intrusão, onde novidades na rede podem distinguir novas
-funcionalidades (entregues aos dispositivos após sua implantação em campo) de
-ataques por agentes externos, sem assinaturas existentes em bancos de
-dados de ataques conhecidos.
-
-% finalizo com "por exemplo"?
-
-Análises como \emph{Data Stream Mining} e \nd
-% \notafa{será que são tradicionalmente implementadas?? acho que não. Eu diria que
-% recentemente elas estão indo nesse caminho.}
-% são} \hlhl{tradicionalmente implementadas
-são geralmente implementadas
-sobre o paradigma de computação na nuvem
-(\emph{Cloud Computing}) e, recentemente, sobre paradigmas
-como computação em névoa
-(\emph{Fog Computing}).
-Para \emph{fog}, além dos recursos em \emph{cloud}, são
-explorados os recursos distribuídos pela rede desde o nó remoto até a
-\emph{cloud}. Processos que dependem desses recursos são distribuídos de acordo
-com características como sensibilidade à latência, privacidade,
-consumo computacional ou energético.
-
-\section{Motivação}\label{sec:motivo}
-
-\newcommand{\idsiot}{IDSA-IoT\xspace}
-\newcommand{\fog}{\emph{fog computing}\xspace}
-
 Um problema recente que une, em um único contexto, os métodos de computação em
 névoa, processamento de fluxo de dados e detecção de novidades nesses fluxos é a
 detecção de intrusão em redes de dispositivos \iot.
-Para tratar esse problema, a arquitetura \idsiot, recentemente proposta por
+Para tratar esse problema, a arquitetura \arch, recentemente proposta por
 \citeonline{Cassales2019a}, aplica ao problema algoritmos atuais de detecção de
 novidades em fluxos, executando esses algoritmos em ambiente próximo aos
 dispositivos e avaliando-os quanto à detecção de intrusão.
@@ -289,11 +244,6 @@ novidades.
 
 \section{Objetivos}\label{sec:objetivos}
 
-% \nota{
-%     a ausencia nao é de um algoritmo de deteccao de novidade com paralelismo?\\
-%     é, mas tem o contexto de ids agora
-% }
-
 Como estabelecido na \refsec{motivo}, a lacuna no estado da arte observada é
 a ausência de uma implementação de algoritmo de detecção de
 novidades que trate adequadamente os desafios de fluxo de dados contínuos
@@ -304,8 +254,6 @@ Seguindo a comparação entre algoritmos desse gênero realizada por
 \citeonline{Cassales2019a}, esta pesquisa escolheu investigar o algoritmo MINAS \cite{Faria2015minas}
 para receber o tratamento necessário para adequá-lo ao ambiente de névoa e para
 fluxos de grandes volumes e velocidades.
-
-% \nota{GSDR da universidade federal de sao carlos...}
 
 Portanto, seguindo os trabalhos do Grupo de Sistemas Distribuídos e Redes
 (GSDR) da Universidade Federal de São Carlos (UFSCar), propõem-se a construção
@@ -319,48 +267,15 @@ O resultado esperado é uma implementação compatível em qualidade de
 classificação ao algoritmo MINAS e passível de ser distribuída em um ambiente
 de computação em névoa aplicado à detecção de intrusão.
 
-% Hermes
-% \nota{Citar que o MINAS já foi testado para detecção de intrusão [Guilherme2019].}
-% \nota{Falar do resultado bem resumuidamente}
-% \nota{Porem a implementação não distribuída.}
-
-% Com a avaliação inicial formulou-se a questão \emph{``quais resultados podem ser
-% esperados de um sistema que implementa um algoritmo de detecção de novidades em
-% fluxo de dados?"} que engloba sucintamente os temas abordados nesse trabalho.
-
-% c. Proposta: executar em nós multi-core de maneira escalável,
-% d. Resultado Esperado: minas com mesma qualidade porém escalável.
-% 
-% Linha de argumentação: discussão de localidade de dados e paralelização
-% - implementar
-% - paralelizar
-% - avaliar
-% - avaliar aprendizado local ou global trade-offs
-
 Com foco no objetivo geral, alguns objetivos específicos são propostos:
 
-% \nota{citar ferramentas e a escolha só depois do python e kafka}
-
-% \nota{entre flink e spark, outro grupo de pesquisa já está explorando spark}
-
-% \begin{itemize}
-% \item
-% \end{itemize}
-
-% \nota{
-%     estudar o algoritmo\\
-%     fazer uma implementação\\
-%     pegar datasets relevantes\\
-%     comparar a corretude  com o sequencial\\
-%     avaliar desempenho e escalabilidade
-% }
 \begin{itemize}
 
     \item Implementar o algoritmo MINAS de maneira distribuída sobre uma
     plataforma de processamento distribuída de fluxos de dados;
 
     \item Avaliar a qualidade de detecção de intrusão em ambiente distribuído 
-    conforme a arquitetura \idsiot;
+    conforme a arquitetura \arch;
     
     \item Avaliar o desempenho da implementação em ambiente de computação em névoa.
 
@@ -374,8 +289,6 @@ Com foco no objetivo geral, alguns objetivos específicos são propostos:
 % https://dzone.com/articles/streaming-in-spark-flink-and-kafka-1
 
 \section{Proposta Metodológica}
-
-% (Metodologia) (como)
 
 Para cumprir os objetivos citados na \refsec{objetivos}, foi identificada a necessidade
 de um processo exploratório seguido de experimentação. Tal processo inclui a
@@ -417,13 +330,15 @@ acadêmicas.
 \section{Organização do trabalho}
 
 O restante desse trabalho segue a estrutura:
-\refcap{fundamentos} aborda conceitos teóricos e técnicos que embasam
+Capítulo \ref{cha:fundamentos} aborda conceitos teóricos e técnicos que embasam
 esse trabalho;
-\refcap{related} enumera e discute trabalhos relacionados e estabelece
-o estado da arte do tema detecção de novidade em fluxos de dados e seu processamento;
-\refcap{proposta} descreve a proposta de implementação, discute
-as escolhas de plataformas e resultados esperados.
-Também são discutidos no \refcap{proposta} os desafios e resultados preliminares encontrados
-durante o desenvolvimento do trabalho.
-\refcap{final} adiciona considerações gerais e apresenta o plano de trabalho
-e cronograma até a defesa do mestrado.
+Capítulo \ref{cha:related} enumera e discute trabalhos relacionados e estabelece
+o estado da arte do tema detecção de novidade em fluxos de dados e seu
+processamento;
+Capítulo \ref{cha:proposta} descreve a proposta de implementação, discute as
+escolhas de plataformas e resultados esperados.
+Também são discutidos no Capítulo \ref{cha:implementacao} os desafios e
+resultados preliminares encontrados durante o desenvolvimento do trabalho.
+Capítulo \ref{cha:results} 
+Capítulo \ref{cha:final} adiciona considerações gerais sobre o trabalho e seus
+resultados.

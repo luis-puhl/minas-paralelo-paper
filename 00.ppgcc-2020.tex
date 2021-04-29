@@ -1,24 +1,8 @@
-%% Este arquivo foi modificado de:
-%% modeloABNT2, v1.0 athila
-%% Copyright 2013 by Athila e Monaro
-%% Desenvolvido para EESC-USP
-
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{naturalnames}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-% ------------------------------------------------------------------------
-% Opções:
-%     tesedr:     Formata documento para tese de doutorado
-%     qualidr:    Formata documento para qualificação de doutorado
-%     dissertmst: Formata documento para dissertação de mestrado
-%     qualimst:   Formata documento para qualificação de mestrado
-% ------------------------------------------------------------------------
-% \documentclass[dissertmst]{lib/ufscar}
-% 105 -> 75 errors
 \documentclass[dissertmst]{ufscar}
-% \documentclass[openany,twoside]{abntex2}
 
-% PACOTES
 % \usepackage[T1]{fontenc}
 % \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
@@ -32,26 +16,17 @@
 \usepackage{graphicx}% Inclusão de gráficos
 
 % Pacotes adicionais
-\usepackage{lipsum}                       % para geração de dummy text
 \usepackage[printonlyused]{acronym}
 \usepackage[table]{xcolor}
 % ---
 \usepackage{mathtools,amsmath,amssymb,amsfonts,mathrsfs,amsthm}
 \usepackage[noalgohanging,lined,noend,linesnumbered]{algorithm2e}
-% \usepackage{algorithmic}
 \usepackage{caption}
-% \usepackage{subcaption}
 \usepackage{xspace}
 \usepackage{enumitem}
 \usepackage{tabularx,placeins,multirow}
-% \usepackage{url}
-% \usepackage{footnote}
-% \usepackage{lastpage}
+\usepackage{todonotes}
 % ---
-
-% \newcommand{\palavraschave}[1]{\noindent\textbf{Palavras-chaves}: #1}
-% \newcommand{\keywords}[1]{\noindent\textbf{Keywords}: #1}
-% \newcommand{\acronym}[2]{}
 
 % \newcommand{\nota}[1]{}\newcommand{\hl}[1]{}
 \newcommand{\notahl}[1]{}\newcommand{\hlhl}[1]{}
@@ -81,11 +56,15 @@
 \newcommand{\iot}{\ac{IoT}\xspace}
 \newcommand{\mpi}{\ac{MPI}\xspace}
 \newcommand{\arch}{IDSA-IoT\xspace}
+% \newcommand{\idsiot}{IDSA-IoT\xspace}
 % \newcommand{\nids}{NIDS\xspace}
 \newcommand{\nids}{\ac{NIDS}\xspace}
 % \newcommand{\nd}{DSND\xspace}
-\newcommand{\nd}{\ac{DNFD}\xspace}
+\newcommand{\nd}{\ac{ND-DS}\xspace}
 \newcommand{\refminas}{\textit{Ref}\xspace}
+\newcommand{\ml}{\ac{ML}\xspace}
+
+\newcommand{\fog}{\emph{fog computing}\xspace}
 
 % \acronym{F1M}{\emph{Macro F-Score}, acurácia }
 
@@ -122,15 +101,6 @@ Novidade em Fluxos de Dados MINAS}{
 % Nome do coorientador
 % \coorientador{Nome completo do coorientador}
 % ---
-
-% \newcommand{\@tipotrabalho}{Dissertação}
-% \newcommand{\@worktype}{Master Thesis}
-% \newcommand{\@nivelPos}{Mestre}
-% \newcommand{\@niveltrabalho}{dissertação}
-% \def\@tipotrabalho{Dissertação}
-% \def\@worktype{Master Thesis}
-% \def\@nivelPos{Mestre}
-% \def\@niveltrabalho{dissertação}
 
 % ----------------------------------------------------------
 % compila o indice
