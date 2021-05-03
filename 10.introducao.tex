@@ -2,16 +2,16 @@
 
 \chapter{Introdução}\label{cha:intro}
 
-\todo[inline]{IoT} 
-A \iot conecta globalmente variados dispositivos, incluindo diapositivos móveis,
+% \todo[inline]{IoT} 
+A \iot conecta globalmente variados dispositivos, incluindo dispositivos móveis,
 \emph{wearables}, eletrônicos domésticos, automóveis e sensores industriais.
-Estes diapositivos podem ser acessados através da Internet ou conectar-se a
-outros dispositivos, servidores e aplicações com mínima intervenção ou
+Estes dispositivos podem, através da Internet, ser acessados, conectar-se a
+outros dispositivos, servidores ou aplicações, tudo com mínima intervenção ou
 supervisão humana
 \cite{Tahsien2020,abane2019,haddadpajouh2019survey,Shanbhag2015}.
 Outra característica de dispositivos \iot são os recursos computacionais
-dimensionados, para propósitos específicos que limitam a capacidade de computar
-outras funções além da função original do dispositivo.
+dimensionados, para propósitos específicos, que limitam a capacidade de computar
+outras funções muito além da função original do dispositivo.
 
 % O número de dispositivos categorizados como \iot na última década teve
 % crescimento sem precedentes e, proporcionalmente, cresceu o volume de dados
@@ -20,21 +20,21 @@ outras funções além da função original do dispositivo.
 % A análise desses dados pode trazer novos conhecimentos e tem sido um tema
 % frequentemente abordado por trabalhos de pesquisa.
 
-\todo[inline]{Segurança} 
+% \todo[inline]{Segurança} 
 Segurança e privacidade é uma grande preocupação em \iot, especialmente em
 relação aos dados pessoais como localização e saúde aos quais dispositivos tem
 acesso \cite{sengupta2020comprehensive}.
 Contudo, além dos dados de sensores e atuadores, esses dispositivos se
-subvertidos, podem gerar tráfego maligno, como o gerado pela \emph{botnet} mirai
+subvertidos, podem gerar tráfego maligno, como o gerado pela \emph{mirai botnet}
 em 2016 \cite{Kambourakis2017,Kolias2017mirai}.
 Nesse cenário, fatores que podem favorecer a subversão dos dispositivos incluem
 a falta de controle sobre a origem do hardware e software embarcado nos
 dispositivos bem como a menor frequência de atualizações deste software.
 Além disso, estes dispositivos tem longa vida e, após implantação, convivem com
 ampla diversidade de outros dispositivos, complicando a manutenção da rede
-hospedeira, aumentando sua superfície de ataque.
+que os hospeda, aumentando sua superfície de ataque.
 
-\todo[inline]{NIDS} 
+% \todo[inline]{NIDS} 
 No contexto de segurança de redes \iot, ferramentas que facilitem a detecção e
 resposta à ataques são necessárias.
 Como a maioria dos dispositivos \iot tem recursos limitados (como bateria,
@@ -48,77 +48,73 @@ e detectam possíveis ataques.
 % metadados gerados pela comunicação entre esses nós e a Internet, detectando
 % alterações nos padrões de comunicação num \nids.
 
-\todo[inline]{ML} 
+% \todo[inline]{ML} 
 Para implementação de \nids, técnicas de \ml tem sido empregadas na detecção de
 ataques a partir de ataques conhecidos ou descobrir novos ataques o mais cedo
 possível \cite{buczak2016survey,mitchell2014survey}.
-% 
 Apesar do uso promissor de \ml para segurança para sistemas \iot, muitos estudos
 na literatura \cite{buczak2016survey,mitchell2014survey,Tahsien2020} são
-limitados à métodos tradicionais de \ml que utilizam modelos estáticos para
+limitados à métodos tradicionais de \ml.
+Estes métodos tradicionais utilizam modelos estáticos para descrever e prever o
 comportamento da rede que, por serem estáticos, não mantém confiabilidade quando
 confrontados com a evolução de ataques \cite{Viegas2019,AndreoniLopez2019}.
 
-\todo[inline]{DS} 
-Com milhares de dispositivos em redes distantes gerando dados (diretamente
-ligados às suas funções originais ou metadados produzidos como subproduto) em
-volumes e velocidades consideráveis, formando fluxos contínuos de dados
-(\emph{Data Stream} - DS), técnicas de mineração de fluxos de dados (\emph{Data
-Stream Mining}) são amplamente necessárias.
+% \todo[inline]{DS} 
+Além das complicações de confiabilidade, a grande quantidade de dispositivos em
+redes distantes gerando dados em volumes e velocidades consideráveis,
+diretamente ligados às suas funções originais ou metadados produzidos como
+subproduto, técnicas tradicionais que tratam grandes lotes não são aplicáveis.
+Considerando fluxos contínuos de dados (\emph{Data Stream}), técnicas de
+mineração de fluxos de dados (\emph{Data Stream Mining}) são amplamente
+necessárias.
 % 
 Nesses cenários, essas técnicas são aplicadas, por exemplo, em problemas de
 monitoramento e classificação de valores originários de sensores para tomada de
 decisão tanto em nível micro, como na modificação de atuadores remotos, ou
 macro, na otimização de processos industriais.
 % 
-Quando aplicado a \nids, técnicas de mineração de fluxo de dados possuem
-vantagens como processamento em uma única leitura, reduzindo uso de memória e
-armazenamento possibilitando sua implementação em
+% Quando aplicado a \nids, técnicas de mineração de fluxo de dados possuem
+% vantagens como processamento em uma única leitura, reduzindo uso de memória e
+% armazenamento possibilitando sua implementação em
 
-% processing traffic data with a single read;
-% working with limited memory (allowing the implementation in small devices
-% commonly employed in edge services);
-Produção de resultados 
-producing real-time response; and
-detecting novelty and changes in concepts already learned.
+% % processing traffic data with a single read;
+% % working with limited memory (allowing the implementation in small devices
+% % commonly employed in edge services);
+% Produção de resultados 
+% producing real-time response; and
+% detecting novelty and changes in concepts already learned.
 
-\todo[inline]{ND} 
-Dentre as técnicas de mineração de fluxo de dados, a \nd 
-Outras características que fazem \nd 
-
-\todo[inline]{Fog} 
-Análises como \emph{Data Stream Mining} e \nd
-são geralmente implementadas
-sobre o paradigma de computação na nuvem
-(\emph{Cloud Computing}) e, recentemente, sobre paradigmas
-como computação em névoa
-(\emph{Fog Computing}).
-Para \emph{fog}, além dos recursos em \emph{cloud}, são
-explorados os recursos distribuídos pela rede desde o nó remoto até a
-\emph{cloud}. Processos que dependem desses recursos são distribuídos de acordo
-com características como sensibilidade à latência, privacidade,
-consumo computacional ou energético.
-
-
-Given the recent \cite{Viegas2019,AndreoniLopez2019,DaCosta2019a} use of Data Stream Novelty
-Detection (\nd) in network data streams, this paper shows the effects of
-adapting these mechanisms to edge services for use in \iot environments.
-
-Técnicas
-de Mineração de Fluxo de Dados (\emph{Data Stream Mining}) envolvem mineração de dados
-(\emph{Data Mining}), 
-% 
-aprendizado de máquina
-(\emph{Machine Learning}) e, dentro destes tópicos, detecção de novidades
-(\emph{Novelty Detection}, \nd).
+% \todo[inline]{ND} 
 Dentre as técnicas de mineração de fluxo de dados, classificadores podem ser
 utilizados para detectar padrões conhecidos e, em conjunto com algoritmos de
-detecção de novidades ou detecção de anomalias, detectar novos padrões.
-Essa capacidade é relevante em especial para o
-exemplo de detecção de intrusão, onde novidades na rede podem distinguir novas
-funcionalidades (entregues aos dispositivos após sua implantação em campo) de
-ataques por agentes externos, sem assinaturas existentes em bancos de
-dados de ataques conhecidos.
+\nd, detectar novos padrões.
+Essa capacidade de detectar novos padrões é relevante para \nids, onde novidades
+na rede podem representar novas funcionalidades ou ataques por agentes
+maliciosos, sem assinaturas existentes em bancos de dados de ataques conhecidos.
+Outras características que fazem \nd atraente para \nids são a produção de
+respostas imediatas e a detecção de novidades e mudança de conceitos já
+conhecidos.
+
+% \todo[inline]{Fog} 
+Análises como \emph{Data Stream Mining} e \nd são geralmente implementadas sobre
+o paradigma de computação na nuvem (\emph{Cloud Computing}) e, recentemente,
+sobre paradigmas como computação em névoa (\emph{Fog Computing}).
+Para \emph{fog}, além dos recursos em \emph{cloud}, são explorados os recursos
+distribuídos pela rede desde o nó remoto até a \emph{cloud}.
+Processos que dependem desses recursos são distribuídos de acordo com
+características como sensibilidade à latência, privacidade, consumo
+computacional ou energético.
+
+Como elaborado, a aplicação de \nd para detecção de ameaças em fluxos de dados
+originários de redes \iot dentro de \nids tem sido um ponto de interesse
+\cite{Viegas2019,AndreoniLopez2019,DaCosta2019a}.
+Este trabalho foca explora as características de implementação destas técnicas
+em conjunto, focando serviços localizados na borda da rede, de maneira
+distribuída, para uso em ambientes \iot.
+
+% Given the recent \cite{Viegas2019,AndreoniLopez2019,DaCosta2019a} use of Data Stream Novelty
+% Detection (\nd) in network data streams, this paper shows the effects of
+% adapting these mechanisms to edge services for use in \iot environments.
 
 \section{Motivação}\label{sec:motivo}
 
@@ -212,7 +208,7 @@ com até 10 nós de trabalho, cada um com 4 núcleos de processamento, totalizan
 % abordagem não é nova e visa tratar nuances do problema abordado como
 % variação temporal de conceitos conhecidos (\emph{Concept Drift}) e
 % conceitos emergentes (\emph{Concept Evolution})
-% \cite{Faria2016nd}.
+% \cite{Faria2016}.
 % Essas nuances causam redução de acurácia durante a
 % avaliação inicial dos algoritmos tradicionais e devidamente mitigada com a
 % atualização constante do modelo. Esses problemas são amplamente abordados e

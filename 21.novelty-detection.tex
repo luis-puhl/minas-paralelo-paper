@@ -3,7 +3,7 @@
 No âmbito de classificação de dados, parte da área de aprendizado de máquina, os
 métodos de detecção de novidade (\novelty, \nd) lidam com o reconhecimento e a
 classificação de exemplos que diferem de exemplos anteriores
-\cite{PERNER2007,Gama2010}.
+\cite{Perner2009,Gama2010}.
 Esses métodos tratam da classificação em fluxos de dados que evoluem com o
 tempo, levando em consideração as características desse tipo de fluxos.
 
@@ -36,7 +36,7 @@ Alguns métodos que abordam \nd como classificação multi-classe não
 atendem completamente características de conjuntos com 
 evolução temporal,
 como \evolution e \drift, deixando de detectar múltiplos padrões que surgem
-simultaneamente num intervalo de avaliação \cite{Faria2016nd,Gama2010}.
+simultaneamente num intervalo de avaliação \cite{Faria2016,Gama2010}.
 
 A maioria dos métodos de \nd são construídos seguindo a abordagem de aprendizado
 \emph{Offline-Online}. Essa abordagem estabelece que o método seja dividido em
@@ -272,7 +272,7 @@ A avaliação do algoritmo FuzzyND foi feita por meio de experimentos usando 3
 \datasets sintéticos (\emph{MOA3}, \emph{RBF}, \emph{SynEDC})
 e por comparação com o MINAS.
 O método de avaliação utilizado baseia-se na matriz de confusão incremental
-descrita por \citeonline{Faria2016nd}, extraindo dessa matriz duas métricas:
+descrita por \citeonline{Faria2016}, extraindo dessa matriz duas métricas:
 acurácia (\emph{Macro F-Score}) \cite{Sokolova2009} e
 taxa de desconhecidos (\emph{UnkR}) \cite{Faria2015minas}.
 Em geral, o algoritmo FuzzyND detecta melhor novidades e, consequentemente,
@@ -322,7 +322,7 @@ A avaliação elencada por \citeonline{Costa2019} leva em consideração que as 
 contidas no conjunto de testes podem não ter correlação direta com os padrões identificados
 pelos algoritmos.
 Para tratar a divergência, uma estratégia baseada em proposta anterior por
-\citeonline{Faria2016nd} foi apresentada com alterações para exemplos multi-rótulo.
+\citeonline{Faria2016} foi apresentada com alterações para exemplos multi-rótulo.
 Após associação entre padrões de novidade e classes novidade foi possível calcular
 métricas tradicionais.
 A estratégia é executada na fase de classificação seguindo as regras:
