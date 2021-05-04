@@ -33,29 +33,47 @@ Um sumário dos trabalhos abordados pode ser visto na Tabela \ref{tab:summary}.
 \newcommand{\python}{\emph{Python}\xspace}
 
 % \notake{inserir uma tabela sumarizada com a descrição dos autores.}
+
+trabalhos genéricos: duas linhas por trabalho, destaque, contribuição, relação.
+
+\todo[inline]{Adicionar trabalhos fazem parte, sem fechar numa plataforma.}
+
+Adicionar considerações sobre: Distribuição, Paradigma (cloud, fog, edge),
+algoritmo (envelhecimento de modelo, atualização do modelo)
+
+\notafa{
+    você não discutiu sobre trabalhos anteriores que fizeram distribuição de
+    algoritmos de fluxos de dados.... o que eles tem de bom e ruim (ex: trabalhos
+    do Murilo Naldi da UFSCAR, trabalhos do Latifur, CLAM, trabalhos do Bifet e o
+    framework baseado no MOA, mas distribuído)
+}
+
 \begin{table}[ht]
   \caption{Sumário dos trabalhos relacionados}
   \centering
   \begin{scriptsize}
-  \begin{tabularx}{\linewidth}{X|X|X|X|X}
-    Trabalho & Plataforma  & Técnica & Conjunto de dados & Métricas \\
+  \begin{tabularx}{\linewidth}{X|X|X|X|X|X}
+    Trabalho & Plataforma  & Técnica & Atualização de Modelo & Conjunto de dados & Métricas \\
     \hline
     \hline
     Ferramenta BigFlow \cite{Viegas2019} &
         \python, \emph{flowtbag}, \kafka e \flink &
         \emph{Hoeffding Tree}, \emph{OzaBoosting}, \emph{Leveraging Bag} e comitê &
+        Semanal semi-automática &
         \emph{MAWILab} &
         Acurácia (geral e por classe), Taxa de bytes \\
     \hline
     Ferramenta CATRACA \cite{Lopez2018} &
         \emph{Virtual Network Function}, \kafka e \spark &
         PCA, SFS, e SVM-RFE &
+        Contínua semi-automática &
         NSL-KDD, GTA/UFRJ e NetOp &
         Acurácia, precisão, sensibilidade e F1-score \\
     \hline
     Arquitetura \arch \cite{Cassales2019a} &
         Java, \kafka e \python &
         ECSMiner, AnyNovel e MINAS &
+        Contínua Automática &
         \emph{Kyoto 2006+} &
         Fnew, Mnew e erro \\
     \hline
@@ -140,13 +158,6 @@ Um sumário dos trabalhos abordados pode ser visto na Tabela \ref{tab:summary}.
   \label{tab:summary}
   \end{scriptsize}
 \end{table}
-
-\notafa{
-    você não discutiu sobre trabalhos anteriores que fizeram distribuição de
-    algoritmos de fluxos de dados.... o que eles tem de bom e ruim (ex: trabalhos
-    do Murilo Naldi da UFSCAR, trabalhos do Latifur, CLAM, trabalhos do Bifet e o
-    framework baseado no MOA, mas distribuído)
-}
 
 \section{Ferramenta BigFlow}
 
