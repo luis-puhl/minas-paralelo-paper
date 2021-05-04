@@ -252,42 +252,38 @@ detecção de novidades em fluxo de dados são discutidas.
 
 \section{Objetivos}\label{sec:objetivos}
 
-Como estabelecido na \refsec{motivo}, a lacuna no estado da arte observada é
-a ausência de uma implementação de algoritmo de detecção de
-novidades que trate adequadamente os desafios de fluxo de dados contínuos
-(como volume e velocidade do fluxo, evolução e mudança de conceito)
-e considere o ambiente de computação em névoa aplicada à detecção de
+Como estabelecido na \refsec{motivo}, a lacuna no estado da arte observada é a
+ausência de uma implementação de algoritmo de detecção de novidades no contexto
+de computação distribuída na borda.
+Neste sentido, um algoritmo que trate adequadamente os desafios de fluxo de
+dados contínuos (como volume e velocidade do fluxo, evolução e mudança de
+conceito) e considere o ambiente de computação em névoa aplicada à detecção de
 intrusão.
-Seguindo a comparação entre algoritmos desse gênero realizada por
-\citeonline{Cassales2019a}, esta pesquisa escolheu investigar o algoritmo MINAS \cite{Faria2016minas}
-para receber o tratamento necessário para adequá-lo ao ambiente de névoa e para
-fluxos de grandes volumes e velocidades.
+% Seguindo a comparação entre algoritmos desse gênero realizada por
+% \citeonline{Cassales2019a}, esta pesquisa escolheu investigar o algoritmo MINAS
+% \cite{Faria2016minas} para receber o tratamento necessário para adequá-lo ao
+% ambiente de névoa e para fluxos de grandes volumes e velocidades.
 
-Portanto, seguindo os trabalhos do Grupo de Sistemas Distribuídos e Redes
-(GSDR) da Universidade Federal de São Carlos (UFSCar), propõem-se a construção
-de uma 
+Portanto, seguindo os trabalhos do Grupo de Sistemas Distribuídos e Redes (GSDR)
+da Universidade Federal de São Carlos (UFSCar), propõem-se a construção de uma
+aplicação que implemente o algoritmo MINAS \cite{Faria2016minas} de maneira
+escalável e distribuível para ambientes de computação em névoa, seguindo a
+arquitetura \arch \cite{Cassales2019a}.
 
-aplicação que implemente o algoritmo MINAS
-de maneira escalável e distribuível para ambientes de computação em névoa e a avaliação
-dessa implementação com experimentos baseados na literatura usando conjunto de dados
-públicos relevantes.
+Além disso, propõem-se também a avaliação dessa implementação com experimentos
+baseados na literatura usando conjunto de dados públicos relevantes.
 O resultado esperado é uma implementação compatível em qualidade de
-classificação ao algoritmo MINAS e passível de ser distribuída em um ambiente
-de computação em névoa aplicado à detecção de intrusão.
+classificação ao algoritmo MINAS e passível de ser distribuída em um ambiente de
+computação em névoa aplicado à detecção de intrusão.
 
 Com foco no objetivo geral, alguns objetivos específicos são propostos:
-
-\begin{itemize}
-
-    \item Implementar o algoritmo MINAS de maneira distribuída sobre uma
-    plataforma de processamento distribuída de fluxos de dados;
-
-    \item Avaliar a qualidade de detecção de intrusão em ambiente distribuído 
-    conforme a arquitetura \arch;
-    
-    \item Avaliar o desempenho da implementação em ambiente de computação em névoa.
-
-\end{itemize}
+Implementar o algoritmo MINAS de maneira distribuída sobre uma plataforma de
+processamento distribuída de fluxos de dados;
+Arquitetar e implementar um mecanismo de execução e avaliação de qualidade e
+desempenho para os ambientes escolhidos;
+Avaliar e comparar a qualidade de detecção de intrusão da nova implementação;
+Avaliar a qualidade de detecção de intrusão em ambiente distribuído conforme a
+arquitetura \arch em ambiente de computação em névoa.
 
 % There is a need for real-time stream processing, as data is arriving as
 % continuous flows of events; for example, cars in motion emitting GPS signals;
@@ -347,6 +343,7 @@ Capítulo \ref{cha:proposta} descreve a proposta de implementação, discute as
 escolhas de plataformas e resultados esperados.
 Também são discutidos no Capítulo \ref{cha:implementacao} os desafios e
 resultados preliminares encontrados durante o desenvolvimento do trabalho.
-Capítulo \ref{cha:results} 
+Capítulo \ref{cha:results} aborda os ambientes de teste, descreve experimentos
+realizados e discute os resultados obtidos.
 Capítulo \ref{cha:final} adiciona considerações gerais sobre o trabalho e seus
 resultados.
