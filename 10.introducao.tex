@@ -118,21 +118,12 @@ distribuída, para uso em ambientes \iot.
 
 \section{Motivação}\label{sec:motivo}
 
-A recent survey \cite{Tahsien2020} shows that ML based methods are a
-promising alternative which can provide potential security tools for the \iot
-network making them more reliable and accessible than before.
-
-Our proposal, called \mfog, adapted the \arch
-architecture \cite{Cassales2019a} using the \nd algorithm \minas
-\cite{Faria2013Minas,Faria2015minas}, making it suitable to run
-on a distributed system composed of small devices with limited
-resources on the edge of the network.
-Using our newer version of the \minas algorithm, we have experimentally evaluated 
-how the distribution 
-affects the capability to detect changes (novelty) in
-traffic patterns and its impact on the computational efficiency.
-Finally, some distribution strategies and policies for the data stream
-novelty detection system are discussed.
+% A pesquisa recente de \citeonline{Tahsien2020} mostra que técnicas de \ml são
+% uma alternativa promissora que pode prover ferramentas de segurança para redes
+% \iot, fazendo elas mais confiáveis e acessíveis.
+% A recent survey \cite{Tahsien2020} shows that ML based methods are a
+% promising alternative which can provide potential security tools for the \iot
+% network making them more reliable and accessible than before.
 
 Um problema recente que une, em um único contexto, os métodos de computação em
 névoa, processamento de fluxo de dados e detecção de novidades nesses fluxos é a
@@ -144,16 +135,16 @@ dispositivos e avaliando-os quanto à detecção de intrusão.
 
 Na arquitetura proposta, \citeonline{Cassales2019a} avaliou os algoritmos
 ECSMiner \cite{Masud2010ECSMiner}, AnyNovel \cite{Abdallah2016anynovel} e MINAS
-\cite{Faria2015minas}, sendo que o último mostrou resultados promissores.
-A arquitetura proposta foi avaliada com o conjunto de dados (\emph{data set})
-\emph{Kyoto 2006+}, composto de dados coletados de 348 \emph{Honeypots}
-(máquinas isoladas equipadas com diversos softwares com vulnerabilidades
-conhecidas expostas à Internet com propósito de atrair ataques) de 2006 até
-dezembro 2015.
-O \emph{data set} \emph{Kyoto 2006+} contém 24 atributos, 3 etiquetas atribuídas por
-detectores de intrusão comerciais e uma etiqueta
-distinguindo o tráfego entre normal, ataque conhecido e ataque desconhecido
-\cite{Cassales2019a}.
+\cite{Faria2016minas}, sendo que o último mostrou resultados promissores.
+% A arquitetura proposta foi avaliada com o conjunto de dados (\emph{data set})
+% \emph{Kyoto 2006+}, composto de dados coletados de 348 \emph{Honeypots}
+% (máquinas isoladas equipadas com diversos softwares com vulnerabilidades
+% conhecidas expostas à Internet com propósito de atrair ataques) de 2006 até
+% dezembro 2015.
+% O \emph{data set} \emph{Kyoto 2006+} contém 24 atributos, 3 etiquetas atribuídas por
+% detectores de intrusão comerciais e uma etiqueta
+% distinguindo o tráfego entre normal, ataque conhecido e ataque desconhecido
+% \cite{Cassales2019a}.
 
 % \notahl{ Por que a necessidade paralelismo? O que falta que justifica essa
 % avaliação? Tempo de resposta?\\
@@ -174,16 +165,17 @@ semi-independentes, sendo elas treinamento, classificação e detecção de
 novidade; a classificação é o elemento central cujos resultados são utilizados
 para a identificação de intrusões.
 
-Ainda no contexto de \nd como método de detecção de intrusão,
-outras propostas tratam do caso de fluxos com grandes volumes e velocidades, como é o caso
-de \citeonline{Viegas2019}, que apresenta o \emph{BigFlow} no intuito de detectar
-intrusão em redes do tipo \emph{10 Gigabit Ethernet}, que podem produzir um volume considerável,
-atualmente impossível de ser processado em um único núcleo de processador
-(\emph{single-threaded}).
-Essa implementação foi feita sobre uma plataforma
-distribuída processadora de fluxos (\emph{Apache Flink}) executada em um cluster
-com até 10 nós de trabalho, cada um com 4 núcleos de processamento, totalizando
-40 núcleos, para atingir taxas de até $10,72 \ Gbps$.
+Ainda no contexto de \nd como método de detecção de intrusão, outras propostas
+tratam do caso de fluxos com grandes volumes e velocidades, como é o caso de
+\citeonline{Viegas2019}, que apresenta o \emph{BigFlow} no intuito de detectar
+intrusão em redes do tipo \emph{10 Gigabit Ethernet}, que podem produzir um
+volume considerável.
+% atualmente impossível de ser processado em um único núcleo de processador
+% (\emph{single-threaded}).
+Essa implementação foi feita sobre uma plataforma distribuída processadora de
+fluxos (\emph{Apache Flink}) executada em um cluster com até $10$ nós de trabalho,
+cada um com $4$ núcleos de processamento, totalizando $40$ núcleos, para atingir
+taxas de até $10,72 \ Gbps$.
 
 % Além de apresentar uma implementação, \citeonline{Viegas2019} também apresenta o
 % \emph{data set} \emph{MAWIFlow}. Esse conjunto é derivado do ponto de coleta
@@ -208,11 +200,11 @@ com até 10 nós de trabalho, cada um com 4 núcleos de processamento, totalizan
 % abordagem não é nova e visa tratar nuances do problema abordado como
 % variação temporal de conceitos conhecidos (\emph{Concept Drift}) e
 % conceitos emergentes (\emph{Concept Evolution})
-% \cite{Faria2016}.
+% \cite{Faria2016ndds}.
 % Essas nuances causam redução de acurácia durante a
 % avaliação inicial dos algoritmos tradicionais e devidamente mitigada com a
 % atualização constante do modelo. Esses problemas são amplamente abordados e
-% tratados em outros algoritmos como o MINAS \cite{Faria2015minas}.
+% tratados em outros algoritmos como o MINAS \cite{Faria2016minas}.
 
 Os trabalhos de \citeonline{Cassales2019a} e \citeonline{Viegas2019} abordam
 detecção de intrusão em redes utilizando algoritmos de ND em DS, porém com
@@ -238,6 +230,26 @@ novidades.
 % \\ arquiteutra distribuida em fog com minas e alto desempenho bigflow
 % }
 
+A proposta, aqui chamada \mfog, adapta a arquitetura \arch \cite{Cassales2019a}
+empregando o algoritmo de \nd \minas \cite{Faria2016minas}, tornando-o capaz
+de ser executado em um sistema distribuído composto de pequenos computadores com
+recursos limitados, alocados na borda da rede próximos dos dispositivos \iot.
+Utilizando a nova implementação do algoritmo \minas, avalia-se experimentalmente
+como a distribuição afeta a capacidade do sistema de detectar mudanças
+(novidades) nos padrões de tráfego e o impacto na eficiência computacional.
+Por fim, algumas estratégias e políticas para configuração do sistema de
+detecção de novidades em fluxo de dados são discutidas.
+
+% Our proposal, called \mfog, adapted the \arch architecture \cite{Cassales2019a}
+% using the \nd algorithm \minas \cite{Faria2013Minas,Faria2016minas}, making it
+% suitable to run on a distributed system composed of small devices with limited
+% resources on the edge of the network.
+% Using our newer version of the \minas algorithm, we have experimentally
+% evaluated how the distribution affects the capability to detect changes
+% (novelty) in traffic patterns and its impact on the computational efficiency.
+% Finally, some distribution strategies and policies for the data stream novelty
+% detection system are discussed.
+
 \section{Objetivos}\label{sec:objetivos}
 
 Como estabelecido na \refsec{motivo}, a lacuna no estado da arte observada é
@@ -247,7 +259,7 @@ novidades que trate adequadamente os desafios de fluxo de dados contínuos
 e considere o ambiente de computação em névoa aplicada à detecção de
 intrusão.
 Seguindo a comparação entre algoritmos desse gênero realizada por
-\citeonline{Cassales2019a}, esta pesquisa escolheu investigar o algoritmo MINAS \cite{Faria2015minas}
+\citeonline{Cassales2019a}, esta pesquisa escolheu investigar o algoritmo MINAS \cite{Faria2016minas}
 para receber o tratamento necessário para adequá-lo ao ambiente de névoa e para
 fluxos de grandes volumes e velocidades.
 
@@ -312,7 +324,7 @@ públicos relevantes para detecção de novidades em DS.
 Uma vez definidos o estado da arte, as ferramentas técnicas e os
 \emph{data sets}, o passo seguinte é a experimentação.
 Nesse passo, será desenvolvida uma aplicação na plataforma escolhida que, com base no
-algoritmo MINAS \cite{Faria2015minas}, irá classificar e detectar novidades em DS.
+algoritmo MINAS \cite{Faria2016minas}, irá classificar e detectar novidades em DS.
 Também nesse passo, a implementação será validada comparando os resultados de
 classificação obtidos com os resultados de classificação do algoritmo original
 MINAS.

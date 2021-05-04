@@ -584,44 +584,74 @@ month={01},
 pages={}
 }
 
-@article{Faria2016minas,
-  author="Faria,Elaine Ribeiro de and Ponce de Leon Ferreira Carvalho,Andr{\'e} Carlos and Gama,Jo{\~a}o",
-  title="MINAS: multiclass learning algorithm for novelty detection in data streams",
-  journal="Data Mining and Knowledge Discovery",
-  year="2015",
-  month="May",
-  day="01",
-  volume="30",
-  number="3",
-  pages="640--680",
+@inproceedings{Faria2013Minas,
+  author    = {Faria, Elaine R. and Gama, Jo\~{a}o and Carvalho, Andr\'{e} C. P. L. F.},
+  title     = {Novelty Detection Algorithm for Data Streams Multi-Class Problems},
+  year      = {2013},
+  isbn      = {9781450316569},
+  publisher = {Association for Computing Machinery},
+  address   = {New York, NY, USA},
+  url       = {https://doi.org/10.1145/2480362.2480515},
+  doi       = {10.1145/2480362.2480515},
+  abstract = {Novelty detection has been presented in the literature as
+  one-class problem. In this case, new examples are classified as either
+  belonging to the target class or not. The examples not explained by the model
+  are detected as belonging to a class named novelty. However, novelty detection
+  is much more general, especially in data streams scenarios, where the number
+  of classes might be unknown before learning and new classes can appear any
+  time. In this case, the novelty concept is composed by different classes. This
+  work presents a new algorithm to address novelty detection in data streams
+  multi-class problems, the MINAS algorithm. Moreover, we also present a new
+  experimental methodology to evaluate novelty detection methods in multi-class
+  problems. The data used in the experiments include artificial and real data
+  sets. Experimental results show that MINAS is able to discover novelties in
+  multi-class problems.},
+  booktitle = {Proceedings of the 28th Annual ACM Symposium on Applied Computing},
+  pages     = {795–800},
+  numpages  = {6},
+  keywords  = {data stream, multi-class, novelty detection, clustering},
+  location  = {Coimbra, Portugal},
+  series    = {SAC '13}
+}
 
-  abstract="Data stream mining is an emergent research area that aims at
+@Article{Faria2016minas,
+  author={de Faria, Elaine Ribeiro
+  and Ponce de Leon Ferreira Carvalho, Andr{\'e} Carlos
+  and Gama, Jo{\~a}o},
+  title={MINAS: multiclass learning algorithm for novelty detection in data streams},
+  journal={Data Mining and Knowledge Discovery},
+  year={2016},
+  month={May},
+  day={01},
+  volume={30},
+  number={3},
+  pages={640-680},
+  abstract={Data stream mining is an emergent research area that aims at
   extracting knowledge from large amounts of continuously generated data.
   Novelty detection (ND) is a classification task that assesses if one or a set
   of examples differ significantly from the previously seen examples. This is an
-  important task for data stream,as new concepts may appear,disappear or
+  important task for data stream, as new concepts may appear, disappear or
   evolve over time. Most of the works found in the ND literature presents it as
-  a binary classification task. In several data stream real life problems,ND
-  must be treated as a multiclass task,in which,the known concept is composed
+  a binary classification task. In several data stream real life problems, ND
+  must be treated as a multiclass task, in which, the known concept is composed
   by one or more classes and different new classes may appear. This work
-  proposes MINAS,an algorithm for ND in data streams. MINAS deals with ND as a
-  multiclass task. In the initial training phase,MINAS builds a decision model
-  based on a labeled data set. In the online phase,new examples are classified
-  using this model,or marked as unknown. Groups of unknown examples can be used
-  later to create valid novelty patterns (NP),which are added to the current
+  proposes MINAS, an algorithm for ND in data streams. MINAS deals with ND as a
+  multiclass task. In the initial training phase, MINAS builds a decision model
+  based on a labeled data set. In the online phase, new examples are classified
+  using this model, or marked as unknown. Groups of unknown examples can be used
+  later to create valid novelty patterns (NP), which are added to the current
   model. The decision model is updated as new data come over the stream in order
   to reflect changes in the known classes and allow the addition of NP. This
   work also presents a set of experiments carried out comparing MINAS and the
-  main novelty detection algorithms found in the literature,using artificial
+  main novelty detection algorithms found in the literature, using artificial
   and real data sets. The experimental results show the potential of the
-  proposed algorithm.",
-
-  issn="1573-756X",
-  doi="10.1007/s10618-015-0433-y",
-url="https://doi.org/10.1007/s10618-015-0433-y"
+  proposed algorithm.},
+  issn={1573-756X},
+  doi={10.1007/s10618-015-0433-y},
+  url={https://doi.org/10.1007/s10618-015-0433-y}
 }
 
-@Article{Faria2016,
+@Article{Faria2016ndds,
   author={Faria, Elaine R.
   and Gon{\c{c}}alves, Isabel J. C. R.
   and de Carvalho, Andr{\'e} C. P. L. F.
@@ -2248,51 +2278,6 @@ series={KDD ’00}
   number={},
   pages={1-6},
   doi={10.23919/PEMWN47208.2019.8986906}
-}
-
-@inproceedings{Faria2013Minas,
-  author    = {Faria, Elaine R. and Gama, Jo\~{a}o and Carvalho, Andr\'{e} C. P. L. F.},
-  title     = {Novelty Detection Algorithm for Data Streams Multi-Class Problems},
-  year      = {2013},
-  isbn      = {9781450316569},
-  publisher = {Association for Computing Machinery},
-  address   = {New York, NY, USA},
-  url       = {https://doi.org/10.1145/2480362.2480515},
-  doi       = {10.1145/2480362.2480515},
-  abstract = {Novelty detection has been presented in the literature as
-  one-class problem. In this case, new examples are classified as either
-  belonging to the target class or not. The examples not explained by the model
-  are detected as belonging to a class named novelty. However, novelty detection
-  is much more general, especially in data streams scenarios, where the number
-  of classes might be unknown before learning and new classes can appear any
-  time. In this case, the novelty concept is composed by different classes. This
-  work presents a new algorithm to address novelty detection in data streams
-  multi-class problems, the MINAS algorithm. Moreover, we also present a new
-  experimental methodology to evaluate novelty detection methods in multi-class
-  problems. The data used in the experiments include artificial and real data
-  sets. Experimental results show that MINAS is able to discover novelties in
-  multi-class problems.},
-  booktitle = {Proceedings of the 28th Annual ACM Symposium on Applied Computing},
-  pages     = {795–800},
-  numpages  = {6},
-  keywords  = {data stream, multi-class, novelty detection, clustering},
-  location  = {Coimbra, Portugal},
-  series    = {SAC '13}
-}
-
-@article{Faria2015minas,
-  author={Faria, Elaine Ribeiro de and Ponce de Leon Ferreira Carvalho, Andr{\'e} Carlos and Gama, Jo{\~a}o},
-  title={MINAS: multiclass learning algorithm for novelty detection in data streams},
-  journal={Data Mining and Knowledge Discovery},
-  year={2015},
-  month={May},
-  day={01},
-  volume={30},
-  number={3},
-  pages={640--680},
-  issn={1573-756X},
-  doi={10.1007/s10618-015-0433-y},
-  url={https://doi.org/10.1007/s10618-015-0433-y}
 }
 
 @article{DeFaria2015evaluation,

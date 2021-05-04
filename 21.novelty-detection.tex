@@ -36,7 +36,7 @@ Alguns métodos que abordam \nd como classificação multi-classe não
 atendem completamente características de conjuntos com 
 evolução temporal,
 como \evolution e \drift, deixando de detectar múltiplos padrões que surgem
-simultaneamente num intervalo de avaliação \cite{Faria2016,Gama2010}.
+simultaneamente num intervalo de avaliação \cite{Faria2016ndds,Gama2010}.
 
 A maioria dos métodos de \nd são construídos seguindo a abordagem de aprendizado
 \emph{Offline-Online}. Essa abordagem estabelece que o método seja dividido em
@@ -61,7 +61,7 @@ exemplos não explicados pelo modelo marcados como desconhecidos
 
 Um algoritmo de \nd que tem recebido atenção nos últimos anos é o algoritmo
 MINAS, originalmente proposto por \citeonline{Faria2013}, refinado por
-\citeonline{Faria2015minas} e recentemente aprimorado por
+\citeonline{Faria2016minas} e recentemente aprimorado por
 \citeonline{DaSilva2018thesis}, com o uso de conceitos \emph{Fuzzy}, e expandido por
 \citeonline{Costa2019thesis}, para tratar problemas multi-rótulo além dos problemas
 multi-classe já tratados na versão original.
@@ -92,7 +92,7 @@ são arranjados em um único conjunto formando o modelo de decisão.
 
 Na fase \emph{Online}, listada no Algoritmo \ref{alg:minas-main}, o algoritmo MINAS
 opera com três operações: classificação de novos exemplos, detecção de 
-padrões-novidade e atualização do modelo de decisão \cite{Faria2015minas}.
+padrões-novidade e atualização do modelo de decisão \cite{Faria2016minas}.
 O primeiro método é o de classificação, onde exemplos do fluxo de dados
 são consumidos e avaliados pelo modelo de decisão.
 O modelo de decisão avalia cada exemplo calculando a distância euclidiana
@@ -103,7 +103,7 @@ o raio do \mcluster, o exemplo é classificado com a etiqueta do \mcluster
 e o sumário estatístico do \mcluster é atualizado.
 Caso a distância (mínima no modelo) seja maior que o raio,
 o exemplo é marcado como desconhecido e armazenado
-em conjunto próprio \cite{Faria2015minas}.
+em conjunto próprio \cite{Faria2016minas}.
 
 O segundo método da fase \emph{Online} é a detecção de padrões novidade,
 que é executada quando o tamanho do conjunto de desconhecidos é maior
@@ -115,7 +115,7 @@ e coesão.
 % \subsection{MINAS}
 % \label{sec:minas}
 
-\minas \cite{Faria2015minas} is an offline-online \nd algorithm,
+\minas \cite{Faria2016minas} is an offline-online \nd algorithm,
 meaning it has two distinct phases. The first phase (offline) creates an initial
 model set with several clusters based on a clustering algorithm with a training
 set.
@@ -138,7 +138,7 @@ noise or outliers and removed.
 The algorithm also has a mechanism to forget clusters that became obsolete and
 unrepresentative of the current data stream distribution, removing them from
 the Model and storing in a Sleep Model for possible recurring pattern
-detection \cite{Faria2015minas}.
+detection \cite{Faria2016minas}.
 
 \begin{algorithm}[htb]
     % \DontPrintSemicolon
@@ -191,7 +191,7 @@ detection \cite{Faria2015minas}.
             outputStream.append(sample)\;
         }
     }
-\caption{Our interpretation of \minas baseado em \cite{Faria2015minas}}
+\caption{Our interpretation of \minas baseado em \cite{Faria2016minas}}
 \label{alg:minas-main}
 \end{algorithm}
 
@@ -235,7 +235,7 @@ valid clusters and starts using them to classify new instances.
         }
         \Return{newModelSet}\;
     }
-    \caption{\minas \cite{Faria2015minas} Novelty Detection task.}
+    \caption{\minas \cite{Faria2016minas} Novelty Detection task.}
     \label{alg:MINAS-nd}
 \end{algorithm}
 
@@ -255,7 +255,7 @@ exemplos e detecta
 novidades em DS e considera em sua composição \emph{concept drift} e
 \emph{concept evolution}, sendo capaz de classificar como extensão de classe
 conhecida e identificar padrões novidade sem intervenção de especialista
-\cite{Faria2015minas}.
+\cite{Faria2016minas}.
 Neste trabalho, consideram-se algoritmos derivados do algoritmo MINAS
 aqueles apresentados em trabalhos publicados após 2016, que estendem a
 implementação original seguindo sua estrutura básica.
@@ -272,9 +272,9 @@ A avaliação do algoritmo FuzzyND foi feita por meio de experimentos usando 3
 \datasets sintéticos (\emph{MOA3}, \emph{RBF}, \emph{SynEDC})
 e por comparação com o MINAS.
 O método de avaliação utilizado baseia-se na matriz de confusão incremental
-descrita por \citeonline{Faria2016}, extraindo dessa matriz duas métricas:
+descrita por \citeonline{Faria2016ndds}, extraindo dessa matriz duas métricas:
 acurácia (\emph{Macro F-Score}) \cite{Sokolova2009} e
-taxa de desconhecidos (\emph{UnkR}) \cite{Faria2015minas}.
+taxa de desconhecidos (\emph{UnkR}) \cite{Faria2016minas}.
 Em geral, o algoritmo FuzzyND detecta melhor novidades e, consequentemente,
 é mais robusto a valores atípicos (\emph{outlier}), porém perde a capacidade
 de reconhecer padrões recorrentes.
@@ -322,7 +322,7 @@ A avaliação elencada por \citeonline{Costa2019} leva em consideração que as 
 contidas no conjunto de testes podem não ter correlação direta com os padrões identificados
 pelos algoritmos.
 Para tratar a divergência, uma estratégia baseada em proposta anterior por
-\citeonline{Faria2016} foi apresentada com alterações para exemplos multi-rótulo.
+\citeonline{Faria2016ndds} foi apresentada com alterações para exemplos multi-rótulo.
 Após associação entre padrões de novidade e classes novidade foi possível calcular
 métricas tradicionais.
 A estratégia é executada na fase de classificação seguindo as regras:
