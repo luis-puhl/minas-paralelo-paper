@@ -305,13 +305,22 @@ configurado para ser executado como um \emph{cluster stand-alone}.
 Já o acesso programático a essa plataforma pode ser feito através das linguagens
 Java, Scala ou Python.
 
-\subsection{\emph{Interface de Troca de Mensagens - MPI}}
+\subsection{Interface de Troca de Mensagens}
 
-\mpi é um padrão com algumas implementações que permite a construção de um
-sistema distribuído com um executável único (monólito) utilizando com abstração
-a passagem de mensagens.
+\mpi\footnote{Disponível em \url{https://www.mpi-forum.org/}.} é um padrão que
+estabelece um protocolo de comunicação e define sintaxe e semântica para
+bibliotecas de troca de mensagens.
+Este padrão, por meio de alguma implementação como OpenMPI e MPICH,
+permitem a construção de um sistema distribuído com um executável único
+(monólito) utilizando com abstração a passagem de mensagens.
 
-Modelo de programação (SPMD vs ), modelo de comunicação (empacotamento,
+O modelo de programação para programas \mpi
+Single Program Multiple Data (SPMD)
+vs
+Single instruction, multiple data (SIMD) 
+multiple instruction, multiple data (MIMD) 
+
+, modelo de comunicação (empacotamento,
 localização de dados).
 
 Configuração de execução.
