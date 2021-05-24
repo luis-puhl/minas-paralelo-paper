@@ -169,22 +169,22 @@ as classes contidas em um \stream não são todas previamente conhecidas.
 A identificação e classificação de novas classes em \streams é denominada
 Detecção de Novidades (\novelty, \nd) em \streams.
 
-\hlfa{Além dos aspectos}
-\notafa{rever o parágrafo. Varios conceitos errados... a identificação de novas
-classes é denominada detecção de novidade.... data stream variam temporalmente}
-inerentes a \streamMining, são considerados na construção de um
-\hlhl{sistema}
-\notahl{Poderia reescrever a frase, evitando inversões na estrutura
-sujeito/verbo e complementos. Yoda!}
-que computa \streams a taxa de eventos
-% (itens atômicos de um \stream)
-gerados por cada produtor e o número de produtores nesse sistema, totalizando o
-volume de eventos 
-\notahl{qual sistema?}
-\hlhl{do sistema}.
-% Além do volume de eventos é necessário
-Volumes elevados dificilmente são computados em apenas um nó (e muito menos em
-um único núcleo processador) e por isso, esses sistemas \hlhl{geralmente} são distribuídos.
+% \hlfa{Além dos aspectos}
+% \notafa{rever o parágrafo. Varios conceitos errados... a identificação de novas
+% classes é denominada detecção de novidade.... data stream variam temporalmente}
+% inerentes a \streamMining, são considerados na construção de um
+% \hlhl{sistema}
+% \notahl{Poderia reescrever a frase, evitando inversões na estrutura
+% sujeito/verbo e complementos. Yoda!}
+% que computa \streams a taxa de eventos
+% % (itens atômicos de um \stream)
+% gerados por cada produtor e o número de produtores nesse sistema, totalizando o
+% volume de eventos 
+% \notahl{qual sistema?}
+% \hlhl{do sistema}.
+% % Além do volume de eventos é necessário
+% Volumes elevados dificilmente são computados em apenas um nó (e muito menos em
+% um único núcleo processador) e por isso, esses sistemas \hlhl{geralmente} são distribuídos.
 
 Sistemas que utilizam \nd para \streams gerados por dispositivos \iot devem
 utilizar algoritmos que considerem os desafios inerentes a fluxos de dados
@@ -225,70 +225,70 @@ oportunidades de melhoria.
 \newcommand{\classify}{módulo classificador\xspace}
 \newcommand{\detector}{módulo detector de novidades\xspace}
 
-Nesta Seção, apresenta-se o \mfog, objeto proposta deste trabalho.
-O \mfog é composto de três módulos principais e dois auxiliares.
-Os módulos principais implementam o algoritmo MINAS, sendo eles: \offline
-(\emph{Training Module}), \classify (\emph{Classification Module}) e
-\detector (\emph{Novelty Detection Module}).
-Dois módulos auxiliares são utilizados para avaliação do \mfog:
-\source (fonte) e \sink (sorvedouro, consumidor final).
-Os módulos e as interações entre eles são ilustradas na \reffig{arch}.
+% Nesta Seção, apresenta-se o \mfog, objeto proposta deste trabalho.
+% O \mfog é composto de três módulos principais e dois auxiliares.
+% Os módulos principais implementam o algoritmo MINAS, sendo eles: \offline
+% (\emph{Training Module}), \classify (\emph{Classification Module}) e
+% \detector (\emph{Novelty Detection Module}).
+% Dois módulos auxiliares são utilizados para avaliação do \mfog:
+% \source (fonte) e \sink (sorvedouro, consumidor final).
+% Os módulos e as interações entre eles são ilustradas na \reffig{arch}.
 
-\begin{figure}[ht]
-\centering
-\includegraphics[width=\textwidth]{figuras/mfog-arch-v3_pt-br.png}
-\caption{Arquitetura e fluxos de dados do \mfog.}
-\label{fig:arch}
-\end{figure}
+% \begin{figure}[ht]
+% \centering
+% \includegraphics[width=\textwidth]{figuras/mfog-arch-v3_pt-br.png}
+% \caption{Arquitetura e fluxos de dados do \mfog.}
+% \label{fig:arch}
+% \end{figure}
 
-A implementação do \mfog segue a arquitetura \arch formalizada por
-\citeonline{Cassales2019a}, discutida na \refsec{cassales}.
-A arquitetura \arch
-% (e outras arquiteturas de NIDS)
-estabelece que um serviço de
-captura e tratamento de dados é instalado na borda de uma rede local com
-dispositivos \iot.
-Na presente implementação, esse serviço de captura e tratamento é representado
-pelo \source.
+% A implementação do \mfog segue a arquitetura \arch formalizada por
+% \citeonline{Cassales2019a}, discutida na \refsec{cassales}.
+% A arquitetura \arch
+% % (e outras arquiteturas de NIDS)
+% estabelece que um serviço de
+% captura e tratamento de dados é instalado na borda de uma rede local com
+% dispositivos \iot.
+% Na presente implementação, esse serviço de captura e tratamento é representado
+% pelo \source.
 
-O \source é dependente da fonte de dados, executando a transformação dos
-formatos dos \datasets para um fluxo de exemplos (representado por $x$ na \reffig{arch})
-compatível com o restante da implementação.
-Além de fornecer exemplos tratados para o \classify, o \source também fornece
-exemplos com a classe original (representado por $x,c$ na \reffig{arch})
-\notafa{somente na fase de treinamento o source fornece exemplos rotulados par ao sink, certo?}
-\hlfa{para o \sink e para o \offline}.
+% O \source é dependente da fonte de dados, executando a transformação dos
+% formatos dos \datasets para um fluxo de exemplos (representado por $x$ na \reffig{arch})
+% compatível com o restante da implementação.
+% Além de fornecer exemplos tratados para o \classify, o \source também fornece
+% exemplos com a classe original (representado por $x,c$ na \reffig{arch})
+% \notafa{somente na fase de treinamento o source fornece exemplos rotulados par ao sink, certo?}
+% \hlfa{para o \sink e para o \offline}.
 
-O \sink é responsável por agregar todos resultados do \mfog e,
-juntamente com os valores do \dataset fornecidos pelo \source, por computar
-as métricas de qualidade de classificação.
-Além disso, esse módulo também coleta e agrega métricas base para as avaliação de
-escalabilidade e métricas de uso de recursos computacionais.
+% O \sink é responsável por agregar todos resultados do \mfog e,
+% juntamente com os valores do \dataset fornecidos pelo \source, por computar
+% as métricas de qualidade de classificação.
+% Além disso, esse módulo também coleta e agrega métricas base para as avaliação de
+% escalabilidade e métricas de uso de recursos computacionais.
 
-Os dados resultantes do serviço de captura e tratamento (representado no \mfog
-pelo \source) são ingeridos pela aplicação no \classify. A ingestão é feita por
-meio de um operador fonte, fornecida pela plataforma \flink.
-% \notake{TCP e apache flink}
-% conexão TCP (\emph{Transmission Control Protocol}).
-Na plataforma, com o modelo de classificação disponível, os exemplos são
-classificados seguindo o algoritmo MINAS original discutido na \refsec{minas-og}.
-A etiqueta atribuída pela classificação, ou meta-etiqueta de desconhecido,
-juntamente com o exemplo original (representado por $x,l$ na \reffig{arch})
-são enviados para o \sink.
-Além disso, se o exemplo não for classificado, o exemplo e a meta-etiqueta de
-desconhecido (representado por $x,u$ na \reffig{arch}) são enviados para o
-\detector.
-\notahl{processaa ND em paralelo?}
-Outra comunicação é o envio das modificações ao sumário estatístico do modelo de
-classificação (representado por $Summary$ na \reffig{arch}) do \classify para o
-\detector.
+% Os dados resultantes do serviço de captura e tratamento (representado no \mfog
+% pelo \source) são ingeridos pela aplicação no \classify. A ingestão é feita por
+% meio de um operador fonte, fornecida pela plataforma \flink.
+% % \notake{TCP e apache flink}
+% % conexão TCP (\emph{Transmission Control Protocol}).
+% Na plataforma, com o modelo de classificação disponível, os exemplos são
+% classificados seguindo o algoritmo MINAS original discutido na \refsec{minas-og}.
+% A etiqueta atribuída pela classificação, ou meta-etiqueta de desconhecido,
+% juntamente com o exemplo original (representado por $x,l$ na \reffig{arch})
+% são enviados para o \sink.
+% Além disso, se o exemplo não for classificado, o exemplo e a meta-etiqueta de
+% desconhecido (representado por $x,u$ na \reffig{arch}) são enviados para o
+% \detector.
+% \notahl{processaa ND em paralelo?}
+% Outra comunicação é o envio das modificações ao sumário estatístico do modelo de
+% classificação (representado por $Summary$ na \reffig{arch}) do \classify para o
+% \detector.
 
-O \detector é responsável por executar o processo de detecção de novidade,
-atualizando o modelo de classificação, e entregar o novo modelo às instâncias do
-\classify, através do serviço de armazenamento de modelo (\emph{Model Store} na
-\reffig{arch}).
-O \detector também envia meta-informações sobre o processo de detecção de
-novidade (representado por $Log$ na \reffig{arch}) para o \sink.
+% O \detector é responsável por executar o processo de detecção de novidade,
+% atualizando o modelo de classificação, e entregar o novo modelo às instâncias do
+% \classify, através do serviço de armazenamento de modelo (\emph{Model Store} na
+% \reffig{arch}).
+% O \detector também envia meta-informações sobre o processo de detecção de
+% novidade (representado por $Log$ na \reffig{arch}) para o \sink.
 
 % \nota{
 % nao seria legal fazer um diagrama pq ai vc pode usar ate nos slides de como eh
