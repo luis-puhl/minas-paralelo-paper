@@ -75,7 +75,7 @@ algoritmo (envelhecimento de modelo, atualização do modelo)
         ECSMiner, AnyNovel e MINAS &
         Contínua Automática &
         \emph{Kyoto 2006+} &
-        Fnew, Mnew e erro \\
+        \emph{Fnew}, \emph{Mnew} e \emph{erro} \\
     \hline
     \ifx\toreview\undefined
     \else
@@ -209,7 +209,7 @@ submódulo de atualização incremental, que atualiza e distribui o modelo aos c
 
 \citeonline{Viegas2019} destaca que \datasets adequados para NIDS são
 poucos, devido ao conjunto de qualidades que os mesmos devem atender, como
-realismo, validade, etiquetamento, grande variabilidade e reprodutividade
+realismo, validade, etiquetamento, grande variabilidade e reprodutibilidade
 (disponibilidade pública).
 
 Para avaliar o desempenho de NIDS, o \dataset MAWIFlow é proposto por \citeonline{Viegas2019}.
@@ -490,7 +490,7 @@ dados coletados de 348 \emph{Honeypots}
 (máquinas isoladas, equipadas com diversos
 softwares com vulnerabilidades conhecidas e expostas à Internet, com propósito de
 atrair ataques) de 2006 até dezembro 2015.
-Esse \dataset tem as características desejáveis de um conjunto para detectção de
+Esse \dataset tem as características desejáveis de um conjunto para detecção de
 novidades como: realismo, validade, etiquetas previamente definidas, alta
 variabilidade, reprodutibilidade e disponibilidade pública.
 O \dataset \emph{Kyoto 2006+} contém 24 atributos, 3 etiquetas atribuídas por
@@ -498,12 +498,12 @@ detectores de intrusão comerciais e uma etiqueta
 distinguindo o tráfego entre normal, ataque conhecido e ataque desconhecido.
 
 A avaliação da arquitetura foi realizada utilizando as métricas de qualidade
-Fnew, Mnew e erro.
-A métrica Fnew (ou Falso Positivo) é a fração dos exemplos de uma classe normal
+\emph{Fnew}, \emph{Mnew} e \emph{erro}.
+A métrica \emph{Fnew} (ou Falso Positivo) é a fração dos exemplos de uma classe normal
 classificados com etiqueta novidade ou etiqueta extensão.
-A métrica Mnew (ou Falso Negativo) é a fração dos exemplos de uma classe novidade
+A métrica \emph{Mnew} (ou Falso Negativo) é a fração dos exemplos de uma classe novidade
 classificados com etiqueta normal.
-A métrica erro é a soma dos valores falso positivo e falso negativo dividida
+A métrica \emph{erro} é a soma dos valores falso positivo e falso negativo dividida
 pelo número de exemplos classificados.
 Além das métricas de qualidade de classificação tradicionais, também foi medida
 a quantidade de requisições de classificação por especialista.
@@ -520,14 +520,14 @@ Ambas as avaliações demonstraram o equilíbrio entre qualidade de classificaç
 velocidade ou uso de recursos.
 O algoritmo ECSMiner mostrou melhor qualidade de classificação, porém com
 velocidade inferior e maior consumo de recursos comparado aos outros algoritmos.
-Já o algoritmo MINAS, apesar de maiores valores na métrica erro, mostrou-se
+Já o algoritmo MINAS, apesar de maiores valores na métrica \emph{erro}, mostrou-se
 adequado para dispositivos limitados com baixo consumo de recursos
-computacionais e manteve a métrica Fnew constante e baixa.
+computacionais e manteve a métrica \emph{Fnew} constante e baixa.
 O algoritmo AnyNovel não apresentou consistência nos resultados e o consumo
 de recursos computacionais (memória) foi elevado.
 
 % MINAS technique presented high error rates. However, the
-% small and constant Fnew coupled with the smallest execution
+% small and constant \emph{Fnew} coupled with the smallest execution
 % time and memory consumption, indicates MINAS is suitable
 % for IoT scenarios.
 
@@ -578,7 +578,7 @@ necessários para tratar fluxos de dados com grandes volumes e velocidades.
 
 % \nota{coloca uma secao de SINTESE dos trabalhos relacionados ou sintese do capitulo}
 
-Em conclusão, os trabalhos discutidos nesse Capítulo têm temas complementares em
+Os trabalhos discutidos nesse Capítulo têm temas complementares em
 áreas distintas.
 A área de aprendizado de máquina, com o tema detecção de novidades em fluxos de
 dados, preocupa-se em fornecer melhores previsões através de algoritmos

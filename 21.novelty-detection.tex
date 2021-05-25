@@ -251,13 +251,13 @@ um novo conceito foi encontrado e a etiqueta marca um padrão novidade.
 Após a atribuição da etiqueta do novo \mcluster, ele é adicionado
 ao modelo de decisão.
 
-O algoritmo MINAS, como já foi discutido na Seção \ref{sec:minas-og}, classifica
+O \minas, como já foi discutido na Seção \ref{sec:minas-og}, classifica
 exemplos e detecta
 novidades em DS e considera em sua composição \emph{concept drift} e
 \emph{concept evolution}, sendo capaz de classificar como extensão de classe
 conhecida e identificar padrões novidade sem intervenção de especialista
 \cite{Faria2016minas}.
-Neste trabalho, consideram-se algoritmos derivados do algoritmo MINAS
+Neste trabalho, consideram-se algoritmos derivados do \minas
 aqueles apresentados em trabalhos publicados após 2016, que estendem a
 implementação original seguindo sua estrutura básica.
 
@@ -275,9 +275,6 @@ ideia geral do algoritmo e como proceder para criação de uma versão distribu�
 
 % \subsubsection{Algoritmo Extensão FuzzyND}
 
-% O algoritmo FuzzyND, derivado do MINAS foi proposto por \citeonline{DaSilva2018}.
-% FuzzyND incrementa o algoritmo original, aplicando a ele teorias de
-% conjuntos \emph{fuzzy} pela modificação da representação dos \clusters.
 % A modificação afeta o método de construção de \clusters, método de classificação
 % de exemplos e método de detecção de novidades de acordo com a nova representação.
 
@@ -295,8 +292,6 @@ ideia geral do algoritmo e como proceder para criação de uma versão distribu�
 % \subsubsection{Algoritmo Extensão MINAS-LC e MINAS-BR}
 % \label{sub:minas-derivados}
 
-% O algoritmo MINAS-LC foi proposto por \citeonline{Costa2019thesis} e trata a classificação
-% multi-rótulo, porém não trata evoluções de conceito (\emph{Concept Evolution}).
 % As alterações fundamentais propostas são:
 % a representação de \cluster onde MINAS-LC troca a etiqueta, que era única, por uma multi-rótulo;
 % a transformação de problema aplicada ao conjunto de treinamento para transformá-lo de um
