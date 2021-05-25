@@ -96,7 +96,17 @@ all the samples labeled with \emph{unknown}, storing them in an internal
 \emph{unknown-buffer}, and, when this buffer is full, performing the \minas
 Novelty Detection task (clustering followed by validation).
 
-\section{Polices}\label{sec:polices}
+\section{Políticas}\label{sec:polices}
+
+O projeto desta arquitetura de detecção de novidades 
+
+O design de nossa arquitetura \nd distribuída inclui o particionamento do
+funcionalidades de \minas e estabelecendo os fluxos de dados apropriados
+entre diferentes atores.
+Mudanças no posicionamento e no comportamento podem ter impactos diferentes e devem ser
+escolhido com cuidado.
+As decisões após essas discussões podem ser organizadas em várias políticas,
+alguns deles eram recorrentes durante nossas discussões de implementação e são:
 
 The design of our distributed \nd architecture includes partitioning the
 functionalities of \minas and establishing the appropriate data flows

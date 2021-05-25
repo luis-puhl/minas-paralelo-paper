@@ -203,9 +203,9 @@ a tuple containing \emph{uid} and the assigned label.
             % $out \leftarrow$ sample\;
             OutputStream.append(sample)\;
             \If{sample.label == unknown}{
-                UnkownSet = UnkownSet $\cup$ sample\;
-                \If{$|\;UnkownSet\;| \geq$ \noveltyDetectionTrigger}{
-                    novelties = \NoveltyDetection(p, ModelSet, *UnkownSet)\;
+                UnknownSet = UnknownSet $\cup$ sample\;
+                \If{$|\;UnknownSet\;| \geq$ \noveltyDetectionTrigger}{
+                    novelties = \NoveltyDetection(p, ModelSet, *UnknownSet)\;
                     \With{\writeLock(ModelSetLock)}{
                         ModelSet = ModelSet $\cup$ novelties\;
                     }
@@ -214,7 +214,7 @@ a tuple containing \emph{uid} and the assigned label.
                     }
                 }
                 \If{ sampe.uid $ > $ ( lastCleanup $ + $ \cleaningWindow )}{
-                    UnkownSet $\leftarrow$ \removeOldSamples(UnkownSet, lastCleanup)\;
+                    UnknownSet $\leftarrow$ \removeOldSamples(UnknownSet, lastCleanup)\;
                     lastCleanup $ \leftarrow $ sampe.uid\;
                 }
             }

@@ -1,9 +1,8 @@
 \section{Detecção de Novidade}\label{sec:nd}
 
 No âmbito de classificação de dados, parte da área de aprendizado de máquina, os
-métodos de detecção de novidade (\novelty, \nd) lidam com o reconhecimento e a
-classificação de exemplos que diferem de exemplos anteriores
-\cite{Perner2009,Gama2010}.
+métodos de \acf{ND-DS} lidam com o reconhecimento e a classificação de exemplos
+que diferem de exemplos anteriores \cite{Markou2003,Perner2009,Gama2010}.
 Esses métodos tratam da classificação em fluxos de dados que evoluem com o
 tempo, levando em consideração as características desse tipo de fluxos.
 
@@ -163,7 +162,7 @@ detection \cite{Faria2016minas}.
     % 
     \SetKwFunction{MinasOnline}{MinasOnline}
     \Function{\MinasOnline{ModelSet, inputStream}}{
-        UnkownSet $\leftarrow$ $\emptyset$, ModelSleepSet $\leftarrow$ $\emptyset$ \;
+        UnknownSet $\leftarrow$ $\emptyset$, ModelSleepSet $\leftarrow$ $\emptyset$ \;
         lastCleanup $\leftarrow 0$ , noveltyIndex $\leftarrow 0$\;
         % sampleIn $\leftarrow 0$\;
         \ForEach{ {$sample_{i}$} $\in$ inputStream }{
@@ -176,22 +175,22 @@ detection \cite{Faria2016minas}.
             }
             {
                 sample.label $\leftarrow$ unknown\;
-                UnkownSet $\leftarrow$ UnkownSet $\cup$ sample\;
-                \If{$|\;UnkownSet\;| \geq$ \noveltyDetectionTrigger}{
+                UnknownSet $\leftarrow$ UnknownSet $\cup$ sample\;
+                \If{$|\;UnknownSet\;| \geq$ \noveltyDetectionTrigger}{
                     % \tcc{Novelty Detection}
-                    novelties $\leftarrow$ \NoveltyDetection(ModelSet $\cup$ ModelSleepSet, *UnkownSet)\;
+                    novelties $\leftarrow$ \NoveltyDetection(ModelSet $\cup$ ModelSleepSet, *UnknownSet)\;
                     ModelSet $\leftarrow$ ModelSet $\cup$ novelties\;
                 }
                 \If{ $ i > $ ( lastCleanup $ + $ \cleaningWindow )}{
                     ModelSet $\leftarrow$ \handleModelSleep(ModelSet, *ModelSleepSet, lastCleanup)\;
-                    UnkownSet $\leftarrow$ \removeOldSamples(UnkownSet, lastCleanup)\;
+                    UnknownSet $\leftarrow$ \removeOldSamples(UnknownSet, lastCleanup)\;
                     lastCleanup $ \leftarrow i $\;
                 }
             }
             outputStream.append(sample)\;
         }
     }
-\caption{Our interpretation of \minas baseado em \cite{Faria2016minas}}
+\caption{Interpretação do \minas baseado em \cite{Faria2016minas}}
 \label{alg:minas-main}
 \end{algorithm}
 
