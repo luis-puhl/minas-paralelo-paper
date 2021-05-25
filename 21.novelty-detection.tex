@@ -74,9 +74,10 @@ usa por base algoritmos de agrupamento não supervisionados como \emph{K-means} 
 O algoritmo MINAS em sua fase \emph{Offline} consome um conjunto de treinamento
 contendo exemplos etiquetados.
 Esse conjunto de treinamento é dividido em grupos usando como chave a etiqueta,
-e para cada grupo de exemplos o método de agrupamento (\emph{clustering}) é executado.
-O método de agrupamento objetiva resumir um conjunto maior de exemplos em
-um conjunto menor de \mclusters.
+e para cada grupo de exemplos o método de agrupamento (\emph{clustering}) é
+executado.
+O método de agrupamento objetiva resumir um conjunto maior de exemplos em um
+conjunto menor de \mclusters.
 
 Um \mcluster é uma tupla de quatro components $(N, \mathbf{LS}, \mathbf{SS}, T)$
 derivados dos exemplos representados por este \mcluster, onde:
@@ -104,12 +105,12 @@ Caso a distância (mínima no modelo) seja maior que o raio,
 o exemplo é marcado como desconhecido e armazenado
 em conjunto próprio \cite{Faria2016minas}.
 
-O segundo método da fase \emph{Online} é a detecção de padrões novidade,
-que é executada quando o tamanho do conjunto de desconhecidos é maior
-que um parâmetro predefinido.
+O segundo método da fase \emph{Online} é a detecção de padrões novidade, que é
+executada quando o tamanho do conjunto de desconhecidos é maior que um parâmetro
+predefinido.
 Esse método executa o agrupamento (\emph{clustering} descrito na fase
-\emph{Offline}) e valida os \mclusters gerados verificando sua representatividade
-e coesão.
+\emph{Offline}) e valida os \mclusters gerados verificando sua
+representatividade e coesão.
 
 % \subsection{MINAS}
 % \label{sec:minas}
@@ -141,22 +142,23 @@ detection \cite{Faria2016minas}.
 
 \begin{algorithm}[htb]
     % \DontPrintSemicolon
-    \SetKwFunction{nearestCluster}{nearestCluster}
+    \SetKwFunction{nearestCluster}{clusterMaisPróximo}
     \SetKwFunction{clustering}{clustering}
     \SetKwFunction{NoveltyDetection}{NoveltyDetection}
     \SetKwFunction{handleModelSleep}{moveToSleep}
     \SetKwFunction{removeOldSamples}{removeOldSamples}
     % 
-    \SetKwProg{Function}{Function}{:}{}
-    \SetKwFor{With}{with}{}{}
+    \SetKwProg{Function}{Função}{:}{}
     \SetKw{continue}{continue}
     % 
+    \SetKwInOut{KwIn}{Entrada}
+    \SetKwInOut{KwOut}{Saída}
     \KwIn{ModelSet, inputStream}
     \KwOut{outputStream}
     % 
     \SetKwData{cleaningWindow}{cleaningWindow}
     \SetKwData{noveltyDetectionTrigger}{noveltyDetectionTrigger}
-    \SetKwInOut{KwParams}{Parameters}
+    \SetKwInOut{KwParams}{Parâmetros}
     \KwParams{\cleaningWindow, \noveltyDetectionTrigger}
     % \KwSty{Parameters}: \cleaningWindow, \noveltyDetectionTrigger\\
     % 
