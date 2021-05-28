@@ -1,4 +1,45 @@
-\section{Detecção de Novidade}\label{sec:nd}
+\section{Fluxo de Dados e Mineração de Fluxo de Dados}
+
+A Mineração de Dados é o processo de descoberta de padrões em conjuntos de dados
+utilizando métodos derivados de aprendizagem de máquina, estatística e banco de
+dados \cite{Gaber2005}.
+Além de mineração de dados tradicional, \emph{Big Data} trata de
+conjuntos de dados que não podem ser processados em tempo viável, devido a limitações
+como memória ou armazenamento principal.
+
+\begin{definition}
+    Um \textit{Fluxo de Dados} $S$ é uma sequência massiva, potencialmente
+    ilimitada de exemplos $\mathbf{X}_1, \mathbf{X}_2, \dots, \mathbf{X}_n, \dots$,
+    recebida em instantes $T_1, T_2, \dots, T_n, \dots$,
+    onde cada exemplo $\mathbf{X}$ tem dimensão $d$
+    \cite{Aggarwal2003}.
+\end{definition}
+
+Além da dimensão de armazenamento, outra dimensão que afeta a maneira como dados
+são modelados e manipulados é o tempo.
+Técnicas e algoritmos de mineração de fluxo de dados atendem a esses desafios utilizando
+restrições como apenas uma leitura do conjunto de dados e baixo tempo de
+processamento na construção de seus algoritmos \cite{Gama2007, Gaber2005}.
+
+As características de fluxos de dados e mineração de dados e os requisitos de
+seu processamento regularmente superam as capacidades computacionais de um único
+nó computacional convencional, de forma que a distribuição dos requisitos em
+múltiplos nós computacionais em um sistema distribuído pode ser necessária
+\cite{Gaber2005}.
+
+% Computação distribuída é a área da ciência da computação que estuda sistemas
+% em que os componentes são localizados em diferentes computadores (nós), que
+% comunicam-se apenas por troca de mensagens e, para que o objetivo do sistema
+% seja atingido, a cooperação entre os nós é necessária.
+% Outras propriedades de um sistema distribuído são a concorrência entre os nós e
+% possibilidade de
+% falhas em partes independentes \cite{TanenbaumSteen2018}.
+
+Para a construção de sistemas que apliquem técnicas de mineração de fluxos de
+dados são necessárias bibliotecas e plataformas (\emph{frameworks})
+que são abordadas na \refsec{frameworks}.
+
+\section{Detecção de Novidade em Fluxo de Dados}
 
 No âmbito de classificação de dados, parte da área de aprendizado de máquina, os
 métodos de \acf{ND-DS} lidam com o reconhecimento e a classificação de exemplos
@@ -72,11 +113,13 @@ emprega algoritmos de agrupamento (\emph{clustering}) não supervisionados como
 \newcommand{\mclusters}{\emph{micro-clusters}\xspace}
 
 O algoritmo MINAS em sua fase \emph{Offline} consome um conjunto de treinamento
-contendo exemplos etiquetados.
-Esse conjunto de treinamento é dividido em grupos usando como chave a etiqueta,
+contendo exemplos rótulados.
+Esse conjunto de treinamento é dividido em grupos usando como chave o rótulo,
 e para cada grupo de exemplos o método de agrupamento é executado.
 O método de agrupamento objetiva resumir um conjunto maior de exemplos em um
 conjunto menor de \mclusters.
+A cada \mcluster é adicionada o rótulo do grupo original e todos \mclusters
+são arranjados em um único conjunto formando o modelo de decisão.
 
 Um \mcluster é uma tupla de quatro components $(N, \mathbf{LS}, \mathbf{SS}, T)$
 derivados dos exemplos representados por este \mcluster onde:
@@ -86,8 +129,7 @@ $\mathbf{SS}$ é o vetor quadrada dos exemplos,
 $T$ é o instante de chegada do último exemplo adicionado ao \mcluster.
 Deste sumário extrai-se, entre outras estatísticas, o centro e raio que são
 utilizados na operação de classificação da fase \emph{Online}.
-A cada \mcluster é adicionada a etiqueta do grupo original e todos \mclusters
-são arranjados em um único conjunto formando o modelo de decisão.
+\todo{FIX-ME}
 
 % \minas \cite{Faria2016minas} is an offline-online \nd algorithm, meaning it has
 % two distinct phases. The first phase (offline) creates an initial model set with
@@ -134,15 +176,15 @@ padrões-novidade e atualização do modelo de decisão \cite{Faria2016minas}.
         últimaLimpeza $\leftarrow 0$ , proximaNovidade $\leftarrow 0$\;
         % sampleIn $\leftarrow 0$\;
         \ForEach{ {$exemplo_{i}$} $\in$ fluxoEntrada }{
-            % exemplo.etiqueta $\leftarrow$ unknown\;
+            % exemplo.rótulo $\leftarrow$ unknown\;
             % (distância, cluster) $\leftarrow$ \nearestCluster(exemplo, Modelo)\;
             maisPróximo $\leftarrow$ \nearestCluster(exemplo, Modelo)\;
             \eIf{maisPróximo.distância $<$ maisPróximo.cluster.raio}{
-                exemplo.etiqueta $\leftarrow$ maisPróximo.cluster.etiqueta\;
+                exemplo.rótulo $\leftarrow$ maisPróximo.cluster.rótulo\;
                 maisPróximo.cluster.últimoUso $ \leftarrow i $ \;
             }
             {
-                exemplo.etiqueta $\leftarrow$ "desconhecido"\;
+                exemplo.rótulo $\leftarrow$ "desconhecido"\;
                 Desconhecidos $\leftarrow$ Desconhecidos $\cup$ exemplo\;
                 \If{$|\;Desconhecidos\;| \geq$ \noveltyDetectionTrigger}{
                     % \tcc{Novelty Detection}
@@ -168,48 +210,34 @@ O modelo de decisão avalia cada exemplo calculando a distância euclidiana
 entre o exemplo e todos \mclusters do modelo, selecionando o
 \mcluster de menor distância.
 Se a distância entre o exemplo e o centro do \mcluster for menor que
-o raio do \mcluster, o exemplo é classificado com a etiqueta do \mcluster
+o raio do \mcluster, o exemplo é classificado com o rótulo do \mcluster
 e o sumário estatístico do \mcluster é atualizado.
 Caso a distância (mínima no modelo) seja maior que o raio,
 o exemplo é marcado como desconhecido e armazenado
 em conjunto próprio \cite{Faria2016minas}.
 
-A segunda operação da fase \emph{Online} é a detecção de padrões novidade, que é
-executada quando o tamanho do conjunto de desconhecidos é maior que um parâmetro
-predefinido.
+A segunda operação da fase \emph{Online} é a detecção de padrões novidade
+listada no Algoritmo \ref{alg:minas-nd} que é executada quando o tamanho do
+conjunto de desconhecidos é maior que um parâmetro predefinido.
 Esta operação utiliza o agrupamento (\emph{clustering} descrito na fase
 \emph{Offline}) e valida os \mclusters gerados verificando sua
 representatividade e coesão.
+A representatividade é avaliada com o número de exemplos do conjunto de
+desconhecidos que é englobado pelo novo \mcluster, onde o valor mínimo de exemplos
+é parametrizado.
 
-Para atribuição de etiquetas aos \mclusters gerados, o algoritmo MINAS
-encontra no modelo atual o \mcluster mais próximo pela distância
-euclidiana e classifica em dois tipos de conceitos.
-Se a distância é menor que um parâmetro predefinido,
-o novo \mcluster gerado recebe como etiqueta o valor de extensão
-de conceito conhecido.
-Caso contrário, se o novo \mcluster está mais distante,
-um novo conceito foi encontrado e a etiqueta marca um padrão novidade.
-Após a atribuição da etiqueta do novo \mcluster, ele é adicionado
-ao modelo de decisão.
+Um padrão é considerado coeso se o valor Silhueta ($si$) é maior que $0$.
+O $si$ por sua vez é calculado com a distância ($b$) do novo \mcluster até o
+mais próximo contido no modelo atual e o raio ($a$) do novo \mcluster
+conforme a Equação \ref{eq:silhueta}.
+No entanto, se o valor raio for definido como a distância máxima do centro do
+\mcluster ao exemplo incluído
+\todo{FIX-ME}
 
-% \minas attempts to classify each incoming unlabeled instance according to the
-% current decision model. Instances not explained by the current model
-% receive an \textit{unknown} label and are stored in an unknowns-buffer.
-% When the unknowns-buffer reaches a preset threshold, \minas executes the
-% Novelty Detection function.
-% After a set interval, samples in the unknowns-buffer are considered to be
-% noise or outliers and removed.
-% The algorithm also has a mechanism to forget clusters that became obsolete and
-% unrepresentative of the current data stream distribution, removing them from
-% the Model and storing in a Sleep Model for possible recurring pattern
-% detection \cite{Faria2016minas}.
+\begin{align}
+  \mathit{si} &= \frac{b - a}{max(b, a)} \label{eq:silhueta}
+\end{align}
 
-The Novelty Detection function, illustrated in Algorithm \ref{alg:MINAS-nd},
-groups the instances to form new clusters, and each new cluster is validated to
-discard the non-cohesive or unrepresentative ones.
-Valid clusters are analyzed to decide if they represent an extension of a
-known pattern or a completely new pattern. In both cases, the model absorbs the
-valid clusters and starts using them to classify new instances.
 
 \begin{algorithm}[htb]
     \SetKwFunction{nearestCluster}{clusterMaisPróximo}
@@ -235,10 +263,10 @@ valid clusters and starts using them to classify new instances.
             \If{$|\;novoCluster.exemplos\;| \geq$ \minExamplesPerCluster}{
                 maisPróximo $\leftarrow$ \nearestCluster(novoCluster, Modelo)\;
                 \eIf{maisPróximo.distância $<$ (maisPróximo.cluster.raio $\times$ \noveltyFactor)}{
-                    novoCluster.etiqueta $\leftarrow$ maisPróximo.cluster.etiqueta\;
+                    novoCluster.rótulo $\leftarrow$ maisPróximo.cluster.rótulo\;
                     novoCluster.tipo $\leftarrow$ "extensão"\;
                 }{
-                    novoCluster.etiqueta $\leftarrow$ proximaNovidade\;
+                    novoCluster.rótulo $\leftarrow$ proximaNovidade\;
                     proximaNovidade $\leftarrow$ proximaNovidade $+ 1$\;
                     novoCluster.tipo $\leftarrow$ "novidade"\;
                 }
@@ -251,8 +279,38 @@ valid clusters and starts using them to classify new instances.
         \Return{novoModelo}\;
     }
     \caption{Detecção de Novidades interpretada do \minas \cite{Faria2016minas}.}
-    \label{alg:MINAS-nd}
+    \label{alg:minas-nd}
 \end{algorithm}
+
+Para atribuição de rótulos aos \mclusters gerados, o algoritmo MINAS
+encontra no modelo atual o \mcluster mais próximo pela distância
+euclidiana e classifica em dois tipos de conceitos.
+Se a distância é menor que um parâmetro predefinido,
+o novo \mcluster gerado recebe como rótulo o valor de extensão
+de conceito conhecido.
+Caso contrário, se o novo \mcluster está mais distante,
+um novo conceito foi encontrado e o rótulo marca um padrão novidade.
+Após a atribuição do rótulo do novo \mcluster, ele é adicionado
+ao modelo de decisão.
+
+% \minas attempts to classify each incoming unlabeled instance according to the
+% current decision model. Instances not explained by the current model
+% receive an \textit{unknown} label and are stored in an unknowns-buffer.
+% When the unknowns-buffer reaches a preset threshold, \minas executes the
+% Novelty Detection function.
+% After a set interval, samples in the unknowns-buffer are considered to be
+% noise or outliers and removed.
+% The algorithm also has a mechanism to forget clusters that became obsolete and
+% unrepresentative of the current data stream distribution, removing them from
+% the Model and storing in a Sleep Model for possible recurring pattern
+% detection \cite{Faria2016minas}.
+
+The Novelty Detection function, illustrated in Algorithm \ref{alg:MINAS-nd},
+groups the instances to form new clusters, and each new cluster is validated to
+discard the non-cohesive or unrepresentative ones.
+Valid clusters are analyzed to decide if they represent an extension of a
+known pattern or a completely new pattern. In both cases, the model absorbs the
+valid clusters and starts using them to classify new instances.
 
 O \minas, como já foi discutido na Seção \ref{sec:minas-og}, classifica
 exemplos e detecta
@@ -296,17 +354,17 @@ ideia geral do algoritmo e como proceder para criação de uma versão distribu�
 % \label{sub:minas-derivados}
 
 % As alterações fundamentais propostas são:
-% a representação de \cluster onde MINAS-LC troca a etiqueta, que era única, por uma multi-rótulo;
+% a representação de \cluster onde MINAS-LC troca o rótulo, que era única, por uma multi-rótulo;
 % a transformação de problema aplicada ao conjunto de treinamento para transformá-lo de um
 % conjunto multi-rótulo para um conjunto multi-classe (simplificação)
 % em duas variações \emph{Label Powerset} e \emph{Pruned Sets} com
 % mineração de conjunto de itens frequentes.
 
 % Já o trabalho de \citeonline{Costa2019}, estende o algoritmo original para que
-% classifique um exemplo com uma ou mais etiquetas usando a transformação
+% classifique um exemplo com uma ou mais rótulos usando a transformação
 % \emph{Binary Relevance}, o que deu origem ao algoritmo MINAS-BR.
 % O algoritmo modifica a representação do modelo, originalmente conjunto de \clusters, para
-% um grupo de \clusters por classe (etiqueta).
+% um grupo de \clusters por classe (rótulo).
 % Também modifica o método de agrupamento, substituindo a inicialização do 
 % algoritmo \emph{K-means}, originalmente aleatória, pelo algoritmo 
 % \emph{Leader Incremental Clustering} \cite{Vijaya2004505}.
@@ -323,10 +381,10 @@ ideia geral do algoritmo e como proceder para criação de uma versão distribu�
 % disponíveis na ferramenta MOA \cite{MOA}, diferente da avaliação do FuzzyND que
 % compara diretamente com MINAS. Para análise, os 7 algoritmos foram divididos em
 % dois grupos \cite{Costa2019}.
-% O primeiro grupo de 3 algoritmos com acesso às etiquetas corretas para
+% O primeiro grupo de 3 algoritmos com acesso às rótulos corretas para
 % atualização do modelo e com a técnica ADWIN (\emph{ADaptive WINdowing}) para detectar
 % mudanças de conceito (\emph{Concept Drift})
-% O segundo grupo com os 4 algoritmos sem acesso às etiquetas corretas,
+% O segundo grupo com os 4 algoritmos sem acesso às rótulos corretas,
 % ou seja, sem \emph{feedback} externo, mesma condição do MINAS-BR \cite{Costa2019}.
 
 % A avaliação elencada por \citeonline{Costa2019} leva em consideração que as classes
@@ -342,10 +400,10 @@ ideia geral do algoritmo e como proceder para criação de uma versão distribu�
 
 %     \item após o consumo do exemplo $X_n$;
     
-%     \item para todo padrão $P_i$ (etiqueta atribuída) identificado sem
+%     \item para todo padrão $P_i$ (rótulo atribuída) identificado sem
 %     associação até o momento;
     
-%     \item com classes novidade $y_j$ (etiqueta real) presentes em exemplos antes
+%     \item com classes novidade $y_j$ (rótulo real) presentes em exemplos antes
 %     $X_n$;
     
 %     \item preenche-se a tabela de contingência $\mathbf{T}_{(i,j)}$ relacionando

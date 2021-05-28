@@ -163,48 +163,6 @@ de umidade, temperatura, qualidade do ar, ocupação, sendo que a partir das
 informações deles, é possível alertar os ocupantes do prédio em algum caso de
 emergência.
 
-\section{Mineração de Dados e Fluxo de Dados}
-
-A Mineração de Dados é o processo de descoberta de padrões em conjuntos de dados
-utilizando métodos derivados de aprendizagem de máquina, estatística e banco de
-dados \cite{Gaber2005}.
-Além de mineração de dados tradicional, \emph{Big Data} trata de
-conjuntos de dados que não podem ser processados em tempo viável, devido a limitações
-como memória ou armazenamento principal.
-
-\begin{definition}
-    Um \textit{Fluxo de Dados} $S$ é uma sequência massiva, potencialmente
-    ilimitada de exemplos multi-dimensionais
-    $\mathbf{x}_1, \mathbf{x}_2, \dots, \mathbf{x}_n, \dots$
-    recebida em instantes
-    $\mathbf{T}_1, \mathbf{T}_2, \dots, \mathbf{T}_n, \dots$
-    \cite{Aggarwal2003}.
-\end{definition}
-
-Além da dimensão de armazenamento, outra dimensão que afeta a maneira como dados
-são modelados e manipulados é o tempo.
-Técnicas e algoritmos de mineração de fluxo de dados atendem a esses desafios utilizando
-restrições como apenas uma leitura do conjunto de dados e baixo tempo de
-processamento na construção de seus algoritmos \cite{Gama2007, Gaber2005}.
-
-As características de fluxos de dados e mineração de dados e os requisitos de
-seu processamento regularmente superam as capacidades computacionais de um único
-nó computacional convencional, de forma que a distribuição dos requisitos em
-múltiplos nós computacionais em um sistema distribuído pode ser necessária
-\cite{Gaber2005}.
-
-% Computação distribuída é a área da ciência da computação que estuda sistemas
-% em que os componentes são localizados em diferentes computadores (nós), que
-% comunicam-se apenas por troca de mensagens e, para que o objetivo do sistema
-% seja atingido, a cooperação entre os nós é necessária.
-% Outras propriedades de um sistema distribuído são a concorrência entre os nós e
-% possibilidade de
-% falhas em partes independentes \cite{TanenbaumSteen2018}.
-
-Para a construção de sistemas que apliquem técnicas de mineração de fluxos de
-dados são necessárias bibliotecas e plataformas (\emph{frameworks})
-que são abordadas na \refsec{frameworks}.
-
 \section{Arquiteturas e Plataformas de Processamento de Fluxos}
 \label{sec:frameworks}
 
