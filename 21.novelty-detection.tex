@@ -8,11 +8,11 @@ conjuntos de dados que não podem ser processados em tempo viável, devido a lim
 como memória ou armazenamento principal.
 
 \begin{definition}
-    Um \textit{Fluxo de Dados} $S$ é uma sequência massiva, potencialmente
-    ilimitada de exemplos $\mathbf{X}_1, \mathbf{X}_2, \dots, \mathbf{X}_n, \dots$,
-    recebida em instantes $T_1, T_2, \dots, T_n, \dots$,
-    onde cada exemplo $\mathbf{X}$ tem dimensão $d$
-    \cite{Aggarwal2003}.
+  Um \textit{Fluxo de Dados} $S$ é uma sequência massiva, potencialmente
+  ilimitada de exemplos $\mathbf{X}_1, \mathbf{X}_2, \dots, \mathbf{X}_n, \dots$,
+  recebida em instantes $T_1, T_2, \dots, T_n, \dots$,
+  onde cada exemplo $\mathbf{X}$ tem dimensão $d$
+  \cite{Aggarwal2003}.
 \end{definition}
 
 Além da dimensão de armazenamento, outra dimensão que afeta a maneira como dados
@@ -121,15 +121,40 @@ conjunto menor de \mclusters.
 A cada \mcluster é adicionada o rótulo do grupo original e todos \mclusters
 são arranjados em um único conjunto formando o modelo de decisão.
 
-Um \mcluster é uma tupla de quatro components $(N, \mathbf{LS}, \mathbf{SS}, T)$
-derivados dos exemplos representados por este \mcluster onde:
-$N$ é o número de exemplos,
-$\mathbf{LS}$ é o vetor soma linear dos exemplos,
-$\mathbf{SS}$ é o vetor quadrada dos exemplos,
-$T$ é o instante de chegada do último exemplo adicionado ao \mcluster.
-Deste sumário extrai-se, entre outras estatísticas, o centro e raio que são
-utilizados na operação de classificação da fase \emph{Online}.
-\todo{FIX-ME}
+\begin{definition}
+  Um \mcluster, para um grupo de exemplos, é uma tupla de quatro componentes
+  $(N, \mathbf{LS}, \mathbf{SS}, T)$ derivados dos exemplos representados por
+  este \mcluster onde:
+  $N$ é o número de exemplos,
+  $\mathbf{LS}$ é o vetor soma linear dos exemplos,
+  $\mathbf{SS}$ é o vetor quadrada dos exemplos,
+  $T$ é o instante de chegada do último exemplo adicionado ao \mcluster.
+\end{definition}
+
+Deste sumário extrai-se o centro e raio que são utilizados na operação de
+classificação da fase \emph{Online} \cite{Faria2016minas}.
+O vetor centro é definido como pelo algoritmo de agrupamento e corresponde ao
+ponto médio dos exemplos contidos no grupo, visto na Equação \ref{eq:centro}.
+O raio pode ser definido de duas maneiras e ambas dependem no conjunto das
+distâncias $\mathbb{D}$ entre centro e cada elemento contido no grupo.
+A primeira definição de raio é o desvio padrão das distâncias em $\mathbb{D}$
+multiplicado por um fator parametrizado \cite{Faria2016minas}, visto na Equação
+\ref{eq:raio_paper}, a segunda definição é o valor máximo das distâncias em
+$\mathbb{D}$ \cite{Faria2013source}, visto na Equação \ref{eq:raio_max}.
+
+\begin{definition}
+  \begin{align}
+    centro    &= 1/N \cdot \mathbf{LS} \label{eq:centro}\\
+    \mu       &= 1/N \cdot \sum_{i=1}^{N} \mathbb{D}_i \nonumber \\
+    \sigma^2  &= 1/N \cdot \sum_{i=1}^{N} (\mathbb{D}_i - \mu) ^2 \nonumber \\
+    \sigma    &= \sqrt{ \sigma^2 } \nonumber \\
+    raio_1    &= f_{raio} \cdot \sigma \label{eq:raio_paper}\\
+    raio_2    &= \lceil \mathbb{D} \rceil \label{eq:raio_max}\\
+  \end{align}
+\end{definition}
+
+% 5: The mean is equal to CF1t/n. 
+% The standard deviation is equal to sqrt( CF2t/n − (CF1t/n)2 ).
 
 % \minas \cite{Faria2016minas} is an offline-online \nd algorithm, meaning it has
 % two distinct phases. The first phase (offline) creates an initial model set with
@@ -149,57 +174,57 @@ MINAS executa três operações: classificação de novos exemplos, detecção d
 padrões-novidade e atualização do modelo de decisão \cite{Faria2016minas}.
 
 \begin{algorithm}[htb]
-    % \DontPrintSemicolon
-    \SetKwFunction{nearestCluster}{clusterMaisPróximo}
-    \SetKwFunction{clustering}{agrupamento}
-    \SetKwFunction{NoveltyDetection}{DetecçãoNovidade}
-    \SetKwFunction{handleModelSleep}{moveModeloAntigo}
-    \SetKwFunction{removeOldSamples}{removeExemplosAntigos}
-    % 
-    \SetKwProg{Function}{Função}{:}{}
-    \SetKw{continue}{continue}
-    % 
-    \SetKwInOut{KwIn}{Entrada}
-    \SetKwInOut{KwOut}{Saída}
-    \KwIn{Modelo, fluxoEntrada}
-    \KwOut{fluxoSaída}
-    % 
-    \SetKwData{cleaningWindow}{janelaLimpeza}
-    \SetKwData{noveltyDetectionTrigger}{gatilhoDetecçãoNovidade}
-    \SetKwInOut{KwParams}{Parâmetros}
-    \KwParams{\cleaningWindow, \noveltyDetectionTrigger}
-    % \KwSty{Parameters}: \cleaningWindow, \noveltyDetectionTrigger\\
-    % 
-    \SetKwFunction{MinasOnline}{MinasOnline}
-    \Function{\MinasOnline{Modelo, fluxoEntrada}}{
-        Desconhecidos $\leftarrow$ $\emptyset$, ModeloAntigo $\leftarrow$ $\emptyset$ \;
-        últimaLimpeza $\leftarrow 0$ , proximaNovidade $\leftarrow 0$\;
-        % sampleIn $\leftarrow 0$\;
-        \ForEach{ {$exemplo_{i}$} $\in$ fluxoEntrada }{
-            % exemplo.rótulo $\leftarrow$ unknown\;
-            % (distância, cluster) $\leftarrow$ \nearestCluster(exemplo, Modelo)\;
-            maisPróximo $\leftarrow$ \nearestCluster(exemplo, Modelo)\;
-            \eIf{maisPróximo.distância $<$ maisPróximo.cluster.raio}{
-                exemplo.rótulo $\leftarrow$ maisPróximo.cluster.rótulo\;
-                maisPróximo.cluster.últimoUso $ \leftarrow i $ \;
-            }
-            {
-                exemplo.rótulo $\leftarrow$ "desconhecido"\;
-                Desconhecidos $\leftarrow$ Desconhecidos $\cup$ exemplo\;
-                \If{$|\;Desconhecidos\;| \geq$ \noveltyDetectionTrigger}{
-                    % \tcc{Novelty Detection}
-                    novidades $\leftarrow$ \NoveltyDetection(Modelo $\cup$ ModeloAntigo, *Desconhecidos)\;
-                    Modelo $\leftarrow$ Modelo $\cup$ novidades\;
-                }
-                \If{ $ i > $ ( últimaLimpeza $ + $ \cleaningWindow )}{
-                    Modelo $\leftarrow$ \handleModelSleep(Modelo, *ModeloAntigo, últimaLimpeza)\;
-                    Desconhecidos $\leftarrow$ \removeOldSamples(Desconhecidos, últimaLimpeza)\;
-                    últimaLimpeza $ \leftarrow i $\;
-                }
-            }
-            fluxoSaída.adicione(exemplo)\;
+  % \DontPrintSemicolon
+  \SetKwFunction{nearestCluster}{clusterMaisPróximo}
+  \SetKwFunction{clustering}{agrupamento}
+  \SetKwFunction{NoveltyDetection}{DetecçãoNovidade}
+  \SetKwFunction{handleModelSleep}{moveModeloAntigo}
+  \SetKwFunction{removeOldSamples}{removeExemplosAntigos}
+  % 
+  \SetKwProg{Function}{Função}{:}{}
+  \SetKw{continue}{continue}
+  % 
+  \SetKwInOut{KwIn}{Entrada}
+  \SetKwInOut{KwOut}{Saída}
+  \KwIn{Modelo, fluxoEntrada}
+  \KwOut{fluxoSaída}
+  % 
+  \SetKwData{cleaningWindow}{janelaLimpeza}
+  \SetKwData{noveltyDetectionTrigger}{gatilhoDetecçãoNovidade}
+  \SetKwInOut{KwParams}{Parâmetros}
+  \KwParams{\cleaningWindow, \noveltyDetectionTrigger}
+  % \KwSty{Parameters}: \cleaningWindow, \noveltyDetectionTrigger\\
+  % 
+  \SetKwFunction{MinasOnline}{MinasOnline}
+  \Function{\MinasOnline{Modelo, fluxoEntrada}}{
+    Desconhecidos $\leftarrow$ $\emptyset$, ModeloAntigo $\leftarrow$ $\emptyset$ \;
+    últimaLimpeza $\leftarrow 0$ , proximaNovidade $\leftarrow 0$\;
+    % sampleIn $\leftarrow 0$\;
+    \ForEach{ {$exemplo_{i}$} $\in$ fluxoEntrada }{
+      % exemplo.rótulo $\leftarrow$ unknown\;
+      % (distância, cluster) $\leftarrow$ \nearestCluster(exemplo, Modelo)\;
+      maisPróximo $\leftarrow$ \nearestCluster(exemplo, Modelo)\;
+      \eIf{maisPróximo.distância $<$ maisPróximo.cluster.raio}{
+        exemplo.rótulo $\leftarrow$ maisPróximo.cluster.rótulo\;
+        maisPróximo.cluster.últimoUso $ \leftarrow i $ \;
+      }
+      {
+        exemplo.rótulo $\leftarrow$ "desconhecido"\;
+        Desconhecidos $\leftarrow$ Desconhecidos $\cup$ exemplo\;
+        \If{$|\;Desconhecidos\;| \geq$ \noveltyDetectionTrigger}{
+          % \tcc{Novelty Detection}
+          novidades $\leftarrow$ \NoveltyDetection(Modelo $\cup$ ModeloAntigo, *Desconhecidos)\;
+          Modelo $\leftarrow$ Modelo $\cup$ novidades\;
         }
+        \If{ $ i > $ ( últimaLimpeza $ + $ \cleaningWindow )}{
+          Modelo $\leftarrow$ \handleModelSleep(Modelo, *ModeloAntigo, últimaLimpeza)\;
+          Desconhecidos $\leftarrow$ \removeOldSamples(Desconhecidos, últimaLimpeza)\;
+          últimaLimpeza $ \leftarrow i $\;
+        }
+      }
+      fluxoSaída.adicione(exemplo)\;
     }
+  }
 \caption{Interpretação do \minas baseado em \cite{Faria2016minas}}
 \label{alg:minas-main}
 \end{algorithm}
@@ -223,8 +248,8 @@ Esta operação utiliza o agrupamento (\emph{clustering} descrito na fase
 \emph{Offline}) e valida os \mclusters gerados verificando sua
 representatividade e coesão.
 A representatividade é avaliada com o número de exemplos do conjunto de
-desconhecidos que é englobado pelo novo \mcluster, onde o valor mínimo de exemplos
-é parametrizado.
+desconhecidos que é englobado pelo novo \mcluster, onde o valor mínimo de
+exemplos é parametrizado.
 
 Um padrão é considerado coeso se o valor Silhueta ($si$) é maior que $0$.
 O $si$ por sua vez é calculado com a distância ($b$) do novo \mcluster até o
@@ -240,46 +265,46 @@ No entanto, se o valor raio for definido como a distância máxima do centro do
 
 
 \begin{algorithm}[htb]
-    \SetKwFunction{nearestCluster}{clusterMaisPróximo}
-    \SetKwFunction{clustering}{agrupamento}
-    \SetKwFunction{NoveltyDetection}{DetecçãoNovidade}
-    \SetKwFunction{handleModelSleep}{moveModeloAntigo}
-    \SetKwFunction{removeOldSamples}{removeExemplosAntigos}
-    % 
-    \SetKwProg{Function}{Função}{:}{}
-    \SetKw{continue}{continue}
-    % 
-    \SetKwInOut{KwIn}{Entrada}
-    \SetKwInOut{KwOut}{Saída}
-    \SetKwInOut{KwParams}{Parâmetros}
-    % 
-    \SetKwData{minExamplesPerCluster}{minExemplos}
-    \SetKwData{noveltyFactor}{fatorNovidade}
-    \KwParams{\minExamplesPerCluster, \noveltyFactor}
-    % 
-    \Function{\NoveltyDetection{Modelo, Desconhecidos}}{
-        novoModelo $\leftarrow$ $\emptyset$\;
-        \ForEach{novoCluster in \clustering(Desconhecidos)}{
-            \If{$|\;novoCluster.exemplos\;| \geq$ \minExamplesPerCluster}{
-                maisPróximo $\leftarrow$ \nearestCluster(novoCluster, Modelo)\;
-                \eIf{maisPróximo.distância $<$ (maisPróximo.cluster.raio $\times$ \noveltyFactor)}{
-                    novoCluster.rótulo $\leftarrow$ maisPróximo.cluster.rótulo\;
-                    novoCluster.tipo $\leftarrow$ "extensão"\;
-                }{
-                    novoCluster.rótulo $\leftarrow$ proximaNovidade\;
-                    proximaNovidade $\leftarrow$ proximaNovidade $+ 1$\;
-                    novoCluster.tipo $\leftarrow$ "novidade"\;
-                }
-                % novoCluster.últimoUso $ \leftarrow i $ \;
-                \label{alg:MINAS-nd:reclassify}
-                Desconhecidos $\leftarrow$ Desconhecidos $-$ novoCluster.exemplos\;
-                novoModelo $\leftarrow$ novoModelo $\cup$ novoCluster\;
-            }
+  \SetKwFunction{nearestCluster}{clusterMaisPróximo}
+  \SetKwFunction{clustering}{agrupamento}
+  \SetKwFunction{NoveltyDetection}{DetecçãoNovidade}
+  \SetKwFunction{handleModelSleep}{moveModeloAntigo}
+  \SetKwFunction{removeOldSamples}{removeExemplosAntigos}
+  % 
+  \SetKwProg{Function}{Função}{:}{}
+  \SetKw{continue}{continue}
+  % 
+  \SetKwInOut{KwIn}{Entrada}
+  \SetKwInOut{KwOut}{Saída}
+  \SetKwInOut{KwParams}{Parâmetros}
+  % 
+  \SetKwData{minExamplesPerCluster}{minExemplos}
+  \SetKwData{noveltyFactor}{fatorNovidade}
+  \KwParams{\minExamplesPerCluster, \noveltyFactor}
+  % 
+  \Function{\NoveltyDetection{Modelo, Desconhecidos}}{
+    novoModelo $\leftarrow$ $\emptyset$\;
+    \ForEach{novoCluster in \clustering(Desconhecidos)}{
+      \If{$|\;novoCluster.exemplos\;| \geq$ \minExamplesPerCluster}{
+        maisPróximo $\leftarrow$ \nearestCluster(novoCluster, Modelo)\;
+        \eIf{maisPróximo.distância $<$ (maisPróximo.cluster.raio $\times$ \noveltyFactor)}{
+          novoCluster.rótulo $\leftarrow$ maisPróximo.cluster.rótulo\;
+          novoCluster.tipo $\leftarrow$ "extensão"\;
+        }{
+          novoCluster.rótulo $\leftarrow$ proximaNovidade\;
+          proximaNovidade $\leftarrow$ proximaNovidade $+ 1$\;
+          novoCluster.tipo $\leftarrow$ "novidade"\;
         }
-        \Return{novoModelo}\;
+        % novoCluster.últimoUso $ \leftarrow i $ \;
+        \label{alg:MINAS-nd:reclassify}
+        Desconhecidos $\leftarrow$ Desconhecidos $-$ novoCluster.exemplos\;
+        novoModelo $\leftarrow$ novoModelo $\cup$ novoCluster\;
+      }
     }
-    \caption{Detecção de Novidades interpretada do \minas \cite{Faria2016minas}.}
-    \label{alg:minas-nd}
+    \Return{novoModelo}\;
+  }
+  \caption{Detecção de Novidades interpretada do \minas \cite{Faria2016minas}.}
+  \label{alg:minas-nd}
 \end{algorithm}
 
 Para atribuição de rótulos aos \mclusters gerados, o algoritmo MINAS
@@ -373,8 +398,8 @@ ideia geral do algoritmo e como proceder para criação de uma versão distribu�
 % sintéticos: \emph{MOA-3C-5C-2D}, \emph{MOA-5C-7C-2D}, \emph{MOA-5C-7C-3} da
 % ferramenta MOA \cite{MOA} e \emph{4CRE-V2}
 % \footnote{
-%     A versão original do \dataset 4CRE-V2 está disponível em
-%     \url{https://sites.google.com/site/nonstationaryarchive/home}.
+%   A versão original do \dataset 4CRE-V2 está disponível em
+%   \url{https://sites.google.com/site/nonstationaryarchive/home}.
 % }
 % gerados pelo método \emph{Radial Basis Function} \cite{souza2015,Costa2019}.
 % O algoritmo MINAS-BR foi comparado com 7 algoritmos da literatura também
@@ -398,24 +423,24 @@ ideia geral do algoritmo e como proceder para criação de uma versão distribu�
 
 % \begin{enumerate}
 
-%     \item após o consumo do exemplo $X_n$;
-    
-%     \item para todo padrão $P_i$ (rótulo atribuída) identificado sem
-%     associação até o momento;
-    
-%     \item com classes novidade $y_j$ (rótulo real) presentes em exemplos antes
-%     $X_n$;
-    
-%     \item preenche-se a tabela de contingência $\mathbf{T}_{(i,j)}$ relacionando
-%     padrão $P_i$ e classe $y_j$;
-    
-%     \item calcula-se o grau de dependência $\mathit{F1}$ derivado da tabela de
-%     contingência $\mathit{F1}_{(i,j)} = f(\mathbf{T}_{(i,j)})$;
-    
-%     \item valores $\mathit{F1}_{(i,j)} = 0$ são descartados;
-    
-%     \item dentre os valores restantes: o padrão $P_i$ é associado à classe $y_j$
-%     se $\mathit{F1}_{(i,j)}$ é máximo.
+%   \item após o consumo do exemplo $X_n$;
+  
+%   \item para todo padrão $P_i$ (rótulo atribuída) identificado sem
+%   associação até o momento;
+  
+%   \item com classes novidade $y_j$ (rótulo real) presentes em exemplos antes
+%   $X_n$;
+  
+%   \item preenche-se a tabela de contingência $\mathbf{T}_{(i,j)}$ relacionando
+%   padrão $P_i$ e classe $y_j$;
+  
+%   \item calcula-se o grau de dependência $\mathit{F1}$ derivado da tabela de
+%   contingência $\mathit{F1}_{(i,j)} = f(\mathbf{T}_{(i,j)})$;
+  
+%   \item valores $\mathit{F1}_{(i,j)} = 0$ são descartados;
+  
+%   \item dentre os valores restantes: o padrão $P_i$ é associado à classe $y_j$
+%   se $\mathit{F1}_{(i,j)}$ é máximo.
 
 % \end{enumerate}
 
@@ -446,27 +471,27 @@ deste trabalho
 porém alguns exemplos mencionados não abordados são \cite{DaSilva2018,DaSilva2018thesis,Costa2019}:
 
 \begin{enumerate}[label={\alph*)}]
-    
-    \item diferentes métodos de cálculo de distância entre pontos além da
-    distância euclidiana;
-    
-    \item a mudança de representação de \clusters, atualmente hiper-esferas
-    \cite{Costa2019thesis}, para hiper-cubos tratando \datasets onde as
-    características representadas pelas dimensões são completamente
-    independentes;
-    
-    \item um modo interativo onde o \cluster é formado, mostrado ao especialista
-    que o classifica como inválido (ruído ou não representativo) ou válido,
-    podendo conter uma ou mais classes e, se contiver mais que uma classe corte em
-    grupos menores até conter somente uma classe;
-    
-    \item ainda considerando interação com especialista, a possibilidade de
-    injetar um exemplo não pertencente a uma classe, ou seja, marcar o exemplo
-    como não pertencente a uma classe para mantê-lo na memória de
-    desconhecidos e, eventualmente forçar criação de um \cluster que represente
-    uma classe geometricamente próxima mas semanticamente distinta;
-    
-    \item na fase \emph{offline} a verificação de sobreposição de \clusters
-    pertencentes a classes distintas e tratamento adequado.
+  
+  \item diferentes métodos de cálculo de distância entre pontos além da
+  distância euclidiana;
+  
+  \item a mudança de representação de \clusters, atualmente hiper-esferas
+  \cite{Costa2019thesis}, para hiper-cubos tratando \datasets onde as
+  características representadas pelas dimensões são completamente
+  independentes;
+  
+  \item um modo interativo onde o \cluster é formado, mostrado ao especialista
+  que o classifica como inválido (ruído ou não representativo) ou válido,
+  podendo conter uma ou mais classes e, se contiver mais que uma classe corte em
+  grupos menores até conter somente uma classe;
+  
+  \item ainda considerando interação com especialista, a possibilidade de
+  injetar um exemplo não pertencente a uma classe, ou seja, marcar o exemplo
+  como não pertencente a uma classe para mantê-lo na memória de
+  desconhecidos e, eventualmente forçar criação de um \cluster que represente
+  uma classe geometricamente próxima mas semanticamente distinta;
+  
+  \item na fase \emph{offline} a verificação de sobreposição de \clusters
+  pertencentes a classes distintas e tratamento adequado.
 
 \end{enumerate}
