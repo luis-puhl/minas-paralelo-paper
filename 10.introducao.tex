@@ -25,21 +25,21 @@ Segurança e privacidade são uma grande preocupação em \iot, especialmente em
 relação aos dados pessoais como localização e saúde, aos quais dispositivos podem ter
 acesso \cite{sengupta2020comprehensive}.
 Contudo, além dos dados de sensores e atuadores que gerenciam, esses dispositivos, se
-subvertidos, podem gerar tráfego maligno, como o gerado pela \emph{mirai botnet}
+subvertidos, podem gerar tráfego maligno, como o produzido pela \emph{mirai botnet}
 em 2016 \cite{Kambourakis2017,Kolias2017mirai}.
 Nesse cenário, fatores que podem favorecer a subversão dos dispositivos incluem
 a falta de controle sobre a origem do hardware e software embarcado nos
-dispositivos bem como a menor frequência de atualizações deste software.
+dispositivos, bem como a menor frequência de atualizações deste software.
 Além disso, estes dispositivos têm longa vida e, após implantação, convivem com
-ampla diversidade de outros dispositivos, complicando a manutenção da rede
+ampla diversidade de outros dispositivos, o que torna complexa a manutenção da rede
 que os hospeda, aumentando sua superfície de ataque.
 
 % \todo[inline]{NIDS} 
 No contexto de segurança de redes \iot, ferramentas que facilitem a detecção e
 resposta a ataques são necessárias.
-Como a maioria dos dispositivos \iot tem recursos limitados (como bateria,
+Como a maioria dos dispositivos \iot tem recursos limitados (como energia,
 processamento, memória e comunicação), técnicas de segurança tradicionais
-baseadas em algoritmos configuráveis não são usuais, com isso restam as
+baseadas em algoritmos configuráveis não são usuais, restando as
 técnicas de observação de rede \cite{Zhou2017}.
 Ferramentas como \nids observam o comportamento da rede e de seus dispositivos
 e detectam possíveis ataques.
@@ -49,24 +49,22 @@ e detectam possíveis ataques.
 % alterações nos padrões de comunicação num \nids.
 
 % \todo[inline]{ML} 
-Para implementação de \nids, técnicas de \ml tem sido empregadas na detecção de
-ataques a partir de ataques conhecidos ou descobrir novos ataques o mais cedo
+Para implementação de \nids, técnicas de \ml têm sido empregadas na detecção de
+ataques a partir de características de ataques conhecidos ou pela tentativa de descoberta de novos ataques o mais cedo
 possível \cite{buczak2016survey,mitchell2014survey}.
 Apesar do uso promissor de \ml para segurança para sistemas \iot, muitos estudos
 na literatura \cite{buczak2016survey,mitchell2014survey,Tahsien2020} são
-limitados à métodos tradicionais de \ml.
-Estes métodos tradicionais utilizam modelos estáticos para descrever e prever o
-comportamento da rede que, por serem estáticos, não mantém confiabilidade quando
-confrontados com a evolução de ataques \cite{Viegas2019,AndreoniLopez2019}.
-
+limitados a métodos tradicionais de \ml.
+Estes métodos comumente utilizam modelos estáticos para descrever e prever o
+comportamento da rede que não mantêm a confiabilidade frente à evolução de ataques \cite{Viegas2019,AndreoniLopez2019}.
+% confiabilidade ou eficiência ??
 % \todo[inline]{DS} 
 Além das complicações de confiabilidade, a grande quantidade de dispositivos em
-redes distantes gerando dados em volumes e velocidades consideráveis,
+redes distantes gerando dados em volumes e velocidades elevadas,
 diretamente ligados às suas funções originais ou metadados produzidos como
 subproduto, técnicas tradicionais que tratam grandes lotes não são aplicáveis.
-Considerando fluxos contínuos de dados (\emph{Data Stream}), técnicas de
-mineração de fluxos de dados (\emph{Data Stream Mining}) são amplamente
-necessárias.
+Para esses fluxos contínuos de dados (\emph{Data Stream}), técnicas de
+mineração de fluxos de dados (\emph{Data Stream Mining}) são promissoras.
 % 
 Nesses cenários, essas técnicas são aplicadas, por exemplo, em problemas de
 monitoramento e classificação de valores originários de sensores para tomada de
@@ -96,20 +94,20 @@ respostas imediatas e a detecção de novidades e mudança de conceitos já
 conhecidos.
 
 % \todo[inline]{Fog} 
-Análises como \emph{Data Stream Mining} e \nd são geralmente implementadas sobre
+Análises como \emph{Data Stream Mining} e \nd têm sido implementadas sobre
 o paradigma de computação na nuvem (\emph{Cloud Computing}) e, recentemente,
-sobre paradigmas como computação em névoa (\emph{Fog Computing}).
+também sobre paradigmas como computação em névoa (\emph{Fog Computing}).
 Para \emph{fog}, além dos recursos em \emph{cloud}, são explorados os recursos
-distribuídos pela rede desde o nó remoto até a \emph{cloud}.
+distribuídos pela rede desde nós remotos até a \emph{cloud}.
 Processos que dependem desses recursos são distribuídos de acordo com
 características como sensibilidade à latência, privacidade, consumo
 computacional ou energético.
 
-Como elaborado, a aplicação de \nd para detecção de ameaças em fluxos de dados
+De maneira geral, a aplicação de \nd para detecção de ameaças em fluxos de dados
 originários de redes \iot dentro de \nids tem sido um ponto de interesse
 \cite{Viegas2019,AndreoniLopez2019,DaCosta2019a}.
 Este trabalho foca explora as características de implementação destas técnicas
-em conjunto, focando serviços localizados na borda da rede, de maneira
+em conjunto, concentrando-se em serviços localizados na borda da rede, de maneira
 distribuída, para uso em ambientes \iot.
 
 % Given the recent \cite{Viegas2019,AndreoniLopez2019,DaCosta2019a} use of Data Stream Novelty
@@ -129,7 +127,9 @@ Um problema recente que une, em um único contexto, os métodos de computação 
 névoa, processamento de fluxo de dados e detecção de novidades nesses fluxos é a
 detecção de intrusão em redes de dispositivos \iot.
 Para tratar esse problema, a arquitetura \arch, recentemente proposta por
-\citeonline{Cassales2019a}, aplica ao problema algoritmos atuais de detecção de
+\citeonline{Cassales2019a}, aplica ao problema algoritmos 
+atuais     % isso pode ser afirmado?
+de detecção de
 novidades em fluxos, executando esses algoritmos em ambiente próximo aos
 dispositivos e avaliando-os quanto à detecção de intrusão.
 
@@ -151,7 +151,9 @@ ECSMiner \cite{Masud2010ECSMiner}, AnyNovel \cite{Abdallah2016anynovel} e MINAS
 % Necessidade de tratar os dados próximo a onde são produzidos? Uso da cloud? ….}
 Contudo, o algoritmo MINAS ainda não foi implementado e avaliado com paralelismo,
 multi-processamento ou distribuição computacional, que são necessários para
-tratar fluxos de dados com grandes volumes e velocidades.
+tratar fluxos de dados 
+% com grandes volumes e velocidades
+em ambientes distribuídos, como em cenários \iot e \fog.
 % \notafa{Por que isso é importante. Acho que convém ressaltar a importancia da sua
 % proposta. O que o MINAS original não trata, em quais cenários ele apresenta um
 % gargalo? como ele está dividido?}
@@ -302,37 +304,38 @@ através de implementação de aplicação e testes.
 O foco da revisão da literatura acadêmica é em trabalhos que abordem
 processamento de fluxos de dados, classificação de fluxo de dados, detecção de
 novidades em fluxo de dados e processamento distribuído de fluxo de dados.
-O objetivo da revisão é o estabelecimento do estado da arte desses assuntos,
-de forma que alguns desses trabalhos sirvam para comparações e relacionamentos.
-Além disso, desses trabalhos buscam-se métricas de qualidade de classificação
+O objetivo da revisão foi o estabelecimento do estado da arte desses assuntos,
+de forma que alguns desses trabalhos sirvissem para comparações e relacionamentos.
+Além disso, desses trabalhos buscou-se métricas de qualidade de classificação
 (por exemplo, taxa de falso positivo e matriz de confusão) e métricas de
 escalabilidade (como taxa de mensagens por segundo e escalabilidade vertical ou
 horizontal).
 
-A revisão da literatura técnica será focada em plataformas, ferramentas e técnicas
+A revisão da literatura técnica foi focada em plataformas, ferramentas e técnicas
 para realizar a implementação proposta.
-Portanto, são selecionadas plataformas de processamento distribuído de DS
+Portanto, foram selecionadas plataformas de processamento distribuído de DS
 e técnicas de aprendizado de máquina associadas a elas.
-Dessa revisão também serão obtidas técnicas ou ferramentas necessárias
+Dessa revisão também foram identificadas técnicas ou ferramentas necessárias
 para extração das métricas de avaliação, bem como \emph{data sets}
 públicos relevantes para detecção de novidades em DS.
 
 Uma vez definidos o estado da arte, as ferramentas técnicas e os
-\emph{data sets}, o passo seguinte é a experimentação.
-Nesse passo, será desenvolvida uma aplicação na plataforma escolhida que, com base no
+\emph{data sets}, o passo seguinte foi a experimentação.
+Nesse passo, foi desenvolvida uma aplicação na plataforma escolhida que, com base no
 algoritmo MINAS \cite{Faria2016minas}, irá classificar e detectar novidades em DS.
-Também nesse passo, a implementação será validada comparando os resultados de
+Também nesse passo, a implementação foi validada comparando os resultados de
 classificação obtidos com os resultados de classificação do algoritmo original
 MINAS.
-Posteriormente, serão realizados experimentos com a implementação e variações em \emph{data sets} e
+Posteriormente, foram realizados experimentos com a implementação e variações em \emph{data sets} e
 cenários de distribuição em \emph{fog}, coletando as métricas de classificação e escalabilidade.
 
-Ao final, a aplicação, resultados, comparações e discussões serão publicados
-nos meios e formatos adequados, como repositórios técnicos, eventos ou revistas
+Ao final, a aplicação, resultados, comparações e discussões estão sendo organizados para publicação 
+em meios e formatos adequados, como repositórios técnicos, eventos ou revistas
 acadêmicas.
 
 \section{Organização do trabalho}
 
+% revisar ao final...
 O restante desse trabalho segue a estrutura:
 Capítulo \ref{cha:fundamentos} aborda conceitos teóricos e técnicos que embasam
 esse trabalho;
