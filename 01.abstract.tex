@@ -132,39 +132,28 @@
 
    Em um cenário de crescente número de dispositivos na Internet das Coisas
    (IoT), gerando proporcional crescimento no volume dos fluxos de dados
-   gerados, são necessários métodos robustos para a mineração de fluxos
-   contínuos de dados.
-   % 
-   Uma das áreas afetadas pelo crescimento vertiginoso do número de dispositivos
-   e os fluxos associados a eles é a área de segurança da informação, onde são
-   necessárias ferramentas de detecção de intrusão em redes que operem em
-   ambientes de computação em névoa, devido aos custos de comunicação associados
-   a operar estas ferramentas somente em ambiente de nuvem.
-   % 
-   As ferramentas de detecção de intrusão utilizam extensivamente algoritmos de
-   detecção de novidade em fluxos de dados para identificar padrões no tráfego
-   da rede.
-   % 
-   Porém, os algoritmos que tratam adequadamente dos desafios de detecção de
-   novidade em fluxos de dados, como mudança e evolução de conceito e
-   atualização contínua do modelo de classificação sem interferência de
-   especialistas, ainda são pouco utilizados.
-   % 
-   O algoritmo de detecção de novidade em fluxo de dados MINAS tem recebido
-   atenção de pesquisas recentes por tratar desses desafios de detecção de
-   novidade em fluxos de dados.
+   gerados, 
+   % são necessários métodos robustos para a mineração de fluxos contínuos de dados.
+   são constantes e evolutivas as ameaças ativas e passivas aos recursos computacionais e aos conteúdos transmitidos. Métodos para mineração de dados de forma robusta e contínua podem ser um aliado à segurança nesses casos.
+   Particularmente em ambientes distribuídos e nos quais busca-se manter os fluxos de informação próximos a onde eles são gerados, como nas bordas das redes IoT, e na computação em névoa de maneira geral, a detecção de ameaças é essencial e não trivial.  
+   % Uma das áreas afetadas pelo crescimento vertiginoso do número de dispositivos e os fluxos associados a eles é a área de segurança da informação, onde são necessárias ferramentas de detecção de intrusão em redes que operem em ambientes de computação em névoa, devido aos custos de comunicação associados a operar estas ferramentas somente em ambiente de nuvem.
+   Além disso, a evolução constante dos tipos de dispositivos e de tráfegos nessas redes favorece que as ferramentas de detecção de ameaças sejam beneficiadas por algoritmos de detecção de novidades. 
+   % As ferramentas de detecção de intrusão utilizam extensivamente algoritmos de detecção de novidade em fluxos de dados para identificar padrões no tráfego da rede.
+   % Porém, os algoritmos que tratam adequadamente dos desafios de detecção de novidade em fluxos de dados, como mudança e evolução de conceito e atualização contínua do modelo de classificação sem interferência de especialistas, ainda são pouco utilizados.
+   %
+   MINAS é um exemplo de algoritmo de detecção de novidades em fluxos de dados com potencial para aplicação na computação em névoa. 
+   % O algoritmo de detecção de novidade em fluxo de dados MINAS tem recebido  atenção de pesquisas recentes por tratar desses desafios de detecção de   novidade em fluxos de dados.
    % 
    No entanto, apesar de sua divisão em três partes semi-independentes, este
    algoritmo ainda não foi adaptado para processar grandes volumes de fluxos
    reais em ambiente de computação em névoa.
    % 
    O presente trabalho aborda essa lacuna, propondo um sistema
-   que implementa o algoritmo MINAS de maneiraiot distribuída num contexto
+   que implementa o algoritmo MINAS de maneira distribuída num contexto
    de detecção de intrusão e computação em névoa.
    % 
-   Experimentos mostram que o algoritmo MINAS pode ser paralelizado e
-   distribuído utilizando plataformas de processamento de fluxos como
-   \emph{Apache Flink}.
+   % Experimentos mostram que o algoritmo MINAS pode ser paralelizado e distribuído utilizando plataformas de processamento de fluxos como \emph{Apache Flink}.
+   Esta proposta foi implementada e é avaliada neste trabalho. Os resultados obtidos mostram a viabilidade do modelo de detecção de novidades distribuído em ambiente de computação em névoa. Mesmo sem uma análise de tráfego centralizada, a detecção de novidades apresentou eficácia equivalente à do algoritmo original, ainda que executando em dispositivos de capacidade computacional não elevada, como é previsto em cenários de IoT.
 \end{resumo}
 
 % Resumo em inglês
