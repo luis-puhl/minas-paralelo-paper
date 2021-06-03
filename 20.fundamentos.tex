@@ -4,7 +4,7 @@
 
 Este Capítulo aborda conceitos que embasam esse trabalho,
 conceitos teóricos de
-ambientes e arquiteturas de computação distribuída e detecção de novidade
+ambientes e arquiteturas de computação distribuída e detecção de novidade,
 e conceitos técnicos, como plataformas de processamento distribuído de fluxo
 de dados e o algoritmo MINAS.
 
@@ -12,15 +12,15 @@ de dados e o algoritmo MINAS.
 
 Esta \Section relaciona três ambientes de computação distribuída habitualmente
 utilizados para o processamento de dados massivos relacionados a redes de
-dispositivos \iot, entre outras aplicações.
+dispositivos \iot: computação em nuvem, computação de borda, e computação em névoa.
 A computação em nuvem (\cloud) é
-aplicada a vários problemas e neste trabalho seu papel em sistemas \iot é
-fornecer vastos recursos e garantias e em que dispositivos
+aplicada a vários problemas, e para sistemas \iot 
+fornece vastos recursos como computação e armazenamento para onde geralmente os dispositivos
 enviam todos dados relevantes ao sistema.
 O segundo e terceiro ambiente são computação de borda (\emph{edge computing})
-e a computação em névoa (\emph{fog computing}), que utiliza os recursos
+e a computação em névoa (\emph{fog computing}) que utilizam os recursos
 computacionais distribuídos presentes em nós localizados entre os dispositivos
-de borda e a nuvem, com diversas 
+de borda e a nuvem com diversas 
 intenções, desde privacidade até redução de latência.
 
 % \subsection{Computação em Nuvem}
@@ -34,9 +34,9 @@ demanda rapidamente com o mínimo esforço de gerenciamento
 e mínima interação com o provedor destes recursos \cite{NIST2011}.
 
 As principais características do ambiente \cloud, segundo \citeonline{NIST2011}
-são: Serviço sob Demanda, Amplo acesso à rede, Agrupamento de recursos,
-Elasticidade e Serviço mensurado.
-Segundo, \citeonline{NIST2011}, a implantação da Computação em Nuvem pode
+são: serviço sob demanda, amplo acesso à rede, agrupamento de recursos,
+elasticidade e serviço mensurado.
+Segundo \citeonline{NIST2011}, a implantação da Computação em Nuvem pode
 ocorrer através dos seguintes modelos: privada, comunitária, pública, híbrida.
 Das implantações, a pública é a mais comum, sendo gerenciada e operada por um
 provedor de nuvem e a infraestrutura é provisionada e oferecida para uso
@@ -63,7 +63,7 @@ dispositivo final.
 
 A computação de borda tenta trazer a computação mais próxima das fontes de
 dados.
-Como é observado na figura, os componentes desse tipo de computação podem ser
+Os componentes desse tipo de computação podem ser
 tanto produtores como consumidores, não só requisitando serviços e conteúdo da
 nuvem, mas também realizando tarefas da nuvem.
 Algumas aplicações da computação de borda incluem: análise de vídeo;
@@ -88,7 +88,7 @@ saturação de dados na rede.
 O ambiente \emph{edge computing} foi proposto para trazer o
 processamento e armazenamento para os dispositivos de borda tentando solucionar
 esses problemas.
-Porém, dispositivos de borda comumente não podem lidar com várias
+Entretanto, dispositivos de borda comumente não podem lidar com várias
 aplicações IoT competindo pelos seus recursos limitados, o que poderia causar a
 contenção dos recursos e o aumento na latência do processamento
 \cite{Dastjerdi2016}. Portanto, para solucionar estas questões de latência e
@@ -163,7 +163,7 @@ de umidade, temperatura, qualidade do ar, ocupação, sendo que a partir das
 informações deles, é possível alertar os ocupantes do prédio em algum caso de
 emergência.
 
-\section{Arquiteturas e Plataformas de Processamento de Fluxos}
+\section{Arquiteturas e Plataformas de Processamento de Fluxos de Dados}
 \label{sec:frameworks}
 
 Tradicionalmente, aplicações
@@ -176,7 +176,7 @@ foi evoluída e simplificada iterativamente durante décadas de uso, porém ela 
 O volume e a velocidade de dados em um \emph{Data Stream} leva à necessidade de
 distribuir o processamento, acrescentando poder computacional a cada nó
 adicionado.
-Porém, desafios como comunicação eficiente e sincronização de estado
+Entretanto, desafios como comunicação eficiente e sincronização de estado
 entre os nós, assim como tolerância a falhas, aumentam a complexidade de
 construção de um sistema distribuído em relação a um sistema tradicional.
 
@@ -208,8 +208,7 @@ pela plataforma com programas escritos por usuários sendo executados sob
 supervisão de um nó mestre.
 Essa implementação tem esquema geral de processamento em lotes que não atende o
 requisito de baixa latência.
-\nobreakdash \emph{MapReduce} é uma das principais influências na criação da arquitetura
-\lambdaa \cite{marz2015big}.
+\nobreakdash \emph{MapReduce} é uma das principais influências na criação da arquitetura \lambdaa \cite{marz2015big}.
 
 \emph{Apache Hadoop} é uma coleção de ferramentas, incluindo: \emph{Hadoop
 Distributed File System} (HDFS, um sistema de arquivos distribuído), \emph{Hadoop
@@ -227,7 +226,7 @@ um multiconjunto imutável distribuído (\emph{Resilient Distributed Dataset}
 direcionados (\emph{directed acyclic graph} - DAG), otimizador de consultas e
 motor de execução \cite{ApacheSpark2020}.
 
-Uma das extensões de \emph{Apache Spark} é \emph{Spark Streaming}, que é um
+Uma das extensões de \emph{Apache Spark} é o \emph{Spark Streaming}, que é um
 sistema de processamento de fluxo de dados 
 escalável e tolerante a falhas
 \cite{zaharia2016,sparkStreaming2016}.
@@ -265,7 +264,7 @@ configurado para ser executado como um \emph{cluster stand-alone}.
 Já o acesso programático a essa plataforma pode ser feito através das linguagens
 Java, Scala ou Python.
 
-\subsection{Interface de Troca de Mensagens}
+\section{Interface de Troca de Mensagens}
 
 \mpi\footnote{Disponível em \url{https://www.mpi-forum.org/}.} é um padrão que
 estabelece um protocolo de comunicação e define sintaxe e semântica para
@@ -286,3 +285,4 @@ localização de dados).
 Configuração de execução.
 
 Computation over Communication (CCR).
+\todo{Terminar}
