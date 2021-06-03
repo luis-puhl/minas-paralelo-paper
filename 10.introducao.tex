@@ -10,7 +10,7 @@ outros dispositivos, servidores ou aplicações, tudo com mínima intervenção 
 supervisão humana
 \cite{Tahsien2020,abane2019,haddadpajouh2019survey,Shanbhag2015}.
 Outra característica de dispositivos \iot são os recursos computacionais
-dimensionados, para propósitos específicos, que limitam a capacidade de computar
+dimensionados para propósitos específicos, que limitam a capacidade de computar
 outras funções muito além da função original do dispositivo.
 
 % O número de dispositivos categorizados como \iot na última década teve
@@ -22,11 +22,10 @@ outras funções muito além da função original do dispositivo.
 
 % \todo[inline]{Segurança} 
 Segurança e privacidade são uma grande preocupação em \iot, especialmente em
-relação aos dados pessoais como localização e saúde, aos quais dispositivos podem ter
+relação aos dados pessoais como localização e saúde aos quais dispositivos podem ter
 acesso \cite{sengupta2020comprehensive}.
-Contudo, além dos dados de sensores e atuadores que gerenciam, esses dispositivos, se
-subvertidos, podem gerar tráfego maligno, como o produzido pela \emph{mirai botnet}
-em 2016 \cite{Kambourakis2017,Kolias2017mirai}.
+Além dos dados de sensores e atuadores que esses dispositivos gerenciam, se esses dispositivos forem
+subvertidos podem gerar tráfego maligno, como o produzido pela \emph{mirai botnet} em 2016 \cite{Kambourakis2017,Kolias2017mirai}.
 Nesse cenário, fatores que podem favorecer a subversão dos dispositivos incluem
 a falta de controle sobre a origem do hardware e software embarcado nos
 dispositivos, bem como a menor frequência de atualizações deste software.
@@ -60,9 +59,9 @@ comportamento da rede que não mantêm a confiabilidade frente à evolução de 
 % confiabilidade ou eficiência ??
 % \todo[inline]{DS} 
 Além das complicações de confiabilidade, a grande quantidade de dispositivos em
-redes distantes gerando dados em volumes e velocidades elevadas,
-diretamente ligados às suas funções originais ou metadados produzidos como
-subproduto, técnicas tradicionais que tratam grandes lotes não são aplicáveis.
+redes distantes gerando dados em volumes e velocidades elevadas as 
+% , diretamente ligados às suas funções originais ou metadados produzidos como subproduto,
+técnicas tradicionais que tratam grandes lotes em \emph{datacenters} não são aplicáveis.
 Para esses fluxos contínuos de dados (\emph{Data Stream}), técnicas de
 mineração de fluxos de dados (\emph{Data Stream Mining}) são promissoras.
 % 
@@ -106,13 +105,16 @@ computacional ou energético.
 De maneira geral, a aplicação de \nd para detecção de ameaças em fluxos de dados
 originários de redes \iot dentro de \nids tem sido um ponto de interesse
 \cite{Viegas2019,AndreoniLopez2019,DaCosta2019a}.
-Este trabalho foca explora as características de implementação destas técnicas
+Este trabalho explora as características de implementação destas técnicas
 em conjunto, concentrando-se em serviços localizados na borda da rede, de maneira
 distribuída, para uso em ambientes \iot.
 
 % Given the recent \cite{Viegas2019,AndreoniLopez2019,DaCosta2019a} use of Data Stream Novelty
 % Detection (\nd) in network data streams, this paper shows the effects of
 % adapting these mechanisms to edge services for use in \iot environments.
+
+\todo{FALTA na INTRODUCAO 1 OU 2 PARAGRAFOS EXPLICANDO O QUE VC FEZ/ E QUAL É UM RESUMO DOS RESULTADOS,
+SO PRA SETAR EXPECTATIVA DO LEITO}
 
 \section{Motivação}\label{sec:motivo}
 
@@ -217,7 +219,7 @@ O segundo trabalho trata de \emph{backbones} e processamento em \emph{cloud} e
 implementa o próprio algoritmo de detecção de novidade.
 Essas diferenças deixam uma lacuna onde, de um lado, tem-se uma
 arquitetura mais adequada para o ambiente \emph{fog} com um algoritmo estado da arte de
-detecção de novidades, porém sem paralelismo e.
+detecção de novidades, porém sem paralelismo.
 Do outro lado da lacuna, tem-se um sistema
 escalável de alto desempenho porém almejando outro ambiente (\emph{cloud}) e
 com um algoritmo menos preparado para os desafios de detecção de 
@@ -232,7 +234,7 @@ novidades.
 % \\ arquiteutra distribuida em fog com minas e alto desempenho bigflow
 % }
 
-A proposta, aqui chamada \mfog, adapta a arquitetura \arch \cite{Cassales2019a}
+A proposta deste trabalho, aqui chamada \mfog, adapta a arquitetura \arch \cite{Cassales2019a}
 empregando o algoritmo de \nd \minas \cite{Faria2016minas}, tornando-o capaz
 de ser executado em um sistema distribuído composto de pequenos computadores com
 recursos limitados, alocados na borda da rede próximos dos dispositivos \iot.
@@ -241,7 +243,8 @@ como a distribuição afeta a capacidade do sistema de detectar mudanças
 (novidades) nos padrões de tráfego e o impacto na eficiência computacional.
 Por fim, algumas estratégias e políticas para configuração do sistema de
 detecção de novidades em fluxo de dados são discutidas.
-
+\todo{Ler aqui --> sera que motivacao tá clara, vc tá implementando isso pq o MINAS é um algoritmo promissor, IoT e subversao de dispositivos pode ser perigoso, e
+tem lacuna de duas implementacoes ali que nao fazem distribuicao ou paralelismo, o que ajudaria na resposta mais rapida do algortimo, certo?}
 % Our proposal, called \mfog, adapted the \arch architecture \cite{Cassales2019a}
 % using the \nd algorithm \minas \cite{Faria2013Minas,Faria2016minas}, making it
 % suitable to run on a distributed system composed of small devices with limited
@@ -279,12 +282,12 @@ classificação ao algoritmo MINAS e passível de ser distribuída em um ambient
 computação em névoa aplicado à detecção de intrusão.
 
 Com foco no objetivo geral, alguns objetivos específicos são propostos:
-Implementar o algoritmo MINAS de maneira distribuída sobre uma plataforma de
+implementar o algoritmo MINAS de maneira distribuída sobre uma plataforma de
 processamento distribuída de fluxos de dados;
-Arquitetar e implementar um mecanismo de execução e avaliação de qualidade e
+arquitetar e implementar um mecanismo de execução e avaliação de qualidade e
 desempenho para os ambientes escolhidos;
-Avaliar e comparar a qualidade de detecção de intrusão da nova implementação;
-Avaliar a qualidade de detecção de intrusão em ambiente distribuído conforme a
+avaliar e comparar a qualidade de detecção de intrusão da nova implementação;
+avaliar a qualidade de detecção de intrusão em ambiente distribuído conforme a
 arquitetura \arch em ambiente de computação em névoa.
 
 % There is a need for real-time stream processing, as data is arriving as
@@ -293,6 +296,8 @@ arquitetura \arch em ambiente de computação em névoa.
 % traffic including things like session tracking and understanding user behavior
 % on websites; and measurements from industrial sensors.
 % https://dzone.com/articles/streaming-in-spark-flink-and-kafka-1
+
+\todo{revisar para ver se os objetivos gerais e especificos estao alinhados com o que vc esperava. Vc consegue avaliar a qualidade? Nao tem objetivo especifico se repetindo?}
 
 \section{Proposta Metodológica}
 
@@ -305,7 +310,7 @@ O foco da revisão da literatura acadêmica é em trabalhos que abordem
 processamento de fluxos de dados, classificação de fluxo de dados, detecção de
 novidades em fluxo de dados e processamento distribuído de fluxo de dados.
 O objetivo da revisão foi o estabelecimento do estado da arte desses assuntos,
-de forma que alguns desses trabalhos sirvissem para comparações e relacionamentos.
+de forma que alguns desses trabalhos servissem para comparações e relacionamentos.
 Além disso, desses trabalhos buscou-se métricas de qualidade de classificação
 (por exemplo, taxa de falso positivo e matriz de confusão) e métricas de
 escalabilidade (como taxa de mensagens por segundo e escalabilidade vertical ou
@@ -322,14 +327,14 @@ públicos relevantes para detecção de novidades em DS.
 Uma vez definidos o estado da arte, as ferramentas técnicas e os
 \emph{data sets}, o passo seguinte foi a experimentação.
 Nesse passo, foi desenvolvida uma aplicação na plataforma escolhida que, com base no
-algoritmo MINAS \cite{Faria2016minas}, irá classificar e detectar novidades em DS.
+algoritmo MINAS \cite{Faria2016minas}, classifica e detecta novidades em DS.
 Também nesse passo, a implementação foi validada comparando os resultados de
 classificação obtidos com os resultados de classificação do algoritmo original
 MINAS.
 Posteriormente, foram realizados experimentos com a implementação e variações em \emph{data sets} e
 cenários de distribuição em \emph{fog}, coletando as métricas de classificação e escalabilidade.
 
-Ao final, a aplicação, resultados, comparações e discussões estão sendo organizados para publicação 
+Ao final, a aplicação, resultados, comparações e discussões foram organizados para publicação 
 em meios e formatos adequados, como repositórios técnicos, eventos ou revistas
 acadêmicas.
 
@@ -350,3 +355,5 @@ Capítulo \ref{cha:results} aborda os ambientes de teste, descreve experimentos
 realizados e discute os resultados obtidos.
 Capítulo \ref{cha:final} adiciona considerações gerais sobre o trabalho e seus
 resultados.
+
+\todo{finalizar organizacao do trabalho versao final}
