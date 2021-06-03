@@ -124,7 +124,7 @@ A cada \mcluster é adicionada o rótulo do grupo original e todos \mclusters
 são arranjados em um único conjunto formando o modelo de decisão.
 
 \begin{definition}
-  Um \mcluster, para um grupo de exemplos, é uma tupla de quatro componentes
+  Um \mcluster $\mathcal{M}$, para um grupo de exemplos, é uma tupla de quatro componentes
   $(N, \mathbf{LS}, \mathbf{SS}, T)$ derivados dos exemplos representados por
   este \mcluster onde:
   $N$ é o número de exemplos,
@@ -140,25 +140,45 @@ classificação da fase \emph{Online} \cite{Faria2016minas}.
 O vetor centro é definido como pelo algoritmo de agrupamento e corresponde ao
 ponto médio dos exemplos contidos no grupo, visto na Equação \ref{eq:centro}.
 O raio pode ser definido de duas maneiras e ambas dependem no conjunto das
-distâncias $\mathbb{D}$ entre centro e cada elemento contido no grupo.
-A primeira definição de raio é o desvio padrão das distâncias em $\mathbb{D}$
+distâncias $D_\mathcal{M}$ entre centro e cada elemento contido no grupo.
+A primeira definição de raio é o desvio padrão das distâncias em $D_\mathcal{M}$
 multiplicado por um fator parametrizado \cite{Faria2016minas}, visto na Equação
 \ref{eq:raio_paper}, a segunda definição é o valor máximo das distâncias em
-$\mathbb{D}$ \cite{Faria2013source}, visto na Equação \ref{eq:raio_max}.
+$D_\mathcal{M}$ \cite{Faria2013source}, visto na Equação \ref{eq:raio_max}.
 
 \begin{definition}
+  O vetor centro é o ponto médio dos exemplos contidos no grupo:
   \begin{align}
-    centro    &= 1/N \cdot \mathbf{LS} \label{eq:centro}\\
-    \mu       &= 1/N \cdot \sum_{i=1}^{N} \mathbb{D}_i \nonumber \\
-    \sigma^2  &= 1/N \cdot \sum_{i=1}^{N} (\mathbb{D}_i - \mu) ^2 \nonumber \\
-    \sigma    &= \sqrt{ \sigma^2 } \nonumber \\
-    raio_1    &= f_{raio} \cdot \sigma \label{eq:raio_paper}\\
-    raio_2    &= \lceil \mathbb{D} \rceil \label{eq:raio_max}\\
+    centro    &= 1/N \cdot \mathbf{LS} \label{eq:centro}
+  \end{align}
+  O conjunto das distâncias $D_\mathcal{M}$ entre centro e cada elemento contido no grupo:
+  \begin{align}
+    D_\mathcal{M}  &= \{ d_i : d_i = dist(x_i, centro) \forall x_i \in \mathcal{M} \} \nonumber
+  \end{align}
+  O escalar raio é o desvio padrão ou o máximo do conjunto $D_\mathcal{M}$:
+  \begin{align}
+    \mu       &= 1/N \cdot \sum_{i=1}^{N} d_i             &, d_i \in D_\mathcal{M} \nonumber \\
+    \sigma^2  &= 1/N \cdot \sum_{i=1}^{N} (d_i - \mu) ^2  &, d_i \in D_\mathcal{M} \nonumber \\
+    \sigma    &= \sqrt{ \sigma^2 }                        & \nonumber \\
+    raio_1    &= f_{raio} \cdot \sigma                    & \label{eq:raio_paper}\\
+    raio_2    &= max\{ d_i \in D_\mathcal{M} \}           & \label{eq:raio_max}
   \end{align}
 \end{definition}
 
+% Aggarwal 2003
 % 5: The mean is equal to CF1t/n. 
 % The standard deviation is equal to sqrt( CF2t/n − (CF1t/n)2 ).
+
+A distinção entre as duas definições de raio é importante pois ela impacta
+imensamente nos resultados.
+Para cada \dataset ou problema abordado uma configuração de parâmetros afinada
+é essencial pois as características da distribuição dos valores e sua associação
+às classes são geralmente únicas para cada problema.
+Em testes preliminares, a implementação do algoritmo \minas com raio definido
+pela distância máxima (Eq. \ref{eq:raio_max}) mostrou melhores resultados quando
+comparado com a mesma implementação utilizando a definição que utiliza desvio
+padrão (Eq. \ref{eq:raio_paper}) pois pequenas variações no parâmetro $f_{raio}$
+resultavam em alta taxa de desconhecidos ou alta taxa de erro.
 
 % \minas \cite{Faria2016minas} is an offline-online \nd algorithm, meaning it has
 % two distinct phases. The first phase (offline) creates an initial model set with
