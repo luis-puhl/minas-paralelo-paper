@@ -153,8 +153,20 @@ $\mathbb{D}$ \cite{Faria2013source}, visto na Equação \ref{eq:raio_max}.
   \end{align}
 \end{definition}
 
+% Aggarwal 2003
 % 5: The mean is equal to CF1t/n. 
 % The standard deviation is equal to sqrt( CF2t/n − (CF1t/n)2 ).
+
+A distinção entre as duas definições de raio é importante pois ela impacta
+imensamente nos resultados.
+Para cada \dataset ou problema abordado uma configuração de parâmetros afinada
+é essencial pois as características da distribuição dos valores e sua associação
+às classes são geralmente únicas para cada problema.
+Em testes preliminares, a implementação do algoritmo \minas com raio definido
+pela distância máxima (Eq. \ref{eq:raio_max}) mostrou melhores resultados quando
+comparado com a mesma implementação utilizando a definição que utiliza desvio
+padrão (Eq. \ref{eq:raio_paper}) pois pequenas variações no parâmetro $f_{raio}$
+resultavam em alta taxa de desconhecidos ou alta taxa de erro.
 
 % \minas \cite{Faria2016minas} is an offline-online \nd algorithm, meaning it has
 % two distinct phases. The first phase (offline) creates an initial model set with
