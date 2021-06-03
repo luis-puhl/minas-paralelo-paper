@@ -113,7 +113,7 @@ emprega algoritmos de agrupamento (\emph{clustering}) não supervisionados como
 \newcommand{\mclusters}{\emph{micro-clusters}\xspace}
 
 O algoritmo MINAS em sua fase \emph{Offline} consome um conjunto de treinamento
-contendo exemplos rótulados.
+contendo exemplos rotulados.
 Esse conjunto de treinamento é dividido em grupos usando como chave o rótulo,
 e para cada grupo de exemplos o método de agrupamento é executado.
 O método de agrupamento objetiva resumir um conjunto maior de exemplos em um
@@ -127,9 +127,11 @@ são arranjados em um único conjunto formando o modelo de decisão.
   este \mcluster onde:
   $N$ é o número de exemplos,
   $\mathbf{LS}$ é o vetor soma linear dos exemplos,
-  $\mathbf{SS}$ é o vetor quadrada dos exemplos,
+  $\mathbf{SS}$ é o vetor da soma dos quadrados dos exemplos,
   $T$ é o instante de chegada do último exemplo adicionado ao \mcluster.
 \end{definition}
+
+% (1, 2), (1, 2), (3, 4) = (1^2 + 1^2 + 3^2, 2^2 + 2^2 + 4^2)
 
 Deste sumário extrai-se o centro e raio que são utilizados na operação de
 classificação da fase \emph{Online} \cite{Faria2016minas}.

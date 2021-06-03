@@ -101,12 +101,12 @@ Novelty Detection task (clustering followed by validation).
 O projeto desta arquitetura de detecção de novidades 
 
 O design de nossa arquitetura \nd distribuída inclui o particionamento das
-funcionalidades de \minas e estabelecendo os fluxos de dados apropriados
-entre diferentes atores.
+funcionalidades de \minas e o estabelecimento dos fluxos de dados apropriados
+entre os diferentes atores.
 Mudanças no posicionamento e no comportamento podem ter impactos diferentes e devem ser
-escolhidos com cuidado.
-As decisões após essas discussões podem ser organizadas em várias políticas,
-alguns deles eram recorrentes durante nossas discussões de implementação e são:
+escolhidas com cuidado.
+As decisões após essas discussões podem ser organizadas em várias políticas;
+alguns deles eram recorrentes durante os estudos para a implementação e são:
 
 The design of our distributed \nd architecture includes partitioning the
 functionalities of \minas and establishing the appropriate data flows
@@ -211,12 +211,12 @@ atrativo.
 % pesquisa?}
 
 Para preencher a lacuna de algoritmo de \nd em ambiente \fog, propõem-se então
-o \mfog, uma implementação do algoritmo MINAS sobre a plataforma \flink, que
-considera distribuição em um ambiente de \fog.
+o \mfog, uma implementação distribuída do algoritmo MINAS 
+%sobre a plataforma \flink, que
+considerando  um ambiente de \fog.
 O \mfog descrito neste documento foi refinado com os resultados dos experimentos
-descritos na \refsec{resultados} e poderá ser revisado ao longo da pesquisa
-conforme os resultados de outros experimentos evidenciarem obstáculos ou
-oportunidades de melhoria.
+descritos na \refsec{resultados}. 
+% e poderá ser revisado ao longo da pesquisa conforme os resultados de outros experimentos evidenciarem obstáculos ou oportunidades de melhoria.
 
 % \nota{Reestruturar:
 %   A - remember,
@@ -305,6 +305,8 @@ oportunidades de melhoria.
 % essa implementacao. Faz no draw io pra que de pra usar na monografia e de para
 % enxergar na apresentacao
 % }
+
+% flink ainda... revisar...
 
 O \mfog utiliza em seus módulos a distribuição oferecida pela plataforma \flink
 como paralelização, ou seja, utiliza uma instância de trabalho (\emph{job}) por
