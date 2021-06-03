@@ -124,13 +124,15 @@ A cada \mcluster é adicionada o rótulo do grupo original e todos \mclusters
 são arranjados em um único conjunto formando o modelo de decisão.
 
 \begin{definition}
-  Um \mcluster $\mathcal{M}$, para um grupo de exemplos, é uma tupla de quatro componentes
-  $(N, \mathbf{LS}, \mathbf{SS}, T)$ derivados dos exemplos representados por
-  este \mcluster onde:
-  $N$ é o número de exemplos,
-  $\mathbf{LS}$ é o vetor soma linear dos exemplos,
-  $\mathbf{SS}$ é o vetor da soma dos quadrados dos exemplos,
-  $T$ é o instante de chegada do último exemplo adicionado ao \mcluster.
+  Para um grupo de exemplos $\mathbf{X} \in \mathcal{MX}$, um \mcluster
+  $\mathcal{M}$ é uma tupla de quatro componentes $(n, \mathbf{LS}, \mathbf{SS}, t)$
+  derivados dos exemplos representados por este \mcluster onde \cite{Aggarwal2003,Faria2016minas}:
+  \begin{itemize}
+    \item $n$ é a contagem de exemplos,
+    \item $\mathbf{LS}$ é o vetor soma linear dos exemplos sendo $\mathbf{LS}_d = \sum_{i=0}^{n} \mathbf{X}_{i,d}$,
+    \item $\mathbf{SS}$ é o vetor da soma dos quadrados dos exemplos sendo $\mathbf{SS}_d = \sum_{i=0}^{n} (\mathbf{X}_{i,d})^2$,
+    \item $t$ é o instante de chegada do último exemplo adicionado ao \mcluster.
+  \end{itemize}
 \end{definition}
 
 % (1, 2), (1, 2), (3, 4) = (1^2 + 1^2 + 3^2, 2^2 + 2^2 + 4^2)
@@ -149,16 +151,16 @@ $D_\mathcal{M}$ \cite{Faria2013source}, visto na Equação \ref{eq:raio_max}.
 \begin{definition}
   O vetor centro é o ponto médio dos exemplos contidos no grupo:
   \begin{align}
-    centro    &= 1/N \cdot \mathbf{LS} \label{eq:centro}
+    centro    &= 1/n \cdot \mathbf{LS} \label{eq:centro}
   \end{align}
   O conjunto das distâncias $D_\mathcal{M}$ entre centro e cada elemento contido no grupo:
   \begin{align}
-    D_\mathcal{M}  &= \{ d_i : d_i = dist(x_i, centro) \forall x_i \in \mathcal{M} \} \nonumber
+    D_\mathcal{M}  &= \{ d_i : d_i = dist(\mathbf{X}_i, centro) \} & \mathbf{X}_i \in \mathcal{MX} \nonumber
   \end{align}
   O escalar raio é o desvio padrão ou o máximo do conjunto $D_\mathcal{M}$:
   \begin{align}
-    \mu       &= 1/N \cdot \sum_{i=1}^{N} d_i             &, d_i \in D_\mathcal{M} \nonumber \\
-    \sigma^2  &= 1/N \cdot \sum_{i=1}^{N} (d_i - \mu) ^2  &, d_i \in D_\mathcal{M} \nonumber \\
+    \mu       &= 1/N \cdot \sum_{i=1}^{n} d_i             & d_i \in D_\mathcal{M} \nonumber \\
+    \sigma^2  &= 1/N \cdot \sum_{i=1}^{n} (d_i - \mu) ^2  & d_i \in D_\mathcal{M} \nonumber \\
     \sigma    &= \sqrt{ \sigma^2 }                        & \nonumber \\
     raio_1    &= f_{raio} \cdot \sigma                    & \label{eq:raio_paper}\\
     raio_2    &= max\{ d_i \in D_\mathcal{M} \}           & \label{eq:raio_max}
