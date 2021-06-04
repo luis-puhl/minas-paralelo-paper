@@ -265,33 +265,81 @@ Já o acesso programático a essa plataforma pode ser feito através das linguag
 Java, Scala ou Python.
 
 \section{Interface de Troca de Mensagens}
-\cite{mpi-book}
 
-O MPI (\emph{Message Passing Interface}, em português Interface de Troca de Mensagens) é um padrão de indústria que estabelece um protocolo 
+Em um sistema distribuído multiprocessado, a memória é distribuída entre
+múltiplos nós e processos, tendo cada processo acesso direto somente a sua memória
+local. Para esse tipo de sistema, o paradigma de programação paralela SPMD (\emph{Single Program, Multiple
+Data}; em português, Único Programa, Múltiplos Dados) pode ser implementado utilizando o
+conceito de memória distribuída compartilhada através de troca de mensagens.
 
+Em paradigmas de computação paralela, o modelo de passagem de mensagens é amplamente
+utilizado para a comunicação de diferentes processos. Nesse modelo, cada
+processo tem sua memória local e se comunicam com outros processos através da
+troca de mensagens \cite{mpi-book}. Observando boas práticas e melhores funcionalidades ao longo dos anos, 
+a comunidade e a indústria padronizaram sistema de passagem de mensagens no padrão MPI (\emph{Message Passing Interface}, em
+português Interface de Troca de Mensagens).
 
-apesar dele nao processar fluxo de dados, ele dá controle sobre a distribuiçãoe sobre a memoria que sao cruciais para implementacao de dispositivos IoT
-
-\mpi\footnote{Disponível em \url{https://www.mpi-forum.org/}.} é um padrão que
+O MPI\footnote{Disponível em \url{https://www.mpi-forum.org/}.} é um padrão que
 estabelece um protocolo de comunicação e define sintaxe e semântica para
-bibliotecas de troca de mensagens em ambientes de memória compartilhada.
-Este padrão, por meio de alguma implementação como OpenMPI e MPICH,
-permitem a construção de um sistema distribuído com um executável único
-(monólito) utilizando com abstração a passagem de mensagens.
+bibliotecas de troca de mensagens em ambientes de memória compartilhada. Nesse
+padrão, cada processo tem seu espaço de endereçamento diferente, e se comunica
+com os outros através de mensagens. Esse modelo pode ser implementado desde
+multiprocessadores de memória compartilhada, redes workstations até em máquinas
+unicore, podendo usar também arquiteturas híbridas (processos
+\emph{mulithread} com memória compartilhada, múltiplos processos sem memória
+compartilhada, etc.) \cite{mpi-book}. O MPI, por meio de alguma
+implementação como OpenMPI e MPICH, permite a construção de um sistema
+distribuído com um executável único (monólito) utilizando com abstração a
+passagem de mensagens.
 
-The
-goal of MPI is ambitious; but because the collective effort of collaborative design
-and competitive implementation has been successful, it has removed the neegit 
-O modelo de programação para programas \mpi
-Single Program Multiple Data (SPMD)
-vs
-Single instruction, multiple data (SIMD) 
-multiple instruction, multiple data (MIMD) 
+COLOCAR PRIMITIVAS --> send, receive bloqueante, 
+TCP IP se conversa for pela rede
+tempo de synchronize
 
-, modelo de comunicação (empacotamento,
-localização de dados).
+runtime orquestrador da execucao
 
-Configuração de execução.
+mpirun inicia ssh no nó inicia programa, passa argumentos pra cada processo, e ai começa divisao dos dados.
 
-Computation over Communication (CCR).
-\todo{Terminar}
+% A arquitetura do \mfog é composta de múltiplos nós numa névoa que detectam
+% intrusão numa rede IoT. Para isso os nós da rede processam de forma paralela e
+% distribuída o cálculo das distâncias e detecção de novidades, sendo assim um
+% sistema multiprocessado e distribuído. Utiliza-se um único programa com vários
+% processos por nó, e cada processo recebe um conjunto de dados diferentes
+% seguindo o paradigma SPMD.
+
+Este trabalho utiliza o OpenMPI, que é uma implementação aberta de MPI, para a
+comunicação entre os processos de cada nó na névoa. Na névoa, cada nó possui um
+conjunto de 4 processos, e cada processo possui seu espaço de endereçamento e é
+\emph{multithread} onde as threads se comunicam através da memória
+compartilhada, como mostra a Figura \ref{fig:mpi-modelo}. O OpenMPI permite a
+comunicação entre os processos independente se estão ou não no mesmo nó.
+
+\begin{figure}[htb]
+  \centerline{
+    \includegraphics[width=0.55\linewidth,page=1]{figures/mpi-modelo-iot.png}
+  }
+  \caption{Modelo de processos do \mfog.}
+  \label{fig:mpi-modelo}
+\end{figure}
+
+Apesar do MPI não ter sido idealizado para o processamento de fluxo de dados, ele
+permite o controle sobre a distribuição de tarefas de maneira
+semelhante ao Apache Flink, porém dispensando o uso de um
+gerenciador. Essa dispensa de gerenciador em experimentos preliminares mostrou
+crucial para implementação do \mfog em dispositivos IoT, pois não excede o limite de
+memória do nó.
+
+O MPI é utilizado neste trabalho dentro de um programa monólito escrito em C, e utilizando a biblioteca do MPI.
+Este monólito é executado por múltiplos processo dentro de cada nó. Cada processo recebe um conjunto de dados diferente. 
+De acordo com o tipo de dado recebido, a processo executa funções diferentes. Se for um processo raiz, ele lê e distribui os dados de entrada
+entre os nós folha. Já os nós folha executam todo cálculo de distância e detecção de novidades, portanto execução de forma paralela e distribuída.
+Todos os processos (independente se estão no mesmo nó) se comunicam e são sincronizados através do OpenMPI. Portanto, é possível transferir um dado de qualquer nó para outro 
+dentro da rede.
+
+performance por causa do cache e do processamento, vc tem acesso a varios processadores e junto vem o cache que é amemoria mais rapida com computador e nao fica caindo tanto na memoria secundaria
+ \cite{mpi-book}
+
+ version usada foi mi 4.0.4
+
+
+
