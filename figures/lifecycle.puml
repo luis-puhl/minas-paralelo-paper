@@ -10,14 +10,14 @@ autonumber
 skinparam ParticipantPadding 20
 skinparam BoxPadding 20
 
-box "Root" #LightGreen
-' participant Root as r
-participant Sampler as s
-participant Detector as d
+box "Raiz" #LightGreen
+' participant Raiz as r
+participant Fonte as s
+participant "Detector Novidades" as d
 end box
-box "Leaf" #LightBlue
-collections Classifier as c
-participant "Model Rec" as m
+box "Folha" #LightBlue
+collections Classificador as c
+participant "Atualiza Modelo" as m
 ' participant Leaf as l
 end box
 
@@ -31,33 +31,33 @@ end box
 ' l -> m ** :call
 
 activate s
-s --> m ++ : Initial Model
-s -> d : Initial Model
+s --> m ++ : Modelo Inicial
+s -> d : Modelo Inicial
 ' group shared Memory
-c <- m : Shared Model
+c <- m : Modelo Compartilhado
 deactivate m
 ' end
 
 ' == Running ==
 ' loop input samples
 skinparam SequenceGroupBodyBackgroundColor #LightGreen
-group loop 
+group Fluxo Contínuo
 activate s
-note over s : input
-s --> c ++ : Sample
+note over s : entrada
+s --> c ++ : Exemplo
 end
 deactivate s
 
 ' c -> c ++ :NearestCluster()
 ' deactivate c
 
-c --> d ++ : Labeled Sample
+c --> d ++ : Exemplo Rotulado
 deactivate c
-note over d:output
-d -> d : NoveltyDetection()
+note over d:saída
+d -> d : DetecçãoNovidade()
 activate d
 deactivate d
-d --> m : Update Model
+d --> m : Atualizaçao Modelo
 ' activate m
 ' ... time ...
 ' |||
