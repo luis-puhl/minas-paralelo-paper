@@ -159,8 +159,8 @@ $D_\mathcal{M}$ \cite{Faria2013source}, visto na Equação \ref{eq:raio_max}.
   \end{align}
   O escalar raio é o desvio padrão ou o máximo do conjunto $D_\mathcal{M}$:
   \begin{align}
-    \mu       &= 1/N \cdot \sum_{i=1}^{n} d_i             & d_i \in D_\mathcal{M} \nonumber \\
-    \sigma^2  &= 1/N \cdot \sum_{i=1}^{n} (d_i - \mu) ^2  & d_i \in D_\mathcal{M} \nonumber \\
+    \mu       &= 1/n \cdot \sum_{i=1}^{n} d_i             & d_i \in D_\mathcal{M} \nonumber \\
+    \sigma^2  &= 1/n \cdot \sum_{i=1}^{n} (d_i - \mu) ^2  & d_i \in D_\mathcal{M} \nonumber \\
     \sigma    &= \sqrt{ \sigma^2 }                        & \nonumber \\
     raio_1    &= f_{raio} \cdot \sigma                    & \label{eq:raio_paper}\\
     raio_2    &= max\{ d_i \in D_\mathcal{M} \}           & \label{eq:raio_max}
@@ -277,16 +277,24 @@ A representatividade é avaliada com o número de exemplos do conjunto de
 desconhecidos que é englobado pelo novo \mcluster, onde o valor mínimo de
 exemplos é parametrizado.
 
-Um padrão é considerado coeso se o valor Silhueta ($si$) é maior que $0$.
-O $si$ por sua vez é calculado com a distância ($b$) do novo \mcluster até o
-mais próximo contido no modelo atual e o raio ($a$) do novo \mcluster
-conforme a Equação \ref{eq:silhueta}.
-No entanto, se o valor raio for definido como a distância máxima do centro do
-\mcluster ao exemplo incluído
-\todo{FIX-ME}
+Um padrão é considerado coeso se o valor $\mathit{silhueta}$, Equação
+\ref{eq:silhueta}, é maior que $0$.
+O valor $\mathit{silhueta}$ por sua vez é calculado com os valores:
+$b$ a distância do novo \mcluster até o mais próximo contido no modelo atual;
+$a$ o desvio padrão das distâncias entre o centro do novo \mcluster e cada
+exemplo representado no novo \mcluster.
+% No entanto, se o valor raio for definido como a distância máxima (Equação
+% \ref{eq:raio_max}), se um novo \mcluster é formado apenas por exemplos
+% desconhecidos e, todo exemplo desconhecido tem distância ao cluster mais próximo
+% maior do que o raio do cluster mais próximo, NÃO SEGUE LOGICAMENTE, o valor de
+% $a$ será sempre menor do que o valor $b$
+% Sendo $a, b \geq 0$,
+% Se $a > b$, então $b-a \leq 0$, portanto  $si = \frac{b-a}{a}$, et
 
 \begin{align}
-  \mathit{si} &= \frac{b - a}{max(b, a)} \label{eq:silhueta}
+  a = \sigma &= \mathit{SD}\{ dist(\mathbf{X}_i, centro) : \mathbf{X}_i \in \mathcal{MX} \} \nonumber\\
+  b &= min\{ dist( centro_{novo}, centro(\mathcal{M}_i)) : \mathcal{M}_i \in {Modelo}\}\nonumber\\
+  \mathit{silhueta} &= \frac{b - a}{max(b, a)} \label{eq:silhueta}
 \end{align}
 
 
@@ -310,8 +318,8 @@ No entanto, se o valor raio for definido como a distância máxima do centro do
   % 
   \Function{\NoveltyDetection{Modelo, Desconhecidos}}{
     novoModelo $\leftarrow$ $\emptyset$\;
-    \ForEach{novoCluster in \clustering(Desconhecidos)}{
-      \If{$|\;novoCluster.exemplos\;| \geq$ \minExamplesPerCluster}{
+    \ForEach{novoCluster $\in$ \clustering(Desconhecidos)}{
+      \If{$(|\;novoCluster.exemplos\;| \geq$ \minExamplesPerCluster $) \land (\;novoCluster.silhueta\; > 0)$}{
         maisPróximo $\leftarrow$ \nearestCluster(novoCluster, Modelo)\;
         \eIf{maisPróximo.distância $<$ (maisPróximo.cluster.raio $\times$ \noveltyFactor)}{
           novoCluster.rótulo $\leftarrow$ maisPróximo.cluster.rótulo\;
@@ -329,7 +337,7 @@ No entanto, se o valor raio for definido como a distância máxima do centro do
     }
     \Return{novoModelo}\;
   }
-  \caption{Detecção de Novidades interpretada do \minas \cite{Faria2016minas}.}
+  \caption{Detecção de Novidades interpretada do algoritmo \minas \cite{Faria2016minas}.}
   \label{alg:minas-nd}
 \end{algorithm}
 
@@ -356,29 +364,26 @@ ao modelo de decisão.
 % the Model and storing in a Sleep Model for possible recurring pattern
 % detection \cite{Faria2016minas}.
 
-The Novelty Detection function, illustrated in Algorithm \ref{alg:MINAS-nd},
-groups the instances to form new clusters, and each new cluster is validated to
-discard the non-cohesive or unrepresentative ones.
-Valid clusters are analyzed to decide if they represent an extension of a
-known pattern or a completely new pattern. In both cases, the model absorbs the
-valid clusters and starts using them to classify new instances.
+% The Novelty Detection function, illustrated in Algorithm \ref{alg:MINAS-nd},
+% groups the instances to form new clusters, and each new cluster is validated to
+% discard the non-cohesive or unrepresentative ones.
+% Valid clusters are analyzed to decide if they represent an extension of a
+% known pattern or a completely new pattern. In both cases, the model absorbs the
+% valid clusters and starts using them to classify new instances.
 
-O \minas, como já foi discutido na Seção \ref{sec:minas-og}, classifica
-exemplos e detecta
-novidades em DS e considera em sua composição \emph{concept drift} e
-\emph{concept evolution}, sendo capaz de classificar como extensão de classe
-conhecida e identificar padrões novidade sem intervenção de especialista
-\cite{Faria2016minas}.
-Neste trabalho, consideram-se algoritmos derivados do \minas
-aqueles apresentados em trabalhos publicados após 2016, que estendem a
-implementação original seguindo sua estrutura básica.
+% O \minas, como já foi discutido na Seção \ref{sec:minas-og}, classifica
+% exemplos e detecta
+% novidades em DS e considera em sua composição \emph{concept drift} e
+% \emph{concept evolution}, sendo capaz de classificar como extensão de classe
+% conhecida e identificar padrões novidade sem intervenção de especialista
+% \cite{Faria2016minas}.
 
-\todo{FIX-ME}
-O \minas foi relevante e motivou extensões como \cite{DaSilva2018,Costa2019}...
-
-O algoritmo FuzzyND, derivado do \minas foi proposto por \citeonline{DaSilva2018}.
-FuzzyND incrementa o algoritmo original, aplicando a ele teorias de
-conjuntos \emph{fuzzy} pela modificação da representação dos \clusters.
+Além do algoritmo \minas, existem derivados que estendem a implementação
+original seguindo sua estrutura básica, duas notáveis são FuzzyND e MINAS-LC.
+O algoritmo FuzzyND foi proposto em \citeonline{DaSilva2018,DaSilva2018thesis} e
+incrementa o algoritmo original aplicando teoria de conjuntos \emph{fuzzy}
+modificando da representação de \cluster, algoritmo de agrupamento, manutenção
+do modelo para exemplos conhecidos e para novidades.
 O algoritmo MINAS-LC foi proposto por \citeonline{Costa2019thesis} e trata a
 classificação multi-rótulo, porém não trata evoluções de conceito (\emph{Concept
 Evolution}).
@@ -491,33 +496,38 @@ ideia geral do algoritmo e como proceder para criação de uma versão distribu�
 % e detecção de padrões, onde novamente o processo de agrupamento é central.
 % Portanto, apesar de outros trabalhos expandirem o algoritmo com diferentes técnicas, seu
 % núcleo continua relevante.
-Algumas propostas de modificação do algoritmo MINAS notáveis discutidas durante o desenvolvimento
-deste trabalho 
-% Não cabe ao presente trabalho expandir e validar conceitos de aprendizagem de máquina,
-porém alguns exemplos mencionados não abordados são \cite{DaSilva2018,DaSilva2018thesis,Costa2019}:
+
+Algumas propostas de modificação no algoritmo \minas foram recorrentes durante
+as discussões no desenvolvimento deste trabalho porém, como estão fora do escopo
+estre trabalho, ficam somente aqui anotadas para algum trabalho futuro.
+As modificações são:
 
 \begin{enumerate}[label={\alph*)}]
+
+  \item Na fase \emph{offline} a verificação de sobreposição de \clusters
+  pertencentes a classes distintas e tratamento adequado.
   
-  \item diferentes métodos de cálculo de distância entre pontos além da
+  \item Diferentes métodos de cálculo de distância entre pontos além da
   distância euclidiana;
   
-  \item a mudança de representação de \clusters, atualmente hiper-esferas
-  \cite{Costa2019thesis}, para hiper-cubos tratando \datasets onde as
-  características representadas pelas dimensões são completamente
+  \item Mudança de representação de \clusters, atualmente esferas no espaço de
+  dimensão $d$, para paralelogramos no espaço de dimensão $d$ tratando \datasets
+  onde as características representadas por cada dimensão são completamente
   independentes;
   
-  \item um modo interativo onde o \cluster é formado, mostrado ao especialista
-  que o classifica como inválido (ruído ou não representativo) ou válido,
-  podendo conter uma ou mais classes e, se contiver mais que uma classe corte em
-  grupos menores até conter somente uma classe;
+  % \item um modo interativo onde o \cluster é formado, mostrado ao especialista
+  % que o classifica como inválido (ruído ou não representativo) ou válido,
+  % podendo conter uma ou mais classes e, se contiver mais que uma classe corte em
+  % grupos menores até conter somente uma classe;
   
-  \item ainda considerando interação com especialista, a possibilidade de
-  injetar um exemplo não pertencente a uma classe, ou seja, marcar o exemplo
-  como não pertencente a uma classe para mantê-lo na memória de
-  desconhecidos e, eventualmente forçar criação de um \cluster que represente
-  uma classe geometricamente próxima mas semanticamente distinta;
-  
-  \item na fase \emph{offline} a verificação de sobreposição de \clusters
-  pertencentes a classes distintas e tratamento adequado.
+  % \item ainda considerando interação com especialista, a possibilidade de
+  % injetar um exemplo não pertencente a uma classe, ou seja, marcar o exemplo
+  % como não pertencente a uma classe para mantê-lo na memória de
+  % desconhecidos e, eventualmente forçar criação de um \cluster que represente
+  % uma classe geometricamente próxima mas semanticamente distinta;
+
+  \item Em uma implementação de avaliação, ajuste automático de parâmetros
+  otimizando para o máximo de classificações corretas e mínimo tempo de execução
+  para um \dataset fornecido.
 
 \end{enumerate}
