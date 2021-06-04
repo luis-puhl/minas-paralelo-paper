@@ -15,17 +15,9 @@
 %     - implementação paralelas/distribuídas em dispositivos pequenos
 % % 
 
-% \begin{resumocap}
-
-Este Capítulo trata dos trabalhos relacionados e apresenta aspectos do estado da arte
-dos tópicos Detecção de Novidades em Fluxos de Dados, e
-Processamento Distribuído de Fluxos de Dados.
-
-% \end{resumocap}
-
-Nesta Capítulo, abordam-se trabalhos que aplicam \hlhl{algoritmos de detecção de
-novidades} em \hlhl{ambiente de processamento distribuído} de fluxo de dados em tempo
-real.
+Este Capítulo trata dos trabalhos relacionados e apresenta aspectos do estado da
+arte dos tópicos Detecção de Novidades em Fluxos de Dados e Processamento
+Distribuído de Fluxos de Dados aplicados à detecção de intrusão em redes \iot.
 Um sumário dos trabalhos abordados pode ser visto na Tabela \ref{tab:summary}.
 
 \newcommand{\kafka}{\emph{Apache Kafka}\xspace}
@@ -33,120 +25,61 @@ Um sumário dos trabalhos abordados pode ser visto na Tabela \ref{tab:summary}.
 \newcommand{\python}{\emph{Python}\xspace}
 
 % \notake{inserir uma tabela sumarizada com a descrição dos autores.}
-
-trabalhos genéricos: duas linhas por trabalho, destaque, contribuição, relação.
-
-\todo[inline]{Adicionar trabalhos fazem parte, sem fechar numa plataforma.}
-
-Adicionar considerações sobre: Distribuição, Paradigma (cloud, fog, edge),
-algoritmo (envelhecimento de modelo, atualização do modelo)
-
-\notafa{
-    você não discutiu sobre trabalhos anteriores que fizeram distribuição de
-    algoritmos de fluxos de dados.... o que eles tem de bom e ruim (ex: trabalhos
-    do Murilo Naldi da UFSCAR, trabalhos do Latifur, CLAM, trabalhos do Bifet e o
-    framework baseado no MOA, mas distribuído)
-}
+% 
+% trabalhos genéricos: duas linhas por trabalho, destaque, contribuição, relação.
+% \todo[inline]{Adicionar trabalhos fazem parte, sem fechar numa plataforma.}
+% 
+% Adicionar considerações sobre: Distribuição, Paradigma (cloud, fog, edge),
+% algoritmo (envelhecimento de modelo, atualização do modelo)
+% 
+% \notafa{
+%     você não discutiu sobre trabalhos anteriores que fizeram distribuição de
+%     algoritmos de fluxos de dados.... o que eles tem de bom e ruim (ex: trabalhos
+%     do Murilo Naldi da UFSCAR, trabalhos do Latifur, CLAM, trabalhos do Bifet e o
+%     framework baseado no MOA, mas distribuído)
+% }
 
 \begin{table}[ht]
   \caption{Sumário dos trabalhos relacionados}
   \centering
   \begin{scriptsize}
   \begin{tabularx}{\linewidth}{X|X|X|X|X|X}
-    Trabalho & Plataforma  & Técnica & Atualização de Modelo & Conjunto de dados & Métricas \\
-    \hline
-    \hline
+    \textbf{Trabalho} &
+        \textbf{Plataforma} &
+        \textbf{Atualização de Modelo} &
+        \textbf{Conjunto de dados} &
+        \textbf{Técnica ou Algoritmo} &
+        \textbf{Métricas} \\
+    \hline & & & & & \\
     Ferramenta BigFlow \cite{Viegas2019} &
         \python, \emph{flowtbag}, \kafka e \flink &
         \emph{Hoeffding Tree}, \emph{OzaBoosting}, \emph{Leveraging Bag} e comitê &
         Semanal semi-automática &
         \emph{MAWILab} &
         Acurácia (geral e por classe), Taxa de bytes \\
-    \hline
+    \hline & & & & & \\
     Ferramenta CATRACA \cite{Lopez2018} &
         \emph{Virtual Network Function}, \kafka e \spark &
         PCA, SFS, e SVM-RFE &
         Contínua semi-automática &
         NSL-KDD, GTA/UFRJ e NetOp &
         Acurácia, precisão, sensibilidade e F1-score \\
-    \hline
+    \hline & & & & & \\
     Arquitetura \arch \cite{Cassales2019a} &
         Java, \kafka e \python &
         ECSMiner, AnyNovel e MINAS &
         Contínua Automática &
         \emph{Kyoto 2006+} &
-        \emph{Fnew}, \emph{Mnew} e \emph{erro} \\
-    \hline
-    \ifx\toreview\undefined
-    \else
+        \emph{Fnew}, \emph{Mnew} e \emph{erro}
     % Murilo Naldi da UFSCAR & plataforma & técnica & \dataset & métricas \\
     % Não encontrei uma plataforma do Naldi, encontrei algoritmos.
     % \hline
     % Latifur Khan & plataforma & técnica & \dataset & métricas \\
-    \hline
-    CLAM &
-        plataforma &
-        técnica &
-        \dataset &
-        métricas \\
-    \hline
-    trabalhos do Bifet e o framework baseado no MOA (samoa) &
-        plataforma &
-        técnica &
-        \dataset &
-        métricas \\
-    \hline
-    \fi
-    % \cite{dos-6lowpan-iot} 
-    %    & 6LoWPAN 
-    %    & Suricata 
-    %    & Dados reais com metasploit 
-    %    & Acurácia, pacotes/segundo\\
-    % \cite{Hybrid-ids-arch-iot} 
-    %    & 6LoWPAN 
-    %    & Hibrida - MR OPF 
-    %    & NSL-KDD e ataque simulados 
-    %    & FAR e revocação \\
-    % \cite{SVELTE} 
-    %    & 6LoWPAN 
-    %    & Análise de DAG 
-    %    & Sem informações 
-    %    & revocação, consumo de energia e memória\\
-    % \cite{Fault-tolerance-disaster} 
-    %    & WSN 
-    %    & MLP do Weka 
-    %    & Dados reais 
-    %    & MAE, RMSE, R², R, acurácia, revocação, precisão, especificidade \\
-    % \cite{Kalis} 
-    %    & WSN 
-    %    & Módulos independentes, cada qual com uma técnica 
-    %    & Replay de \textit{traces} e injeção de ataques 
-    %    & revocação, acurácia, consumo de CPU e memória\\
-    % \cite{IoT-arch-smartmeter} 
-    %    & \textit{Smart City} 
-    %    & Agrupamento, MLP e modelos estatísticos 
-    %    & Dados reais dos medidores 
-    %    & Consumo de energia elétrica e água\\
-    % \cite{scalable-anomaly-detection-smart-city} 
-    %    & Smart City 
-    %    & LiSA, função de suavização 
-    %    & Dados reais 
-    %    & \textit{Outliers}, comparação entre simulação e dados coletados\\
-    % \cite{DS-based-IDS-SmartGrid} 
-    %    & \textit{Smart Grid} 
-    %    & 7 classificadores do MOA 
-    %    & KDD99 
-    %    & Acurácia, \textit{Kappa}, consumo de memória, tempo, FAR e FNR \\
-    % \cite{GT-BIS} 
-    %    & Big Data 
-    %    & Random Forest 
-    %    & Logs de servidores Http e MySQL 
-    %    & Acurácia \\
-    % \cite{anomalies-adaptive-detection} 
-    %    & Big Data 
-    %    & Agrupamento, Algoritmos Genéticos e redução de atributos 
-    %    & KDD99 
-    %    & Tempo, FAR, revocação, acurácia e memória \\
+    % \hline
+    % CLAM & plataforma & técnica & \dataset & métricas \\
+    % \hline
+    % trabalhos do Bifet e o framework baseado no MOA (samoa) & plataforma & técnica & \dataset & métricas \\
+    % \hline
   \end{tabularx}
   \label{tab:summary}
   \end{scriptsize}
@@ -157,25 +90,19 @@ algoritmo (envelhecimento de modelo, atualização do modelo)
 Proposta por \citeonline{Viegas2019}, a ferramenta BigFlow é um sistema de
 detecção de intrusão em rede (\emph{Network Intrusion Detection System}, NIDS)
 baseado em detecção de anomalias.
-Duas abordagens, detecção por assinatura e detecção por anomalia, 
-\notahl{?}\hlhl{são de uso frequente,}
-\hlhl{como o mecanismo}
-\hlhl{de detecção de intrusão na construção de NIDS}.
-Para a detecção de novos tipos de ataque (\emph{zero day}), a abordagem de
-detecção por anomalia é vantajosa, em contraste com a abordagem de detecção por
-assinatura, devido ao tempo de resposta (que envolve a identificação e criação de
-uma assinatura), grande demais para prevenir esse tipo de intrusão.
+Como o mecanismo de detecção de intrusão na construção de um \nids, duas
+abordagens são comuns, detecção por assinatura e detecção por anomalia, porém,
+para a detecção de novos tipos de ataque (\emph{zero day}) a abordagem de
+detecção por anomalia é vantajosa devido ao tempo de resposta grande demais para
+prevenir esse tipo de intrusão.
 
-A ferramenta BigFlow é composta pelos módulos de extração de atributos e de aprendizado confiável.
-O módulo de extração de atributos
-% , ilustrado na \reffig{bigflow-pcap},
-é responsável por coletar \hlhl{pacotes} da rede monitorada,
-\notahl{extrair as características dos desses pacotes... não "transformar pacotes"...}
-\hlhl{transformar esses pacotes em fluxos}
+A ferramenta BigFlow é composta pelos módulos de extração de atributos e de
+aprendizado confiável. O módulo de extração de atributos é responsável por
+coletar pacotes da rede monitorada,
+extrair as características dos desses pacotes formando descritores de fluxo
 com estatísticas de comunicação e enviar informações desses fluxos como
 exemplos para o módulo de aprendizado confiável.
 O módulo de aprendizado confiável,
-%  ilustrado na \reffig{bigflow-ml},
 é composto pelos submódulos:
 submódulo classificador, responsável por classificar exemplos;
 submódulo de verificação, responsável por verificar o resultado de classificação;
@@ -213,17 +140,14 @@ realismo, validade, etiquetamento, grande variabilidade e reprodutibilidade
 (disponibilidade pública).
 
 Para avaliar o desempenho de NIDS, o \dataset MAWIFlow é proposto por \citeonline{Viegas2019}.
-Este \dataset é derivado do
-% 
-dos traços de pacotes no \emph{backbone} WIDE, ponto de amostras F
-% 
-\dataset \emph{Packet traces from WIDE backbone, samplepoint-F}, composto por
+Este \dataset é derivado dos traços de pacotes no \emph{backbone} WIDE, ponto de amostras F
+(\emph{Packet traces from WIDE backbone, samplepoint-F}), composto por
 seções de captura de pacotes diárias de 15 minutos de um link de $1
 \mathrm{Gbps}$ entre Japão e EUA, com início em 2006 continuamente até hoje,
 anonimizados e etiquetados por MAWILab \cite{mawiSamplepointF,Fontugne2010}.
 Desse \dataset original, o \dataset MAWIFlow utiliza apenas os eventos de 2016,
 dos quais 158 atributos são extraídos resultando em $7.9 \mathrm{TB}$ de captura de pacotes.
-Além disso, os dados são estratificados para redução de seu tamanho a um
+Por fim, os dados são estratificados para redução de seu tamanho a um
 centésimo, \hlhl{mantendo} as proporções de etiquetas (Ataque e Normal), \hlhl{facilitando} o
 compartilhamento e avaliação de NIDS, além de atender às qualidades anteriormente
 mencionadas.
@@ -278,12 +202,9 @@ Manager}) e as múltiplas instâncias do serviço gerenciador de tarefas
 Em conclusão, a ferramenta BigFlow demonstra capacidade de classificação e
 detecção de anomalias em fluxos de dados de alta velocidade no contexto de
 detecção de intrusão.
-\notahl{?}\hlhl{No entanto, a atualização semanal e, mais importante,}
-\hlfa{dependendo de avaliação de}\\
-\hlhl{um especialista não é ideal}
-\hlhl{para detecção de novidades e}
-\hlhl{respectiva ação sobre a descoberta}\\
-\hlhl{de novos padrões.}
+No entanto a atualização semanal e a dependência da avaliação de um especialista
+não são ideais para detecção de ameças e respectiva ação sobre a descoberta de
+novos padrões.
 
 % Outras propostas tratam do caso de grandes volumes e velocidades, como ́e o caso
 % de Viegas et al. (2019) que apresenta oBigFlow no intuito de detectar intrusão
@@ -415,11 +336,11 @@ detector de intrusão comercial.
 
 Também para a avaliação da ferramenta CATRACA, foram utilizadas as métricas de qualidade
 de classificação acurácia, precisão, sensibilidade e F1M, com intervalo de
-confiança de 95\%.
+confiança de $95\%$.
 As métricas de qualidade, dependendo do tamanho do conjunto, foram extraídas por
 métodos de avaliação amplamente utilizados para avaliar modelos de aprendizado
 de máquina (\emph{machine learning}) como validação cruzada com proporção
-70\% do conjunto base para treinamento e 30\% para teste.
+$70\%$ do conjunto base para treinamento e $30\%$ para teste.
 Para as métricas de escalabilidade foram utilizadas a latência e fator de aceleração
 \emph{speedup factor} (latência observada com paralelismo 1 dividida pela
 latência observada com paralelismo variável).
@@ -432,12 +353,12 @@ No entanto, o algoritmo de detecção de anomalias desenvolvido para a ferrament
 consiste de um modelo de classificação pelo método árvore de decisão e
 a atualização do modelo durante a fase \emph{Online} depende de todos os exemplos do
 último intervalo de atualização.
-Esse tipo de algoritmo de detecção de anomalias 
-\notahl{por que não?}
-\hlhl{não é capaz de lidar}
-\hlhl{adequadamente com as características de fluxos contínuos} de dados, como os
-descritos na \refsec{nd} (\drift, \evolution, limitado a ler o conjunto somente
-uma vez), que são atendidos por algoritmos de detecção de novidade.
+% Esse tipo de algoritmo de detecção de anomalias 
+% \notahl{por que não?}
+% \hlhl{não é capaz de lidar}
+% \hlhl{adequadamente com as características de fluxos contínuos} de dados, como os
+% descritos na \refsec{nd} (\drift, \evolution, limitado a ler o conjunto somente
+% uma vez), que são atendidos por algoritmos de detecção de novidade.
 
 % A monitoring and threat detection system using stream processing as a virtual 
 % function for Big Data
@@ -475,8 +396,7 @@ A arquitetura \arch, proposta por \citeonline{Cassales2019a}, tem por objetivo
 monitorar uma rede local com dispositivos \iot e detectar tentativas de intrusão
 e alguma subversão do comportamento das transmissões destes dispositivos.
 O principal destaque da arquitetura é a distribuição de tarefas do sistema de
-detecção de intrusão entre nós na \notahl{ou edge?}\hlhl{rede de borda (\fog)} e nós em nuvem pública
-(\cloud).
+detecção de intrusão entre nós de névoa (\fog) e nós em nuvem pública (\cloud).
 O objetivo dessa distribuição é a redução de latência, que torna inviável a
 hospedagem de um sistema detector de intrusão somente em ambiente \cloud, e
 também possibilitar a análise de grandes volumes de dados por algoritmos de
@@ -534,9 +454,9 @@ de recursos computacionais (memória) foi elevado.
 A distribuição das tarefas em serviços proposta abre oportunidades para a
 discussão de diferentes métodos de distribuição dessas tarefas em diferentes
 ambientes computacionais.
-Contudo, o algoritmo MINAS ainda não foi implementado e avaliado com
-\hlhl{paralelismo, multi-processamento} ou \hlhl{distribuição computacional}, que são
-necessários para tratar fluxos de dados com grandes volumes e velocidades.
+Contudo, o algoritmo \minas ainda não foi implementado e avaliado com
+paralelismo, distribuição que são necessários para tratar fluxos de dados com
+grandes volumes e velocidades.
 
 % \nota{Também discutir a classificação dos fluxos por endpoint
 % exarcerbando assim a distinção na fog com o efeito de particionamento dos dados.
