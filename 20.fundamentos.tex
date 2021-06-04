@@ -269,48 +269,51 @@ Java, Scala ou Python.
 Em um sistema distribuído multiprocessado, a memória é distribuída entre
 múltiplos nós e processos, tendo cada processo acesso direto somente a sua memória
 local. Para esse tipo de sistema, o paradigma de programação paralela SPMD (\emph{Single Program, Multiple
-Data}; em português, Único Programa, Múltiplos Dados) pode ser implementado utilizando o
+Data}, Único Programa, Múltiplos Dados) pode ser implementado utilizando o
 conceito de memória distribuída compartilhada através de troca de mensagens.
-
-Em paradigmas de computação paralela, o modelo de passagem de mensagens é amplamente
-utilizado para a comunicação de diferentes processos. Nesse modelo, cada
-processo tem sua memória local e se comunicam com outros processos através da
+Nesse modelo, cada
+processo tem sua memória local e se comunica com outros processos através da
 troca de mensagens \cite{mpi-book}. Observando boas práticas e melhores funcionalidades ao longo dos anos, 
-a comunidade e a indústria padronizaram sistema de passagem de mensagens no padrão MPI (\emph{Message Passing Interface}, em
-português Interface de Troca de Mensagens).
+a comunidade e a indústria padronizaram esse modelo de troca de mensagens no padrão MPI (\emph{Message Passing Interface}, Interface de Troca de Mensagens).
 
 O MPI\footnote{Disponível em \url{https://www.mpi-forum.org/}.} é um padrão que
 estabelece um protocolo de comunicação e define sintaxe e semântica para
-bibliotecas de troca de mensagens em ambientes de memória compartilhada. Nesse
-padrão, cada processo tem seu espaço de endereçamento diferente, e se comunica
-com os outros através de mensagens. Esse modelo pode ser implementado desde
-multiprocessadores de memória compartilhada, redes workstations até em máquinas
-unicore, podendo usar também arquiteturas híbridas (processos
-\emph{mulithread} com memória compartilhada, múltiplos processos sem memória
-compartilhada, etc.) \cite{mpi-book}. O MPI, por meio de alguma
+bibliotecas de troca de mensagens em ambientes de memória distribuída compartilhada.
+Esse modelo pode ser implementado desde computadores multiprocessados de memória
+compartilhada até supercomputadores com centenas de nós e milhares de
+processadores.
+O MPI, por meio de alguma
 implementação como OpenMPI e MPICH, permite a construção de um sistema
-distribuído com um executável único (monólito) utilizando com abstração a
-passagem de mensagens.
+distribuído com um executável único (monólito) e sua execução em um ambiente gerenciado.
 
-COLOCAR PRIMITIVAS --> send, receive bloqueante, 
-TCP IP se conversa for pela rede
-tempo de synchronize
+O MPI tem duas primitivas básicas para comunicação dos processos que são o
+enviar (\emph{send}) e o receber (\emph{receive}) \cite{mpi-book}. A primitiva de
+envio é composta pelos argumentos: conteúdo da mensagem, tamanho da mensagem,
+processo destino, e \emph{tag} é um argumento para diferenciar mensagens (ex: ordem
+e conteúdo).
+Associado à cada primitiva enviar, a primitiva receber possui os argumentos:
+conteúdo da mensagem, tamanho máximo da mensagem, remetente da mensagem, tamanho
+real da mensagem, e \emph{tag}.
+Além de operações de envio e recebimento, pode-se fazer
+envio de mensagens de uma fonte para múltiplos destinos, e um destino receber de
+múltiplas fontes numa única operação.
 
-runtime orquestrador da execucao
+Um dos detalhes importantes quando se utiliza o MPI com o TCP/IP, é que as
+garantias de envio são fornecidas pelo protocolo TCP, ou seja, feito um envio
+com a operação \emph{send} o processo que enviou é desbloqueado logo após que a
+mensagem é escrita no buffer de saída do TCP do sistema operacional. Portanto,
+existe tempo de voo (\emph{time of flight}) entre o envio e recebimento.
 
-mpirun inicia ssh no nó inicia programa, passa argumentos pra cada processo, e ai começa divisao dos dados.
-
-% A arquitetura do \mfog é composta de múltiplos nós numa névoa que detectam
-% intrusão numa rede IoT. Para isso os nós da rede processam de forma paralela e
-% distribuída o cálculo das distâncias e detecção de novidades, sendo assim um
-% sistema multiprocessado e distribuído. Utiliza-se um único programa com vários
-% processos por nó, e cada processo recebe um conjunto de dados diferentes
-% seguindo o paradigma SPMD.
+O MPI possui um ambiente de execução e gerenciamento chamado \emph{mpirun} que
+recebe como entrada a configuração do cluster e o programa a ser executado, e se
+encarrega de iniciar os processos em todos os nós, geralmente por \emph{ssh},
+repassando os parâmetros que recebeu a cada processo e o identificador do
+processo para que ele saiba qual dado ler e qual função executar.
 
 Este trabalho utiliza o OpenMPI, que é uma implementação aberta de MPI, para a
-comunicação entre os processos de cada nó na névoa. Na névoa, cada nó possui um
-conjunto de 4 processos, e cada processo possui seu espaço de endereçamento e é
-\emph{multithread} onde as threads se comunicam através da memória
+comunicação entre os processos de cada nó do cluster. Cada nó do cluster possui um
+conjunto de processos, e cada processo possui seu espaço de endereçamento e é
+\emph{multithread}, onde as threads se comunicam através da memória
 compartilhada, como mostra a Figura \ref{fig:mpi-modelo}. O OpenMPI permite a
 comunicação entre os processos independente se estão ou não no mesmo nó.
 
@@ -322,6 +325,13 @@ comunicação entre os processos independente se estão ou não no mesmo nó.
   \label{fig:mpi-modelo}
 \end{figure}
 
+O amplo uso de MPI para programação paralela e distribuída está principalmente pautado no
+desempenho. Processadores modernos possuem memórias hierárquicas que beneficiam
+programas que fazem o melhor uso de cache. O modelo de passagem de mensagens
+permite o particionamento dos dados em fatias menores otimizando o uso de cache
+nesses processadores. Portanto, para aplicações limitados por memória pode haver
+acelerações superlineares (\emph{superlinear speedup}) \cite{mpi-book}.
+
 Apesar do MPI não ter sido idealizado para o processamento de fluxo de dados, ele
 permite o controle sobre a distribuição de tarefas de maneira
 semelhante ao Apache Flink, porém dispensando o uso de um
@@ -329,17 +339,18 @@ gerenciador. Essa dispensa de gerenciador em experimentos preliminares mostrou
 crucial para implementação do \mfog em dispositivos IoT, pois não excede o limite de
 memória do nó.
 
-O MPI é utilizado neste trabalho dentro de um programa monólito escrito em C, e utilizando a biblioteca do MPI.
-Este monólito é executado por múltiplos processo dentro de cada nó. Cada processo recebe um conjunto de dados diferente. 
-De acordo com o tipo de dado recebido, a processo executa funções diferentes. Se for um processo raiz, ele lê e distribui os dados de entrada
-entre os nós folha. Já os nós folha executam todo cálculo de distância e detecção de novidades, portanto execução de forma paralela e distribuída.
-Todos os processos (independente se estão no mesmo nó) se comunicam e são sincronizados através do OpenMPI. Portanto, é possível transferir um dado de qualquer nó para outro 
-dentro da rede.
+Em resumo, o MPI é utilizado neste trabalho dentro de um programa monólito escrito em C, e
+utilizando a biblioteca do MPI. Este monólito é executado por múltiplos processos
+dentro de cada nó. Cada processo recebe um conjunto de dados diferente. De
+acordo com o tipo de dado recebido, o processo executa funções diferentes. Se
+for um processo raiz, ele lê e distribui os dados de entrada entre os nós folha.
+Já os nós folha executam todo cálculo de distância e detecção de novidades,
+portanto execução de forma paralela e distribuída.
 
-performance por causa do cache e do processamento, vc tem acesso a varios processadores e junto vem o cache que é amemoria mais rapida com computador e nao fica caindo tanto na memoria secundaria
- \cite{mpi-book}
-
- version usada foi mi 4.0.4
-
-
+% A arquitetura do \mfog é composta de múltiplos nós numa névoa que detectam
+% intrusão numa rede IoT. Para isso os nós da rede processam de forma paralela e
+% distribuída o cálculo das distâncias e detecção de novidades, sendo assim um
+% sistema multiprocessado e distribuído. Utiliza-se um único programa com vários
+% processos por nó, e cada processo recebe um conjunto de dados diferentes
+% seguindo o paradigma SPMD.
 
