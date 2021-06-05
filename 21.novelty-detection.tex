@@ -1,13 +1,14 @@
-% !TeX root = ./00.ppgcc-2020.tex
+%!TeX root = ./00.ppgcc-2020.tex
 
 \section{Fluxo de Dados e Mineração de Fluxo de Dados}
 
 A Mineração de Dados é o processo de descoberta de padrões em conjuntos de dados
 utilizando métodos derivados de aprendizagem de máquina, estatística e banco de
-dados \cite{Gaber2005}.
-Além de mineração de dados tradicional, \emph{Big Data} trata de
-conjuntos de dados que não podem ser processados em tempo viável, devido a limitações
-como memória ou armazenamento principal.
+dados \cite{Gaber2005}. A mineração de \emph{Big Data} trata de enormes
+conjuntos de dados que podem não ser processados em tempo viável devido a
+limitações como memória ou armazenamento principal. Uma abordagem para minerar
+esse tipo dado é a mineração de fluxo de dados. Os fluxos de dados são definidos
+na Definição \ref{def:fluxodados}.
 
 \begin{definition}
   Um \textit{Fluxo de Dados} $S$ é uma sequência massiva, potencialmente
@@ -15,19 +16,18 @@ como memória ou armazenamento principal.
   recebida em instantes $T_1, T_2, \dots, T_n, \dots$,
   onde cada exemplo $\mathbf{X}$ tem dimensão $d$
   \cite{Aggarwal2003}.
+  \label{def:fluxodados}
 \end{definition}
 
-Além da dimensão de armazenamento, outra dimensão que afeta a maneira como dados
-são modelados e manipulados é o tempo.
-Técnicas e algoritmos de mineração de fluxo de dados atendem a esses desafios utilizando
-restrições como apenas uma leitura do conjunto de dados e baixo tempo de
-processamento na construção de seus algoritmos \cite{Gama2007, Gaber2005}.
-
-As características de fluxos de dados e mineração de dados e os requisitos de
-seu processamento regularmente superam as capacidades computacionais de um único
-nó computacional convencional, de forma que a distribuição dos requisitos em
-múltiplos nós computacionais em um sistema distribuído pode ser necessária
-\cite{Gaber2005}.
+O volume dos dados em \emph{Big Data} e a velocidade com qual eles são
+produzidos afeta como os dados de um problema são modelados e manipulados.
+Técnicas e algoritmos de mineração de fluxos de dados atendem esses desafios
+utilizando restrições como apenas uma leitura do conjunto de dados e baixo
+complexidade na construção de seus algoritmos \cite{Gama2007, Gaber2005}. O
+processamento requerido para a mineração de um enorme fluxos de dados pode não
+ser atendido por recursos computacionais de um único computador (nó), de forma
+que pode ser necessária a distribuição dos dados e do processamento em múltiplos nós computacionais
+em um sistema distribuído \cite{Gaber2005}.
 
 % Computação distribuída é a área da ciência da computação que estuda sistemas
 % em que os componentes são localizados em diferentes computadores (nós), que
@@ -46,11 +46,10 @@ que são abordadas na \refsec{frameworks}.
 No âmbito de classificação de dados, parte da área de aprendizado de máquina, os
 métodos de \acf{ND-DS} lidam com o reconhecimento e a classificação de exemplos
 que diferem de exemplos anteriores \cite{Markou2003,Perner2009,Gama2010}.
-Esses métodos tratam da classificação em fluxos de dados que evoluem com o
-tempo, levando em consideração as características desse tipo de fluxos.
+Esses métodos tratam da classificação em fluxos de dados que evoluem com o tempo.
+% tempo, levando em consideração as características desse tipo de fluxos.
 
-Tratando-se de fluxos de dados contínuos, são características
-dos padrões observados:
+As características de evolução dos padrões observados em fluxos de dados contínuos são: 
 evolução de conceito (\evolution) em que novos padrões podem surgir;
 desaparecimento ou recorrência de conceito, em que padrões podem desaparecer e
 também podem reaparecer;
@@ -67,11 +66,11 @@ detecção de fraudes \cite{wang2003mining,Abdallah201690},
 filtros de spam \cite{Hayat2010dct} e
 detecção de variações comportamentais em um jogador \cite{Vallim20136258}.
 
-Alguns métodos de \nd utilizam tratam de novidades como uma classificação de uma
+Alguns métodos de \nd tratam de novidades como uma classificação de uma
 ou duas classes (binariamente) onde um conceito representa a classe normal e as anomalias
 são representadas pela falta de conceito no modelo ou como um segundo conceito
 no modelo.
-Além da abordagem de classificação binária, múltiplos conceitos em um mesmo
+Além da abordagem de classificação binária, podem existir múltiplos conceitos em um mesmo
 conjunto de dados, para isso é necessário abordar \nd como classificação
 multi-classe.
 Alguns métodos que abordam \nd como classificação multi-classe não
@@ -119,7 +118,7 @@ contendo exemplos rotulados.
 Esse conjunto de treinamento é dividido em grupos usando como chave o rótulo,
 e para cada grupo de exemplos o método de agrupamento é executado.
 O método de agrupamento objetiva resumir um conjunto maior de exemplos em um
-conjunto menor de \mclusters.
+conjunto menor de \mclusters (Definição \ref{def:microcluster}).
 A cada \mcluster é adicionada o rótulo do grupo original e todos \mclusters
 são arranjados em um único conjunto formando o modelo de decisão.
 
@@ -133,13 +132,14 @@ são arranjados em um único conjunto formando o modelo de decisão.
     \item $\mathbf{SS}$ é o vetor da soma dos quadrados dos exemplos sendo $\mathbf{SS}_d = \sum_{i=0}^{n} (\mathbf{X}_{i,d})^2$,
     \item $t$ é o instante de chegada do último exemplo adicionado ao \mcluster.
   \end{itemize}
+  \label{def:microcluster}
 \end{definition}
 
 % (1, 2), (1, 2), (3, 4) = (1^2 + 1^2 + 3^2, 2^2 + 2^2 + 4^2)
 
-Deste sumário extrai-se o centro e raio que são utilizados na operação de
+Deste sumário extrai-se o centro e o raio que são utilizados na operação de
 classificação da fase \emph{Online} \cite{Faria2016minas}.
-O vetor centro é definido como pelo algoritmo de agrupamento e corresponde ao
+O vetor centro é definido pelo algoritmo de agrupamento e corresponde ao
 ponto médio dos exemplos contidos no grupo, visto na Equação \ref{eq:centro}.
 O raio pode ser definido de duas maneiras e ambas dependem no conjunto das
 distâncias $D_\mathcal{M}$ entre centro e cada elemento contido no grupo.
@@ -171,15 +171,15 @@ $D_\mathcal{M}$ \cite{Faria2013source}, visto na Equação \ref{eq:raio_max}.
 % 5: The mean is equal to CF1t/n. 
 % The standard deviation is equal to sqrt( CF2t/n − (CF1t/n)2 ).
 
-A distinção entre as duas definições de raio é importante pois ela impacta
+A distinção entre as duas definições de raio é importante, pois ela impacta
 imensamente nos resultados.
 Para cada \dataset ou problema abordado uma configuração de parâmetros afinada
-é essencial pois as características da distribuição dos valores e sua associação
+é essencial, pois as características da distribuição dos valores e sua associação
 às classes são geralmente únicas para cada problema.
 Em testes preliminares, a implementação do algoritmo \minas com raio definido
 pela distância máxima (Eq. \ref{eq:raio_max}) mostrou melhores resultados quando
 comparado com a mesma implementação utilizando a definição que utiliza desvio
-padrão (Eq. \ref{eq:raio_paper}) pois pequenas variações no parâmetro $f_{raio}$
+padrão (Eq. \ref{eq:raio_paper}), pois pequenas variações no parâmetro $f_{raio}$
 resultavam em alta taxa de desconhecidos ou alta taxa de erro.
 
 % \minas \cite{Faria2016minas} is an offline-online \nd algorithm, meaning it has
@@ -251,7 +251,7 @@ padrões-novidade e atualização do modelo de decisão \cite{Faria2016minas}.
       fluxoSaída.adicione(exemplo)\;
     }
   }
-\caption{Interpretação do \minas baseado em \cite{Faria2016minas}}
+\caption{Interpretação do \minas baseado em \citeonline{Faria2016minas}}
 \label{alg:minas-main}
 \end{algorithm}
 
@@ -265,7 +265,7 @@ o raio do \mcluster, o exemplo é classificado com o rótulo do \mcluster
 e o sumário estatístico do \mcluster é atualizado.
 Caso a distância (mínima no modelo) seja maior que o raio,
 o exemplo é marcado como desconhecido e armazenado
-em conjunto próprio \cite{Faria2016minas}.
+no conjunto de desconhecidos \cite{Faria2016minas}.
 
 A segunda operação da fase \emph{Online} é a detecção de padrões novidade
 listada no Algoritmo \ref{alg:minas-nd} que é executada quando o tamanho do
@@ -382,7 +382,7 @@ Além do algoritmo \minas, existem derivados que estendem a implementação
 original seguindo sua estrutura básica, duas notáveis são FuzzyND e MINAS-LC.
 O algoritmo FuzzyND foi proposto em \citeonline{DaSilva2018,DaSilva2018thesis} e
 incrementa o algoritmo original aplicando teoria de conjuntos \emph{fuzzy}
-modificando da representação de \cluster, algoritmo de agrupamento, manutenção
+modificando a representação de \cluster, o algoritmo de agrupamento, a manutenção
 do modelo para exemplos conhecidos e para novidades.
 O algoritmo MINAS-LC foi proposto por \citeonline{Costa2019thesis} e trata a
 classificação multi-rótulo, porém não trata evoluções de conceito (\emph{Concept
@@ -499,13 +499,13 @@ ideia geral do algoritmo e como proceder para criação de uma versão distribu�
 
 Algumas propostas de modificação no algoritmo \minas foram recorrentes durante
 as discussões no desenvolvimento deste trabalho porém, como estão fora do escopo
-estre trabalho, ficam somente aqui anotadas para algum trabalho futuro.
+deste trabalho, ficam somente aqui registradas para algum trabalho futuro.
 As modificações são:
 
 \begin{enumerate}[label={\alph*)}]
 
   \item Na fase \emph{offline} a verificação de sobreposição de \clusters
-  pertencentes a classes distintas e tratamento adequado.
+  pertencentes a classes distintas e tratamento adequado;
   
   \item Diferentes métodos de cálculo de distância entre pontos além da
   distância euclidiana;
@@ -531,3 +531,5 @@ As modificações são:
   para um \dataset fornecido.
 
 \end{enumerate}
+
+
