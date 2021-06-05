@@ -46,9 +46,9 @@ Um sumário dos trabalhos abordados pode ser visto na Tabela \ref{tab:summary}.
   \begin{tabularx}{\linewidth}{X|X|X|X|X|X}
     \textbf{Trabalho} &
         \textbf{Plataforma} &
+        \textbf{Técnica ou Algoritmo} &
         \textbf{Atualização de Modelo} &
         \textbf{Conjunto de dados} &
-        \textbf{Técnica ou Algoritmo} &
         \textbf{Métricas} \\
     \hline & & & & & \\
     Ferramenta BigFlow \cite{Viegas2019} &
@@ -88,19 +88,18 @@ Um sumário dos trabalhos abordados pode ser visto na Tabela \ref{tab:summary}.
 \section{Ferramenta BigFlow}
 
 Proposta por \citeonline{Viegas2019}, a ferramenta BigFlow é um sistema de
-detecção de intrusão em rede (\emph{Network Intrusion Detection System}, NIDS)
+detecção de intrusão em rede (\emph{Network Intrusion Detection System}, \nids)
 baseado em detecção de anomalias.
-Como o mecanismo de detecção de intrusão na construção de um \nids, duas
-abordagens são comuns, detecção por assinatura e detecção por anomalia, porém,
-para a detecção de novos tipos de ataque (\emph{zero day}) a abordagem de
-detecção por anomalia é vantajosa devido ao tempo de resposta grande demais para
+Como mecanismo de detecção de intrusão na construção de um \nids, duas
+abordagens são comuns, detecção por assinatura e detecção por anomalia. Para a detecção de novos tipos de ataque (\emph{zero day}) a abordagem de
+detecção por anomalia é vantajosa comparada a detecção por assinatura que tem tempo de resposta grande demais para
 prevenir esse tipo de intrusão.
 
 A ferramenta BigFlow é composta pelos módulos de extração de atributos e de
-aprendizado confiável. O módulo de extração de atributos é responsável por
+aprendizado confiável. O módulo de extração de atributos é responsável por:
 coletar pacotes da rede monitorada,
-extrair as características dos desses pacotes formando descritores de fluxo
-com estatísticas de comunicação e enviar informações desses fluxos como
+extrair as características desses pacotes formando descritores de fluxo
+com estatísticas de comunicação, e enviar informações desses fluxos como
 exemplos para o módulo de aprendizado confiável.
 O módulo de aprendizado confiável,
 é composto pelos submódulos:
@@ -134,15 +133,15 @@ submódulo de atualização incremental, que atualiza e distribui o modelo aos c
 % [24] H. He, E.A. Garcia, Learning from imbalanced data, IEEE Trans. Knowl. Data Eng.
 % 21 (2009) 1263–1284. doi:10.1109/TKDE.2008.239.
 
-\citeonline{Viegas2019} destaca que \datasets adequados para NIDS são
-poucos, devido ao conjunto de qualidades que os mesmos devem atender, como
+\citeonline{Viegas2019} destaca que \datasets adequados para \nids são
+poucos devido ao conjunto de qualidades que eles devem atender, como
 realismo, validade, etiquetamento, grande variabilidade e reprodutibilidade
 (disponibilidade pública).
 
-Para avaliar o desempenho de NIDS, o \dataset MAWIFlow é proposto por \citeonline{Viegas2019}.
+Para avaliar o desempenho de \nids, o \dataset MAWIFlow é proposto por \citeonline{Viegas2019}.
 Este \dataset é derivado dos traços de pacotes no \emph{backbone} WIDE, ponto de amostras F
 (\emph{Packet traces from WIDE backbone, samplepoint-F}), composto por
-seções de captura de pacotes diárias de 15 minutos de um link de $1
+seções diárias de captura de pacotes de 15 minutos de um link de $1
 \mathrm{Gbps}$ entre Japão e EUA, com início em 2006 continuamente até hoje,
 anonimizados e etiquetados por MAWILab \cite{mawiSamplepointF,Fontugne2010}.
 Desse \dataset original, o \dataset MAWIFlow utiliza apenas os eventos de 2016,
@@ -165,7 +164,7 @@ de treinamento e as demais como conjunto teste.
 O segundo modo usa o conjunto da semana anterior como treinamento e o
 conjunto da semana seguinte como teste.
 Comparando os resultados entre os modos de operação, os autores demonstram que a qualidade da
-classificação reduz-se com o tempo, quando não há atualização frequente do modelo
+classificação reduz com o tempo quando não há atualização frequente do modelo
 classificador.
 
 Com base na avaliação dos classificadores da literatura, para a ferramenta
@@ -199,11 +198,13 @@ Manager}) e as múltiplas instâncias do serviço gerenciador de tarefas
 %   \label{fig:bigflow-arch}
 % \end{figure}
 
+\todo{colocar breve resumo de quais metricas foram usadas pelo bigflow, explica-las, e dizer para que serviram}
+
 Em conclusão, a ferramenta BigFlow demonstra capacidade de classificação e
 detecção de anomalias em fluxos de dados de alta velocidade no contexto de
 detecção de intrusão.
 No entanto a atualização semanal e a dependência da avaliação de um especialista
-não são ideais para detecção de ameças e respectiva ação sobre a descoberta de
+não são ideais para detecção de ameaças e respectiva ação sobre a descoberta de
 novos padrões.
 
 % Outras propostas tratam do caso de grandes volumes e velocidades, como ́e o caso
@@ -270,12 +271,14 @@ de cada plataforma, variando a configuração de paralelismo
 em dois programas.
 Ambos consumiam dados de um tópico de um sistema de fila
 de mensagens (\emph{Apache Kafka}) e produziam para outro tópico.
-O primeiro programa consiste de um detector de ameças composto por
+O primeiro programa consiste de um detector de ameaças composto por
 uma rede neural classificadora escrito em \emph{Java}, que foi testado
 com o conjunto de dados sintético UFRJ/GTA \cite{Lopez2018}.
 O segundo programa conta quantas repetições de uma palavra existem em um
 fluxo de dados, exemplo muito comum em tutoriais de plataformas desse gênero,
 e é avaliado com um conjunto de \emph{Tweets}.
+
+\todo{qual foi o resultado dessa avaliacao?}
 
 % Nesta avaliação, \emph{Apache Storm} foi capaz de processar até 15 milhões de
 % mensagens por minuto
