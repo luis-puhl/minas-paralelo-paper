@@ -174,9 +174,9 @@ de atualização, sendo todos variações de árvore de decisão
 A avaliação da ferramenta foi executada de maneira semelhante à avaliação
 dos algoritmos da literatura, onde o conjunto de dados da primeira semana foi
 usado para treinamento e o conjunto de dados do restante do ano como conjunto
-de teste.
+de teste. Em todos os casos a métrica observada foi a acurácia.
 Além do conjunto de treinamento, o modelo é atualizado semanalmente com base nas
-instâncias rejeitadas pelo submódulo de verificação.
+instâncias rejeitadas pelo submódulo de verificação. 
 % , como ilustrado na \reffig{bigflow-ml}.
 
 % four stream learning classifiers were evaluated:
@@ -197,8 +197,6 @@ Manager}) e as múltiplas instâncias do serviço gerenciador de tarefas
 %   \caption{Visão geral da arquitetura e distribuição da ferramenta BigFlow \cite{Viegas2019}.}
 %   \label{fig:bigflow-arch}
 % \end{figure}
-
-\todo{colocar breve resumo de quais metricas foram usadas pelo bigflow, explica-las, e dizer para que serviram}
 
 Em conclusão, a ferramenta BigFlow demonstra capacidade de classificação e
 detecção de anomalias em fluxos de dados de alta velocidade no contexto de
@@ -277,8 +275,6 @@ com o conjunto de dados sintético UFRJ/GTA \cite{Lopez2018}.
 O segundo programa conta quantas repetições de uma palavra existem em um
 fluxo de dados, exemplo muito comum em tutoriais de plataformas desse gênero,
 e é avaliado com um conjunto de \emph{Tweets}.
-
-\todo{qual foi o resultado dessa avaliacao?}
 
 % Nesta avaliação, \emph{Apache Storm} foi capaz de processar até 15 milhões de
 % mensagens por minuto
@@ -454,12 +450,12 @@ de recursos computacionais (memória) foi elevado.
 % time and memory consumption, indicates MINAS is suitable
 % for IoT scenarios.
 
-A distribuição das tarefas em serviços proposta abre oportunidades para a
+A proposta de distribuição das tarefas em serviços abre oportunidades para a
 discussão de diferentes métodos de distribuição dessas tarefas em diferentes
 ambientes computacionais.
-Contudo, o algoritmo \minas ainda não foi implementado e avaliado com
-paralelismo, distribuição que são necessários para tratar fluxos de dados com
-grandes volumes e velocidades.
+Contudo, o algoritmo \minas que apresentou resultados promissores para este tipo de cenário ainda não foi implementado e avaliado com
+paralelismo e distribuição que são necessários para tratar fluxos de dados com
+grandes volumes de dados e velocidades.
 
 % \nota{Também discutir a classificação dos fluxos por endpoint
 % exarcerbando assim a distinção na fog com o efeito de particionamento dos dados.
@@ -508,7 +504,7 @@ dados, preocupa-se em fornecer melhores previsões através de algoritmos
 classificadores que atendam as características de cada problema.
 A área de computação distribuída aborda os temas de processamento distribuído
 de fluxos contínuos em ambientes de computação em nuvem e em névoa, fornecendo
-métodos para processar grandes volume de dados com mínima latência.
+métodos para processar grandes volume de dados com mínima latência. 
 
 % Apesar de já existirem propostas que estabelecem o estado da arte separadamente
 % em cada um dos temas, \hlhl{falta ainda uma abordagem que estabeleça uma união} entre o
