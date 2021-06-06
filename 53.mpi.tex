@@ -205,7 +205,7 @@ a tuple containing \emph{uid} and the assigned label.
             \If{sample.label == unknown}{
                 UnknownSet = UnknownSet $\cup$ sample\;
                 \If{$|\;UnknownSet\;| \geq$ \noveltyDetectionTrigger}{
-                    novelties = \NoveltyDetection(p, ModelSet, *UnknownSet)\;
+                    novelties = \NoveltyDetection(ModelSet, *UnknownSet)\;
                     \With{\writeLock(ModelSetLock)}{
                         ModelSet = ModelSet $\cup$ novelties\;
                     }

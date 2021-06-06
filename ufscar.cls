@@ -368,6 +368,9 @@
 	\cleardoublepage
 }
 
+% ---
+% Lista de algoritmos
+% ---
 % \floatname{algorithm}{Algoritmo}
 % \renewcommand{\listalgorithmname}{Lista de algoritmos}
 % \newcommand{\cftalgorithmname}{\algorithmname\space} 
@@ -378,7 +381,19 @@
 % 	\listofalgorithms
 % 	\cleardoublepage
 % }
+\newcommand{\listaAlgoritmos}{
+	% \thispagestyle{empty}
+	% \pagestyle{empty}
+	\pdfbookmark[0]{Lista de algoritmos}{Lista de algoritmos} 
+	% \chapter*{Lista de algoritmos}
+	% \input{#1}
+	\listofalgorithms
+	\cleardoublepage
+}
 
+% ---
+% Lista de símbolos
+% ---
 \renewcommand{\nompreamble}{\thispagestyle{empty}}
 \renewcommand\nomname{Lista de símbolos}
 \newcommand{\listasimbolos}{

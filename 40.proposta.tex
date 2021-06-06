@@ -94,9 +94,18 @@ de detecção de novidade, portanto sem interromper o processo de identificaçã
 % After the initial classification, the resulting label can be used immediately,
 % but if the sample is labeled as \emph{unknown}, this sample must be stored and
 % the novelty detection step will be triggered.
+
 Além do multiprocessamento da tarefa e de classificação e execução assíncrona da
-tarefa de detecção de novidade na fase \emph{online}, a fase \emph{offline}
-do algoritmo \minas permanece a mesma.
+tarefa de detecção de novidade na fase \emph{online}, outras mudanças em relação
+ao \minas original são a remoção do mecânismo de esquecimento de padrões antigos
+e o 
+
+A remoção do mecânismo de esquecimento de padrões antigos tem por finalidade
+simplificar a atualização e compartilhamento do modelo e, uma vez que o
+algoritmo \minas não prevê remoção permanente, existe um aumento na complexidade
+temporal já que o número de clusters
+
+A fase \emph{offline} do algoritmo \minas permanece a mesma.
 
 % To have a better overview of our proposal and how it integrates with existing
 % \iot environments, Figure \ref{fig:mfog-phy-arch-cloud} depicts such scenario
@@ -147,62 +156,96 @@ executa a função de detecção de novidade do algoritmo \minas.
 
 \section{Políticas}\label{sec:polices}
 
-O projeto desta arquitetura de detecção de novidades 
-
-O design de nossa arquitetura \nd distribuída inclui o particionamento das
+O projeto desta arquitetura de \nd distribuída inclui o particionamento das
 funcionalidades de \minas e o estabelecimento dos fluxos de dados apropriados
 entre os diferentes atores.
 Mudanças no posicionamento e no comportamento podem ter impactos diferentes e devem ser
 escolhidas com cuidado.
 As decisões após essas discussões podem ser organizadas em várias políticas;
 alguns deles eram recorrentes durante os estudos para a implementação e são:
-
-The design of our distributed \nd architecture includes partitioning the
-functionalities of \minas and establishing the appropriate data flows
-between different actors.
-Changes to placement and behavior can have different impacts and should be
-chosen with care.
-The decisions following these discussions can be organized in several policies,
-some of them were recurring during our implementation discussions and are:
-
+% The design of our distributed \nd architecture includes partitioning the
+% functionalities of \minas and establishing the appropriate data flows
+% between different actors.
+% Changes to placement and behavior can have different impacts and should be
+% chosen with care.
+% The decisions following these discussions can be organized in several policies,
+% some of them were recurring during our implementation discussions and are:
 \begin{itemize}
-  \item Regarding the allocation of the Novelty Detection Module:
+  
+  \item Com relação à alocação do módulo Detecção de Novidade e sincronização de
+  modelo entre redes distintas para compartilhamento de padrões novidade local
+  com outras redes que não receberam aquele padrão de ataque:
+  % Regarding the allocation of the Novelty Detection Module:
   \begin{itemize}
     
-    \item At each fog node: patterns will be only detected if sufficient samples
-    of them occur in the local observed network, use of the local node
-    processing power, and a model synchronization mechanism between networks
-    must be added;
+    \item Em névoa (um em cada cluster alocado à uma rede local): padrões serão
+    somente detectados se um número suficiente de exemplos deste padrão ocorrer
+    na rede observada, uso do poder computacional da névoa, qualquer
+    sincronização de modelo deve ter a propriedade de aditividade e reconhecer
+    padrões duplicados;
+    % \item At each fog node: patterns will be only detected if sufficient samples
+    % of them occur in the local observed network, use of the local node
+    % processing power, and a model synchronization mechanism between networks
+    % must be added;
 
-    \item In the cloud: detect patterns even when scattered on each local
-    network, each sample with \emph{unknown} label must be sent from edge to
-    cloud implying increased internet link usage and increased delay between the
-    appearance of a pattern, its detection and propagation to fog classifiers;
+    \item Em nuvem: capacidade de detecção de padrões dispersos em cada rede
+    local onde se analisado não formaria um cluster válido,
+    neste caso todos exemplos com rótulo ``desconhecido''  são enviados da rede
+    local para a nuvem implicando aumento do uso do \emph{link} de internet e
+    aumento do atraso entre aparição de um padrão, sua detecção e a propagação
+    para os classificadores em névoa;
+    % \item In the cloud: detect patterns even when scattered on each local
+    % network, each sample with \emph{unknown} label must be sent from edge to
+    % cloud implying increased internet link usage and increased delay between the
+    % appearance of a pattern, its detection and propagation to fog classifiers;
 
-    \item On both: local \emph{unknown} buffer is maintained and novelty
-    detection is local as well, once a sample is considered as noise or outlier
-    it shall be sent to the cloud where the process repeats but with global
-    data.
-    This choice needs an even more complex model synchronization mechanism.
+    \item Em ambos (nuvem e névoa): cada conjunto de desconhecidos em cada rede
+    local é mantido bem como a detecção de novidade para padrões locais,
+    quando um exemplo é considerado ruído e removido do conjunto de
+    desconhecidos o exemplo é enviado à nuvem para detecção de novidade global.
+    Esta opção requer um mecanismo de sincronização de modelo complexo.
+    % \item On both: local \emph{unknown} buffer is maintained and novelty
+    % detection is local as well, once a sample is considered as noise or outlier
+    % it shall be sent to the cloud where the process repeats but with global
+    % data.
+    % This choice needs an even more complex model synchronization mechanism.
 
   \end{itemize}
     
-  \item Regarding the model cleanup (forget mechanism): Even when a global
-  novelty detection is used, local models can be optimized for faster
-  classification using the local model statistics by sorting by (or removing)
-  least used clusters;
+  \item Com relação ao mecanismo de esquecimento:
+  Mesmo quando detecção de novidade global é usada, modelos locais podem
+  ser otimizados para classificação rápida usando estatísticas locais para
+  ordenar (e remover, usando menos memória) clusters menos utilizados;
+  % \item Regarding the model cleanup (forget mechanism): Even when a global
+  % novelty detection is used, local models can be optimized for faster
+  % classification using the local model statistics by sorting by (or removing)
+  % least used clusters;
 
-  \item Lastly, reclassification of \emph{unknowns}: In the novelty detection
-  task in \minas, the \emph{unknown} sample buffer is effectively classified
-  using the new set of clusters.
-  In Algorithm \ref{alg:MINAS-nd}, at the line \ref{alg:MINAS-nd:reclassify}, the
-  new cluster valid (novelty or extension) includes the set of samples composing
-  that cluster, thus, if this new label assignment was put forth to the system
-  output it would introduce delayed outputs, more recent and perhaps more
-  accurate.
-  Also, it would change the system data stream behavior from a \emph{map}
-  (meaning each input has one output) to a \emph{flatMap} (each input can have
-  many outputs).
+  \item Por último, a reclassificação do conjunto de desconhecidos,
+  na tarefa de detecção de novidade do algoritmo \minas, o subconjunto de
+  desconhecidos que pertence à um novo cluster válido é, efetivamente,
+  classificado com o rótulo deste novo cluster.
+  No Algoritmo \ref{alg:minas-nd}, linha \ref{alg:MINAS-nd:reclassify},
+  o novo cluster válido inclui o subconjunto de exemplos que o compõem,
+  portanto se este conjunto de exemplos fosse rótulado com o rótulo atribuído ao
+  novo cluster e adicionado ao fluxo de saída, esta saída teria exemplos
+  atrasados e duplicados em relação ao fluxo de entrada e o resultado obtido
+  poderia ser mais acurado.
+  Além disso, esta escolha modificaria o comportamento do operador de fluxo de
+  dados de um \emph{map}, onde para cada exemplo do fluxo de entrada existe um
+  exemplo no fluxo de saída, para \emph{flatMap} onde cada exemplo entrada pode
+  ter mais de um exemplo no fluxo de saída.
+  % \item Lastly, reclassification of \emph{unknowns}: In the novelty detection
+  % task in \minas, the \emph{unknown} sample buffer is effectively classified
+  % using the new set of clusters.
+  % In Algorithm \ref{alg:MINAS-nd}, at the line \ref{alg:MINAS-nd:reclassify}, the
+  % new cluster valid (novelty or extension) includes the set of samples composing
+  % that cluster, thus, if this new label assignment was put forth to the system
+  % output it would introduce delayed outputs, more recent and perhaps more
+  % accurate.
+  % Also, it would change the system data stream behavior from a \emph{map}
+  % (meaning each input has one output) to a \emph{flatMap} (each input can have
+  % many outputs).
 
 \end{itemize}
 
