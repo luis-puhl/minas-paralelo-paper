@@ -2,6 +2,75 @@
 
 \chapter{Proposta e Metodologia}\label{cha:proposta}
 
+% % Uma Implementação paralela do algoritmo de Detecção de Novidade em Streams MINAS
+
+% A Internet das Coisas (\iot) é composta por vastas quantidades de dispositivos
+% conectados à Internet e distribuídos geograficamente.
+% Com capacidades diversas providas por elementos como sensores e atuadores, esses
+% dispositivos produzem e consomem Fluxos Contínuos de Dados (\streams) com
+% diversos objetivos.
+% Alguns cenários de \iot envolvem a mineração desses fluxos (\streamMining) em busca de
+% padrões para tomada de decisão e, por vezes requerem também baixa latência.
+% Para casos de baixa latência ou alta vazão, conexões adequadas para
+% processamento em nuvem nem sempre são possíveis ou desejáveis; para esses casos,
+% a computação em névoa (\fog) é uma solução.
+
+% O tema de \streamMining envolve a classificação de novos elementos,
+% que podem tanto estar relacionados aos dados ou aos metadados das comunicações,
+% com base em um modelo.
+% \hlke{Porém, como \streams variam temporalmente e são ilimitados,}
+% as classes contidas em um \stream não são todas previamente conhecidas.
+% A identificação e classificação de novas classes em \streams é denominada
+% Detecção de Novidades (\novelty, \nd) em \streams.
+
+% % \hlfa{Além dos aspectos}
+% % \notafa{rever o parágrafo. Varios conceitos errados... a identificação de novas
+% % classes é denominada detecção de novidade.... data stream variam temporalmente}
+% % inerentes a \streamMining, são considerados na construção de um
+% % \hlhl{sistema}
+% % \notahl{Poderia reescrever a frase, evitando inversões na estrutura
+% % sujeito/verbo e complementos. Yoda!}
+% % que computa \streams a taxa de eventos
+% % % (itens atômicos de um \stream)
+% % gerados por cada produtor e o número de produtores nesse sistema, totalizando o
+% % volume de eventos 
+% % \notahl{qual sistema?}
+% % \hlhl{do sistema}.
+% % % Além do volume de eventos é necessário
+% % Volumes elevados dificilmente são computados em apenas um nó (e muito menos em
+% % um único núcleo processador) e por isso, esses sistemas \hlhl{geralmente} são distribuídos.
+
+% Sistemas que utilizam \nd para \streams gerados por dispositivos \iot devem
+% utilizar algoritmos que considerem os desafios inerentes a fluxos de dados
+% (\evolution e \drift) para adequada detecção de novidades e, para tanto,
+% requerem processamento em arquiteturas
+% que atendam os requisitos de volume de mensagens e latência de detecção.
+% O algoritmo MINAS é adequado para esse caso, pois trata os desafios de
+% \streamMining, porém não tem ainda implementação que atenda os requisitos de
+% volume e latência, especialmente para aplicações \iot onde um ambiente de \fog é
+% atrativo.
+
+% % \notahl{Com relação à proposta, será que é o caso de indicar que a
+% % arquitetura apresentada é uma proposta inicial, que será refinada ao longo da
+% % pesquisa?}
+
+% Para preencher a lacuna de algoritmo de \nd em ambiente \fog, propõem-se então
+% o \mfog, uma implementação distribuída do algoritmo MINAS 
+% %sobre a plataforma \flink, que
+% considerando  um ambiente de \fog.
+% O \mfog descrito neste documento foi refinado com os resultados dos experimentos
+% descritos na \refsec{resultados}. 
+% % e poderá ser revisado ao longo da pesquisa conforme os resultados de outros experimentos evidenciarem obstáculos ou oportunidades de melhoria.
+
+% % \nota{Reestruturar:
+% %   A - remember,
+% %   B - cenário (iot, fog, stream),
+% %   C - problema (4.1, ND em fog, terminar com minas e cassales),
+% %   D - solução (4.2, apresetnação, resumo \mfog, metodologia)
+% % }
+% % \nota{Falta: fog, processamento distribuído de streams, detecção de novidade}
+
+
 % Este Capítulo apresenta a proposta deste trabalho e a metodologia estabelecida
 % para atingir os objetivos.
 Neste trabalho investiga-se uma arquitetura e implementação adequada para
@@ -96,16 +165,14 @@ de detecção de novidade, portanto sem interromper o processo de identificaçã
 % the novelty detection step will be triggered.
 
 Além do multiprocessamento da tarefa e de classificação e execução assíncrona da
-tarefa de detecção de novidade na fase \emph{online}, outras mudanças em relação
-ao \minas original são a remoção do mecânismo de esquecimento de padrões antigos
-e o 
-
+tarefa de detecção de novidade na fase \emph{online}, outra mudança em relação
+ao \minas original é a remoção do mecânismo de esquecimento de padrões antigos.
 A remoção do mecânismo de esquecimento de padrões antigos tem por finalidade
 simplificar a atualização e compartilhamento do modelo e, uma vez que o
 algoritmo \minas não prevê remoção permanente, existe um aumento na complexidade
 temporal já que o número de clusters
-
-A fase \emph{offline} do algoritmo \minas permanece a mesma.
+A fase \emph{offline} e a função de detecção de novidades do algoritmo \minas
+permanece a mesma.
 
 % To have a better overview of our proposal and how it integrates with existing
 % \iot environments, Figure \ref{fig:mfog-phy-arch-cloud} depicts such scenario
@@ -249,76 +316,7 @@ alguns deles eram recorrentes durante os estudos para a implementação e são:
 
 \end{itemize}
 
-
-% Uma Implementação paralela do algoritmo de Detecção de Novidade em Streams MINAS
-
-A Internet das Coisas (\iot) é composta por vastas quantidades de dispositivos
-conectados à Internet e distribuídos geograficamente.
-Com capacidades diversas providas por elementos como sensores e atuadores, esses
-dispositivos produzem e consomem Fluxos Contínuos de Dados (\streams) com
-diversos objetivos.
-Alguns cenários de \iot envolvem a mineração desses fluxos (\streamMining) em busca de
-padrões para tomada de decisão e, por vezes requerem também baixa latência.
-Para casos de baixa latência ou alta vazão, conexões adequadas para
-processamento em nuvem nem sempre são possíveis ou desejáveis; para esses casos,
-a computação em névoa (\fog) é uma solução.
-
-O tema de \streamMining envolve a classificação de novos elementos,
-que podem tanto estar relacionados aos dados ou aos metadados das comunicações,
-com base em um modelo.
-\hlke{Porém, como \streams variam temporalmente e são ilimitados,}
-as classes contidas em um \stream não são todas previamente conhecidas.
-A identificação e classificação de novas classes em \streams é denominada
-Detecção de Novidades (\novelty, \nd) em \streams.
-
-% \hlfa{Além dos aspectos}
-% \notafa{rever o parágrafo. Varios conceitos errados... a identificação de novas
-% classes é denominada detecção de novidade.... data stream variam temporalmente}
-% inerentes a \streamMining, são considerados na construção de um
-% \hlhl{sistema}
-% \notahl{Poderia reescrever a frase, evitando inversões na estrutura
-% sujeito/verbo e complementos. Yoda!}
-% que computa \streams a taxa de eventos
-% % (itens atômicos de um \stream)
-% gerados por cada produtor e o número de produtores nesse sistema, totalizando o
-% volume de eventos 
-% \notahl{qual sistema?}
-% \hlhl{do sistema}.
-% % Além do volume de eventos é necessário
-% Volumes elevados dificilmente são computados em apenas um nó (e muito menos em
-% um único núcleo processador) e por isso, esses sistemas \hlhl{geralmente} são distribuídos.
-
-Sistemas que utilizam \nd para \streams gerados por dispositivos \iot devem
-utilizar algoritmos que considerem os desafios inerentes a fluxos de dados
-(\evolution e \drift) para adequada detecção de novidades e, para tanto,
-requerem processamento em arquiteturas
-que atendam os requisitos de volume de mensagens e latência de detecção.
-O algoritmo MINAS é adequado para esse caso, pois trata os desafios de
-\streamMining, porém não tem ainda implementação que atenda os requisitos de
-volume e latência, especialmente para aplicações \iot onde um ambiente de \fog é
-atrativo.
-
-% \notahl{Com relação à proposta, será que é o caso de indicar que a
-% arquitetura apresentada é uma proposta inicial, que será refinada ao longo da
-% pesquisa?}
-
-Para preencher a lacuna de algoritmo de \nd em ambiente \fog, propõem-se então
-o \mfog, uma implementação distribuída do algoritmo MINAS 
-%sobre a plataforma \flink, que
-considerando  um ambiente de \fog.
-O \mfog descrito neste documento foi refinado com os resultados dos experimentos
-descritos na \refsec{resultados}. 
-% e poderá ser revisado ao longo da pesquisa conforme os resultados de outros experimentos evidenciarem obstáculos ou oportunidades de melhoria.
-
-% \nota{Reestruturar:
-%   A - remember,
-%   B - cenário (iot, fog, stream),
-%   C - problema (4.1, ND em fog, terminar com minas e cassales),
-%   D - solução (4.2, apresetnação, resumo \mfog, metodologia)
-% }
-% \nota{Falta: fog, processamento distribuído de streams, detecção de novidade}
-
-\section{Descrição da Arquitetura Proposta}\label{sec:descricao}
+% \section{Descrição da Arquitetura Proposta}\label{sec:descricao}
 
 \newcommand{\source}{módulo auxiliar \emph{source}\xspace}
 \newcommand{\sink}{módulo auxiliar \emph{sink}\xspace}
@@ -400,24 +398,30 @@ descritos na \refsec{resultados}.
 
 % flink ainda... revisar...
 
-O \mfog utiliza em seus módulos a distribuição oferecida pela plataforma \flink
-como paralelização, ou seja, utiliza uma instância de trabalho (\emph{job}) por
-dispositivo de classificação, sendo que cada instância de trabalho aloca um
-gerenciador de tarefas por processador.
-Dessa forma, busca-se a escalabilidade no ambiente de \fog para o \classify.
-O \offline, por ser utilizado somente uma vez para gerar o modelo
-de classificação inicial, não tem impacto na escalabilidade geral do sistema.
-O \detector também é implementado na plataforma \flink e, por ser hospedado em
-ambiente de \cloud, herda as qualidades desse ambiente incluindo escalabilidade.
-\notake{destaque sentença}
-O restante do sistema (\source, \sink, armazenamento de modelo) não é foco deste
-estudo e sua escalabilidade, desde que não afete a escalabilidade do \classify e
-\detector.
-\notahl{Questões que precisam ser tratadas:\\
-- Paralelização da classificação: como agrupar os dados e dividir o processamento?\\
-- ND: como saber o que agrupar (dos nós) e como dividir?
-Padrões podem ser locais? Ou sempre se aplicam a todos os nós?}
-\notafa{frase incompleta}
+% O \mfog utiliza em seus módulos a distribuição oferecida pela plataforma \flink
+% como paralelização, ou seja, utiliza uma instância de trabalho (\emph{job}) por
+% dispositivo de classificação, sendo que cada instância de trabalho aloca um
+% gerenciador de tarefas por processador.
+% Dessa forma, busca-se a escalabilidade no ambiente de \fog para o \classify.
+% O \offline, por ser utilizado somente uma vez para gerar o modelo
+% de classificação inicial, não tem impacto na escalabilidade geral do sistema.
+% O \detector também é implementado na plataforma \flink e, por ser hospedado em
+% ambiente de \cloud, herda as qualidades desse ambiente incluindo escalabilidade.
+% \notake{destaque sentença}
+% O restante do sistema (\source, \sink, armazenamento de modelo) não é foco deste
+% estudo e sua escalabilidade, desde que não afete a escalabilidade do \classify e
+% \detector.
+% \notahl{Questões que precisam ser tratadas:\\
+% - Paralelização da classificação: como agrupar os dados e dividir o processamento?\\
+% - ND: como saber o que agrupar (dos nós) e como dividir?
+% Padrões podem ser locais? Ou sempre se aplicam a todos os nós?}
+% \notafa{frase incompleta}
+
+% ------------------------------------------------------------------------------
+% \section{Implementação Proposta}\label{sec:descricao}
+
+% \input{52.preliminares.tex}
+% \input{53.mpi.tex}
 
 % ------------------------------------------------------------------------------
 \section{Metodologia de Avaliação}\label{sec:esperados}
