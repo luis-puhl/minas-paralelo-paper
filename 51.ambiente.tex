@@ -43,6 +43,14 @@ Note that this choice results in possible overfitting for the normal class and,
 under-fitting for the attack class as the system first needs to detect a novel class and
 then add it to the model.
 
+\begin{lstlisting}
+  MinasParams minasParams = {
+    .k=100, .dim=22, .precision=1.0e-08,
+    .radiusF=0.25, .minExamplesPerCluster=20, .noveltyF=1.4,
+    .thresholdForgettingPast = 10000,
+  };
+\end{lstlisting}
+
 Para realização dos experimentos, diversas configurações de ambientes são
 propostas.
 Os ambientes selecionados são: local, 
