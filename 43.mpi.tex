@@ -57,6 +57,25 @@ do exemplo no sistema.
 %     inflar a métrica de precisão;
 %   - **Solução:** *em aberto*;
 
+Para avaliação desta proposta, ela foi construída com a implementação \emph{Open
+MPI 4.0.4}\footnote{Documentação em \url{https://www.open-mpi.org/doc/v4.0/}} do
+padrão \mpi, seguindo o paradigma de programação paralela \acf{SPMD}.
+No paradigma \spmd, uma única versão do programa é inicializada em todos os nós,
+para cada instância são passados os parâmetros \texttt{mpiSize} e
+\texttt{mpiRank} que representa o número de nós e o índice de cada nó no
+cluster.
+Neste caso o parâmetro \texttt{mpiRank} é o componentes de múltiplos dados em
+\spmd e, como cada nó recebe com um valor diferente, cada nó pode ter um
+comportamento diferente.
+Neste quesito o Algoritmo \ref{alg:minas-main} mostra exatamente esse
+comportamento no ponto de entrada do \mfog, dividido o comportamento de cada nó
+de acordo com seu \texttt{mpiRank} em dois tipos: raiz e folha.
+
+% For evaluation purposes, an \mfog implementation was made using MPI .
+% The program is organized in a single program multiple data (SPMD)
+% programming model, so a single version of the \mfog program was initiated on all
+% nodes, being that one of them would perform the root role, while the others ran
+% as leaves, the program entry point is illustrated on Algorithm \ref{alg:MFOG}.
 
 \begin{algorithm}[htb]
     \SetKwFunction{nearestCluster}{clusterMaisPróximo}
@@ -110,9 +129,35 @@ do exemplo no sistema.
             \Classifier(Modelo, trava)\;
         }
     }
-\caption{MFOG: ponto de entrada.}
+\caption{Sistema M-FOG: ponto de entrada.}
 \label{alg:MFOG}
 \end{algorithm}
+
+No processo raiz, de \texttt{mpiRank} $= 0$ e com acesso aos fluxos de entrada e
+de saída, uma \emph{thread} com a função \texttt{Detector} é iniciada e a função
+\texttt{Fonte} chamada.
+Nos processos folha, de \texttt{mpiRank} $> 0$, uma \emph{thread} com a função
+\texttt{AtualizaModelo} é iniciada e a função \texttt{Classificador} chamada.
+
+A função \texttt{Classificador}, listada no Algoritmo \ref{alg:MFOG-leaf}, é o
+centro do sistema e opera com o modelo atualizado e um exemplo recebido como
+mensagem do nó raiz.
+Esta função calcula as distâncias para todos \mclusters do modelo e encontrando
+o mais próximo e verificando se o modelo explica aquele exemplo, se explica o
+rótulo do \mcluster mais próximo é atribuído como rótulo do exemplo.
+A função \texttt{Classificador}, como as outras, só chega ao seu final se a
+mensagem recebida (ou instancia lida no caso da função \texttt{Fonte}) é um
+marcador de fim de fluxo (\texttt{FimDeFluxo}, \emph{end of stream, eos}).
+
+A função \texttt{AtualizaModelo}, também listada no Algoritmo
+\ref{alg:MFOG-leaf}, recebe novos \mclusters como mensagens do nó raiz,
+independente deste \mcluster ser do modelo inicial, novidade ou extensão,
+adequadamente travando o acesso ao modelo compartilhado com a \emph{thread}
+executando a função \texttt{Classificador}.
+Além da trava de acesso à leitura e escrita na implementação a função
+\texttt{Classificador} espera por um sinal emitido pela função
+\texttt{AtualizaModelo} indicando que o modelo está completo antes de começar a
+busca pelo \mclusters mais próximo.
 
 \begin{algorithm}[htb]
     \SetKwFunction{nearestCluster}{clusterMaisPróximo}
@@ -178,9 +223,38 @@ do exemplo no sistema.
     }
     % \label{alg:MFOG-model}
     % \caption{MFOG: model receiver task.}
-\caption{MFOG Funções dos nós folha: Atualização de Modelo e Classificador.}
+\caption{Funções dos nós folha do \mfog: Atualização de Modelo e Classificador.}
 \label{alg:MFOG-leaf}
 \end{algorithm}
+
+A função \texttt{Fonte}, listada no Algoritmo \ref{alg:MFOG-root}, lê uma
+instância do fluxo de entrada que pode ser do tipo exemplo ou do tipo cluster.
+Se a instância for um exemplo, ele é enviado para um dos nós folha, o nó é
+escolhido via balanceamento de carga \emph{round-robin}.
+Se a instância for do tipo cluster, o modelo compartilhado com a \emph{thread}
+executando a função \texttt{Detector} é travado para leitura e escrita e
+atualizado e o novo cluster é enviado para todas os nós folhas.
+
+Enquanto a função \texttt{Fonte} gerencia a entrada de dados, a função
+\texttt{Detector} gerencia a saída de dados e, como tem acesso aos exemplos já
+classificados também gerencia o conjunto de desconhecidos.
+Se o tamanho do conjunto de desconhecidos atinge um valor mínimo, a função de
+detecção de novidade é chamada, os \mclusters representando padrões novidades ou
+extensões são adicionados ao modelo e enviados para todos os nós folha.
+Além da remoção dos exemplos utilizados para formar \mclusters de novidades e
+extensões, exemplos que participaram duas vezes do processo de detecção de
+novidade são considerados \emph{outliers} ou ruído e são removidos.
+
+% On the root process, a sampler thread is responsible for distributing the
+% sampled flow information (\val) to the classifier nodes, using a round-robin
+% load balancing scheme.
+% The other thread on the root process is responsible for receiving the
+% classification results and for processing the unknown samples in the search for
+% novelties.
+% The root process functions are illustrated in Algorithm \ref{alg:MFOG-root}.
+% Each leaf node runs a model adjustment thread and multiple (up to the number of
+% cores) classifier threads. The leaf tasks are illustrated in Algorithm
+% \ref{alg:MFOG-leaf}.
 
 \begin{algorithm}[htb]
     \SetKwFunction{nearestCluster}{clusterMaisPróximo}
@@ -221,7 +295,7 @@ do exemplo no sistema.
         dest $\leftarrow$ 1\;
         \ForEach{ {$exemplo_{i}$} $\in$ fluxoEntrada }{
             \If{\typeOf(exemplo) é TipoCluster}{
-                \broadcast(TipoCluster, exemplo, raíz)\;
+                \broadcast(TipoCluster, exemplo, raiz)\;
                 \With{\writeLock(trava)}{
                     Modelo $\leftarrow$ Modelo $\cup$ exemplo\;
                 }
@@ -252,7 +326,7 @@ do exemplo no sistema.
                         Modelo $\leftarrow$ Modelo $\cup$ novidades\;
                     }
                     \ForEach{ cluster $\in$ novidades }{
-                        \broadcast(TipoCluster, cluster, raíz)\;
+                        \broadcast(TipoCluster, cluster, raiz)\;
                     }
                 }
                 \If{ exemplo.uid $ > $ ( últimaLimpeza $ + $ \cleaningWindow )}{
@@ -264,32 +338,25 @@ do exemplo no sistema.
     }
     % \label{alg:MFOG-detector}
     % \caption{MFOG: detector task.}
-\caption{MFOG Funções no nó raiz: Fonte e Detector.}
+\caption{Funções do nó raiz do \mfog: Fonte e Detector.}
 \label{alg:MFOG-root}
 \end{algorithm}
 
-For evaluation purposes, an \mfog implementation was made using MPI (\emph{Open
-MPI 4.0.4}).
-The program is organized in a single program multiple data (SPMD)
-programming model, so a single version of the \mfog program was initiated on all
-nodes, being that one of them would perform the root role, while the others ran
-as leaves, the program entry point is illustrated on Algorithm \ref{alg:MFOG}.
-On the root process, a sampler thread is responsible for distributing the
-sampled flow information (\val) to the classifier nodes, using a round-robin
-load balancing scheme.
-The other thread on the root process is responsible for receiving the
-classification results and for processing the unknown samples in the search for
-novelties.
-The root process functions are illustrated in Algorithm \ref{alg:MFOG-root}.
-Each leaf node runs a model adjustment thread and multiple (up to the number of
-cores) classifier threads. The leaf tasks are illustrated in Algorithm
-\ref{alg:MFOG-leaf}.
-The overall sequence of interactions is shown in Figure \ref{fig:mfog-mpi-life}.
+% The overall sequence of interactions is shown in Figure \ref{fig:mfog-mpi-life}.
+As interações entre os diferentes módulos e ciclo de vida do sistema é ilustrado
+no diagrama de sequencia da Figura \ref{fig:mfog-mpi-life}.
 
 \begin{figure}[htb]
   \centerline{
     \includegraphics[width=0.75\linewidth,page=1]{figures/lifecycle-uml-svg.pdf}
   }
-  \caption{\mfog life line overview.}
+  \caption{Diagrama UML de Sequência do \mfog: visão geral das linhas de vida.}
   \label{fig:mfog-mpi-life}
 \end{figure}
+
+Em suma, a arquitetura do \mfog é composta de múltiplos nós numa névoa que detectam
+intrusão numa rede IoT. Para isso os nós da rede processam de forma paralela e
+distribuída o cálculo das distâncias e detecção de novidades, sendo assim um
+sistema multiprocessado e distribuído. Utiliza-se um único programa com vários
+processos por nó, e cada processo recebe um conjunto de dados diferentes
+seguindo o paradigma \spmd.

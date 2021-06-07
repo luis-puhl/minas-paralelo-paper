@@ -268,9 +268,10 @@ Java, Scala ou Python.
 
 Em um sistema distribuído multiprocessado, a memória é distribuída entre
 múltiplos nós e processos, tendo cada processo acesso direto somente a sua memória
-local. Para esse tipo de sistema, o paradigma de programação paralela SPMD (\emph{Single Program, Multiple
-Data}, Único Programa, Múltiplos Dados) pode ser implementado utilizando o
-conceito de memória distribuída compartilhada através de troca de mensagens.
+local.
+Para esse tipo de sistema, o paradigma de programação paralela \spmd pode ser
+implementado utilizando o conceito de memória distribuída compartilhada através
+de troca de mensagens.
 Nesse modelo, cada
 processo tem sua memória local e se comunica com outros processos através da
 troca de mensagens \cite{mpi-book}.
@@ -348,11 +349,3 @@ acordo com o tipo de dado recebido, o processo executa funções diferentes. Se
 for um processo raiz, ele lê e distribui os dados de entrada entre os nós folha.
 Já os nós folha executam todo cálculo de distância e detecção de novidades,
 portanto execução de forma paralela e distribuída.
-
-% A arquitetura do \mfog é composta de múltiplos nós numa névoa que detectam
-% intrusão numa rede IoT. Para isso os nós da rede processam de forma paralela e
-% distribuída o cálculo das distâncias e detecção de novidades, sendo assim um
-% sistema multiprocessado e distribuído. Utiliza-se um único programa com vários
-% processos por nó, e cada processo recebe um conjunto de dados diferentes
-% seguindo o paradigma SPMD.
-
