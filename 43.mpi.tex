@@ -1,26 +1,52 @@
-% !TeX root = ./00.ppgcc-2020.tex
+%!TeX root = ./00.ppgcc-2020.tex
 
 \section{Implementação com MPI}
 
-The original MINAS algorithm has a companion unpublished implementation (\refminas)
-written in Java using MOA library base algorithms such as K-means and CluStream,
-but our implementation only used K-means.
-Another difference between \refminas and \mfog is the calculus of the cluster radius 
-from the distances of elements forming the cluster and the cluster's center.
-\refminas uses the maximum distance while \mfog uses the standard deviation
-of all distances as described in \cite{Faria2016minas}.
+Com os desafios de distribuição e memória encontrados nas implementações
+preliminares, optou-se por tomar mais controle sobre estes aspectos para
+maximizar o aproveitamento do \emph{hardware} escolhido visto que seus recursos
+são limitados.
+Para isso escolheu-se implementar a proposta utilizando a \acf{MPI} e linguagem C,
+onde tem-se controle fino sobre o uso de memória e distribuição, no entanto
+perde-se a perícia incluída nas plataformas tradicionais que oferecem
+facilidades e garantias necessárias em contextos de ``produção''
+(\emph{software} em execução em um ambiente corporativo, que garante o
+funcionamento confiável e contínuo de uma corporação).
+
+O algoritmo \minas original \cite{Faria2016minas} tem uma implementação
+companheira\footnote{Disponível em \url{http://www.facom.ufu.br/~elaine/MINAS}}
+\cite{Faria2013source}, aqui referida como \refminas, escrita em Java utilizando
+os algoritmos base como \emph{K-means} e \emph{CluStream} da biblioteca MOA
+\cite{MOA}.
+Esta implementação serve de referência para a construção provendo validação dos
+resultados e servindo também de comparação básica de desempenho.
+
+Os primeiros pontos de divergência do \mfog e \refminas são o algoritmo de
+agrupamento e cálculo de raio.
+Enquanto \refminas permite a escolha entre \emph{K-means} e \emph{CluStream} para a
+fase \emph{offline} e \emph{online}, \mfog implementa apenas \emph{K-means}.
+O cálculo de raio em \refminas é definido com o máximo do conjunto de distância
+dos exemplos de um \mcluster ao seu centro, seguindo a Equação \ref{eq:raio_max},
+enquanto o \mfog segue a definição em \citeonline{Faria2016minas} utilizando o
+desvio padrão dos valores do mesmo conjunto de distâncias multiplicado pelo
+parâmetro $f_{raio}$ seguindo a Equação \ref{eq:raio_paper}.
 
 \newcommand{\val}{$\vec{v}\,$\xspace}
-The stream formats for input and output are also of note.
-As input, the algorithm takes samples (\val), which are a sequence of numbers
-with dimension $d$.
-In addition to \val, for both training and evaluation, the class
-identifier is provided as a single character, along with a unique item identifier
-(\emph{uid}), which can otherwise be determined from the sample index in the stream.
+Os formatos dos fluxos de dados de entrada e de saída também são notáveis. Como
+entrada, o algoritmo da proposta recebe dois fluxos, o principal é o que contém
+os exemplos, sendo cada exemplo um vetor de números de dimensão $d$.
+O segundo fluxo de entrada consiste de \mclusters representando o modelo inicial
+criado e capturado da fase de treinamento \emph{offline}.
+A fase de treinamento \emph{offline} foi implementada mas não sofre alteração
+com relação ao algoritmo \minas \cite{Faria2016minas} além da execução separada
+com conjunto de treinamento similar à definição do fluxo de exemplos principal
+com adição de uma dimensão com valor de um caractere marcando a classe conhecida
+e saída como um fluxo finito de \mclusters.
 
-As its output, the algorithm returns the original sample \val followed by the
-assigned label. Adjustments can easily be made to provide the output results as
-a tuple containing \emph{uid} and the assigned label.
+O formato do fluxo de saída é definido como a tripla contendo o número de
+sequência do exemplo no fluxo de entrada (\emph{uid}), etiqueta de um caractere
+atribuída ao exemplo e tempo em milissegundos entre a ingestão (entrada) e saída
+do exemplo no sistema.
 
 % - Reprocessamento dos exemplos utilizados para atualização do modelo:
 %   - Muda o comportamento do operador de fluxo de `Map` para `Flatmap`, ou seja,
@@ -33,8 +59,8 @@ a tuple containing \emph{uid} and the assigned label.
 
 
 \begin{algorithm}[htb]
-% {\scriptsize
-% \begin{multicols}{2}
+    % {\scriptsize
+    % \begin{multicols}{2}
     % \SetAlgoVlined
     \SetKwProg{Function}{Function}{:}{}
     \SetKwFor{With}{with}{}{}
@@ -115,10 +141,10 @@ a tuple containing \emph{uid} and the assigned label.
             \send(root, SampleType, sample)\;
         }
     }
-%     \label{alg:MFOG-classifier}
-%     \caption{MFOG: Classifier task.}
-% \end{algorithm}
-% \begin{algorithm}
+    %     \label{alg:MFOG-classifier}
+    %     \caption{MFOG: Classifier task.}
+    % \end{algorithm}
+    % \begin{algorithm}
     % \SetKwProg{algorithm}{algorithm}{:}{}
     \SetKwFor{With}{with}{}{}
     \SetKw{continue}{continue}
@@ -175,10 +201,10 @@ a tuple containing \emph{uid} and the assigned label.
         }
     }
 
-%     \label{alg:MFOG-sampler}
-%     \caption{MFOG: sampler Module.}
-% \end{algorithm}
-% \begin{algorithm}
+    %     \label{alg:MFOG-sampler}
+    %     \caption{MFOG: sampler Module.}
+    % \end{algorithm}
+    % \begin{algorithm}
     \SetKwProg{algorithm}{algorithm}{:}{}
     \SetKwFor{With}{with}{}{}
     \SetKw{continue}{continue}
