@@ -1,4 +1,4 @@
-%!TeX root = ./00.ppgcc-2020.tex
+%!TeX root $\leftarrow$ ./00.ppgcc-2020.tex
 
 \section{Implementação com MPI}
 
@@ -51,204 +51,220 @@ do exemplo no sistema.
 % - Reprocessamento dos exemplos utilizados para atualização do modelo:
 %   - Muda o comportamento do operador de fluxo de `Map` para `Flatmap`, ou seja,
 %     requer outro fluxo de saída para a transmissão de padrões novidade (alarmes);
-%   - Para reclassificação a definição de raio é modificada de `r = f * σ` (fator
-%     multiplicando desvio padrão) para `r = max(distance)` (distância máxima);
+%   - Para reclassificação a definição de raio é modificada de `r $\leftarrow$ f * σ` (fator
+%     multiplicando desvio padrão) para `r $\leftarrow$ max(distance)` (distância máxima);
 %   - Passível da crítica de *overfitting*. Isto é, este processo pode
 %     inflar a métrica de precisão;
 %   - **Solução:** *em aberto*;
 
 
 \begin{algorithm}[htb]
-    % {\scriptsize
-    % \begin{multicols}{2}
-    % \SetAlgoVlined
-    \SetKwProg{Function}{Function}{:}{}
-    \SetKwFor{With}{with}{}{}
-    \SetKw{continue}{continue}
-    % 
-    \SetKwData{MEPC}{MEPC}
-    \SetKwData{NF}{NF}
-    \SetKwData{mpiSize}{mpiSize}
-    \SetKwData{mpiRank}{mpiRank}
-    \SetKwData{EndOfStream}{EndOfStream}
-    % 
-    \SetKwInOut{KwParams}{Parameters}
-    \KwParams{mpiNodeRank as \mpiRank}
+    \SetKwFunction{nearestCluster}{clusterMaisPróximo}
+    \SetKwFunction{clustering}{agrupamento}
+    \SetKwFunction{NoveltyDetection}{DetecçãoNovidade}
+    \SetKwFunction{handleModelSleep}{moveModeloAntigo}
+    \SetKwFunction{removeOldSamples}{removeExemplosAntigos}
     % 
     \SetKwFunction{Mfog}{Mfog}
-    \SetKwFunction{Sampler}{Sampler}
-    \SetKwFunction{Classifier}{Classifier}
+    \SetKwFunction{Sampler}{Fonte}
+    \SetKwFunction{Classifier}{Classificador}
     \SetKwFunction{Detector}{Detector}
-    \SetKwFunction{modelReceiver}{modelReceiver}
+    \SetKwFunction{modelReceiver}{AtualizaModelo}
     % 
-    \SetKwFunction{typeOf}{typeOf}
-    % 
+    \SetKwFunction{now}{agora}
+    \SetKwFunction{typeOf}{tipoDe}
     \SetKwFunction{Thread}{Thread}
-    \SetKwFunction{Lock}{Lock}
-    \SetKwFunction{readLock}{readLock}
-    \SetKwFunction{writeLock}{writeLock}
+    \SetKwFunction{Lock}{Trava}
+    \SetKwFunction{readLock}{travaLeitura}
+    \SetKwFunction{writeLock}{travaEscrita}
     % 
-    \SetKwFunction{receive}{receive}
-    \SetKwFunction{send}{send}
+    \SetKwFunction{receive}{recebe}
+    \SetKwFunction{send}{envia}
     \SetKwFunction{broadcast}{broadcast}
     % 
-    \SetKwFunction{nearestCluster}{nearestCluster}
-    \SetKwFunction{NoveltyDetection}{NoveltyDetection}
-    \SetKwFunction{handleModelSleep}{handleModelSleep}
-    \SetKwFunction{removeOldSamples}{removeOldSamples}
-    \SetKwFunction{now}{now}
+    \SetKwData{cleaningWindow}{janelaLimpeza}
+    \SetKwData{noveltyDetectionTrigger}{gatilhoDetecçãoNovidade}
+    \SetKwData{mpiSize}{mpiSize}
+    \SetKwData{mpiRank}{mpiRank}
+    \SetKwData{EndOfStream}{FimDeFluxo}
     % 
-    \KwIn{ModelSet, Sample Stream}
-    % \KwOut{Classified Stream as $out$}
+    \SetKwProg{Function}{Função}{:}{}
+    \SetKw{continue}{continue}
+    \SetKw{break}{pare}
+    \SetKwFor{With}{com}{}{}
     % 
-    \Function{\Mfog{ModelStream, InputStream, OutputStream}}{
-        ModelSet = $\emptyset$\;
-        ModelSetLock = \textbf{new} \Lock()\;
-        \eIf(\emph{root}){\mpiRank == 0}{
-            \textbf{new} \Thread(\Detector, [OutputStream, ModelSet, ModelSetLock])\;
-            \Sampler(InputStream, ModelSet, ModelSetLock)\;
-        }(\emph{leaf}){
-            \textbf{new} \Thread(\modelReceiver, [ModelSet, ModelSetLock])\;
-            \Classifier(ModelSet, ModelSetLock)\;
+    \SetKwInOut{KwIn}{Entrada}
+    \SetKwInOut{KwOut}{Saída}
+    \SetKwInOut{KwParams}{Parâmetros}
+    \KwParams{\mpiRank, \mpiSize}
+    \KwIn{fluxoEntrada}
+    \KwOut{fluxoSaída}
+    % 
+    \Function{\Mfog{fluxoEntrada, fluxoSaída}}{
+        Modelo $\leftarrow$ $\emptyset$; trava $\leftarrow$ \textbf{new} \Lock()\;
+        \eIf(\emph{raiz}){\mpiRank == 0}{
+            \textbf{new} \Thread(\Detector, [fluxoSaída, Modelo, trava])\;
+            \Sampler(fluxoEntrada, Modelo, trava)\;
+        }(\emph{folha}){
+            \textbf{new} \Thread(\modelReceiver, [Modelo, trava])\;
+            \Classifier(Modelo, trava)\;
         }
     }
-\caption{MFOG: main MPI entry-point.}
+\caption{MFOG: ponto de entrada.}
 \label{alg:MFOG}
 \end{algorithm}
 
 \begin{algorithm}[htb]
-    \SetKwFor{With}{with}{}{}
-    \SetKw{continue}{continue}
+    \SetKwFunction{nearestCluster}{clusterMaisPróximo}
+    \SetKwFunction{clustering}{agrupamento}
+    \SetKwFunction{NoveltyDetection}{DetecçãoNovidade}
+    \SetKwFunction{handleModelSleep}{moveModeloAntigo}
+    \SetKwFunction{removeOldSamples}{removeExemplosAntigos}
     % 
-    \SetKwData{MEPC}{MEPC}
-    \SetKwData{NF}{NF}
+    \SetKwFunction{Mfog}{Mfog}
+    \SetKwFunction{Sampler}{Fonte}
+    \SetKwFunction{Classifier}{Classificador}
+    \SetKwFunction{Detector}{Detector}
+    \SetKwFunction{modelReceiver}{AtualizaModelo}
+    % 
+    \SetKwFunction{now}{agora}
+    \SetKwFunction{typeOf}{tipoDe}
+    \SetKwFunction{Thread}{Thread}
+    \SetKwFunction{Lock}{Trava}
+    \SetKwFunction{readLock}{travaLeitura}
+    \SetKwFunction{writeLock}{travaEscrita}
+    % 
+    \SetKwFunction{receive}{recebe}
+    \SetKwFunction{send}{envia}
+    \SetKwFunction{broadcast}{broadcast}
+    % 
+    \SetKwData{cleaningWindow}{janelaLimpeza}
+    \SetKwData{noveltyDetectionTrigger}{gatilhoDetecçãoNovidade}
     \SetKwData{mpiSize}{mpiSize}
     \SetKwData{mpiRank}{mpiRank}
-    \SetKwData{EndOfStream}{EndOfStream}
+    \SetKwData{EndOfStream}{FimDeFluxo}
     % 
-    \SetKwProg{Function}{Function}{:}{}
-    \Function{\Classifier{ModelSet, ModelSetLock}}{
-        \While{ True }{
-            sampe = \receive(SampleType, root)\;
-            \lIf{sample == \EndOfStream}{\textbf{break}}
-            sample.label = unknown\;
-            \With{\readLock(ModelSetLock)}{
-                (distance, cluster) = \nearestCluster(sample, ModelSet)\;
+    \SetKwProg{Function}{Função}{:}{}
+    \SetKw{continue}{continue}
+    \SetKw{break}{pare}
+    \SetKwFor{With}{com}{}{}
+    % 
+    \Function{\Classifier{Modelo, trava}}{
+        \While{ Verdade }{
+            exemplo $\leftarrow$ \receive(TipoExemplo, raiz)\;
+            \lIf{exemplo == \EndOfStream}{\break}
+            exemplo.rótulo $\leftarrow$ "desconhecido"\;
+            \With{\readLock(trava)}{
+                (distância, cluster) $\leftarrow$ \nearestCluster(exemplo, Modelo)\;
             }
-            \If{distance $<$ cluster.radius}{
-                sample.label = cluster.label\;
+            \If{distância $<$ cluster.raio}{
+                exemplo.rótulo $\leftarrow$ cluster.rótulo\;
             }
-            \send(root, SampleType, sample)\;
+            \send(raiz, TipoExemplo, exemplo)\;
         }
     }
     %     \label{alg:MFOG-classifier}
     %     \caption{MFOG: Classifier task.}
     % \end{algorithm}
     % \begin{algorithm}
-    % \SetKwProg{algorithm}{algorithm}{:}{}
-    \SetKwFor{With}{with}{}{}
-    \SetKw{continue}{continue}
-    % 
-    \SetKwData{MEPC}{MEPC}
-    \SetKwData{NF}{NF}
-    \SetKwData{mpiSize}{mpiSize}
-    \SetKwData{mpiRank}{mpiRank}
-    \SetKwData{EndOfStream}{EndOfStream}
-    % 
-    \SetKwProg{Function}{Function}{:}{}
-    \Function{\modelReceiver{ModelSet, ModelSetLock}}{
-        \While{ True }{
-            cl = \receive(ClusterType, root)\;
-            \lIf{cl == \EndOfStream}{\textbf{break}}
-            \With{writeLock(ModelSetLock)}{
-                ModelSet = ModelSet $\cup$ cl\;
+    \Function{\modelReceiver{Modelo, trava}}{
+        \While{ Verdade }{
+            cluster $\leftarrow$ \receive(TipoCluster, raiz)\;
+            \lIf{cluster == \EndOfStream}{\break}
+            \With{\writeLock(trava)}{
+                Modelo $\leftarrow$ Modelo $\cup$ cluster\;
             }
         }
     }
     % \label{alg:MFOG-model}
     % \caption{MFOG: model receiver task.}
-\caption{MFOG Leaf Tasks: Model Receiver and Classifier.}
+\caption{MFOG Funções dos nós folha: Atualização de Modelo e Classificador.}
 \label{alg:MFOG-leaf}
 \end{algorithm}
+
 \begin{algorithm}[htb]
-    \SetKwFor{With}{with}{}{}
-    \SetKw{continue}{continue}
+    \SetKwFunction{nearestCluster}{clusterMaisPróximo}
+    \SetKwFunction{clustering}{agrupamento}
+    \SetKwFunction{NoveltyDetection}{DetecçãoNovidade}
+    \SetKwFunction{handleModelSleep}{moveModeloAntigo}
+    \SetKwFunction{removeOldSamples}{removeExemplosAntigos}
     % 
-    \SetKwData{MEPC}{MEPC}
-    \SetKwData{NF}{NF}
+    \SetKwFunction{Mfog}{Mfog}
+    \SetKwFunction{Sampler}{Fonte}
+    \SetKwFunction{Classifier}{Classificador}
+    \SetKwFunction{Detector}{Detector}
+    \SetKwFunction{modelReceiver}{AtualizaModelo}
+    % 
+    \SetKwFunction{now}{agora}
+    \SetKwFunction{typeOf}{tipoDe}
+    \SetKwFunction{Thread}{Thread}
+    \SetKwFunction{Lock}{Trava}
+    \SetKwFunction{readLock}{travaLeitura}
+    \SetKwFunction{writeLock}{travaEscrita}
+    % 
+    \SetKwFunction{receive}{recebe}
+    \SetKwFunction{send}{envia}
+    \SetKwFunction{broadcast}{broadcast}
+    % 
+    \SetKwData{cleaningWindow}{janelaLimpeza}
+    \SetKwData{noveltyDetectionTrigger}{gatilhoDetecçãoNovidade}
     \SetKwData{mpiSize}{mpiSize}
     \SetKwData{mpiRank}{mpiRank}
-    \SetKwData{EndOfStream}{EndOfStream}
-    \SetKwInOut{KwParams}{Parameters}
-    \KwParams{mpiClusterSize as \mpiSize}
-    \SetKwProg{Function}{Function}{:}{}
-    \Function{\Sampler{InputStream, ModelSet, ModelSetLock}}{
-        % ModelSet = read()\;
-        % broadcast(ModelSet)\;
-        dest = 1\;
-        \ForEach{ sample from InputStream }{
-            \If{\typeOf(sample) is Cluster}{
-                \broadcast(ClusterType, sample, root)\;
-                \With{\writeLock(ModelSetLock)}{
-                    ModelSet = ModelSet $\cup$ sample\;
+    \SetKwData{EndOfStream}{FimDeFluxo}
+    % 
+    \SetKwProg{Function}{Função}{:}{}
+    \SetKw{continue}{continue}
+    \SetKw{break}{pare}
+    \SetKwFor{With}{com}{}{}
+    % 
+    \Function{\Sampler{fluxoEntrada, Modelo, trava}}{
+        dest $\leftarrow$ 1\;
+        \ForEach{ {$exemplo_{i}$} $\in$ fluxoEntrada }{
+            \If{\typeOf(exemplo) é TipoCluster}{
+                \broadcast(TipoCluster, exemplo, raíz)\;
+                \With{\writeLock(trava)}{
+                    Modelo $\leftarrow$ Modelo $\cup$ exemplo\;
                 }
                 \continue\;
             }
-            % sample.label = unknown\;
-            \send(dest, SampleType, sample)\;
-            dest = dest $+ 1$\;
-            \lIf{dest $>$ \mpiSize}{dest = 1}
+            % sample.label $\leftarrow$ unknown\;
+            \send(dest, TipoExemplo, exemplo)\;
+            dest $\leftarrow$ dest $+ 1$\;
+            \lIf{dest $>$ \mpiSize}{dest $\leftarrow$ 1}
         }
     }
-
     %     \label{alg:MFOG-sampler}
     %     \caption{MFOG: sampler Module.}
     % \end{algorithm}
     % \begin{algorithm}
-    \SetKwProg{algorithm}{algorithm}{:}{}
-    \SetKwFor{With}{with}{}{}
-    \SetKw{continue}{continue}
-    % 
-    \SetKwData{cleaningWindow}{cleaningWindow}
-    \SetKwFunction{removeOldSamples}{removeOldSamples}
-    \SetKwData{noveltyDetectionTrigger}{noveltyDetectionTrigger}
-    \SetKwData{MEPC}{MEPC}
-    \SetKwData{NF}{NF}
-    \SetKwData{mpiSize}{mpiSize}
-    \SetKwData{mpiRank}{mpiRank}
-    \SetKwData{EndOfStream}{EndOfStream}
-
-    \KwParams{\cleaningWindow, \noveltyDetectionTrigger}
-
-    \SetKwProg{Function}{Function}{:}{}
-    \Function{\Detector{OutputStream, ModelSet, ModelSetLock}}{
-        lastCleanup $\leftarrow 0$\;
-        \While{ True }{
-            sampe = \receive(SampleType, any)\;
-            \lIf{sample == \EndOfStream}{\textbf{break}}
-            % $out \leftarrow$ sample\;
-            OutputStream.append(sample)\;
-            \If{sample.label == unknown}{
-                UnknownSet = UnknownSet $\cup$ sample\;
-                \If{$|\;UnknownSet\;| \geq$ \noveltyDetectionTrigger}{
-                    novelties = \NoveltyDetection(ModelSet, *UnknownSet)\;
-                    \With{\writeLock(ModelSetLock)}{
-                        ModelSet = ModelSet $\cup$ novelties\;
+    \Function{\Detector{fluxoSaída, Modelo, trava}}{
+        Desconhecidos $\leftarrow \emptyset$;  últimaLimpeza $\leftarrow 0$\;
+        \While{ Verdade }{
+            exemplo $\leftarrow$ \receive(TipoExemplo, qualquer)\;
+            \lIf{exemplo == \EndOfStream}{\break}
+            % $out \leftarrow$ exemplo\;
+            fluxoSaída.adicione(exemplo)\;
+            \If{exemplo.label == unknown}{
+                Desconhecidos $\leftarrow$ Desconhecidos $\cup$ exemplo\;
+                \If{$|\;Desconhecidos\;| \geq$ \noveltyDetectionTrigger}{
+                    novidades $\leftarrow$ \NoveltyDetection(Modelo, *Desconhecidos)\;
+                    \With{\writeLock(trava)}{
+                        Modelo $\leftarrow$ Modelo $\cup$ novidades\;
                     }
-                    \ForEach{ cl in novelties }{
-                        \broadcast(ClusterType, cl, root)\;
+                    \ForEach{ cluster $\in$ novidades }{
+                        \broadcast(TipoCluster, cluster, raíz)\;
                     }
                 }
-                \If{ sampe.uid $ > $ ( lastCleanup $ + $ \cleaningWindow )}{
-                    UnknownSet $\leftarrow$ \removeOldSamples(UnknownSet, lastCleanup)\;
-                    lastCleanup $ \leftarrow $ sampe.uid\;
+                \If{ exemplo.uid $ > $ ( últimaLimpeza $ + $ \cleaningWindow )}{
+                    Desconhecidos $\leftarrow$ \removeOldSamples(Desconhecidos, últimaLimpeza)\;
+                    últimaLimpeza $ \leftarrow $ exemplo.uid\;
                 }
             }
         }
     }
     % \label{alg:MFOG-detector}
     % \caption{MFOG: detector task.}
-\caption{MFOG Root Tasks: Sampler and Detector.}
+\caption{MFOG Funções no nó raiz: Fonte e Detector.}
 \label{alg:MFOG-root}
 \end{algorithm}
 
