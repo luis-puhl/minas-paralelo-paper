@@ -1,13 +1,13 @@
 % !TeX root = ./00.ppgcc-2020.tex
 
-\subsection{Implementações Preliminares}\label{sec:resultados}
+\section{Implementações Preliminares}\label{sec:resultados}
 
-No desenvolvimento parcial desta pesquisa, algumas experimentações e algumas
-ferramentas de teste já foram desenvolvidas.
-Aspectos desses desenvolvimentos são descritos a seguir.
+No desenvolvimento desta pesquisa, algumas experimentações e algumas ferramentas
+de teste foram desenvolvidas. Aspectos desses desenvolvimentos são descritos a
+seguir.
 % obrigado hélio.
 
-\subsubsection{Implementação com \python e \kafka}
+\subsection{Implementação com \python e \kafka}
 
 A primeira implementação e avaliação do \mfog realizada foi construída sobre a
 linguagem \python com o sistema de fila de mensagens \kafka e a respectiva
@@ -35,14 +35,14 @@ e uma instância \emph{Apache ZooKeeper} associada à instância \kafka.
 % cada consumidor associaria-se a uma partição, distribuindo os dados igualmente
 % entre os consumidores para a paralelização a execução.
 A hipótese foi refutada quando observou-se que o número de
-mensagens consumidas por um dos 8 processos representava a maioria (mais de
-80\%) do volume introduzido no sistema, o restante sendo distribuído entre
+mensagens consumidas por um dos $8$ processos representava a maioria (mais de
+$80\%$) do volume introduzido no sistema, o restante sendo distribuído entre
 outros 3 processos e o restante dos processos não recebia nenhuma mensagem.
 Portanto, a iniciativa de implementar o algoritmo MINAS em \python com \kafka e
 atingir os objetivos de distribuição falhou, o que levou à reconsideração das
 plataformas escolhidas.
 
-\subsubsection{Implementação com \flink}
+\subsection{Implementação com \flink}
 
 % \nota{citar ferramentas e a escolha só depois do python e kafka}
 % \nota{entre flink e spark, outro grupo de pesquisa já está explorando spark}
@@ -57,13 +57,37 @@ O modelo em lotes é implementado como extensão do modelo de fluxos e, apesar
 de não ser foco desse trabalho, mostrou-se útil para a construção do \offline,
 já que o conjunto consumido por esse módulo é limitado.
 
-Um desafio encontrado durante o desenvolvimento da implementação do \mfog foi a falta
-de bibliotecas na plataforma \flink que disponibilizem versões adaptadas
-à plataforma de algoritmos base para o algoritmo MINAS.
-Em especial, a ausência dos algoritmos \emph{K-means} e \emph{CluStream}
-gerou carga imprevista sobre o processo de desenvolvimento
-resultando no atraso do processo de desenvolvimento.
+% Um desafio encontrado durante o desenvolvimento da implementação do \mfog foi a falta
+% de bibliotecas na plataforma \flink que disponibilizem versões adaptadas
+% à plataforma de algoritmos base para o algoritmo MINAS.
+% Em especial, a ausência dos algoritmos \emph{K-means} e \emph{CluStream}
+% gerou carga imprevista sobre o processo de desenvolvimento
+% resultando no atraso do processo de desenvolvimento.
 
-Esta implementação segue a arquitetura descrita na \refsec{descricao} e as
-avaliações e resultados esperados descritos neste \refcap{proposta}
-referem-se à implementação do \mfog na plataforma \flink.
+% Esta implementação segue a arquitetura descrita na \refsec{descricao} e as
+% avaliações e resultados esperados descritos neste \refcap{proposta}
+% referem-se à implementação do \mfog na plataforma \flink.
+
+Após desenvolvimento e testes em um computador pessoal, o sistema foi testado no
+ambiente de testes como descrito na Seção \ref{sec:ambiente}, onde observou-se uma
+redução enorme no desempenho que concluiu-se ser causada pelo uso excessivo de
+memória pela plataforma \flink.
+Com a configuração dos parâmetros de memória do cluster, resultados
+compatíveis com o esperado foram obtidos no entanto, apesar de exemplos de
+sucesso na literatura
+\cite{lee2017data,Greco2019wearableStream,battulga2020fogguru}, o ambiente de
+testes não permaneceu estável para execução de repetições do experimento
+necessitando reinicializações para que o controlador não ocupasse mais de $1GB$
+na segunda execução o que degrada imensamente o desempenho.
+
+Em conclusão, apesar de promissora, a plataforma \flink ainda não suporta a
+execução em dispositivos computacionais restritos de maneira confiável, sendo a
+principal barreira o uso excessivo de memória, comum em plataformas do gênero
+\emph{BigData}.
+
+% 2020-04-27T15:00:32.782 INFO  Classifier Ran baseline in 1408.8210000000001s
+% jobmanager.heap.size: 100m
+% taskmanager.memory.process.size: 800m
+% taskmanager.memory.framework.heap.size: 64m
+% taskmanager.memory.flink.size: 400m
+% taskmanager.memory.managed.size: 100m
