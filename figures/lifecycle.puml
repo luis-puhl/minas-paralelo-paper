@@ -13,7 +13,7 @@ skinparam BoxPadding 20
 box "Raiz" #LightGreen
 ' participant Raiz as r
 participant Fonte as s
-participant "Detector Novidades" as d
+participant "Detector" as d
 end box
 box "Folha" #LightBlue
 collections Classificador as c

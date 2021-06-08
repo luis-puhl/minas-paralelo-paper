@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="419px" preserveAspectRatio="none" style="width:537px;height:419px;" version="1.1" viewBox="0 0 537 419" width="537px" zoomAndPan="magnify"><defs/><g><rect fill="#90EE90" height="400.1319" style="stroke:#CCCCCC;stroke-width:1.0;" width="224" x="21" y="6"/><text fill="#000000" font-family="Ubuntu Mono" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="24" x="121" y="15.1299">Root</text><rect fill="#ADD8E6" height="400.1319" style="stroke:#CCCCCC;stroke-width:1.0;" width="244" x="287" y="6"/><text fill="#000000" font-family="Ubuntu Mono" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="24" x="397" y="15.1299">Leaf</text><rect fill="#E0E0E0" height="342.1321" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="68" y="60.9998"/><rect fill="#E0E0E0" height="95.1326" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="73" y="127.9996"/><rect fill="#E0E0E0" height="153.9998" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="185" y="240.1322"/><rect fill="#E0E0E0" height="28" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="190" y="334.132"/><rect fill="#E0E0E0" height="61.9999" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="345" y="208.1322"/><rect fill="#E0E0E0" height="49.9998" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="468" y="77.9998"/><rect fill="#90EE90" height="73.1326" style="stroke:#000000;stroke-width:2.0;" width="404" x="15" y="142.9996"/><line style="stroke:#2A86E2;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="73" x2="73" y1="50.9998" y2="412.1319"/><line style="stroke:#2A86E2;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="190" x2="190" y1="50.9998" y2="412.1319"/><line style="stroke:#2A86E2;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="350" x2="350" y1="50.9998" y2="412.1319"/><line style="stroke:#2A86E2;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="473" x2="473" y1="50.9998" y2="412.1319"/><rect fill="#CCCCCC" height="24.9999" style="stroke:#AAAAAA;stroke-width:1.5;" width="56" x="45" y="24.9999"/><text fill="#000000" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="42" x="52" y="41.1298">Sampler</text><rect fill="#CCCCCC" height="24.9999" style="stroke:#AAAAAA;stroke-width:1.5;" width="62" x="159" y="24.9999"/><text fill="#000000" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="48" x="166" y="41.1298">Detector</text><rect fill="#CCCCCC" height="24.9999" style="stroke:#AAAAAA;stroke-width:1.5;" width="74" x="315" y="20.9999"/><rect fill="#CCCCCC" height="24.9999" style="stroke:#AAAAAA;stroke-width:1.5;" width="74" x="311" y="24.9999"/><text fill="#000000" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="60" x="318" y="41.1298">Classifier</text><rect fill="#CCCCCC" height="24.9999" style="stroke:#AAAAAA;stroke-width:1.5;" width="68" x="439" y="24.9999"/><text fill="#000000" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="54" x="446" y="41.1298">Model Rec</text><rect fill="#E0E0E0" height="342.1321" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="68" y="60.9998"/><rect fill="#E0E0E0" height="95.1326" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="73" y="127.9996"/><rect fill="#E0E0E0" height="153.9998" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="185" y="240.1322"/><rect fill="#E0E0E0" height="28" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="190" y="334.132"/><rect fill="#E0E0E0" height="61.9999" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="345" y="208.1322"/><rect fill="#E0E0E0" height="49.9998" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="468" y="77.9998"/><polygon fill="#000000" points="456,73.9998,466,77.9998,456,81.9998" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="78" x2="462" y1="77.9998" y2="77.9998"/><text fill="#333333" font-family="Ubuntu Mono" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="6" x="85" y="74.1298">1</text><text fill="#333333" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="78" x="95" y="74.1298">Initial Model</text><polygon fill="#000000" points="178,98.9997,188,102.9997,178,106.9997" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="78" x2="184" y1="102.9997" y2="102.9997"/><text fill="#333333" font-family="Ubuntu Mono" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="6" x="85" y="99.1297">2</text><text fill="#333333" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="78" x="95" y="99.1297">Initial Model</text><polygon fill="#000000" points="361,123.9996,351,127.9996,361,131.9996" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="355" x2="472" y1="127.9996" y2="127.9996"/><text fill="#333333" font-family="Ubuntu Mono" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="6" x="367" y="124.1296">3</text><text fill="#333333" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="72" x="377" y="124.1296">Shared Model</text><path d="M15,142.9996 L92,142.9996 L92,149.9996 L82,159.9996 L15,159.9996 L15,142.9996 " fill="#EEEEEE" style="stroke:#000000;stroke-width:1.0;"/><rect fill="none" height="73.1326" style="stroke:#000000;stroke-width:2.0;" width="404" x="15" y="142.9996"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="32" x="30" y="156.0665">loop</text><path d="M47,165.1324 L47,185.1324 L98,185.1324 L98,175.1324 L88,165.1324 L47,165.1324 " fill="#2A86E2" style="stroke:#1A66C2;stroke-width:1.0;"/><path d="M88,165.1324 L88,175.1324 L98,175.1324 L88,165.1324 " fill="#2A86E2" style="stroke:#1A66C2;stroke-width:1.0;"/><text fill="#000000" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="30" x="53" y="179.2623">input</text><polygon fill="#000000" points="333,204.1322,343,208.1322,333,212.1322" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="83" x2="339" y1="208.1322" y2="208.1322"/><text fill="#333333" font-family="Ubuntu Mono" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="6" x="90" y="204.2623">4</text><text fill="#333333" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="36" x="100" y="204.2623">Sample</text><polygon fill="#000000" points="206,236.1322,196,240.1322,206,244.1322" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="200" x2="344" y1="240.1322" y2="240.1322"/><text fill="#333333" font-family="Ubuntu Mono" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="6" x="212" y="236.2622">5</text><text fill="#333333" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="84" x="222" y="236.2622">Labeled Sample</text><path d="M161,283.1322 L161,303.1322 L218,303.1322 L218,293.1322 L208,283.1322 L161,283.1322 " fill="#2A86E2" style="stroke:#1A66C2;stroke-width:1.0;"/><path d="M208,283.1322 L208,293.1322 L218,293.1322 L208,283.1322 " fill="#2A86E2" style="stroke:#1A66C2;stroke-width:1.0;"/><text fill="#000000" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="36" x="167" y="297.2621">output</text><line style="stroke:#000000;stroke-width:1.0;" x1="200" x2="242" y1="326.132" y2="326.132"/><line style="stroke:#000000;stroke-width:1.0;" x1="242" x2="242" y1="326.132" y2="339.132"/><line style="stroke:#000000;stroke-width:1.0;" x1="201" x2="242" y1="339.132" y2="339.132"/><polygon fill="#000000" points="211,335.132,201,339.132,211,343.132" style="stroke:#000000;stroke-width:1.0;"/><text fill="#333333" font-family="Ubuntu Mono" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="6" x="207" y="322.262">6</text><text fill="#333333" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="108" x="217" y="322.262">NoveltyDetection()</text><polygon fill="#000000" points="461,390.1319,471,394.1319,461,398.1319" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="190" x2="467" y1="394.1319" y2="394.1319"/><text fill="#333333" font-family="Ubuntu Mono" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="6" x="197" y="390.2619">7</text><text fill="#333333" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="72" x="207" y="390.2619">Update Model</text><!--MD5=[2e367b6ab66b3f3c56fbaa6bcb2b934c]
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="419px" preserveAspectRatio="none" style="width:640px;height:419px;background:#FFFFFF;" version="1.1" viewBox="0 0 640 419" width="640px" zoomAndPan="magnify"><defs/><g><rect fill="#90EE90" height="400.1319" style="stroke:#CCCCCC;stroke-width:1.0;" width="264" x="21" y="6"/><text fill="#000000" font-family="Ubuntu Mono" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="23" x="141.5" y="15.1299">Raiz</text><rect fill="#ADD8E6" height="400.1319" style="stroke:#CCCCCC;stroke-width:1.0;" width="307" x="327" y="6"/><text fill="#000000" font-family="Ubuntu Mono" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="30" x="465.5" y="15.1299">Folha</text><rect fill="#E0E0E0" height="342.1321" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="62" y="60.9998"/><rect fill="#E0E0E0" height="95.1326" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="67" y="127.9996"/><rect fill="#E0E0E0" height="153.9998" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="195" y="240.1322"/><rect fill="#E0E0E0" height="28" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="200" y="334.132"/><rect fill="#E0E0E0" height="61.9999" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="394" y="208.1322"/><rect fill="#E0E0E0" height="49.9998" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="553" y="77.9998"/><rect fill="#90EE90" height="73.1326" style="stroke:#000000;stroke-width:2.0;" width="462" x="15" y="142.9996"/><line style="stroke:#2A86E2;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="67" x2="67" y1="50.9998" y2="412.1319"/><line style="stroke:#2A86E2;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="200" x2="200" y1="50.9998" y2="412.1319"/><line style="stroke:#2A86E2;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="399" x2="399" y1="50.9998" y2="412.1319"/><line style="stroke:#2A86E2;stroke-width:1.0;stroke-dasharray:5.0,5.0;" x1="558" x2="558" y1="50.9998" y2="412.1319"/><rect fill="#CCCCCC" height="24.9999" style="stroke:#AAAAAA;stroke-width:1.5;" width="44" x="45" y="24.9999"/><text fill="#000000" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="30" x="52" y="41.1298">Fonte</text><rect fill="#CCCCCC" height="24.9999" style="stroke:#AAAAAA;stroke-width:1.5;" width="122" x="139" y="24.9999"/><text fill="#000000" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="108" x="146" y="41.1298">Detector Novidades</text><rect fill="#CCCCCC" height="24.9999" style="stroke:#AAAAAA;stroke-width:1.5;" width="92" x="355" y="20.9999"/><rect fill="#CCCCCC" height="24.9999" style="stroke:#AAAAAA;stroke-width:1.5;" width="92" x="351" y="24.9999"/><text fill="#000000" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="78" x="358" y="41.1298">Classificador</text><rect fill="#CCCCCC" height="24.9999" style="stroke:#AAAAAA;stroke-width:1.5;" width="104" x="506" y="24.9999"/><text fill="#000000" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="90" x="513" y="41.1298">Atualiza Modelo</text><rect fill="#E0E0E0" height="342.1321" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="62" y="60.9998"/><rect fill="#E0E0E0" height="95.1326" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="67" y="127.9996"/><rect fill="#E0E0E0" height="153.9998" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="195" y="240.1322"/><rect fill="#E0E0E0" height="28" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="200" y="334.132"/><rect fill="#E0E0E0" height="61.9999" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="394" y="208.1322"/><rect fill="#E0E0E0" height="49.9998" style="stroke:#2A86E2;stroke-width:1.0;" width="10" x="553" y="77.9998"/><polygon fill="#000000" points="541,73.9998,551,77.9998,541,81.9998" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="72" x2="547" y1="77.9998" y2="77.9998"/><text fill="#333333" font-family="Ubuntu Mono" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="6" x="79" y="74.1298">1</text><text fill="#333333" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="84" x="89" y="74.1298">Modelo Inicial</text><polygon fill="#000000" points="188,98.9997,198,102.9997,188,106.9997" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="72" x2="194" y1="102.9997" y2="102.9997"/><text fill="#333333" font-family="Ubuntu Mono" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="6" x="79" y="99.1297">2</text><text fill="#333333" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="84" x="89" y="99.1297">Modelo Inicial</text><polygon fill="#000000" points="410,123.9996,400,127.9996,410,131.9996" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;" x1="404" x2="557" y1="127.9996" y2="127.9996"/><text fill="#333333" font-family="Ubuntu Mono" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="6" x="416" y="124.1296">3</text><text fill="#333333" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="120" x="426" y="124.1296">Modelo Compartilhado</text><path d="M15,142.9996 L169,142.9996 L169,149.9996 L159,159.9996 L15,159.9996 L15,142.9996 " fill="#EEEEEE" style="stroke:#000000;stroke-width:1.0;"/><rect fill="none" height="73.1326" style="stroke:#000000;stroke-width:2.0;" width="462" x="15" y="142.9996"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="109" x="30" y="156.0665">Fluxo Contínuo</text><path d="M35,165.1324 L35,185.1324 L98,185.1324 L98,175.1324 L88,165.1324 L35,165.1324 " fill="#2A86E2" style="stroke:#1A66C2;stroke-width:1.0;"/><path d="M88,165.1324 L88,175.1324 L98,175.1324 L88,165.1324 " fill="#2A86E2" style="stroke:#1A66C2;stroke-width:1.0;"/><text fill="#000000" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="42" x="41" y="179.2623">entrada</text><polygon fill="#000000" points="382,204.1322,392,208.1322,382,212.1322" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="77" x2="388" y1="208.1322" y2="208.1322"/><text fill="#333333" font-family="Ubuntu Mono" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="6" x="84" y="204.2623">4</text><text fill="#333333" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="42" x="94" y="204.2623">Exemplo</text><polygon fill="#000000" points="216,236.1322,206,240.1322,216,244.1322" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="210" x2="393" y1="240.1322" y2="240.1322"/><text fill="#333333" font-family="Ubuntu Mono" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="6" x="222" y="236.2622">5</text><text fill="#333333" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="96" x="232" y="236.2622">Exemplo Rotulado</text><path d="M174,283.1322 L174,303.1322 L225,303.1322 L225,293.1322 L215,283.1322 L174,283.1322 " fill="#2A86E2" style="stroke:#1A66C2;stroke-width:1.0;"/><path d="M215,283.1322 L215,293.1322 L225,293.1322 L215,283.1322 " fill="#2A86E2" style="stroke:#1A66C2;stroke-width:1.0;"/><text fill="#000000" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="30" x="180" y="297.2621">saída</text><line style="stroke:#000000;stroke-width:1.0;" x1="210" x2="252" y1="326.132" y2="326.132"/><line style="stroke:#000000;stroke-width:1.0;" x1="252" x2="252" y1="326.132" y2="339.132"/><line style="stroke:#000000;stroke-width:1.0;" x1="211" x2="252" y1="339.132" y2="339.132"/><polygon fill="#000000" points="221,335.132,211,339.132,221,343.132" style="stroke:#000000;stroke-width:1.0;"/><text fill="#333333" font-family="Ubuntu Mono" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="6" x="217" y="322.262">6</text><text fill="#333333" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="108" x="227" y="322.262">DetecçãoNovidade()</text><polygon fill="#000000" points="546,390.1319,556,394.1319,546,398.1319" style="stroke:#000000;stroke-width:1.0;"/><line style="stroke:#000000;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="200" x2="552" y1="394.1319" y2="394.1319"/><text fill="#333333" font-family="Ubuntu Mono" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="6" x="207" y="390.2619">7</text><text fill="#333333" font-family="Ubuntu Mono" font-size="11" lengthAdjust="spacing" textLength="108" x="217" y="390.2619">Atualizaçao Modelo</text><!--MD5=[49c6805fbd0f1dec9518dfdde2b2430d]
 @startuml lifecycle
 skinparam Style strictuml
 !define LIGHTBLUE
@@ -11,14 +11,14 @@ autonumber
 skinparam ParticipantPadding 20
 skinparam BoxPadding 20
 
-box "Root" #LightGreen
-' participant Root as r
-participant Sampler as s
-participant Detector as d
+box "Raiz" #LightGreen
+' participant Raiz as r
+participant Fonte as s
+participant "Detector Novidades" as d
 end box
-box "Leaf" #LightBlue
-collections Classifier as c
-participant "Model Rec" as m
+box "Folha" #LightBlue
+collections Classificador as c
+participant "Atualiza Modelo" as m
 ' participant Leaf as l
 end box
 
@@ -32,33 +32,33 @@ end box
 ' l -> m ** :call
 
 activate s
-s - -> m ++ : Initial Model
-s -> d : Initial Model
+s - -> m ++ : Modelo Inicial
+s -> d : Modelo Inicial
 ' group shared Memory
-c <- m : Shared Model
+c <- m : Modelo Compartilhado
 deactivate m
 ' end
 
 ' == Running ==
 ' loop input samples
 skinparam SequenceGroupBodyBackgroundColor #LightGreen
-group loop 
+group Fluxo Contínuo
 activate s
-note over s : input
-s - -> c ++ : Sample
+note over s : entrada
+s - -> c ++ : Exemplo
 end
 deactivate s
 
 ' c -> c ++ :NearestCluster()
 ' deactivate c
 
-c - -> d ++ : Labeled Sample
+c - -> d ++ : Exemplo Rotulado
 deactivate c
-note over d:output
-d -> d : NoveltyDetection()
+note over d:saída
+d -> d : DetecçãoNovidade()
 activate d
 deactivate d
-d - -> m : Update Model
+d - -> m : Atualizaçao Modelo
 ' activate m
 ' ... time ...
 ' |||
@@ -364,45 +364,45 @@ autonumber
 skinparam ParticipantPadding 20
 skinparam BoxPadding 20
 
-box "Root" #LightGreen
-participant Sampler as s
-participant Detector as d
+box "Raiz" #LightGreen
+participant Fonte as s
+participant "Detector Novidades" as d
 end box
-box "Leaf" #LightBlue
-collections Classifier as c
-participant "Model Rec" as m
+box "Folha" #LightBlue
+collections Classificador as c
+participant "Atualiza Modelo" as m
 end box
 
 
 
 activate s
-s - -> m ++ : Initial Model
-s -> d : Initial Model
-c <- m : Shared Model
+s - -> m ++ : Modelo Inicial
+s -> d : Modelo Inicial
+c <- m : Modelo Compartilhado
 deactivate m
 
 skinparam SequenceGroupBodyBackgroundColor #LightGreen
-group loop 
+group Fluxo Contínuo
 activate s
-note over s : input
-s - -> c ++ : Sample
+note over s : entrada
+s - -> c ++ : Exemplo
 end
 deactivate s
 
 
-c - -> d ++ : Labeled Sample
+c - -> d ++ : Exemplo Rotulado
 deactivate c
-note over d:output
-d -> d : NoveltyDetection()
+note over d:saída
+d -> d : DetecçãoNovidade()
 activate d
 deactivate d
-d - -> m : Update Model
+d - -> m : Atualizaçao Modelo
 deactivate d
 
 
 @enduml
 
-PlantUML version 1.2021.00(Sun Jan 10 07:25:05 BRT 2021)
+PlantUML version 1.2021.6(Fri May 14 04:09:51 BRT 2021)
 (GPL source distribution)
 Java Runtime: OpenJDK Runtime Environment
 JVM: OpenJDK 64-Bit Server VM
