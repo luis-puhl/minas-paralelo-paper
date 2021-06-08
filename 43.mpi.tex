@@ -4,21 +4,25 @@
 
 Com os desafios de distribuição e memória encontrados nas implementações
 preliminares, optou-se por tomar mais controle sobre estes aspectos para
-maximizar o aproveitamento do \emph{hardware} escolhido visto que seus recursos
+maximizar o aproveitamento do \emph{hardware} escolhido, visto que seus recursos
 são limitados.
-Para isso escolheu-se implementar a proposta utilizando a \acf{MPI} e linguagem C,
-onde tem-se controle fino sobre o uso de memória e distribuição, no entanto
+Para isso escolheu-se implementar a proposta utilizando \acf{MPI} e linguagem C,
+onde tem-se controle fino sobre o uso de memória e distribuição. 
+
+% Não entendi a sentença a seguir... sugiro revisar ou retirar...
+No entanto,
 perde-se a perícia incluída nas plataformas tradicionais que oferecem
 facilidades e garantias necessárias em contextos de ``produção''
 (\emph{software} em execução em um ambiente corporativo, que garante o
 funcionamento confiável e contínuo de uma corporação).
 
 O algoritmo \minas original \cite{Faria2016minas} tem uma implementação
+% companheira? Que tal "de referência" ?
 companheira\footnote{Disponível em \url{http://www.facom.ufu.br/~elaine/MINAS}}
 \cite{Faria2013source}, aqui referida como \refminas, escrita em Java utilizando
 os algoritmos base como \emph{K-means} e \emph{CluStream} da biblioteca MOA
 \cite{MOA}.
-Esta implementação serve de referência para a construção provendo validação dos
+Esta implementação serve de referência para a construção do modelo distribuído previsto, provendo validação dos
 resultados e servindo também de comparação básica de desempenho.
 
 Os primeiros pontos de divergência do \mfog e \refminas são o algoritmo de
@@ -37,15 +41,15 @@ entrada, o algoritmo da proposta recebe dois fluxos, o principal é o que conté
 os exemplos, sendo cada exemplo um vetor de números de dimensão $d$.
 O segundo fluxo de entrada consiste de \mclusters representando o modelo inicial
 criado e capturado da fase de treinamento \emph{offline}.
-A fase de treinamento \emph{offline} foi implementada mas não sofre alteração
-com relação ao algoritmo \minas \cite{Faria2016minas} além da execução separada
+A fase de treinamento \emph{offline} foi implementada e não sofreu alteração
+com relação ao algoritmo \minas \cite{Faria2016minas}, além da execução separada
 com conjunto de treinamento similar à definição do fluxo de exemplos principal
-com adição de uma dimensão com valor de um caractere marcando a classe conhecida
+com adição de uma dimensão com valor de um caractere, que marca a classe conhecida
 e saída como um fluxo finito de \mclusters.
 
 O formato do fluxo de saída é definido como a tripla contendo o número de
-sequência do exemplo no fluxo de entrada (\emph{uid}), etiqueta de um caractere
-atribuída ao exemplo e tempo em milissegundos entre a ingestão (entrada) e saída
+sequência do exemplo no fluxo de entrada (\emph{uid}), a etiqueta de um caractere
+atribuída ao exemplo, e o tempo em milissegundos entre a ingestão (entrada) e saída
 do exemplo no sistema.
 
 % - Reprocessamento dos exemplos utilizados para atualização do modelo:
@@ -60,14 +64,14 @@ do exemplo no sistema.
 Para avaliação desta proposta, ela foi construída com a implementação \emph{Open
 MPI 4.0.4}\footnote{Documentação em \url{https://www.open-mpi.org/doc/v4.0/}} do
 padrão \mpi, seguindo o paradigma de programação paralela \acf{SPMD}.
-No paradigma \spmd, uma única versão do programa é inicializada em todos os nós,
+No paradigma \spmd, uma única versão do programa é inicializada em todos os nós, sendo que
 para cada instância são passados os parâmetros \texttt{mpiSize} e
-\texttt{mpiRank} que representa o número de nós e o índice de cada nó no
+\texttt{mpiRank}, que representam o número de nós e o índice de cada nó no
 cluster.
-Neste caso o parâmetro \texttt{mpiRank} é o componentes de múltiplos dados em
+Neste caso, o parâmetro \texttt{mpiRank} é o componente de múltiplos dados em
 \spmd e, como cada nó recebe com um valor diferente, cada nó pode ter um
 comportamento diferente.
-Neste quesito o Algoritmo \ref{alg:minas-main} mostra exatamente esse
+Neste quesito, o Algoritmo \ref{alg:minas-main} mostra exatamente esse
 comportamento no ponto de entrada do \mfog, dividido o comportamento de cada nó
 de acordo com seu \texttt{mpiRank} em dois tipos: raiz e folha.
 
@@ -76,6 +80,8 @@ de acordo com seu \texttt{mpiRank} em dois tipos: raiz e folha.
 % programming model, so a single version of the \mfog program was initiated on all
 % nodes, being that one of them would perform the root role, while the others ran
 % as leaves, the program entry point is illustrated on Algorithm \ref{alg:MFOG}.
+
+% revisar aloritmo: Modelo? Trava? Que tal iniciar essas variáveis nas threads em cujo código elas são utilizadas? Como não são usadas aqui, acho que fica estranho...
 
 \begin{algorithm}[htb]
     \SetKwFunction{nearestCluster}{clusterMaisPróximo}
@@ -137,16 +143,16 @@ No processo raiz, de \texttt{mpiRank} $= 0$ e com acesso aos fluxos de entrada e
 de saída, uma \emph{thread} com a função \texttt{Detector} é iniciada e a função
 \texttt{Fonte} chamada.
 Nos processos folha, de \texttt{mpiRank} $> 0$, uma \emph{thread} com a função
-\texttt{AtualizaModelo} é iniciada e a função \texttt{Classificador} chamada.
+\texttt{AtualizaModelo} é iniciada e a função \texttt{Classificador} é chamada pela \emph{thread} associada à função principal.
 
 A função \texttt{Classificador}, listada no Algoritmo \ref{alg:MFOG-leaf}, é o
 centro do sistema e opera com o modelo atualizado e um exemplo recebido como
 mensagem do nó raiz.
 Esta função calcula as distâncias para todos \mclusters do modelo e encontrando
-o mais próximo e verificando se o modelo explica aquele exemplo, se explica o
+o mais próximo e verificando se o modelo explica aquele exemplo; se explica, o
 rótulo do \mcluster mais próximo é atribuído como rótulo do exemplo.
 A função \texttt{Classificador}, como as outras, só chega ao seu final se a
-mensagem recebida (ou instancia lida no caso da função \texttt{Fonte}) é um
+mensagem recebida (ou instância lida no caso da função \texttt{Fonte}) é um
 marcador de fim de fluxo (\texttt{FimDeFluxo}, \emph{end of stream, eos}).
 
 A função \texttt{AtualizaModelo}, também listada no Algoritmo
@@ -154,9 +160,9 @@ A função \texttt{AtualizaModelo}, também listada no Algoritmo
 independente deste \mcluster ser do modelo inicial, novidade ou extensão,
 adequadamente travando o acesso ao modelo compartilhado com a \emph{thread}
 executando a função \texttt{Classificador}.
-Além da trava de acesso à leitura e escrita na implementação a função
+Além da trava de acesso à leitura e escrita na implementação, a função
 \texttt{Classificador} espera por um sinal emitido pela função
-\texttt{AtualizaModelo} indicando que o modelo está completo antes de começar a
+\texttt{AtualizaModelo}, indicando que o modelo está completo antes de começar a
 busca pelo \mclusters mais próximo.
 
 \begin{algorithm}[htb]
@@ -237,7 +243,7 @@ atualizado e o novo cluster é enviado para todas os nós folhas.
 
 Enquanto a função \texttt{Fonte} gerencia a entrada de dados, a função
 \texttt{Detector} gerencia a saída de dados e, como tem acesso aos exemplos já
-classificados também gerencia o conjunto de desconhecidos.
+classificados, também gerencia o conjunto de desconhecidos.
 Se o tamanho do conjunto de desconhecidos atinge um valor mínimo, a função de
 detecção de novidade é chamada, os \mclusters representando padrões novidades ou
 extensões são adicionados ao modelo e enviados para todos os nós folha.
@@ -354,8 +360,8 @@ no diagrama de sequencia da Figura \ref{fig:mfog-mpi-life}.
   \label{fig:mfog-mpi-life}
 \end{figure}
 
-Em suma, a arquitetura do \mfog é composta de múltiplos nós numa névoa que detectam
-intrusão numa rede IoT. Para isso os nós da rede processam de forma paralela e
+Em suma, a arquitetura do \mfog é composta de múltiplos nós numa névoa, que detectam
+intrusão numa rede IoT. Para isso, os nós da rede processam de forma paralela e
 distribuída o cálculo das distâncias e detecção de novidades, sendo assim um
 sistema multiprocessado e distribuído. Utiliza-se um único programa com vários
 processos por nó, e cada processo recebe um conjunto de dados diferentes

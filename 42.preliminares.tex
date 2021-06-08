@@ -2,10 +2,10 @@
 
 \section{Implementações Preliminares}\label{sec:resultados}
 
-No desenvolvimento desta pesquisa, algumas experimentações e algumas ferramentas
+No desenvolvimento desta pesquisa, uma vez determinado o modelo de operação distribuída, com processamento nas bordas da rede, algumas experimentações e algumas ferramentas
 de teste foram desenvolvidas. Aspectos desses desenvolvimentos são descritos a
 seguir.
-% obrigado hélio.
+% obrigado hélio. % :-)
 
 \subsection{Implementação com \python e \kafka}
 
@@ -73,14 +73,14 @@ ambiente de testes como descrito na Seção \ref{sec:ambiente}, onde observou-se
 redução enorme no desempenho que concluiu-se ser causada pelo uso excessivo de
 memória pela plataforma \flink.
 Com a configuração dos parâmetros de memória do cluster, resultados
-compatíveis com o esperado foram obtidos no entanto, apesar de exemplos de
+compatíveis com o esperado foram obtidos; no entanto, apesar de exemplos de
 sucesso na literatura
 \cite{lee2017data,Greco2019wearableStream,battulga2020fogguru}, o ambiente de
-testes não permaneceu estável para execução de repetições do experimento
+testes não permaneceu estável para execução de repetições do experimento,
 necessitando reinicializações para que o controlador não ocupasse mais de $1GB$
-na segunda execução o que degrada imensamente o desempenho.
+na segunda execução, o que degradava imensamente o desempenho.
 
-Em conclusão, apesar de promissora, a plataforma \flink ainda não suporta a
+Em conclusão, apesar de promissora, a plataforma \flink ainda não suportava a
 execução em dispositivos computacionais restritos de maneira confiável, sendo a
 principal barreira o uso excessivo de memória, comum em plataformas do gênero
 \emph{BigData}.

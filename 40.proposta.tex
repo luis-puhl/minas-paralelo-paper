@@ -79,12 +79,12 @@ dispositivos \acf{IoT}.
 % In this work, we investigate an appropriate architecture for performing \nd at
 % the edge, as a means of allowing small IoT devices to filter and detect undesirable
 % network behavior.
-Esta abordagem é baseada na arquitetura \arch \cite{Cassales2019a} e o algoritmo
+Esta abordagem é baseada na arquitetura \arch \cite{Cassales2019a} e no algoritmo
 de \nd \minas \cite{Faria2016minas}.
 % Our approach is based on the \arch architecture \cite{Cassales2019a} and \nd
 % techniques provide by the \minas algorithm \cite{Faria2016minas}.
-Nomeado \mfog, esta implementação do algoritmo explora computação distribuída
-habilitando computadores de baixa potência e recursos limitados presentes no
+Nomeada \mfog, esta implementação do algoritmo explora computação distribuída
+habilitando o uso de computadores de baixa potência e recursos limitados presentes no
 ambiente de névoa para, além de tarefas habituais, a classificação e detecção de
 tráfego indesejável.
 % Named \mfog, our distributed algorithm explores load balancing to enable low
@@ -92,18 +92,18 @@ tráfego indesejável.
 % and detection of unwanted traffic.
 
 \acf{NIDS} monitoram tráfego em redes e analisam as características de cada
-fluxo de rede com objetivo de identificar algum intruso ou mau comportamento.
+fluxo de rede com objetivo de identificar intrusos e tráfegos indesejados.
 % monitor network traffic, and analyze the characteristics of each flow 
 % to identify any intrusion or misbehavior.
 No entanto, este problema requer respostas rápidas e acuradas \cite{DaCosta2019a}:
-Rapidez é necessária para executar uma resposta adequada antes que
-maior dano seja feito à rede e, para lidar com a velocidade do tráfego sem impor
-atraso ou perda na rede observada;
+Rapidez é necessária para executar uma ação adequada antes que
+maior dano seja feito à rede, e para lidar com a velocidade do tráfego sem impor
+atraso ou perda de pacotes na rede observada;
 % However, this problem requires both fast and accurate response 
 % fast response is needed to have a proper reaction before harm can be cast
 % to the network and to cope with the traffic without imposing loss or delay
 % in the \nids or observed network;
-Acurácia é necessária para não incorretamente identificar padrões gerando falso
+Acurácia é necessária para não  identificar padrões incorretamente, gerando falso
 alarme ou ignorando ataques.
 % accurate response is required as not to misidentify,
 % especially the case of false positive that leads to false alarms.
@@ -117,14 +117,14 @@ alarme ou ignorando ataques.
 
 Em cenários \iot comuns, dados são capturados por pequenos dispositivos
 computacionais e enviados para a nuvem (\cloud) se mais mais recursos
-computacionais ou de armazenamento são necessários, contudo, para \nids e o
-requisito de resposta rápida esta abordagem não é viável.
+computacionais ou de armazenamento são necessários; contudo, para \nids e o
+requisito de resposta rápida esta abordagem pode não ser viável.
 % In common \iot scenarios, data is captured by small devices and sent to the
 % cloud for any compute or storage tasks, but this is not feasible in a \nids
 % scenario.
 A infraestrutura de Computação em Névoa (\fog) oferece capacidades de realocar
-parte do processamento e armazenamento dos provedores de nuvem posicionando
-dispositivos de capacidade intermediária próximos aos usuários e fontes de dados.
+parte do processamento e armazenamento dos provedores de nuvem, posicionando
+dispositivos de capacidade intermediária próximos aos usuários e às fontes de dados.
 % Fog computing infrastructure aims to offload processing from the cloud
 % providers by placing edge devices closer to end-users and/or data sources.
 
@@ -137,6 +137,8 @@ de \iot e névoa, alguns desafios são notáveis:
 % devices in IoT scenarios, new challenges arise:
 \begin{enumerate}[label=(\emph{\roman*})]
 
+  \item O tráfego nas bordas da rede é inerentemente distribuído, sem uma entidade centralizadora que tenha acesso a todas as transmissões;
+  
   \item A tarefa de classificação do algoritmo deve ocorrer em paralelo em
   diferentes nós;
   
@@ -164,15 +166,16 @@ de detecção de novidade, portanto sem interromper o processo de identificaçã
 % but if the sample is labeled as \emph{unknown}, this sample must be stored and
 % the novelty detection step will be triggered.
 
-Além do multiprocessamento da tarefa e de classificação e execução assíncrona da
+Além do multiprocessamento da tarefa de classificação e da execução assíncrona da
 tarefa de detecção de novidade na fase \emph{online}, outra mudança em relação
-ao \minas original é a remoção do mecânismo de esquecimento de padrões antigos.
-A remoção do mecânismo de esquecimento de padrões antigos tem por finalidade
-simplificar a atualização e compartilhamento do modelo e, uma vez que o
+ao \minas original é a remoção do mecanismo de esquecimento de padrões antigos.
+Esta remoção tem por finalidade
+simplificar a atualização e o compartilhamento do modelo e, uma vez que o
 algoritmo \minas não prevê remoção permanente, existe um aumento na complexidade
-temporal já que o número de clusters
+temporal já que o número de clusters ... % falta algo aqui...
+
 A fase \emph{offline} e a função de detecção de novidades do algoritmo \minas
-permanece a mesma.
+permanecem as mesmas.
 
 % To have a better overview of our proposal and how it integrates with existing
 % \iot environments, Figure \ref{fig:mfog-phy-arch-cloud} depicts such scenario
@@ -195,12 +198,13 @@ permanece a mesma.
 % \end{figure}
 
 A arquitetura geral do \mfog é dividida em dois módulos, Classificação e
-Detecção de Novidade, que equivalem a fase \emph{online} do algoritmo \minas.
+Detecção de Novidade, que equivalem à fase \emph{online} do algoritmo \minas.
 % The overall \mfog architecture has two main modules, Classification and Novelty
 % Detection, which implement the \minas main tasks.
 O módulo Classificação executa a tarefa de mesmo nome do algoritmo \minas e é
 ponto focal dos esforços de paralelismo desta proposta.
-Este módulo é replicado em todos os nós do cluster hospedado em névoa.
+Este módulo é replicado em todos os nós do cluster % hospedado (?)
+em névoa.
 % The Classification Module performs the same task of the \minas Online phase and
 % is the focal point for parallelism and distribution in our proposal.
 % It is replicated in the fog and runs on each cluster node, using a configurable
@@ -209,10 +213,12 @@ Este módulo é replicado em todos os nós do cluster hospedado em névoa.
 O módulo Detecção de Novidade tem uma instância por cluster, equivalendo a uma
 instância por rede local portanto, enquanto o compartilhamento de modelo entre
 redes distintas é possível, ele não foi implementado e testado.
+% o que quer dizer isso?
+
 Este módulo é responsável pela tarefa homônima do algoritmo \minas, recebendo
-exemplos com rótulo "desconhecido" e os armazenamento no conjunto de
-desconhecidos, e quando o tamanho deste conjunto alcança um valor parametrizado,
-executa a função de detecção de novidade do algoritmo \minas.
+exemplos com rótulo "desconhecido" e os armazenando no conjunto de
+desconhecidos; quando o tamanho deste conjunto alcança um valor parametrizado,
+este módulo executa a função de detecção de novidade do algoritmo \minas.
 % The Novelty Detection Module can also be replicated,
 % the choice being one instance per local network, one global cloud instance,
 % or both.
@@ -226,10 +232,12 @@ executa a função de detecção de novidade do algoritmo \minas.
 O projeto desta arquitetura de \nd distribuída inclui o particionamento das
 funcionalidades de \minas e o estabelecimento dos fluxos de dados apropriados
 entre os diferentes atores.
-Mudanças no posicionamento e no comportamento podem ter impactos diferentes e devem ser
-escolhidas com cuidado.
-As decisões após essas discussões podem ser organizadas em várias políticas;
-alguns deles eram recorrentes durante os estudos para a implementação e são:
+Mudanças no posicionamento e no comportamento podem ter impactos diferentes no desempenho e na acurácia do modelo % ???
+e devem ser escolhidas com cuidado.
+% As decisões após essas discussões podem ser organizadas em várias políticas; alguns deles eram recorrentes durante os estudos para a implementação e são:
+
+Alguns dos aspectos com impactos potenciais na implementação incluem:
+
 % The design of our distributed \nd architecture includes partitioning the
 % functionalities of \minas and establishing the appropriate data flows
 % between different actors.
@@ -240,16 +248,15 @@ alguns deles eram recorrentes durante os estudos para a implementação e são:
 \begin{itemize}
   
   \item Com relação à alocação do módulo Detecção de Novidade e sincronização de
-  modelo entre redes distintas para compartilhamento de padrões novidade local
+  modelo entre redes distintas para compartilhamento de padrões de novidade local
   com outras redes que não receberam aquele padrão de ataque:
   % Regarding the allocation of the Novelty Detection Module:
   \begin{itemize}
     
-    \item Em névoa (um em cada cluster alocado à uma rede local): padrões serão
+    \item Em névoa (há um módulo em cada cluster alocado à uma rede local): padrões serão
     somente detectados se um número suficiente de exemplos deste padrão ocorrer
-    na rede observada, uso do poder computacional da névoa, qualquer
-    sincronização de modelo deve ter a propriedade de aditividade e reconhecer
-    padrões duplicados;
+    na rede observada; considerando o uso do poder computacional da névoa, qualquer
+    sincronização de modelo deve ter a propriedade de aditividade; também é preciso  reconhecer padrões duplicados;
     % \item At each fog node: patterns will be only detected if sufficient samples
     % of them occur in the local observed network, use of the local node
     % processing power, and a model synchronization mechanism between networks
@@ -270,7 +277,7 @@ alguns deles eram recorrentes durante os estudos para a implementação e são:
     local é mantido bem como a detecção de novidade para padrões locais,
     quando um exemplo é considerado ruído e removido do conjunto de
     desconhecidos o exemplo é enviado à nuvem para detecção de novidade global.
-    Esta opção requer um mecanismo de sincronização de modelo complexo.
+    Esta opção requer um mecanismo complexo de sincronização de modelo.
     % \item On both: local \emph{unknown} buffer is maintained and novelty
     % detection is local as well, once a sample is considered as noise or outlier
     % it shall be sent to the cloud where the process repeats but with global
@@ -288,19 +295,19 @@ alguns deles eram recorrentes durante os estudos para a implementação e são:
   % classification using the local model statistics by sorting by (or removing)
   % least used clusters;
 
-  \item Por último, a reclassificação do conjunto de desconhecidos,
-  na tarefa de detecção de novidade do algoritmo \minas, o subconjunto de
-  desconhecidos que pertence à um novo cluster válido é, efetivamente,
+  \item Por último, na reclassificação do conjunto de desconhecidos,
+  feita pela tarefa de detecção de novidade do algoritmo \minas, o subconjunto de
+  desconhecidos que pertencem a um novo cluster válido é, efetivamente,
   classificado com o rótulo deste novo cluster.
   No Algoritmo \ref{alg:minas-nd}, linha \ref{alg:MINAS-nd:reclassify},
-  o novo cluster válido inclui o subconjunto de exemplos que o compõem,
-  portanto se este conjunto de exemplos fosse rótulado com o rótulo atribuído ao
+  o novo cluster válido inclui o subconjunto de exemplos que o compõem;
+  portanto, se este conjunto de exemplos fosse classificado com o rótulo atribuído ao
   novo cluster e adicionado ao fluxo de saída, esta saída teria exemplos
   atrasados e duplicados em relação ao fluxo de entrada e o resultado obtido
-  poderia ser mais acurado.
+  poderia ser mais acurado. % preciso (???)
   Além disso, esta escolha modificaria o comportamento do operador de fluxo de
   dados de um \emph{map}, onde para cada exemplo do fluxo de entrada existe um
-  exemplo no fluxo de saída, para \emph{flatMap} onde cada exemplo entrada pode
+  exemplo no fluxo de saída, para \emph{flatMap}, onde cada exemplo entrada pode
   ter mais de um exemplo no fluxo de saída.
   % \item Lastly, reclassification of \emph{unknowns}: In the novelty detection
   % task in \minas, the \emph{unknown} sample buffer is effectively classified
