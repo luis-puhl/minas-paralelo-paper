@@ -2,6 +2,8 @@
 
 \section{Ambiente de Teste}\label{sec:ambiente}
 
+% Há algo estranho na descrição dos nós; parece que você está misturando nós e cores.
+% Talvez seja mais claro falar do número de nós, ao invés dos cores...
 Aiming to evaluate our proposal for the effects of distributed novelty detection
 in a \iot \nids scenario, we implemented an experimental setup, composed of
 three 
@@ -42,6 +44,8 @@ $447\:179$ instances with ``$A$'' (attack) class.
 Note that this choice results in possible overfitting for the normal class and,
 under-fitting for the attack class as the system first needs to detect a novel class and
 then add it to the model.
+
+% Não entendi essa questão de filtrar apenas os "normal" class no training set...
 
 \begin{lstlisting}
   MinasParams minasParams = {
