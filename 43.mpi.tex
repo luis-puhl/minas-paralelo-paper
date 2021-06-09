@@ -7,23 +7,21 @@ preliminares, optou-se por tomar mais controle sobre estes aspectos para
 maximizar o aproveitamento do \emph{hardware} escolhido, visto que seus recursos
 são limitados.
 Para isso escolheu-se implementar a proposta utilizando \acf{MPI} e linguagem C,
-onde tem-se controle fino sobre o uso de memória e distribuição. 
-
+onde tem-se controle fino sobre o uso de memória e distribuição.
 % Não entendi a sentença a seguir... sugiro revisar ou retirar...
-No entanto,
-perde-se a perícia incluída nas plataformas tradicionais que oferecem
-facilidades e garantias necessárias em contextos de ``produção''
-(\emph{software} em execução em um ambiente corporativo, que garante o
-funcionamento confiável e contínuo de uma corporação).
+No entanto, perde-se a facilidades e garantias incluída nas plataformas
+tradicionais que, por exemplo, oferecem o funcionamento confiável e contínuo com
+mecânicas de recuperação de erros.
 
 O algoritmo \minas original \cite{Faria2016minas} tem uma implementação
 % companheira? Que tal "de referência" ?
-companheira\footnote{Disponível em \url{http://www.facom.ufu.br/~elaine/MINAS}}
+referência\footnote{Disponível em \url{http://www.facom.ufu.br/~elaine/MINAS}}
 \cite{Faria2013source}, aqui referida como \refminas, escrita em Java utilizando
 os algoritmos base como \emph{K-means} e \emph{CluStream} da biblioteca MOA
 \cite{MOA}.
-Esta implementação serve de referência para a construção do modelo distribuído previsto, provendo validação dos
-resultados e servindo também de comparação básica de desempenho.
+Esta implementação serve de referência para a construção do modelo distribuído
+previsto, provendo validação dos resultados e servindo também de comparação
+básica de desempenho.
 
 Os primeiros pontos de divergência do \mfog e \refminas são o algoritmo de
 agrupamento e cálculo de raio.
@@ -71,9 +69,10 @@ cluster.
 Neste caso, o parâmetro \texttt{mpiRank} é o componente de múltiplos dados em
 \spmd e, como cada nó recebe com um valor diferente, cada nó pode ter um
 comportamento diferente.
-Neste quesito, o Algoritmo \ref{alg:minas-main} mostra exatamente esse
-comportamento no ponto de entrada do \mfog, dividido o comportamento de cada nó
-de acordo com seu \texttt{mpiRank} em dois tipos: raiz e folha.
+Neste quesito, o Algoritmo \ref{alg:MFOG}, linha \ref{line:spmd} mostra
+exatamente esse comportamento no ponto de entrada do \mfog, dividido o
+comportamento de cada nó de acordo com seu \texttt{mpiRank} em dois tipos: raiz
+e folha.
 
 % For evaluation purposes, an \mfog implementation was made using MPI .
 % The program is organized in a single program multiple data (SPMD)
@@ -81,53 +80,19 @@ de acordo com seu \texttt{mpiRank} em dois tipos: raiz e folha.
 % nodes, being that one of them would perform the root role, while the others ran
 % as leaves, the program entry point is illustrated on Algorithm \ref{alg:MFOG}.
 
-% revisar aloritmo: Modelo? Trava? Que tal iniciar essas variáveis nas threads em cujo código elas são utilizadas? Como não são usadas aqui, acho que fica estranho...
+% revisar aloritmo: Modelo? Trava? Que tal iniciar essas variáveis nas threads
+% em cujo código elas são utilizadas? Como não são usadas aqui, acho que fica
+% estranho...
 
 \begin{algorithm}[htb]
-    \SetKwFunction{nearestCluster}{clusterMaisPróximo}
-    \SetKwFunction{clustering}{agrupamento}
-    \SetKwFunction{NoveltyDetection}{DetecçãoNovidade}
-    \SetKwFunction{handleModelSleep}{moveModeloAntigo}
-    \SetKwFunction{removeOldSamples}{removeExemplosAntigos}
-    % 
-    \SetKwFunction{Mfog}{Mfog}
-    \SetKwFunction{Sampler}{Fonte}
-    \SetKwFunction{Classifier}{Classificador}
-    \SetKwFunction{Detector}{Detector}
-    \SetKwFunction{modelReceiver}{AtualizaModelo}
-    % 
-    \SetKwFunction{now}{agora}
-    \SetKwFunction{typeOf}{tipoDe}
-    \SetKwFunction{Thread}{Thread}
-    \SetKwFunction{Lock}{Trava}
-    \SetKwFunction{readLock}{travaLeitura}
-    \SetKwFunction{writeLock}{travaEscrita}
-    % 
-    \SetKwFunction{receive}{recebe}
-    \SetKwFunction{send}{envia}
-    \SetKwFunction{broadcast}{broadcast}
-    % 
-    \SetKwData{cleaningWindow}{janelaLimpeza}
-    \SetKwData{noveltyDetectionTrigger}{gatilhoDetecçãoNovidade}
-    \SetKwData{mpiSize}{mpiSize}
-    \SetKwData{mpiRank}{mpiRank}
-    \SetKwData{EndOfStream}{FimDeFluxo}
-    % 
-    \SetKwProg{Function}{Função}{:}{}
-    \SetKw{continue}{continue}
-    \SetKw{break}{pare}
-    \SetKwFor{With}{com}{}{}
-    % 
-    \SetKwInOut{KwIn}{Entrada}
-    \SetKwInOut{KwOut}{Saída}
-    \SetKwInOut{KwParams}{Parâmetros}
+    \input{43.mpi-extra.tex}
     \KwParams{\mpiRank, \mpiSize}
     \KwIn{fluxoEntrada}
     \KwOut{fluxoSaída}
     % 
     \Function{\Mfog{fluxoEntrada, fluxoSaída}}{
-        Modelo $\leftarrow$ $\emptyset$; trava $\leftarrow$ \textbf{new} \Lock()\;
-        \eIf(\emph{raiz}){\mpiRank == 0}{
+        Modelo $\leftarrow$ $\emptyset$; trava $\leftarrow$ \textbf{new} \Lock()\; \label{line:init}
+        \eIf(\emph{raiz}){\mpiRank == 0}{ \label{line:spmd}
             \textbf{new} \Thread(\Detector, [fluxoSaída, Modelo, trava])\;
             \Sampler(fluxoEntrada, Modelo, trava)\;
         }(\emph{folha}){
@@ -139,66 +104,41 @@ de acordo com seu \texttt{mpiRank} em dois tipos: raiz e folha.
 \label{alg:MFOG}
 \end{algorithm}
 
+O Algoritmo \ref{alg:MFOG} mostra os primeiros passos do sistema \mfog, a
+linha \ref{line:init} cria Modelo inicial como um conjunto vazio, e a trava
+($lock$) utilizada para controle de acesso concorrente das \emph{threads}
+\texttt{Detector} e \texttt{Fonte} no nó raiz e \texttt{AtualizaModelo} e
+\texttt{Classificador} nos nós folha.
+
 No processo raiz, de \texttt{mpiRank} $= 0$ e com acesso aos fluxos de entrada e
 de saída, uma \emph{thread} com a função \texttt{Detector} é iniciada e a função
 \texttt{Fonte} chamada.
 Nos processos folha, de \texttt{mpiRank} $> 0$, uma \emph{thread} com a função
-\texttt{AtualizaModelo} é iniciada e a função \texttt{Classificador} é chamada pela \emph{thread} associada à função principal.
+\texttt{AtualizaModelo} é iniciada e a função \texttt{Classificador} é chamada
+pela \emph{thread} associada à função principal.
 
-A função \texttt{Classificador}, listada no Algoritmo \ref{alg:MFOG-leaf}, é o
+Destaca-se que a possibilidade de, ao invés de um \texttt{Classificador} por
+processo e múltiplos processos por nó, pode-se utilizar um processo por nó
+e múltiplas \emph{threads} executando \texttt{Classificador} por nó.
+Esta estratégia economiza a transmissão de \mclusters para cada nó folha na
+função \texttt{AtualizaModelo} porém aumenta a concorrência de acesso ao modelo
+entre as \emph{threads} executando \texttt{Classificador}.
+Em avaliações simples comparando estas estratégias nenhum resultado conclusivo
+foi observado e há espaço em trabalhos futuros para avaliações mais profundas
+destas estratégias e outras de estratégias de otimização.
+
+A função \texttt{Classificador}, listada no Algoritmo \ref{alg:MFOG-classifier}, é o
 centro do sistema e opera com o modelo atualizado e um exemplo recebido como
 mensagem do nó raiz.
-Esta função calcula as distâncias para todos \mclusters do modelo e encontrando
-o mais próximo e verificando se o modelo explica aquele exemplo; se explica, o
-rótulo do \mcluster mais próximo é atribuído como rótulo do exemplo.
+Esta função calcula as distâncias entre o exemplo e todos \mclusters do modelo e
+encontrando o mais próximo e verificando se o modelo explica aquele exemplo; se
+explica, o rótulo do \mcluster mais próximo é atribuído como rótulo do exemplo.
 A função \texttt{Classificador}, como as outras, só chega ao seu final se a
 mensagem recebida (ou instância lida no caso da função \texttt{Fonte}) é um
 marcador de fim de fluxo (\texttt{FimDeFluxo}, \emph{end of stream, eos}).
 
-A função \texttt{AtualizaModelo}, também listada no Algoritmo
-\ref{alg:MFOG-leaf}, recebe novos \mclusters como mensagens do nó raiz,
-independente deste \mcluster ser do modelo inicial, novidade ou extensão,
-adequadamente travando o acesso ao modelo compartilhado com a \emph{thread}
-executando a função \texttt{Classificador}.
-Além da trava de acesso à leitura e escrita na implementação, a função
-\texttt{Classificador} espera por um sinal emitido pela função
-\texttt{AtualizaModelo}, indicando que o modelo está completo antes de começar a
-busca pelo \mclusters mais próximo.
-
 \begin{algorithm}[htb]
-    \SetKwFunction{nearestCluster}{clusterMaisPróximo}
-    \SetKwFunction{clustering}{agrupamento}
-    \SetKwFunction{NoveltyDetection}{DetecçãoNovidade}
-    \SetKwFunction{handleModelSleep}{moveModeloAntigo}
-    \SetKwFunction{removeOldSamples}{removeExemplosAntigos}
-    % 
-    \SetKwFunction{Mfog}{Mfog}
-    \SetKwFunction{Sampler}{Fonte}
-    \SetKwFunction{Classifier}{Classificador}
-    \SetKwFunction{Detector}{Detector}
-    \SetKwFunction{modelReceiver}{AtualizaModelo}
-    % 
-    \SetKwFunction{now}{agora}
-    \SetKwFunction{typeOf}{tipoDe}
-    \SetKwFunction{Thread}{Thread}
-    \SetKwFunction{Lock}{Trava}
-    \SetKwFunction{readLock}{travaLeitura}
-    \SetKwFunction{writeLock}{travaEscrita}
-    % 
-    \SetKwFunction{receive}{recebe}
-    \SetKwFunction{send}{envia}
-    \SetKwFunction{broadcast}{broadcast}
-    % 
-    \SetKwData{cleaningWindow}{janelaLimpeza}
-    \SetKwData{noveltyDetectionTrigger}{gatilhoDetecçãoNovidade}
-    \SetKwData{mpiSize}{mpiSize}
-    \SetKwData{mpiRank}{mpiRank}
-    \SetKwData{EndOfStream}{FimDeFluxo}
-    % 
-    \SetKwProg{Function}{Função}{:}{}
-    \SetKw{continue}{continue}
-    \SetKw{break}{pare}
-    \SetKwFor{With}{com}{}{}
+    \input{43.mpi-extra.tex}
     % 
     \Function{\Classifier{Modelo, trava}}{
         \While{ Verdade }{
@@ -214,10 +154,22 @@ busca pelo \mclusters mais próximo.
             \send(raiz, TipoExemplo, exemplo)\;
         }
     }
-    %     \label{alg:MFOG-classifier}
-    %     \caption{MFOG: Classifier task.}
-    % \end{algorithm}
-    % \begin{algorithm}
+\caption{Função \texttt{Classificador} do nó folha do \mfog.}
+\label{alg:MFOG-classifier}
+\end{algorithm}
+
+A função \texttt{AtualizaModelo}, listada no Algoritmo
+\ref{alg:MFOG-model}, recebe novos \mclusters como mensagens do nó raiz,
+independente deste \mcluster ser do modelo inicial, novidade ou extensão,
+adequadamente travando o acesso ao modelo compartilhado com a \emph{thread}
+executando a função \texttt{Classificador}.
+Além da trava de acesso à leitura e escrita na implementação, a função
+\texttt{Classificador} espera por um sinal emitido pela função
+\texttt{AtualizaModelo}, indicando que o modelo está completo antes de começar a
+busca pelo \mclusters mais próximo.
+
+\begin{algorithm}[htb]
+    \input{43.mpi-extra.tex}
     \Function{\modelReceiver{Modelo, trava}}{
         \While{ Verdade }{
             cluster $\leftarrow$ \receive(TipoCluster, raiz)\;
@@ -227,13 +179,13 @@ busca pelo \mclusters mais próximo.
             }
         }
     }
-    % \label{alg:MFOG-model}
-    % \caption{MFOG: model receiver task.}
-\caption{Funções dos nós folha do \mfog: Atualização de Modelo e Classificador.}
-\label{alg:MFOG-leaf}
+\caption{Função \texttt{AtualizaModelo} do nó folha do \mfog.}
+\label{alg:MFOG-model}
+% \caption{Funções dos nós folha do \mfog: Atualização de Modelo e Classificador.}
+% \label{alg:MFOG-leaf}
 \end{algorithm}
 
-A função \texttt{Fonte}, listada no Algoritmo \ref{alg:MFOG-root}, lê uma
+A função \texttt{Fonte}, listada no Algoritmo \ref{alg:MFOG-sampler}, lê uma
 instância do fluxo de entrada que pode ser do tipo exemplo ou do tipo cluster.
 Se a instância for um exemplo, ele é enviado para um dos nós folha, o nó é
 escolhido via balanceamento de carga \emph{round-robin}.
@@ -241,62 +193,8 @@ Se a instância for do tipo cluster, o modelo compartilhado com a \emph{thread}
 executando a função \texttt{Detector} é travado para leitura e escrita e
 atualizado e o novo cluster é enviado para todas os nós folhas.
 
-Enquanto a função \texttt{Fonte} gerencia a entrada de dados, a função
-\texttt{Detector} gerencia a saída de dados e, como tem acesso aos exemplos já
-classificados, também gerencia o conjunto de desconhecidos.
-Se o tamanho do conjunto de desconhecidos atinge um valor mínimo, a função de
-detecção de novidade é chamada, os \mclusters representando padrões novidades ou
-extensões são adicionados ao modelo e enviados para todos os nós folha.
-Além da remoção dos exemplos utilizados para formar \mclusters de novidades e
-extensões, exemplos que participaram duas vezes do processo de detecção de
-novidade são considerados \emph{outliers} ou ruído e são removidos.
-
-% On the root process, a sampler thread is responsible for distributing the
-% sampled flow information (\val) to the classifier nodes, using a round-robin
-% load balancing scheme.
-% The other thread on the root process is responsible for receiving the
-% classification results and for processing the unknown samples in the search for
-% novelties.
-% The root process functions are illustrated in Algorithm \ref{alg:MFOG-root}.
-% Each leaf node runs a model adjustment thread and multiple (up to the number of
-% cores) classifier threads. The leaf tasks are illustrated in Algorithm
-% \ref{alg:MFOG-leaf}.
-
 \begin{algorithm}[htb]
-    \SetKwFunction{nearestCluster}{clusterMaisPróximo}
-    \SetKwFunction{clustering}{agrupamento}
-    \SetKwFunction{NoveltyDetection}{DetecçãoNovidade}
-    \SetKwFunction{handleModelSleep}{moveModeloAntigo}
-    \SetKwFunction{removeOldSamples}{removeExemplosAntigos}
-    % 
-    \SetKwFunction{Mfog}{Mfog}
-    \SetKwFunction{Sampler}{Fonte}
-    \SetKwFunction{Classifier}{Classificador}
-    \SetKwFunction{Detector}{Detector}
-    \SetKwFunction{modelReceiver}{AtualizaModelo}
-    % 
-    \SetKwFunction{now}{agora}
-    \SetKwFunction{typeOf}{tipoDe}
-    \SetKwFunction{Thread}{Thread}
-    \SetKwFunction{Lock}{Trava}
-    \SetKwFunction{readLock}{travaLeitura}
-    \SetKwFunction{writeLock}{travaEscrita}
-    % 
-    \SetKwFunction{receive}{recebe}
-    \SetKwFunction{send}{envia}
-    \SetKwFunction{broadcast}{broadcast}
-    % 
-    \SetKwData{cleaningWindow}{janelaLimpeza}
-    \SetKwData{noveltyDetectionTrigger}{gatilhoDetecçãoNovidade}
-    \SetKwData{mpiSize}{mpiSize}
-    \SetKwData{mpiRank}{mpiRank}
-    \SetKwData{EndOfStream}{FimDeFluxo}
-    % 
-    \SetKwProg{Function}{Função}{:}{}
-    \SetKw{continue}{continue}
-    \SetKw{break}{pare}
-    \SetKwFor{With}{com}{}{}
-    % 
+    \input{43.mpi-extra.tex}
     \Function{\Sampler{fluxoEntrada, Modelo, trava}}{
         dest $\leftarrow$ 1\;
         \ForEach{ {$exemplo_{i}$} $\in$ fluxoEntrada }{
@@ -313,10 +211,23 @@ novidade são considerados \emph{outliers} ou ruído e são removidos.
             \lIf{dest $>$ \mpiSize}{dest $\leftarrow$ 1}
         }
     }
-    %     \label{alg:MFOG-sampler}
-    %     \caption{MFOG: sampler Module.}
-    % \end{algorithm}
-    % \begin{algorithm}
+\caption{Função \texttt{Fonte} do nó raiz do \mfog.}
+\label{alg:MFOG-sampler}
+\end{algorithm}
+
+Enquanto a função \texttt{Fonte} gerencia a entrada de dados, a função
+\texttt{Detector}, listada no Algoritmo \ref{alg:MFOG-detector}, gerencia a saída
+de dados e, como tem acesso aos exemplos já classificados, também gerencia o
+conjunto de desconhecidos.
+Se o tamanho do conjunto de desconhecidos atinge um valor mínimo, a função de
+detecção de novidade é chamada, os \mclusters representando padrões novidades ou
+extensões são adicionados ao modelo e enviados para todos os nós folha.
+Além da remoção dos exemplos utilizados para formar \mclusters de novidades e
+extensões, exemplos que participaram duas vezes do processo de detecção de
+novidade são considerados \emph{outliers} ou ruído e são removidos.
+
+\begin{algorithm}[htb]
+    \input{43.mpi-extra.tex}
     \Function{\Detector{fluxoSaída, Modelo, trava}}{
         Desconhecidos $\leftarrow \emptyset$;  últimaLimpeza $\leftarrow 0$\;
         \While{ Verdade }{
@@ -342,19 +253,19 @@ novidade são considerados \emph{outliers} ou ruído e são removidos.
             }
         }
     }
-    % \label{alg:MFOG-detector}
-    % \caption{MFOG: detector task.}
-\caption{Funções do nó raiz do \mfog: Fonte e Detector.}
-\label{alg:MFOG-root}
+\caption{Função \texttt{Detector} do nó raiz do \mfog.}
+\label{alg:MFOG-detector}
+% \caption{Funções do nó raiz do \mfog: Fonte e Detector.}
+% \label{alg:MFOG-root}
 \end{algorithm}
 
 % The overall sequence of interactions is shown in Figure \ref{fig:mfog-mpi-life}.
 As interações entre os diferentes módulos e ciclo de vida do sistema é ilustrado
 no diagrama de sequencia da Figura \ref{fig:mfog-mpi-life}.
 
-\begin{figure}[htb]
+\begin{figure}[hb]
   \centerline{
-    \includegraphics[width=0.9\linewidth,page=1]{figures/lifecycle-uml-svg.pdf}
+    \includegraphics[width=0.80\linewidth,page=1]{figures/lifecycle-uml-svg.pdf}
   }
   \caption{Diagrama UML de Sequência do \mfog: visão geral das linhas de vida.}
   \label{fig:mfog-mpi-life}

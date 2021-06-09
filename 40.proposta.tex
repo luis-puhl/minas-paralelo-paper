@@ -137,7 +137,8 @@ de \iot e névoa, alguns desafios são notáveis:
 % devices in IoT scenarios, new challenges arise:
 \begin{enumerate}[label=(\emph{\roman*})]
 
-  \item O tráfego nas bordas da rede é inerentemente distribuído, sem uma entidade centralizadora que tenha acesso a todas as transmissões;
+  \item O tráfego nas bordas da rede é inerentemente distribuído, sem uma
+  entidade centralizadora que tenha acesso a todas as transmissões;
   
   \item A tarefa de classificação do algoritmo deve ocorrer em paralelo em
   diferentes nós;
@@ -169,10 +170,14 @@ de detecção de novidade, portanto sem interromper o processo de identificaçã
 Além do multiprocessamento da tarefa de classificação e da execução assíncrona da
 tarefa de detecção de novidade na fase \emph{online}, outra mudança em relação
 ao \minas original é a remoção do mecanismo de esquecimento de padrões antigos.
-Esta remoção tem por finalidade
-simplificar a atualização e o compartilhamento do modelo e, uma vez que o
-algoritmo \minas não prevê remoção permanente, existe um aumento na complexidade
-temporal já que o número de clusters ... % falta algo aqui...
+Esta remoção tem por finalidade simplificar a atualização e o compartilhamento
+do modelo entre as múltiplas instâncias e \emph{threads} concorrentes.
+% 
+O impacto desta alteração não é grande pois o algoritmo \minas não prevê remoção
+permanente dos \mclusters porém existe um aumento na complexidade computacional
+já que o número de \mclusters analisados durante a busca do mais próximo para
+classificação inclui os padrões menos de uso menos frequente.
+% falta algo aqui... Hélio
 
 A fase \emph{offline} e a função de detecção de novidades do algoritmo \minas
 permanecem as mesmas.
@@ -210,13 +215,13 @@ em névoa.
 % It is replicated in the fog and runs on each cluster node, using a configurable
 % number of threads (limited to the node CPU core count).
 
+% o que quer dizer isso?
 O módulo Detecção de Novidade tem uma instância por cluster, equivalendo a uma
 instância por rede local portanto, enquanto o compartilhamento de modelo entre
 redes distintas é possível, ele não foi implementado e testado.
-% o que quer dizer isso?
-
+% 
 Este módulo é responsável pela tarefa homônima do algoritmo \minas, recebendo
-exemplos com rótulo "desconhecido" e os armazenando no conjunto de
+exemplos com rótulo ``desconhecido'' e os armazenando no conjunto de
 desconhecidos; quando o tamanho deste conjunto alcança um valor parametrizado,
 este módulo executa a função de detecção de novidade do algoritmo \minas.
 % The Novelty Detection Module can also be replicated,
@@ -232,10 +237,13 @@ este módulo executa a função de detecção de novidade do algoritmo \minas.
 O projeto desta arquitetura de \nd distribuída inclui o particionamento das
 funcionalidades de \minas e o estabelecimento dos fluxos de dados apropriados
 entre os diferentes atores.
-Mudanças no posicionamento e no comportamento podem ter impactos diferentes no desempenho e na acurácia do modelo % ???
-e devem ser escolhidas com cuidado.
-% As decisões após essas discussões podem ser organizadas em várias políticas; alguns deles eram recorrentes durante os estudos para a implementação e são:
-
+ % ??? Hélio
+Mudanças no posicionamento de cada ator e no comportamento tem impactos
+diferentes no desempenho e na acurácia do modelo e devem ser escolhidas com
+cuidado.
+% As decisões após essas discussões podem ser organizadas em várias políticas; 
+% alguns deles eram recorrentes durante os estudos para a implementação e são:
+% 
 Alguns dos aspectos com impactos potenciais na implementação incluem:
 
 % The design of our distributed \nd architecture includes partitioning the
@@ -304,7 +312,8 @@ Alguns dos aspectos com impactos potenciais na implementação incluem:
   portanto, se este conjunto de exemplos fosse classificado com o rótulo atribuído ao
   novo cluster e adicionado ao fluxo de saída, esta saída teria exemplos
   atrasados e duplicados em relação ao fluxo de entrada e o resultado obtido
-  poderia ser mais acurado. % preciso (???)
+  poderia ser mais acurado.
+  % preciso (???) Hélio
   Além disso, esta escolha modificaria o comportamento do operador de fluxo de
   dados de um \emph{map}, onde para cada exemplo do fluxo de entrada existe um
   exemplo no fluxo de saída, para \emph{flatMap}, onde cada exemplo entrada pode
