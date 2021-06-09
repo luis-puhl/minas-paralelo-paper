@@ -2,103 +2,153 @@
 
 \section{Ambiente de Teste}\label{sec:ambiente}
 
-Aiming to evaluate our proposal for the effects of distributed novelty detection
-in a \iot \nids scenario, we implemented an experimental setup, composed of
-three 
-Raspberry Pi 3 model B single board computers 
-(BCM2837 system-on-chip (SoC),
-4 high-performance ARM Cortex-A53 processing cores at 1.2GHz,
-32kB Level 1 and 512kB Level 2 cache memory)
-connected via Ethernet
-Switch. The idea was to create a simple cluster simulating an \iot network with
-constrained resources at the edge of the network.
-This cluster stored all source code, binaries (compiled and linked in place) and
+Com o objetivo de avaliar esta proposta e averiguar os efeitos da distribuição
+da detecção de novidades em um cenário \iot, construíu-se um ambiente
+experimental de névoa (\fog).
+
+Este ambiente é composto por três computadores de única placa (\emph{Single
+Board Computer}) modelo Raspberry Pi 3 model B, equipados com o SoC
+(\emph{system-on-chip} sistema em um chip) de arquitetura ARM \emph{BCM2837} com
+$4$ núcleos de processamento à frequência de $1.2GHz$, $32kB$ e $512kB$ de
+memória \emph{cache} nível 1 e 2 respectivamente, $1GB$ de memória,
+armazenamento em cartão SD e conectados por rede cabeada \emph{Ethernet}.
+% Switch
+
+A ideia central é criar um cluster simples simulando \emph{gateway} de uma rede
+\iot com recursos limitados.
+Este cluster armazenou todo o código-fonte, binários (compilados no mesmo cluster) e
+\dataset.
+Nesta configuração, o \dataset é armazenado no cartão SD do nó raiz e é lido para
+cada execução do experimento.
+Todos os experimentos foram executados neste cluster para isolamento de outras
+variações imprevistas e para garantir que as comparações seriam justas com
+\emph{software} e \emph{hardware} constante.
+
+% The idea was to create a simple cluster simulating an \iot network with
+% constrained resources at the edge of the network.
+% This cluster stored all source code, binaries (compiled and linked in place) and
+% data sets.
+% In our setup, the data set is stored in the root's node SD card and is read for
+% each experiment.
+% All experiments were executed in this cluster for isolation of otherwise
+% unforeseen variations and for safe software comparison with constant hardware.
 % data sets, being accessed via our laboratory network over Secure Shell (SSH).
-data sets.
-In our setup, the data set is stored in the root's node SD card and is read for
-each experiment.
-All experiments were executed in this cluster for isolation of otherwise
-unforeseen variations and for safe software comparison with constant hardware.
 
-The data set used is the December 2015 segment of
-Kyoto 2006+ data set\footnote{Available at \url{http://www.takakura.com/Kyoto\_data/}}
-(Traffic Data from Kyoto University's Honeypots) \cite{Song2011}
-containing $7\:865\:245$ samples.
-From the original data set, we filtered only samples associated with normal traffic
-or known attack types identified by existing \nids, and attack types with more
-than $10\:000$ samples for significance, as previously done by
-\cite{Cassales2019a}.
+O \dataset \emph{Kyoto 2006+}\footnote{Disponível em
+\url{http://www.takakura.com/Kyoto\_data/}}, tráfego das \emph{Honeypots} da
+Universidade de Kyoto, é o foco deste trabalho.
+Este \dataset contém dados ainda representativos (até 2015) e as característica
+desejáveis de um conjunto de dados (realismo, validade, etiquetas previamente
+definidas, alta variabilidade, reprodutibilidade e disponibilidade pública) são
+atendidas \cite{KyotoDataset,Song2011kyoto}.
+
+O segmento utilizado é o de Dezembro de 2015, contendo $7\:865\:245$ instâncias.
+Deste segmento são filtradas apenas instâncias associadas à tráfego normal ou
+ataques conhecidos identificados por \nids que tenham mais de $10\:000$ instâncias
+para significância, como feito previamente por \citeonline{Cassales2019a}.
 % , this removes 46,390 instances. TODO: revisar, pois 7M != 700K.
-The remaining samples then were normalized so each feature value space (e.g., IP
-Address, Duration, Service) is translated to the Real interval $[0, 1]$.
+As instâncias mantidas são normalizadas para que o valor de cada característica
+original (como endereço IP, duração do fluxo, serviço) seja transposta para o
+intervalo Real $[0, 1]$.
 
-The resulting derived data set is then stored in two sets,
-training set and test set, using the holdout technique.
-However, for the training set we filter in only normal class
-resulting in $72\:000$ instances.
-For the test set we use $653\:457$ instances with
-$206\:278$ instances with ``$N$'' (normal) class and
-$447\:179$ instances with ``$A$'' (attack) class.
-Note that this choice results in possible overfitting for the normal class and,
-under-fitting for the attack class as the system first needs to detect a novel class and
-then add it to the model.
+O conjunto resultante da operação recém descrita é então dividido em dois
+conjuntos, treinamento e teste.
+Para avaliar a detecção de ataques, o conjunto treinamento é composto apenas de
+de trafego normal, contendo $72\:000$ instâncias.
+O conjunto de teste possui as $653\:457$ instâncias, sendo elas
+$206\:278$ instâncias com classe ``$N$'' (normal) e
+$447\:179$ instâncias com classe ``$A$'' (ataque).
 
-\begin{lstlisting}
-  MinasParams minasParams = {
-    .k=100, .dim=22, .precision=1.0e-08,
-    .radiusF=0.25, .minExamplesPerCluster=20, .noveltyF=1.4,
-    .thresholdForgettingPast = 10000,
-  };
-\end{lstlisting}
+Destaca-se que esta escolha pode resultar em \emph{Overfitting} para a classe
+normal e \emph{under-fitting} para a classe ataque, pois o sistema primeiro
+precisa detectar um padrão novidade para então adicionar ao modelo.
 
-Para realização dos experimentos, diversas configurações de ambientes são
-propostas.
-Os ambientes selecionados são: local, 
-\notahl{o que muda na paralelização e na \textbf{distribuição} de instâncias
-do módulo \textbf{classificador}?}
-\hlhl{nuvem e névoa}.
-As configurações consistem na distribuição de módulos da implementação \mfog
-sendo executadas em combinações de ambientes nuvem e névoa com variada
-quantidade de nós.
+Quanto às configurações do algoritmo \minas, os valores dos parâmetros foram
+escolhidos por serem valores comuns para o algoritmo presentes na literatura
+\cite{Faria2013Minas,Faria2016minas} e na implementação de referência \refminas
+\cite{Faria2013source} ou escolhidos por aproximarem os resultados aos obtidos
+pela implementação de referência \refminas com os mesmos parâmetros, até onde é
+possível, e \dataset.
 
-O ambiente local é composto por um único nó computacional, consistindo de um
-computador pessoal equipado com um processador de 8 núcleos, $16GB$ de memória e
-armazenamento em estado sólido (SSD) usado para o desenvolvimento e referência
-em comparações.
-O ambiente nuvem é provido pela utilização da infraestrutura de nuvem da
-Universidade Federal de São Carlos (Cloud{@}UFSCar\footnote{Disponível em
-\url{http://portalcloud.ufscar.br/servicos}}).
-O ambiente de névoa (\fog) é composto por computadores de única placa
-(\emph{Single Board Computer}) equipados com processador de arquitetura ARM de 4
-núcleos, $1GB$ de memória, armazenamento em cartão SD (\emph{SD-card}) e
-conectados por rede sem fio.
+Os parâmetros utilizados, ilustrados na Figura \ref{fig:params}, são
+os da literatura: \texttt{k} número de \mclusters gerados pelo algoritmo de agrupamento,
+\texttt{minExamplesPerCluster} número de mínimo de exemplos para um \mcluster válido,
+\texttt{thresholdForgettingPast} limite para remoção de exemplos do conjunto de
+desconhecidos e, o restante escolhidos por aproximação,
+\texttt{precision} é o valor limite da melhora na distância global reduzindo as 
+iterações no algoritmo de agrupamento (otimização) e,
+\texttt{radiusF} fator que multiplica o desvio padrão das distâncias entre o
+centro e cada exemplo formador do novo \mcluster definindo o raio do \mcluster
+e 
+\texttt{noveltyF} fator que multiplica o desvio padrão das distâncias do
+\mcluster mais próximo distinguindo um novo padrão entre extensão e novidade.
 
-A combinação de diferentes distribuições tem por objetivo \hlhl{demonstrar padrões de
-latência} e qualidade que podem afetar implantações em ambientes reais que não
-são geralmente destacados quando os experimentos são realizados em um único
-nó ou ambiente.
+% (k, minExamplesPerCluster, noveltyF, thresholdForgettingPast)
+% (precision, radiusF)
 
-Faz parte também do ambiente de teste os conjuntos de dados (\datasets)
-\emph{KDD99}
-% \hlfa{e \emph{Kyoto 2006+}}
-e \emph{Kyoto 2006+}
-que foram selecionados por motivos distintos.
+\begin{figure}[htb]
+  \centering
+  \begin{lstlisting}
+    MinasParams minasParams = {
+      .k=100, .dim=22, .precision=1.0e-08,
+      .radiusF=0.25, .minExamplesPerCluster=20, .noveltyF=1.4,
+      .thresholdForgettingPast = 10000,
+    };
+  \end{lstlisting}
+  \caption{Parâmetros do algoritmo \minas.}
+  \label{fig:params}
+\end{figure}
 
-O \dataset \emph{Kyoto 2006+} é o foco deste trabalho, pois contém dados ainda
-representativos (até 2015) e as característica desejáveis de um conjunto de
-dados (realismo, validade, etiquetas previamente definidas, alta variabilidade,
-reprodutibilidade e disponibilidade pública) são atendidas
-\cite{KyotoDataset,Song2011kyoto}.
 
-O \dataset \emph{KDD99} é amplamente utilizado em trabalhos de detecção de
-anomalia.
-Porém, como não possui mais a característica de realismo, uma vez que foi
-construído em 1998, neste trabalho o \dataset \emph{KDD99} é utilizado somente
-para que o leitor possa comparar com outros trabalhos
-\cite{Tavallaee2009,Protic2018KddKyoto}.
 
-Os dois \datasets mencionados e outros abordados em discussão e avaliados como
-relevantes são
+% Para realização dos experimentos, diversas configurações de ambientes são
+% propostas.
+% Os ambientes selecionados são: local, 
+% \notahl{o que muda na paralelização e na \textbf{distribuição} de instâncias
+% do módulo \textbf{classificador}?}
+% \hlhl{nuvem e névoa}.
+% As configurações consistem na distribuição de módulos da implementação \mfog
+% sendo executadas em combinações de ambientes nuvem e névoa com variada
+% quantidade de nós.
+
+% O ambiente local é composto por um único nó computacional, consistindo de um
+% computador pessoal equipado com um processador de 8 núcleos, $16GB$ de memória e
+% armazenamento em estado sólido (SSD) usado para o desenvolvimento e referência
+% em comparações.
+% O ambiente nuvem é provido pela utilização da infraestrutura de nuvem da
+% Universidade Federal de São Carlos (Cloud{@}UFSCar\footnote{Disponível em
+% \url{http://portalcloud.ufscar.br/servicos}}).
+% O ambiente de névoa (\fog) é composto por computadores de única placa
+% (\emph{Single Board Computer}) equipados com processador de arquitetura ARM de 4
+% núcleos, $1GB$ de memória, armazenamento em cartão SD (\emph{SD-card}) e
+% conectados por rede sem fio.
+
+% A combinação de diferentes distribuições tem por objetivo \hlhl{demonstrar padrões de
+% latência} e qualidade que podem afetar implantações em ambientes reais que não
+% são geralmente destacados quando os experimentos são realizados em um único
+% nó ou ambiente.
+
+% Faz parte também do ambiente de teste os conjuntos de dados (\datasets)
+% \emph{KDD99}
+% % \hlfa{e \emph{Kyoto 2006+}}
+% e \emph{Kyoto 2006+}
+% que foram selecionados por motivos distintos.
+
+% O \dataset \emph{Kyoto 2006+} é o foco deste trabalho, pois contém dados ainda
+% representativos (até 2015) e as característica desejáveis de um conjunto de
+% dados (realismo, validade, etiquetas previamente definidas, alta variabilidade,
+% reprodutibilidade e disponibilidade pública) são atendidas
+% \cite{KyotoDataset,Song2011kyoto}.
+
+% O \dataset \emph{KDD99} é amplamente utilizado em trabalhos de detecção de
+% anomalia.
+% Porém, como não possui mais a característica de realismo, uma vez que foi
+% construído em 1998, neste trabalho o \dataset \emph{KDD99} é utilizado somente
+% para que o leitor possa comparar com outros trabalhos
+% \cite{Tavallaee2009,Protic2018KddKyoto}.
+
+% Os dois \datasets mencionados e outros abordados em discussão e avaliados como
+% relevantes são
 
 % Por exemplo, o KDD original tem 41 atributos. A base é rotulada para 24
 % tipos de ataques divididos em 4 grupos: DOS ...
@@ -121,58 +171,58 @@ relevantes são
 % \notafa{Uma sugestão seria usar datasets artificiais também a fim de avaliar
 % outras caracteristicas tais como: nro de atributos, frequencia do surgimento de
 % novidades, mudanças abruptas, graduais, etc. }
-\begin{table}[ht]
-  \caption{Sumário dos conjuntos de dados}
-  \centering
-  \begin{scriptsize}
-  \begin{tabularx}{\linewidth}{X|X|X|X}
-    Nome &
-      Origem &
-      Descrição &
-      Acesso Público \\
-    \hline
-    \hline
-    \emph{KDD99} \cite{Tavallaee2009,Protic2018KddKyoto} &
-      Captura de Fluxos de rede com ataques simulados &
-      41 atributos (sumário de fluxo), 23 classes, $4\;898\;431$ instâncias, $709$ MB &
-      \url{https://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html} \\
-    \hline
-    \emph{Kyoto 2006+} \cite{Song2011kyoto,Protic2018KddKyoto}&
-      Captura de Fluxos de rede com HoneyPot &
-      23 atributos (sumário de fluxo), 3 classes, $7\;865\;245$ instâncias e $1.3$ GB (dez-2015) &
-      \url{https://www.takakura.com/Kyoto_data/new_data201704/} \\
+% \begin{table}[ht]
+%   \caption{Sumário dos conjuntos de dados}
+%   \centering
+%   \begin{scriptsize}
+%   \begin{tabularx}{\linewidth}{X|X|X|X}
+%     Nome &
+%       Origem &
+%       Descrição &
+%       Acesso Público \\
+%     \hline
+%     \hline
+%     \emph{KDD99} \cite{Tavallaee2009,Protic2018KddKyoto} &
+%       Captura de Fluxos de rede com ataques simulados &
+%       41 atributos (sumário de fluxo), 23 classes, $4\;898\;431$ instâncias, $709$ MB &
+%       \url{https://kdd.ics.uci.edu/databases/kddcup99/kddcup99.html} \\
+%     \hline
+%     \emph{Kyoto 2006+} \cite{Song2011kyoto,Protic2018KddKyoto}&
+%       Captura de Fluxos de rede com HoneyPot &
+%       23 atributos (sumário de fluxo), 3 classes, $7\;865\;245$ instâncias e $1.3$ GB (dez-2015) &
+%       \url{https://www.takakura.com/Kyoto_data/new_data201704/} \\
 
-      %  0.000000 other 0 0 0 0.00 0.00 0.00 0 0 0.00 0.00 0.00 S0 00 0 -1
-      %  fdbd:f115:35b2:0424:40aa:098c:03e5:149b 3712
-      %  fdbd:f115:35b2:c891:7db9:2762:6182:03eb 445 00:00:00 tcp
+%       %  0.000000 other 0 0 0 0.00 0.00 0.00 0 0 0.00 0.00 0.00 S0 00 0 -1
+%       %  fdbd:f115:35b2:0424:40aa:098c:03e5:149b 3712
+%       %  fdbd:f115:35b2:c891:7db9:2762:6182:03eb 445 00:00:00 tcp
     
-       \hline
-    % ISCXTor2016 \cite{Draper-Gil2016} &
-    %   Origem &
-    %   28 atributos,  &
-    %   \url{https://www.unb.ca/cic/datasets/tor.html} \\
-    % \hline
-    % ISCXVPN2016 \cite{Lashkari2017} &
-    %   Origem &
-    %   28 atributos,  &
-    %   \url{https://www.unb.ca/cic/datasets/tor.html} \\
-    % \hline
-    CICIDS2017 \cite{Sharafaldin2018cicids2017} &
-      Captura de Fluxos de rede com ataques simulados com perfil de trafego de 25
-      usuários normais e de 6 perfis de ataques durante 5 dias (1º dia sem ataque) &
-      80 atributos (sumário de fluxo extraído de CICFlowMeter), 15 classes,
-      $2\;830\;751$ instâncias e 1.2GB em arquivos \emph{pcap} e \emph{csv} &
-      \url{https://www.unb.ca/cic/datasets/ids-2017.html} \\
-    \hline
-    \emph{Radial Basis Function} (RBF) da biblioteca \emph{Massive Online Analysis} (MOA)
-    \emph{4CRE-V2} &
-      Sintético gerado por função RBF da biblioteca MOA com características de
-      mudança e evolução de conceito &
-      Atributos ($\mathbb{R}$), exemplos, classes, evoluções e mudanças configuráveis &
-      \url{https://sites.google.com/site/nonstationaryarchive/home} \\
-    \hline
-  \end{tabularx}
-  \label{tab:summary-dataset}
-  \end{scriptsize}
-\end{table}
+%        \hline
+%     % ISCXTor2016 \cite{Draper-Gil2016} &
+%     %   Origem &
+%     %   28 atributos,  &
+%     %   \url{https://www.unb.ca/cic/datasets/tor.html} \\
+%     % \hline
+%     % ISCXVPN2016 \cite{Lashkari2017} &
+%     %   Origem &
+%     %   28 atributos,  &
+%     %   \url{https://www.unb.ca/cic/datasets/tor.html} \\
+%     % \hline
+%     CICIDS2017 \cite{Sharafaldin2018cicids2017} &
+%       Captura de Fluxos de rede com ataques simulados com perfil de trafego de 25
+%       usuários normais e de 6 perfis de ataques durante 5 dias (1º dia sem ataque) &
+%       80 atributos (sumário de fluxo extraído de CICFlowMeter), 15 classes,
+%       $2\;830\;751$ instâncias e 1.2GB em arquivos \emph{pcap} e \emph{csv} &
+%       \url{https://www.unb.ca/cic/datasets/ids-2017.html} \\
+%     \hline
+%     \emph{Radial Basis Function} (RBF) da biblioteca \emph{Massive Online Analysis} (MOA)
+%     \emph{4CRE-V2} &
+%       Sintético gerado por função RBF da biblioteca MOA com características de
+%       mudança e evolução de conceito &
+%       Atributos ($\mathbb{R}$), exemplos, classes, evoluções e mudanças configuráveis &
+%       \url{https://sites.google.com/site/nonstationaryarchive/home} \\
+%     \hline
+%   \end{tabularx}
+%   \label{tab:summary-dataset}
+%   \end{scriptsize}
+% \end{table}
 
