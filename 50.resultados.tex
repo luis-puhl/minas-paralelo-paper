@@ -160,6 +160,34 @@ One complete matrix is shown in Tab. \ref{tab:java-matrix}.
 
 % \end{table*}
 
+% O que é a "measurement summary table"? 
+
+\newcommand{\mr}[1]{\multirow{2}{*}{#1}}
+\begin{table}[hbt]%{0.48\linewidth}
+{\scriptsize
+\setlength\tabcolsep{0.35em}
+\caption{Sumário das métricas.}
+\label{tab:exper-summary}
+\begin{center}
+\begin{tabular}{l|r|r|r|r|r}
+                & \refminas (a)  & Offline       & Serial (b)      & Single Node (c) & Multi Node (d)  \\\hline
+\mr{Hits}       & $\ 199708\ $   &               & $\ 195017\ $    & $\ 204151\ $    & $\ 204191\ $    \\
+                & $\ 0.305618\ $ &               & $\ 0.298438\ $  & $\ 0.312416\ $  & $\ 0.312478\ $  \\
+\hline
+\mr{Misses}     & $\ 441769\ $   &               & $\ 429873\ $    & $\ 433936\ $    & $\ 433767\ $    \\
+                & $\ 0.676049\ $ &               & $\ 0.657843\ $  & $\ 0.664061\ $  & $\ 0.663802\ $  \\
+\hline
+\mr{Unknowns}   & $\ 11980\ $    &               & $\ 28567\ $     & $\ 15370\ $     & $\ 15499\ $     \\
+                & $\ 0.018333\ $ &               & $\ 0.043717\ $  & $\ 0.023521\ $  & $\ 0.023718\ $  \\
+\hline
+Time            & $\ 2761.83\ $  & $\ 194.12\ $  & $\ 80.79000\ $  & $\ 522.1000\ $  & $\ 207.1400\ $  \\\hline
+System          & $\ 7.15\ $     & $\  0.075\ $  & $\ 11.51000\ $  & $\  47.7700\ $  & $\ 157.6100\ $  \\\hline
+Elapsed         & $\ 2772.07\ $  & $\ 194.27\ $  & $\ 93.03000\ $  & $\ 145.0400\ $  & $\  95.3800\ $  
+\end{tabular}
+\end{center}
+}
+\end{table}
+
 For the measurements summary table, six measurements from two sources are displayed. Three
 measures \emph{Hits}, \emph{Unknowns} and \emph{Misses} represented as ratio of
 the captured output stream, extracted from the evaluation python program,

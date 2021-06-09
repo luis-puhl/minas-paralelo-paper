@@ -3,7 +3,7 @@
 \section{Ambiente de Teste}\label{sec:ambiente}
 
 Com o objetivo de avaliar esta proposta e averiguar os efeitos da distribuição
-da detecção de novidades em um cenário \iot, construíu-se um ambiente
+da detecção de novidades em um cenário \iot, construiu-se um ambiente
 experimental de névoa (\fog).
 
 Este ambiente é composto por três computadores de única placa (\emph{Single
@@ -16,6 +16,7 @@ armazenamento em cartão SD e conectados por rede cabeada \emph{Ethernet}.
 % Hélio:
 %    Há algo estranho na descrição dos nós; parece que você está misturando nós e cores.
 %    Talvez seja mais claro falar do número de nós, ao invés dos cores...
+% ficou melhor!
 
 A ideia central é criar um cluster simples simulando \emph{gateway} de uma rede
 \iot com recursos limitados.
@@ -46,8 +47,8 @@ definidas, alta variabilidade, reprodutibilidade e disponibilidade pública) sã
 atendidas \cite{KyotoDataset,Song2011kyoto}.
 
 O segmento utilizado é o de Dezembro de 2015, contendo $7\:865\:245$ instâncias.
-Deste segmento são filtradas apenas instâncias associadas à tráfego normal ou
-ataques conhecidos identificados por \nids que tenham mais de $10\:000$ instâncias
+Deste segmento, são filtradas apenas instâncias associadas a tráfego normal ou
+ataques conhecidos, identificados por \nids que tenham mais de $10\:000$ instâncias
 para significância, como feito previamente por \citeonline{Cassales2019a}.
 % , this removes 46,390 instances. TODO: revisar, pois 7M != 700K.
 As instâncias mantidas são normalizadas para que o valor de cada característica
@@ -63,6 +64,7 @@ $206\:278$ instâncias com classe ``$N$'' (normal) e
 $447\:179$ instâncias com classe ``$A$'' (ataque).
 
 % Não entendi essa questão de filtrar apenas os "normal" class no training set... Hélio
+% acho que fez sentido... detectar o que não se aproxima de normal como novidade...
 Destaca-se que esta escolha pode resultar em \emph{Overfitting} para a classe
 normal e \emph{under-fitting} para a classe ataque, pois o sistema primeiro
 precisa detectar um padrão novidade para então adicionar ao modelo.
@@ -70,7 +72,7 @@ precisa detectar um padrão novidade para então adicionar ao modelo.
 Quanto às configurações do algoritmo \minas, os valores dos parâmetros foram
 escolhidos por serem valores comuns para o algoritmo presentes na literatura
 \cite{Faria2013Minas,Faria2016minas} e na implementação de referência \refminas
-\cite{Faria2013source} ou escolhidos por aproximarem os resultados aos obtidos
+\cite{Faria2013source}, ou escolhidos por aproximarem os resultados aos obtidos
 pela implementação de referência \refminas com os mesmos parâmetros, até onde é
 possível, e \dataset.
 
@@ -79,7 +81,9 @@ os da literatura: \texttt{k} número de \mclusters gerados pelo algoritmo de agr
 \texttt{minExamplesPerCluster} número de mínimo de exemplos para um \mcluster válido,
 \texttt{thresholdForgettingPast} limite para remoção de exemplos do conjunto de
 desconhecidos e, o restante escolhidos por aproximação,
-\texttt{precision} é o valor limite da melhora na distância global reduzindo as 
+\texttt{precision} é o valor limite para melhora na distância global reduzindo as 
+% sorry
+% falha minha... retomo depois; bons tralhos!
 iterações no algoritmo de agrupamento (otimização) e,
 \texttt{radiusF} fator que multiplica o desvio padrão das distâncias entre o
 centro e cada exemplo formador do novo \mcluster definindo o raio do \mcluster
