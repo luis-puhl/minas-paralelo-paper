@@ -33,7 +33,6 @@ enquanto o \mfog segue a definição em \citeonline{Faria2016minas} utilizando o
 desvio padrão dos valores do mesmo conjunto de distâncias multiplicado pelo
 parâmetro $f_{raio}$ seguindo a Equação \ref{eq:raio_paper}.
 
-\newcommand{\val}{$\vec{v}\,$\xspace}
 Os formatos dos fluxos de dados de entrada e de saída também são notáveis. Como
 entrada, o algoritmo da proposta recebe dois fluxos, o principal é o que contém
 os exemplos, sendo cada exemplo um vetor de números de dimensão $d$.
@@ -73,6 +72,18 @@ Neste quesito, o Algoritmo \ref{alg:MFOG}, linha \ref{line:spmd} mostra
 exatamente esse comportamento no ponto de entrada do \mfog, dividido o
 comportamento de cada nó de acordo com seu \texttt{mpiRank} em dois tipos: raiz
 e folha.
+
+% The overall sequence of interactions is shown in Figure \ref{fig:mfog-mpi-life}.
+As interações entre os diferentes módulos e ciclo de vida do sistema é ilustrado
+no diagrama de sequencia da Figura \ref{fig:mfog-mpi-life}.
+
+\begin{figure}[htb]
+  \centerline{
+    \includegraphics[width=0.80\linewidth,page=1]{figures/lifecycle-uml-svg.pdf}
+  }
+  \caption{Diagrama UML de Sequência do \mfog: visão geral das linhas de vida.}
+  \label{fig:mfog-mpi-life}
+\end{figure}
 
 % For evaluation purposes, an \mfog implementation was made using MPI .
 % The program is organized in a single program multiple data (SPMD)
@@ -258,18 +269,6 @@ novidade são considerados \emph{outliers} ou ruído e são removidos.
 % \caption{Funções do nó raiz do \mfog: Fonte e Detector.}
 % \label{alg:MFOG-root}
 \end{algorithm}
-
-% The overall sequence of interactions is shown in Figure \ref{fig:mfog-mpi-life}.
-As interações entre os diferentes módulos e ciclo de vida do sistema é ilustrado
-no diagrama de sequencia da Figura \ref{fig:mfog-mpi-life}.
-
-\begin{figure}[hb]
-  \centerline{
-    \includegraphics[width=0.80\linewidth,page=1]{figures/lifecycle-uml-svg.pdf}
-  }
-  \caption{Diagrama UML de Sequência do \mfog: visão geral das linhas de vida.}
-  \label{fig:mfog-mpi-life}
-\end{figure}
 
 Em suma, a arquitetura do \mfog é composta de múltiplos nós numa névoa, que detectam
 intrusão numa rede IoT. Para isso, os nós da rede processam de forma paralela e

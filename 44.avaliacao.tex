@@ -276,13 +276,14 @@ processamento e latência de eventos e, estas métrias permitem o cálculo de
 %   operações de leitura e escrita).
 % \end{enumerate}
 
+% ------------------------------------------------------------------------------
+% Conclusão artigo
 
-
-We have used two types of evaluation measurements for each experiment:
-a measure of the full experiment execution time
-% extracted by using \emph{GNU Time 1.9} measuring 
-and, a set of qualitative measurements % será que é relevante falar da captura em Python?
-extracted by a Python script.
+% We have used two types of evaluation measurements for each experiment:
+% a measure of the full experiment execution time
+% % extracted by using \emph{GNU Time 1.9} measuring 
+% and, a set of qualitative measurements % será que é relevante falar da captura em Python?
+% extracted by a Python script.
 
 Um programa de avaliação foi construído seguindo as técnicas de referência como
 matriz de confusão multi-classe com associação de classe de rótulo
@@ -290,47 +291,49 @@ matriz de confusão multi-classe com associação de classe de rótulo
 Este script recebe duas entradas, o conjunto de dados de teste e o fluxo de
 saída capturado, e gera a matriz de confusão, associação de classe de rótulo,
 resumo de qualidade final com:
-\emph{Hits} (acurácia), \emph{Misses} (Err), \emph{Unknowns} (UnkR); and
+\emph{Hits} (acurácia), \emph{Misses} (erro), \emph{Unknowns} (taxa de
+desconhecidos) e, um gráfico de visualização do fluxo com as métricas e
+marcadores de novidades.
 
-% Our script computed the
-Our evaluation script was build following reference techniques like
-multi-class confusion matrix with label-class association \cite{Faria2016minas}
-to extract classification quality measurements.
-This script takes two inputs, the test data set and the captured output stream,
-and outputs the confusion matrix, label-class association,
-final quality summary with:
-\emph{Hits} (true positive), \emph{Misses} (Err), \emph{Unknowns} (UnkR); and
-stream visualization chart with per example instance summary with novelty label markers.
-% 
-% For clarity, it is necessary to detail how to interpret and compare each measure,
-% as for some it is trivial but others are not so much.
+% % Our script computed the
+% Our evaluation script was build following reference techniques like
+% multi-class confusion matrix with label-class association \cite{Faria2016minas}
+% to extract classification quality measurements.
+% This script takes two inputs, the test data set and the captured output stream,
+% and outputs the confusion matrix, label-class association,
+% final quality summary with:
+% \emph{Hits} (true positive), \emph{Misses} (Err), \emph{Unknowns} (UnkR); and
+% stream visualization chart with per example instance summary with novelty label markers.
+% % 
+% % For clarity, it is necessary to detail how to interpret and compare each measure,
+% % as for some it is trivial but others are not so much.
 
-In the confusion matrix $M = m_{ij} \in \mathbb{N} ^{c \times{} l}$, computed by
-our evaluation script, each row denotes % one of the data sets original 
-the actual class $c$ and each column denotes the predicted label $l$ present in
-the captured output stream.
-Thus, each cell $M_{c, l}$ contains the count of examples from the test data set
-of class $c$ found in the output stream with the label $l$ assigned by the under
-evaluation experiment.
+% In the confusion matrix $M = m_{ij} \in \mathbb{N} ^{c \times{} l}$, computed by
+% our evaluation script, each row denotes % one of the data sets original 
+% the actual class $c$ and each column denotes the predicted label $l$ present in
+% the captured output stream.
+% Thus, each cell $M_{c, l}$ contains the count of examples from the test data set
+% of class $c$ found in the output stream with the label $l$ assigned by the under
+% evaluation experiment.
 
-For the data set under use, original classes are $c \in \{N, A\}$, and for the
-labels we have the training class
-\emph{``N''}, \emph{unknown} label \emph{``-''} and the novelties $i \in
-\mathbb{N}$ so $l \in \{N, -\} \cup \mathbb{N}$.
+% For the data set under use, original classes are $c \in \{N, A\}$, and for the
+% labels we have the training class
+% \emph{``N''}, \emph{unknown} label \emph{``-''} and the novelties $i \in
+% \mathbb{N}$ so $l \in \{N, -\} \cup \mathbb{N}$.
 
-Added to the original confusion matrix $M$ are the rows \emph{Assigned} and
-\emph{Hits}.
-\emph{Assigned} row represents which original class $c$ (or if \emph{unknown},
-\emph{``-''}) the label $l$ is assigned to, this is computed by using the
-original class if $c = l$ or by associated novelty label to original class as
-described in \cite{DeFaria2015evaluation} section 4.1
-(class from where the most samples came from).
-\emph{Hits} row shows the true positive count for each label $l$
-with assigned class $c$, being the same value as cell $M_{c, l}$.
-% computed by coping the value of the 
-%  where the label is the same
-% and the class $c$ is the value in the above \emph{Assigned} row.
-The \emph{Hits} row is also used to compute the overall true positive
-in the summary table and stream visualization chart.
-% accuracy.
-One complete matrix is shown in Tab. \ref{tab:java-matrix}.
+% Added to the original confusion matrix $M$ are the rows \emph{Assigned} and
+% \emph{Hits}.
+% \emph{Assigned} row represents which original class $c$ (or if \emph{unknown},
+% \emph{``-''}) the label $l$ is assigned to, this is computed by using the
+% original class if $c = l$ or by associated novelty label to original class as
+% described in \cite{DeFaria2015evaluation} section 4.1
+% (class from where the most samples came from).
+% \emph{Hits} row shows the true positive count for each label $l$
+% with assigned class $c$, being the same value as cell $M_{c, l}$.
+% % computed by coping the value of the 
+% %  where the label is the same
+% % and the class $c$ is the value in the above \emph{Assigned} row.
+% The \emph{Hits} row is also used to compute the overall true positive
+% in the summary table and stream visualization chart.
+% % accuracy.
+% One complete matrix is shown in Tab. \ref{tab:java-matrix}.

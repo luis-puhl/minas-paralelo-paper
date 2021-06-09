@@ -13,130 +13,12 @@
 \input{51.ambiente.tex}
 % \input{54.experimentos.tex}
 
+\FloatBarrier
 \section{Métricas e Visualizações}
 \label{sec:experiments}
 % acho que convém explicar as demais tabelas de resultados...
 
-% \begin{table*}[htb]
-% \caption{Confusion Matrixes and Qualitative measurements}
-% \label{tab:confusion-matrixes-ref-serial}
-
-\begin{table}[hbt]%{\linewidth}
-{\scriptsize
-\setlength\tabcolsep{0.5em}
-\begin{center}
-\caption{Reference implementation}
-\label{tab:java-matrix}
-\begin{tabular}{l *{14}{|r} }
-  Labels   &     - &       N &    1 &    2 &    3 &  4 &   5 &    6 &    7 &     8 &    9 &    10 &   11 &  12 \\\hline
-  Classes  &       &         &      &      &      &    &     &      &      &       &      &       &      &     \\\hline
-  \hline
-  A        &  3774 &  438750 &  123 &  145 &  368 &  8 &  52 &  165 &    1 &  1046 &  161 &  2489 &   71 &  26 \\\hline
-  N        &  8206 &  193030 &    0 &   79 &   44 &  0 &   0 &    0 &  229 &   181 &  154 &  4066 &  289 &   0 \\\hline
-  \hline
-  Assigned &     - &       N &    A &    A &    A &  A &   A &    A &    N &     A &    A &     N &    N &   A \\\hline
-  Hits     &     0 &  193030 &  123 &  145 &  368 &  8 &  52 &  165 &  229 &  1046 &  161 &  4066 &  289 &  26 
-\end{tabular}
-\end{center}
-}
-\end{table}
-
-% \vspace{3ex}
-
-\begin{table}[hbt]%{\linewidth}
-{\scriptsize
-\setlength\tabcolsep{0.5em}
-\begin{center}
-\caption{Serial implementation}
-\label{tab:libc-matrix}
-\begin{tabular}{l|r|r|r|r|r|r|r|r|r|r|r}
-  Labels &      - &       N &   0 &    1 &    2 &   4 &   5 &  6 &   7 &   8 &  10 \\\hline
-  Classes  &        &         &     &      &      &     &     &    &     &     &     \\\hline
-  \hline
-  A        &  16086 &  429765 &  94 &  995 &  104 &   0 &  23 &  3 &  29 &  46 &  34 \\\hline
-  N        &  12481 &  193642 &   3 &   94 &    0 &  47 &   0 &  0 &   0 &  11 &   0 \\\hline
-  \hline
-  Assigned &      - &       N &   A &    A &    A &   N &   A &  A &   A &   A &   A \\\hline
-  Hits     &      0 &  193642 &  94 &  995 &  104 &  47 &  23 &  3 &  29 &  46 &  34 
-\end{tabular}
-\end{center}
-}
-\end{table}
-
-\vspace{3ex}
-
-\begin{table}[hbt]%{0.48\linewidth}
-{\scriptsize
-\setlength\tabcolsep{0.35em}
-\begin{center}
-\caption{Parallel single-node}
-\label{tab:single-node-matrix}
-\begin{tabular}{l|r|r|r|r|r|r|r}
-  Lab. &      - &       N &    0 &    1 &   2 &  3 &  4 \\\hline
-  Cla.  &        &         &      &      &     &    &    \\\hline
-  \hline
-  A        &  12282 &  433797 &  147 &  952 &   0 &  0 &  1 \\\hline
-  N        &   3088 &  203019 &   40 &   99 &  27 &  5 &  0 \\\hline
-  \hline
-  Ass. &      - &       N &    A &    A &   N &  N &  A \\\hline
-  Hits     &      0 &  203019 &  147 &  952 &  27 &  5 &  1 
-\end{tabular}
-\end{center}
-}
-\end{table}
-% 
-% \quad
-% &
-% 
-\begin{table}[hbt]%{0.48\linewidth}
-{\scriptsize
-\setlength\tabcolsep{0.35em}
-\begin{center}
-\caption{Parallel multi-node}
-\label{tab:multi-node-matrix}
-\begin{tabular}{l|r|r|r|r|r|r|r}
-  Lab.   &      - &       N &    0 &    1 &    2 &    3 &  4 \\\hline
-  Cla.   &        &         &      &      &      &      &    \\\hline
-  \hline
-  A      &  12378 &  433631 &  117 &  886 &    0 &  162 &  5 \\\hline
-  N      &   3121 &  202916 &   40 &   96 &  105 &    0 &  0 \\\hline
-  \hline
-  Ass.   &      - &       N &    A &    A &    N &    A &  A \\\hline
-  Hits   &      0 &  202916 &  117 &  886 &  105 &  162 &  5 
-\end{tabular}
-\end{center}
-}
-\end{table}
-
-% \end{table*}
-
-% O que é a "measurement summary table"? 
-
-\newcommand{\mr}[1]{\multirow{2}{*}{#1}}
-\begin{table}[hbt]%{0.48\linewidth}
-{\scriptsize
-\setlength\tabcolsep{0.35em}
-\caption{Sumário das métricas.}
-\label{tab:exper-summary}
-\begin{center}
-\begin{tabular}{l|r|r|r|r|r}
-                & \refminas (a)  & Offline       & Serial (b)      & Single Node (c) & Multi Node (d)  \\\hline
-\mr{Hits}       & $\ 199708\ $   &               & $\ 195017\ $    & $\ 204151\ $    & $\ 204191\ $    \\
-                & $\ 0.305618\ $ &               & $\ 0.298438\ $  & $\ 0.312416\ $  & $\ 0.312478\ $  \\
-\hline
-\mr{Misses}     & $\ 441769\ $   &               & $\ 429873\ $    & $\ 433936\ $    & $\ 433767\ $    \\
-                & $\ 0.676049\ $ &               & $\ 0.657843\ $  & $\ 0.664061\ $  & $\ 0.663802\ $  \\
-\hline
-\mr{Unknowns}   & $\ 11980\ $    &               & $\ 28567\ $     & $\ 15370\ $     & $\ 15499\ $     \\
-                & $\ 0.018333\ $ &               & $\ 0.043717\ $  & $\ 0.023521\ $  & $\ 0.023718\ $  \\
-\hline
-Time            & $\ 2761.83\ $  & $\ 194.12\ $  & $\ 80.79000\ $  & $\ 522.1000\ $  & $\ 207.1400\ $  \\\hline
-System          & $\ 7.15\ $     & $\  0.075\ $  & $\ 11.51000\ $  & $\  47.7700\ $  & $\ 157.6100\ $  \\\hline
-Elapsed         & $\ 2772.07\ $  & $\ 194.27\ $  & $\ 93.03000\ $  & $\ 145.0400\ $  & $\  95.3800\ $  
-\end{tabular}
-\end{center}
-}
-\end{table}
+Seguindo as especificações das métricas estabelecidas 
 
 For the measurements summary table, six measurements from two sources are displayed. Three
 measures \emph{Hits}, \emph{Unknowns} and \emph{Misses} represented as ratio of
@@ -178,6 +60,129 @@ Some of the novelty label markers include the label itself ($l \in \mathbb{N}$)
 for reference (showing every label would turn this feature unreadable due
 to overlapping).
 Figure \ref{fig:visualization} shows complete stream visualization charts.
+
+
+
+% \begin{table*}[htb]
+% \caption{Confusion Matrixes and Qualitative measurements}
+% \label{tab:confusion-matrixes-ref-serial}
+
+\begin{table}[hbt]%{\linewidth}
+{\scriptsize
+\setlength\tabcolsep{0.5em}
+\begin{center}
+\caption{Reference implementation}
+\label{tab:java-matrix}
+\begin{tabular}{l *{14}{|r} }
+  Rótulos   &     - &       N &    1 &    2 &    3 &  4 &   5 &    6 &    7 &     8 &    9 &    10 &   11 &  12 \\\hline
+  Classes  &       &         &      &      &      &    &     &      &      &       &      &       &      &     \\\hline
+  \hline
+  A        &  3774 &  438750 &  123 &  145 &  368 &  8 &  52 &  165 &    1 &  1046 &  161 &  2489 &   71 &  26 \\\hline
+  N        &  8206 &  193030 &    0 &   79 &   44 &  0 &   0 &    0 &  229 &   181 &  154 &  4066 &  289 &   0 \\\hline
+  \hline
+  Associação &     - &       N &    A &    A &    A &  A &   A &    A &    N &     A &    A &     N &    N &   A \\\hline
+  Hits ($tp$)     &     0 &  193030 &  123 &  145 &  368 &  8 &  52 &  165 &  229 &  1046 &  161 &  4066 &  289 &  26 
+\end{tabular}
+\end{center}
+}
+\end{table}
+
+% \vspace{3ex}
+
+\begin{table}[hbt]%{\linewidth}
+{\scriptsize
+\setlength\tabcolsep{0.5em}
+\begin{center}
+\caption{Serial implementation}
+\label{tab:libc-matrix}
+\begin{tabular}{l|r|r|r|r|r|r|r|r|r|r|r}
+  Rótulos &      - &       N &   0 &    1 &    2 &   4 &   5 &  6 &   7 &   8 &  10 \\\hline
+  Classes  &        &         &     &      &      &     &     &    &     &     &     \\\hline
+  \hline
+  A        &  16086 &  429765 &  94 &  995 &  104 &   0 &  23 &  3 &  29 &  46 &  34 \\\hline
+  N        &  12481 &  193642 &   3 &   94 &    0 &  47 &   0 &  0 &   0 &  11 &   0 \\\hline
+  \hline
+  Associação &      - &       N &   A &    A &    A &   N &   A &  A &   A &   A &   A \\\hline
+  Hits ($tp$)     &      0 &  193642 &  94 &  995 &  104 &  47 &  23 &  3 &  29 &  46 &  34 
+\end{tabular}
+\end{center}
+}
+\end{table}
+
+\vspace{3ex}
+
+\begin{table}[hbt]%{0.48\linewidth}
+{\scriptsize
+\setlength\tabcolsep{0.35em}
+\begin{center}
+\caption{Parallel single-node}
+\label{tab:single-node-matrix}
+\begin{tabular}{l|r|r|r|r|r|r|r}
+  Rótulos &      - &       N &    0 &    1 &   2 &  3 &  4 \\\hline
+  Classes  &        &         &      &      &     &    &    \\\hline
+  \hline
+  A        &  12282 &  433797 &  147 &  952 &   0 &  0 &  1 \\\hline
+  N        &   3088 &  203019 &   40 &   99 &  27 &  5 &  0 \\\hline
+  \hline
+  Associação &      - &       N &    A &    A &   N &  N &  A \\\hline
+  Hits ($tp$)     &      0 &  203019 &  147 &  952 &  27 &  5 &  1 
+\end{tabular}
+\end{center}
+}
+\end{table}
+% 
+% \quad
+% &
+% 
+\begin{table}[hbt]%{0.48\linewidth}
+{\scriptsize
+\setlength\tabcolsep{0.35em}
+\begin{center}
+\caption{Parallel multi-node}
+\label{tab:multi-node-matrix}
+\begin{tabular}{l|r|r|r|r|r|r|r}
+  Rótulos   &      - &       N &    0 &    1 &    2 &    3 &  4 \\\hline
+  Classes   &        &         &      &      &      &      &    \\\hline
+  \hline
+  A      &  12378 &  433631 &  117 &  886 &    0 &  162 &  5 \\\hline
+  N      &   3121 &  202916 &   40 &   96 &  105 &    0 &  0 \\\hline
+  \hline
+  Associação   &      - &       N &    A &    A &    N &    A &  A \\\hline
+  Hits ($tp$)   &      0 &  202916 &  117 &  886 &  105 &  162 &  5 
+\end{tabular}
+\end{center}
+}
+\end{table}
+
+% \end{table*}
+
+% O que é a "measurement summary table"? 
+
+\newcommand{\mr}[1]{\multirow{2}{*}{#1}}
+\begin{table}[hbt]%{0.48\linewidth}
+{\scriptsize
+\setlength\tabcolsep{0.35em}
+\caption{Sumário das métricas.}
+\label{tab:exper-summary}
+\begin{center}
+\begin{tabular}{l|r|r|r|r|r}
+                & \refminas (a)  & Offline       & Serial (b)      & Single Node (c) & Multi Node (d)  \\\hline
+\mr{Hits}       & $\ 199708\ $   &               & $\ 195017\ $    & $\ 204151\ $    & $\ 204191\ $    \\
+                & $\ 0.305618\ $ &               & $\ 0.298438\ $  & $\ 0.312416\ $  & $\ 0.312478\ $  \\
+\hline
+\mr{Misses}     & $\ 441769\ $   &               & $\ 429873\ $    & $\ 433936\ $    & $\ 433767\ $    \\
+                & $\ 0.676049\ $ &               & $\ 0.657843\ $  & $\ 0.664061\ $  & $\ 0.663802\ $  \\
+\hline
+\mr{Unknowns}   & $\ 11980\ $    &               & $\ 28567\ $     & $\ 15370\ $     & $\ 15499\ $     \\
+                & $\ 0.018333\ $ &               & $\ 0.043717\ $  & $\ 0.023521\ $  & $\ 0.023718\ $  \\
+\hline
+Time            & $\ 2761.83\ $  & $\ 194.12\ $  & $\ 80.79000\ $  & $\ 522.1000\ $  & $\ 207.1400\ $  \\\hline
+System          & $\ 7.15\ $     & $\  0.075\ $  & $\ 11.51000\ $  & $\  47.7700\ $  & $\ 157.6100\ $  \\\hline
+Elapsed         & $\ 2772.07\ $  & $\ 194.27\ $  & $\ 93.03000\ $  & $\ 145.0400\ $  & $\  95.3800\ $  
+\end{tabular}
+\end{center}
+}
+\end{table}
 
 \begin{figure}[htb]
   \centering
