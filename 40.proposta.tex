@@ -83,27 +83,41 @@ Esta abordagem é baseada na arquitetura \arch \cite{Cassales2019a} e no algorit
 de \nd \minas \cite{Faria2016minas}.
 % Our approach is based on the \arch architecture \cite{Cassales2019a} and \nd
 % techniques provide by the \minas algorithm \cite{Faria2016minas}.
-Nomeada \mfog, esta implementação do algoritmo explora computação distribuída
+Nomeada \mfog, esta implementação do algoritmo \minas explora computação distribuída
 habilitando o uso de computadores de baixa potência e recursos limitados presentes no
-ambiente de névoa para, além de tarefas habituais, a classificação e detecção de
+ambiente de névoa a realizar, além de tarefas habituais de um \emph{gateway} \iot, a classificação e detecção de
 tráfego indesejável.
 % Named \mfog, our distributed algorithm explores load balancing to enable low
 % profile devices at the edge of the internet to also work on the classification
 % and detection of unwanted traffic.
 
-\acf{NIDS} monitoram tráfego em redes e analisam as características de cada
+A arquitetura física do \mfog pode ser vista na Figura
+\ref{fig:arq-fisica-mfog}, onde um dispositivo \emph{gateway} observa o tráfego da rede local (sensores IoT) e entre a rede local e 
+a nuvem. A detecção de intrusão é executada de forma paralela e distribuída numa névoa de 
+dispositivos SBC (\emph{Single Board Computer}). 
+
+\begin{figure}[htb]
+  \centerline{
+    \includegraphics[width=0.6\linewidth,page=1]{figures/arq-mfog.png}
+  }
+  \caption{Arquitetura física do \mfog.}
+  \label{fig:arq-fisica-mfog}
+\end{figure}
+
+
+\acf{NIDS} monitoram o tráfego em redes e analisam as características de cada
 fluxo de rede com objetivo de identificar intrusos e tráfegos indesejados.
 % monitor network traffic, and analyze the characteristics of each flow 
 % to identify any intrusion or misbehavior.
 No entanto, este problema requer respostas rápidas e acuradas \cite{DaCosta2019a}:
-Rapidez é necessária para executar uma ação adequada antes que
+rapidez é necessária para executar uma ação adequada antes que
 maior dano seja feito à rede, e para lidar com a velocidade do tráfego sem impor
 atraso ou perda de pacotes na rede observada;
 % However, this problem requires both fast and accurate response 
 % fast response is needed to have a proper reaction before harm can be cast
 % to the network and to cope with the traffic without imposing loss or delay
 % in the \nids or observed network;
-Acurácia é necessária para não  identificar padrões incorretamente, gerando falso
+acurácia é necessária para não  identificar padrões incorretamente, gerando falso
 alarme ou ignorando ataques.
 % accurate response is required as not to misidentify,
 % especially the case of false positive that leads to false alarms.
@@ -117,22 +131,22 @@ alarme ou ignorando ataques.
 
 Em cenários \iot comuns, dados são capturados por pequenos dispositivos
 computacionais e enviados para a nuvem (\cloud) se mais mais recursos
-computacionais ou de armazenamento são necessários; contudo, para \nids e o
-requisito de resposta rápida esta abordagem pode não ser viável.
+computacionais ou de armazenamento são necessários. Contudo, para \nids e o
+requisito de resposta rápida, esta abordagem pode não ser viável. 
+Para atender a essa necessidade a Computação em Névoa é uma alternativa promissora.
 % In common \iot scenarios, data is captured by small devices and sent to the
 % cloud for any compute or storage tasks, but this is not feasible in a \nids
 % scenario.
+
 A infraestrutura de Computação em Névoa (\fog) oferece capacidades de realocar
 parte do processamento e armazenamento dos provedores de nuvem, posicionando
 dispositivos de capacidade intermediária próximos aos usuários e às fontes de dados.
 % Fog computing infrastructure aims to offload processing from the cloud
 % providers by placing edge devices closer to end-users and/or data sources.
-
 % Para atingir estes objetivos, a presente proposta utiliza computação distribuída
 % em névoa, permitindo processamento escalável e mais próximo da rede \iot.
-
 Dada a natureza distribuída e o típico uso de pequenos computadores em cenários
-de \iot e névoa, alguns desafios são notáveis:
+de \iot e névoa, alguns desafios para implementação \nids são notáveis:
 % However, given the distributed nature and the typical use of small computing
 % devices in IoT scenarios, new challenges arise:
 \begin{enumerate}[label=(\emph{\roman*})]
@@ -146,22 +160,22 @@ de \iot e névoa, alguns desafios são notáveis:
   \item A tarefa de detecção de novidade, que provê a atualização do modelo,
   deve ser assíncrona;
     
-  \item A complexidade do algoritmo (tempo e espaço) de permitir sua execução em
+  \item A complexidade do algoritmo (tempo e espaço) deve permitir sua execução em
   computadores modestos, isto é, pouca memória ($< 1GB$) e processadores de
   pouco desempenho.
 
 \end{enumerate}
 
 Nesta proposta, recursos em névoa são combinados para minimizar a latência entre
-o recebimento (ingestão) do descritor de fluxo e a identificação daquele fluxo,
-executado múltiplas instâncias da tarefa de classificação do algoritmo \minas.
+o recebimento (ingestão) do descritor de fluxo e a identificação daquele fluxo.
+Executa-se múltiplas instâncias da tarefa de classificação do algoritmo \minas.
 % In our proposal, fog and cloud computing resources are combined to minimize
 % the time elapsed between a flow descriptor ingestion and intrusion alarm,
 % performing the classification step of \minas running multiple
 % classifier instances.
-Após identificado o rótulo do descritor de fluxo (exemplo), este pode ser
+Após identificado o rótulo do descritor de fluxo (exemplo), este par (rótulo, exemplo) pode ser
 utilizado imediatamente para tomada de decisões e, se o exemplo é rotulado como
-``desconhecido'', este é armazenado para posterior execução assíncrona da tarefa
+``desconhecido'', ele é armazenado para posterior execução assíncrona da tarefa
 de detecção de novidade, portanto sem interromper o processo de identificação.
 % After the initial classification, the resulting label can be used immediately,
 % but if the sample is labeled as \emph{unknown}, this sample must be stored and
@@ -173,13 +187,11 @@ ao \minas original é a remoção do mecanismo de esquecimento de padrões antig
 Esta remoção tem por finalidade simplificar a atualização e o compartilhamento
 do modelo entre as múltiplas instâncias e \emph{threads} concorrentes.
 % 
-O impacto desta alteração não é grande pois o algoritmo \minas não prevê remoção
-permanente dos \mclusters porém existe um aumento na complexidade computacional
-já que o número de \mclusters analisados durante a busca do mais próximo para
-classificação inclui os padrões menos de uso menos frequente.
-% falta algo aqui... Hélio
+O impacto desta alteração não é grande, pois o algoritmo \minas não estabelece a remoção
+permanente dos \mclusters com pouco uso. Essa alteração aumenta marginalmente 
+a complexidade computacional da classificação, pois inclui na busca  os padrões menos utilizados.
 
-A fase \emph{offline} e a função de detecção de novidades do algoritmo \minas
+Já a fase \emph{offline} e a função de detecção de novidades do algoritmo \minas
 permanecem as mesmas.
 
 % To have a better overview of our proposal and how it integrates with existing
@@ -217,8 +229,8 @@ em névoa.
 
 % o que quer dizer isso?
 O módulo Detecção de Novidade tem uma instância por cluster, equivalendo a uma
-instância por rede local portanto, enquanto o compartilhamento de modelo entre
-redes distintas é possível, ele não foi implementado e testado.
+instância por rede local. O compartilhamento de modelo entre
+redes distintas é possível, mas não foi implementado e testado neste trabalho.
 % 
 Este módulo é responsável pela tarefa homônima do algoritmo \minas, recebendo
 exemplos com rótulo ``desconhecido'' e os armazenando no conjunto de
