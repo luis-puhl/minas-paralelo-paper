@@ -21,15 +21,31 @@ experimentos, discutindo as métricas de classificação e escalabilidade.
 \label{sec:experiments}
 % acho que convém explicar as demais tabelas de resultados...
 
-Seguindo as especificações das métricas estabelecidas na Seção
-\ref{sec:avaliacao} e executando os experimentos conforme a Seção
-\ref{sec:ambiente} os seguintes resultados são apresentados.
+\newcommand{\serial}{\textit{Serial}\xspace}
 
-Para a validação da nova implementação, a comparação à implementação de
-referência do algoritmo \minas (\refminas) mostrou pouca discrepância.
+Seguindo as especificações de ambiente da Seção \ref{sec:ambiente}, cada
+experimento consiste na execução de um dos programas (\refminas, \serial e
+\mfog) com variação do parâmetro de paralelismo, fornecendo um modelo inicial e
+\dataset de teste como fluxo de entrada e capturando o fluxo de saída para e
+extração das métricas estabelecidas na Seção \ref{sec:avaliacao}.
+Destes experimentos os seguintes resultados são apresentados.
+
+\subsection{Validação do algoritmo}
+
+Para validar a biblioteca de funções que implementa o algoritmo \minas no \mfog,
+uma versão do Algoritmo \ref{alg:minas-main} foi construída, nomeada \serial,
+não tem classificadores paralelos ou detecção de novidade assíncrona, aspectos
+que caracterizam o \mfog.
+A versão \serial passou pelo mesmo processo experimental e extração de métricas,
+juntamente com a implementação de referência do algoritmo \minas (\refminas).
+
 A Tabela \ref{tab:java-matrix} mostra a matriz de confusão no instante final do
-fluxo contendo o \dataset avaliado, e Tabela \ref{tab:libc-matrix} mostra a
-a matriz de confusão para o mesmo fluxo porém na implementação do \mfog.
+fluxo de saída de \refminas.
+Nesta matriz, o rótulo ``desconhecido'' é o caractere ``$-$'' e o valor de
+associação e verdadeiro-positivo estão atrelados à coluna de cada rótulo, no
+demais a matriz segue os atributos definidos na Seção \ref{sec:avaliacao}.
+Esta matriz é comparada com a matriz de confusão do mesmo instante do fluxo de
+saída de \serial, na Tabela \ref{tab:libc-matrix}.
 
 \begin{table}[hbt]%{\linewidth}
   {\footnotesize
@@ -51,15 +67,20 @@ a matriz de confusão para o mesmo fluxo porém na implementação do \mfog.
 }
 \end{table}
 
-Destaca-se que para este caso somente utiliza-se a nova implementação do algoritmo
-\minas de modo serial, ou seja, idêntico ao Algoritmo \ref{alg:minas-main}, sem
-classificadores paralelos ou detecção de novidade assíncrona.
+Comparando as duas matrizes, a primeira diferença aparante é o índice do
+primeiro rótulo novidade ($0$ ao invés de $1$) mas isso se deve apenas à decisão
+arbitrária.
+A primeira diferença notável que influi nas métricas de qualidade é a falta de
+um rótulo novidade, $12$ rótulos em \refminas e $11$ em \serial,
+seguido do número de exemplos desconhecidos, $28\,567$ em \serial e $11\,980$ em
+\refminas e, o montante de exemplos incluídos nos rótulos novidade, muito menor
+em \serial.
 
 \begin{table}[hbt]%{\linewidth}
-  {\footnotesize
+  % {\small
   \setlength\tabcolsep{0.5em}
   \begin{center}
-  \caption{Nova implementação do algoritmo \minas Serial, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
+  \caption{Implementação \serial, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
   \label{tab:libc-matrix}
   \begin{tabular}{l|r|r|r|r|r|r|r|r|r|r|r}
     Rótulos &      - &       N &   0 &    1 &    2 &   4 &   5 &  6 &   7 &   8 &  10 \\\hline
@@ -72,20 +93,87 @@ classificadores paralelos ou detecção de novidade assíncrona.
     Hits ($tp$)     &      0 &  193642 &  94 &  995 &  104 &  47 &  23 &  3 &  29 &  46 &  34 
   \end{tabular}
   \end{center}
-  }
+  % }
 \end{table}
 
-For the measurements summary table, six measurements from two sources are displayed. Three
-measures \emph{Hits}, \emph{Unknowns} and \emph{Misses} represented as ratio of
-the captured output stream, extracted from the evaluation python program,
-computed as follows:
-\emph{Hits} (true positive rate) is the sum of the \emph{Hits} row in the
-extended confusion matrix;
-\emph{Unknowns} is the count of examples in the captured output stream marked
-with the \emph{unknown} label (\emph{``-''});
-\emph{Misses} is the count of all examples in the captured output stream marked
-with a label distinct from the \emph{Assigned} original class and are not marked
-as unknown.
+Estas três diferenças são atribuídas à divergência entre as definições de raio
+discutidas na Seção \ref{sec:minas-og}, Equações \ref{eq:raio_max} e
+\ref{eq:raio_paper}.
+Estas divergência apesar de inicialmente pequena, muda muito o comportamento do
+passo de classificação, resultando em um conjunto diferente de desconhecidos e
+por fim, mudando muito o resultado da detecção de novidades.
+Adicionalmente, como o parâmetro $f_{raio}$ (\texttt{radiusF}) não existe na
+versão com raio definido como distância máxima (Eq. \ref{eq:raio_max}), este
+parâmetro foi escolhido experimentalmente observando os resultado durante a
+implementação.
+
+Além das matrizes de confusão que dão uma visão detalhada porém, somente sobre o
+último instante do fluxo, pode-se comparar a visualizações de fluxo onde as
+métricas de qualidade são apresentadas para todo o fluxo.
+As Figuras \ref{fig:validation-java} e \ref{fig:validation-serial} ilustram os
+fluxos de saída de \refminas e \serial respectivamente.
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.75\linewidth]{experiments/revised-java-log.png}
+  \caption{Implementação de referência (\refminas), visualização de fluxo do \dataset \emph{Kyoto} Dez. 2015.}
+  \label{fig:validation-java}
+\end{figure}
+
+As Figuras \ref{fig:validation-java} e \ref{fig:validation-serial} reforçam a
+observação anterior de que mais rótulos novidade (linhas tracejadas verticais
+com rótulo no topo) foram encontrados por \refminas do que as encontradas por
+\serial.
+Outro aspecto com relação à rótulos novidade, em \refminas eles surgem mais
+``cedo'' no fluxo (primeira marcação muito antes de $x = 100\,k$).
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.75\linewidth]{experiments/online-nd-log.png}
+  \caption{Implementação \serial, visualização de fluxo do \dataset \emph{Kyoto} Dez. 2015.}
+  \label{fig:validation-serial}
+\end{figure}
+
+As linhas horizontais na visualização de fluxo mostram o progresso das métricas
+de qualidade de classificação durante o fluxo e, ao final na esquerda, o valor
+impresso junto e de mesma cor à linha é o valor final de cada métrica.
+As métricas são: 
+em laranja a taxa de desconhecidos (\texttt{unk}),
+em verde a acurácia (\texttt{hit}) e
+em azul o erro (\texttt{err}).
+Estas métricas podem ser arranjadas em uma tripla-sumário (\texttt{unk},
+\texttt{hit}, \texttt{err}) com os valores em pontos percentuais para fácil
+comparação.
+
+Em conclusão das métricas de qualidade de classificação, \refminas e \serial
+não são idênticos pois não implementam a mesma definição, porém são semelhantes
+em seus resultados.
+Enquanto \refminas tem tripla-sumário 
+($01.8\%,\: 30.6\%,\: 67.6\%$), \serial tem
+mais desconhecidos, menor acurácia e menor erro com 
+($04.4\%,\: 29.8\%,\: 65.8\%$).
+
+Para as métricas de escalabilidade, \refminas e \serial servem somente como base
+para os próximos experimentos onde o paralelismo passa a ser utilizado.
+Uma última nota quanto ao tempo de execução, mesmo não sendo paralelo, as
+otimizações de memória, redução do uso de \emph{strings} e outras cópias e
+condição de para do algoritmo \emph{K-Means}, reduziram o tempo utilizado por
+\refminas de $2\;772s$ ($917s$ \emph{offline} e $1\;845s$ \emph{online}) para
+$287s$ ($194s$ \emph{offline} e $93s$ \emph{online}) em \serial.
+
+\subsection{Paralelismo e Distribuição}
+
+% For the measurements summary table, six measurements from two sources are displayed. Three
+% measures \emph{Hits}, \emph{Unknowns} and \emph{Misses} represented as ratio of
+% the captured output stream, extracted from the evaluation python program,
+% computed as follows:
+% \emph{Hits} (true positive rate) is the sum of the \emph{Hits} row in the
+% extended confusion matrix;
+% \emph{Unknowns} is the count of examples in the captured output stream marked
+% with the \emph{unknown} label (\emph{``-''});
+% \emph{Misses} is the count of all examples in the captured output stream marked
+% with a label distinct from the \emph{Assigned} original class and are not marked
+% as unknown.
 
 Furthermore in the measurement summary table, \emph{Time}, \emph{System} and \emph{Elapsed}
  represented in seconds, are extracted from \emph{GNU Time 1.9}.
@@ -205,21 +293,6 @@ Elapsed         & $\ 2772.07\ $  & $\ 194.27\ $  & $\ 93.03000\ $  & $\ 145.0400
 
 \begin{figure}[htb]
   \centering
-  \begin{minipage}{0.48\textwidth}
-    \centering
-    \includegraphics[width=1\linewidth]{experiments/revised-java-log.png}
-    % \caption{Reference Implementation}
-    \legend{Reference Implementation}
-    \label{fig:validation-sub-java}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.48\textwidth}
-    \centering
-    \includegraphics[width=1\linewidth]{experiments/online-nd-log.png}
-    \caption{Serial Implementation}
-    \label{fig:validation-sub-serial}
-  \end{minipage}
-  \vspace{5mm}
   \begin{minipage}{0.48\textwidth}
     \centering
     \includegraphics[width=1\linewidth]{experiments/tmi-base-log.png}
