@@ -16,7 +16,7 @@ As métricas de qualidade de classificação escolhidas devem ser adequadas para
 avaliar detecção de novidades em \streams, felizmente o tratamento necessário é
 estabelecido por \citeonline{Faria2013evaluation} e expandido por
 \citeonline{DaSilva2018,DaSilva2018thesis,Costa2019,Costa2019thesis}.
-Além do tratamento estabelecido, as métricas tradicionais não são calculadas
+Além do tratamento estabelecido, as métricas adaptadas não são calculadas
 somente para o conjunto completo capturado no final do fluxo, e sim para cada
 exemplo $\mathbf{X}$ classificado.
 Portanto, as métricas têm como índice o contador de exemplos $x$, informando a
@@ -26,7 +26,7 @@ exemplos até a instância $x$.
 \begin{definition}
   O problema de Detecção de Novidades em fluxo de dados pode ser modelado como
   uma função $f$ onde, dado o um exemplo $\mathbf{X}$ de um fluxo de dados $S$,
-  pertencente a uma classe real $c \in \mathbf{C}$, é associado à um rótulo $l
+  pertencente a uma classe real $c \in \mathbf{C}$, é associado a um rótulo $l
   \in \mathbf{L}$ podendo ser uma classe conhecida $c' \in \mathbf{C}'$, ``desconhecido''
   ou um rótulo novidade $y \in \mathbf{Y}$:
   \begin{align}
@@ -130,7 +130,7 @@ Os valores verdadeiro-negativo ($tn$) e falso-positivo ($fp$) são zero.
   \end{align}
 % \end{definition}
 
-Concluíndo as métricas de qualidade de classificação, a métrica de erro
+Concluindo as métricas de qualidade de classificação, a métrica de erro
 combinado (err) é a média do erro de cada classe, sendo o erro de cada classe
 o valor falso-negativo ($fn_i$) dividido pelo número de exemplos da classe.
 
@@ -242,7 +242,7 @@ Para a validação da corretude da implementação do \mfog com relação ao alg
 \minas original, ambos são executados com o mesmo \dataset e as métricas de
 qualidade de classificação são comparadas.
 As métricas de escalabilidade extraídas são o número de processadores, tempo de
-processamento e latência de eventos e, estas métrias permitem o cálculo de
+processamento e latência de eventos e, estas métricas permitem o cálculo de
 \emph{speedup} prático.
 
 % As métricas de escalabilidade selecionadas são: número de nós processadores,

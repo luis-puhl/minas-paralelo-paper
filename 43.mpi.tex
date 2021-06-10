@@ -28,7 +28,7 @@ agrupamento e cálculo de raio.
 Enquanto \refminas permite a escolha entre \emph{K-means} e \emph{CluStream} para a
 fase \emph{offline} e \emph{online}, \mfog implementa apenas \emph{K-means}.
 O cálculo de raio em \refminas é definido com o máximo do conjunto de distância
-dos exemplos de um \mcluster ao seu centro, seguindo a Equação \ref{eq:raio_max},
+dos exemplos de um \mcluster ao seu centro, seguindo a Equação \ref{eq:raio_max};
 enquanto o \mfog segue a definição em \citeonline{Faria2016minas} utilizando o
 desvio padrão dos valores do mesmo conjunto de distâncias multiplicado pelo
 parâmetro $f_{raio}$ seguindo a Equação \ref{eq:raio_paper}.
@@ -38,11 +38,11 @@ entrada, o algoritmo da proposta recebe dois fluxos, o principal é o que conté
 os exemplos, sendo cada exemplo um vetor de números de dimensão $d$.
 O segundo fluxo de entrada consiste de \mclusters representando o modelo inicial
 criado e capturado da fase de treinamento \emph{offline}.
-A fase de treinamento \emph{offline} foi implementada e não sofreu alteração
-com relação ao algoritmo \minas \cite{Faria2016minas}, além da execução separada
-com conjunto de treinamento similar à definição do fluxo de exemplos principal
-com adição de uma dimensão com valor de um caractere, que marca a classe conhecida
-e saída como um fluxo finito de \mclusters.
+A fase de treinamento \emph{offline} foi implementada em programa separado da
+fase \emph{online} e segue o algoritmo \minas \cite{Faria2016minas}.
+Este programa é executado uma vez com o conjunto de treinamento (rotulado com as
+classes iniciais) como fluxo de entrada e, sua saída que é um fluxo finito de
+\mclusters formando o modelo inicial é capturada em arquivo.
 
 O formato do fluxo de saída é definido como a tripla contendo o número de
 sequência do exemplo no fluxo de entrada (\emph{uid}), a etiqueta de um caractere
@@ -69,7 +69,7 @@ Neste caso, o parâmetro \texttt{mpiRank} é o componente de múltiplos dados em
 \spmd e, como cada nó recebe com um valor diferente, cada nó pode ter um
 comportamento diferente.
 Neste quesito, o Algoritmo \ref{alg:MFOG}, linha \ref{line:spmd} mostra
-exatamente esse comportamento no ponto de entrada do \mfog, dividido o
+exatamente esse comportamento no ponto de entrada do \mfog, dividindo o
 comportamento de cada nó de acordo com seu \texttt{mpiRank} em dois tipos: raiz
 e folha.
 
@@ -132,7 +132,7 @@ Destaca-se que a possibilidade de, ao invés de um \texttt{Classificador} por
 processo e múltiplos processos por nó, pode-se utilizar um processo por nó
 e múltiplas \emph{threads} executando \texttt{Classificador} por nó.
 Esta estratégia economiza a transmissão de \mclusters para cada nó folha na
-função \texttt{AtualizaModelo} porém aumenta a concorrência de acesso ao modelo
+função \texttt{AtualizaModelo}, porém aumenta a concorrência de acesso ao modelo
 entre as \emph{threads} executando \texttt{Classificador}.
 Em avaliações simples comparando estas estratégias nenhum resultado conclusivo
 foi observado e há espaço em trabalhos futuros para avaliações mais profundas
@@ -141,7 +141,7 @@ destas estratégias e outras de estratégias de otimização.
 A função \texttt{Classificador}, listada no Algoritmo \ref{alg:MFOG-classifier}, é o
 centro do sistema e opera com o modelo atualizado e um exemplo recebido como
 mensagem do nó raiz.
-Esta função calcula as distâncias entre o exemplo e todos \mclusters do modelo e
+Esta função calcula as distâncias entre o exemplo e todos \mclusters do modelo,
 encontrando o mais próximo e verificando se o modelo explica aquele exemplo; se
 explica, o rótulo do \mcluster mais próximo é atribuído como rótulo do exemplo.
 A função \texttt{Classificador}, como as outras, só chega ao seu final se a
@@ -202,7 +202,7 @@ Se a instância for um exemplo, ele é enviado para um dos nós folha, o nó é
 escolhido via balanceamento de carga \emph{round-robin}.
 Se a instância for do tipo cluster, o modelo compartilhado com a \emph{thread}
 executando a função \texttt{Detector} é travado para leitura e escrita e
-atualizado e o novo cluster é enviado para todas os nós folhas.
+atualizado, e o novo cluster é enviado para todas os nós folhas.
 
 \begin{algorithm}[htb]
     \input{43.mpi-extra.tex}
