@@ -10,15 +10,70 @@
 
 \chapter{Experimentos e Resultados}\label{cha:results}
 
+Este capítulo apresenta o ambiente experimental e os resultados obtidos dos
+experimentos, discutindo as métricas de classificação e escalabilidade.
+
 \input{51.ambiente.tex}
 % \input{54.experimentos.tex}
 
-\FloatBarrier
+% \FloatBarrier
 \section{Métricas e Visualizações}
 \label{sec:experiments}
 % acho que convém explicar as demais tabelas de resultados...
 
-Seguindo as especificações das métricas estabelecidas 
+Seguindo as especificações das métricas estabelecidas na Seção
+\ref{sec:avaliacao} e executando os experimentos conforme a Seção
+\ref{sec:ambiente} os seguintes resultados são apresentados.
+
+Para a validação da nova implementação, a comparação à implementação de
+referência do algoritmo \minas (\refminas) mostrou pouca discrepância.
+A Tabela \ref{tab:java-matrix} mostra a matriz de confusão no instante final do
+fluxo contendo o \dataset avaliado, e Tabela \ref{tab:libc-matrix} mostra a
+a matriz de confusão para o mesmo fluxo porém na implementação do \mfog.
+
+\begin{table}[hbt]%{\linewidth}
+  {\footnotesize
+  \setlength\tabcolsep{0.5em}
+  \begin{center}
+  \caption{Implementação de referência (\refminas), Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
+  \label{tab:java-matrix}
+  \begin{tabular}{l *{14}{|r} }
+    Rótulos   &     - &       N &    1 &    2 &    3 &  4 &   5 &    6 &    7 &     8 &    9 &    10 &   11 &  12 \\\hline
+    Classes  &       &         &      &      &      &    &     &      &      &       &      &       &      &     \\\hline
+    \hline
+    A        &  3774 &  438750 &  123 &  145 &  368 &  8 &  52 &  165 &    1 &  1046 &  161 &  2489 &   71 &  26 \\\hline
+    N        &  8206 &  193030 &    0 &   79 &   44 &  0 &   0 &    0 &  229 &   181 &  154 &  4066 &  289 &   0 \\\hline
+    \hline
+    Associação &     - &       N &    A &    A &    A &  A &   A &    A &    N &     A &    A &     N &    N &   A \\\hline
+    Hits ($tp$)     &     0 &  193030 &  123 &  145 &  368 &  8 &  52 &  165 &  229 &  1046 &  161 &  4066 &  289 &  26 
+  \end{tabular}
+\end{center}
+}
+\end{table}
+
+Destaca-se que para este caso somente utiliza-se a nova implementação do algoritmo
+\minas de modo serial, ou seja, idêntico ao Algoritmo \ref{alg:minas-main}, sem
+classificadores paralelos ou detecção de novidade assíncrona.
+
+\begin{table}[hbt]%{\linewidth}
+  {\footnotesize
+  \setlength\tabcolsep{0.5em}
+  \begin{center}
+  \caption{Nova implementação do algoritmo \minas Serial, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
+  \label{tab:libc-matrix}
+  \begin{tabular}{l|r|r|r|r|r|r|r|r|r|r|r}
+    Rótulos &      - &       N &   0 &    1 &    2 &   4 &   5 &  6 &   7 &   8 &  10 \\\hline
+    Classes  &        &         &     &      &      &     &     &    &     &     &     \\\hline
+    \hline
+    A        &  16086 &  429765 &  94 &  995 &  104 &   0 &  23 &  3 &  29 &  46 &  34 \\\hline
+    N        &  12481 &  193642 &   3 &   94 &    0 &  47 &   0 &  0 &   0 &  11 &   0 \\\hline
+    \hline
+    Associação &      - &       N &   A &    A &    A &   N &   A &  A &   A &   A &   A \\\hline
+    Hits ($tp$)     &      0 &  193642 &  94 &  995 &  104 &  47 &  23 &  3 &  29 &  46 &  34 
+  \end{tabular}
+  \end{center}
+  }
+\end{table}
 
 For the measurements summary table, six measurements from two sources are displayed. Three
 measures \emph{Hits}, \emph{Unknowns} and \emph{Misses} represented as ratio of
@@ -67,52 +122,16 @@ Figure \ref{fig:visualization} shows complete stream visualization charts.
 % \caption{Confusion Matrixes and Qualitative measurements}
 % \label{tab:confusion-matrixes-ref-serial}
 
-\begin{table}[hbt]%{\linewidth}
-{\scriptsize
-\setlength\tabcolsep{0.5em}
-\begin{center}
-\caption{Reference implementation}
-\label{tab:java-matrix}
-\begin{tabular}{l *{14}{|r} }
-  Rótulos   &     - &       N &    1 &    2 &    3 &  4 &   5 &    6 &    7 &     8 &    9 &    10 &   11 &  12 \\\hline
-  Classes  &       &         &      &      &      &    &     &      &      &       &      &       &      &     \\\hline
-  \hline
-  A        &  3774 &  438750 &  123 &  145 &  368 &  8 &  52 &  165 &    1 &  1046 &  161 &  2489 &   71 &  26 \\\hline
-  N        &  8206 &  193030 &    0 &   79 &   44 &  0 &   0 &    0 &  229 &   181 &  154 &  4066 &  289 &   0 \\\hline
-  \hline
-  Associação &     - &       N &    A &    A &    A &  A &   A &    A &    N &     A &    A &     N &    N &   A \\\hline
-  Hits ($tp$)     &     0 &  193030 &  123 &  145 &  368 &  8 &  52 &  165 &  229 &  1046 &  161 &  4066 &  289 &  26 
-\end{tabular}
-\end{center}
-}
-\end{table}
+
 
 % \vspace{3ex}
 
-\begin{table}[hbt]%{\linewidth}
-{\scriptsize
-\setlength\tabcolsep{0.5em}
-\begin{center}
-\caption{Serial implementation}
-\label{tab:libc-matrix}
-\begin{tabular}{l|r|r|r|r|r|r|r|r|r|r|r}
-  Rótulos &      - &       N &   0 &    1 &    2 &   4 &   5 &  6 &   7 &   8 &  10 \\\hline
-  Classes  &        &         &     &      &      &     &     &    &     &     &     \\\hline
-  \hline
-  A        &  16086 &  429765 &  94 &  995 &  104 &   0 &  23 &  3 &  29 &  46 &  34 \\\hline
-  N        &  12481 &  193642 &   3 &   94 &    0 &  47 &   0 &  0 &   0 &  11 &   0 \\\hline
-  \hline
-  Associação &      - &       N &   A &    A &    A &   N &   A &  A &   A &   A &   A \\\hline
-  Hits ($tp$)     &      0 &  193642 &  94 &  995 &  104 &  47 &  23 &  3 &  29 &  46 &  34 
-\end{tabular}
-\end{center}
-}
-\end{table}
+
 
 \vspace{3ex}
 
 \begin{table}[hbt]%{0.48\linewidth}
-{\scriptsize
+{\footnotesize
 \setlength\tabcolsep{0.35em}
 \begin{center}
 \caption{Parallel single-node}
@@ -135,7 +154,7 @@ Figure \ref{fig:visualization} shows complete stream visualization charts.
 % &
 % 
 \begin{table}[hbt]%{0.48\linewidth}
-{\scriptsize
+{\footnotesize
 \setlength\tabcolsep{0.35em}
 \begin{center}
 \caption{Parallel multi-node}
@@ -160,7 +179,7 @@ Figure \ref{fig:visualization} shows complete stream visualization charts.
 
 \newcommand{\mr}[1]{\multirow{2}{*}{#1}}
 \begin{table}[hbt]%{0.48\linewidth}
-{\scriptsize
+{\footnotesize
 \setlength\tabcolsep{0.35em}
 \caption{Sumário das métricas.}
 \label{tab:exper-summary}

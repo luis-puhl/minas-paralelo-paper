@@ -69,30 +69,13 @@ Destaca-se que esta escolha pode resultar em \emph{Overfitting} para a classe
 normal e \emph{under-fitting} para a classe ataque, pois o sistema primeiro
 precisa detectar um padrão novidade para então adicionar ao modelo.
 
-Quanto às configurações do algoritmo \minas, os valores dos parâmetros foram
-escolhidos por serem valores comuns para o algoritmo presentes na literatura
-\cite{Faria2013Minas,Faria2016minas} e na implementação de referência \refminas
-\cite{Faria2013source}, ou escolhidos por aproximarem os resultados aos obtidos
-pela implementação de referência \refminas com os mesmos parâmetros, até onde é
-possível, e \dataset.
-
-Os parâmetros utilizados, ilustrados na Figura \ref{fig:params}, são
-os da literatura: \texttt{k} número de \mclusters gerados pelo algoritmo de agrupamento,
-\texttt{minExamplesPerCluster} número de mínimo de exemplos para um \mcluster válido,
-\texttt{thresholdForgettingPast} limite para remoção de exemplos do conjunto de
-desconhecidos e, o restante escolhidos por aproximação,
-\texttt{precision} é o valor limite para melhora na distância global reduzindo as 
-% sorry
-% falha minha... retomo depois; bons tralhos!
-iterações no algoritmo de agrupamento (otimização) e,
-\texttt{radiusF} fator que multiplica o desvio padrão das distâncias entre o
-centro e cada exemplo formador do novo \mcluster definindo o raio do \mcluster
-e 
-\texttt{noveltyF} fator que multiplica o desvio padrão das distâncias do
-\mcluster mais próximo distinguindo um novo padrão entre extensão e novidade.
-
-% (k, minExamplesPerCluster, noveltyF, thresholdForgettingPast)
-% (precision, radiusF)
+Quanto aos parâmetros do algoritmo \minas, ilustrados na Figura
+\ref{fig:params}, os valores foram escolhidos por serem valores comuns para o
+algoritmo presentes na literatura \cite{Faria2013Minas,Faria2016minas} e na
+implementação de referência \refminas \cite{Faria2013source}.
+Os parâmetros que não tem valores comuns na literatura foram escolhidos por
+aproximarem os resultados aos obtidos pela implementação de referência \refminas
+com os mesmos parâmetros, até onde é possível, e \dataset.
 
 \begin{figure}[htb]
   \centering
@@ -106,6 +89,25 @@ e
   \caption{Parâmetros do algoritmo \minas.}
   \label{fig:params}
 \end{figure}
+
+Os parâmetros utilizados da literatura são
+\texttt{k} número de \mclusters gerados pelo algoritmo de agrupamento,
+\texttt{minExamplesPerCluster} número de mínimo de exemplos para um \mcluster válido
+e,
+\texttt{thresholdForgettingPast} limite para remoção de exemplos do conjunto de
+desconhecidos.
+
+Os parâmetros escolhidos por aproximação de resultados são:
+\texttt{precision} é o valor limite para melhora na distância global reduzindo as 
+iterações no algoritmo de agrupamento (otimização),
+\texttt{radiusF} fator que multiplica o desvio padrão das distâncias entre o
+centro e cada exemplo formador do novo \mcluster definindo o raio do \mcluster
+e,
+\texttt{noveltyF} fator que multiplica o desvio padrão das distâncias do
+\mcluster mais próximo distinguindo um novo padrão entre extensão e novidade.
+
+% (k, minExamplesPerCluster, noveltyF, thresholdForgettingPast)
+% (precision, radiusF)
 
 
 
