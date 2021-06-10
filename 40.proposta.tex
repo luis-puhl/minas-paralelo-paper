@@ -265,13 +265,13 @@ Alguns dos aspectos com impactos potenciais na implementação incluem:
 % chosen with care.
 % The decisions following these discussions can be organized in several policies,
 % some of them were recurring during our implementation discussions and are:
-\begin{itemize}
+\begin{enumerate}
   
   \item Com relação à alocação do módulo Detecção de Novidade e a sincronização de
   modelo entre redes distintas para compartilhamento de padrões de novidade local
   com outras redes que não receberam aquele padrão de ataque:
   % Regarding the allocation of the Novelty Detection Module:
-  \begin{itemize}
+  \begin{enumerate}
     
     \item Em névoa (há um módulo em cada cluster alocado a uma rede local): padrões serão
     somente detectados se um número suficiente de exemplos deste padrão ocorrer
@@ -304,7 +304,7 @@ Alguns dos aspectos com impactos potenciais na implementação incluem:
     % data.
     % This choice needs an even more complex model synchronization mechanism.
 
-  \end{itemize}
+  \end{enumerate}
     
   \item Com relação ao mecanismo de esquecimento:
   mesmo quando a detecção de novidade global é usada, modelos locais podem
@@ -315,7 +315,7 @@ Alguns dos aspectos com impactos potenciais na implementação incluem:
   % classification using the local model statistics by sorting by (or removing)
   % least used clusters;
 
-  \item Por último, na reclassificação do conjunto de desconhecidos,
+  \item \label{reclassification} Por último, na reclassificação do conjunto de desconhecidos,
   feita pela tarefa de detecção de novidade do algoritmo \minas, o subconjunto de
   desconhecidos que pertencem a um novo cluster válido é, efetivamente,
   classificado com o rótulo deste novo cluster.
@@ -342,7 +342,7 @@ Alguns dos aspectos com impactos potenciais na implementação incluem:
   % (meaning each input has one output) to a \emph{flatMap} (each input can have
   % many outputs).
 
-\end{itemize}
+\end{enumerate}
 
 % ------------------------------------------------------------------------------
 

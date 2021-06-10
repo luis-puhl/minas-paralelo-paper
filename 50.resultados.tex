@@ -51,7 +51,7 @@ saída de \serial, na Tabela \ref{tab:libc-matrix}.
   {\footnotesize
   % \setlength\tabcolsep{0.5em}
   \begin{center}
-  \caption{Implementação de referência (\refminas), Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
+  \caption{Experimento \refminas (implementação referência), Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
   \label{tab:java-matrix}
   \begin{tabular}{l *{14}{|r} }
     Rótulos   &     - &       N &    1 &    2 &    3 &  4 &   5 &    6 &    7 &     8 &    9 &    10 &   11 &  12 \\\hline
@@ -80,7 +80,7 @@ em \serial.
   % {\small
   % \setlength\tabcolsep{0.5em}
   \begin{center}
-  \caption{Implementação \serial, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
+  \caption{Experimento \serial, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
   \label{tab:libc-matrix}
   \begin{tabular}{l|r|r|r|r|r|r|r|r|r|r|r}
     Rótulos &      - &       N &   0 &    1 &    2 &   4 &   5 &  6 &   7 &   8 &  10 \\\hline
@@ -116,7 +116,7 @@ fluxos de saída de \refminas e \serial respectivamente.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.75\linewidth]{experiments/revised-java-log.png}
-  \caption{Implementação de referência (\refminas), visualização de fluxo do \dataset \emph{Kyoto} Dez. 2015.}
+  \caption{Experimento \refminas (implementação referência), visualização de fluxo do \dataset \emph{Kyoto} Dez. 2015.}
   \label{fig:validation-java}
 \end{figure}
 
@@ -130,7 +130,7 @@ Outro aspecto com relação à rótulos novidade, em \refminas eles surgem mais
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.75\linewidth]{experiments/online-nd-log.png}
-  \caption{Implementação \serial, visualização de fluxo do \dataset \emph{Kyoto} Dez. 2015.}
+  \caption{Experimento \serial, visualização de fluxo do \dataset \emph{Kyoto} Dez. 2015.}
   \label{fig:validation-serial}
 \end{figure}
 
@@ -230,13 +230,19 @@ $287s$ ($194s$ \emph{offline} e $93s$ \emph{online}) em \serial.
 
 % \vspace{3ex}
 
-Seguindo as comparações, para avaliar a escalabilidade do sistema, 
+\newcommand{\single}{\textit{Paralelo}\xspace}
+\newcommand{\multi}{\textit{Distribuído}\xspace}
 
+Seguindo as comparações, para avaliar a escalabilidade do sistema os
+experimentos com o \mfog completo em duas configurações, um nó (\single) e três
+nós (\multi), foram realizadas com o mesmo roteiro.
+As Tabelas \ref{tab:single-matrix} e \ref{tab:multi-matrix} mostram as matrizes
+de confusão dos experimentos \single e \multi respectivamente.
 
 \begin{table}[hbt]
   \centering
   % \setlength\tabcolsep{0.5em}
-  \caption{Execução em um nó do \mfog, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
+  \caption{Experimento \mfog \single com 4 núcleos, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
   \label{tab:single-matrix}
   \begin{tabular}{l|r|r|r|r|r|r|r}
     Rótulos &      - &       N &    0 &    1 &   2 &  3 &  4 \\\hline
@@ -250,11 +256,37 @@ Seguindo as comparações, para avaliar a escalabilidade do sistema,
   \end{tabular}
 \end{table}
 
+Comparando as matrizes dos experimentos \serial e \single, já observa-se os
+efeitos do paralelismo de classificadores e, mais importante, a execução
+assíncrona da tarefa de detecção de novidade.
+O impacto principal é a redução no número de rótulos novidade de $11$ para $5$.
+Comparando a visualização de fluxo, Figuras \ref{fig:validation-serial} e
+\ref{fig:single-flow}, observa-se também que a aparição do primeiro padrão
+novidade acontece mais ``tarde'', enquanto em \serial o rótulo novidade ``1'' é
+observado em $x = 94\;155$, em \single o mesmo rótulo é observado em $x =
+172\;917$.
+
+A tripla-sumário do experimento \single é ($02.4\%,\: 31.2\%,\: 66.4\%$),
+mostrando uma melhor em comparação à ($04.4\%,\: 29.8\%,\: 65.8\%$) do
+experimento \serial.
+
+Esse comportamento é devido à detecção de novidade assíncrona pois, enquanto
+essa tarefa é executada os classificadores continuam utilizando o modelo antigo.
+Além disso, como já foi elencado na Seção \ref{sec:polices} item
+\ref{reclassification}, os exemplos utilizados para formar o novo \mcluster
+com rótulo novidade não são colocados no fluxo de saída.
+Estas duas características do \mfog acarretam em um atraso significante entre a
+aparição de um padrão no fluxo de entrada e a aparição do rótulo correspondente
+no fluxo de saída.
+Em outras palavras, o fluxo avança com o modelo antigo e, mesmo após atualizado,
+só gera uma saída com o rótulo novo quando (e se) o padrão aparece novamente.
+Este é um resultado muito importante para compreender os problemas relacionados
+à distribuição de um algoritmo deste gênero.
 
 \begin{table}[hbt]
   \centering
   % \setlength\tabcolsep{0.5em}
-  \caption{Execução em 3 nós do \mfog, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
+  \caption{Experimento \mfog \multi com 3 nós de 4 núcleos, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
   \label{tab:multi-matrix}
   \begin{tabular}{l|r|r|r|r|r|r|r}
     Rótulos   &      - &       N &    0 &    1 &    2 &    3 &  4 \\\hline
@@ -268,10 +300,21 @@ Seguindo as comparações, para avaliar a escalabilidade do sistema,
   \end{tabular}
 \end{table}
 
+Avançando para o último experimento, a matriz de confusão do experimento \multi
+(Tab. \ref{tab:multi-matrix}) mostra pouca diferença quando comparado à \single
+com o número de desconhecidos sofrendo a maior variação.
+O mesmo é observado quando compara-se a visualização de fluxo, Figuras
+\ref{fig:single-flow} e \ref{fig:multi-flow}, pouca divergência.
+Até mesmo a tripla-sumário ($02.4\%,\: 31.2\%,\: 66.4\%$) é idêntica.
+
+Isto reforça a ideia de que o maior impacto na métricas de qualidade de
+classificação é a mudança de detecção de novidade assíncrona, pois mesmo com o
+triplo de instancias classificadoras, as métricas continuam idênticas.
+
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.75\linewidth]{experiments/tmi-base-log.png}
-  \caption{Execução em um nó do \mfog, visualização de fluxo do \dataset \emph{Kyoto} Dez. 2015.}
+  \caption{Experimento \mfog \single com 4 núcleos, visualização de fluxo do \dataset \emph{Kyoto} Dez. 2015.}
   \label{fig:single-flow}
 \end{figure}
 
@@ -279,7 +322,7 @@ Seguindo as comparações, para avaliar a escalabilidade do sistema,
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.75\linewidth]{experiments/tmi-n12-log.png}
-  \caption{Execução em 3 nós do \mfog, visualização de fluxo do \dataset \emph{Kyoto} Dez. 2015.}
+  \caption{Experimento \mfog \multi com 3 nós de 4 núcleos, visualização de fluxo do \dataset \emph{Kyoto} Dez. 2015.}
   \label{fig:multi-flow}
 \end{figure}
 
