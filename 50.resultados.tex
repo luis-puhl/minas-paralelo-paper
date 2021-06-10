@@ -49,7 +49,7 @@ saída de \serial, na Tabela \ref{tab:libc-matrix}.
 
 \begin{table}[hbt]%{\linewidth}
   {\footnotesize
-  \setlength\tabcolsep{0.5em}
+  % \setlength\tabcolsep{0.5em}
   \begin{center}
   \caption{Implementação de referência (\refminas), Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
   \label{tab:java-matrix}
@@ -78,7 +78,7 @@ em \serial.
 
 \begin{table}[hbt]%{\linewidth}
   % {\small
-  \setlength\tabcolsep{0.5em}
+  % \setlength\tabcolsep{0.5em}
   \begin{center}
   \caption{Implementação \serial, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
   \label{tab:libc-matrix}
@@ -134,6 +134,9 @@ Outro aspecto com relação à rótulos novidade, em \refminas eles surgem mais
   \label{fig:validation-serial}
 \end{figure}
 
+O gráfico de visualização do fluxo tem no eixo horizontal (x, domínio) o índice
+do exemplo $x$ e o eixo vertical (y, imagem) mostra o valor das métricas
+calculadas até aquele índice de exemplo $x$ no fluxo de saída capturado.
 As linhas horizontais na visualização de fluxo mostram o progresso das métricas
 de qualidade de classificação durante o fluxo e, ao final na esquerda, o valor
 impresso junto e de mesma cor à linha é o valor final de cada métrica.
@@ -141,9 +144,26 @@ As métricas são:
 em laranja a taxa de desconhecidos (\texttt{unk}),
 em verde a acurácia (\texttt{hit}) e
 em azul o erro (\texttt{err}).
-Estas métricas podem ser arranjadas em uma tripla-sumário (\texttt{unk},
-\texttt{hit}, \texttt{err}) com os valores em pontos percentuais para fácil
-comparação.
+Estas métricas podem ser arranjadas em uma tripla-sumário
+(\texttt{unk}, \texttt{hit}, \texttt{err})
+com os valores em pontos percentuais para fácil comparação.
+
+% Por último, o gráfico de visualização do fluxo mostra as métricas de qualidade
+% resumida (\ emph {Acessos}, \ emph {Desconhecidos}, \ emph {Erros}) computada
+% para cada exemplo no fluxo de saída capturado. Este resumo é calculado para cada
+% exemplo, mas usa a linha \ emph {Atribuída} calculada anteriormente para avaliar
+% \ emph {Acertos}; as outras medidas são derivadas conforme descrito antes. 
+
+% Lastly, the stream visualization chart shows the summary quality measurement
+% (\emph{Hits}, \emph{Unknowns}, \emph{Misses})
+% computed for each example in the captured output stream.
+% This summary is computed for each example, but it uses the \emph{Assigned} row
+% computed previously to evaluate \emph{Hits}; the other measurements are derived as
+% described before.
+% The Horizontal axis (x, domain) plots the index of the example and the
+% vertical axis (y, image) shows the measurement computed until that example index on the captured
+% output stream.
+
 
 Em conclusão das métricas de qualidade de classificação, \refminas e \serial
 não são idênticos pois não implementam a mesma definição, porém são semelhantes
@@ -164,154 +184,143 @@ $287s$ ($194s$ \emph{offline} e $93s$ \emph{online}) em \serial.
 \subsection{Paralelismo e Distribuição}
 
 % For the measurements summary table, six measurements from two sources are displayed. Three
-% measures \emph{Hits}, \emph{Unknowns} and \emph{Misses} represented as ratio of
-% the captured output stream, extracted from the evaluation python program,
-% computed as follows:
-% \emph{Hits} (true positive rate) is the sum of the \emph{Hits} row in the
-% extended confusion matrix;
-% \emph{Unknowns} is the count of examples in the captured output stream marked
-% with the \emph{unknown} label (\emph{``-''});
-% \emph{Misses} is the count of all examples in the captured output stream marked
-% with a label distinct from the \emph{Assigned} original class and are not marked
-% as unknown.
+  % measures \emph{Hits}, \emph{Unknowns} and \emph{Misses} represented as ratio of
+  % the captured output stream, extracted from the evaluation python program,
+  % computed as follows:
+  % \emph{Hits} (true positive rate) is the sum of the \emph{Hits} row in the
+  % extended confusion matrix;
+  % \emph{Unknowns} is the count of examples in the captured output stream marked
+  % with the \emph{unknown} label (\emph{``-''});
+  % \emph{Misses} is the count of all examples in the captured output stream marked
+  % with a label distinct from the \emph{Assigned} original class and are not marked
+  % as unknown.
 
-Furthermore in the measurement summary table, \emph{Time}, \emph{System} and \emph{Elapsed}
- represented in seconds, are extracted from \emph{GNU Time 1.9}.
-\emph{Time} is the amount of CPU seconds expended in user-mode
-(indicates time used doing CPU intensive computing, e.g., math);
-\emph{System} is the amount of CPU seconds expended in kernel-mode
-(for our case, it indicates time doing input or output);
-\emph{Elapsed} is the real-world (wall clock) elapsed time and
-indicates how long the program took to complete.
-The lower the times, the better.
-Our four main experiments are shown in Tab. \ref{tab:exper-summary}.
+  % Furthermore in the measurement summary table, \emph{Time}, \emph{System} and \emph{Elapsed}
+  % represented in seconds, are extracted from \emph{GNU Time 1.9}.
+  % \emph{Time} is the amount of CPU seconds expended in user-mode
+  % (indicates time used doing CPU intensive computing, e.g., math);
+  % \emph{System} is the amount of CPU seconds expended in kernel-mode
+  % (for our case, it indicates time doing input or output);
+  % \emph{Elapsed} is the real-world (wall clock) elapsed time and
+  % indicates how long the program took to complete.
+  % The lower the times, the better.
+  % Our four main experiments are shown in Tab. \ref{tab:exper-summary}.
 
-Lastly, the stream visualization chart shows the summary quality measurement
-(\emph{Hits}, \emph{Unknowns}, \emph{Misses})
-computed for each example in the captured output stream.
-This summary is computed for each example, but it uses the \emph{Assigned} row
-computed previously to evaluate \emph{Hits}; the other measurements are derived as
-described before.
-The Horizontal axis (x, domain) plots the index of the example and the
-vertical axis (y, image) shows the measurement computed until that example index on the captured
-output stream.
+  % Lastly, the stream visualization chart shows the summary quality measurement
+  % (\emph{Hits}, \emph{Unknowns}, \emph{Misses})
+  % computed for each example in the captured output stream.
+  % This summary is computed for each example, but it uses the \emph{Assigned} row
+  % computed previously to evaluate \emph{Hits}; the other measurements are derived as
+  % described before.
+  % The Horizontal axis (x, domain) plots the index of the example and the
+  % vertical axis (y, image) shows the measurement computed until that example index on the captured
+  % output stream.
 
-Adding to the stream visualization chart, novelty label markers are represented
-as vertical lines indicating \emph{when} in the captured output stream a new
-label first appeared.
-Some of the novelty label markers include the label itself ($l \in \mathbb{N}$)
-for reference (showing every label would turn this feature unreadable due
-to overlapping).
-Figure \ref{fig:visualization} shows complete stream visualization charts.
+  % Adding to the stream visualization chart, novelty label markers are represented
+  % as vertical lines indicating \emph{when} in the captured output stream a new
+  % label first appeared.
+  % Some of the novelty label markers include the label itself ($l \in \mathbb{N}$)
+  % for reference (showing every label would turn this feature unreadable due
+  % to overlapping).
+  % Figure \ref{fig:visualization} shows complete stream visualization charts.
 
-
-
-% \begin{table*}[htb]
-% \caption{Confusion Matrixes and Qualitative measurements}
-% \label{tab:confusion-matrixes-ref-serial}
-
-
+  % \begin{table*}[htb]
+  % \caption{Confusion Matrixes and Qualitative measurements}
+  % \label{tab:confusion-matrixes-ref-serial}
 
 % \vspace{3ex}
 
+Seguindo as comparações, para avaliar a escalabilidade do sistema, 
 
 
-\vspace{3ex}
-
-\begin{table}[hbt]%{0.48\linewidth}
-{\footnotesize
-\setlength\tabcolsep{0.35em}
-\begin{center}
-\caption{Parallel single-node}
-\label{tab:single-node-matrix}
-\begin{tabular}{l|r|r|r|r|r|r|r}
-  Rótulos &      - &       N &    0 &    1 &   2 &  3 &  4 \\\hline
-  Classes  &        &         &      &      &     &    &    \\\hline
-  \hline
-  A        &  12282 &  433797 &  147 &  952 &   0 &  0 &  1 \\\hline
-  N        &   3088 &  203019 &   40 &   99 &  27 &  5 &  0 \\\hline
-  \hline
-  Associação &      - &       N &    A &    A &   N &  N &  A \\\hline
-  Hits ($tp$)     &      0 &  203019 &  147 &  952 &  27 &  5 &  1 
-\end{tabular}
-\end{center}
-}
-\end{table}
-% 
-% \quad
-% &
-% 
-\begin{table}[hbt]%{0.48\linewidth}
-{\footnotesize
-\setlength\tabcolsep{0.35em}
-\begin{center}
-\caption{Parallel multi-node}
-\label{tab:multi-node-matrix}
-\begin{tabular}{l|r|r|r|r|r|r|r}
-  Rótulos   &      - &       N &    0 &    1 &    2 &    3 &  4 \\\hline
-  Classes   &        &         &      &      &      &      &    \\\hline
-  \hline
-  A      &  12378 &  433631 &  117 &  886 &    0 &  162 &  5 \\\hline
-  N      &   3121 &  202916 &   40 &   96 &  105 &    0 &  0 \\\hline
-  \hline
-  Associação   &      - &       N &    A &    A &    N &    A &  A \\\hline
-  Hits ($tp$)   &      0 &  202916 &  117 &  886 &  105 &  162 &  5 
-\end{tabular}
-\end{center}
-}
+\begin{table}[hbt]
+  \centering
+  % \setlength\tabcolsep{0.5em}
+  \caption{Execução em um nó do \mfog, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
+  \label{tab:single-matrix}
+  \begin{tabular}{l|r|r|r|r|r|r|r}
+    Rótulos &      - &       N &    0 &    1 &   2 &  3 &  4 \\\hline
+    Classes  &        &         &      &      &     &    &    \\\hline
+    \hline
+    A        &  12282 &  433797 &  147 &  952 &   0 &  0 &  1 \\\hline
+    N        &   3088 &  203019 &   40 &   99 &  27 &  5 &  0 \\\hline
+    \hline
+    Associação &      - &       N &    A &    A &   N &  N &  A \\\hline
+    Hits ($tp$)     &      0 &  203019 &  147 &  952 &  27 &  5 &  1 
+  \end{tabular}
 \end{table}
 
-% \end{table*}
 
-% O que é a "measurement summary table"? 
-
-\newcommand{\mr}[1]{\multirow{2}{*}{#1}}
-\begin{table}[hbt]%{0.48\linewidth}
-{\footnotesize
-\setlength\tabcolsep{0.35em}
-\caption{Sumário das métricas.}
-\label{tab:exper-summary}
-\begin{center}
-\begin{tabular}{l|r|r|r|r|r}
-                & \refminas (a)  & Offline       & Serial (b)      & Single Node (c) & Multi Node (d)  \\\hline
-\mr{Hits}       & $\ 199708\ $   &               & $\ 195017\ $    & $\ 204151\ $    & $\ 204191\ $    \\
-                & $\ 0.305618\ $ &               & $\ 0.298438\ $  & $\ 0.312416\ $  & $\ 0.312478\ $  \\
-\hline
-\mr{Misses}     & $\ 441769\ $   &               & $\ 429873\ $    & $\ 433936\ $    & $\ 433767\ $    \\
-                & $\ 0.676049\ $ &               & $\ 0.657843\ $  & $\ 0.664061\ $  & $\ 0.663802\ $  \\
-\hline
-\mr{Unknowns}   & $\ 11980\ $    &               & $\ 28567\ $     & $\ 15370\ $     & $\ 15499\ $     \\
-                & $\ 0.018333\ $ &               & $\ 0.043717\ $  & $\ 0.023521\ $  & $\ 0.023718\ $  \\
-\hline
-Time            & $\ 2761.83\ $  & $\ 194.12\ $  & $\ 80.79000\ $  & $\ 522.1000\ $  & $\ 207.1400\ $  \\\hline
-System          & $\ 7.15\ $     & $\  0.075\ $  & $\ 11.51000\ $  & $\  47.7700\ $  & $\ 157.6100\ $  \\\hline
-Elapsed         & $\ 2772.07\ $  & $\ 194.27\ $  & $\ 93.03000\ $  & $\ 145.0400\ $  & $\  95.3800\ $  
-\end{tabular}
-\end{center}
-}
+\begin{table}[hbt]
+  \centering
+  % \setlength\tabcolsep{0.5em}
+  \caption{Execução em 3 nós do \mfog, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
+  \label{tab:multi-matrix}
+  \begin{tabular}{l|r|r|r|r|r|r|r}
+    Rótulos   &      - &       N &    0 &    1 &    2 &    3 &  4 \\\hline
+    Classes   &        &         &      &      &      &      &    \\\hline
+    \hline
+    A      &  12378 &  433631 &  117 &  886 &    0 &  162 &  5 \\\hline
+    N      &   3121 &  202916 &   40 &   96 &  105 &    0 &  0 \\\hline
+    \hline
+    Associação   &      - &       N &    A &    A &    N &    A &  A \\\hline
+    Hits ($tp$)   &      0 &  202916 &  117 &  886 &  105 &  162 &  5 
+  \end{tabular}
 \end{table}
 
 \begin{figure}[htb]
   \centering
-  \begin{minipage}{0.48\textwidth}
-    \centering
-    \includegraphics[width=1\linewidth]{experiments/tmi-base-log.png}
-    \caption{Parallel single-node}
-    \label{fig:cluster-sub-single}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.48\textwidth}
-    \centering
-    \includegraphics[width=1\linewidth]{experiments/tmi-n12-log.png}
-    \caption{Parallel multi-node}
-    \label{fig:cluster-sub-multi}
-  \end{minipage}
-  \caption{Stream hits and novelties visualization}
-  \label{fig:visualization}
+  \includegraphics[width=0.75\linewidth]{experiments/tmi-base-log.png}
+  \caption{Execução em um nó do \mfog, visualização de fluxo do \dataset \emph{Kyoto} Dez. 2015.}
+  \label{fig:single-flow}
 \end{figure}
 
+
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.75\linewidth]{experiments/tmi-n12-log.png}
+  \caption{Execução em 3 nós do \mfog, visualização de fluxo do \dataset \emph{Kyoto} Dez. 2015.}
+  \label{fig:multi-flow}
+\end{figure}
 
 \section{Conclusão}
 \label{sec:exp-conclusao}
 
-Portanto ... \todo{fix-me}
+Os quatro experimentos principais são mostrados na Tabela
+\ref{tab:exper-summary}.
+
+Além disso, na tabela de sumário das métricas, \emph{Tempo}, \emph{Sistema} e
+\emph{Decorrido} representados em segundos, são extraídos de \emph{GNU Time
+1.9}.
+\emph{Tempo} é a quantidade de segundos de CPU gastos no modo de usuário
+(indica o tempo usado em computação intensiva, por exemplo cálculos matemáticos);
+\emph{Sistema} é a quantidade de segundos de CPU gastos no modo \emph{kernel} (para
+nosso caso, indica o tempo de entrada ou saída);
+\emph{Decorrido} é o tempo decorrido do mundo real (relógio de parede) e indica
+quanto tempo o programa levou para ser concluído.
+Quanto mais baixos os tempos, melhor.
+
+\newcommand{\mr}[1]{\multirow{2}{*}{#1}}
+\begin{table}[hbt]
+  \centering
+% \setlength\tabcolsep{0.35em}
+  \caption{Sumário das métricas.}
+  \label{tab:exper-summary}
+  \begin{tabular}{l|r|r|r|r|r}
+  Experimento     & \refminas (a) & Offline       & \serial (b)     & Único nó (c)   & Três nós (d)  \\
+  Métrica           &               &               &                 &                 &   \\\hline
+  \mr{\texttt{hit}}       & $\ 199708\ $   &               & $\ 195017\ $    & $\ 204151\ $    & $\ 204191\ $    \\
+                  & $\ 0.305618\ $ &               & $\ 0.298438\ $  & $\ 0.312416\ $  & $\ 0.312478\ $  \\
+  \hline
+  \mr{\texttt{err}}     & $\ 441769\ $   &               & $\ 429873\ $    & $\ 433936\ $    & $\ 433767\ $    \\
+                  & $\ 0.676049\ $ &               & $\ 0.657843\ $  & $\ 0.664061\ $  & $\ 0.663802\ $  \\
+  \hline
+  \mr{\texttt{unk}}   & $\ 11980\ $    &               & $\ 28567\ $     & $\ 15370\ $     & $\ 15499\ $     \\
+                  & $\ 0.018333\ $ &               & $\ 0.043717\ $  & $\ 0.023521\ $  & $\ 0.023718\ $  \\
+  \hline
+  Tempo            & $\ 2761.83\ $  & $\ 194.12\ $  & $\ 80.79000\ $  & $\ 522.1000\ $  & $\ 207.1400\ $  \\\hline
+  Sistema          & $\ 7.15\ $     & $\  0.075\ $  & $\ 11.51000\ $  & $\  47.7700\ $  & $\ 157.6100\ $  \\\hline
+  Decorrido         & $\ 2772.07\ $  & $\ 194.27\ $  & $\ 93.03000\ $  & $\ 145.0400\ $  & $\  95.3800\ $  
+  \end{tabular}
+\end{table}
+
