@@ -267,13 +267,13 @@ Alguns dos aspectos com impactos potenciais na implementação incluem:
 % some of them were recurring during our implementation discussions and are:
 \begin{itemize}
   
-  \item Com relação à alocação do módulo Detecção de Novidade e sincronização de
+  \item Com relação à alocação do módulo Detecção de Novidade e a sincronização de
   modelo entre redes distintas para compartilhamento de padrões de novidade local
   com outras redes que não receberam aquele padrão de ataque:
   % Regarding the allocation of the Novelty Detection Module:
   \begin{itemize}
     
-    \item Em névoa (há um módulo em cada cluster alocado à uma rede local): padrões serão
+    \item Em névoa (há um módulo em cada cluster alocado a uma rede local): padrões serão
     somente detectados se um número suficiente de exemplos deste padrão ocorrer
     na rede observada; considerando o uso do poder computacional da névoa, qualquer
     sincronização de modelo deve ter a propriedade de aditividade; também é preciso  reconhecer padrões duplicados;
@@ -296,7 +296,7 @@ Alguns dos aspectos com impactos potenciais na implementação incluem:
     \item Em ambos (nuvem e névoa): cada conjunto de desconhecidos em cada rede
     local é mantido bem como a detecção de novidade para padrões locais,
     quando um exemplo é considerado ruído e removido do conjunto de
-    desconhecidos o exemplo é enviado à nuvem para detecção de novidade global.
+    desconhecidos, o exemplo é enviado à nuvem para detecção de novidade global.
     Esta opção requer um mecanismo complexo de sincronização de modelo.
     % \item On both: local \emph{unknown} buffer is maintained and novelty
     % detection is local as well, once a sample is considered as noise or outlier
@@ -307,7 +307,7 @@ Alguns dos aspectos com impactos potenciais na implementação incluem:
   \end{itemize}
     
   \item Com relação ao mecanismo de esquecimento:
-  Mesmo quando detecção de novidade global é usada, modelos locais podem
+  mesmo quando a detecção de novidade global é usada, modelos locais podem
   ser otimizados para classificação rápida usando estatísticas locais para
   ordenar (e remover, usando menos memória) clusters menos utilizados;
   % \item Regarding the model cleanup (forget mechanism): Even when a global
@@ -320,8 +320,8 @@ Alguns dos aspectos com impactos potenciais na implementação incluem:
   desconhecidos que pertencem a um novo cluster válido é, efetivamente,
   classificado com o rótulo deste novo cluster.
   No Algoritmo \ref{alg:minas-nd}, linha \ref{alg:MINAS-nd:reclassify},
-  o novo cluster válido inclui o subconjunto de exemplos que o compõem;
-  portanto, se este conjunto de exemplos fosse classificado com o rótulo atribuído ao
+  o novo cluster válido inclui o subconjunto de exemplos que o compõem.
+  Portanto, se este conjunto de exemplos fosse classificado com o rótulo atribuído ao
   novo cluster e adicionado ao fluxo de saída, esta saída teria exemplos
   atrasados e duplicados em relação ao fluxo de entrada e o resultado obtido
   poderia ser mais acurado.
