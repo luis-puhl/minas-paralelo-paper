@@ -300,16 +300,12 @@ Este é um resultado muito importante para compreender os problemas relacionados
   \end{tabular}
 \end{table}
 
-Avançando para o último experimento, a matriz de confusão do experimento \multi
-(Tab. \ref{tab:multi-matrix}) mostra pouca diferença quando comparado à \single
+Avançando para o último experimento, a matriz de confusão do experimento \multi, 
+na Tabela \ref{tab:multi-matrix}, mostra pouca diferença quando comparado à \single
 com o número de desconhecidos sofrendo a maior variação.
 O mesmo é observado quando compara-se a visualização de fluxo, Figuras
 \ref{fig:single-flow} e \ref{fig:multi-flow}, pouca divergência.
 Até mesmo a tripla-sumário ($02.4\%,\: 31.2\%,\: 66.4\%$) é idêntica.
-
-Isto reforça a ideia de que o maior impacto na métricas de qualidade de
-classificação é a mudança de detecção de novidade assíncrona, pois mesmo com o
-triplo de instancias classificadoras, as métricas continuam idênticas.
 
 \begin{figure}[htb]
   \centering
@@ -318,7 +314,6 @@ triplo de instancias classificadoras, as métricas continuam idênticas.
   \label{fig:single-flow}
 \end{figure}
 
-
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.75\linewidth]{experiments/tmi-n12-log.png}
@@ -326,44 +321,149 @@ triplo de instancias classificadoras, as métricas continuam idênticas.
   \label{fig:multi-flow}
 \end{figure}
 
-\section{Conclusão}
-\label{sec:exp-conclusao}
+Isto reforça a ideia de que o maior impacto na métricas de qualidade de
+classificação é a mudança de detecção de novidade assíncrona, pois mesmo com o
+triplo de instancias classificadoras, as métricas continuam idênticas.
 
-Os quatro experimentos principais são mostrados na Tabela
-\ref{tab:exper-summary}.
+Com a discussão das métricas de qualidade de classificação concluída, resta
+abordar as métricas de escalabilidade que são muito mais simples em sua
+definição e extração porém de muito interesse à este trabalho.
 
-Além disso, na tabela de sumário das métricas, \emph{Tempo}, \emph{Sistema} e
-\emph{Decorrido} representados em segundos, são extraídos de \emph{GNU Time
-1.9}.
+Estas métricas extraídas dos experimentos são número de núcleos de processamento
+utilizados, \emph{Tempo}, \emph{Sistema} e \emph{Decorrido} representados em
+segundos, são extraídos de \emph{GNU Time 1.9} durante a execução do experimento
+em questão.
 \emph{Tempo} é a quantidade de segundos de CPU gastos no modo de usuário
-(indica o tempo usado em computação intensiva, por exemplo cálculos matemáticos);
+(indica o tempo usado em computação intensiva, por exemplo cálculos matemáticos).
 \emph{Sistema} é a quantidade de segundos de CPU gastos no modo \emph{kernel} (para
-nosso caso, indica o tempo de entrada ou saída);
+nosso caso, indica o tempo de entrada ou saída).
 \emph{Decorrido} é o tempo decorrido do mundo real (relógio de parede) e indica
 quanto tempo o programa levou para ser concluído.
 Quanto mais baixos os tempos, melhor.
 
-\newcommand{\mr}[1]{\multirow{2}{*}{#1}}
+Os quatro experimentos principais são mostrados na Tabela
+\ref{tab:exper-summary}, relacionando as métricas de qualidade de classificação
+da tripla-sumário (\texttt{unk}, \texttt{hit}, \texttt{err}) e as métricas de
+escalabilidade básica.
+
+\newcommand{\mr}[1]{\multirow{2}{*}{\texttt{#1}}}
+
 \begin{table}[hbt]
   \centering
 % \setlength\tabcolsep{0.35em}
   \caption{Sumário das métricas.}
   \label{tab:exper-summary}
   \begin{tabular}{l|r|r|r|r|r}
-  Experimento     & \refminas (a) & Offline       & \serial (b)     & Único nó (c)   & Três nós (d)  \\
-  Métrica           &               &               &                 &                 &   \\\hline
-  \mr{\texttt{hit}}       & $\ 199708\ $   &               & $\ 195017\ $    & $\ 204151\ $    & $\ 204191\ $    \\
-                  & $\ 0.305618\ $ &               & $\ 0.298438\ $  & $\ 0.312416\ $  & $\ 0.312478\ $  \\
-  \hline
-  \mr{\texttt{err}}     & $\ 441769\ $   &               & $\ 429873\ $    & $\ 433936\ $    & $\ 433767\ $    \\
-                  & $\ 0.676049\ $ &               & $\ 0.657843\ $  & $\ 0.664061\ $  & $\ 0.663802\ $  \\
-  \hline
-  \mr{\texttt{unk}}   & $\ 11980\ $    &               & $\ 28567\ $     & $\ 15370\ $     & $\ 15499\ $     \\
-                  & $\ 0.018333\ $ &               & $\ 0.043717\ $  & $\ 0.023521\ $  & $\ 0.023718\ $  \\
-  \hline
-  Tempo            & $\ 2761.83\ $  & $\ 194.12\ $  & $\ 80.79000\ $  & $\ 522.1000\ $  & $\ 207.1400\ $  \\\hline
-  Sistema          & $\ 7.15\ $     & $\  0.075\ $  & $\ 11.51000\ $  & $\  47.7700\ $  & $\ 157.6100\ $  \\\hline
-  Decorrido         & $\ 2772.07\ $  & $\ 194.27\ $  & $\ 93.03000\ $  & $\ 145.0400\ $  & $\  95.3800\ $  
+  Experimento     & \refminas (a) & Offline       & \serial (b)     & Único nó (c)    & Três nós (d)    \\
+  Métrica         &               &               &                 & 4 núcleos       & 12 núcleos       \\\hline
+  \mr{unk}        & $11980$       &               & $28567$         & $15370$     & $15499$     \\
+                  & $0.018333$    &               & $0.043717$      & $0.023521$  & $0.023718$  \\\hline
+  \mr{hit}        & $199708$      &               & $195017$        & $204151$    & $204191$    \\
+                  & $0.305618$    &               & $0.298438$      & $0.312416$  & $0.312478$  \\\hline
+  \mr{err}        & $441769$      &               & $429873$        & $433936$    & $433767$    \\
+                  & $0.676049$    &               & $0.657843$      & $0.664061$  & $0.663802$  \\\hline
+  Tempo     ($s$) & $2761.83$     & $194.12$      & $80.79000$      & $522.1000$  & $207.1400$  \\\hline
+  Sistema   ($s$) & $7.15$        & $ 0.075$      & $11.51000$      & $ 47.7700$  & $157.6100$  \\\hline
+  Decorrido ($s$) & $2772.07$     & $194.27$      & $93.03000$      & $145.0400$  & $ 95.3800$  \\\hline
+  Latência  ($s$) & $4.24\mathrm{e}{-3}$  &       & $1.42\mathrm{e}{-4}$  & $2.22\mathrm{e}{-4}$  & $1.46\mathrm{e}{-4}\ $  \\\hline
+  \emph{speedup}  &               &               &                 & $0.6414092$ & $0.9753617$  \\\hline
+  Eficiência      &               &               &                 & $0.1603523$ & $0.0812801$  
   \end{tabular}
 \end{table}
 
+Além das métricas extraídas dos experimentos, as métricas de escalabilidade
+calculadas à partir dos valores extraídos são a latência de de eventos e
+\emph{speedup} prático.
+A latência média calculada com o tempo decorrido dividido pleo o tamanho do
+\dataset pode ser vista na Tabela \ref{tab:summary}.
+O \emph{speedup} prático é calculado com a divisão do tempo decorrido na versão
+sequencial divido pelo tempo utilizado pela versão paralela.
+A eficiência é calculada com a divisão do tempo decorrido na versão sequencial
+divido pelo produto do número de processadores utilizado e o tempo utilizado
+pela versão paralela.
+
+Observando as métricas de escalabilidade nota-se que o \mfog não fornece
+\emph{speedup} e eficiência melhores do que a versão sequencial.
+Isto indica que, apesar da premissa de independência de classificadores
+paralelos, a comunicação entre os processos utilizando dois conjunto de
+instruções \mpi \emph{send} e \emph{receive} para cada exemplo não é eficiente
+para o processamento de fluxo de dados.
+
+\subsection{Experimentos Adicionais}
+
+Experimentos adicionais foram realizados para avaliar o comportamento do \mfog
+para número variado de nós (de 1 a 3) e de processadores (de 1 a 12).
+Os resultados obtidos, ilustrados na Figura \ref{fig:speedup} são limitados ao
+no raiz mas mostram um aumento do tempo \emph{Sistema} (operações em modo
+\emph{kernel}).
+Este aumento indica maior carga associada às operações de entrada e saída das
+instruções \emph{send} e \emph{receive} reforçando a ideia apresentada no
+parágrafo anterior.
+
+Outros experimentos adicionais foram realizados para averiguar a latência para
+cada exemplo do fluxo mostrando o comportamento de cada implementação, é
+ilustrada nas Figuras \ref{fig:lag-java}, \ref{fig:lag-serial} e
+\ref{fig:lag-mfog}.
+No entanto é importante destacar que esta métrica não foi extraída dos
+experimentos principais, sendo apenas ilustrativa dos diferentes comportamentos.
+
+O primeiro comportamento é ilustrado na Figura \ref{fig:lag-java}, onde a execução
+da tarefa de detecção de novidade gera picos de $50$ a $200$ segundos.
+Um comportamento semelhante é visto na Figura \ref{fig:lag-serial} onde ainda há
+picos de latência porém não tão intensos e frequêntes relacionado com mecanismo
+de esquecimento de desconhecidos e remoção do mecanismo de esquecimento de
+\mclusters menos utilizados no Modelo.
+Já o comportamento da visto na Figura \ref{fig:lag-serial} mostra o efeito de
+\emph{buffers} de comunicação entre diferentes processos onde um o pico de latência
+da detecção de novidade cai progressivamente conforme os buffers são esvaziados
+já que o processo de detecção de novidade é assíncrono porém ocupa a \emph{thread}
+responsável pelo fluxo de saída do \mfog.
+
+\begin{figure}[htb]
+  \centering
+  \begin{minipage}{0.49\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth,page=1]{experiments/speedup-clean.pdf}
+    \caption{Métricas de tempo para execuções do \mfog com variação no número de processadores.}
+    \label{fig:speedup}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.49\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{experiments/lag-java.png}
+    \caption{Visualização de Latência na Implementação de referência do algoritmo \minas.}
+    \label{fig:lag-java}
+  \end{minipage}
+  % \hfill
+  \vspace{5mm}
+  \begin{minipage}{0.49\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{experiments/lag-serial.png}
+    \caption{Visualização de Latência na Implementação serial do algoritmo \minas usando funções do \mfog.}
+    \label{fig:lag-serial}
+  \end{minipage}
+  % \vspace{5mm}
+  \hfill
+  \begin{minipage}{0.49\textwidth}
+    \centering
+    \includegraphics[width=1\linewidth]{experiments/lag-mfog.png}
+    \caption{Visualização de Latência na Implementação do \mfog com cálculo de latência.}
+    \label{fig:lag-mfog}
+  \end{minipage}
+  % \caption{Experimentos adicionais \dataset \emph{Kyoto} Dez. 2015. Experimento fora do ambiente de \fog.}
+  % \label{fig:lag}
+\end{figure}
+
+\FloatBarrier
+\section{Conclusão}
+\label{sec:exp-conclusao}
+
+Os experimentos executados e os resultados obtidos levam à conclusão que a
+\acf{ND-DS} executada de maneira distribuída em ambiente de névoa (\fog) é
+viável como parte de um \acf{NIDS} para redes \iot.
+
+
+No entanto para aplicação em uma situação real, são necessárias otimizações
+desde o \dataset de treinamento e avaliação, passando pelo algoritmo de detecção
+de novidade, parâmetros do algoritmo e estratégias de paralelismo e
+distribuição.
