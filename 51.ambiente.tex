@@ -113,7 +113,17 @@ e,
 % (k, minExamplesPerCluster, noveltyF, thresholdForgettingPast)
 % (precision, radiusF)
 
-
+\begin{table}[]
+  \caption{Sumário dos experimentos realizados.}
+  \label{tab:experimentos}
+  \begin{tabular}{lll}
+  Experimento     & Programa                                                                                               & Características                                                                                                                                                     \\
+  (a) Ref         & Minas Referência 2013                                                                                  & \begin{tabular}[c]{@{}l@{}}raio é a distância máxima\\ modelo em duas camadas (sleep)\end{tabular}                                                                  \\
+  (b) Serial      & \begin{tabular}[c]{@{}l@{}}Minas sequencial com biblioteca mfog\\ Validação da biblioteca\end{tabular} & \begin{tabular}[c]{@{}l@{}}raio é o f*desvio padrão das distâncias\\ modelo único\\ esquecimento de desconhecidos mais agressivo, menos chamadas de DN\end{tabular} \\
+  (c) Paralelo    & Mfog completo 1 nó, 4 processadores                                                                    & \begin{tabular}[c]{@{}l@{}}Mesmos de (b)\\ Classificadores paralelos\\ DN assíncrona\end{tabular}                                                                   \\
+  (d) Distribuído & Mfog completo 3 nós, 12 processadores                                                                  & \begin{tabular}[c]{@{}l@{}}Mais processadores\\ Comunicação em rede\end{tabular}                                                                                   
+  \end{tabular}
+\end{table}
 
 % Para realização dos experimentos, diversas configurações de ambientes são
 % propostas.
