@@ -8,9 +8,9 @@ experimental de névoa (\fog).
 
 Este ambiente é composto por três computadores de única placa (\emph{Single
 Board Computer}) modelo Raspberry Pi 3 model B, equipados com o SoC
-(\emph{system-on-chip} sistema em um chip) de arquitetura ARM \emph{BCM2837} com
+(\emph{system-on-chip} - sistema em um chip) de arquitetura ARM \emph{BCM2837} com
 $4$ núcleos de processamento à frequência de $1.2GHz$, $32kB$ e $512kB$ de
-memória \emph{cache} nível 1 e 2 respectivamente, $1GB$ de memória,
+memória \emph{cache} nível 1 e 2 respectivamente, $1GB$ de memória RAM,
 armazenamento em cartão SD e conectados por rede cabeada \emph{Ethernet}.
 % Switch
 % Hélio:
@@ -46,9 +46,9 @@ desejáveis de um conjunto de dados (realismo, validade, etiquetas previamente
 definidas, alta variabilidade, reprodutibilidade e disponibilidade pública) são
 atendidas \cite{KyotoDataset,Song2011kyoto}.
 
-O segmento utilizado é o de Dezembro de 2015, contendo $7\:865\:245$ instâncias.
-Deste segmento, são filtradas apenas instâncias associadas a tráfego normal ou
-ataques conhecidos, identificados por \nids que tenham mais de $10\:000$ instâncias
+O segmento utilizado deste \dataset é o de Dezembro de 2015, contendo $7\:865\:245$ instâncias.
+Deste segmento, são mantidas apenas instâncias associadas a tráfego normal ou
+a ataques conhecidos, identificados por \nids que tenham mais de $10\:000$ instâncias
 para significância, como feito previamente por \citeonline{Cassales2019a}.
 % , this removes 46,390 instances. TODO: revisar, pois 7M != 700K.
 As instâncias mantidas são normalizadas para que o valor de cada característica
@@ -58,24 +58,28 @@ intervalo Real $[0, 1]$.
 O conjunto resultante da operação recém descrita é então dividido em dois
 conjuntos, treinamento e teste.
 Para avaliar a detecção de ataques, o conjunto treinamento é composto apenas de
-de trafego normal, contendo $72\:000$ instâncias.
-O conjunto de teste possui as $653\:457$ instâncias, sendo elas
+tráfego normal, contendo $72\:000$ instâncias.
+O conjunto de teste possui $653\:457$ instâncias, sendo elas
 $206\:278$ instâncias com classe ``$N$'' (normal) e
 $447\:179$ instâncias com classe ``$A$'' (ataque).
-
+%
 % Não entendi essa questão de filtrar apenas os "normal" class no training set... Hélio
 % acho que fez sentido... detectar o que não se aproxima de normal como novidade...
-Destaca-se que esta escolha pode resultar em \emph{Overfitting} para a classe
+Destaca-se que essa manipulação do \dataset pode resultar em \emph{Overfitting} para a classe
 normal e \emph{under-fitting} para a classe ataque, pois o sistema primeiro
-precisa detectar um padrão novidade para então adicionar ao modelo.
+precisa detectar um padrão novidade para então adicionar ao modelo. 
+%O foco deste trabalho não é a otimização da detecção de intrusão é contexto de validar metodologia de construcao do \mfog - distribuição e paralelismo em ambiente em \fog.
+Como o foco deste trabalho é na arquitetura e metodologia de paralelização e
+distribuição em névoa, a otimização do processo de detecção de intrusão não foi
+abordada, deixando a questão de escolha \dataset e do processo de manipulação
+dele em aberto.
 
 Quanto aos parâmetros do algoritmo \minas, ilustrados na Figura
 \ref{fig:params}, os valores foram escolhidos por serem valores comuns para o
 algoritmo presentes na literatura \cite{Faria2013Minas,Faria2016minas} e na
 implementação de referência \refminas \cite{Faria2013source}.
-Os parâmetros que não tem valores comuns na literatura foram escolhidos por
-aproximarem os resultados aos obtidos pela implementação de referência \refminas
-com os mesmos parâmetros, até onde é possível, e \dataset.
+Os parâmetros que não tem valores comuns na literatura foram escolhidos e ajustados até os
+os resultados obtidos se aproximarem aos resultados da implementação de referência \refminas.
 
 \begin{figure}[htb]
   \centering
@@ -92,7 +96,7 @@ com os mesmos parâmetros, até onde é possível, e \dataset.
 
 Os parâmetros utilizados da literatura são
 \texttt{k} número de \mclusters gerados pelo algoritmo de agrupamento,
-\texttt{minExamplesPerCluster} número de mínimo de exemplos para um \mcluster válido
+\texttt{minExamplesPerCluster} número mínimo de exemplos para um \mcluster válido
 e,
 \texttt{thresholdForgettingPast} limite para remoção de exemplos do conjunto de
 desconhecidos.

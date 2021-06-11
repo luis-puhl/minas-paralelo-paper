@@ -11,7 +11,8 @@
 \chapter{Experimentos e Resultados}\label{cha:results}
 
 Este capítulo apresenta o ambiente experimental e os resultados obtidos dos
-experimentos, discutindo as métricas de classificação e escalabilidade.
+experimentos, discutindo as métricas de qualidade da classificação e
+escalabilidade do \mfog.
 
 \input{51.ambiente.tex}
 % \input{54.experimentos.tex}
@@ -35,13 +36,13 @@ Destes experimentos os seguintes resultados são apresentados.
 Para validar a biblioteca de funções que implementa o algoritmo \minas no \mfog,
 uma versão do Algoritmo \ref{alg:minas-main} foi construída, nomeada \serial,
 não tem classificadores paralelos ou detecção de novidade assíncrona, aspectos
-que caracterizam o \mfog.
+que caracterizam o \mfog, e utiliza a definição de raio da Equação \ref{eq:raio_paper} (desvio padrão das distâncias).
 A versão \serial passou pelo mesmo processo experimental e extração de métricas,
 juntamente com a implementação de referência do algoritmo \minas (\refminas).
 
 A Tabela \ref{tab:java-matrix} mostra a matriz de confusão no instante final do
 fluxo de saída de \refminas.
-Nesta matriz, o rótulo ``desconhecido'' é o caractere ``$-$'' e o valor de
+Nesta matriz, o rótulo ``desconhecido'' é o caractere ``$-$'' e os valores de
 associação e verdadeiro-positivo estão atrelados à coluna de cada rótulo, no
 demais a matriz segue os atributos definidos na Seção \ref{sec:avaliacao}.
 Esta matriz é comparada com a matriz de confusão do mesmo instante do fluxo de
@@ -67,11 +68,11 @@ saída de \serial, na Tabela \ref{tab:libc-matrix}.
 }
 \end{table}
 
-Comparando as duas matrizes, a primeira diferença aparante é o índice do
-primeiro rótulo novidade ($0$ ao invés de $1$) mas isso se deve apenas à decisão
+Comparando as duas matrizes, a primeira diferença aparente é o índice do
+primeiro rótulo novidade ($0$ ao invés de $1$), mas isso se deve apenas à decisão
 arbitrária.
 A primeira diferença notável que influi nas métricas de qualidade é a falta de
-um rótulo novidade, $12$ rótulos em \refminas e $11$ em \serial,
+3 rótulos novidade, $12$ rótulos em \refminas e $9$ em \serial,
 seguido do número de exemplos desconhecidos, $28\,567$ em \serial e $11\,980$ em
 \refminas e, o montante de exemplos incluídos nos rótulos novidade, muito menor
 em \serial.
@@ -99,16 +100,16 @@ em \serial.
 Estas três diferenças são atribuídas à divergência entre as definições de raio
 discutidas na Seção \ref{sec:minas-og}, Equações \ref{eq:raio_max} e
 \ref{eq:raio_paper}.
-Estas divergência apesar de inicialmente pequena, muda muito o comportamento do
-passo de classificação, resultando em um conjunto diferente de desconhecidos e
+Esta divergência, apesar de inicialmente pequena, muda muito o comportamento do
+passo de classificação, resultando em um conjunto diferente de desconhecidos e, 
 por fim, mudando muito o resultado da detecção de novidades.
 Adicionalmente, como o parâmetro $f_{raio}$ (\texttt{radiusF}) não existe na
 versão com raio definido como distância máxima (Eq. \ref{eq:raio_max}), este
-parâmetro foi escolhido experimentalmente observando os resultado durante a
+parâmetro foi escolhido experimentalmente observando os resultados durante a
 implementação.
 
-Além das matrizes de confusão que dão uma visão detalhada porém, somente sobre o
-último instante do fluxo, pode-se comparar a visualizações de fluxo onde as
+Além das matrizes de confusão que dão uma visão detalhada, porém somente sobre o
+último instante do fluxo, pode-se comparar as visualizações de fluxo onde as
 métricas de qualidade são apresentadas para todo o fluxo.
 As Figuras \ref{fig:validation-java} e \ref{fig:validation-serial} ilustram os
 fluxos de saída de \refminas e \serial respectivamente.
@@ -124,7 +125,7 @@ As Figuras \ref{fig:validation-java} e \ref{fig:validation-serial} reforçam a
 observação anterior de que mais rótulos novidade (linhas tracejadas verticais
 com rótulo no topo) foram encontrados por \refminas do que as encontradas por
 \serial.
-Outro aspecto com relação à rótulos novidade, em \refminas eles surgem mais
+Outro aspecto com relação a rótulos novidade, em \refminas eles surgem mais
 ``cedo'' no fluxo (primeira marcação muito antes de $x = 100\,k$).
 
 \begin{figure}[htb]
@@ -135,11 +136,11 @@ Outro aspecto com relação à rótulos novidade, em \refminas eles surgem mais
 \end{figure}
 
 O gráfico de visualização do fluxo tem no eixo horizontal (x, domínio) o índice
-do exemplo $x$ e o eixo vertical (y, imagem) mostra o valor das métricas
+do exemplo $x$ e o eixo vertical (y, imagem) mostra o valor das métricas de qualidade
 calculadas até aquele índice de exemplo $x$ no fluxo de saída capturado.
 As linhas horizontais na visualização de fluxo mostram o progresso das métricas
 de qualidade de classificação durante o fluxo e, ao final na esquerda, o valor
-impresso junto e de mesma cor à linha é o valor final de cada métrica.
+impresso junto e de mesma cor da linha é o valor final de cada métrica.
 As métricas são: 
 em laranja a taxa de desconhecidos (\texttt{unk}),
 em verde a acurácia (\texttt{hit}) e
