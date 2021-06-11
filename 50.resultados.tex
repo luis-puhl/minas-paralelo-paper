@@ -167,12 +167,12 @@ com os valores em pontos percentuais para fácil comparação.
 
 
 Em conclusão das métricas de qualidade de classificação, \refminas e \serial
-não são idênticos pois não implementam a mesma definição, porém são semelhantes
+não são idênticos, pois não implementam a mesma definição para o raio, porém são semelhantes
 em seus resultados.
 Enquanto \refminas tem tripla-sumário 
-($01.8\%,\: 30.6\%,\: 67.6\%$), \serial tem
+($1.8\%,\: 30.6\%,\: 67.6\%$), \serial tem
 mais desconhecidos, menor acurácia e menor erro com 
-($04.4\%,\: 29.8\%,\: 65.8\%$).
+($4.4\%,\: 29.8\%,\: 65.8\%$).
 
 Para as métricas de escalabilidade, \refminas e \serial servem somente como base
 para os próximos experimentos onde o paralelismo passa a ser utilizado.
@@ -183,6 +183,17 @@ condição de para do algoritmo \emph{K-Means}, reduziram o tempo utilizado por
 $287s$ ($194s$ \emph{offline} e $93s$ \emph{online}) em \serial.
 
 \subsection{Paralelismo e Distribuição}
+
+\begin{table}
+  \centering
+  \begin{tabular}{p{0.2\linewidth}|p{0.3\linewidth}|p{0.4\linewidth}}
+  Experimento    & Programa                               & Características                                                                            \\\hline
+  (a) Ref        & Minas Referência 2013                  & Raio é a distância máxima                                                                  \\\hline
+  (b) Serial     & Minas sequencial para validação        & Raio é o padrão das distâncias; Modelo único; Esquecimento de desconhecidos mais agressivo \\\hline
+  (c) Paralelo   & \mfog 1 nó, 4 processadores            & Classificadores paralelos; Detecção de novidade assíncrona                                 \\\hline
+  (d)Distribuído & \mfog 3 nós, 12 processadores          & Mais processadores; Comunicação em rede
+  \end{tabular}
+  \end{table}
 
 % For the measurements summary table, six measurements from two sources are displayed. Three
   % measures \emph{Hits}, \emph{Unknowns} and \emph{Misses} represented as ratio of
