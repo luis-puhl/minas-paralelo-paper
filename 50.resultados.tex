@@ -18,65 +18,82 @@ escalabilidade do \mfog.
 % \input{54.experimentos.tex}
 
 % \FloatBarrier
-\section{Métricas e Visualizações}
+\section{Experimentos, Métricas e Visualizações}
 \label{sec:experiments}
 % acho que convém explicar as demais tabelas de resultados...
 
-\newcommand{\serial}{\textit{Serial}\xspace}
+\newcommand{\expA}{\textit{a-Referência}\xspace}
+\newcommand{\expB}{\textit{b-Sequencial}\xspace}
+\newcommand{\expC}{\textit{c-Paralelo}\xspace}
+\newcommand{\expD}{\textit{d-Distribuído}\xspace}
 
 Seguindo as especificações de ambiente da Seção \ref{sec:ambiente}, cada
-experimento consiste na execução de um dos programas (\refminas, \serial e
-\mfog) com variação do parâmetro de paralelismo, fornecendo um modelo inicial e
-\dataset de teste como fluxo de entrada e capturando o fluxo de saída para e
-extração das métricas estabelecidas na Seção \ref{sec:avaliacao}.
-Destes experimentos os seguintes resultados são apresentados. A listagem dos experimentos é vista na Tabela \ref{tab:exp-list}.
+experimento consiste na execução de um dos programas (\minas referência 2013
+\cite{Faria2013source}, implementação sequencial do \minas com a nova
+biblioteca, \mfog em um ou três nós) com variação do parâmetro de paralelismo,
+fornecendo um modelo inicial e \dataset de teste como fluxo de entrada e
+capturando o fluxo de saída para e extração das métricas estabelecidas na Seção
+\ref{sec:avaliacao}.
+Destes experimentos, listados na Tabela \ref{tab:exp-list}, os seguintes
+resultados são apresentados.
 
 \begin{table}[htb]
   \centering
   % \setlength\tabcolsep{0.5em}
   \caption{Listagem dos principais experimentos.}
   \label{tab:exp-list}
-  \begin{tabular}{p{0.2\linewidth}|p{0.3\linewidth}|p{0.4\linewidth}}
-  Experimento    & Programa                               & Características                                                                            \\\hline
-  (a) Ref        & Minas Referência 2013                  & Raio é a distância máxima                                                                  \\\hline
-  (b) Serial     & Minas sequencial para validação        & Raio é o desvio padrão das distâncias; Modelo único; Esquecimento de desconhecidos mais agressivo \\\hline
-  (c) Paralelo   & \mfog 1 nó, 4 processadores            & Classificadores paralelos; Detecção de novidade assíncrona                                 \\\hline
-  (d) Distribuído & \mfog 3 nós, 12 processadores          & Mais processadores; Comunicação em rede
+  \begin{tabular}{p{0.17\textwidth}|p{0.27\textwidth}|p{0.47\textwidth}}
+  \textbf{Experimento} & \textbf{Programa}                 & \textbf{Características} \\\hline
+  \expA                & \minas referência 2013            & Raio é a distância máxima. \\\hline
+  \expB                & \minas sequencial para validação  & 
+    Raio é o desvio padrão das distâncias;
+    Modelo único;
+    Remoção de desconhecidos mais agressivo. \\\hline
+  \expC                & \mfog 1 nó, 4 processadores       & 
+    Classificadores paralelos;
+    Detecção de novidade assíncrona. \\\hline
+  \expD                & \mfog 3 nós, 12 processadores     &
+    Mais processadores;
+    Comunicação em rede.
   \end{tabular}
   \end{table}
 
 \subsection{Validação do algoritmo}
 
-Para validar a biblioteca de funções que implementa o algoritmo \minas no \mfog,
-uma versão do Algoritmo \ref{alg:minas-main} foi construída, nomeada \serial,
-não tem classificadores paralelos ou detecção de novidade assíncrona, aspectos
-que caracterizam o \mfog, e utiliza a definição de raio da Equação \ref{eq:raio_paper} (desvio padrão das distâncias).
-A versão \serial passou pelo mesmo processo experimental e extração de métricas,
-juntamente com a implementação de referência do algoritmo \minas (\refminas).
+Para validar a biblioteca de funções do \mfog que implementa o algoritmo \minas,
+uma versão do Algoritmo \ref{alg:minas-main} foi construída, sem classificadores
+paralelos ou detecção de novidade assíncrona, aspectos que caracterizam o \mfog.
+Esta implementação utiliza a definição de raio da Equação \ref{eq:raio_paper}
+(desvio padrão das distâncias).
+Feita esta implementação foram realizados os experimentos \expB com esta
+implementação e \expA com a implementação \minas referência.
+Estes dois experimentos utilizam apenas um nó e um processador do ambiente
+experimental e as métricas são extraídas conforme a \refsec{avaliacao}
+são comparadas nesta Subseção mostrando a equivalência entre as implementações.
 
 A Tabela \ref{tab:java-matrix} mostra a matriz de confusão no instante final do
-fluxo de saída de \refminas.
+fluxo de saída do experimento \expA.
 Nesta matriz, o rótulo ``desconhecido'' é o caractere ``$-$'' e os valores de
 associação e verdadeiro-positivo estão atrelados à coluna de cada rótulo, no
 demais a matriz segue os atributos definidos na Seção \ref{sec:avaliacao}.
 Esta matriz é comparada com a matriz de confusão do mesmo instante do fluxo de
-saída de \serial, na Tabela \ref{tab:libc-matrix}.
+saída do experimento \expB, na Tabela \ref{tab:libc-matrix}.
 
 \begin{table}[hbt]%{\linewidth}
   {\footnotesize
   % \setlength\tabcolsep{0.5em}
   \begin{center}
-  \caption{Experimento \refminas (implementação referência), Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
+  \caption{Experimento \expA, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
   \label{tab:java-matrix}
   \begin{tabular}{l *{14}{|r} }
     Rótulos   &     - &       N &    1 &    2 &    3 &  4 &   5 &    6 &    7 &     8 &    9 &    10 &   11 &  12 \\\hline
     Classes  &       &         &      &      &      &    &     &      &      &       &      &       &      &     \\\hline
     \hline
-    A        &  3774 &  438750 &  123 &  145 &  368 &  8 &  52 &  165 &    1 &  1046 &  161 &  2489 &   71 &  26 \\\hline
-    N        &  8206 &  193030 &    0 &   79 &   44 &  0 &   0 &    0 &  229 &   181 &  154 &  4066 &  289 &   0 \\\hline
+    A        &  3\;774 &  438\;750 &  123 &  145 &  368 &  8 &  52 &  165 &    1 &  1\;046 &  161 &  2\;489 &   71 &  26 \\\hline
+    N        &  8\;206 &  193\;030 &    0 &   79 &   44 &  0 &   0 &    0 &  229 &   181 &  154 &  4\;066 &  289 &   0 \\\hline
     \hline
     Associação &     - &       N &    A &    A &    A &  A &   A &    A &    N &     A &    A &     N &    N &   A \\\hline
-    Hits ($tp$)     &     0 &  193030 &  123 &  145 &  368 &  8 &  52 &  165 &  229 &  1046 &  161 &  4066 &  289 &  26 
+    Hits ($tp$)     &     0 &  193\;030 &  123 &  145 &  368 &  8 &  52 &  165 &  229 &  1\;046 &  161 &  4\;066 &  289 &  26 
   \end{tabular}
 \end{center}
 }
@@ -85,27 +102,27 @@ saída de \serial, na Tabela \ref{tab:libc-matrix}.
 Comparando as duas matrizes, a primeira diferença aparente é o índice do
 primeiro rótulo novidade ($0$ ao invés de $1$), mas isso se deve apenas à decisão
 arbitrária.
-A primeira diferença notável que influi nas métricas de qualidade é a falta de
-3 rótulos novidade, $12$ rótulos em \refminas e $9$ em \serial,
-seguido do número de exemplos desconhecidos, $28\,567$ em \serial e $11\,980$ em
-\refminas e, o montante de exemplos incluídos nos rótulos novidade, muito menor
-em \serial.
+A primeira diferença notável que influi nas métricas de qualidade é a falta de 3
+rótulos novidade, $12$ rótulos no experimento \expA e $9$ no experimento \expB,
+seguido do número de exemplos desconhecidos, $28\,567$ no experimento \expB e
+$11\,980$ no experimento \expA e, o montante de exemplos incluídos nos rótulos
+novidade, muito menor no experimento \expB.
 
 \begin{table}[hbt]%{\linewidth}
   % {\small
   % \setlength\tabcolsep{0.5em}
   \begin{center}
-  \caption{Experimento \serial, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
+  \caption{Experimento \expB, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
   \label{tab:libc-matrix}
   \begin{tabular}{l|r|r|r|r|r|r|r|r|r|r|r}
     Rótulos &      - &       N &   0 &    1 &    2 &   4 &   5 &  6 &   7 &   8 &  10 \\\hline
     Classes  &        &         &     &      &      &     &     &    &     &     &     \\\hline
     \hline
-    A        &  16086 &  429765 &  94 &  995 &  104 &   0 &  23 &  3 &  29 &  46 &  34 \\\hline
-    N        &  12481 &  193642 &   3 &   94 &    0 &  47 &   0 &  0 &   0 &  11 &   0 \\\hline
+    A        &  16\;086 &  429\;765 &  94 &  995 &  104 &   0 &  23 &  3 &  29 &  46 &  34 \\\hline
+    N        &  12\;481 &  193\;642 &   3 &   94 &    0 &  47 &   0 &  0 &   0 &  11 &   0 \\\hline
     \hline
     Associação &      - &       N &   A &    A &    A &   N &   A &  A &   A &   A &   A \\\hline
-    Hits ($tp$)     &      0 &  193642 &  94 &  995 &  104 &  47 &  23 &  3 &  29 &  46 &  34 
+    Hits ($tp$)     &      0 &  193\;642 &  94 &  995 &  104 &  47 &  23 &  3 &  29 &  46 &  34 
   \end{tabular}
   \end{center}
   % }
@@ -126,26 +143,27 @@ Além das matrizes de confusão que dão uma visão detalhada, porém somente so
 último instante do fluxo, pode-se comparar as visualizações de fluxo onde as
 métricas de qualidade são apresentadas para todo o fluxo.
 As Figuras \ref{fig:validation-java} e \ref{fig:validation-serial} ilustram os
-fluxos de saída de \refminas e \serial respectivamente.
+fluxos de saída dos experimentos \expA e \expB respectivamente.
 
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.75\linewidth]{experiments/revised-java-log.png}
-  \caption{Experimento \refminas (implementação referência), visualização de fluxo do \dataset \emph{Kyoto} Dez. 2015.}
+  \caption{Experimento \expA, visualização de fluxo do \dataset \emph{Kyoto} Dez. 2015.}
   \label{fig:validation-java}
 \end{figure}
 
 As Figuras \ref{fig:validation-java} e \ref{fig:validation-serial} reforçam a
 observação anterior de que mais rótulos novidade (linhas tracejadas verticais
-com rótulo no topo) foram encontrados por \refminas do que as encontradas por
-\serial.
-Outro aspecto com relação a rótulos novidade, em \refminas eles surgem mais
-``cedo'' no fluxo (primeira marcação muito antes de $x = 100\,k$).
+com rótulo no topo) foram encontrados no experimento \expA do que as encontradas 
+no experimento \expB.
+Outro aspecto com relação a rótulos novidade, no experimento \expA eles surgem
+mais ``cedo'' no fluxo, primeira marcação em $x=58\,967$ contra $x=94\,155$ no
+experimento \expB.
 
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.75\linewidth]{experiments/online-nd-log.png}
-  \caption{Experimento \serial, visualização de fluxo do \dataset \emph{Kyoto} Dez. 2015.}
+  \caption{Experimento \expB, visualização de fluxo do \dataset \emph{Kyoto} Dez. 2015.}
   \label{fig:validation-serial}
 \end{figure}
 
@@ -179,22 +197,24 @@ com os valores em pontos percentuais para fácil comparação.
 % vertical axis (y, image) shows the measurement computed until that example index on the captured
 % output stream.
 
+Em conclusão das métricas de qualidade de classificação, os experimentos \expA e
+\expB não são idênticos, pois não implementam a mesma definição para o raio,
+porém são equivalentes em seus resultados.
+Enquanto o experimento \expA tem tripla-sumário
+($1.8\%,\: 30.6\%,\: 67.6\%$),
+o experimento \expB piora marginalmente nas métricas com
+($4.4\%,\: 29.8\%,\: 65.8\%$),
+tendo mais desconhecidos, menor acurácia e menor erro.
 
-Em conclusão das métricas de qualidade de classificação, \refminas e \serial
-não são idênticos, pois não implementam a mesma definição para o raio, porém são semelhantes
-em seus resultados.
-Enquanto \refminas tem tripla-sumário 
-($1.8\%,\: 30.6\%,\: 67.6\%$), \serial tem
-mais desconhecidos, menor acurácia e menor erro com 
-($4.4\%,\: 29.8\%,\: 65.8\%$).
-
-Para as métricas de escalabilidade, \refminas e \serial servem somente como base
+Para as métricas de escalabilidade, os experimentos \expA e
+\expB servem somente como base
 para os próximos experimentos onde o paralelismo passa a ser utilizado.
 Uma última nota quanto ao tempo de execução, mesmo não sendo paralelo, as
-otimizações de memória, redução do uso de \emph{strings} e outras cópias e
-condição de para do algoritmo \emph{K-Means}, reduziram o tempo utilizado por
-\refminas de $2\;772s$ ($917s$ \emph{offline} e $1\;845s$ \emph{online}) para
-$287s$ ($194s$ \emph{offline} e $93s$ \emph{online}) em \serial.
+otimizações de memória, redução do uso de \emph{strings} e condição de parada do
+algoritmo \emph{K-Means}, reduziram o tempo utilizado pela implementação de
+referência de $2\;772s$ ($917s$ \emph{offline} e $1\;845s$ \emph{online}) para
+$287s$ ($194s$ \emph{offline} e $93s$ \emph{online} no experimento \expB) na
+nova implementação.
 
 \subsection{Paralelismo e Distribuição}
 \label{subsec:parallel-dist}
@@ -246,43 +266,43 @@ $287s$ ($194s$ \emph{offline} e $93s$ \emph{online}) em \serial.
 
 % \vspace{3ex}
 
-\newcommand{\single}{\textit{Paralelo}\xspace}
-\newcommand{\multi}{\textit{Distribuído}\xspace}
-
-Seguindo as comparações, para avaliar a escalabilidade do sistemas foram realizados 
-dois experimentos que seguem o mesmo roteiro, \emph{Paralelo} (1 nó e 4 núcleos) e \emph{Distribuído} (3 nós e 12 núcleos). 
+Seguindo as comparações, para avaliar a escalabilidade do sistemas foram
+realizados dois experimentos que seguem o mesmo roteiro, o experimento \expC (1 nó e
+4 núcleos) e o experimento \expD (3 nós e 12 núcleos).
 As Tabelas \ref{tab:single-matrix} e \ref{tab:multi-matrix} mostram as matrizes
-de confusão dos experimentos \single e \multi respectivamente.
+de confusão dos experimentos \expC e \expD respectivamente.
 
 \begin{table}[hbt]
   \centering
   % \setlength\tabcolsep{0.5em}
-  \caption{Experimento \mfog \single com 1 nó e 4 núcleos, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
+  \caption{Experimento \expC, \mfog com 1 nó e 4 núcleos, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
   \label{tab:single-matrix}
   \begin{tabular}{l|r|r|r|r|r|r|r}
     Rótulos &      - &       N &    0 &    1 &   2 &  3 &  4 \\\hline
     Classes  &        &         &      &      &     &    &    \\\hline
     \hline
-    A        &  12282 &  433797 &  147 &  952 &   0 &  0 &  1 \\\hline
-    N        &   3088 &  203019 &   40 &   99 &  27 &  5 &  0 \\\hline
+    A        &  12\;282 &  433\;797 &  147 &  952 &   0 &  0 &  1 \\\hline
+    N        &   3\;088 &  203\;019 &   40 &   99 &  27 &  5 &  0 \\\hline
     \hline
     Associação &      - &       N &    A &    A &   N &  N &  A \\\hline
-    Hits ($tp$)     &      0 &  203019 &  147 &  952 &  27 &  5 &  1 
+    Hits ($tp$)     &      0 &  203\;019 &  147 &  952 &  27 &  5 &  1 
   \end{tabular}
 \end{table}
 
-Comparando as matrizes dos experimentos \serial e \single, observa-se os
+A tripla-sumário do experimento \expC é ($2.4\%,\: 31.2\%,\: 66.4\%$), com menos
+desconhecidos em relação ao experimento \expB ($4.4\%,\: 29.8\%,\: 65.8\%$),
+sendo esta redução de $2\%$ distribuída $1.4\%$ em acurácia e $0.6\%$ em erro,
+representando melhora marginal em todas as métricas.
+
+Comparando as matrizes dos experimentos \expB e \expC, observa-se os
 efeitos do paralelismo de classificadores e, mais importante, a execução
 assíncrona da tarefa de detecção de novidade.
 O impacto principal é a redução no número de rótulos novidade de $9$ para $5$.
 Comparando a visualização de fluxo, Figuras \ref{fig:validation-serial} e
 \ref{fig:single-flow}, observa-se também que a aparição do primeiro padrão
-novidade acontece mais ``tarde'', enquanto em \serial o rótulo novidade ``1'' é
-observado em $x = 94\:155$, em \single o mesmo rótulo é observado em $x =
+novidade acontece mais ``tarde'', enquanto em \expB o rótulo novidade ``1'' é
+observado em $x = 94\:155$, em \expC o mesmo rótulo é observado em $x =
 172\:917$.
-
-A tripla-sumário do experimento \single é ($2.4\%,\: 31.2\%,\: 66.4\%$),
-mostrando uma melhor em comparação ao experimento \serial ($4.4\%,\: 29.8\%,\: 65.8\%$).
 
 Esse comportamento é devido à detecção de novidade assíncrona, pois enquanto
 essa tarefa é executada os classificadores continuam utilizando o modelo antigo.
@@ -300,38 +320,39 @@ Este é um resultado muito importante para compreender os problemas relacionados
 \begin{table}[hbt]
   \centering
   % \setlength\tabcolsep{0.5em}
-  \caption{Experimento \mfog \multi com 3 nós de 4 núcleos cada, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
+  \caption{Experimento \expD, \mfog com 3 nós de 4 núcleos cada, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
   \label{tab:multi-matrix}
   \begin{tabular}{l|r|r|r|r|r|r|r}
     Rótulos   &      - &       N &    0 &    1 &    2 &    3 &  4 \\\hline
     Classes   &        &         &      &      &      &      &    \\\hline
     \hline
-    A      &  12378 &  433631 &  117 &  886 &    0 &  162 &  5 \\\hline
-    N      &   3121 &  202916 &   40 &   96 &  105 &    0 &  0 \\\hline
+    A      &  12\;378 &  433\;631 &  117 &  886 &    0 &  162 &  5 \\\hline
+    N      &   3\;121 &  202\;916 &   40 &   96 &  105 &    0 &  0 \\\hline
     \hline
     Associação   &      - &       N &    A &    A &    N &    A &  A \\\hline
-    Hits ($tp$)   &      0 &  202916 &  117 &  886 &  105 &  162 &  5 
+    Hits ($tp$)   &      0 &  202\;916 &  117 &  886 &  105 &  162 &  5 
   \end{tabular}
 \end{table}
 
-Avançando para o último experimento, a matriz de confusão do experimento \multi, 
-na Tabela \ref{tab:multi-matrix}, mostra pouca diferença quando comparado ao \single
-com o número de desconhecidos sofrendo a maior variação.
+Avançando para o experimento \expD, a matriz de confusão na Tabela
+\ref{tab:multi-matrix}, mostra pouca diferença quando comparado ao experimento
+\expC com o número de desconhecidos sofrendo a maior variação.
+
 O mesmo é observado quando compara-se a visualização de fluxo, Figuras
-\ref{fig:single-flow} e \ref{fig:multi-flow}, pouca divergência.
-Até mesmo a tripla-sumário ($2.4\%,\: 31.2\%,\: 66.4\%$) é idêntica.
+\ref{fig:single-flow} e \ref{fig:multi-flow}, pouca diferença e a tripla-sumário
+($2.4\%,\: 31.2\%,\: 66.4\%$) é idêntica.
 
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.75\linewidth]{experiments/tmi-base-log.png}
-  \caption{Experimento \mfog \single com 4 núcleos, visualização de fluxo do \dataset \emph{Kyoto} Dez. 2015.}
+  \caption{Experimento \expC, \mfog com 1 nó e 4 núcleos, visualização de fluxo do \dataset \emph{Kyoto} Dez. 2015.}
   \label{fig:single-flow}
 \end{figure}
 
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.75\linewidth]{experiments/tmi-n12-log.png}
-  \caption{Experimento \mfog \multi com 3 nós de 4 núcleos, visualização de fluxo do \dataset \emph{Kyoto} Dez. 2015.}
+  \caption{Experimento \expD, \mfog com 3 nós de 4 núcleos cada, visualização de fluxo do \dataset \emph{Kyoto} Dez. 2015.}
   \label{fig:multi-flow}
 \end{figure}
 
@@ -359,21 +380,28 @@ Os quatro experimentos principais são mostrados na Tabela
 \ref{tab:exper-summary}, relacionando as métricas de qualidade de classificação
 da tripla-sumário (\texttt{unk}, \texttt{hit}, \texttt{err}) e as métricas de
 escalabilidade.
-A coluna Offline representa os valores de métricas de tempo de execução para a
-fase Offline (treinamento) nos experimentos \mfog e \emph{Serial}, pois é uma
-etapa executada à parte enquanto no \refminas essa etapa já está embutida no
-tempo total.
+
+Na Tabela \ref{tab:exper-summary} a coluna \emph{Offline} representa os valores
+de métricas de tempo de execução para a fase \emph{Offline} (treinamento) nos
+experimentos utilizando o \mfog (\expB, \expC e \expD).
+Esta distinção é necessária pois a implementação de referência do algoritmo
+\minas executa as duas fases sem separação, o tempo de treinamento no \mfog é
+mostrado na coluna \emph{Offline}.
+Uma modificação da implementação de referência mostrou que dos $2\;772.07$
+segundos listados na tabela, $917s$ são da fase \emph{offline} e $1\;845s$ da
+fase \emph{online}.
 
 \newcommand{\mr}[1]{\multirow{2}{*}{\texttt{#1}}}
 
 \begin{table}[hbt]
   \centering
 % \setlength\tabcolsep{0.35em}
+\setlength\extrarowheight{2pt}
   \caption{Sumário das métricas.}
   \label{tab:exper-summary}
   \begin{tabular}{l|r|r|r|r|r}
-  Experimento     & \refminas (a) & Offline       & \serial (b)     & Único nó (c)    & Três nós (d)    \\
-  Métrica         &               &               &                 & 4 núcleos       & 12 núcleos       \\\hline
+  Experimento     & \expA         & \emph{Offline} & \expB     & \expC    & \expD    \\
+  Métrica         &               &               &                 &                 &        \\\hline
   \mr{unk}        & $11980$       &               & $28567$         & $15370$     & $15499$     \\
                   & $0.018333$    &               & $0.043717$      & $0.023521$  & $0.023718$  \\\hline
   \mr{hit}        & $199708$      &               & $195017$        & $204151$    & $204191$    \\
@@ -383,8 +411,9 @@ tempo total.
   Tempo     ($s$) & $2761.83$     & $194.12$      & $80.79000$      & $522.1000$  & $207.1400$  \\\hline
   Sistema   ($s$) & $7.15$        & $ 0.075$      & $11.51000$      & $ 47.7700$  & $157.6100$  \\\hline
   Decorrido ($s$) & $2772.07$     & $194.27$      & $93.03000$      & $145.0400$  & $ 95.3800$  \\\hline
-  Latência  ($s$) & $4.24\mathrm{e}{-3}$  &       & $1.42\mathrm{e}{-4}$  & $2.22\mathrm{e}{-4}$  & $1.46\mathrm{e}{-4}\ $  \\\hline
-  \emph{speedup}  &               &               &                 & $0.6414092$ & $0.9753617$  \\\hline
+  Latência  ($s$) & $4.24\cdot10^{-3}$  &       & $1.42\cdot10^{-4}$  & $2.22\cdot10^{-4}$  & $1.46\cdot10^{-4}\ $  \\\hline
+  Processadores   & $1$           &  $1$          &  $1$            & $4$         & $12$        \\\hline
+  \emph{Speedup}  &               &               &                 & $0.6414092$ & $0.9753617$  \\\hline
   Eficiência      &               &               &                 & $0.1603523$ & $0.0812801$  
   \end{tabular}
 \end{table}
@@ -449,7 +478,7 @@ responsável pelo fluxo de saída do \mfog.
   \begin{minipage}{0.49\textwidth}
     \centering
     \includegraphics[width=1\linewidth]{experiments/lag-java.png}
-    \caption{Visualização de Latência na Implementação de referência \refminas do algoritmo \minas.}
+    \caption{Visualização de Latência, Implementação de referência do algoritmo \minas.}
     \label{fig:lag-java}
   \end{minipage}
   % \hfill
@@ -465,7 +494,7 @@ responsável pelo fluxo de saída do \mfog.
   \begin{minipage}{0.49\textwidth}
     \centering
     \includegraphics[width=1\linewidth]{experiments/lag-mfog.png}
-    \caption{Visualização de Latência na Implementação do \mfog com cálculo de latência.}
+    \caption{Visualização de Latência no \mfog.}
     \label{fig:lag-mfog}
   \end{minipage}
   % \caption{Experimentos adicionais \dataset \emph{Kyoto} Dez. 2015. Experimento fora do ambiente de \fog.}
