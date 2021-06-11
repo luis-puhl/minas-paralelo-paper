@@ -10,18 +10,19 @@
 % retomar motivacao aqui
 Segurança e privacidade são uma grande preocupação em \acf{IoT}, seja para a
 preservação do sigilo de dados pessoais ou para evitar a subversão do
-dispositivo para uso em uma \emph{botnet}, o monitoramento da rede para detecção
+dispositivo para uso em uma \emph{botnet}. Nesses  cenários,
+o monitoramento da rede para detecção
 de possíveis intrusões é uma tarefa necessária.
-Atendendo à essa necessidade, um \acf{NIDS} é uma ferramenta que observa o
+Atendendo a essa necessidade, um \acf{NIDS} é uma ferramenta que observa o
 tráfego da rede e alerta para possíveis ataques.
-Este alerta é gerado através de detecção de anomalias e uma técnica para
-detectar anomalias são algoritmos de \acf{ND-DS} e, o algoritmo \minas é um
-destes que já foi avaliado e considerado promissor para aplicação em \nids.
+Este alerta é gerado através de detecção de anomalias, e uma técnica para
+detectar anomalias são algoritmos de \acf{ND-DS}. O algoritmo \minas é um
+algoritmo de detecção de novidade que já foi avaliado e considerado promissor para aplicação em \nids.
 
-Para bom funcionamento de um \nids, é necessário que este responda rapidamente
-aos padrões do fluxo portanto, para aplicações em redes \iot o envio das
+Para um bom funcionamento de um \nids, é necessário que este responda rapidamente
+aos padrões do fluxo da rede. Portanto, para aplicações em redes \iot o envio das
 observações de uma rede remota para processamento em nuvem (\cloud) é inviável.
-Uma alternativa viável à computação e nuvem neste caso é a computação em névoa
+Uma alternativa viável à computação em nuvem neste caso é a computação em névoa
 (\fog), que via a alocação de recursos computacionais para um local mais próximo
 à fonte de dados, mesmo que de menor capacidade, oferece menor latência.
 Porém, a necessidade de resposta rápida de um \nids e a natureza distribuída da
@@ -34,7 +35,7 @@ um cenário paralelo e distribuído, o que não acontece com o algoritmo \minas.
 Este trabalho apresenta a construção e avaliação do \mfog, uma implementação
 paralela e distribuída com foco na execução em névoa de dispositivos \iot do
 algoritmo \minas, pautado em um caso de uso para \nids.
-Esta implementação foi construída com \mpi buscando escalabilidade na tarefa de
+Esta implementação foi construída com \mpi buscando a escalabilidade na tarefa de
 processamento de fluxo de dados e economia dos recursos limitados comumente
 encontrados em sistemas \iot, seguindo a arquitetura \arch \cite{Cassales2019a}.
 
