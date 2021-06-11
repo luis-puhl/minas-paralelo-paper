@@ -248,16 +248,15 @@ $287s$ ($194s$ \emph{offline} e $93s$ \emph{online}) em \serial.
 \newcommand{\single}{\textit{Paralelo}\xspace}
 \newcommand{\multi}{\textit{Distribuído}\xspace}
 
-Seguindo as comparações, para avaliar a escalabilidade do sistema os
-experimentos com o \mfog completo em duas configurações, um nó (\single) e três
-nós (\multi), foram realizadas com o mesmo roteiro.
+Seguindo as comparações, para avaliar a escalabilidade do sistemas foram realizados 
+dois experimentos que seguem o mesmo roteiro, \emph{Paralelo} (1 nó e 4 núcleos) e \emph{Distribuído} (3 nós e 12 núcleos). 
 As Tabelas \ref{tab:single-matrix} e \ref{tab:multi-matrix} mostram as matrizes
 de confusão dos experimentos \single e \multi respectivamente.
 
 \begin{table}[hbt]
   \centering
   % \setlength\tabcolsep{0.5em}
-  \caption{Experimento \mfog \single com 4 núcleos, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
+  \caption{Experimento \mfog \single com 1 nó e 4 núcleos, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
   \label{tab:single-matrix}
   \begin{tabular}{l|r|r|r|r|r|r|r}
     Rótulos &      - &       N &    0 &    1 &   2 &  3 &  4 \\\hline
@@ -271,20 +270,20 @@ de confusão dos experimentos \single e \multi respectivamente.
   \end{tabular}
 \end{table}
 
-Comparando as matrizes dos experimentos \serial e \single, já observa-se os
+Comparando as matrizes dos experimentos \serial e \single, observa-se os
 efeitos do paralelismo de classificadores e, mais importante, a execução
 assíncrona da tarefa de detecção de novidade.
-O impacto principal é a redução no número de rótulos novidade de $11$ para $5$.
+O impacto principal é a redução no número de rótulos novidade de $9$ para $5$.
 Comparando a visualização de fluxo, Figuras \ref{fig:validation-serial} e
 \ref{fig:single-flow}, observa-se também que a aparição do primeiro padrão
 novidade acontece mais ``tarde'', enquanto em \serial o rótulo novidade ``1'' é
-observado em $x = 94\;155$, em \single o mesmo rótulo é observado em $x =
-172\;917$.
+observado em $x = 94\:155$, em \single o mesmo rótulo é observado em $x =
+172\:917$.
 
-A tripla-sumário do experimento \single é ($02.4\%,\: 31.2\%,\: 66.4\%$),
-mostrando uma melhor em comparação ao experimento \serial ($04.4\%,\: 29.8\%,\: 65.8\%$).
+A tripla-sumário do experimento \single é ($2.4\%,\: 31.2\%,\: 66.4\%$),
+mostrando uma melhor em comparação ao experimento \serial ($4.4\%,\: 29.8\%,\: 65.8\%$).
 
-Esse comportamento é devido à detecção de novidade assíncrona pois, enquanto
+Esse comportamento é devido à detecção de novidade assíncrona, pois enquanto
 essa tarefa é executada os classificadores continuam utilizando o modelo antigo.
 Além disso, como já foi elencado na Seção \ref{sec:polices} item
 \ref{reclassification}, os exemplos utilizados para formar o novo \mcluster
@@ -300,7 +299,7 @@ Este é um resultado muito importante para compreender os problemas relacionados
 \begin{table}[hbt]
   \centering
   % \setlength\tabcolsep{0.5em}
-  \caption{Experimento \mfog \multi com 3 nós de 4 núcleos, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
+  \caption{Experimento \mfog \multi com 3 nós de 4 núcleos cada, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
   \label{tab:multi-matrix}
   \begin{tabular}{l|r|r|r|r|r|r|r}
     Rótulos   &      - &       N &    0 &    1 &    2 &    3 &  4 \\\hline
@@ -315,11 +314,11 @@ Este é um resultado muito importante para compreender os problemas relacionados
 \end{table}
 
 Avançando para o último experimento, a matriz de confusão do experimento \multi, 
-na Tabela \ref{tab:multi-matrix}, mostra pouca diferença quando comparado à \single
+na Tabela \ref{tab:multi-matrix}, mostra pouca diferença quando comparado ao \single
 com o número de desconhecidos sofrendo a maior variação.
 O mesmo é observado quando compara-se a visualização de fluxo, Figuras
 \ref{fig:single-flow} e \ref{fig:multi-flow}, pouca divergência.
-Até mesmo a tripla-sumário ($02.4\%,\: 31.2\%,\: 66.4\%$) é idêntica.
+Até mesmo a tripla-sumário ($2.4\%,\: 31.2\%,\: 66.4\%$) é idêntica.
 
 \begin{figure}[htb]
   \centering
@@ -335,17 +334,17 @@ Até mesmo a tripla-sumário ($02.4\%,\: 31.2\%,\: 66.4\%$) é idêntica.
   \label{fig:multi-flow}
 \end{figure}
 
-Isto reforça a ideia de que o maior impacto na métricas de qualidade de
+Isto reforça a ideia de que o maior impacto nas métricas de qualidade de
 classificação é a mudança de detecção de novidade assíncrona, pois mesmo com o
-triplo de instancias classificadoras, as métricas continuam idênticas.
+triplo de instâncias classificadoras, as métricas continuam idênticas.
 
 Com a discussão das métricas de qualidade de classificação concluída, resta
 abordar as métricas de escalabilidade que são muito mais simples em sua
-definição e extração porém de muito interesse à este trabalho.
+definição e extração porém de muito interesse a este trabalho.
 
-Estas métricas extraídas dos experimentos são número de núcleos de processamento
+Essas métricas de escalabilidade extraídas dos experimentos são número de núcleos de processamento
 utilizados, \emph{Tempo}, \emph{Sistema} e \emph{Decorrido} representados em
-segundos, são extraídos de \emph{GNU Time 1.9} durante a execução do experimento
+segundos, e são extraídas de \emph{GNU Time 1.9} durante a execução do experimento
 em questão.
 \emph{Tempo} é a quantidade de segundos de CPU gastos no modo de usuário
 (indica o tempo usado em computação intensiva, por exemplo cálculos matemáticos).
@@ -358,7 +357,11 @@ Quanto mais baixos os tempos, melhor.
 Os quatro experimentos principais são mostrados na Tabela
 \ref{tab:exper-summary}, relacionando as métricas de qualidade de classificação
 da tripla-sumário (\texttt{unk}, \texttt{hit}, \texttt{err}) e as métricas de
-escalabilidade básica.
+escalabilidade.
+A coluna Offline representa os valores de métricas de tempo de execução para a
+fase Offline (treinamento) nos experimentos \mfog e \emph{Serial}, pois é uma
+etapa executada à parte enquanto no \refminas essa etapa já está embutida no
+tempo total.
 
 \newcommand{\mr}[1]{\multirow{2}{*}{\texttt{#1}}}
 
@@ -386,10 +389,10 @@ escalabilidade básica.
 \end{table}
 
 Além das métricas extraídas dos experimentos, as métricas de escalabilidade
-calculadas à partir dos valores extraídos são a latência de de eventos e
+calculadas à partir dos valores extraídos são a latência de eventos e
 \emph{speedup} prático.
-A latência média calculada com o tempo decorrido dividido pleo o tamanho do
-\dataset pode ser vista na Tabela \ref{tab:summary}.
+A latência média é calculada com o tempo decorrido dividido pelo o tamanho do
+\dataset e pode ser vista na Tabela \ref{tab:exper-summary}.
 O \emph{speedup} prático é calculado com a divisão do tempo decorrido na versão
 sequencial divido pelo tempo utilizado pela versão paralela.
 A eficiência é calculada com a divisão do tempo decorrido na versão sequencial
@@ -399,7 +402,7 @@ pela versão paralela.
 Observando as métricas de escalabilidade nota-se que o \mfog não fornece
 \emph{speedup} e eficiência melhores do que a versão sequencial.
 Isto indica que, apesar da premissa de independência de classificadores
-paralelos, a comunicação entre os processos utilizando dois conjunto de
+paralelos, a comunicação entre os processos utilizando dois conjuntos de
 instruções \mpi \emph{send} e \emph{receive} para cada exemplo não é eficiente
 para o processamento de fluxo de dados.
 
