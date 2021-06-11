@@ -29,7 +29,21 @@ experimento consiste na execução de um dos programas (\refminas, \serial e
 \mfog) com variação do parâmetro de paralelismo, fornecendo um modelo inicial e
 \dataset de teste como fluxo de entrada e capturando o fluxo de saída para e
 extração das métricas estabelecidas na Seção \ref{sec:avaliacao}.
-Destes experimentos os seguintes resultados são apresentados.
+Destes experimentos os seguintes resultados são apresentados. A listagem dos experimentos é vista na Tabela \ref{tab:exp-list}.
+
+\begin{table}[htb]
+  \centering
+  % \setlength\tabcolsep{0.5em}
+  \caption{Listagem dos principais experimentos.}
+  \label{tab:exp-list}
+  \begin{tabular}{p{0.2\linewidth}|p{0.3\linewidth}|p{0.4\linewidth}}
+  Experimento    & Programa                               & Características                                                                            \\\hline
+  (a) Ref        & Minas Referência 2013                  & Raio é a distância máxima                                                                  \\\hline
+  (b) Serial     & Minas sequencial para validação        & Raio é o desvio padrão das distâncias; Modelo único; Esquecimento de desconhecidos mais agressivo \\\hline
+  (c) Paralelo   & \mfog 1 nó, 4 processadores            & Classificadores paralelos; Detecção de novidade assíncrona                                 \\\hline
+  (d) Distribuído & \mfog 3 nós, 12 processadores          & Mais processadores; Comunicação em rede
+  \end{tabular}
+  \end{table}
 
 \subsection{Validação do algoritmo}
 
@@ -183,17 +197,6 @@ condição de para do algoritmo \emph{K-Means}, reduziram o tempo utilizado por
 $287s$ ($194s$ \emph{offline} e $93s$ \emph{online}) em \serial.
 
 \subsection{Paralelismo e Distribuição}
-
-\begin{table}
-  \centering
-  \begin{tabular}{p{0.2\linewidth}|p{0.3\linewidth}|p{0.4\linewidth}}
-  Experimento    & Programa                               & Características                                                                            \\\hline
-  (a) Ref        & Minas Referência 2013                  & Raio é a distância máxima                                                                  \\\hline
-  (b) Serial     & Minas sequencial para validação        & Raio é o padrão das distâncias; Modelo único; Esquecimento de desconhecidos mais agressivo \\\hline
-  (c) Paralelo   & \mfog 1 nó, 4 processadores            & Classificadores paralelos; Detecção de novidade assíncrona                                 \\\hline
-  (d)Distribuído & \mfog 3 nós, 12 processadores          & Mais processadores; Comunicação em rede
-  \end{tabular}
-  \end{table}
 
 % For the measurements summary table, six measurements from two sources are displayed. Three
   % measures \emph{Hits}, \emph{Unknowns} and \emph{Misses} represented as ratio of
