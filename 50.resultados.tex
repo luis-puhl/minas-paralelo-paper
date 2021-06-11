@@ -197,6 +197,7 @@ condição de para do algoritmo \emph{K-Means}, reduziram o tempo utilizado por
 $287s$ ($194s$ \emph{offline} e $93s$ \emph{online}) em \serial.
 
 \subsection{Paralelismo e Distribuição}
+\label{subsec:parallel-dist}
 
 % For the measurements summary table, six measurements from two sources are displayed. Three
   % measures \emph{Hits}, \emph{Unknowns} and \emph{Misses} represented as ratio of
@@ -411,29 +412,29 @@ para o processamento de fluxo de dados.
 Experimentos adicionais foram realizados para avaliar o comportamento do \mfog
 para número variado de nós (de 1 a 3) e de processadores (de 1 a 12).
 Os resultados obtidos, ilustrados na Figura \ref{fig:speedup} são limitados ao
-no raiz mas mostram um aumento do tempo \emph{Sistema} (operações em modo
+nó raiz, e mostram um aumento do tempo \emph{Sistema} (operações em modo
 \emph{kernel}).
 Este aumento indica maior carga associada às operações de entrada e saída das
-instruções \emph{send} e \emph{receive} reforçando a ideia apresentada no
-parágrafo anterior.
+instruções \emph{send} e \emph{receive} reforçando a ideia apresentada na
+Subseção \ref{subsec:parallel-dist}.
 
 Outros experimentos adicionais foram realizados para averiguar a latência para
 cada exemplo do fluxo mostrando o comportamento de cada implementação, é
 ilustrada nas Figuras \ref{fig:lag-java}, \ref{fig:lag-serial} e
 \ref{fig:lag-mfog}.
-No entanto é importante destacar que esta métrica não foi extraída dos
+No entanto, é importante destacar que esta métrica não foi extraída dos
 experimentos principais, sendo apenas ilustrativa dos diferentes comportamentos.
 
 O primeiro comportamento é ilustrado na Figura \ref{fig:lag-java}, onde a execução
 da tarefa de detecção de novidade gera picos de $50$ a $200$ segundos.
 Um comportamento semelhante é visto na Figura \ref{fig:lag-serial} onde ainda há
-picos de latência porém não tão intensos e frequêntes relacionado com mecanismo
-de esquecimento de desconhecidos e remoção do mecanismo de esquecimento de
-\mclusters menos utilizados no Modelo.
-Já o comportamento da visto na Figura \ref{fig:lag-serial} mostra o efeito de
+picos de latência, porém não tão intensos e frequentes.
+Esta diferença está relacionada com mecanismo de remoção de desconhecidos e
+ausência do mecanismo de esquecimento de \mclusters menos utilizados no Modelo.
+Já o comportamento visto na Figura \ref{fig:lag-mfog} mostra o efeito de
 \emph{buffers} de comunicação entre diferentes processos onde um o pico de latência
 da detecção de novidade cai progressivamente conforme os buffers são esvaziados
-já que o processo de detecção de novidade é assíncrono porém ocupa a \emph{thread}
+já que o processo de detecção de novidade é assíncrono, porém ocupa a \emph{thread}
 responsável pelo fluxo de saída do \mfog.
 
 \begin{figure}[htb]
@@ -448,7 +449,7 @@ responsável pelo fluxo de saída do \mfog.
   \begin{minipage}{0.49\textwidth}
     \centering
     \includegraphics[width=1\linewidth]{experiments/lag-java.png}
-    \caption{Visualização de Latência na Implementação de referência do algoritmo \minas.}
+    \caption{Visualização de Latência na Implementação de referência \refminas do algoritmo \minas.}
     \label{fig:lag-java}
   \end{minipage}
   % \hfill
@@ -456,7 +457,7 @@ responsável pelo fluxo de saída do \mfog.
   \begin{minipage}{0.49\textwidth}
     \centering
     \includegraphics[width=1\linewidth]{experiments/lag-serial.png}
-    \caption{Visualização de Latência na Implementação serial do algoritmo \minas usando funções do \mfog.}
+    \caption{Visualização de Latência na Implementação \emph{Serial} do algoritmo \minas usando funções do \mfog.}
     \label{fig:lag-serial}
   \end{minipage}
   % \vspace{5mm}
