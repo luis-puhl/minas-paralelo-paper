@@ -277,7 +277,7 @@ processo tem sua memória local e se comunica com outros processos através da
 troca de mensagens \cite{mpi-book}.
 Observando boas práticas e melhores funcionalidades ao longo dos anos, a
 comunidade e a indústria padronizaram esse modelo de troca de mensagens no
-padrão \mpi.
+padrão \acf{MPI}.
 
 O \mpi\footnote{Disponível em \url{https://www.mpi-forum.org/}.} é um padrão que
 estabelece um protocolo de comunicação e define sintaxe e semântica para
@@ -328,12 +328,12 @@ comunicação entre os processos independente se estão ou não no mesmo nó.
   \label{fig:mpi-modelo}
 \end{figure}
 
-O amplo uso de MPI para programação paralela e distribuída está principalmente pautado no
+O amplo uso de \mpi para programação paralela e distribuída está principalmente pautado no
 desempenho. Processadores modernos possuem memórias hierárquicas que beneficiam
 programas que fazem o melhor uso de cache. O modelo de passagem de mensagens
 permite o particionamento dos dados em fatias menores otimizando o uso de cache
 nesses processadores. Portanto, para aplicações limitados por memória pode haver
-acelerações superlineares (\emph{superlinear speedup}) \cite{mpi-book}.
+acelerações super-lineares (\emph{superlinear speedup}) \cite{mpi-book}.
 
 Apesar do \mpi não ter sido idealizado para o processamento de fluxo de dados, ele
 permite o controle sobre a distribuição de tarefas de maneira
