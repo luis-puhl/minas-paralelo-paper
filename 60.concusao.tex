@@ -57,13 +57,12 @@ As métricas de qualidade de classificação escolhidas mostraram resultado
 equivalente entre a nova implementação e a implementação de referência do
 algoritmo \minas, seja na versão sequencial, paralela com 4 processadores ou
 distribuída com 3 nós.
-As métricas de escalabilidade no entanto não mostraram os resultados esperados,
-mesmo com melhora significante comparada à implementação de referência executada
-no ambiente de névoa \iot, não foi observada melhoria no tempo e latência
-compatível com o aumento no número de nós no cluster, ou seja, a escalabilidade
-esperada não se realizou.
+As métricas de escalabilidade do \mfog em ambiente de névoa \iot mostraram
+melhora significante comparada à implementação de referência no mesmo ambiente,
+no entanto não foi observada melhora compatível com o aumento no número de nós
+no cluster, ou seja, a escalabilidade esperada não se realizou.
 
-% cumpriu?? Avaliar e comparar a qualidade de detecção de intrusão da nova
+% cumpriu?? Avaliar e compar  ar a qualidade de detecção de intrusão da nova
 % implementação;
 
 % cumpriu?? - Avaliar a qualidade de detec-ção de intrusão em ambiente distribuído
@@ -85,12 +84,12 @@ distribuída em névoa (\fog), o equilíbrio dos atributos de escalabilidade e
 qualidade de classificação ainda não foi alcançado.
 Para os trabalhos futuros, espera-se que esta implementação e análise sirva de
 inspiração para busca de algoritmos e sistemas que maximizam o aproveitamento do
-\emph{hardware} e energia dedicados à esta tarefa.
+\emph{hardware} e energia dedicados a esta tarefa.
 
 % o que vc  poderia melhorar/??
 Em termos mais práticos, sugere-se a utilização do algoritmo \emph{CluStream}
-\cite{Aggarwal2003} ou seus derivados e a ideia de um Modelo de tamanho grande
-porém fixo, maximizando o aproveitamento de memória com um grande conjunto de
+\cite{Aggarwal2003} ou seus derivados e a ideia de um Modelo de tamanho fixo,
+maximizando o aproveitamento de memória e a acurácia com um grande conjunto de
 \mclusters.
 Seguindo esta sugestão, estes \mclusters podem ser definidos como polígonos para
 melhor cobertura do espaço, o Modelo pode ser checado quanto à sobreposição
