@@ -291,9 +291,10 @@ de confusão dos experimentos \expC e \expD respectivamente.
 \end{table}
 
 A tripla-sumário do experimento \expC é ($2.4\%,\: 31.2\%,\: 66.4\%$), com menos
-desconhecidos em relação ao experimento \expB ($4.4\%,\: 29.8\%,\: 65.8\%$),
-sendo esta redução de $2\%$ distribuída $1.4\%$ em acurácia e $0.6\%$ em erro,
-representando melhora marginal em todas as métricas.
+desconhecidos em relação ao experimento \expB ($4.4\%,\: 29.8\%,\: 65.8\%$).
+A redução de desconhecidos é de $2\%$, sendo distribuída $1.4\%$ em acurácia e
+$0.6\%$ em erro, representando melhora marginal em todas as métricas.
+
 % há algo estranho nesta frase, parece que falta uma vírgula ou conjunção...
 
 Comparando as matrizes dos experimentos \expB e \expC, observa-se os
@@ -441,7 +442,7 @@ para o processamento de fluxo de dados.
 \subsection{Experimentos Adicionais}
 
 Experimentos adicionais foram realizados para avaliar o comportamento do \mfog
-para número variado de nós (de 1 a 3) e de processadores (de 1 a 12).
+para número variado de processadores entre $1$ e $12$ utilizando de $1$ a $3$ nós.
 Os resultados obtidos, ilustrados na Figura \ref{fig:speedup}, são limitados ao
 nó raiz, e mostram um aumento do tempo \emph{Sistema} (operações em modo
 \emph{kernel}).
