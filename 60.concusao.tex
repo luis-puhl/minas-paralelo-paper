@@ -23,8 +23,8 @@ Para um bom funcionamento de um \nids, é necessário que este responda rapidame
 aos padrões do fluxo da rede. Portanto, para aplicações em redes \iot o envio das
 observações de uma rede remota para processamento em nuvem (\cloud) é inviável.
 Uma alternativa viável à computação em nuvem neste caso é a computação em névoa
-(\fog), que via a alocação de recursos computacionais para um local mais próximo
-à fonte de dados, mesmo que de menor capacidade, oferece menor latência.
+(\fog) que, via a alocação de recursos computacionais para um local mais próximo
+à fonte de dados, mesmo que de menor capacidade, oferece menor latência em seus processamentos.
 Porém, a necessidade de resposta rápida de um \nids e a natureza distribuída da
 computação em névoa requer que as técnicas utilizadas estejam preparadas para
 um cenário paralelo e distribuído, o que não acontece com o algoritmo \minas.
@@ -57,8 +57,8 @@ As métricas de qualidade de classificação escolhidas mostraram resultado
 equivalente entre a nova implementação e a implementação de referência do
 algoritmo \minas, seja na versão sequencial, paralela com 4 processadores ou
 distribuída com 3 nós.
-As métricas de escalabilidade no entanto não mostraram os resultados esperados,
-mesmo com melhora significante comparada à implementação de referência executada
+As métricas de escalabilidade no entanto não mostraram os resultados esperados.
+Mesmo com melhora significante comparada à implementação de referência executada
 no ambiente de névoa \iot, não foi observada melhoria no tempo e latência
 compatível com o aumento no número de nós no cluster, ou seja, a escalabilidade
 esperada não se realizou.
@@ -85,7 +85,7 @@ distribuída em névoa (\fog), o equilíbrio dos atributos de escalabilidade e
 qualidade de classificação ainda não foi alcançado.
 Para os trabalhos futuros, espera-se que esta implementação e análise sirva de
 inspiração para busca de algoritmos e sistemas que maximizam o aproveitamento do
-\emph{hardware} e energia dedicados à esta tarefa.
+\emph{hardware} e energia dedicados a esta tarefa.
 
 % o que vc  poderia melhorar/??
 Em termos mais práticos, sugere-se a utilização do algoritmo \emph{CluStream}

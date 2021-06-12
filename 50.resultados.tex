@@ -28,9 +28,9 @@ escalabilidade do \mfog.
 \newcommand{\expD}{\textit{d-Distribuído}\xspace}
 
 Seguindo as especificações de ambiente da Seção \ref{sec:ambiente}, cada
-experimento consiste na execução de um dos programas (\minas referência 2013
-\cite{Faria2013source}, implementação sequencial do \minas com a nova
-biblioteca, \mfog em um ou três nós) com variação do parâmetro de paralelismo,
+experimento consiste na execução de um dos programas ((a)\minas referência 2013
+\cite{Faria2013source}, (b) implementação sequencial do \minas com a nova
+biblioteca, (c) \mfog em um ou (d) três nós) com variação do parâmetro de paralelismo,
 fornecendo um modelo inicial e \dataset de teste como fluxo de entrada e
 capturando o fluxo de saída para e extração das métricas estabelecidas na Seção
 \ref{sec:avaliacao}.
@@ -68,16 +68,16 @@ Esta implementação utiliza a definição de raio da Equação \ref{eq:raio_pap
 Feita esta implementação foram realizados os experimentos \expB com esta
 implementação e \expA com a implementação \minas referência.
 Estes dois experimentos utilizam apenas um nó e um processador do ambiente
-experimental e as métricas são extraídas conforme a \refsec{avaliacao}
-são comparadas nesta Subseção mostrando a equivalência entre as implementações.
+experimental, sendo que as métricas são extraídas conforme a \refsec{avaliacao}
+e são comparadas nesta Subseção, mostrando a equivalência entre as implementações.
 
 A Tabela \ref{tab:java-matrix} mostra a matriz de confusão no instante final do
 fluxo de saída do experimento \expA.
 Nesta matriz, o rótulo ``desconhecido'' é o caractere ``$-$'' e os valores de
-associação e verdadeiro-positivo estão atrelados à coluna de cada rótulo, no
+associação e verdadeiro-positivo estão atrelados à coluna de cada rótulo; no
 demais a matriz segue os atributos definidos na Seção \ref{sec:avaliacao}.
 Esta matriz é comparada com a matriz de confusão do mesmo instante do fluxo de
-saída do experimento \expB, na Tabela \ref{tab:libc-matrix}.
+saída do experimento \expB, e os resultados são apresentados na Tabela \ref{tab:libc-matrix}.
 
 \begin{table}[hbt]%{\linewidth}
   {\footnotesize
@@ -102,6 +102,7 @@ saída do experimento \expB, na Tabela \ref{tab:libc-matrix}.
 Comparando as duas matrizes, a primeira diferença aparente é o índice do
 primeiro rótulo novidade ($0$ ao invés de $1$), mas isso se deve apenas à decisão
 arbitrária.
+% A sentença a seguir está bem longa, difícil de acompanhar. Fragmentar?
 A primeira diferença notável que influi nas métricas de qualidade é a falta de 3
 rótulos novidade, $12$ rótulos no experimento \expA e $9$ no experimento \expB,
 seguido do número de exemplos desconhecidos, $28\,567$ no experimento \expB e
@@ -157,7 +158,7 @@ observação anterior de que mais rótulos novidade (linhas tracejadas verticais
 com rótulo no topo) foram encontrados no experimento \expA do que as encontradas 
 no experimento \expB.
 Outro aspecto com relação a rótulos novidade, no experimento \expA eles surgem
-mais ``cedo'' no fluxo, primeira marcação em $x=58\,967$ contra $x=94\,155$ no
+mais ``cedo'' no fluxo, sendo a primeira marcação em $x=58\,967$ contra $x=94\,155$ no
 experimento \expB.
 
 \begin{figure}[htb]
@@ -266,7 +267,7 @@ nova implementação.
 
 % \vspace{3ex}
 
-Seguindo as comparações, para avaliar a escalabilidade do sistemas foram
+Seguindo as comparações, para avaliar a escalabilidade dos sistemas, foram
 realizados dois experimentos que seguem o mesmo roteiro, o experimento \expC (1 nó e
 4 núcleos) e o experimento \expD (3 nós e 12 núcleos).
 As Tabelas \ref{tab:single-matrix} e \ref{tab:multi-matrix} mostram as matrizes
@@ -293,14 +294,15 @@ A tripla-sumário do experimento \expC é ($2.4\%,\: 31.2\%,\: 66.4\%$), com men
 desconhecidos em relação ao experimento \expB ($4.4\%,\: 29.8\%,\: 65.8\%$),
 sendo esta redução de $2\%$ distribuída $1.4\%$ em acurácia e $0.6\%$ em erro,
 representando melhora marginal em todas as métricas.
+% há algo estranho nesta frase, parece que falta uma vírgula ou conjunção...
 
 Comparando as matrizes dos experimentos \expB e \expC, observa-se os
 efeitos do paralelismo de classificadores e, mais importante, a execução
 assíncrona da tarefa de detecção de novidade.
-O impacto principal é a redução no número de rótulos novidade de $9$ para $5$.
+O impacto principal é a redução no número de rótulos novidade, de $9$ para $5$.
 Comparando a visualização de fluxo, Figuras \ref{fig:validation-serial} e
 \ref{fig:single-flow}, observa-se também que a aparição do primeiro padrão
-novidade acontece mais ``tarde'', enquanto em \expB o rótulo novidade ``1'' é
+novidade acontece mais ``tarde''; enquanto em \expB o rótulo novidade ``1'' é
 observado em $x = 94\:155$, em \expC o mesmo rótulo é observado em $x =
 172\:917$.
 
@@ -308,8 +310,8 @@ Esse comportamento é devido à detecção de novidade assíncrona, pois enquant
 essa tarefa é executada os classificadores continuam utilizando o modelo antigo.
 Além disso, como já foi elencado na Seção \ref{sec:polices} item
 \ref{reclassification}, os exemplos utilizados para formar o novo \mcluster
-com rótulo novidade não são colocados no fluxo de saída.
-Estas duas características do \mfog acarretam em um atraso significante entre a
+com rótulo novidade não são recolocados no fluxo de saída para nova análise.
+Estas duas características do \mfog acarretam em um atraso significativo entre a
 aparição de um padrão no fluxo de entrada e a aparição do rótulo correspondente
 no fluxo de saída.
 Em outras palavras, o fluxo avança com o modelo antigo e, mesmo após atualizado,
@@ -336,10 +338,10 @@ Este é um resultado muito importante para compreender os problemas relacionados
 
 Avançando para o experimento \expD, a matriz de confusão na Tabela
 \ref{tab:multi-matrix}, mostra pouca diferença quando comparado ao experimento
-\expC com o número de desconhecidos sofrendo a maior variação.
+\expC, com o número de desconhecidos sofrendo a maior variação.
 
 O mesmo é observado quando compara-se a visualização de fluxo, Figuras
-\ref{fig:single-flow} e \ref{fig:multi-flow}, pouca diferença e a tripla-sumário
+\ref{fig:single-flow} e \ref{fig:multi-flow}, há pouca diferença e a tripla-sumário
 ($2.4\%,\: 31.2\%,\: 66.4\%$) é idêntica.
 
 \begin{figure}[htb]
@@ -365,8 +367,8 @@ abordar as métricas de escalabilidade que são muito mais simples em sua
 definição e extração porém de muito interesse a este trabalho.
 
 Essas métricas de escalabilidade extraídas dos experimentos são número de núcleos de processamento
-utilizados, \emph{Tempo}, \emph{Sistema} e \emph{Decorrido} representados em
-segundos, e são extraídas de \emph{GNU Time 1.9} durante a execução do experimento
+utilizados, \emph{Tempo}, \emph{Sistema} e \emph{Decorrido}, representados em
+segundos, e obtidas via \emph{GNU Time 1.9} durante a execução do experimento
 em questão.
 \emph{Tempo} é a quantidade de segundos de CPU gastos no modo de usuário
 (indica o tempo usado em computação intensiva, por exemplo cálculos matemáticos).
@@ -381,11 +383,11 @@ Os quatro experimentos principais são mostrados na Tabela
 da tripla-sumário (\texttt{unk}, \texttt{hit}, \texttt{err}) e as métricas de
 escalabilidade.
 
-Na Tabela \ref{tab:exper-summary} a coluna \emph{Offline} representa os valores
+Na Tabela \ref{tab:exper-summary}, a coluna \emph{Offline} representa os valores
 de métricas de tempo de execução para a fase \emph{Offline} (treinamento) nos
 experimentos utilizando o \mfog (\expB, \expC e \expD).
 Esta distinção é necessária pois a implementação de referência do algoritmo
-\minas executa as duas fases sem separação, o tempo de treinamento no \mfog é
+\minas executa as duas fases sem separação. Já o tempo de treinamento no \mfog é
 mostrado na coluna \emph{Offline}.
 Uma modificação da implementação de referência mostrou que dos $2\;772.07$
 segundos listados na tabela, $917s$ são da fase \emph{offline} e $1\;845s$ da
@@ -419,18 +421,18 @@ fase \emph{online}.
 \end{table}
 
 Além das métricas extraídas dos experimentos, as métricas de escalabilidade
-calculadas à partir dos valores extraídos são a latência de eventos e
-\emph{speedup} prático.
+calculadas a partir dos valores extraídos são a latência de eventos e
+\emph{speedup}. % prático.
 A latência média é calculada com o tempo decorrido dividido pelo o tamanho do
 \dataset e pode ser vista na Tabela \ref{tab:exper-summary}.
-O \emph{speedup} prático é calculado com a divisão do tempo decorrido na versão
+O \emph{speedup} é calculado com a divisão do tempo decorrido na versão
 sequencial divido pelo tempo utilizado pela versão paralela.
 A eficiência é calculada com a divisão do tempo decorrido na versão sequencial
 divido pelo produto do número de processadores utilizado e o tempo utilizado
 pela versão paralela.
 
 Observando as métricas de escalabilidade nota-se que o \mfog não fornece
-\emph{speedup} e eficiência melhores do que a versão sequencial.
+\emph{speedup} e eficiência em relação à versão sequencial.
 Isto indica que, apesar da premissa de independência de classificadores
 paralelos, a comunicação entre os processos utilizando dois conjuntos de
 instruções \mpi \emph{send} e \emph{receive} para cada exemplo não é eficiente
@@ -440,7 +442,7 @@ para o processamento de fluxo de dados.
 
 Experimentos adicionais foram realizados para avaliar o comportamento do \mfog
 para número variado de nós (de 1 a 3) e de processadores (de 1 a 12).
-Os resultados obtidos, ilustrados na Figura \ref{fig:speedup} são limitados ao
+Os resultados obtidos, ilustrados na Figura \ref{fig:speedup}, são limitados ao
 nó raiz, e mostram um aumento do tempo \emph{Sistema} (operações em modo
 \emph{kernel}).
 Este aumento indica maior carga associada às operações de entrada e saída das
@@ -448,11 +450,13 @@ instruções \emph{send} e \emph{receive} reforçando a ideia apresentada na
 Subseção \ref{subsec:parallel-dist}.
 
 Outros experimentos adicionais foram realizados para averiguar a latência para
-cada exemplo do fluxo mostrando o comportamento de cada implementação, é
-ilustrada nas Figuras \ref{fig:lag-java}, \ref{fig:lag-serial} e
+cada exemplo do fluxo, mostrando o comportamento de cada implementação, o que é
+ilustrado nas Figuras \ref{fig:lag-java}, \ref{fig:lag-serial} e
 \ref{fig:lag-mfog}.
 No entanto, é importante destacar que esta métrica não foi extraída dos
 experimentos principais, sendo apenas ilustrativa dos diferentes comportamentos.
+
+% não entendi essa questão de que os dados não foram obtidos de experimentos. Como os gerou?
 
 O primeiro comportamento é ilustrado na Figura \ref{fig:lag-java}, onde a execução
 da tarefa de detecção de novidade gera picos de $50$ a $200$ segundos.
@@ -461,7 +465,7 @@ picos de latência, porém não tão intensos e frequentes.
 Esta diferença está relacionada com mecanismo de remoção de desconhecidos e
 ausência do mecanismo de esquecimento de \mclusters menos utilizados no Modelo.
 Já o comportamento visto na Figura \ref{fig:lag-mfog} mostra o efeito de
-\emph{buffers} de comunicação entre diferentes processos onde um o pico de latência
+\emph{buffers} de comunicação entre diferentes processos onde o pico de latência
 da detecção de novidade cai progressivamente conforme os buffers são esvaziados
 já que o processo de detecção de novidade é assíncrono, porém ocupa a \emph{thread}
 responsável pelo fluxo de saída do \mfog.
