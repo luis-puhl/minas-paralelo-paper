@@ -23,8 +23,8 @@ Para um bom funcionamento de um \nids, é necessário que este responda rapidame
 aos padrões do fluxo da rede. Portanto, para aplicações em redes \iot o envio das
 observações de uma rede remota para processamento em nuvem (\cloud) é inviável.
 Uma alternativa viável à computação em nuvem neste caso é a computação em névoa
-(\fog), que via a alocação de recursos computacionais para um local mais próximo
-à fonte de dados, mesmo que de menor capacidade, oferece menor latência.
+(\fog) que, via a alocação de recursos computacionais para um local mais próximo
+à fonte de dados, mesmo que de menor capacidade, oferece menor latência em seus processamentos.
 Porém, a necessidade de resposta rápida de um \nids e a natureza distribuída da
 computação em névoa requer que as técnicas utilizadas estejam preparadas para
 um cenário paralelo e distribuído, o que não acontece com o algoritmo \minas.
@@ -58,18 +58,17 @@ equivalente entre a nova implementação e a implementação de referência do
 algoritmo \minas, seja na versão sequencial, paralela com 4 processadores ou
 distribuída com 3 nós.
 As métricas de escalabilidade do \mfog em ambiente de névoa \iot mostraram
-melhora significante comparada à implementação de referência no mesmo ambiente,
-no entanto não foi observada melhora compatível com o aumento no número de nós
+melhora significante comparada à implementação de referência no mesmo ambiente.
+No entanto não foi observada melhora compatível com o aumento no número de nós
 no cluster, ou seja, a escalabilidade esperada não se realizou.
+% cumpriu?? Avaliar e comparar a qualidade de detecção de intrusão da nova
+% implementação;
 
 As principais contribuições deste trabalho são a análise, implementação revisada
 e melhora do desempenho do algoritmo \minas guiado pelo contexto de computação
 distribuída em névoa de dispositivos \iot e, adição de uma técnica palpável para
 \nids, contribuindo para redução de danos a quem depende do bom funcionamento
 dos sistemas em redes \iot.
-
-% cumpriu?? Avaliar e compar  ar a qualidade de detecção de intrusão da nova
-% implementação;
 
 % cumpriu?? - Avaliar a qualidade de detec-ção de intrusão em ambiente distribuído
 % conforme a arquitetura IDSA-IoT em ambientede computação em névoa.

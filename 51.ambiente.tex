@@ -41,6 +41,7 @@ variações imprevistas e para garantir que as comparações seriam justas com
 O \dataset \emph{Kyoto 2006+}\footnote{Disponível em
 \url{http://www.takakura.com/Kyoto\_data/}}, tráfego das \emph{Honeypots} da
 Universidade de Kyoto, é o foco deste trabalho.
+% será que é o "foco"? Talvez é a "referência de um cenário real"...(?)
 Este \dataset contém dados ainda representativos (até 2015) e as característica
 desejáveis de um conjunto de dados (realismo, validade, etiquetas previamente
 definidas, alta variabilidade, reprodutibilidade e disponibilidade pública) são
@@ -71,8 +72,8 @@ precisa detectar um padrão novidade para então adicionar ao modelo.
 %O foco deste trabalho não é a otimização da detecção de intrusão é contexto de validar metodologia de construcao do \mfog - distribuição e paralelismo em ambiente em \fog.
 Como o foco deste trabalho é na arquitetura e metodologia de paralelização e
 distribuição em névoa, a otimização do processo de detecção de intrusão não foi
-abordada, deixando a questão de escolha \dataset e do processo de manipulação
-dele em aberto.
+abordada, deixando a questão de escolha do \dataset e do processo de sua manipulação
+ em aberto.
 
 Quanto aos parâmetros do algoritmo \minas, ilustrados na Figura
 \ref{fig:params}, os valores foram escolhidos por serem valores comuns para o
@@ -95,19 +96,19 @@ os resultados obtidos se aproximarem aos resultados da implementação de refer�
 \end{figure}
 
 Os parâmetros utilizados da literatura são
-\texttt{k} número de \mclusters gerados pelo algoritmo de agrupamento,
-\texttt{minExamplesPerCluster} número mínimo de exemplos para um \mcluster válido
+\texttt{k}, que é o número de \mclusters gerados pelo algoritmo de agrupamento,
+\texttt{minExamplesPerCluster}, que indica o número mínimo de exemplos para um \mcluster válido
 e,
-\texttt{thresholdForgettingPast} limite para remoção de exemplos do conjunto de
+\texttt{thresholdForgettingPast}, que estabelece o limite para remoção de exemplos do conjunto de
 desconhecidos.
 
 Os parâmetros escolhidos por aproximação de resultados são:
-\texttt{precision} é o valor limite para melhora na distância global reduzindo as 
+\texttt{precision}, que é o valor limite para melhora na distância global reduzindo as 
 iterações no algoritmo de agrupamento (otimização),
-\texttt{radiusF} fator que multiplica o desvio padrão das distâncias entre o
+\texttt{radiusF}, que corresponde ao fator que multiplica o desvio padrão das distâncias entre o
 centro e cada exemplo formador do novo \mcluster definindo o raio do \mcluster
 e,
-\texttt{noveltyF} fator que multiplica o desvio padrão das distâncias do
+\texttt{noveltyF}, que é o fator que multiplica o desvio padrão das distâncias do
 \mcluster mais próximo distinguindo um novo padrão entre extensão e novidade.
 
 % (k, minExamplesPerCluster, noveltyF, thresholdForgettingPast)
