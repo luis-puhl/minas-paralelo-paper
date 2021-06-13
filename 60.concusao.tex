@@ -21,9 +21,9 @@ algoritmo de detecção de novidade que já foi avaliado e considerado promissor
 
 Para um bom funcionamento de um \nids, é necessário que este responda rapidamente
 aos padrões do fluxo da rede. Portanto, para aplicações em redes \iot o envio das
-observações de uma rede remota para processamento em nuvem (\cloud) é inviável.
+observações de uma rede remota para processamento em nuvem (\cloud) pode resultar em latências proibitivas. 
 Uma alternativa viável à computação em nuvem neste caso é a computação em névoa
-(\fog) que, via a alocação de recursos computacionais para um local mais próximo
+(\fog) que pode disponibilizar recursos computacionais mais próximos
 à fonte de dados, mesmo que de menor capacidade, oferece menor latência em seus processamentos.
 Porém, a necessidade de resposta rápida de um \nids e a natureza distribuída da
 computação em névoa requer que as técnicas utilizadas estejam preparadas para
@@ -60,7 +60,7 @@ distribuída com 3 nós.
 As métricas de escalabilidade do \mfog em ambiente de névoa \iot mostraram
 melhora significante comparada à implementação de referência no mesmo ambiente.
 No entanto não foi observada melhora compatível com o aumento no número de nós
-no cluster, ou seja, a escalabilidade esperada não se realizou.
+no cluster, ou seja, a escalabilidade almejada não foi alcançada.
 % cumpriu?? Avaliar e comparar a qualidade de detecção de intrusão da nova
 % implementação;
 
@@ -87,10 +87,10 @@ Para o problema \nids em redes \iot (ou detecção de comportamentos anômalos e
 fluxos de dados de sensores \iot em geral) com base em \nd paralela e
 distribuída em névoa (\fog), o equilíbrio dos atributos de escalabilidade e
 qualidade de classificação ainda não foi alcançado.
-Para os trabalhos futuros, espera-se que esta implementação e análise sirva de
+
+Como trabalhos futuros, espera-se que esta implementação e análise sirva de
 inspiração para busca de algoritmos e sistemas que maximizam o aproveitamento do
 \emph{hardware} e energia dedicados a esta tarefa.
-
 % o que vc  poderia melhorar/??
 Em termos mais práticos, sugere-se a utilização do algoritmo \emph{CluStream}
 \cite{Aggarwal2003} ou seus derivados e a ideia de um Modelo de tamanho fixo,
@@ -102,7 +102,6 @@ evitando ambiguidade e o Modelo organizado em índices para que a busca espacial
 seja rápida e eficiente.
 Acredita-se que estas características junto com as propriedades de paralelismo e
 distribuição em névoa podem levar a resultados brilhantes.
-
 
 % -------------------------------------------------------------
 
