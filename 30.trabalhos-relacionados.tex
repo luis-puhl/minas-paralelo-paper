@@ -18,7 +18,6 @@
 Este Capítulo trata dos trabalhos relacionados e apresenta aspectos do estado da
 arte dos tópicos Detecção de Novidades em Fluxos de Dados e Processamento
 Distribuído de Fluxos de Dados aplicados à detecção de intrusão em redes \iot.
-Um sumário dos trabalhos abordados pode ser visto na Tabela \ref{tab:summary}.
 
 \newcommand{\kafka}{\emph{Apache Kafka}\xspace}
 \newcommand{\spark}{\emph{Apache Spark}\xspace}
@@ -38,53 +37,6 @@ Um sumário dos trabalhos abordados pode ser visto na Tabela \ref{tab:summary}.
 %     do Murilo Naldi da UFSCAR, trabalhos do Latifur, CLAM, trabalhos do Bifet e o
 %     framework baseado no MOA, mas distribuído)
 % }
-
-\todo[inline]{Fica estranho iniciar o capótulo com a tabela. Acho que ficaria melhor no final do capítulo, antes do 3.4 conclusão.}
-\begin{table}[ht]
-  \caption{Sumário dos trabalhos relacionados}
-  \centering
-  \begin{scriptsize}
-  \begin{tabularx}{\linewidth}{X|X|X|X|X|X}
-    \textbf{Trabalho} &
-        \textbf{Plataforma} &
-        \textbf{Técnica ou Algoritmo} &
-        \textbf{Atualização de Modelo} &
-        \textbf{Conjunto de dados} &
-        \textbf{Métricas} \\
-    \hline & & & & & \\
-    Ferramenta BigFlow \cite{Viegas2019} &
-        \python, \emph{flowtbag}, \kafka e \flink &
-        \emph{Hoeffding Tree}, \emph{OzaBoosting}, \emph{Leveraging Bag} e comitê &
-        Semanal semi-automática &
-        \emph{MAWILab} &
-        Acurácia (geral e por classe), Taxa de bytes \\
-    \hline & & & & & \\
-    Ferramenta CATRACA \cite{Lopez2018} &
-        \emph{Virtual Network Function}, \kafka e \spark &
-        PCA, SFS, e SVM-RFE &
-        Contínua semi-automática &
-        NSL-KDD, GTA/UFRJ e NetOp &
-        Acurácia, precisão, sensibilidade e F1-score \\
-    \hline & & & & & \\
-    Arquitetura \arch \cite{Cassales2019a} &
-        Java, \kafka e \python &
-        ECSMiner, AnyNovel e MINAS &
-        Contínua Automática &
-        \emph{Kyoto 2006+} &
-        \emph{Fnew}, \emph{Mnew} e \emph{erro}
-    % Murilo Naldi da UFSCAR & plataforma & técnica & \dataset & métricas \\
-    % Não encontrei uma plataforma do Naldi, encontrei algoritmos.
-    % \hline
-    % Latifur Khan & plataforma & técnica & \dataset & métricas \\
-    % \hline
-    % CLAM & plataforma & técnica & \dataset & métricas \\
-    % \hline
-    % trabalhos do Bifet e o framework baseado no MOA (samoa) & plataforma & técnica & \dataset & métricas \\
-    % \hline
-  \end{tabularx}
-  \label{tab:summary}
-  \end{scriptsize}
-\end{table}
 
 \section{Ferramenta BigFlow}
 
@@ -494,7 +446,7 @@ grandes volumes de dados e velocidades.
 \newcommand{\streams}{\emph{data streams}\xspace}
 \newcommand{\streamMining}{\emph{data stream mining}\xspace}
 
-\section{Conclusão}\label{sec:conclusao-relacionados}
+\section{Síntese dos trabalhos relacionados}\label{sec:conclusao-relacionados}
 
 % \nota{coloca uma secao de SINTESE dos trabalhos relacionados ou sintese do capitulo}
 
@@ -505,7 +457,55 @@ dados, preocupa-se em fornecer melhores previsões através de algoritmos
 classificadores que atendam as características de cada problema.
 A área de computação distribuída aborda os temas de processamento distribuído
 de fluxos contínuos em ambientes de computação em nuvem e em névoa, fornecendo
-métodos para processar grandes volume de dados com mínima latência. 
+métodos para processar grandes volume de dados com mínima latência.
+
+Um sumário dos trabalhos abordados pode ser visto na Tabela \ref{tab:summary}.
+
+\begin{table}[ht]
+  \caption{Sumário dos trabalhos relacionados}
+  \centering
+  \begin{scriptsize}
+  \begin{tabularx}{\linewidth}{X|X|X|X|X|X}
+    \textbf{Trabalho} &
+        \textbf{Plataforma} &
+        \textbf{Técnica ou Algoritmo} &
+        \textbf{Atualização de Modelo} &
+        \textbf{Conjunto de dados} &
+        \textbf{Métricas} \\
+    \hline & & & & & \\
+    Ferramenta BigFlow \cite{Viegas2019} &
+        \python, \emph{flowtbag}, \kafka e \flink &
+        \emph{Hoeffding Tree}, \emph{OzaBoosting}, \emph{Leveraging Bag} e comitê &
+        Semanal semi-automática &
+        \emph{MAWILab} &
+        Acurácia (geral e por classe), Taxa de bytes \\
+    \hline & & & & & \\
+    Ferramenta CATRACA \cite{Lopez2018} &
+        \emph{Virtual Network Function}, \kafka e \spark &
+        PCA, SFS, e SVM-RFE &
+        Contínua semi-automática &
+        NSL-KDD, GTA/UFRJ e NetOp &
+        Acurácia, precisão, sensibilidade e F1-score \\
+    \hline & & & & & \\
+    Arquitetura \arch \cite{Cassales2019a} &
+        Java, \kafka e \python &
+        ECSMiner, AnyNovel e MINAS &
+        Contínua Automática &
+        \emph{Kyoto 2006+} &
+        \emph{Fnew}, \emph{Mnew} e \emph{erro}
+    % Murilo Naldi da UFSCAR & plataforma & técnica & \dataset & métricas \\
+    % Não encontrei uma plataforma do Naldi, encontrei algoritmos.
+    % \hline
+    % Latifur Khan & plataforma & técnica & \dataset & métricas \\
+    % \hline
+    % CLAM & plataforma & técnica & \dataset & métricas \\
+    % \hline
+    % trabalhos do Bifet e o framework baseado no MOA (samoa) & plataforma & técnica & \dataset & métricas \\
+    % \hline
+  \end{tabularx}
+  \label{tab:summary}
+  \end{scriptsize}
+\end{table}
 
 % Apesar de já existirem propostas que estabelecem o estado da arte separadamente
 % em cada um dos temas, \hlhl{falta ainda uma abordagem que estabeleça uma união} entre o

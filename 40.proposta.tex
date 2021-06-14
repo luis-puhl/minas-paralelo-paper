@@ -92,10 +92,22 @@ tráfego indesejável.
 % and detection of unwanted traffic.
 
 A arquitetura física do \mfog pode ser vista na Figura
-\ref{fig:arq-fisica-mfog}, onde um dispositivo \emph{gateway} observa o tráfego da rede local (sensores IoT) e entre a rede local e 
-a nuvem. A detecção de intrusão é executada de forma paralela e distribuída numa névoa de 
-dispositivos SBC (\emph{Single Board Computer}). 
-\todo[inline]{Não sei se vão existir dispositivos SBC na borda para executar. Acho melhor deixar genérico, de que utilizaria quaisquer dispositivos na borda ou na névoa que tenha recursos suficientes para a tarefa. Você usou um SBC para validar a proposta, por este ter arquitetura semelhante à de vários dispositivos que podem estar presentes na borda.}
+\ref{fig:arq-fisica-mfog}, onde um dispositivo \emph{gateway} observa o tráfego
+da rede local (sensores IoT) e entre a rede local e a nuvem.
+A detecção de intrusão é executada de forma paralela e distribuída numa névoa de
+dispositivos SBC (\emph{Single Board Computer}).
+Esta arquitetura física foi escolhida por aproximar os recursos comuns em redes
+deste tipo mas o \mfog não é limitado a ela, podendo utilizar dispositivos de
+borda ou névoa com recursos disponíveis para a tarefa de detecção de intrusão ou
+novidades.
+
+% \todo[inline]{Não sei se vão existir dispositivos SBC na borda para executar.
+% Acho melhor deixar genérico, de que utilizaria quaisquer dispositivos na borda
+% ou na névoa que tenha recursos suficientes para a tarefa. Você usou um SBC para
+% validar a proposta, por este ter arquitetura semelhante à de vários dispositivos
+% que podem estar presentes na borda.}
+
+
 \begin{figure}[htb]
   \centerline{
     \includegraphics[width=0.6\linewidth,page=1]{figures/arq-mfog.png}
@@ -105,7 +117,7 @@ dispositivos SBC (\emph{Single Board Computer}).
 \end{figure}
 
 
-\acf{NIDS} monitoram o tráfego em redes e analisam as características de cada
+Um \acf{NIDS} monitora o tráfego em redes e analisa as características de cada
 fluxo de rede com objetivo de identificar intrusos e tráfegos indesejados.
 % monitor network traffic, and analyze the characteristics of each flow 
 % to identify any intrusion or misbehavior.
