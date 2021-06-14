@@ -65,6 +65,7 @@
 % \RequirePackage[latin1]{inputenc}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[alf,abnt-emphasize=bf,abnt-repeated-author-omit=yes,abnt-year-extra-label=yes]{abntex2cite}	% Citações padrão ABNT
+% abnt-year-extra-label=yes causa warning para overleaf com TeX Live version = 2020
 \RequirePackage{color}	% Controle das cores
 \RequirePackage{pifont}
 \RequirePackage{lastpage}
