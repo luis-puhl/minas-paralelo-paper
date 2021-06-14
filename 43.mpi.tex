@@ -6,22 +6,19 @@ Com os desafios de distribuição e memória encontrados nas implementações
 preliminares, optou-se por tomar mais controle sobre estes aspectos para
 maximizar o aproveitamento do \emph{hardware} escolhido, visto que seus recursos
 são limitados.
-Para isso escolheu-se implementar a proposta utilizando o padrão \mpi e linguagem C,
-onde tem-se controle fino sobre o uso de memória e distribuição.
-% Não entendi a sentença a seguir... sugiro revisar ou retirar...
-No entanto, perde-se facilidades e garantias inclusas nas plataformas
-tradicionais de fluxos de dados que, por exemplo, oferecem o funcionamento confiável e contínuo com
-mecânicas de recuperação de erros.
+Para isso escolheu-se implementar a proposta\footnote{Esta implementação está
+disponível em \url{https://github.com/luis-puhl/minas-flink}.} utilizando o
+padrão \mpi e linguagem C, onde tem-se controle fino sobre o uso de memória e
+distribuição.
+No entanto, ao escolher-se \mpi perde-se facilidades e garantias inclusas nas
+plataformas tradicionais de fluxos de dados como \flink que, entre outras,
+oferecem o funcionamento confiável e contínuo com mecânicas de recuperação de
+erros.
 
-O algoritmo \minas original \cite{Faria2016minas} tem uma implementação
-% companheira? Que tal "de referência" ?
-referência\footnote{Disponível em \url{http://www.facom.ufu.br/~elaine/MINAS}}
-\cite{Faria2013source}, aqui referida como \refminas, escrita em Java utilizando
-os algoritmos base como \emph{K-means} e \emph{CluStream} da biblioteca MOA
-\cite{MOA}.
-Esta implementação serve de referência para a construção do modelo distribuído
-previsto, provendo método de validação dos resultados e servindo também de comparação
-básica de desempenho.
+A implementação de referência do algoritmo \minas \cite{Faria2013source}
+(\refminas) serve de referência para a construção do modelo distribuído
+previsto, provendo método de validação dos resultados e servindo também de
+comparação básica de desempenho.
 
 Os primeiros pontos de divergência do \mfog e \refminas são o algoritmo de
 agrupamento e cálculo de raio.
