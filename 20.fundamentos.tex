@@ -17,7 +17,7 @@ A computação em nuvem (\cloud) é
 aplicada a vários problemas, e para sistemas \iot 
 fornece vastos recursos como computação e armazenamento para onde geralmente os dispositivos
 enviam todos dados relevantes ao sistema.
-O segundo e terceiro ambiente são computação de borda (\emph{edge computing})
+O segundo e terceiro ambientes são computação de borda (\emph{edge computing})
 e a computação em névoa (\emph{fog computing}) que utilizam os recursos
 computacionais distribuídos presentes em nós localizados entre os dispositivos
 de borda e a nuvem com diversas 
@@ -99,7 +99,7 @@ as capacidades de computação, armazenamento e rede entre os nós próximos
 das fontes dados
 e dos dispositivos finais, mas não necessariamente localizados na borda,
 dando a esses nós características de uma nuvem
-\cite{Bonomi2012,Dastjerdi2016,IEEECommunicationsSociety2018}.
+\cite{Bonomi2012,Dastjerdi2016,IEEECommunicationsSociety2018}. \todo[inline]{IEEECommunicationsSociety2018 ??  Verificar}
 Esse tipo de computação evita a sobrecarga dos dispositivos de borda.
 \citeonline{Bonomi2012} e
 \citeonline{Dastjerdi2016} consideram computação em névoa como complementar da
@@ -266,6 +266,7 @@ Java, Scala ou Python.
 
 \section{Interface de Troca de Mensagens}
 
+\todo[inline]{Não é usual traduzir MPI e nem SPMD. Ambos são bem conhecidos na comunidade.}
 Em um sistema distribuído multiprocessado, a memória é distribuída entre
 múltiplos nós e processos, tendo cada processo acesso direto somente a sua memória
 local.
@@ -328,6 +329,7 @@ comunicação entre os processos independente se estão ou não no mesmo nó.
   \label{fig:mpi-modelo}
 \end{figure}
 
+\todo[inline]{A figura se refere a alfo específico do M-FOG ou algo geral para MPI? Se for o primeiro caso, seria melhor colocá-la junto ao texto que apresenta o M-FOG. Nesta seção o foco é descrever o MPI.}
 O amplo uso de \mpi para programação paralela e distribuída está principalmente pautado no
 desempenho. Processadores modernos possuem memórias hierárquicas que beneficiam
 programas que fazem o melhor uso de cache. O modelo de passagem de mensagens
@@ -349,3 +351,4 @@ acordo com o tipo de dado recebido, o processo executa funções diferentes. Se
 for um processo raiz, ele lê e distribui os dados de entrada entre os nós folha.
 Já os nós folha executam todo cálculo de distância e detecção de novidades,
 portanto execução de forma paralela e distribuída.
+\todo[inline]{O ultimo paragrafo mistura MPI com a descrição de como foi implementado o M-FOG. Acho que esta seção deveria falar somente do MPI de forma genérica: O que é, para que serve e por que foi escolhido para este trabalho.}
