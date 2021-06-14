@@ -266,11 +266,12 @@ Java, Scala ou Python.
 
 \section{Interface de Troca de Mensagens}
 
-\todo[inline]{Não é usual traduzir MPI e nem SPMD. Ambos são bem conhecidos na comunidade.}
+% \todo[inline]{Não é usual traduzir MPI e nem SPMD. Ambos são bem conhecidos na comunidade.}
 Em um sistema distribuído multiprocessado, a memória é distribuída entre
 múltiplos nós e processos, tendo cada processo acesso direto somente a sua memória
 local.
-Para esse tipo de sistema, o paradigma de programação paralela \spmd pode ser
+Para esse tipo de sistema, o paradigma de programação paralela \spmd onde
+múltiplas instâncias de um único programa tratam parcelas de dados, pode ser
 implementado utilizando o conceito de memória distribuída compartilhada através
 de troca de mensagens.
 Nesse modelo, cada
@@ -321,15 +322,17 @@ conjunto de processos, e cada processo possui seu espaço de endereçamento e é
 compartilhada, como mostra a Figura \ref{fig:mpi-modelo}. O OpenMPI permite a
 comunicação entre os processos independente se estão ou não no mesmo nó.
 
-\begin{figure}[htb]
-  \centerline{
-    \includegraphics[width=0.55\linewidth,page=1]{figures/mpi-modelo-iot.png}
-  }
-  \caption{Modelo de processos do \mfog.}
-  \label{fig:mpi-modelo}
-\end{figure}
+% \begin{figure}[htb]
+%   \centerline{
+%     \includegraphics[width=0.55\linewidth,page=1]{figures/mpi-modelo-iot.png}
+%   }
+%   \caption{Modelo de processos do \mfog.}
+%   \label{fig:mpi-modelo}
+% \end{figure}
 
-\todo[inline]{A figura se refere a alfo específico do M-FOG ou algo geral para MPI? Se for o primeiro caso, seria melhor colocá-la junto ao texto que apresenta o M-FOG. Nesta seção o foco é descrever o MPI.}
+% \todo[inline]{A figura se refere a alfo específico do M-FOG ou algo geral para
+% MPI? Se for o primeiro caso, seria melhor colocá-la junto ao texto que apresenta
+% o M-FOG. Nesta seção o foco é descrever o MPI.}
 O amplo uso de \mpi para programação paralela e distribuída está principalmente pautado no
 desempenho. Processadores modernos possuem memórias hierárquicas que beneficiam
 programas que fazem o melhor uso de cache. O modelo de passagem de mensagens
@@ -344,11 +347,19 @@ gerenciador. Essa dispensa de gerenciador em experimentos preliminares mostrou
 crucial para implementação do \mfog em dispositivos IoT, pois não excede o limite de
 memória do nó.
 
-Em resumo, o \mpi é utilizado neste trabalho dentro de um programa monólito escrito em C, e
-utilizando a biblioteca do \mpi. Este monólito é executado por múltiplos processos
-dentro de cada nó. Cada processo recebe um conjunto de dados diferente. De
-acordo com o tipo de dado recebido, o processo executa funções diferentes. Se
-for um processo raiz, ele lê e distribui os dados de entrada entre os nós folha.
-Já os nós folha executam todo cálculo de distância e detecção de novidades,
-portanto execução de forma paralela e distribuída.
-\todo[inline]{O ultimo paragrafo mistura MPI com a descrição de como foi implementado o M-FOG. Acho que esta seção deveria falar somente do MPI de forma genérica: O que é, para que serve e por que foi escolhido para este trabalho.}
+Em resumo, o \mpi é utilizado em um programa monólito escrito em C, executado
+por múltiplos processos em múltiplos nós, cada processo recebe um conjunto de
+dados diferente e, de acordo com o tipo de dado recebido, o processo executa
+funções diferentes.
+Em adição, os processos podem trocar informações entre si com mensagens,
+efetivamente compartilhando segmentos discretos de memória.
+Uma das estratégias é a leitura e distribuição de dados por um processo enquanto
+os outros processam, dividindo o trabalho, sendo possível desta maneira tratar
+de fluxos contínuos de dados de maneira escalável.
+% Se for um processo raiz, ele lê e distribui os dados de entrada entre os nós
+% folha. Já os nós folha executam todo cálculo de distância e detecção de
+% novidades, portanto execução de forma paralela e distribuída.
+
+% \todo[inline]{O ultimo paragrafo mistura MPI com a descrição de como foi
+% implementado o M-FOG. Acho que esta seção deveria falar somente do MPI de forma
+% genérica: O que é, para que serve e por que foi escolhido para este trabalho.}
