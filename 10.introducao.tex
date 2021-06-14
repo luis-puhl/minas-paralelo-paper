@@ -89,7 +89,7 @@ macro, na otimização de processos industriais.
 % \todo[inline]{ND} 
 Dentre as técnicas de mineração de fluxo de dados, classificadores podem ser
 utilizados para detectar padrões conhecidos e, em conjunto com algoritmos de
-\nd, detectar novos padrões.
+\nd (\emph{Novelty Detection in Data Streams}), detectar novos padrões.
 Essa capacidade de detectar novos padrões é relevante para \nids, onde novidades
 na rede podem representar novas funcionalidades ou ataques por agentes
 maliciosos, sem assinaturas existentes em bancos de dados de ataques conhecidos.
@@ -98,11 +98,11 @@ respostas imediatas e a detecção de novidades e mudança de conceitos já
 conhecidos.
 
 % \todo[inline]{Fog} 
-Análises como \emph{Data Stream Mining} e \nd têm sido implementadas sobre
+Análises como mineração de fluxos de dados e \nd têm sido implementadas sobre
 o paradigma de computação na nuvem (\emph{Cloud Computing}) e, recentemente,
-também sobre paradigmas como computação em névoa (\fog).
-Para \fog, além dos recursos em \emph{cloud}, são explorados os recursos
-distribuídos pela rede desde nós remotos até a \emph{cloud}.
+também sobre paradigmas como computação em névoa (\emph{fog computing}).
+Para névoa, além dos recursos em nuvem, são explorados os recursos
+distribuídos pela rede desde nós remotos até a nuvem.
 Processos que dependem desses recursos são distribuídos de acordo com
 características como sensibilidade à latência, privacidade, consumo
 computacional ou energético.
@@ -177,12 +177,12 @@ Contudo, o algoritmo MINAS ainda não foi implementado e avaliado com paralelism
 multi-processamento ou distribuição computacional, que são necessários para
 tratar fluxos de dados 
 % com grandes volumes e velocidades
-em ambientes distribuídos, como em cenários \iot e \fog.
+em ambientes distribuídos, como em cenários \iot e névoa.
 % \notafa{Por que isso é importante. Acho que convém ressaltar a importancia da sua
 % proposta. O que o MINAS original não trata, em quais cenários ele apresenta um
 % gargalo? como ele está dividido?}
 % O tratamento de distribuição em ambiente \fog é essencial para aplicação deste
-O tratamento de distribuição em ambiente \fog é essencial para aplicação deste
+O tratamento de distribuição em ambiente névoa é essencial para aplicação deste
 algoritmo ao problema de detecção de intrusão em redes \iot, pois esta aplicação
 requer tempo de resposta mínimo e mínima comunicação entre nós distantes, como
 aqueles na borda e na nuvem.
@@ -237,13 +237,13 @@ detecção de intrusão em redes utilizando algoritmos de \nd, porém com
 perspectivas diferentes.
 O primeiro investiga \emph{IoT} e processamento em \emph{fog} e baseia-se em um
 algoritmo genérico de detecção de novidade.
-O segundo trabalho trata de \emph{backbones} e processamento em \emph{cloud} e
+O segundo trabalho trata de \emph{backbones} e processamento em nuvem e
 implementa o próprio algoritmo de detecção de novidade.
 Essas diferenças deixam uma lacuna onde, de um lado, tem-se uma
 arquitetura mais adequada para o ambiente \emph{fog} com um algoritmo estado da arte de
 detecção de novidades, porém sem paralelismo.
 Do outro lado da lacuna, tem-se um sistema escalável de alto desempenho porém
-limitado ao ambiente \emph{cloud} e com um algoritmo que não foi projetado
+limitado ao ambiente nuvem e com um algoritmo que não foi projetado
 para os desafios de detecção de novidades.
 % \todo[inline]{``menos adequado'' -> que não foi projetado ... }
 

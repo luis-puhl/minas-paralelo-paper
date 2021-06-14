@@ -13,7 +13,7 @@ de dados e o algoritmo MINAS.
 Esta \Section relaciona três ambientes de computação distribuída habitualmente
 utilizados para o processamento de dados massivos relacionados a redes de
 dispositivos \iot: computação em nuvem, computação de borda, e computação em névoa.
-A computação em nuvem (\cloud) é
+A computação em nuvem (\emph{Cloud Computing}) é
 aplicada a vários problemas, e para sistemas \iot 
 fornece vastos recursos como computação e armazenamento para onde geralmente os dispositivos
 enviam todos dados relevantes ao sistema.
@@ -25,15 +25,14 @@ intenções, desde privacidade até redução de latência.
 
 % \subsection{Computação em Nuvem}
 
-A computação em nuvem (\cloud), ou simplesmente nuvem
-(\emph{cloud}), habilita o acesso através da rede a um grupo compartilhado de
+A computação em nuvem, ou simplesmente nuvem, habilita o acesso através da rede a um grupo compartilhado de
 recursos de computação configuráveis, como servidores, redes, aplicações,
 armazenamento, etc.
 Tais recursos podem ser provisionados ou liberados sob
 demanda rapidamente com o mínimo esforço de gerenciamento
 e mínima interação com o provedor destes recursos \cite{NIST2011}.
 
-As principais características do ambiente \cloud, segundo \citeonline{NIST2011}
+As principais características do ambiente de nuvem, segundo \citeonline{NIST2011}
 são: serviço sob demanda, amplo acesso à rede, agrupamento de recursos,
 elasticidade e serviço mensurado.
 Segundo \citeonline{NIST2011}, a implantação da Computação em Nuvem pode
@@ -174,7 +173,7 @@ Essa arquitetura,
 nomeada de ``arquitetura totalmente incremental'' por \citeonline{marz2015big},
 foi evoluída e simplificada iterativamente durante décadas de uso, porém ela não
 é adequada para sistemas em tempo real, como os sistema de fluxo de dados.
-O volume e a velocidade de dados em um \emph{Data Stream} leva à necessidade de
+O volume e a velocidade de dados em um fluxo de dados leva à necessidade de
 distribuir o processamento, acrescentando poder computacional a cada nó
 adicionado.
 Entretanto, desafios como comunicação eficiente e sincronização de estado
@@ -184,14 +183,11 @@ construção de um sistema distribuído em relação a um sistema tradicional.
 \newcommand{\lambdaa}{\xspace\emph{Lambda}\xspace}
 \newcommand{\kappaa}{\xspace\emph{Kappa}\xspace}
 
-Para mitigar problemas associados à construção de sistemas \emph{Big Data}
-e \emph{Data Streams},
-arquiteturas de processamento de fluxo
-de dados distribuído foram propostas, como a arquitetura \lambdaa
-\cite{marz2015big} e \kappaa \cite{Kreps2014}, além
-de
-diversas plataformas, tanto de \emph{Big Data} com características de tempo real,
-como especializadas em fluxo de dados.
+Para mitigar problemas associados à construção de sistemas \emph{Big Data} e de
+fluxos de dados, arquiteturas de processamento de fluxo de dados distribuído
+foram propostas, como a arquitetura \lambdaa \cite{marz2015big} e \kappaa
+\cite{Kreps2014}, além de diversas plataformas, tanto de \emph{Big Data} com
+características de tempo real, como especializadas em fluxo de dados.
 
 \emph{MapReduce} é a primeira plataforma de processamento de conjuntos massivos
 de dados que atingiu uso generalizado.
@@ -317,11 +313,12 @@ repassando os parâmetros que recebeu a cada processo e o identificador do
 processo para que ele saiba qual dado ler e qual função executar.
 
 Este trabalho utiliza o OpenMPI, que é uma implementação aberta de \mpi, para a
-comunicação entre os processos de cada nó do cluster. Cada nó do cluster possui um
-conjunto de processos, e cada processo possui seu espaço de endereçamento e é
-\emph{multithread}, onde as threads se comunicam através da memória
-compartilhada, como mostra a Figura \ref{fig:mpi-modelo}. O OpenMPI permite a
-comunicação entre os processos independente se estão ou não no mesmo nó.
+comunicação entre os processos de cada nó do cluster.
+Cada nó do cluster possui um conjunto de processos, e cada processo possui seu
+espaço de endereçamento e é \emph{multithread}, onde as threads se comunicam
+através da memória compartilhada.
+O OpenMPI permite a comunicação entre os processos independente se estão ou não
+no mesmo nó.
 
 % \begin{figure}[htb]
 %   \centerline{

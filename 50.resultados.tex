@@ -489,7 +489,7 @@ experimentos principais, sendo apenas ilustrativa dos diferentes comportamentos.
   \begin{subfigure}{0.48\textwidth}
     \centering
     \includegraphics[width=1\linewidth]{experiments/lag-serial.png}
-    \caption{Implementação sequêncial.}
+    \caption{Implementação sequencial.}
     \label{fig:lag-serial}
   \end{subfigure}
   % \vspace{5mm}
@@ -500,7 +500,7 @@ experimentos principais, sendo apenas ilustrativa dos diferentes comportamentos.
     \caption{Implementação paralela.}
     \label{fig:lag-mfog}
   \end{subfigure}
-  \caption{Visualização de Latência das implementações de referência, sequêncial
+  \caption{Visualização de Latência das implementações de referência, sequencial
   e paralela do algoritmo \minas.}
   \label{fig:lag}
 \end{figure}
@@ -510,7 +510,7 @@ O primeiro comportamento é ilustrado na Figura \ref{fig:lag-java}, onde a execu
 da tarefa de detecção de novidade gera picos de $50$ a $200$ segundos
 na implementação de referência do algoritmo \minas.
 Um comportamento semelhante é visto na Figura \ref{fig:lag-serial} onde ainda há
-picos de latência, porém não tão intensos e frequentes na implementação sequêncial
+picos de latência, porém não tão intensos e frequentes na implementação sequencial
 do algoritmo \minas utilizado a biblioteca do \mfog.
 Esta diferença está relacionada com mecanismo de remoção de desconhecidos e
 ausência do mecanismo de esquecimento de \mclusters menos utilizados no Modelo.
@@ -524,7 +524,7 @@ responsável pelo fluxo de saída do \mfog.
 \label{sec:exp-conclusao}
 
 Os experimentos executados e os resultados obtidos demonstram que a \acf{ND-DS}
-executada de maneira distribuída em ambiente de névoa (\fog) é uma estratégia
+executada de maneira distribuída em ambiente de névoa é uma estratégia
 válida para detecção de mudanças nos padrões de tráfego, sendo viável como parte
 de um \acf{NIDS} para redes \iot.
 
