@@ -1,7 +1,9 @@
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{naturalnames}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{showframe}{geometry}
 \documentclass[dissertmst]{ufscar}
+% \documentclass[dissertmst,draft]{ufscar}
 
 % \usepackage[T1]{fontenc}
 % \usepackage[utf8]{inputenc}
@@ -13,7 +15,7 @@
 \usepackage{lastpage}% Usado pela Ficha catalográfica
 \usepackage{indentfirst}% Indenta o primeiro parágrafo de cada seção.
 \usepackage{nomencl}% Lista de simbolos
-\usepackage{graphicx}% Inclusão de gráficos
+\usepackage{graphicx,caption,subcaption}
 
 % Pacotes adicionais
 \usepackage[printonlyused]{acronym}
@@ -27,11 +29,12 @@
 % \SetAlFnt{\small }
 \setlength{\algomargin}{0em}
 \SetInd{.3em}{.5em}
-\usepackage{caption}
 \usepackage{xspace}
 \usepackage{enumitem}
 \usepackage{tabularx,placeins,multirow}
 \usepackage{todonotes}
+% \usepackage{showframe}
+% \usepackage[showframe]{geometry}
 
 \usepackage{listings}
 \lstset{
