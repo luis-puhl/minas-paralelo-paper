@@ -51,7 +51,7 @@ e detectam possíveis ataques.
 
 % \todo[inline]{ML} 
 Para implementação de \nids, técnicas de \ml têm sido empregadas na detecção de
-ataques a partir de características de ataques conhecidos ou pela tentativa de
+ataques a partir de características de ataques conhecidos ou na
 descoberta de novos ataques o mais cedo possível
 \cite{buczak2016survey,mitchell2014survey}.
 Apesar do uso promissor de \ml para segurança para sistemas \iot, muitos estudos
@@ -122,17 +122,20 @@ distribuída, para uso em ambientes \iot.
 % QUAL É UM RESUMO DOS RESULTADOS, SO PRA SETAR EXPECTATIVA DO LEITO}
 
 Este trabalho apresenta a construção e avaliação do \mfog\footnote{Disponível em
-\url{https://github.com/luis-puhl/minas-flink}}, uma implementação paralela e
-distribuída em névoa de dispositivos \iot do algoritmo \minas, utilizando o
-conjunto de dados \emph{Kyoto 2015}, relevante para \nids. Esta implementação
-foi construída com o padrão \mpi buscando escalabilidade na tarefa de processamento de
-fluxo de dados e economia dos recursos limitados comumente encontrados em
-sistemas \iot, seguindo a arquitetura \arch \cite{Cassales2019a}.
+\url{https://github.com/luis-puhl/minas-flink}.}, uma implementação paralela e
+distribuída em névoa de dispositivos \iot do algoritmo \minas.
+Esta implementação foi construída com o padrão \mpi buscando escalabilidade na
+tarefa de processamento de fluxo de dados e economia dos recursos limitados
+comumente encontrados em sistemas \iot, seguindo a arquitetura \arch
+\cite{Cassales2019a}.
 
-A avaliação do \mfog é construída com métricas de qualidade de classificação que
-mostraram valores equivalentes à implementação de referência do algoritmo \minas
-e, com métricas de escalabilidade que mostrar melhora mas não atingiram os
-valores esperados.
+A avaliação do \mfog é constituída de métricas de qualidade de classificação e
+métricas de escalabilidade, extraídas com auxilio do conjunto de dados
+\emph{Kyoto 2015} relevante para \nids.
+As métricas de qualidade de classificação obtidas dos resultados mostraram
+valores equivalentes à implementação de referência do algoritmo \minas e
+as métricas de escalabilidade mostraram melhora em relação à implementação de
+referência porém com eficiência de paralelismo abaixo do esperado.
 Este trabalho contribui com uma análise do algoritmo \minas com a ótica de
 distribuição em névoa, mostrando benefícios e desafios deste tipo de aplicação,
 iluminando os detalhes do problema abordado e apontando algumas soluções para
@@ -153,7 +156,7 @@ detecção de intrusão em redes de dispositivos \iot.
 Para tratar esse problema, a arquitetura \arch, recentemente proposta por
 \citeonline{Cassales2019a}, aplica ao problema algoritmos relevantes
 % atuais     % isso pode ser afirmado? Hélio
-de detecção de
+do tema de detecção de
 novidades em fluxos, executando esses algoritmos em ambiente próximo aos
 dispositivos e avaliando-os quanto à detecção de intrusão.
 
@@ -173,7 +176,7 @@ ECSMiner \cite{Masud2010ECSMiner}, AnyNovel \cite{Abdallah2016anynovel} e MINAS
 % \notahl{ Por que a necessidade paralelismo? O que falta que justifica essa
 % avaliação? Tempo de resposta?\\
 % Necessidade de tratar os dados próximo a onde são produzidos? Uso da cloud? ….}
-Contudo, o algoritmo MINAS ainda não foi implementado e avaliado com paralelismo,
+Contudo, o algoritmo \minas ainda não foi implementado e avaliado com paralelismo,
 multi-processamento ou distribuição computacional, que são necessários para
 tratar fluxos de dados 
 % com grandes volumes e velocidades
@@ -184,12 +187,13 @@ em ambientes distribuídos, como em cenários \iot e névoa.
 % O tratamento de distribuição em ambiente \fog é essencial para aplicação deste
 O tratamento de distribuição em ambiente névoa é essencial para aplicação deste
 algoritmo ao problema de detecção de intrusão em redes \iot, pois esta aplicação
-requer tempo de resposta mínimo e mínima comunicação entre nós distantes, como
-aqueles na borda e na nuvem.
-Ainda observando o algoritmo MINAS, destaca-se a possível divisão em três partes
+requer tempo de resposta mínimo e pequena comunicação entre nós distantes, como
+aquelas comunicações entre borda e a nuvem.
+Ainda observando o algoritmo \minas, destaca-se a possível divisão em três partes
 semi-independentes, sendo elas treinamento, classificação e detecção de
-novidade; a classificação é o elemento central cujos resultados são utilizados
-para a identificação de intrusões.
+novidades. A classificação é o elemento central cujos resultados são utilizados
+para a identificação de intrusões, enquanto a detecção de novidades fornece
+atualização automática do modelo de classificação.
 
 Ainda no contexto de \nd como método de detecção de intrusão, outras propostas
 tratam do caso de fluxos com grandes volumes e velocidades, como é o caso de
@@ -235,12 +239,12 @@ taxas de até $10.72$  Gbps.
 Os trabalhos de \citeonline{Cassales2019a} e \citeonline{Viegas2019} abordam
 detecção de intrusão em redes utilizando algoritmos de \nd, porém com
 perspectivas diferentes.
-O primeiro investiga \emph{IoT} e processamento em \emph{fog} e baseia-se em um
+O primeiro investiga \iot e processamento em névoa e baseia-se em um
 algoritmo genérico de detecção de novidade.
 O segundo trabalho trata de \emph{backbones} e processamento em nuvem e
 implementa o próprio algoritmo de detecção de novidade.
 Essas diferenças deixam uma lacuna onde, de um lado, tem-se uma
-arquitetura mais adequada para o ambiente \emph{fog} com um algoritmo estado da arte de
+arquitetura mais adequada para o ambiente de névoa com um algoritmo estado da arte de
 detecção de novidades, porém sem paralelismo.
 Do outro lado da lacuna, tem-se um sistema escalável de alto desempenho porém
 limitado ao ambiente nuvem e com um algoritmo que não foi projetado
@@ -348,11 +352,11 @@ Portanto, foram selecionadas plataformas de processamento distribuído de fluxos
 contínuos de dados
 e técnicas de aprendizado de máquina associadas a elas.
 Dessa revisão também foram identificadas técnicas ou ferramentas necessárias
-para extração das métricas de avaliação, bem como \emph{data sets}
-públicos relevantes para \nd.
+para extração das métricas de avaliação, bem como conjunto de dados
+públicos relevantes para \nids.
 
 Uma vez definidos o estado da arte, as ferramentas técnicas e os
-\emph{data sets}, o passo seguinte foi a experimentação.
+conjunto de dados, o passo seguinte foi a experimentação.
 Nesse passo, foi desenvolvida uma aplicação na plataforma escolhida que, com base no
 algoritmo \minas \cite{Faria2016minas}, classifica e detecta novidades em fluxos
 contínuos de dados.
@@ -360,8 +364,8 @@ Também nesse passo, a implementação foi validada comparando os resultados de
 classificação obtidos com os resultados de classificação do algoritmo original
 \minas.
 Posteriormente, foram realizados experimentos com a implementação e variações em
-\emph{data sets} e cenários de distribuição em \emph{fog}, coletando as métricas
-de classificação e escalabilidade.
+cenários de distribuição em névoa, coletando as métricas de classificação e
+escalabilidade.
 
 Ao final, a aplicação, resultados, comparações e discussões foram organizados
 para publicação em meios e formatos adequados, como repositórios técnicos,

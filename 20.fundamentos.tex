@@ -78,13 +78,13 @@ processamento distribuído de sensoriamento massivo em cidades inteligentes \cit
 mencionam que a enorme massa de dados gerados por ambientes IoT pode ser
 processada em nuvem, entretanto a latência produzida pela transferência desses
 dados para a nuvem e o retorno do resultado pode não ser toleradas por sistemas
-críticos que sejam sensíveis a latência (monitoramento de saúde e resposta a
-emergências).
+críticos que sejam sensíveis a latência como monitoramento de saúde e resposta a
+emergências.
 \citeonline{IEEECommunicationsSociety2018} ainda acrescenta que enviar tantos
 dados à nuvem
 para processamento e armazenamento pode ser ineficiente e não escalável, devido à
 saturação de dados na rede.
-O ambiente \emph{edge computing} foi proposto para trazer o
+O ambiente de computação de borda foi proposto para trazer o
 processamento e armazenamento para os dispositivos de borda tentando solucionar
 esses problemas.
 Entretanto, dispositivos de borda comumente não podem lidar com várias
@@ -101,6 +101,7 @@ dando a esses nós características de uma nuvem
 \cite{Bonomi2012,Dastjerdi2016,IEEECommunicationsSociety2018}.
 % \todo[inline]{IEEECommunicationsSociety2018 ??  Verificar}
 Esse tipo de computação evita a sobrecarga dos dispositivos de borda.
+
 \citeonline{Bonomi2012} e
 \citeonline{Dastjerdi2016} consideram computação em névoa como complementar da
 computação em borda, podendo a computação em névoa aproveitar os recursos da
@@ -108,9 +109,9 @@ nuvem e da borda.
 \citeonline{IEEECommunicationsSociety2018} considera que a
 principal diferença entre esses dois tipos de computação está no número de
 camadas.
-Enquanto \emph{edge computing} tem
+Enquanto computação de borda tem
 camadas menores, pois atua só nos
-dispositivos de borda, \emph{fog computing} tem mais camadas e um modelo
+dispositivos de borda, computação em névoa tem mais camadas e um modelo
 hierárquico, pois não atua só na camada de borda.
 
 Segundo \citeonline{Bonomi2012} e \citeonline{Dastjerdi2016}, as principais
@@ -118,7 +119,7 @@ características da computação em névoa são:
 
 \begin{itemize}
 
-    \item \textbf{Mobilidade:} é essencial que as aplicações \emph{fog} sejam
+    \item \textbf{Mobilidade:} é essencial que as aplicações para computação em névoa sejam
     capazes de se comunicar com dispositivos móveis, por exemplo, utilizando
     protocolos que considerem a mobilidade dos nós;
 
@@ -168,7 +169,7 @@ emergência.
 
 Tradicionalmente, aplicações
 foram construídas com um sistema gerenciador de
-banco de dados (SGBD) relacional ou não-relacional associado.
+banco de dados relacional ou não-relacional associado.
 Essa arquitetura,
 nomeada de ``arquitetura totalmente incremental'' por \citeonline{marz2015big},
 foi evoluída e simplificada iterativamente durante décadas de uso, porém ela não
@@ -243,7 +244,7 @@ real que \notahl{quem disse?!}\hlhl{facilita o processamento} de fluxo de dados
 Ao invés de executar trabalhos (\emph{jobs}) como algumas ferramentas citadas
 anteriormente, \emph{Apache Storm} \notahl{?}\hlhl{executa topologias}.
 Os \emph{jobs} eventualmente finalizam, e as topologias executam continuamente até
-serem finalizadas por comandos.
+serem finalizadas manualmente.
 Uma topologia constitui-se de processos trabalhadores (\emph{workers}) sendo executados
 em um \emph{cluster} de nós que são gerenciados pelo nó mestre que além de
 coordenar e distribuir execução, monitora falhas.
@@ -291,8 +292,7 @@ distribuído com um executável único (monólito) e sua execução em um ambien
 O \mpi tem duas primitivas básicas para comunicação dos processos que são o
 enviar (\emph{send}) e o receber (\emph{receive}) \cite{mpi-book}. A primitiva de
 envio é composta pelos argumentos: conteúdo da mensagem, tamanho da mensagem,
-processo destino, e \emph{tag} é um argumento para diferenciar mensagens (ex: ordem
-e conteúdo).
+processo destino, e \emph{tag} para diferenciar mensagens (ex: ordem e conteúdo).
 Associado à cada primitiva enviar, a primitiva receber possui os argumentos:
 conteúdo da mensagem, tamanho máximo da mensagem, remetente da mensagem, tamanho
 real da mensagem, e \emph{tag}.
@@ -310,12 +310,13 @@ O \mpi possui um ambiente de execução e gerenciamento chamado \emph{mpirun} qu
 recebe como entrada a configuração do cluster e o programa a ser executado, e se
 encarrega de iniciar os processos em todos os nós, geralmente por \emph{ssh},
 repassando os parâmetros que recebeu a cada processo e o identificador do
-processo para que ele saiba qual dado ler e qual função executar.
+processo para que ele saiba qual dado ler e qual função executar sob o paradigma
+\spmd.
 
-Este trabalho utiliza o OpenMPI, que é uma implementação aberta de \mpi, para a
+Este trabalho utiliza o OpenMPI\footnote{Disponível em \url{https://www.open-mpi.org/}.}, que é uma implementação livre de \mpi, para a
 comunicação entre os processos de cada nó do cluster.
 Cada nó do cluster possui um conjunto de processos, e cada processo possui seu
-espaço de endereçamento e é \emph{multithread}, onde as threads se comunicam
+espaço de endereçamento e é \emph{multithread}, onde as \emph{threads} se comunicam
 através da memória compartilhada.
 O OpenMPI permite a comunicação entre os processos independente se estão ou não
 no mesmo nó.

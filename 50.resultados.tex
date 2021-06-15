@@ -28,14 +28,15 @@ escalabilidade do \mfog.
 \newcommand{\expD}{\textit{d-Distribuído}\xspace}
 
 Seguindo as especificações de ambiente da Seção \ref{sec:ambiente}, cada
-experimento consiste na execução de um dos programas ((a)\minas referência 2013
-\cite{Faria2013source}, (b) implementação sequencial do \minas com a nova
-biblioteca, (c) \mfog em um ou (d) três nós) com variação do parâmetro de paralelismo,
+experimento consiste na execução de um dos programas,
+% ((a) \minas referência 2013
+% \cite{Faria2013source}, (b) implementação sequencial do \minas com a nova
+% biblioteca, (c) \mfog em um ou (d) três nós) 
+com variação do parâmetro de paralelismo, como mostra a Tabela \ref{tab:exp-list},
 fornecendo um modelo inicial e \dataset de teste como fluxo de entrada e
 capturando o fluxo de saída para e extração das métricas estabelecidas na Seção
 \ref{sec:avaliacao}.
-Destes experimentos, listados na Tabela \ref{tab:exp-list}, os seguintes
-resultados são apresentados.
+Destes experimentos os seguintes resultados são apresentados.
 
 \begin{table}[htb]
   \centering
@@ -56,7 +57,7 @@ resultados são apresentados.
     Mais processadores;
     Comunicação em rede.
   \end{tabular}
-  \end{table}
+\end{table}
 
 \subsection{Validação do algoritmo}
 
@@ -77,7 +78,7 @@ Nesta matriz, o rótulo ``desconhecido'' é o caractere ``$-$'' e os valores de
 associação e verdadeiro-positivo estão atrelados à coluna de cada rótulo; no
 demais a matriz segue os atributos definidos na Seção \ref{sec:avaliacao}.
 Esta matriz é comparada com a matriz de confusão do mesmo instante do fluxo de
-saída do experimento \expB, e os resultados são apresentados na Tabela \ref{tab:libc-matrix}.
+saída do experimento \expB, vista na Tabela \ref{tab:libc-matrix}.
 
 \begin{table}[hbt]%{\linewidth}
   {\footnotesize
@@ -101,11 +102,12 @@ saída do experimento \expB, e os resultados são apresentados na Tabela \ref{ta
 
 Comparando as duas matrizes, a primeira diferença aparente é o índice do
 primeiro rótulo novidade ($0$ ao invés de $1$), mas isso se deve apenas à decisão
-arbitrária.
+arbitrária de íncide de novidades.
 % A sentença a seguir está bem longa, difícil de acompanhar. Fragmentar?
 A primeira diferença notável que influi nas métricas de qualidade é a falta de 3
-rótulos novidade, $12$ rótulos no experimento \expA e $9$ no experimento \expB,
-seguido do número de exemplos desconhecidos, $28\,567$ no experimento \expB e
+rótulos novidade, $12$ rótulos no experimento \expA ($[1,12]$) e $9$ no
+experimento \expB ($[0,10]$ exceto $\{3,9\}$).
+Também nota-se o número de exemplos desconhecidos, $28\,567$ no experimento \expB e
 $11\,980$ no experimento \expA e, o montante de exemplos incluídos nos rótulos
 novidade, muito menor no experimento \expB.
 

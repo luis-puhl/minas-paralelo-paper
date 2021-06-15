@@ -30,21 +30,24 @@ enquanto o \mfog segue a definição em \citeonline{Faria2016minas} utilizando o
 desvio padrão dos valores do mesmo conjunto de distâncias multiplicado pelo
 parâmetro $f_{raio}$ seguindo a Equação \ref{eq:raio_paper}.
 
-Os formatos dos fluxos de dados de entrada e de saída também são notáveis. Como
+Os formatos dos fluxos de dados de entrada e de saída também são notáveis.
+O formato do fluxo de saída é definido como a tupla contendo o número de
+sequência do exemplo no fluxo de entrada (\emph{uid}) e a etiqueta de um caractere
+atribuída ao exemplo.
+% , e o tempo em milissegundos entre a ingestão (entrada) e saída do exemplo no
+% sistema.
+% no executável avaliado não tem o tempo de operação.
+Como
 entrada, o algoritmo da proposta recebe dois fluxos, o principal é o que contém
 os exemplos, sendo cada exemplo um vetor de números de dimensão $d$.
 O segundo fluxo de entrada consiste de \mclusters representando o modelo inicial
 criado e capturado da fase de treinamento \emph{offline}.
+
 A fase de treinamento \emph{offline} foi implementada em programa separado da
 fase \emph{online} e segue o algoritmo \minas \cite{Faria2016minas}.
 Este programa é executado uma vez com o conjunto de treinamento (rotulado com as
-classes iniciais) como fluxo de entrada e, sua saída que é um fluxo finito de
-\mclusters formando o modelo inicial é capturada em arquivo.
-
-O formato do fluxo de saída é definido como a tripla contendo o número de
-sequência do exemplo no fluxo de entrada (\emph{uid}), a etiqueta de um caractere
-atribuída ao exemplo, e o tempo em milissegundos entre a ingestão (entrada) e saída
-do exemplo no sistema.
+classes iniciais) como fluxo de entrada e sua saída, que é um fluxo finito de
+\mclusters, forma o modelo inicial e é capturada em arquivo.
 
 % - Reprocessamento dos exemplos utilizados para atualização do modelo:
 %   - Muda o comportamento do operador de fluxo de `Map` para `Flatmap`, ou seja,
@@ -55,9 +58,10 @@ do exemplo no sistema.
 %     inflar a métrica de precisão;
 %   - **Solução:** *em aberto*;
 
-Para avaliação desta proposta, ela foi construída com a implementação \emph{Open
-MPI 4.0.4}\footnote{Documentação em \url{https://www.open-mpi.org/doc/v4.0/}} do
-padrão \mpi, seguindo o paradigma de programação paralela \acf{SPMD}.
+Para avaliação desta proposta, ela foi construída em linguagem C com
+\emph{OpenMPI 4.0.4}\footnote{Documentação em
+\url{https://www.open-mpi.org/doc/v4.0/}.}, seguindo o paradigma de programação
+paralela \acf{SPMD}.
 No paradigma \spmd, uma única versão do programa é inicializada em todos os nós, sendo que
 para cada instância são passados os parâmetros \texttt{mpiSize} e
 \texttt{mpiRank}, que representam o número de nós e o índice de cada nó no
@@ -72,7 +76,7 @@ e folha.
 
 % The overall sequence of interactions is shown in Figure \ref{fig:mfog-mpi-life}.
 As interações entre os diferentes módulos e ciclo de vida do sistema é ilustrado
-no diagrama de sequencia da Figura \ref{fig:mfog-mpi-life}.
+no diagrama de sequencia na Figura \ref{fig:mfog-mpi-life}.
 
 \begin{figure}[htb]
   \centerline{
@@ -108,7 +112,7 @@ no diagrama de sequencia da Figura \ref{fig:mfog-mpi-life}.
             \Classifier(Modelo, trava)\;
         }
     }
-\caption{Sistema M-FOG: ponto de entrada.}
+\caption{Sistema M-FOG, ponto de entrada.}
 \label{alg:MFOG}
 \end{algorithm}
 

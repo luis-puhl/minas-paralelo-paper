@@ -44,23 +44,23 @@ Proposta por \citeonline{Viegas2019}, a ferramenta BigFlow é um sistema de
 detecção de intrusão em rede (\emph{Network Intrusion Detection System}, \nids)
 baseado em detecção de anomalias.
 Como mecanismo de detecção de intrusão na construção de um \nids, duas
-abordagens são comuns, detecção por assinatura e detecção por anomalia. Para a detecção de novos tipos de ataque (\emph{zero day}) a abordagem de
-detecção por anomalia é vantajosa comparada a detecção por assinatura que tem tempo de resposta grande demais para
-prevenir esse tipo de intrusão.
+abordagens são comuns, detecção por assinatura e detecção por anomalia.
+Para a detecção de novos tipos de ataque (\emph{zero day}) a abordagem de
+detecção por anomalia é vantajosa comparada a detecção por assinatura que tem
+tempo de resposta grande demais para prevenir esse tipo de intrusão.
 
 A ferramenta BigFlow é composta pelos módulos de extração de atributos e de
-aprendizado confiável. O módulo de extração de atributos é responsável por:
+aprendizado confiável. O módulo de extração de atributos é responsável por
 coletar pacotes da rede monitorada,
 extrair as características desses pacotes formando descritores de fluxo
 com estatísticas de comunicação, e enviar informações desses fluxos como
 exemplos para o módulo de aprendizado confiável.
-O módulo de aprendizado confiável,
-é composto pelos submódulos:
-submódulo classificador, responsável por classificar exemplos;
-submódulo de verificação, responsável por verificar o resultado de classificação;
-submódulo de exemplos rejeitados, responsável por requisitar a um especialista
+O módulo de aprendizado confiável, é composto pelos submódulos:
+classificador, responsável por classificar exemplos;
+de verificação, responsável por verificar o resultado de classificação;
+de exemplos rejeitados, responsável por requisitar a um especialista
 etiquetas para exemplos rejeitados e;
-submódulo de atualização incremental, que atualiza e distribui o modelo aos classificadores.
+de atualização incremental, que atualiza e distribui o modelo aos classificadores.
 
 % \begin{figure}[!h]
 % \centering
@@ -86,19 +86,19 @@ submódulo de atualização incremental, que atualiza e distribui o modelo aos c
 % [24] H. He, E.A. Garcia, Learning from imbalanced data, IEEE Trans. Knowl. Data Eng.
 % 21 (2009) 1263–1284. doi:10.1109/TKDE.2008.239.
 
-\citeonline{Viegas2019} destaca que \datasets adequados para \nids são
+\citeonline{Viegas2019} destaca que conjuntos de dados adequados para \nids são
 poucos devido ao conjunto de qualidades que eles devem atender, como
 realismo, validade, etiquetamento, grande variabilidade e reprodutibilidade
 (disponibilidade pública).
 
-Para avaliar o desempenho de \nids, o \dataset MAWIFlow é proposto por \citeonline{Viegas2019}.
-Este \dataset é derivado dos traços de pacotes no \emph{backbone} WIDE, ponto de amostras F
+Para avaliar o desempenho de \nids, o conjunto de dados MAWIFlow é proposto por \citeonline{Viegas2019}.
+Este conjunto de dados é derivado dos traços de pacotes no \emph{backbone} WIDE, ponto de amostras F
 (\emph{Packet traces from WIDE backbone, samplepoint-F}), composto por
-seções diárias de captura de pacotes de 15 minutos de um link de $1
+seções diárias de captura de pacotes de 15 minutos de um link de $1\;
 \mathrm{Gbps}$ entre Japão e EUA, com início em 2006 continuamente até hoje,
 anonimizados e etiquetados por MAWILab \cite{mawiSamplepointF,Fontugne2010}.
-Desse \dataset original, o \dataset MAWIFlow utiliza apenas os eventos de 2016,
-dos quais 158 atributos são extraídos resultando em $7.9 \mathrm{TB}$ de captura de pacotes.
+Desse conjunto de dados original, o conjunto de dados MAWIFlow utiliza apenas os eventos de 2016,
+dos quais $158$ atributos são extraídos resultando em $7.9\;\mathrm{TB}$ de captura de pacotes.
 Por fim, os dados são estratificados para redução de seu tamanho a um
 centésimo, \hlhl{mantendo} as proporções de etiquetas (Ataque e Normal), \hlhl{facilitando} o
 compartilhamento e avaliação de NIDS, além de atender às qualidades anteriormente
@@ -109,7 +109,7 @@ mencionadas.
 % [45] classifier composed from DT, RF, and GB that decides based on majority
 % voting across each classifier’s decisions.
 
-Com o \dataset MAWIFlow reduzido a 62 atributos, foram avaliados quatro
+Com o conjunto de dados MAWIFlow reduzido a 62 atributos, foram avaliados quatro
 classificadores da literatura em dois modos de operação.
 % quanto aoseus dados de treinamento (ambos contendo uma semana de captura).
 O primeiro modo de operação usa somente a primeira semana do ano como conjunto
@@ -192,25 +192,25 @@ visualização.
 % embalada em um funcao virtual de rede?}
 
 Na camada de captura, pacotes são capturados da rede e 
-são geradas informações sumário de fluxos
+são gerados descritores de fluxos
 por uma aplicação \emph{Python} utilizando a biblioteca \emph{flowtbag}\footnote{
     Disponível em \url{https://github.com/danielarndt/flowtbag} e
     \url{https://dan.arndt.ca/projects/netmate-flowcalc/}.
 }.
-Esses sumários são enviados para um tópico de um sistema de fila de mensagens
+Esses descritores de fluxo são enviados para um tópico de um sistema de fila de mensagens
 (\emph{Apache Kafka}) hospedado em nuvem.
 Essa aplicação \emph{Python} é distribuída como uma função virtual de rede
-(\emph{Network Function Virtualization}) executada em dispositivos de rede
-virtuais.
+(\emph{Network Function Virtualization}) executada em dispositivos virtuais de rede.
+% hospedados em névoa
 
 % estabelecendo um ambiente de computação em névoa.
-A camada de processamento consome o tópico de mensagens que contém os fluxos
-da camada de captura e extrai características dos fluxos, detecta e classifica ameaças,
+A camada de processamento consome o tópico de mensagens que contém os descritores de fluxos
+da camada de captura e extrai características dos descritores de fluxos, detecta e classifica ameaças,
 enriquece o resultado (com localização geográfica por exemplo) e envia para a
-próxima camada na arquitetura por meio de um banco de dados (SGBD).
+próxima camada na arquitetura por meio de um banco de dados.
 A última camada da ferramenta fornece uma interface gráfica que apresentada a
-visualização dos fluxos processados bem como os conhecimentos extraídos e
-armazenados no banco de dados (SGBD).
+visualização dos descritores de fluxos processados bem como os conhecimentos extraídos e
+armazenados no banco de dados.
 Ambas as camadas de processamento e visualização são executadas em ambiente de
 computação em nuvem.
 
@@ -278,8 +278,8 @@ O modelo é criado na fase \emph{Offline} e utilizado na classificação binári
 
 Pra avaliação da ferramenta CATRACA dois conjuntos de dados são utilizados.
 O primeiro conjunto, UFRJ/GTA, é sintético e foi criado por uma simulação de
-rede de computadores, contendo $214\;200$ fluxos de rede e totalizando $95
-\mathrm{GB}$ de pacotes capturados, este \dataset
+rede de computadores, contendo $214\;200$ fluxos de rede e totalizando $95\;
+\mathrm{GB}$ de pacotes capturados, este conjunto de dados
 é composto de 24 atributos e 16 classes.
 O outro conjunto, referido como NetOp, foi coletado de um operador de rede que
 atendia 373 residências na cidade do Rio de Janeiro em 2017.
@@ -294,8 +294,7 @@ métodos de avaliação amplamente utilizados para avaliar modelos de aprendizad
 de máquina (\emph{machine learning}) como validação cruzada com proporção
 $70\%$ do conjunto base para treinamento e $30\%$ para teste.
 Para as métricas de escalabilidade foram utilizadas a latência e fator de aceleração
-\emph{speedup factor} (latência observada com paralelismo 1 dividida pela
-latência observada com paralelismo variável).
+(\emph{speedup}).
 
 Em conclusão, a ferramenta CATRACA apresenta uma arquitetura dividida em camadas
 alocadas em ambientes de névoa e nuvem.
@@ -355,17 +354,17 @@ também possibilitar a análise de grandes volumes de dados por algoritmos de
 maior complexidade, que são de custo computacional proibitivo para nós de borda.
 
 A arquitetura proposta é avaliada com três algoritmos de detecção de novidade:
-ECSMiner \cite{Masud2010ECSMiner}, AnyNovel \cite{Abdallah2016anynovel} e MINAS
+ECSMiner \cite{Masud2010ECSMiner}, AnyNovel \cite{Abdallah2016anynovel} e \minas
 \cite{Faria2016minas}.
-A avaliação foi feita com o \dataset \emph{Kyoto 2006+}, composto de
+A avaliação foi feita com o conjunto de dados \emph{Kyoto 2006+}, composto de
 dados coletados de 348 \emph{Honeypots} 
 (máquinas isoladas, equipadas com diversos
 softwares com vulnerabilidades conhecidas e expostas à Internet, com propósito de
 atrair ataques) de 2006 até dezembro 2015.
-Esse \dataset tem as características desejáveis de um conjunto para detecção de
+Esse conjunto de dados tem as características desejáveis de um conjunto para detecção de
 novidades como: realismo, validade, etiquetas previamente definidas, alta
 variabilidade, reprodutibilidade e disponibilidade pública.
-O \dataset \emph{Kyoto 2006+} contém 24 atributos, 3 etiquetas atribuídas por
+O conjunto de dados \emph{Kyoto 2006+} contém 24 atributos, 3 etiquetas atribuídas por
 detectores de intrusão comerciais e uma etiqueta
 distinguindo o tráfego entre normal, ataque conhecido e ataque desconhecido.
 
@@ -392,7 +391,7 @@ Ambas as avaliações demonstraram o equilíbrio entre qualidade de classificaç
 velocidade ou uso de recursos.
 O algoritmo ECSMiner mostrou melhor qualidade de classificação, porém com
 velocidade inferior e maior consumo de recursos comparado aos outros algoritmos.
-Já o algoritmo MINAS, apesar de maiores valores na métrica \emph{erro}, mostrou-se
+Já o algoritmo \minas, apesar de maiores valores na métrica \emph{erro}, mostrou-se
 adequado para dispositivos limitados com baixo consumo de recursos
 computacionais e manteve a métrica \emph{Fnew} constante e baixa.
 O algoritmo AnyNovel não apresentou consistência nos resultados e o consumo
@@ -489,14 +488,14 @@ Um sumário dos trabalhos abordados pode ser visto na Tabela \ref{tab:summary}.
         Contínua Automática &
         \emph{Kyoto 2006+} &
         \emph{Fnew}, \emph{Mnew} e \emph{erro}
-    % Murilo Naldi da UFSCAR & plataforma & técnica & \dataset & métricas \\
+    % Murilo Naldi da UFSCAR & plataforma & técnica & conjunto de dados & métricas \\
     % Não encontrei uma plataforma do Naldi, encontrei algoritmos.
     % \hline
-    % Latifur Khan & plataforma & técnica & \dataset & métricas \\
+    % Latifur Khan & plataforma & técnica & conjunto de dados & métricas \\
     % \hline
-    % CLAM & plataforma & técnica & \dataset & métricas \\
+    % CLAM & plataforma & técnica & conjunto de dados & métricas \\
     % \hline
-    % trabalhos do Bifet e o framework baseado no MOA (samoa) & plataforma & técnica & \dataset & métricas \\
+    % trabalhos do Bifet e o framework baseado no MOA (samoa) & plataforma & técnica & conjunto de dados & métricas \\
     % \hline
   \end{tabularx}
   \label{tab:summary}

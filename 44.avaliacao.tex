@@ -98,23 +98,24 @@ a \in [0, m] \}$ para $c_i \in \mathbf{C}$ e $l_j \in \mathbf{L}$
     A(l_j) : l_j \in \mathbf{L} \mapsto c_i \in \mathbf{C} &= \begin{cases} 
       \text{indefinido}        & \quad \text{se } l_j = \text{``desconhecido''} \\
       c_i         & \quad \text{se } \exists c_i = l_j \quad: c_i \in \mathbf{C}' \\
-      c_i         & \quad \text{se } e_{ij} = max\{ e_{aj} : a \in [0, m] \}
+      c_i         & \quad \text{se } e_{ij} = max\{ e_{aj} : \in [0, m] \}
     \end{cases}
   \end{align}
 \end{definition}
 
 No contexto de classificação multi-classe, a acurácia $\mathit{acc}_x$ para um
-instante $x$ é definida como a média da acurácia de cada classe, de maneira
-semelhante a taxa de desconhecidos.
-A métrica acurácia, de forma semelhante à definição da matriz de confusão,
-é definida como extensão da acurácia da classificação binária.
+instante $x$ é definida como a média da acurácia de cada classe (Eq. \ref{eq:acc}).
+A acurácia de cada classe $c_i$ no instante $x$, de forma semelhante à
+definição da matriz de confusão, é definida como extensão da acurácia da
+classificação binária (Eq. \ref{eq:acci}).
 Para classificação binária a acurácia calculada com os valores
 verdadeiro-positivo ($tp$), verdadeiro-negativo ($tn$), falso-positivo ($fp$) e
 falso-negativo ($fn$).
 Para cada classe $c_i$, o valor verdadeiro-positivo ($tp_i$) é definido como
 número de exemplos onde o rótulo do exemplo $l$ é associado à
-classe $c_i$, o valor falso-negativo ($fn_i$) são os exemplos da classe onde o
-rótulo do exemplo não é associado à classe $c_i$ e o rótulo não é ``desconhecido''.
+classe $c_i$ (Eq. \ref{eq:tpi}).
+O valor falso-negativo ($fn_i$) são os exemplos da classe onde o
+rótulo do exemplo não é associado à classe $c_i$ e o rótulo não é ``desconhecido'' (Eq. \ref{eq:fni}).
 Os valores verdadeiro-negativo ($tn$) e falso-positivo ($fp$) são zero.
 % pois dado um exemplo de classe $c_i$, ele pode ser classificado como .
 % O como os valores $tp_i$ e $fp_i$ cobrem toda a matriz de confusão ($tp_i + fp_i = x$)
@@ -123,9 +124,9 @@ Os valores verdadeiro-negativo ($tn$) e falso-positivo ($fp$) são zero.
 %   A função de associações $A = (a_j) \in \mathbb{N}^n$ um item $a_j$ é
 %   igual ao índice $i$ da classe $c_i$ associada ao rótulo $l_j$ sendo:
   \begin{align}
-    tp_i            &= \sum_{j=1}^{n} e_{ij}        \quad \text{ se } l_j \neq \text{``desconhecido''} \text{ e } A(l_j) = c_i  \\
-    fn_i            &= \sum_{j=1}^{n} e_{ij}        \quad \text{ se } l_j \neq \text{``desconhecido''} \text{ e } A(l_j) \neq c_i  \\
-    \mathit{acc}_i  &= \frac{tp + tn}{tp+fn+fp+tn}  = \frac{tp_i}{fn_i + tp_i} \\
+    tp_i            &= \sum_{j=1}^{n} e_{ij}        \quad \text{ se } l_j \neq \text{``desconhecido''} \text{ e } A(l_j) = c_i \label{eq:tpi}\\
+    fn_i            &= \sum_{j=1}^{n} e_{ij}        \quad \text{ se } l_j \neq \text{``desconhecido''} \text{ e } A(l_j) \neq c_i \label{eq:fni}\\
+    \mathit{acc}_i  &= \frac{tp + tn}{tp+fn+fp+tn}  = \frac{tp_i}{fn_i + tp_i} \label{eq:acci}\\
     \mathit{acc}_x & = \frac{1}{m} \sum_{i=1}^{m} \mathit{acc}_{i} \label{eq:acc}
   \end{align}
 % \end{definition}
@@ -239,11 +240,8 @@ o valor falso-negativo ($fn_i$) dividido pelo número de exemplos da classe.
 % \end{align}
 
 Para a validação da corretude da implementação do \mfog com relação ao algoritmo
-\minas original, ambos são executados com o mesmo \dataset e as métricas de
+\minas original, ambos são executados com o mesmo \dataset de avaliação e as métricas de
 qualidade de classificação são comparadas.
-As métricas de escalabilidade extraídas são o número de processadores, tempo de
-processamento e latência de eventos e, estas métricas permitem o cálculo de
-\emph{speedup} prático.
 
 % As métricas de escalabilidade selecionadas são: número de nós processadores,
 % tipo de processadores, uso de memória, tempo de processamento, taxa de eventos
@@ -288,12 +286,17 @@ processamento e latência de eventos e, estas métricas permitem o cálculo de
 Um programa de avaliação foi construído seguindo as técnicas de referência como
 matriz de confusão multi-classe com associação de classe de rótulo
 \cite{Faria2016minas} para extrair medidas de qualidade de classificação.
-Este script recebe duas entradas, o conjunto de dados de teste e o fluxo de
-saída capturado, e gera a matriz de confusão, associação de classe de rótulo,
-resumo de qualidade final com:
+Este programa recebe duas entradas, o conjunto de dados de teste e o fluxo de
+saída capturado.
+Com estas informações o programa gera a matriz de confusão do instante final, associação de
+classes e rótulos, resumo de qualidade final com
 \emph{Hits} (acurácia), \emph{Misses} (erro), \emph{Unknowns} (taxa de
 desconhecidos) e, um gráfico de visualização do fluxo com as métricas e
-marcadores de novidades.
+marcadores de novidades para cada instante do fluxo de saída capturado.
+
+As métricas de escalabilidade extraídas são o número de processadores, tempo de
+processamento e latência de eventos e, estas métricas permitem o cálculo de
+\emph{speedup} prático.
 
 % % Our script computed the
 % Our evaluation script was build following reference techniques like

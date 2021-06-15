@@ -119,11 +119,11 @@ Esse conjunto de treinamento é dividido em grupos usando como chave o rótulo,
 e para cada grupo de exemplos o método de agrupamento é executado.
 O método de agrupamento objetiva resumir um conjunto maior de exemplos em um
 conjunto menor de \mclusters (Definição \ref{def:microcluster}).
-A cada \mcluster é adicionada o rótulo do grupo original e todos \mclusters
+A cada \mcluster é adicionado o rótulo do grupo original e todos \mclusters
 são arranjados em um único conjunto formando o modelo de decisão.
 
 \begin{definition}
-  Para um grupo de exemplos $\mathbf{X} \in \mathcal{MX}$, um \mcluster
+  Para um grupo de exemplos $\mathbf{X} \in \mathcal{M}$, um \mcluster
   $\mathcal{M}$ é uma tupla de quatro componentes $(n, \mathbf{LS}, \mathbf{SS}, t)$
   derivados dos exemplos representados por este \mcluster onde \cite{Aggarwal2003,Faria2016minas}:
   \begin{itemize}
@@ -140,22 +140,22 @@ são arranjados em um único conjunto formando o modelo de decisão.
 Deste sumário extrai-se o centro e o raio que são utilizados na operação de
 classificação da fase \emph{Online} \cite{Faria2016minas}.
 O vetor centro é definido pelo algoritmo de agrupamento e corresponde ao
-ponto médio dos exemplos contidos no grupo, visto na Equação \ref{eq:centro}.
+ponto médio dos exemplos do \mcluster, visto na Equação \ref{eq:centro}.
 O raio pode ser definido de duas maneiras e ambas dependem no conjunto das
-distâncias $D_\mathcal{M}$ entre centro e cada elemento contido no grupo.
+distâncias $D_\mathcal{M}$ entre centro e cada elemento do \mcluster.
 A primeira definição de raio é o desvio padrão das distâncias em $D_\mathcal{M}$
 multiplicado por um fator parametrizado \cite{Faria2016minas}, visto na Equação
 \ref{eq:raio_paper}, a segunda definição é o valor máximo das distâncias em
 $D_\mathcal{M}$ \cite{Faria2013source}, visto na Equação \ref{eq:raio_max}.
 
 \begin{definition}
-  O vetor centro é o ponto médio dos exemplos contidos no grupo:
+  O vetor centro é o ponto médio dos exemplos do \mcluster:
   \begin{align}
     centro    &= 1/n \cdot \mathbf{LS} \label{eq:centro}
   \end{align}
-  O conjunto das distâncias $D_\mathcal{M}$ entre centro e cada elemento contido no grupo:
+  O conjunto das distâncias $D_\mathcal{M}$ entre centro e cada elemento do \mcluster:
   \begin{align}
-    D_\mathcal{M}  &= \{ d_i : d_i = dist(\mathbf{X}_i, centro) \} & \mathbf{X}_i \in \mathcal{MX} \nonumber
+    D_\mathcal{M}  &= \{ d_i : d_i = dist(\mathbf{X}_i, centro) \} & \mathbf{X}_i \in \mathcal{M} \nonumber
   \end{align}
   O escalar raio é o desvio padrão ou o máximo do conjunto $D_\mathcal{M}$:
   \begin{align}
@@ -263,6 +263,7 @@ entre o exemplo e todos \mclusters do modelo, selecionando o
 Se a distância entre o exemplo e o centro do \mcluster for menor que
 o raio do \mcluster, o exemplo é classificado com o rótulo do \mcluster
 e o sumário estatístico do \mcluster é atualizado.
+%  (especialmente elemento $t$ usado para remoção de modelos antigos).
 Caso a distância (mínima no modelo) seja maior que o raio,
 o exemplo é marcado como desconhecido e armazenado
 no conjunto de desconhecidos \cite{Faria2016minas}.
@@ -283,20 +284,35 @@ O valor $\mathit{silhueta}$ por sua vez é calculado com os valores:
 $b$ a distância do novo \mcluster até o mais próximo contido no modelo atual;
 $a$ o desvio padrão das distâncias entre o centro do novo \mcluster e cada
 exemplo representado no novo \mcluster.
-% No entanto, se o valor raio for definido como a distância máxima (Equação
-% \ref{eq:raio_max}), se um novo \mcluster é formado apenas por exemplos
-% desconhecidos e, todo exemplo desconhecido tem distância ao cluster mais próximo
-% maior do que o raio do cluster mais próximo, NÃO SEGUE LOGICAMENTE, o valor de
-% $a$ será sempre menor do que o valor $b$
-% Sendo $a, b \geq 0$,
-% Se $a > b$, então $b-a \leq 0$, portanto  $si = \frac{b-a}{a}$, et
 
 \begin{align}
-  a = \sigma &= \mathit{SD}\{ dist(\mathbf{X}_i, centro) : \mathbf{X}_i \in \mathcal{MX} \} \nonumber\\
+  a = \sigma &= \mathit{SD}\{ dist(\mathbf{X}_i, centro) : \mathbf{X}_i \in \mathcal{M} \} \nonumber\\
   b &= min\{ dist( centro_{novo}, centro(\mathcal{M}_i)) : \mathcal{M}_i \in {Modelo}\}\nonumber\\
   \mathit{silhueta} &= \frac{b - a}{max(b, a)} \label{eq:silhueta}
 \end{align}
 
+% No entanto, se o valor raio for definido como o $f_{raio} \cdot \mathcal{M}_{\sigma}$ Equação
+% \ref{eq:raio_paper}, se um novo \mcluster é formado apenas por exemplos
+% desconhecidos e, todo exemplo desconhecido tem distância ao cluster mais próximo
+% maior do que o raio do cluster mais próximo,
+% segue que o conjunto de distâncias $d_{novo} = \{ dist( centro_{novo}, centro(\mathcal{M}_i)) : \mathcal{M}_i \in {Modelo}\}$
+% é definido com $centro_{novo} = 1/n \cdot \mathbf{LS}$
+% onde $\mathbf{LS} = \sum_{i=0}^{n} X \in \mathcal{M}_{novo}$
+% e como $\forall X \in \mathcal{M}_{novo} \land \mathcal{M}_i \in {Modelo}$
+% segue que
+% $dist( X, centro(\mathcal{M}_i)) > \mathcal{M}_i(raio) = f_{raio} \cdot \mathcal{M}_\sigma $,
+% segue que $\nexists d \in d_{novo} : d < (f_{raio} \cdot \mathcal{M}_{i \sigma}) \forall \mathcal{M}_i \in {Modelo}$
+% portanto $b \geq (f_{raio} \cdot \mathcal{M}_{i \sigma}) \forall \mathcal{M}_i \in {Modelo}$
+% e como $a = \sigma$ e $b / f_{raio} \geq \sigma$, 
+% então sendo $f_{raio} < 0$
+% $silhueta = \frac{b-a}{\lceil a, b \rceil} = \frac{b - \sigma}{\lceil b, \sigma \rceil} \implies 0 < silhueta < 1$.
+% Sendo então todo \mcluster criado à partir de exemplos desconhecidos coeso.
+% % $a = \mathcal{M}_{raio} / f_raio$
+% % e que \nonumber\\
+% % o valor de
+% % $a$ será sempre menor do que o valor $b$
+% % Sendo $a, b \geq 0$,
+% % Se $a > b$, então $b-a \leq 0$, portanto  $si = \frac{b-a}{a}$, et
 
 \begin{algorithm}[htb]
   \SetKwFunction{nearestCluster}{clusterMaisPróximo}
@@ -517,7 +533,7 @@ As modificações são:
   distância euclidiana;
   
   \item Mudança de representação de \clusters, atualmente esferas no espaço de
-  dimensão $d$, para paralelogramos no espaço de dimensão $d$ tratando \datasets
+  dimensão $d$, para paralelogramos no espaço de dimensão $d$ tratando conjuntos de dados
   onde as características representadas por cada dimensão são completamente
   independentes;
   
@@ -534,7 +550,7 @@ As modificações são:
 
   \item Em uma implementação de avaliação, ajuste automático de parâmetros
   otimizando para o máximo de classificações corretas e mínimo tempo de execução
-  para um \dataset fornecido.
+  para um conjunto de dados fornecido.
 
 \end{enumerate}
 

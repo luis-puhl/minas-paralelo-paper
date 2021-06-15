@@ -241,13 +241,16 @@ em névoa.
 
 % o que quer dizer isso?
 O módulo Detecção de Novidade tem uma instância por cluster, equivalendo a uma
-instância por rede local. O compartilhamento de modelo entre
-redes distintas é possível, mas não foi implementado e testado neste trabalho.
+instância por rede local.
+O compartilhamento de modelo entre redes distintas é possível, mas não foi
+implementado e testado neste trabalho.
 % 
-Este módulo é responsável pela tarefa homônima do algoritmo \minas, recebendo
-exemplos com rótulo ``desconhecido'' e os armazenando no conjunto de
-desconhecidos; quando o tamanho deste conjunto alcança um valor parametrizado,
-este módulo executa a função de detecção de novidade do algoritmo \minas.
+O módulo Detecção de Novidade é responsável pela tarefa homônima do algoritmo
+\minas, recebendo exemplos com rótulo ``desconhecido'' e os armazenando no
+conjunto de desconhecidos.
+Quando o tamanho do conjunto de desconhecidos alcança um valor parametrizado,
+este módulo executa a função de detecção de novidade do algoritmo \minas
+e distribui os novos \mclusters para as instâncias do módulo de Classificação.
 % The Novelty Detection Module can also be replicated,
 % the choice being one instance per local network, one global cloud instance,
 % or both.

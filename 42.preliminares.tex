@@ -36,7 +36,7 @@ e uma instância \emph{Apache ZooKeeper} associada à instância \kafka.
 % entre os consumidores para a paralelização a execução.
 A hipótese foi refutada quando observou-se que o número de
 mensagens consumidas por um dos $8$ processos representava a maioria (mais de
-$80\%$) do volume introduzido no sistema, o restante sendo distribuído entre
+$80\%$) do volume introduzido no sistema, o restante das mensagens sendo distribuído entre
 outros 3 processos e o restante dos processos não recebia nenhuma mensagem.
 Portanto, a iniciativa de implementar o algoritmo MINAS em \python com \kafka e
 atingir os objetivos de distribuição falhou, o que levou à reconsideração das
@@ -84,7 +84,7 @@ na segunda execução, o que degradava imensamente o desempenho.
 Em conclusão, apesar de promissora, a plataforma \flink ainda não suportava a
 execução em dispositivos computacionais restritos de maneira confiável, sendo a
 principal barreira o uso excessivo de memória, comum em plataformas do gênero
-\emph{BigData}.
+\emph{Big Data}.
 
 % 2020-04-27T15:00:32.782 INFO  Classifier Ran baseline in 1408.8210000000001s
 % jobmanager.heap.size: 100m

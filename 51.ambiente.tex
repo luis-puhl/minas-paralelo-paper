@@ -9,8 +9,8 @@ experimental de névoa.
 Este ambiente é composto por três computadores de única placa (\emph{Single
 Board Computer}) modelo Raspberry Pi 3 model B, equipados com o SoC
 (\emph{system-on-chip} - sistema em um chip) de arquitetura ARM \emph{BCM2837} com
-$4$ núcleos de processamento à frequência de $1.2GHz$, $32kB$ e $512kB$ de
-memória \emph{cache} nível 1 e 2 respectivamente, $1GB$ de memória RAM,
+$4$ núcleos de processamento à frequência de $1.2\,GHz$, $32\,kB$ e $512\,kB$ de
+memória \emph{cache} nível 1 e 2 respectivamente, $1\,GB$ de memória RAM,
 armazenamento em cartão SD e conectados por rede cabeada \emph{Ethernet}.
 % Switch
 % Hélio:
@@ -39,7 +39,7 @@ variações imprevistas e para garantir que as comparações seriam justas com
 % data sets, being accessed via our laboratory network over Secure Shell (SSH).
 
 O \dataset \emph{Kyoto 2006+}\footnote{Disponível em
-\url{http://www.takakura.com/Kyoto\_data/}}, tráfego das \emph{Honeypots} da
+\url{http://www.takakura.com/Kyoto\_data/}.}, tráfego das \emph{Honeypots} da
 Universidade de Kyoto, é a referência de um cenário real para este trabalho.
 % será que é o "foco"? Talvez é a "referência de um cenário real"...(?)
 Este \dataset contém dados ainda representativos (até 2015) e as característica
@@ -49,7 +49,7 @@ atendidas \cite{KyotoDataset,Song2011kyoto}.
 
 O segmento utilizado deste \dataset é o de Dezembro de 2015, contendo $7\:865\:245$ instâncias.
 Deste segmento, são mantidas apenas instâncias associadas a tráfego normal ou
-a ataques conhecidos, identificados por \nids que tenham mais de $10\:000$ instâncias
+a ataques conhecidos, identificados por \nids que tenham mais de $10\,000$ instâncias
 para significância, como feito previamente por \citeonline{Cassales2019a}.
 % , this removes 46,390 instances. TODO: revisar, pois 7M != 700K.
 As instâncias mantidas são normalizadas para que o valor de cada característica
@@ -66,9 +66,10 @@ $447\:179$ instâncias com classe ``$A$'' (ataque).
 %
 % Não entendi essa questão de filtrar apenas os "normal" class no training set... Hélio
 % acho que fez sentido... detectar o que não se aproxima de normal como novidade...
-Destaca-se que essa manipulação do \dataset pode resultar em \emph{Overfitting} para a classe
+
+Destaca-se que essa manipulação do \dataset causa \emph{Overfitting} para a classe
 normal e \emph{under-fitting} para a classe ataque, pois o sistema primeiro
-precisa detectar um padrão novidade para então adicionar ao modelo. 
+precisa detectar um padrão novidade para então adicionar ao modelo.
 %O foco deste trabalho não é a otimização da detecção de intrusão é contexto de validar metodologia de construcao do \mfog - distribuição e paralelismo em ambiente em \fog.
 Como o foco deste trabalho é na arquitetura e metodologia de paralelização e
 distribuição em névoa, a otimização do processo de detecção de intrusão não foi
@@ -97,8 +98,8 @@ os resultados obtidos se aproximarem aos resultados da implementação de refer�
 
 Os parâmetros utilizados da literatura são
 \texttt{k}, que é o número de \mclusters gerados pelo algoritmo de agrupamento,
-\texttt{minExamplesPerCluster}, que indica o número mínimo de exemplos para um \mcluster válido
-e,
+\texttt{minExamplesPerCluster}, que indica o número mínimo de exemplos para um
+\mcluster válido (representatividade) e,
 \texttt{thresholdForgettingPast}, que estabelece o limite para remoção de exemplos do conjunto de
 desconhecidos.
 
