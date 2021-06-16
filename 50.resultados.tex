@@ -67,15 +67,15 @@ paralelos ou detecção de novidade assíncrona, aspectos que caracterizam o \mf
 Esta implementação utiliza a definição de raio da Equação \ref{eq:raio_paper}
 (desvio padrão das distâncias).
 Feita esta implementação foram realizados os experimentos \expB com esta
-implementação e \expA com a implementação \minas referência.
+implementação e \expA com a implementação \minas referência (\refminas).
 Estes dois experimentos utilizam apenas um nó e um processador do ambiente
 experimental, sendo que as métricas são extraídas conforme a \refsec{avaliacao}
 e são comparadas nesta Subseção, mostrando a equivalência entre as implementações.
 
 A Tabela \ref{tab:java-matrix} mostra a matriz de confusão no instante final do
 fluxo de saída do experimento \expA.
-Nesta matriz, o rótulo ``desconhecido'' é o caractere ``$-$'' e os valores de
-associação e verdadeiro-positivo estão atrelados à coluna de cada rótulo; no
+Nesta matriz, o rótulo ``desconhecido'' é o caractere ``$-$'', os valores de
+associação e verdadeiro-positivo estão atrelados à coluna de cada rótulo e no
 demais a matriz segue os atributos definidos na Seção \ref{sec:avaliacao}.
 Esta matriz é comparada com a matriz de confusão do mesmo instante do fluxo de
 saída do experimento \expB, vista na Tabela \ref{tab:libc-matrix}.
@@ -102,13 +102,14 @@ saída do experimento \expB, vista na Tabela \ref{tab:libc-matrix}.
 
 Comparando as duas matrizes, a primeira diferença aparente é o índice do
 primeiro rótulo novidade ($0$ ao invés de $1$), mas isso se deve apenas à decisão
-arbitrária de íncide de novidades.
+arbitrária de íncide inicial de novidades.
 % A sentença a seguir está bem longa, difícil de acompanhar. Fragmentar?
 A primeira diferença notável que influi nas métricas de qualidade é a falta de 3
 rótulos novidade, $12$ rótulos no experimento \expA ($[1,12]$) e $9$ no
 experimento \expB ($[0,10]$ exceto $\{3,9\}$).
-Também nota-se o número de exemplos desconhecidos, $28\,567$ no experimento \expB e
-$11\,980$ no experimento \expA e, o montante de exemplos incluídos nos rótulos
+Também nota-se o número de exemplos desconhecidos,
+$11\,980$ no experimento \expA e
+$28\,567$ no experimento \expB e, o montante de exemplos incluídos nos rótulos
 novidade, muito menor no experimento \expB.
 
 \begin{table}[hbt]%{\linewidth}
@@ -132,19 +133,19 @@ novidade, muito menor no experimento \expB.
 \end{table}
 
 Estas três diferenças são atribuídas à divergência entre as definições de raio
-discutidas na Seção \ref{sec:minas-og}, Equações \ref{eq:raio_max} e
-\ref{eq:raio_paper}.
-Esta divergência, apesar de inicialmente pequena, muda muito o comportamento do
-passo de classificação, resultando em um conjunto diferente de desconhecidos e, 
-por fim, mudando muito o resultado da detecção de novidades.
-Adicionalmente, como o parâmetro $f_{raio}$ (\texttt{radiusF}) não existe na
-versão com raio definido como distância máxima (Eq. \ref{eq:raio_max}), este
-parâmetro foi escolhido experimentalmente observando os resultados durante a
-implementação.
+discutidas na Seção \ref{sec:minas-og}, Equações \ref{eq:raio_paper} e
+\ref{eq:raio_max}.
+Esta divergência muda o comportamento do passo de classificação, resultando em
+um conjunto diferente de desconhecidos e, por fim, mudando muito o resultado da
+detecção de novidades.
+Adicionalmente, como o parâmetro $f_{raio}$ (\texttt{radiusF}) da Equação
+\ref{eq:raio_max} não existe na versão com raio definido como distância máxima
+da Equação \ref{eq:raio_max}, o valor deste parâmetro foi escolhido
+experimentalmente observando os resultados durante a implementação.
 
-Além das matrizes de confusão que dão uma visão detalhada, porém somente sobre o
+Além das matrizes de confusão, que dão uma visão detalhada porém limitada ao
 último instante do fluxo, pode-se comparar as visualizações de fluxo onde as
-métricas de qualidade são apresentadas para todo o fluxo.
+métricas de qualidade são apresentadas para todos instantes do fluxo.
 As Figuras \ref{fig:validation-java} e \ref{fig:validation-serial} ilustram os
 fluxos de saída dos experimentos \expA e \expB respectivamente.
 
@@ -269,7 +270,7 @@ nova implementação.
 
 % \vspace{3ex}
 
-Seguindo as comparações, para avaliar a escalabilidade dos sistemas, foram
+Seguindo as comparações, para avaliar a escalabilidade do \mfog, foram
 realizados dois experimentos que seguem o mesmo roteiro, o experimento \expC (1
 nó e 4 núcleos) e o experimento \expD (3 nós e 12 núcleos).
 As Tabelas \ref{tab:single-matrix} e \ref{tab:multi-matrix} mostram as matrizes
@@ -297,6 +298,8 @@ A tripla-sumário do experimento \expC é ($2.4\%,\: 31.2\%,\: 66.4\%$), com men
 desconhecidos em relação ao experimento \expB ($4.4\%,\: 29.8\%,\: 65.8\%$).
 A redução de desconhecidos é de $2\%$, sendo distribuída $1.4\%$ em acurácia e
 $0.6\%$ em erro, representando melhora marginal em todas as métricas.
+Além disso, este resultado fica mais próximo do experimento \expA ($1.8\%,\:
+30.6\%,\: 67.6\%$).
 
 % há algo estranho nesta frase, parece que falta uma vírgula ou conjunção...
 
