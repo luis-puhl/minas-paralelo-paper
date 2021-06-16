@@ -294,6 +294,24 @@ de confusão dos experimentos \expC e \expD respectivamente.
   \end{tabular}
 \end{table}
 
+\begin{table}[hbt]
+  \centering
+  % \setlength\tabcolsep{0.5em}
+  \caption{Experimento \expD, \mfog com 3 nós de 4 núcleos cada, Matriz de
+  confusão do \dataset \emph{Kyoto} Dez. 2015.}
+  \label{tab:multi-matrix}
+  \begin{tabular}{l|r|r|r|r|r|r|r}
+    Rótulos   &      - &       N &    0 &    1 &    2 &    3 &  4 \\\hline
+    Classes   &        &         &      &      &      &      &    \\\hline
+    \hline
+    A      &  12\;378 &  433\;631 &  117 &  886 &    0 &  162 &  5 \\\hline
+    N      &   3\;121 &  202\;916 &   40 &   96 &  105 &    0 &  0 \\\hline
+    \hline
+    Associação   &      - &       N &    A &    A &    N &    A &  A \\\hline
+    Hits ($tp$)   &      0 &  202\;916 &  117 &  886 &  105 &  162 &  5 
+  \end{tabular}
+\end{table}
+
 A tripla-sumário do experimento \expC é ($2.4\%,\: 31.2\%,\: 66.4\%$), com menos
 desconhecidos em relação ao experimento \expB ($4.4\%,\: 29.8\%,\: 65.8\%$).
 A redução de desconhecidos é de $2\%$, sendo distribuída $1.4\%$ em acurácia e
@@ -313,6 +331,14 @@ novidade acontece mais ``tarde''; enquanto em \expB o rótulo novidade ``1'' é
 observado em $x = 94\:155$, em \expC o mesmo rótulo é observado em $x =
 172\:917$.
 
+\begin{figure}[htb]
+  \centering
+  \includegraphics[width=0.75\linewidth]{experiments/tmi-base-log.png}
+  \caption{Experimento \expC, \mfog com 1 nó e 4 núcleos, visualização de fluxo
+  do \dataset \emph{Kyoto} Dez. 2015.}
+  \label{fig:single-flow}
+\end{figure}
+
 Esse comportamento é devido à detecção de novidade assíncrona, pois enquanto
 essa tarefa é executada os classificadores continuam utilizando o modelo antigo.
 Além disso, como já foi elencado na Seção \ref{sec:polices} item
@@ -326,40 +352,6 @@ só gera uma saída com o rótulo novo quando (e se) o padrão aparece novamente
 Este é um resultado muito importante para compreender os problemas relacionados
 à distribuição de um algoritmo deste gênero.
 
-\begin{table}[hbt]
-  \centering
-  % \setlength\tabcolsep{0.5em}
-  \caption{Experimento \expD, \mfog com 3 nós de 4 núcleos cada, Matriz de
-  confusão do \dataset \emph{Kyoto} Dez. 2015.}
-  \label{tab:multi-matrix}
-  \begin{tabular}{l|r|r|r|r|r|r|r}
-    Rótulos   &      - &       N &    0 &    1 &    2 &    3 &  4 \\\hline
-    Classes   &        &         &      &      &      &      &    \\\hline
-    \hline
-    A      &  12\;378 &  433\;631 &  117 &  886 &    0 &  162 &  5 \\\hline
-    N      &   3\;121 &  202\;916 &   40 &   96 &  105 &    0 &  0 \\\hline
-    \hline
-    Associação   &      - &       N &    A &    A &    N &    A &  A \\\hline
-    Hits ($tp$)   &      0 &  202\;916 &  117 &  886 &  105 &  162 &  5 
-  \end{tabular}
-\end{table}
-
-Avançando para o experimento \expD, a matriz de confusão na Tabela
-\ref{tab:multi-matrix}, mostra pouca diferença quando comparado ao experimento
-\expC, com o número de desconhecidos sofrendo a maior variação.
-
-O mesmo é observado quando compara-se a visualização de fluxo, Figuras
-\ref{fig:single-flow} e \ref{fig:multi-flow}, há pouca diferença e a tripla-sumário
-($2.4\%,\: 31.2\%,\: 66.4\%$) é idêntica.
-
-\begin{figure}[htb]
-  \centering
-  \includegraphics[width=0.75\linewidth]{experiments/tmi-base-log.png}
-  \caption{Experimento \expC, \mfog com 1 nó e 4 núcleos, visualização de fluxo
-  do \dataset \emph{Kyoto} Dez. 2015.}
-  \label{fig:single-flow}
-\end{figure}
-
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.75\linewidth]{experiments/tmi-n12-log.png}
@@ -368,6 +360,12 @@ O mesmo é observado quando compara-se a visualização de fluxo, Figuras
   \label{fig:multi-flow}
 \end{figure}
 
+Avançando para o experimento \expD, a matriz de confusão na Tabela
+\ref{tab:multi-matrix}, mostra pouca diferença quando comparado ao experimento
+\expC, com o número de desconhecidos sofrendo a maior variação, sendo de apenas $129$.
+O mesmo é observado quando compara-se a visualização de fluxo, Figuras
+\ref{fig:single-flow} e \ref{fig:multi-flow}, há pouca diferença e a tripla-sumário
+($2.4\%,\: 31.2\%,\: 66.4\%$) é idêntica.
 Isto reforça a ideia de que o maior impacto nas métricas de qualidade de
 classificação é a mudança de detecção de novidade assíncrona, pois mesmo com o
 triplo de instâncias classificadoras, as métricas continuam idênticas.
@@ -401,7 +399,7 @@ Esta distinção é necessária pois a implementação de referência do algorit
 mostrado na coluna \emph{Offline}.
 Uma modificação da implementação de referência mostrou que dos $2\;772.07$
 segundos listados na tabela, $917s$ são da fase \emph{offline} e $1\;845s$ da
-fase \emph{online}.
+fase \emph{online}, como já foi mencionado.
 
 \newcommand{\mr}[1]{\multirow{2}{*}{\texttt{#1}}}
 
@@ -445,7 +443,8 @@ Observando as métricas de escalabilidade nota-se que o \mfog não fornece
 \emph{speedup} e eficiência em relação à versão sequencial.
 Isto indica que, apesar da premissa de independência de classificadores
 paralelos, a comunicação entre os processos utilizando dois conjuntos de
-instruções \mpi \emph{send} e \emph{receive} para cada exemplo não é eficiente
+instruções \mpi \emph{send} e \emph{receive} para cada exemplo e distribuição
+de carga pelo extremamente simples \emph{round-robin} não é eficiente
 para o processamento de fluxo de dados.
 
 \subsection{Experimentos Adicionais}
@@ -519,12 +518,14 @@ picos de latência, porém não tão intensos e frequentes na implementação se
 do algoritmo \minas utilizado a biblioteca do \mfog.
 Esta diferença está relacionada com mecanismo de remoção de desconhecidos e
 ausência do mecanismo de esquecimento de \mclusters menos utilizados no Modelo.
+
 Já o comportamento visto na Figura \ref{fig:lag-mfog}, extraído do \mfog, mostra o efeito de
-\emph{buffers} de comunicação entre diferentes processos onde o pico de latência
+filas (\emph{buffers}) de comunicação entre diferentes processos onde o pico de latência
 da detecção de novidade cai progressivamente conforme os buffers são esvaziados
 já que o processo de detecção de novidade é assíncrono, porém ocupa a \emph{thread}
 responsável pelo fluxo de saída do \mfog.
 
+% \FloatBarrier
 \section{Conclusão}
 \label{sec:exp-conclusao}
 
