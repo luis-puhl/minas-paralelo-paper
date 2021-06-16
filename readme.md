@@ -13,32 +13,21 @@ em redes e sistemas distribuídos de Luís Puhl.
 
 ## Resumo
 
-Em um cenário de crescente número de dispositivos na Internet das Coisas (IoT),
-gerando proporcional crescimento no volume dos fluxos de dados gerados, são
-constantes e evolutivas as ameaças ativas e passivas aos recursos computacionais
-e aos conteúdos transmitidos.\
-Métodos para mineração de dados de forma robusta e contínua podem ser um
-aliado à segurança nesses casos.\
-Particularmente em ambientes distribuídos e nos quais busca-se manter os
-fluxos de informação próximos a onde eles são gerados, como nas bordas das
-redes IoT, e na computação em névoa de maneira geral, a detecção de ameaças é
-essencial e não trivial.\
-Além disso, a evolução constante dos tipos de dispositivos e de tráfegos
-nessas redes favorece que as ferramentas de detecção de ameaças sejam
-beneficiadas por algoritmos de detecção de novidades em fluxo de dados.\
-MINAS é um exemplo de algoritmo de detecção de novidades em fluxos de dados
-com potencial para aplicação na computação em névoa.\
-No entanto, apesar de sua divisão em três partes semi-independentes, este
-algoritmo ainda não foi adaptado para processar grandes volumes de fluxos
-reais em ambiente de computação em névoa.\
-O presente trabalho aborda essa lacuna, propondo um sistema que implementa o
-algoritmo MINAS de maneira distribuída num contexto de detecção de intrusão e
+Em um cenário de crescente número de dispositivos na Internet das Coisas (IoT), gerando proporcional crescimento no volume dos fluxos de dados gerados, são
+constantes e evolutivas as ameaças ativas e passivas aos recursos computacionais e aos conteúdos transmitidos.\
+Métodos para mineração de dados de forma robusta e contínua podem ser um aliado à segurança nesses casos.\
+Particularmente em ambientes distribuídos e nos quais busca-se manter os fluxos de informação próximos a onde eles são gerados, como nas bordas das redes IoT, e
+na computação em névoa de maneira geral, a detecção de ameaças é essencial e não trivial.\
+Além disso, a evolução constante dos tipos de dispositivos e de tráfegos nessas redes favorece que as ferramentas de detecção de ameaças sejam beneficiadas por
+algoritmos de detecção de novidades em fluxo de dados.\
+MINAS é um exemplo de algoritmo de detecção de novidades em fluxos de dados com potencial para aplicação na computação em névoa.\
+No entanto, apesar de sua divisão em três partes semi-independentes, este algoritmo ainda não foi adaptado para processar grandes volumes de fluxos reais em
+ambiente de computação em névoa.\
+O presente trabalho aborda essa lacuna, propondo um sistema que implementa o algoritmo MINAS de maneira distribuída num contexto de detecção de intrusão e
 computação em névoa e também avalia esta implementação.\
-Os resultados obtidos mostram a viabilidade do modelo de detecção de
-novidades distribuído em ambiente de computação em névoa.\
-Mesmo em um cenário distribuído, o sistema apresentou eficácia equivalente ao
-algoritmo original, ainda que executando em dispositivos de capacidade
-computacional limitada, como é previsto em cenários de IoT.\
+Os resultados obtidos mostram a viabilidade do modelo de detecção de novidades distribuído em ambiente de computação em névoa.\
+Mesmo em um cenário distribuído, o sistema apresentou eficácia equivalente ao algoritmo original, ainda que executando em dispositivos de capacidade
+computacional limitada, como é previsto em cenários de IoT.
 
 Detecção de Novidades; Detecção de Intrusão; Fluxos de Dados; Computação Distribuída; Computação em Névoa; Internet das Coisas;
 
@@ -64,6 +53,6 @@ scenarios.\
 The obtained results show equivalent metrics in the distributed version but
 also a reduction in the execution time using low profile devices.\
 Although not efficient, the parallel version showed to be viable as the
-proposed granularity provides equivalent accuracy and same response times.\
+proposed granularity provides equivalent accuracy and same response times.
 
 Novelty Detection; Intrusion Detection; Data Streams; Distributed Computing; Fog Computing; IoT devices;
