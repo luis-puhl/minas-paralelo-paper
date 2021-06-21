@@ -29,7 +29,7 @@ Centro de Ciências Exatas e de Tecnologia \\
 Departamento de Computação \\
 Programa de Pós-Graduação em Ciência da Computação}
 % \date{\today}
-\date{Fevereiro 2020}
+\date{05 Julho 2021}
 % \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
 
 \newcommand{\nota}[1]{\hspace*{-0.5cm}\textit{{\color[rgb]{1,0,0}Nota: #1}}}
@@ -45,39 +45,37 @@ Programa de Pós-Graduação em Ciência da Computação}
 
 \section{Introdução}
 
-\begin{frame} [fragile]{Introdução}
-\begin{itemize}[<+- | alert@+>]
+\begin{frame}[fragile]{Introdução}
+  \begin{itemize}%[<+- | alert@+>]
+  % Contexto Geral
+  \item Crescimento do número de dispositivos IoT e riscos associados;
+  \begin{itemize}
+    \item[$-$] Heterogeneidade de dispositivos;
+    \item[$-$] Falta de atualizações de \emph{software};
+    \item[$-$] Exemplo: \emph{Botnet} mirai, infectando cameras e roteadores, gerou
+    $620 \ \mathrm{Gb/s}$ \cite{Kambourakis2017}.
+  \end{itemize}
+  % Contexto Específico
+  \item Detecção de intrusão em redes:
+  \begin{itemize}
+    \item detecção por assinatura;
+    \item detecção por anomalia;
+    \item ambiente de névoa e redes IoT.
+  \end{itemize}
 
-% Contexto Geral
-\item Crescimento do número de dispositivos IoT e riscos associados;
-\begin{itemize}
-  \item[$-$] Heterogeneidade de dispositivos;
-  \item[$-$] Falta de atualizações de \emph{software};
-  \item[$-$] Exemplo: \emph{Botnet} mirai, infectando cameras e roteadores, gerou
-  $620 \ \mathrm{Gb/s}$ \cite{Kambourakis2017}.
-\end{itemize}
+  % Proposta
+  \item Um sistema para detecção de intrusão em Redes IoT implementando em névoa;
 
-% Contexto Específico
-\item Detecção de intrusão em redes:
-\begin{itemize}
-  \item detecção por assinatura;
-  \item detecção por anomalia;
-  \item ambiente de névoa e redes IoT.
-\end{itemize}
+  % hipótese
+  \item A hipótese do trabalho é que o algoritmo MINAS pode ser distribuído em
+  nós de nuvem e névoa reduzindo a latência e com pouco comprometimento na
+  qualidade de detecção.
 
-% Proposta
-\item Um sistema para detecção de intrusão em Redes IoT implementando em névoa;
-
-% hipótese
-\item A hipótese do trabalho é que o algoritmo MINAS pode ser distribuído em
-nós de nuvem e névoa reduzindo a latência e com pouco comprometimento na
-qualidade de detecção.
-
-\end{itemize}
-% \nota{pode falar:\\
-% - dificuldade de atualização de SW\\
-% - como foi o ataque MIRAI? (só curiosidade)\\
-% - capacidade de autodefesa? mesmo outros computadores não têm...}
+  \end{itemize}
+  % \nota{pode falar:\\
+  % - dificuldade de atualização de SW\\
+  % - como foi o ataque MIRAI? (só curiosidade)\\
+  % - capacidade de autodefesa? mesmo outros computadores não têm...}
 \end{frame}
 
 
@@ -117,10 +115,10 @@ qualidade de detecção.
     \vspace{1mm}
     Métodos Detecção de Novidade (\novelty) lidam com o reconhecimento e
     classificação de exemplos em padrões que diferem de padrões anteriores
-    \cite{PERNER2007,Gama2010}.
+    \cite{Gama2010}.
   
     Conforme \citeonline{Gama2010}, são características de fluxos de dados contínuos:
-    \begin{itemize}[<+- | alert@+>]
+    \begin{itemize}%[<+- | alert@+>]
       
       \item Evolução de Conceito (\evolution): surgimento de um conceito durante
       o fluxo;
@@ -142,7 +140,7 @@ qualidade de detecção.
 \begin{alertblock}{Algoritmo MINAS}
   \vspace{5mm}
   Algoritmo e suas estratégias:
-  \begin{itemize}[<+- | alert@+>]
+  \begin{itemize}%[<+- | alert@+>]
     \item Modelo de aprendizado \emph{Offline-Online};
     \item Transformação dos dados analisados para o espaço $\mathbb{R}^d$;
     \item Modelo de classificação com \emph{Clusters};
@@ -200,16 +198,16 @@ qualidade de detecção.
   \end{algorithm}
 \end{frame}
 
-\begin{frame}[fragile]{Fundamentos}
-  \begin{alertblock}{Extensões do Algoritmo MINAS}
-    \begin{itemize}
-      \item FuzzyND: extensão do algoritmo original para classificação com
-      conjunto de etiquetas \emph{fuzzy} \cite{DaSilva2018,DaSilva2018thesis};
-      \item MINAS-LC e MINAS-BR: extensão do algoritmo original tratando
-      classificação multi-etiquetas \cite{Costa2019,Costa2019thesis};
-    \end{itemize}
-  \end{alertblock}
-\end{frame}
+% \begin{frame}[fragile]{Fundamentos}
+%   \begin{alertblock}{Extensões do Algoritmo MINAS}
+%     \begin{itemize}
+%       \item FuzzyND: extensão do algoritmo original para classificação com
+%       conjunto de etiquetas \emph{fuzzy} \cite{DaSilva2018,DaSilva2018thesis};
+%       \item MINAS-LC e MINAS-BR: extensão do algoritmo original tratando
+%       classificação multi-etiquetas \cite{Costa2019,Costa2019thesis};
+%     \end{itemize}
+%   \end{alertblock}
+% \end{frame}
 
 \begin{frame}[fragile]{Fundamentos}
 \begin{alertblock}{Ambientes de computação Distribuída}
@@ -299,7 +297,7 @@ qualidade de detecção.
 
 \begin{frame}[fragile]{Fundamentos}
 \begin{alertblock}{Plataformas de processamento distribuído}
-  \begin{itemize}[<+- | alert@+>]
+  \begin{itemize}%[<+- | alert@+>]
     \item Mineração de Dados:
     \begin{itemize}
       \item \emph{MapReduce} e \emph{Apache Hadoop};
@@ -331,14 +329,14 @@ qualidade de detecção.
 % Deveria quebrar o slide em 3 ou 4 slides ao menos.}
 \end{frame}
 
-\begin{frame}[fragile]{Fundamentos}
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.85\textwidth]{figuras/dataflow-code-flink.png}
-\caption{Exemplo de código e \emph{data flow} do \emph{Apache Flink} \cite{ApacheFlink2020}}
-\label{fig:dataflow-flink}
-\end{figure}
-\end{frame}
+% \begin{frame}[fragile]{Fundamentos}
+% \begin{figure}[ht]
+% \centering
+% \includegraphics[width=0.85\textwidth]{figuras/dataflow-code-flink.png}
+% \caption{Exemplo de código e \emph{data flow} do \emph{Apache Flink} \cite{ApacheFlink2020}}
+% \label{fig:dataflow-flink}
+% \end{figure}
+% \end{frame}
 
 % ------------------------------------------------------------------------------
 
@@ -423,7 +421,9 @@ qualidade de detecção.
 \begin{frame}[fragile]{Estado da Arte e Trabalhos Relacionados}
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.8\textwidth]{figuras/idsa-iot-quali-004.png}
+  \includegraphics[width=0.48\textwidth]{figuras/idsa-iot-quali-000.png}
+  \hfill
+  \includegraphics[width=0.48\textwidth]{figuras/idsa-iot-quali-004.png}
   \caption{Distribuição de Serviços da Arquitetura \arch.
   Produzida e traduzida por \citeonline{Cassales2019a}.}
   \label{fig:ids-iot}
@@ -433,41 +433,46 @@ qualidade de detecção.
 \newcommand{\mfog}{sistema M-FOG\xspace}
 
 \section{Proposta}
+
 \begin{frame}[fragile]{Proposta}
-
-\metroset{block=fill}
-\begin{block}{Proposta da Pesquisa}
-  \begin{itemize}
-    
-    \item Implementar a distribuição do algoritmo MINAS em nuvem e névoa
-    conforme arquitetura \arch;
-    
-    \item Paralelizar o método de classificação do algoritmo MINAS.
-  \end{itemize}
-\end{block}
-
-\metroset{block=transparent}
-\begin{alertblock}{Métodologia}
-  \begin{itemize}[<+- | alert@+>]
-    \item Plataforma de processamento distribuído;
-    \item Estratégias de implementação da arquitetura \arch;
-    \item Experimentação com a distribuição do algoritmo MINAS em ambientes;
-    \item Métricas de qualidade de classificação para validação da implementação;
-    \item Métricas de escalabilidade.
-  \end{itemize}
-\end{alertblock}
-% \nota{Proposta\\
-% - poderia fazer algumas "perguntas" antes de fazer a sua proposta\\
-% => quais perguntas? (voce precisa saber quais)}
+  \metroset{block=fill}
+  \begin{block}{Pergunta de Pesquisa}
+    \begin{itemize}
+      \item É viável implementar a arquitetura \arch?
+      \item É viável paralelizar e distribuir o algoritmo MINAS?
+      \item Quais são os efeitos na qualidade de classificação paralelizar e
+      distribuir o algoritmo MINAS?
+    \end{itemize}
+  \end{block}
 \end{frame}
 
+\begin{frame}[fragile]{Proposta}
+  \metroset{block=fill}
+  \begin{block}{Proposta da Pesquisa}
+    \begin{itemize}
+      
+      \item Implementar a distribuição do algoritmo MINAS em nuvem e névoa
+      conforme arquitetura \arch;
+      
+      \item Paralelizar o método de classificação do algoritmo MINAS.
+    \end{itemize}
+  \end{block}
 
-\newcommand{\source}{módulo auxiliar \emph{source}\xspace}
-\newcommand{\sink}{módulo auxiliar \emph{sink}\xspace}
+  \metroset{block=transparent}
+  \begin{alertblock}{Métodologia}
+    \begin{itemize}%[<+- | alert@+>]
+      \item Plataforma de processamento distribuído;
+      \item Estratégias de implementação da arquitetura \arch;
+      \item Experimentação com a distribuição do algoritmo MINAS em ambientes;
+      \item Métricas de qualidade de classificação para validação da implementação;
+      \item Métricas de escalabilidade.
+    \end{itemize}
+  \end{alertblock}
+  % \nota{Proposta\\
+  % - poderia fazer algumas "perguntas" antes de fazer a sua proposta\\
+  % => quais perguntas? (voce precisa saber quais)}
+\end{frame}
 
-\newcommand{\offline}{módulo treinamento\xspace}
-\newcommand{\classify}{módulo classificador\xspace}
-\newcommand{\detector}{módulo detector de novidades\xspace}
 
 \begin{frame}[fragile]{Proposta}
 
@@ -475,40 +480,26 @@ qualidade de detecção.
   
   \begin{alertblock}{Módulos principais implementam o algoritmo MINAS}
     \begin{itemize}
-      \item \offline (\emph{Training Module});
-      \item \classify (\emph{Classification Module});
-      \item \detector (\emph{Novelty Detection Module}).
+      \item TODO;
     \end{itemize}
   \end{alertblock}
-  \begin{alertblock}{Módulos auxiliares, utilizados para avaliação}
-    \begin{itemize}
-      \item \source (fonte);
-      \item \sink (sorvedouro, consumidor final).
-    \end{itemize}
-  \end{alertblock}
+
 \end{frame}
 
 \begin{frame}[fragile]{Proposta}
-% \nota{Modulo ou componente?\\
-% Achei meio confusa a figura, difícil de distinguir:\\
-% - parte offline vs Online\\
-% - roda na fog vs roda na nuvem}
-% \hspace*{-2cm}
-\vspace{-0.5cm}
-\begin{figure}[h]
-  \centering
-  \hspace*{-0.9cm}
-  \includegraphics[width=1.15\textwidth]{figuras/mfog-arch-v3_pt-br.png}
-  \caption{Arquitetura e fluxos de dados do \mfog.}
-  \label{fig:arch}
-\end{figure}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.88\textwidth,page=1]{figures/lifecycle-uml-svg.pdf}
+    \caption{Arquitetura e fluxos de dados do \mfog.}
+    \label{fig:arch}
+  \end{figure}
 \end{frame}
 
 \section{Resultados Preliminares}
 \begin{frame}[fragile]{Resultados Preliminares}
 
   \begin{alertblock}{Primeira Implementação com \emph{Python} e \emph{Apache Kafka}}
-    \begin{itemize}[<+- | alert@+>]
+    \begin{itemize}%[<+- | alert@+>]
       \item \emph{Python} é acessível e fornece bibliotecas diversas;
       \item \emph{Apache Kafka} é um sistema de mensagens distribuído;
       \begin{itemize}
@@ -529,12 +520,13 @@ qualidade de detecção.
 
 \begin{frame}[fragile]{Resultados Preliminares}
   \begin{alertblock}{Segunda Implementação com \emph{Apache Flink}}
-    \begin{itemize}[<+- | alert@+>]
+    \begin{itemize}%[<+- | alert@+>]
       \item Implementação escrita em Scala ou Java;
       \item Processamento de fluxos \emph{Stateful};
       \item Falta de bibliotecas que distribuam algoritmos base como \emph{K-means};
-      \item Sistema \emph{M-FOG} em desenvolvimento, atualmente na fase de
-      validação através das métricas de qualidade de classificação.
+      \item Gerenciador de trabalhos (\emph{job manager}) e gerenciador de
+      tarefas (\emph{job manager}) ocupam mais de $1\;GB$ em execuções
+      consecutivas, portanto não é confiável para dispositivos pequenos.
     \end{itemize}
   \end{alertblock}
 % \nota{métricas: Tem a fórmula? expressão?}
@@ -582,7 +574,6 @@ qualidade de detecção.
   \end{columns}
 \end{frame}
 
-
 \begin{frame}[fragile]{Resultados Preliminares}
   \begin{alertblock}{Métricas e Ambientes}
     \begin{itemize}
@@ -597,47 +588,31 @@ qualidade de detecção.
       \item Ambientes de teste:
       \begin{itemize}
         \item Computador Pessoal (para desenvolvimento);
-        \item Nuvem UFSCar;
         \item Nevoa composta de SBC (\emph{Sigle Board Computer}) ARM 4 núcleos;
+        \item Conjunto de dados para IDS, Kyoto 2006+, segmento dezembro de 2015
+        como estabelecido por \citeonline{Cassales2019a}.
       \end{itemize}
     \end{itemize}
   \end{alertblock}
 \end{frame}
 
-\section{Considerações Finais}
-\begin{frame}{Considerações Finais}
-Trabalho continua com a finalização da implementação e validação do MFOG com MINAS.
-\end{frame}
-
-\begin{frame}{Cronograma}
-  
-  % \begin{figure}[ht]
-\noindent\centering\begin{ganttchart}[
-  vgrid,
-  time slot format=isodate-yearmonth,
-  time slot unit=month,
-  expand chart=\textwidth,
-  inline,
-  title height = 1,
-  y unit title = 0.6cm,
-  y unit chart = 0.7cm,
-  bar height = .8,
-  bar left shift=.05,
-  bar right shift=-.05,
-  bar/.style={fill=blue!55, rounded corners=3pt}
-]{2020-03}{2020-07}
-  \gantttitlecalendar{year, month} \\
-  \ganttbar{Qualificação}{2020-03}{2020-03} \\
-  \ganttbar{Desenvol.}{2020-03}{2020-03} \\
-  \ganttbar{Validação}{2020-03}{2020-04} \\
-  \ganttbar{Experimentos}{2020-03}{2020-05} \\
-  \ganttbar{Submissão}{2020-04}{2020-07} \\
-  \ganttbar{Defesa}{2020-06}{2020-07} \\
-\end{ganttchart}
-% }
-  %   \caption{Cronograma}
-  %   \label{fig:crono}
-  % \end{figure}
+\section{Conclusão}
+\begin{frame}{Conclusão}
+  \begin{itemize}
+    \item \mfog funciona;
+    \item Distribuição tem efeito mas não é tão drástico;
+    \item Não escala pelo CCR e eficiência;
+    \item Trabalhos futuros:
+    \begin{itemize}
+      \item Outros algoritmos de agrupamento (CluStream);
+      \item Estratégia de otimização da comunicação (micro ou mini batching);
+      \item Explorar distribuição espacial dos clusters (polígonos sem
+      sobreposição, árvore de busca);
+      \item Algoritmo com modelo de tamanho fixo (máxima precisão com recursos disponíveis);
+      \item Modelos com propriedade de conjuntos aditivos para sincronização
+      entre redes distintas.
+    \end{itemize}
+  \end{itemize}
 \end{frame}
 
 {\setbeamercolor{palette primary}{fg=black, bg=yellow}\begin{frame}[standout]
@@ -652,11 +627,10 @@ Trabalho continua com a finalização da implementação e validação do MFOG c
 
 \begin{frame}[fragile]{Extra}
   \begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.8\textwidth]{figuras/idsa-iot-quali-000.png}
-  \caption{Estrutura Física da Arquitetura \arch.
-  Produzida e traduzida por \citeonline{Cassales2019a}.}
-  \label{fig:ids-iot-phy}
+    \centering
+    \includegraphics[width=0.8\textwidth]{figures/mfog-arch-fisica.svg.pdf}
+    \caption{Arquitetura IoT tradicional.}
+    \label{fig:ids-iot-phy}
   \end{figure}
 \end{frame}
 
