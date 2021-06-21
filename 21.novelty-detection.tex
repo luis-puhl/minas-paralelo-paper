@@ -334,21 +334,21 @@ exemplo representado no novo \mcluster.
   % 
   \Function{\NoveltyDetection{Modelo, Desconhecidos}}{
     novoModelo $\leftarrow$ $\emptyset$\;
-    \ForEach{novoCluster $\in$ \clustering(Desconhecidos)}{
-      \If{$(|\;novoCluster.exemplos\;| \geq$ \minExamplesPerCluster $) \land (\;novoCluster.silhueta\; > 0)$}{
-        maisPróximo $\leftarrow$ \nearestCluster(novoCluster, Modelo)\;
+    \ForEach{novo $\in$ \clustering(Desconhecidos)}{
+      \If{$(|\;novo.exemplos\;| \geq$ \minExamplesPerCluster $) \land (\;novo.silhueta\; > 0)$}{
+        maisPróximo $\leftarrow$ \nearestCluster(novo, Modelo)\;
         \eIf{maisPróximo.distância $<$ (maisPróximo.cluster.raio $\times$ \noveltyFactor)}{
-          novoCluster.rótulo $\leftarrow$ maisPróximo.cluster.rótulo\;
-          novoCluster.tipo $\leftarrow$ "extensão"\;
+          novo.rótulo $\leftarrow$ maisPróximo.cluster.rótulo\;
+          novo.tipo $\leftarrow$ "extensão"\;
         }{
-          novoCluster.rótulo $\leftarrow$ proximaNovidade\;
+          novo.rótulo $\leftarrow$ proximaNovidade\;
           proximaNovidade $\leftarrow$ proximaNovidade $+ 1$\;
-          novoCluster.tipo $\leftarrow$ "novidade"\;
+          novo.tipo $\leftarrow$ "novidade"\;
         }
-        % novoCluster.últimoUso $ \leftarrow i $ \;
+        % novo.últimoUso $ \leftarrow i $ \;
         \label{alg:MINAS-nd:reclassify}
-        Desconhecidos $\leftarrow$ Desconhecidos $-$ novoCluster.exemplos\;
-        novoModelo $\leftarrow$ novoModelo $\cup$ novoCluster\;
+        Desconhecidos $\leftarrow$ Desconhecidos $-$ novo.exemplos\;
+        novoModelo $\leftarrow$ novoModelo $\cup$ novo\;
       }
     }
     \Return{novoModelo}\;
