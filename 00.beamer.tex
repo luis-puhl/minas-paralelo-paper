@@ -1,21 +1,26 @@
-\documentclass[aspectratio=43,10pt]{beamer}
+\documentclass[aspectratio=1610,10pt]{beamer}
 
+% \usepackage{algorithmic}
+\usepackage[noalgohanging,lined,noend,linesnumbered,onelanguage,portuguese,portuguesekw]{algorithm2e}
+\SetAlCapSkip{1.5ex}
+% \SetAlFnt{\tiny }
+% \SetAlFnt{\scriptsize }
+\SetAlFnt{\small}
+\setlength{\algomargin}{0em}
+\SetInd{.3em}{.5em}
 \usetheme[progressbar=frametitle]{metropolis}
 \usepackage{appendixnumberbeamer}
 \usepackage{booktabs}
 \usepackage{xspace}
-\usepackage[english,main=brazilian]{babel}
+\usepackage[brazil]{babel}
 \usepackage[utf8x]{inputenc}
+% \usepackage{lmodern}
 \usepackage[alf]{abntex2cite}
-\usepackage{multirow}
-\usepackage{ragged2e}
-\usepackage{xspace}
+% \usepackage{ragged2e}
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{subcaption}
 
-\usepackage{algorithmic}
-\usepackage[portuguese,ruled,vlined,linesnumbered]{algorithm2e}
 
 \title[]{Uma Implementação Distribuída em Névoa do Algoritmo de Detecção de
 Novidade em Fluxos de Dados MINAS}
@@ -58,8 +63,7 @@ Programa de Pós-Graduação em Ciência da Computação}
   % Contexto Específico
   \item Detecção de intrusão em redes:
   \begin{itemize}
-    \item detecção por assinatura;
-    \item detecção por anomalia;
+    \item detecção por assinatura \emph{versus} anomalia;
     \item ambiente de névoa e redes IoT.
   \end{itemize}
 
@@ -68,8 +72,7 @@ Programa de Pós-Graduação em Ciência da Computação}
 
   % hipótese
   \item A hipótese do trabalho é que o algoritmo MINAS pode ser distribuído em
-  nós de nuvem e névoa reduzindo a latência e com pouco comprometimento na
-  qualidade de detecção.
+  névoa reduzindo a latência e com sem redução na qualidade de classificação.
 
   \end{itemize}
   % \nota{pode falar:\\
@@ -82,9 +85,9 @@ Programa de Pós-Graduação em Ciência da Computação}
 \section{Fundamentos}
 \begin{frame}[fragile]{Fundamentos}
 \begin{itemize}
-  \item Métodos Detecção de Novidade;
-  \item Ambientes de computação Distribuída;
+  \item Fluxo de Dados e Métodos Detecção de Novidade;
   \item Plataformas de processamento distribuído de fluxos.
+  \item Ambientes de computação Distribuída;
 \end{itemize}
 % \nota{Por que "seria dificil processar de forma centralizado"? [tg] corrigir no discurso}
 \end{frame}
@@ -95,13 +98,12 @@ Programa de Pós-Graduação em Ciência da Computação}
     
     \vspace{1mm}
 
-    Um fluxo de dados (\emph{Data Stream}) é uma sequência massiva possivelmente
+    Um fluxo de dados (\textit{Data Stream}) é uma sequência massiva possivelmente
     ilimitada de exemplos multi-dimensionais $x_1, x_2, \dots, x_n, \dots$
     recebidos em instantes associados $t_1, t_2, \dots, t_n, \dots$
   \end{block}
-\end{frame}
 
-\begin{frame}[fragile]{Fundamentos}
+  \metroset{block=transparent}
   \begin{alertblock}{Métodos Detecção de Novidade}
     
     \vspace{1mm}
@@ -127,9 +129,8 @@ Programa de Pós-Graduação em Ciência da Computação}
 \end{frame}
 
 \begin{frame}[fragile]{Fundamentos}
-\begin{alertblock}{Algoritmo MINAS}
+\begin{alertblock}{Algoritmo MINAS e suas estratégias}
   \vspace{5mm}
-  Algoritmo e suas estratégias:
   \begin{itemize}%[<+- | alert@+>]
     \item Modelo de aprendizado \emph{Offline-Online};
     \item Transformação dos dados analisados para o espaço $\mathbb{R}^d$;
@@ -143,49 +144,123 @@ Programa de Pós-Graduação em Ciência da Computação}
 \end{frame}
 
 \begin{frame}[fragile]{Fundamentos}
-  \begin{figure}[ht]
-    \centering
-    \includegraphics[width=\textwidth]{figuras/FariaMinas2015-fases.png}
-    \caption{Visão geral do algoritmo MINAS com fases \emph{Offline} (a) e 
-    \emph{Online} (b). \textbf{Fonte:} \citeonline{Faria2016minas}.}
-    \label{fig:minas}
-  \end{figure}
-  % \nota{Explique o desenho! o que significa cada objeto da figura? explique na figura.}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{figuras/FariaMinas2015-fases.png}
+  \caption{Visão geral do algoritmo MINAS com fases \emph{Offline} (a) e 
+  \emph{Online} (b). \textbf{Fonte:} \citeonline{Faria2016minas}.}
+  \label{fig:minas}
+\end{figure}
+% \nota{Explique o desenho! o que significa cada objeto da figura? explique na figura.}
+\end{frame}
+
+\begin{frame}
+\begin{algorithm}[H]
+  \SetKwFunction{nearestCluster}{clusterMaisPróximo}
+  \SetKwFunction{NoveltyDetection}{DetecçãoNovidade}
+  \SetKwFunction{handleModelSleep}{moveModeloAntigo}
+  \SetKwFunction{removeOldSamples}{removeExemplosAntigos}
+  % 
+  \SetKwProg{Function}{Função}{:}{}
+  \SetKwData{cleaningWindow}{janelaLimpeza}
+  \SetKwData{noveltyDetectionTrigger}{gatilhoDetecçãoNov}
+  \SetKwFunction{MinasOnline}{MinasOnline}
+  % 
+  \Function{\MinasOnline{Modelo, fluxoEntrada, fluxoSaída, \cleaningWindow, \noveltyDetectionTrigger}}{
+    Desconhecidos $\leftarrow$ $\emptyset$; ModeloAntigo $\leftarrow$ $\emptyset$; últimaLimpeza $\leftarrow 0$; proximaNovidade $\leftarrow 0$\;
+    \ForEach{ {$exemplo_{i}$} $\in$ fluxoEntrada }{
+      % exemplo.rótulo $\leftarrow$ unknown\;
+      % (distância, cluster) $\leftarrow$ \nearestCluster(exemplo, Modelo)\;
+      maisPróximo $\leftarrow$ \nearestCluster(exemplo, Modelo)\;
+      \eIf{maisPróximo.distância $<$ maisPróximo.cluster.raio}{
+        exemplo.rótulo $\leftarrow$ maisPróximo.cluster.rótulo\;
+        maisPróximo.cluster.últimoUso $ \leftarrow i$\;
+      }
+      {
+        exemplo.rótulo $\leftarrow$ ``desconhecido''\;
+        Desconhecidos $\leftarrow$ Desconhecidos $\cup$ exemplo\;
+        \If{$|\;Desconhecidos\;| \geq$ \noveltyDetectionTrigger}{
+          Modelo $\leftarrow$ Modelo $\cup$ \NoveltyDetection(Modelo $\cup$ ModeloAntigo, *Desconhecidos)\;
+        }
+        \If{ $ i > $ ( últimaLimpeza $ + $ \cleaningWindow )}{
+          Modelo $\leftarrow$ \handleModelSleep(Modelo, *ModeloAntigo, últimaLimpeza)\;
+          Desconhecidos $\leftarrow$ \removeOldSamples(Desconhecidos, últimaLimpeza)\;
+          últimaLimpeza $ \leftarrow i $\;
+        }
+      }
+      fluxoSaída.adicione(exemplo)\;
+    }
+  }
+  \caption{Interpretação do algoritmo \minas \emph{online} \cite{Faria2016minas}.}
+\label{alg:minas-main}
+\end{algorithm}
 \end{frame}
 
 \begin{frame}[fragile]{Fundamentos}
-  % MINAS \cite{Faria2016minas,Cassales2019a}
-  \begin{algorithm}[H]
-    \caption{MINAS, trecho de classificação}
-    \label{alg:MINAS}
-    \renewcommand{\algorithmicrequire}{\textbf{Entrada:}}
-    \begin{algorithmic}[1]
-      %T = limiar de distância para pertencer ao grupo
-      %P = tempo de "inatividade" para passar para memória sleep
-      %ts = limiar para remoção de exemplos da memória temporária
-      \REQUIRE $Modelo,FCD,params,MemTmp,MemSleep$
-      % \STATE $MemTmp \leftarrow \emptyset$ ; $MemSleep \leftarrow \emptyset$
-      \FORALL{$exemplo \in FCD$}
-      \STATE $(Dist,micro) \leftarrow$ micro-mais-proximo($exemplo,Modelo$)
-      \IF{$Dist < $ raio($micro$)}
-      \STATE $exemplo.classe \leftarrow micro.rotulo$
-      \STATE atualizar-micro($micro,exemplo$)
-      \ELSE
-      \STATE $exemplo.classe \leftarrow desconhecido$
-      \STATE $MemTmp \leftarrow MemTmp \cup exemplo$
-      \IF{$|MemTmp| \geq params.NumMinExemplos$}
-      \STATE $Modelo \leftarrow $ deteccao-novidade($Modelo,MemTmp,params$)
-      \ENDIF
-      \ENDIF
-      \STATE gerenciamento-memoria(\dots)
-      % \STATE $TempoAtual \leftarrow exemplo.T$
-      % \IF{$TempoAtual$ mod $TamJanela == 0$}
-      % \STATE $Modelo \leftarrow$ mover-micro-grupos-mem-sleep($Modelo,MemSleep,params$)
-      % \STATE $MemTmp \leftarrow$ remover-exemplos-antigos($MemTmp,params$)
-      % \ENDIF
-      \ENDFOR
-    \end{algorithmic}
-  \end{algorithm}
+  \begin{alertblock}{Plataformas de processamento distribuído}
+    \vspace{5mm}
+    \begin{columns}[T,onlytextwidth]
+        \column{0.5\textwidth}
+        \begin{itemize}%[<+- | alert@+>]
+          \item Arquiteturas \emph{Lambda} e \emph{Kappa};
+          \item Mineração de Dados:
+          \begin{itemize}
+            \item \emph{MapReduce} e \emph{Apache Hadoop};
+            \item \emph{Apache Spark} com \emph{Resilient Distributed Dataset - RDD};
+          \end{itemize}
+          \item Mineração de Fluxo de Dados:
+          \begin{itemize}
+            \item \emph{Apache Spark Streaming} com estratégia de \emph{micro-batching};
+            \item \emph{Apache Storm};
+            \item \emph{Apache Flink};
+          \end{itemize}
+          \item Não especializadas em fluxo de dados:
+          \begin{itemize}
+            \item Não-plataforma (construção dos mecanismos de envio e recebimento);
+            \item Interface de Troca de Mensagens - MPI;
+          \end{itemize}
+        \end{itemize}
+        \column{0.05\textwidth}
+        \column{0.45\textwidth}
+        \begin{figure}
+            \includegraphics[width=0.9\textwidth]{figuras/lambda.png}
+            \caption{Arquitetura Lambda com Kafka, Storm, Hadoop, SGBD tradicional e aplicação consumidora.}
+        \end{figure}
+        \begin{figure}
+            \includegraphics[width=0.9\textwidth, trim={0 0 10cm 20cm},clip]{figuras/dataflow-code-flink.png}
+            \caption{Arquitetura Apache Flink.}
+        \end{figure}
+    \end{columns}
+  \end{alertblock}
+
+  % \nota{Faltou definir antes o que é processamento de fluxo.\\
+  % \textbf{fluxo vs lote} deixar mais claro a diferença}
+
+  % \nota{O slide fala de plataformas, mas vc falou de kappa e lambda
+  % que não deveria falar neste slide}
+
+  % \nota{Muita fala p/ esse slide (ficou explicando cada fundamento).
+  % Deveria quebrar o slide em 3 ou 4 slides ao menos.}
+\end{frame}
+
+\begin{frame}[fragile]{Fundamentos - MPI}
+  \begin{itemize}%[<+- | alert@+>]
+    \item Localidade de dados;
+    \begin{itemize}
+      \item Menor número de \emph{page-faults} mantendo o Modelo em cache;
+    \end{itemize}
+    \item Memória distribuída e troca de mensagens;
+    \item Padrão MPI - \emph{Message Passing Interface};
+    \begin{itemize}
+      \item Bibliotecas bem estabelecidas;
+      \item Pares de operações \emph{send/receive}, entre outras operações;
+      \item Execução gerenciada (\emph{Runtime Environment}, \texttt{mpirun});
+    \end{itemize}
+    \item Técnica SPMD - \emph{Single Program Multiple Data};
+    \begin{itemize}
+      \item Construção simplificada;
+    \end{itemize}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Fundamentos}
@@ -230,19 +305,12 @@ Programa de Pós-Graduação em Ciência da Computação}
 \end{frame}
 
 \begin{frame}[fragile]{Fundamentos}
-  \begin{alertblock}{Ambientes de computação Distribuída}
-  \begin{itemize}
-    
+\begin{alertblock}{Ambientes de computação Distribuída}
+\begin{itemize}
   \item Computação de Borda (\emph{Edge Computing}):
   \\ Refere-se a qualquer recurso computacional ou de rede entre os dispositivos
   de borda e centro de dados hospedados em nuvem \cite{Shi2016}.
-\end{itemize}
-\end{alertblock}
-\end{frame}
 
-\begin{frame}[fragile]{Fundamentos}
-  \begin{alertblock}{Ambientes de computação Distribuída}
-  \begin{itemize}
   \item Computação em Névoa (\emph{Fog Computing})
   
   % \cite{Bonomi2012,dastjerdi2016}
@@ -254,117 +322,65 @@ Programa de Pós-Graduação em Ciência da Computação}
   Uma arquitetura horizontal a nível de sistema que distribui funções de
   computação, armazenamento, controle e rede próximos aos usuários no espaço
   contínuo nuvem-coisa \cite{IEEECommunicationsSociety2018}.
-  
   \textbf{Características:}
-  \begin{columns}[T,onlytextwidth]
-    \column{0.5\textwidth}
+  % \hspace{0.2\textwidth}
+  \begin{columns}
+    \column{0.15\textwidth}
+    \column{0.3\textwidth}
     \begin{itemize}
       \item Mobilidade,
       \item Heterogeneidade,
       \item Baixa Latência,
       \item Distribuição geográfica,
     \end{itemize}
-    \column{0.5\textwidth}
+    \column{0.4\textwidth}
     \begin{itemize}
       \item Alto número de nós,
       \item Interoperabilidade e federação,
       \item Uso de fluxo de dados e aplicações em tempo real.
     \end{itemize}
+    \column{0.15\textwidth}
   \end{columns}
+  % \begin{block}{Características:}
+  % \end{block}
 \end{itemize}
 \end{alertblock}
 \end{frame}
 
-
-\begin{frame}[fragile]{Fundamentos}
-  \begin{alertblock}{Plataformas de processamento distribuído}
-    \begin{itemize}%[<+- | alert@+>]
-      \item Mineração de Dados:
-      \begin{itemize}
-        \item \emph{MapReduce} e \emph{Apache Hadoop};
-        \item \emph{Apache Spark} com \emph{Resilient Distributed Dataset - RDD};
-      \end{itemize}
-      \item Mineração de Fluxo de Dados:
-      \begin{itemize}
-        \item \emph{Apache Spark Streaming} com estratégia de \emph{micro-batching};
-        \item \emph{Apache Storm};
-        \item \emph{Apache Flink};
-      \end{itemize}
-      \item Arquiteturas \emph{Lambda} e \emph{Kappa};
-    \end{itemize}
-  \end{alertblock}
-
-  % \nota{Faltou definir antes o que é processamento de fluxo.\\
-  % \textbf{fluxo vs lote} deixar mais claro a diferença}
-
-  % \nota{O slide fala de plataformas, mas vc falou de kappa e lambda
-  % que não deveria falar neste slide}
-
-  % \nota{Muita fala p/ esse slide (ficou explicando cada fundamento).
-  % Deveria quebrar o slide em 3 ou 4 slides ao menos.}
-\end{frame}
-
-% \begin{frame}[fragile]{Fundamentos}
-% \begin{figure}[ht]
-% \centering
-% \includegraphics[width=0.85\textwidth]{figuras/dataflow-code-flink.png}
-% \caption{Exemplo de código e \emph{data flow} do \emph{Apache Flink} \cite{ApacheFlink2020}}
-% \label{fig:dataflow-flink}
-% \end{figure}
-% \end{frame}
-
 % ------------------------------------------------------------------------------
 
 \section{Estado da Arte e Trabalhos Relacionados}
-% \begin{frame}[fragile]{Estado da Arte e Trabalhos Relacionados}
-% \begin{itemize}
-% \item Extensões do Algoritmo MINAS;
-% \item Sistemas de detecção de intrusão em redes;
-% \end{itemize}
-% \nota{Trabalhos relacionados * extensões? esses são seus concorrentes?\\
-% qual é a relação?\\
-% MEIO FORA DE FOCO!}
-% \end{frame}
-
 \newcommand{\arch}{IDSA-IoT\xspace}
-
-\begin{frame}[fragile]{Estado da Arte e Trabalhos Relacionados}
-  \begin{alertblock}{Sistemas de detecção de intrusão em redes}
-    \begin{itemize}
-      \item Ferramenta BigFlow \cite{Viegas2019}:
-      \begin{itemize}
-        % \nota{% OK, isso é trabalho relacionado!\\
-        % Dissecar melhor [bigflow, catraca, idsa-iot]\\
-        % passar mais rápido, detalhar nos próximos.}
-        % \nota{BigFlow usa stream mining?\\
-        % - qual é a grande contribuição?\\
-        % - qual é a limitação?}
-        \item[$\boldsymbol{+}$] Integração da extração dos descritores de fluxo à emissão de alarmes;
-        \item[$\boldsymbol{+}$] Capacidade de tratamento de grandes volumes;
-        \item[$\boldsymbol{-}$] Atualização semanal com avaliação de um especialista;
-        \item[$\boldsymbol{-}$] Execução somente em nuvem.
-      \end{itemize}
-      \item Ferramenta CATRACA \cite{Lopez2018,Sanz2018}:
-      \begin{itemize}
-        % \nota{catraca: contribuição? limitação?}
-        \item[$\boldsymbol{+}$] Divisão em camadas alocadas em nuvem e névoa;
-        \item[$\boldsymbol{+}$] Modelo de decisão baseado em árvore de decisão;
-        \item[$\boldsymbol{-}$] Extração dos descritores de fluxo é feita em névoa porém a
-        classificação e detecção é feita em nuvem.
-      \end{itemize}
-    \end{itemize}
-  \end{alertblock}
-\end{frame}
-
-% ------------------------------------------------------------------------------
 
 \begin{frame}[fragile]{Estado da Arte e Trabalhos Relacionados}
 \begin{alertblock}{Sistemas de detecção de intrusão em redes}
   \begin{itemize}
+    \item Ferramenta BigFlow \cite{Viegas2019}:
+    \begin{itemize}
+      % \nota{% OK, isso é trabalho relacionado!\\
+      % Dissecar melhor [bigflow, catraca, idsa-iot]\\
+      % passar mais rápido, detalhar nos próximos.}
+      % \nota{BigFlow usa stream mining?\\
+      % - qual é a grande contribuição?\\
+      % - qual é a limitação?}
+      \item[$\boldsymbol{+}$] Integração da extração dos descritores de fluxo à emissão de alarmes;
+      \item[$\boldsymbol{+}$] Capacidade de tratamento de grandes volumes;
+      \item[$\boldsymbol{-}$] Atualização semanal com avaliação de um especialista;
+      \item[$\boldsymbol{-}$] Execução somente em nuvem.
+    \end{itemize}
+    \item Ferramenta CATRACA \cite{Lopez2018,Sanz2018}:
+    \begin{itemize}
+      % \nota{catraca: contribuição? limitação?}
+      \item[$\boldsymbol{+}$] Divisão em camadas alocadas em nuvem e névoa;
+      \item[$\boldsymbol{+}$] Modelo de decisão baseado em árvore de decisão;
+      \item[$\boldsymbol{-}$] Extração dos descritores de fluxo é feita em
+      névoa, classificação e detecção é feita em nuvem.
+    \end{itemize}
     \item Arquitetura \arch \cite{Cassales2019a}:
     \begin{itemize}
-      \item Avaliação do algoritmo MINAS, ECSMiner e AnyNovel;
-      \item Distribuição das tarefas em nuvem e névoa focada em IoT;
+      \item[$+$] Avaliação do algoritmo MINAS, ECSMiner e AnyNovel;
+      \item[$+$] Distribuição das tarefas em nuvem e névoa focada em IoT;
+      \item[$-$] Implementação e detalhamento da arquitetura em aberto.
     \end{itemize}
   \end{itemize}
 \end{alertblock}
@@ -376,8 +392,7 @@ Programa de Pós-Graduação em Ciência da Computação}
   \includegraphics[width=0.48\textwidth]{figuras/idsa-iot-quali-000.png}
   \hfill
   \includegraphics[width=0.48\textwidth]{figuras/idsa-iot-quali-004.png}
-  \caption{Distribuição de Serviços da Arquitetura \arch.
-  Produzida e traduzida por \citeonline{Cassales2019a}.}
+  \caption{Distribuição de serviços da arquitetura \arch. \textbf{Fonte:} \citeonline{Cassales2019a}.}
   \label{fig:ids-iot}
 \end{figure}
 \end{frame}
@@ -394,6 +409,18 @@ Programa de Pós-Graduação em Ciência da Computação}
       \item É viável paralelizar e distribuir o algoritmo MINAS?
       \item Quais são os efeitos na qualidade de classificação paralelizar e
       distribuir o algoritmo MINAS?
+      
+      % Proposta
+      \item Um sistema para detecção de intrusão em Redes IoT implementando em névoa;
+
+      % hipótese
+      \item A hipótese do trabalho é que o algoritmo MINAS pode ser distribuído em
+      névoa reduzindo a latência e com sem redução na qualidade de classificação.
+
+      % \nota{pode falar:\\
+      % - dificuldade de atualização de SW\\
+      % - como foi o ataque MIRAI? (só curiosidade)\\
+      % - capacidade de autodefesa? mesmo outros computadores não têm...}
     \end{itemize}
   \end{block}
 \end{frame}
@@ -438,7 +465,7 @@ Programa de Pós-Graduação em Ciência da Computação}
 
 \end{frame}
 
-\begin{frame}[fragile]{Proposta}
+\begin{frame}
   \begin{figure}[h]
     \centering
     \includegraphics[width=0.88\textwidth,page=1]{figures/lifecycle-uml-svg.pdf}
@@ -576,31 +603,33 @@ Programa de Pós-Graduação em Ciência da Computação}
 \end{frame}
 
 \begin{frame}[fragile]{Resultados}
-  \begin{alertblock}{Experimentos}
-    \begin{figure}[htb]
+  \begin{figure}
+    \begin{subfigure}{0.49\textwidth}
       \centering
-      \includegraphics[width=0.75\linewidth]{experiments/revised-java-log.png}
-      \caption{Experimento \expA, visualização de fluxo do conjunto \emph{Kyoto} Dez. 2015.}
+      \includegraphics[width=1\linewidth]{experiments/revised-java-log.png}
+      \caption{Experimento \expA, implementação de referência do algoritmo \minas.}
       \label{fig:validation-java}
-    \end{figure}
-    \begin{figure}[htb]
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.49\textwidth}
       \centering
-      \includegraphics[width=0.75\linewidth]{experiments/online-nd-log.png}
-      \caption{Experimento \expB, visualização de fluxo do conjunto \emph{Kyoto} Dez. 2015.}
+      \includegraphics[width=1\linewidth]{experiments/online-nd-log.png}
+      \caption{Experimento \expB, \mfog sequencial.}
       \label{fig:validation-serial}
-    \end{figure}
-  \end{alertblock}
+    \end{subfigure}
+    \caption{Visualização de fluxo do conjunto \emph{Kyoto} Dez. 2015.}
+  \end{figure}
 \end{frame}
 
 \begin{frame}[fragile]{Resultados}
   \begin{figure}
-    \begin{subfigure}{0.48\textwidth}
+    \begin{subfigure}{0.49\textwidth}
       \includegraphics[width=1\linewidth]{experiments/tmi-base-log.png}
       \caption{Experimento \expC, \mfog com 1 nó e 4 núcleos.}
       \label{fig:single-flow}
     \end{subfigure}
     \hfill
-    \begin{subfigure}{0.48\textwidth}
+    \begin{subfigure}{0.49\textwidth}
       \includegraphics[width=1\linewidth]{experiments/tmi-n12-log.png}
       \caption{Experimento \expD, \mfog com 3 nós de 4 núcleos cada.}
       \label{fig:multi-flow}
@@ -609,45 +638,40 @@ Programa de Pós-Graduação em Ciência da Computação}
   \end{figure}
 \end{frame}
 
-\begin{frame}[fragile]{Resultados}
-  \begin{alertblock}{Experimentos}
-    \begin{figure}[t]
-      \centering
-      \includegraphics[width=0.65\linewidth,page=1]{experiments/speedup-clean.pdf}
-      \caption{Métricas de tempo para execuções do \mfog com variação no número de processadores.}
-      \label{fig:speedup}
-    \end{figure}
-  \end{alertblock}
+\begin{frame}[fragile]{Resultados - Experimentos Adicionais}
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.7\linewidth,page=1]{experiments/speedup-clean.pdf}
+    \caption{Métricas de tempo para execuções do \mfog com variação no número de processadores.}
+    \label{fig:speedup}
+  \end{figure}
 \end{frame}
 
-\begin{frame}[fragile]{Resultados}
-  \begin{alertblock}{Experimentos}
+\begin{frame}{Resultados - Experimentos Adicionais}
     \begin{figure}[h]
       \centering
-      % \begin{minipage}{0.49\textwidth}
-      %   \centering
-      %   \includegraphics[width=1\linewidth,page=1]{experiments/speedup-clean.pdf}
-      %   \caption{Métricas de tempo para execuções do \mfog com variação no número de processadores.}
-      %   \label{fig:speedup}
-      % \end{minipage}%
-      % \hfill
-      \begin{subfigure}{0.48\textwidth}
+      \begin{subfigure}{0.49\textwidth}
         \centering
         \includegraphics[width=1\linewidth]{experiments/lag-java.png}
         \caption{Implementação de referência.}
         \label{fig:lag-java}
       \end{subfigure}
       \hfill
-      % \vspace{5mm}
-      \begin{subfigure}{0.48\textwidth}
+      \begin{subfigure}{0.49\textwidth}
         \centering
         \includegraphics[width=1\linewidth]{experiments/lag-serial.png}
         \caption{Implementação sequencial.}
         \label{fig:lag-serial}
       \end{subfigure}
-      % \vspace{5mm}
-      % \hfill
-      \begin{subfigure}{0.48\textwidth}
+      \caption{Visualização de Latência das implementações de referência, sequencial
+      e paralela do algoritmo \minas.}
+      \label{fig:lag}
+    \end{figure}
+\end{frame}
+\begin{frame}{Resultados - Experimentos Adicionais}
+    \begin{figure}[h]
+      \centering
+      \begin{subfigure}{0.49\textwidth}
         \centering
         \includegraphics[width=1\linewidth]{experiments/lag-mfog.png}
         \caption{Implementação paralela.}
@@ -655,9 +679,8 @@ Programa de Pós-Graduação em Ciência da Computação}
       \end{subfigure}
       \caption{Visualização de Latência das implementações de referência, sequencial
       e paralela do algoritmo \minas.}
-      \label{fig:lag}
+      \label{fig:lag-2}
     \end{figure}
-  \end{alertblock}
 \end{frame}
 
 \section{Conclusão}

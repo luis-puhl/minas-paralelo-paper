@@ -235,7 +235,7 @@ padrões-novidade e atualização do modelo de decisão \cite{Faria2016minas}.
         maisPróximo.cluster.últimoUso $ \leftarrow i $ \;
       }
       {
-        exemplo.rótulo $\leftarrow$ "desconhecido"\;
+        exemplo.rótulo $\leftarrow$ ``desconhecido''\;
         Desconhecidos $\leftarrow$ Desconhecidos $\cup$ exemplo\;
         \If{$|\;Desconhecidos\;| \geq$ \noveltyDetectionTrigger}{
           % \tcc{Novelty Detection}
@@ -339,11 +339,11 @@ exemplo representado no novo \mcluster.
         maisPróximo $\leftarrow$ \nearestCluster(novo, Modelo)\;
         \eIf{maisPróximo.distância $<$ (maisPróximo.cluster.raio $\times$ \noveltyFactor)}{
           novo.rótulo $\leftarrow$ maisPróximo.cluster.rótulo\;
-          novo.tipo $\leftarrow$ "extensão"\;
+          novo.tipo $\leftarrow$ ``extensão''\;
         }{
           novo.rótulo $\leftarrow$ proximaNovidade\;
           proximaNovidade $\leftarrow$ proximaNovidade $+ 1$\;
-          novo.tipo $\leftarrow$ "novidade"\;
+          novo.tipo $\leftarrow$ ``novidade''\;
         }
         % novo.últimoUso $ \leftarrow i $ \;
         \label{alg:MINAS-nd:reclassify}
