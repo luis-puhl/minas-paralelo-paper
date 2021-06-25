@@ -21,6 +21,7 @@
 \usepackage{caption}
 \usepackage{subcaption}
 
+\newcommand{\fonte}[1]{\vspace{-1em}{\footnotesize\textbf{Fonte:} #1}}
 
 \title[]{Uma Implementação Distribuída em Névoa do Algoritmo de Detecção de
 Novidade em Fluxos de Dados MINAS}
@@ -36,14 +37,13 @@ Programa de Pós-Graduação em Ciência da Computação}
 \date{05 Julho 2021}
 % \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
 
-\newcommand{\nota}[1]{\hspace*{-0.5cm}\textit{{\color[rgb]{1,0,0}Nota: #1}}}
 \newcommand{\minas}{MINAS\xspace}
 
 \begin{document}
 
 \maketitle
 
-\begin{frame}{Índice}
+\begin{frame}[noframenumbering]{Índice}
   \setbeamertemplate{section in toc}[sections numbered]
   \tableofcontents[hideallsubsections]
 \end{frame}
@@ -101,6 +101,7 @@ Programa de Pós-Graduação em Ciência da Computação}
     Um fluxo de dados (\textit{Data Stream}) é uma sequência massiva possivelmente
     ilimitada de exemplos multi-dimensionais $x_1, x_2, \dots, x_n, \dots$
     recebidos em instantes associados $t_1, t_2, \dots, t_n, \dots$
+    \cite{Aggarwal2003}.
   \end{block}
 
   \metroset{block=transparent}
@@ -148,7 +149,8 @@ Programa de Pós-Graduação em Ciência da Computação}
   \centering
   \includegraphics[width=\textwidth]{figuras/FariaMinas2015-fases.png}
   \caption{Visão geral do algoritmo MINAS com fases \emph{Offline} (a) e 
-  \emph{Online} (b). \textbf{Fonte:} \citeonline{Faria2016minas}.}
+  \emph{Online} (b).}
+  \fonte{\citeonline{Faria2016minas}.}
   \label{fig:minas}
 \end{figure}
 % \nota{Explique o desenho! o que significa cada objeto da figura? explique na figura.}
@@ -222,13 +224,17 @@ Programa de Pós-Graduação em Ciência da Computação}
         \end{itemize}
         \column{0.05\textwidth}
         \column{0.45\textwidth}
+        \vspace{-3em}
         \begin{figure}
-            \includegraphics[width=0.9\textwidth]{figuras/lambda.png}
-            \caption{Arquitetura Lambda com Kafka, Storm, Hadoop, SGBD tradicional e aplicação consumidora.}
+          \includegraphics[width=\textwidth]{figuras/lambda.png}
+          \caption{Arquitetura \emph{Lambda} com Kafka, Storm, Hadoop, SGBD tradicional e aplicação consumidora.}
+          \fonte{\citeonline{Kreps2014}.}
         \end{figure}
+        \vspace{-1em}
         \begin{figure}
-            \includegraphics[width=0.9\textwidth, trim={0 0 10cm 20cm},clip]{figuras/dataflow-code-flink.png}
+            \includegraphics[width=\textwidth, trim={2cm 0 10cm 20cm},clip]{figuras/dataflow-code-flink.png}
             \caption{Arquitetura Apache Flink.}
+            \fonte{\citeonline{ApacheFlink2020}.}
         \end{figure}
     \end{columns}
   \end{alertblock}
@@ -252,6 +258,7 @@ Programa de Pós-Graduação em Ciência da Computação}
     \item Memória distribuída e troca de mensagens;
     \item Padrão MPI - \emph{Message Passing Interface};
     \begin{itemize}
+      \item Padrão MPI-4.0 aprovado pelo MPI Forum em 9 de Junho de 2021;
       \item Bibliotecas bem estabelecidas;
       \item Pares de operações \emph{send/receive}, entre outras operações;
       \item Execução gerenciada (\emph{Runtime Environment}, \texttt{mpirun});
@@ -392,7 +399,8 @@ Programa de Pós-Graduação em Ciência da Computação}
   \includegraphics[width=0.48\textwidth]{figuras/idsa-iot-quali-000.png}
   \hfill
   \includegraphics[width=0.48\textwidth]{figuras/idsa-iot-quali-004.png}
-  \caption{Distribuição de serviços da arquitetura \arch. \textbf{Fonte:} \citeonline{Cassales2019a}.}
+  \caption{Distribuição de serviços da arquitetura \arch.}
+  \fonte{\citeonline{Cassales2019a}.}
   \label{fig:ids-iot}
 \end{figure}
 \end{frame}
@@ -470,6 +478,7 @@ Programa de Pós-Graduação em Ciência da Computação}
     \centering
     \includegraphics[width=0.88\textwidth,page=1]{figures/lifecycle-uml-svg.pdf}
     \caption{Arquitetura e fluxos de dados do \mfog.}
+    \fonte{O autor.}
     \label{fig:arch}
   \end{figure}
 \end{frame}
@@ -618,6 +627,7 @@ Programa de Pós-Graduação em Ciência da Computação}
       \label{fig:validation-serial}
     \end{subfigure}
     \caption{Visualização de fluxo do conjunto \emph{Kyoto} Dez. 2015.}
+    \fonte{O autor.}
   \end{figure}
 \end{frame}
 
@@ -635,6 +645,7 @@ Programa de Pós-Graduação em Ciência da Computação}
       \label{fig:multi-flow}
     \end{subfigure}
     \caption{Visualização de fluxo do conjunto \emph{Kyoto} Dez. 2015.}
+    \fonte{O autor.}
   \end{figure}
 \end{frame}
 
@@ -644,6 +655,7 @@ Programa de Pós-Graduação em Ciência da Computação}
     \includegraphics[width=0.7\linewidth,page=1]{experiments/speedup-clean.pdf}
     \caption{Métricas de tempo para execuções do \mfog com variação no número de processadores.}
     \label{fig:speedup}
+    \fonte{O autor.}
   \end{figure}
 \end{frame}
 
@@ -663,9 +675,9 @@ Programa de Pós-Graduação em Ciência da Computação}
         \caption{Implementação sequencial.}
         \label{fig:lag-serial}
       \end{subfigure}
-      \caption{Visualização de Latência das implementações de referência, sequencial
-      e paralela do algoritmo \minas.}
+      \caption{Visualização de Latência.}
       \label{fig:lag}
+      \fonte{O autor.}
     \end{figure}
 \end{frame}
 \begin{frame}{Resultados - Experimentos Adicionais}
@@ -677,9 +689,9 @@ Programa de Pós-Graduação em Ciência da Computação}
         \caption{Implementação paralela.}
         \label{fig:lag-mfog}
       \end{subfigure}
-      \caption{Visualização de Latência das implementações de referência, sequencial
-      e paralela do algoritmo \minas.}
+      \caption{Visualização de Latência.}
       \label{fig:lag-2}
+      \fonte{O autor.}
     \end{figure}
 \end{frame}
 
@@ -704,8 +716,18 @@ Programa de Pós-Graduação em Ciência da Computação}
 
 \begin{frame}{Contribuições e Publicações}
   \begin{itemize}
-    \item ICCSA 2021 \cite{Puhl2021};
-    \item GitHub;
+    
+    \item Artigo aceito na seção geral da 21ª Conferência Internacional em
+    Computação Ciêntífica e suas Aplicações (ICCSA 2021,
+    \url{https://iccsa.org/}) em Cagliari, Itália, Setembro 13-16 2021
+    \cite{Puhl2021};
+    
+    % July 5-8, 2021: ICCSA 2021 Conference
+    % September 13-16, 2021: ICCSA 2021 Conference
+    
+    \item Código fonte com experimentos e métodos publicamente disponíveis em
+    \url{https://github.com/luis-puhl/minas-flink}.
+  
   \end{itemize}
 \end{frame}
 
@@ -724,8 +746,36 @@ Programa de Pós-Graduação em Ciência da Computação}
     \centering
     \includegraphics[width=0.8\textwidth]{figures/mfog-arch-fisica.svg.pdf}
     \caption{Arquitetura IoT tradicional.}
+    \fonte{O autor.}
     \label{fig:ids-iot-phy}
   \end{figure}
+\end{frame}
+\begin{frame}\centering
+  \includegraphics[width=1\linewidth]{figures/lifecycle-uml-svg.pdf}
+\end{frame}
+\begin{frame}\centering
+  \includegraphics[width=1\linewidth]{experiments/revised-java-log.png}
+\end{frame}
+\begin{frame}\centering
+  \includegraphics[width=1\linewidth]{experiments/online-nd-log.png}
+\end{frame}
+\begin{frame}\centering
+  \includegraphics[width=1\linewidth]{experiments/tmi-base-log.png}
+\end{frame}
+\begin{frame}\centering
+  \includegraphics[width=1\linewidth]{experiments/tmi-n12-log.png}
+\end{frame}
+\begin{frame}\centering
+  \includegraphics[width=1\linewidth,page=1]{experiments/speedup-clean.pdf}
+\end{frame}
+\begin{frame}\centering
+  \includegraphics[width=1\linewidth]{experiments/lag-java.png}
+\end{frame}
+\begin{frame}\centering
+  \includegraphics[width=1\linewidth]{experiments/lag-serial.png}
+\end{frame}
+\begin{frame}\centering
+  \includegraphics[width=1\linewidth]{experiments/lag-mfog.png}
 \end{frame}
 
 \end{document}
