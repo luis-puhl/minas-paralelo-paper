@@ -105,7 +105,7 @@ Programa de Pós-Graduação em Ciência da Computação}
 
   % hipótese
   \item A hipótese do trabalho é que o algoritmo MINAS pode ser distribuído em
-  névoa reduzindo a latência e com sem redução na qualidade de classificação.
+  névoa reduzindo a latência sem redução na qualidade de classificação.
 
   \end{itemize}
   % \nota{pode falar:\\
@@ -231,7 +231,7 @@ Programa de Pós-Graduação em Ciência da Computação}
 \end{algorithm}
 \end{frame}
 
-\begin{frame}[fragile]{Fundamentos}
+\begin{frame}[fragile]{Fundamentos - Processamento de Fluxos}
   \begin{alertblock}{Plataformas de processamento distribuído}
     \vspace{5mm}
     \begin{columns}[T,onlytextwidth]
@@ -303,7 +303,7 @@ Programa de Pós-Graduação em Ciência da Computação}
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Fundamentos}
+\begin{frame}[fragile]{Fundamentos - Ambientes}
 \begin{alertblock}{Ambientes de computação Distribuída}
 \begin{itemize}
   \item Computação em Nuvem (\emph{Cloud Computing}) é um modelo que permite
@@ -344,7 +344,7 @@ Programa de Pós-Graduação em Ciência da Computação}
 % \nota{Separar os items em bullets (sub-bullets)}
 \end{frame}
 
-\begin{frame}[fragile]{Fundamentos}
+\begin{frame}[fragile]{Fundamentos - Ambientes}
 \begin{alertblock}{Ambientes de computação Distribuída}
 \begin{itemize}
   \item Computação de Borda (\emph{Edge Computing}):
@@ -447,17 +447,16 @@ Programa de Pós-Graduação em Ciência da Computação}
   \metroset{block=fill}
   \begin{block}{Pergunta de Pesquisa}
     \begin{itemize}
-      \item É viável implementar a arquitetura \arch?
-      \item É viável paralelizar e distribuir o algoritmo MINAS?
+      \item É viável paralelizar e distribuir o algoritmo MINAS seguindo a arquitetura \arch?
       \item Quais são os efeitos na qualidade de classificação paralelizar e
       distribuir o algoritmo MINAS?
       
       % Proposta
-      \item Um sistema para detecção de intrusão em Redes IoT implementando em névoa;
+      % \item Um sistema para detecção de intrusão em Redes IoT implementando em névoa;
 
-      % hipótese
-      \item A hipótese do trabalho é que o algoritmo MINAS pode ser distribuído em
-      névoa reduzindo a latência e com sem redução na qualidade de classificação.
+      % % hipótese
+      % \item A hipótese do trabalho é que o algoritmo MINAS pode ser distribuído em
+      % névoa reduzindo a latência e com sem redução na qualidade de classificação.
 
       % \nota{pode falar:\\
       % - dificuldade de atualização de SW\\
@@ -535,11 +534,16 @@ Programa de Pós-Graduação em Ciência da Computação}
 
   O \mfog é dividido em 2 módulos e 4 tarefas.
   
-  \begin{alertblock}{Módulos principais implementam o algoritmo MINAS}
-    \begin{itemize}
-      \item \mfog foi implementado em linguagem C, OpenMPI 4.0.4, seguindo a técnica SPMD;
-    \end{itemize}
-  \end{alertblock}
+  \begin{itemize}
+    \item \mfog foi implementado em linguagem C, OpenMPI 4.0.4, seguindo a técnica SPMD;
+    \item \texttt{mpirun} cria processos, o processo de \emph{0} executa o
+    módulo raiz e os demais processos executam o módulo folha;
+    \item Módulo raiz, com as tarefas \texttt{Fonte} e \texttt{Detector}, trata
+    dos fluxos de entrada e saída além de gerenciar o conjunto de desconhecidos
+    e a detecção de novidade;
+    \item Módulo folha, com as tarefas \texttt{Classificador} e \texttt{Atualiza Modelo},
+    trata da classificação de cada exemplo e manutenção do modelo local de cada instância.
+  \end{itemize}
 
 \end{frame}
 
@@ -559,49 +563,50 @@ Programa de Pós-Graduação em Ciência da Computação}
 \section{Resultados}
 
 \begin{frame}[fragile]{Resultados}
-  \begin{alertblock}{Métricas e Ambientes}
+\begin{alertblock}{Métricas e Ambientes}
+  \begin{itemize}
+    \item Métricas de qualidade de classificação:
     \begin{itemize}
-      \item Métricas de qualidade de classificação:
-      \begin{itemize}
-        \item Avaliação do fluxo de saída do classificador;
-        \item Uso de uma matriz de confusão ou erro;
-        \item Taxa de desconhecidos, 
-      \end{itemize}
+      \item Avaliação do fluxo de saída do classificador em uma matriz de confusão própria;
+      \item Taxa de desconhecidos, acurácia e erro por classe.
     \end{itemize}
-  \end{alertblock}
-  \hspace{-6em}\vspace{-3em}
-  \begin{figure}
-    \small
-    \begin{columns}[width=\paperwidth]
-      \column{0.6\textwidth}
-      \begin{align}
-      \mathbf{C} &= \{ c_1, c_2, \cdots, c_m \}\\
-      \mathbf{Y} &= \{ y_1, y_2, \cdots, y_k \}\\
-      \mathbf{L} &= \{ l_1, l_2, \cdots, l_n \} = \mathbf{C}' \cup \{ \text{``-''} \} \cup \mathbf{Y}\\
-      \mathbf{E}_x &= (e_{ij})\in \mathbb{N} ^{m\times n}\\
-        % \mathbf{E}_x &= \begin{pmatrix}
-        %   e_{1,1} & e_{1,2} & \cdots & e_{1,n} \\
-        %   e_{2,1} & e_{2,2} & \cdots & e_{2,n} \\
-        %   \vdots  & \vdots  & \ddots & \vdots  \\
-        %   e_{m,1} & e_{m,2} & \cdots & e_{m,n} 
-        % \end{pmatrix}\\
-        A(l_j) &= \begin{cases} 
-          %\downarrow 
-          \nexists & \text{se } l_j = \text{``-''} \\
-          c_i      & \text{se } \exists c_i = l_j \;: c_i \in \mathbf{C}' \\
-          c_i      & \text{se } e_{ij} = max\{ e_{aj} : j \in [0, m] \}
-        \end{cases}\\
-        \mathit{UnkR}_{x, i} &= \frac{e_{i j} : l_j = \text{``-''}}{\sum_{j=1}^{n} e_{i j}}
-      \end{align}
-      \column{0.4\textwidth}
-      \begin{align}
-        tp_i &= \sum_{j=1}^{n} e_{ij} \; \text{ se } l_j \neq \text{``-''} \text{ e } A(l_j) = c_i\\
-        fn_i &= \sum_{j=1}^{n} e_{ij} \; \text{ se } l_j \neq \text{``-''} \text{ e } A(l_j) \neq c_i\\
-        \mathit{acc}_x &= \frac{1}{m} \sum_{i=1}^{m} \frac{tp_i}{fn_i + tp_i}\\
-        \mathit{err}_x &= \frac{1}{m} \sum_{i=1}^{m} \frac{fn_i}{fn_i + tp_i}
-      \end{align}
-    \end{columns}
-  \end{figure}
+  \end{itemize}
+\end{alertblock}
+% \vspace{-3em}
+\hspace{-1cm}
+{
+\small
+\begin{minipage}{.55\textwidth}
+  \begin{align}
+    \mathbf{C} &= \{ c_1, c_2, \cdots, c_m \}\\
+    \mathbf{Y} &= \{ y_1, y_2, \cdots, y_k \}\\
+    \mathbf{L} &= \{ l_1, l_2, \cdots, l_n \} = \mathbf{C}' \cup \{ \text{``-''} \} \cup \mathbf{Y}\\
+    \mathbf{E}_x &= (e_{ij})\in \mathbb{N} ^{m\times n}\\
+      % \mathbf{E}_x &= \begin{pmatrix}
+      %   e_{1,1} & e_{1,2} & \cdots & e_{1,n} \\
+      %   e_{2,1} & e_{2,2} & \cdots & e_{2,n} \\
+      %   \vdots  & \vdots  & \ddots & \vdots  \\
+      %   e_{m,1} & e_{m,2} & \cdots & e_{m,n} 
+      % \end{pmatrix}\\
+      A(l_j) &= \begin{cases} 
+        %\downarrow 
+        \nexists & \text{se } l_j = \text{``-''} \\
+        c_i      & \text{se } \exists c_i = l_j \;: c_i \in \mathbf{C}' \\
+        c_i      & \text{se } e_{ij} = max\{ e_{aj} : j \in [0, m] \}
+      \end{cases}\\
+      \mathit{UnkR}_{x, i} &= \frac{e_{i j} : l_j = \text{``-''}}{\sum_{j=1}^{n} e_{i j}}
+  \end{align}
+\end{minipage}%
+\hspace{0.5cm}
+\begin{minipage}{.45\textwidth}
+  \begin{align}
+    tp_i &= \sum_{j=1}^{n} e_{ij} \; \text{ se } l_j \neq \text{``-''} \text{ e } A(l_j) = c_i\\
+    fn_i &= \sum_{j=1}^{n} e_{ij} \; \text{ se } l_j \neq \text{``-''} \text{ e } A(l_j) \neq c_i\\
+    \mathit{acc}_x &= \frac{1}{m} \sum_{i=1}^{m} \frac{tp_i}{fn_i + tp_i}\\
+    \mathit{err}_x &= \frac{1}{m} \sum_{i=1}^{m} \frac{fn_i}{fn_i + tp_i}%
+  \end{align}%
+\end{minipage}
+}
 \end{frame}
 
 \begin{frame}[fragile]{Resultados}
@@ -653,7 +658,7 @@ Programa de Pós-Graduação em Ciência da Computação}
   \end{alertblock}
 \end{frame}
 
-\begin{frame}[fragile]{Resultados}
+\begin{frame}[fragile]{Resultados - Validação}
   \begin{figure}
     \begin{subfigure}{0.49\textwidth}
       \centering
@@ -673,7 +678,7 @@ Programa de Pós-Graduação em Ciência da Computação}
   \end{figure}
 \end{frame}
 
-\begin{frame}[fragile]{Resultados}
+\begin{frame}[fragile]{Resultados - Efeitos Distribuição}
   \begin{figure}
     \begin{subfigure}{0.49\textwidth}
       \includegraphics[width=1\linewidth]{experiments/tmi-base-log.png}
@@ -702,30 +707,31 @@ Programa de Pós-Graduação em Ciência da Computação}
 \end{frame}
 
 \begin{frame}{Resultados - Experimentos Adicionais}
-    \begin{figure}[h]
+  Tempo necessário para tratamento de cada descritor de fluxo admitido no sistema:
+  \begin{figure}[h]
+    \centering
+    \begin{subfigure}{0.49\textwidth}
       \centering
-      \begin{subfigure}{0.49\textwidth}
-        \centering
-        \includegraphics[width=1\linewidth]{experiments/lag-java.png}
-        \caption{Implementação de referência.}
-        \label{fig:lag-java}
-      \end{subfigure}
-      \hfill
-      \begin{subfigure}{0.49\textwidth}
-        \centering
-        \includegraphics[width=1\linewidth]{experiments/lag-serial.png}
-        \caption{Implementação sequencial.}
-        \label{fig:lag-serial}
-      \end{subfigure}
-      \caption{Visualização de Latência.}
-      \label{fig:lag}
-      \fonte{O autor.}
-    \end{figure}
+      \includegraphics[width=1\linewidth]{experiments/lag-java.png}
+      \caption{Implementação de referência.}
+      \label{fig:lag-java}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.49\textwidth}
+      \centering
+      \includegraphics[width=1\linewidth]{experiments/lag-serial.png}
+      \caption{Implementação sequencial.}
+      \label{fig:lag-serial}
+    \end{subfigure}
+    \caption{Visualização de Latência.}
+    \label{fig:lag}
+    \fonte{O autor.}
+  \end{figure}
 \end{frame}
 \begin{frame}{Resultados - Experimentos Adicionais}
     \begin{figure}[h]
       \centering
-      \begin{subfigure}{0.49\textwidth}
+      \begin{subfigure}{0.7\textwidth}
         \centering
         \includegraphics[width=1\linewidth]{experiments/lag-mfog.png}
         \caption{Implementação paralela.}
@@ -739,21 +745,31 @@ Programa de Pós-Graduação em Ciência da Computação}
 
 \section{Conclusão}
 \begin{frame}{Conclusão}
+  
+  \begin{alertblock}{Resultados obtidos:}
   \begin{itemize}
-    \item \mfog funciona;
-    \item Distribuição tem efeito mas não é tão drástico;
-    \item Não escala pelo CCR e eficiência;
-    \item Trabalhos futuros:
+    \item Algoritmo \minas foi paralelizado e distribuído e a arquitetura \arch
+    implementada com modificações;
+    \item Distribuição tem pequeno efeito sobre as métricas de qualidade;
     \begin{itemize}
-      \item Outros algoritmos de agrupamento (CluStream);
-      \item Estratégia de otimização da comunicação (micro ou mini batching);
-      \item Explorar distribuição espacial dos clusters (polígonos sem
-      sobreposição, árvore de busca);
-      \item Algoritmo com modelo de tamanho fixo (máxima precisão com recursos disponíveis);
-      \item Modelos com propriedade de conjuntos aditivos para sincronização
-      entre redes distintas.
+      \item Em especial, na versão distribuída há redução de etiquetas de
+      novidade devido às filas de comunicação;
     \end{itemize}
+    \item Resultados mostram que a implementação \mfog não atinge escala pelo CCR e eficiência;
   \end{itemize}
+  \end{alertblock}
+  
+  \begin{alertblock}{Trabalhos futuros:}
+  \begin{itemize}
+    \item Outros algoritmos de agrupamento (CluStream);
+    \item Estratégia de otimização da comunicação (micro ou mini batching);
+    \item Explorar distribuição espacial dos clusters (polígonos sem
+    sobreposição, árvore de busca);
+    \item Algoritmo com modelo de tamanho fixo (máxima precisão com recursos disponíveis);
+    \item Modelos com propriedade de conjuntos aditivos para sincronização
+    entre redes distintas.
+  \end{itemize}
+  \end{alertblock}
 \end{frame}
 
 \begin{frame}{Contribuições e Publicações}
@@ -783,17 +799,20 @@ Programa de Pós-Graduação em Ciência da Computação}
 
 \appendix
 
-\begin{frame}[fragile]{Extra}
-  \begin{figure}[ht]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figures/mfog-arch-fisica.svg.pdf}
-    \caption{Arquitetura IoT tradicional.}
-    \fonte{O autor.}
-    \label{fig:ids-iot-phy}
-  \end{figure}
+% \begin{frame}[fragile]{Extra}
+%   \begin{figure}[ht]
+%     \centering
+%     \includegraphics[width=0.8\linewidth]{figures/mfog-arch-fisica.svg.pdf}
+%     \caption{Arquitetura IoT tradicional.}
+%     \fonte{O autor.}
+%     \label{fig:ids-iot-phy}
+%   \end{figure}
+% \end{frame}
+\begin{frame}\centering
+  \includegraphics[width=0.8\linewidth]{figures/mfog-arch-fisica.svg.pdf}
 \end{frame}
 \begin{frame}\centering
-  \includegraphics[width=1\linewidth]{figures/lifecycle-uml-svg.pdf}
+  \includegraphics[width=0.93\linewidth]{figures/lifecycle-uml-svg.pdf}
 \end{frame}
 \begin{frame}\centering
   \includegraphics[width=1\linewidth]{experiments/revised-java-log.png}
