@@ -162,9 +162,7 @@ Programa de Pós-Graduação em Ciência da Computação}
 % (precisa estudar um pouco + a teoria).}
 \end{frame}
 
-\begin{frame}[fragile]{Fundamentos}
-\begin{alertblock}{Algoritmo MINAS e suas estratégias}
-  \vspace{5mm}
+\begin{frame}[fragile]{Fundamentos - \minas}
   \begin{itemize}%[<+- | alert@+>]
     \item Modelo de aprendizado \emph{Offline-Online};
     \item Transformação dos dados analisados para o espaço $\mathbb{R}^d$;
@@ -173,11 +171,10 @@ Programa de Pós-Graduação em Ciência da Computação}
     \item Algoritmo de agrupamento para identificação de novos padrões;
     \item Classificação de novos padrões entre recorrência, extensão e novidade;
   \end{itemize}
-\end{alertblock}
 % \nota{MINAS: Use figura!\\pseudocodigo?}
 \end{frame}
 
-\begin{frame}[fragile]{Fundamentos}
+\begin{frame}[fragile]{Fundamentos - \minas}
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\textwidth]{figuras/FariaMinas2015-fases.png}
@@ -189,7 +186,7 @@ Programa de Pós-Graduação em Ciência da Computação}
 % \nota{Explique o desenho! o que significa cada objeto da figura? explique na figura.}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]{Fundamentos - \minas}
 \begin{algorithm}[H]
   \SetKwFunction{nearestCluster}{clusterMaisPróximo}
   \SetKwFunction{NoveltyDetection}{DetecçãoNovidade}
@@ -231,11 +228,10 @@ Programa de Pós-Graduação em Ciência da Computação}
 \end{algorithm}
 \end{frame}
 
-\begin{frame}[fragile]{Fundamentos - Processamento de Fluxos}
-  \begin{alertblock}{Plataformas de processamento distribuído}
-    \vspace{5mm}
+\begin{frame}[fragile]{Fundamentos - Processamento Distribuído de Fluxos}
     \begin{columns}[T,onlytextwidth]
-        \column{0.5\textwidth}
+      \column{0.5\textwidth}
+        \vspace{1em}
         \begin{itemize}%[<+- | alert@+>]
           \item Arquiteturas \emph{Lambda} e \emph{Kappa};
           \item Mineração de Dados:
@@ -255,9 +251,9 @@ Programa de Pós-Graduação em Ciência da Computação}
             \item Interface de Troca de Mensagens - MPI;
           \end{itemize}
         \end{itemize}
-        \column{0.05\textwidth}
-        \column{0.45\textwidth}
-        \vspace{-3em}
+      \column{0.05\textwidth}
+      \column{0.45\textwidth}
+        % \vspace{-3em}
         \begin{figure}
           \includegraphics[width=\textwidth]{figuras/lambda.png}
           \caption{Arquitetura \emph{Lambda} com Kafka, Storm, Hadoop, SGBD tradicional e aplicação consumidora.}
@@ -270,7 +266,6 @@ Programa de Pós-Graduação em Ciência da Computação}
             \fonte{\citeonline{ApacheFlink2020}.}
         \end{figure}
     \end{columns}
-  \end{alertblock}
 
   % \nota{Faltou definir antes o que é processamento de fluxo.\\
   % \textbf{fluxo vs lote} deixar mais claro a diferença}
@@ -531,11 +526,10 @@ Programa de Pós-Graduação em Ciência da Computação}
 \end{frame}
 
 \begin{frame}[fragile]{Proposta - Implementação MPI}
-
-  O \mfog é dividido em 2 módulos e 4 tarefas.
-  
+\begin{alertblock}{Terceira Implementação com MPI}
   \begin{itemize}
-    \item \mfog foi implementado em linguagem C, OpenMPI 4.0.4, seguindo a técnica SPMD;
+    \item Implementado em linguagem C, OpenMPI 4.0.4, seguindo a técnica SPMD;
+    \item Dividido em 2 módulos e 4 tarefas.
     \item \texttt{mpirun} cria processos, o processo de \emph{0} executa o
     módulo raiz e os demais processos executam o módulo folha;
     \item Módulo raiz, com as tarefas \texttt{Fonte} e \texttt{Detector}, trata
@@ -544,25 +538,23 @@ Programa de Pós-Graduação em Ciência da Computação}
     \item Módulo folha, com as tarefas \texttt{Classificador} e \texttt{Atualiza Modelo},
     trata da classificação de cada exemplo e manutenção do modelo local de cada instância.
   \end{itemize}
-
+\end{alertblock}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]{Proposta - Implementação MPI}
   \begin{figure}[h]
     \centering
-    \includegraphics[width=0.85\textwidth,page=1]{figures/lifecycle-uml-svg.pdf}
+    \vspace{-0.5em}
+    \includegraphics[width=0.8\textwidth,page=1]{figures/lifecycle-uml-svg.pdf}
     \vspace{-0.5em}
     \caption{Arquitetura e fluxos de dados do \mfog.}
     \vspace{-0.5em}
     \fonte{O autor.}
     \label{fig:arch}
   \end{figure}
-  \vspace{-1em}
 \end{frame}
 
-\section{Resultados}
-
-\begin{frame}[fragile]{Resultados}
+\begin{frame}[fragile]{Proposta - Método de Avaliação}
 \begin{alertblock}{Métricas e Ambientes}
   \begin{itemize}
     \item Métricas de qualidade de classificação:
@@ -609,7 +601,7 @@ Programa de Pós-Graduação em Ciência da Computação}
 }
 \end{frame}
 
-\begin{frame}[fragile]{Resultados}
+\begin{frame}[fragile]{Proposta - Método de Avaliação}
   \begin{alertblock}{Métricas e Ambientes}
     \begin{itemize}
       \item Métricas de escalabilidade:
@@ -617,8 +609,7 @@ Programa de Pós-Graduação em Ciência da Computação}
         \item Número e tipo de processadores;
         \item Uso de memória;
         \item Tempo de processamento;
-        \item Taxa de eventos;
-        \item Latência entre a produção e classificação.
+        \item Latência, tempo entre a entrada e saída de cada descritor de fluxo.
       \end{itemize}
       \item Ambientes de teste:
       \begin{itemize}
@@ -631,14 +622,16 @@ Programa de Pós-Graduação em Ciência da Computação}
   \end{alertblock}
 \end{frame}
 
+\section{Resultados}
+
 \newcommand{\expA}{\textit{a-Referência}\xspace}
 \newcommand{\expB}{\textit{b-Sequencial}\xspace}
 \newcommand{\expC}{\textit{c-Paralelo}\xspace}
 \newcommand{\expD}{\textit{d-Distribuído}\xspace}
-\begin{frame}[fragile]{Resultados}
-  \begin{alertblock}{Experimentos}
+\begin{frame}[fragile]{Resultados - Experimentos}
     \begin{table}[htb]
       \centering
+      \caption{Listagem dos principais experimentos.}
       \begin{tabular}{p{0.17\textwidth}|p{0.27\textwidth}|p{0.47\textwidth}}
       \textbf{Experimento} & \textbf{Programa}                 & \textbf{Características} \\\hline
       \expA                & \minas referência 2013            & Raio é a distância máxima. \\\hline
@@ -653,9 +646,7 @@ Programa de Pós-Graduação em Ciência da Computação}
         Mais processadores;
         Comunicação em rede.
       \end{tabular}
-      \caption{Listagem dos principais experimentos.}
     \end{table}
-  \end{alertblock}
 \end{frame}
 
 \begin{frame}[fragile]{Resultados - Validação}
@@ -696,7 +687,29 @@ Programa de Pós-Graduação em Ciência da Computação}
   \end{figure}
 \end{frame}
 
-\begin{frame}[fragile]{Resultados - Experimentos Adicionais}
+\begin{frame}[fragile]{Resultados - Experimentos Principais}
+  \begin{table}[hbt]
+    \centering
+    \caption{Sumário das métricas extraídas dos experimentos principais.}
+    \begin{tabular}{l|r|r|r|r|r}
+    Experimento     & \expA         & \emph{Offline} & \expB          & \expC       & \expD       \\
+    Métrica         &               &               &                 &             &             \\\hline
+    \texttt{unk}    & $0.018333$    &               & $0.043717$      & $0.023521$  & $0.023718$  \\\hline
+    \texttt{hit}    & $0.305618$    &               & $0.298438$      & $0.312416$  & $0.312478$  \\\hline
+    \texttt{err}    & $0.676049$    &               & $0.657843$      & $0.664061$  & $0.663802$  \\\hline
+    Novidades       & $12$          &               & $9$             & $5$         & $5$         \\\hline
+    Tempo     ($s$) & $2761.83$     & $194.12$      & $80.79$         & $522.10$    & $207.14$    \\\hline
+    Sistema   ($s$) & $7.15$        & $ 0.075$      & $11.51$         & $ 47.77$    & $157.61$    \\\hline
+    Decorrido ($s$) & $2772.07$     & $194.27$      & $93.03$         & $145.04$    & $ 95.38$    \\\hline
+    Latência  ($s$) & $4.24\cdot10^{-3}$  &       & $1.42\cdot10^{-4}$  & $2.22\cdot10^{-4}$  & $1.46\cdot10^{-4}\ $  \\\hline
+    Processadores   & $1$           &  $1$          &  $1$            & $4$         & $12$        \\\hline
+    \emph{Speedup}  &               &               &                 & $0.6414092$ & $0.9753617$  \\\hline
+    Eficiência      &               &               &                 & $0.1603523$ & $0.0812801$  
+    \end{tabular}
+  \end{table}
+\end{frame}
+
+\begin{frame}[fragile]{Resultados - Variação Processadores}
   \begin{figure}
     \centering
     \includegraphics[width=0.7\linewidth,page=1]{experiments/speedup-clean.pdf}
@@ -706,39 +719,34 @@ Programa de Pós-Graduação em Ciência da Computação}
   \end{figure}
 \end{frame}
 
-\begin{frame}{Resultados - Experimentos Adicionais}
-  Tempo necessário para tratamento de cada descritor de fluxo admitido no sistema:
+\begin{frame}{Resultados - Latência (i)}
   \begin{figure}[h]
     \centering
     \begin{subfigure}{0.49\textwidth}
       \centering
       \includegraphics[width=1\linewidth]{experiments/lag-java.png}
       \caption{Implementação de referência.}
-      \label{fig:lag-java}
     \end{subfigure}
     \hfill
     \begin{subfigure}{0.49\textwidth}
       \centering
       \includegraphics[width=1\linewidth]{experiments/lag-serial.png}
       \caption{Implementação sequencial.}
-      \label{fig:lag-serial}
     \end{subfigure}
     \caption{Visualização de Latência.}
-    \label{fig:lag}
     \fonte{O autor.}
   \end{figure}
 \end{frame}
-\begin{frame}{Resultados - Experimentos Adicionais}
+\begin{frame}{Resultados - Latência (ii)}
     \begin{figure}[h]
       \centering
       \begin{subfigure}{0.7\textwidth}
         \centering
-        \includegraphics[width=1\linewidth]{experiments/lag-mfog.png}
-        \caption{Implementação paralela.}
-        \label{fig:lag-mfog}
+        \includegraphics[width=1\linewidth]{experiments/lag-mfog.png}%
+        \addtocounter{figure}{-1}\addtocounter{subfigure}{2}%
+        \caption[label=c]{Implementação paralela.}%
       \end{subfigure}
       \caption{Visualização de Latência.}
-      \label{fig:lag-2}
       \fonte{O autor.}
     \end{figure}
 \end{frame}
@@ -748,26 +756,32 @@ Programa de Pós-Graduação em Ciência da Computação}
   
   \begin{alertblock}{Resultados obtidos:}
   \begin{itemize}
-    \item Algoritmo \minas foi paralelizado e distribuído e a arquitetura \arch
+    \item Algoritmo \minas distribuído e a arquitetura \arch
     implementada com modificações;
     \item Distribuição tem pequeno efeito sobre as métricas de qualidade;
     \begin{itemize}
-      \item Em especial, na versão distribuída há redução de etiquetas de
-      novidade devido às filas de comunicação;
+      \item Maior efeito é a redução de etiquetas novidade na versão distribuída;
     \end{itemize}
     \item Resultados mostram que a implementação \mfog não atinge escala pelo CCR e eficiência;
   \end{itemize}
   \end{alertblock}
   
+  \vspace{.5em}
   \begin{alertblock}{Trabalhos futuros:}
   \begin{itemize}
+    \item Da arquitetura: Distribuição do modelo entre redes distintas (conjuntos aditivos);
+    \item Na implementação:
+    \begin{itemize}
     \item Outros algoritmos de agrupamento (CluStream);
-    \item Estratégia de otimização da comunicação (micro ou mini batching);
+    \item Estratégia de otimização da distribuição de carga (micro ou mini batching);
+    \item Outras plataformas de processamento otimizadas para o ambiente névoa;
+    \end{itemize}
+    \item No algoritmo:
+    \begin{itemize}
     \item Explorar distribuição espacial dos clusters (polígonos sem
     sobreposição, árvore de busca);
     \item Algoritmo com modelo de tamanho fixo (máxima precisão com recursos disponíveis);
-    \item Modelos com propriedade de conjuntos aditivos para sincronização
-    entre redes distintas.
+    \end{itemize}
   \end{itemize}
   \end{alertblock}
 \end{frame}
@@ -809,6 +823,9 @@ Programa de Pós-Graduação em Ciência da Computação}
 %   \end{figure}
 % \end{frame}
 \begin{frame}\centering
+  \includegraphics[width=0.8\linewidth]{figures/arq-mfog.png}
+\end{frame}
+\begin{frame}\centering
   \includegraphics[width=0.8\linewidth]{figures/mfog-arch-fisica.svg.pdf}
 \end{frame}
 \begin{frame}\centering
@@ -817,14 +834,88 @@ Programa de Pós-Graduação em Ciência da Computação}
 \begin{frame}\centering
   \includegraphics[width=1\linewidth]{experiments/revised-java-log.png}
 \end{frame}
+\begin{frame}
+  % \hspace{-3cm}
+  % \begin{minipage}{\paperwidth}
+  \footnotesize
+  \begin{table}[hbt]
+    \centering
+    \caption{Experimento \expA, Matriz de confusão, \emph{Kyoto} Dez. 2015.}
+    \label{tab:java-matrix}
+    \begin{tabular}{l *{14}{|r} }
+      Rótulos   &     - &       N &    1 &    2 &    3 &  4 &   5 &    6 &    7 &     8 &    9 &    10 &   11 &  12 \\\hline
+      Classes  &       &         &      &      &      &    &     &      &      &       &      &       &      &     \\\hline
+      \hline
+      A        &  3\;774 &  438\;750 &  123 &  145 &  368 &  8 &  52 &  165 &    1 &  1\;046 &  161 &  2\;489 &   71 &  26 \\\hline
+      N        &  8\;206 &  193\;030 &    0 &   79 &   44 &  0 &   0 &    0 &  229 &   181 &  154 &  4\;066 &  289 &   0 \\\hline
+      \hline
+      Associação &     - &       N &    A &    A &    A &  A &   A &    A &    N &     A &    A &     N &    N &   A \\\hline
+      Hits ($tp$)     &     0 &  193\;030 &  123 &  145 &  368 &  8 &  52 &  165 &  229 &  1\;046 &  161 &  4\;066 &  289 &  26 
+    \end{tabular}
+  \end{table}
+  % \end{minipage}
+\end{frame}
 \begin{frame}\centering
   \includegraphics[width=1\linewidth]{experiments/online-nd-log.png}
+\end{frame}
+\begin{frame}\centering
+  \begin{table}[hbt]
+    \centering
+    \caption{Experimento \expB, Matriz de confusão, \emph{Kyoto} Dez. 2015.}
+    \label{tab:libc-matrix}
+    \begin{tabular}{l|r|r|r|r|r|r|r|r|r|r|r}
+      Rótulos &      - &       N &   0 &    1 &    2 &   4 &   5 &  6 &   7 &   8 &  10 \\\hline
+      Classes  &        &         &     &      &      &     &     &    &     &     &     \\\hline
+      \hline
+      A        &  16\;086 &  429\;765 &  94 &  995 &  104 &   0 &  23 &  3 &  29 &  46 &  34 \\\hline
+      N        &  12\;481 &  193\;642 &   3 &   94 &    0 &  47 &   0 &  0 &   0 &  11 &   0 \\\hline
+      \hline
+      Associação &      - &       N &   A &    A &    A &   N &   A &  A &   A &   A &   A \\\hline
+      Hits ($tp$)     &      0 &  193\;642 &  94 &  995 &  104 &  47 &  23 &  3 &  29 &  46 &  34 
+    \end{tabular}
+  \end{table}
 \end{frame}
 \begin{frame}\centering
   \includegraphics[width=1\linewidth]{experiments/tmi-base-log.png}
 \end{frame}
 \begin{frame}\centering
+  \begin{table}[hbt]
+    \centering
+    % \setlength\tabcolsep{0.5em}
+    \caption{Experimento \expC, \mfog com 1 nó e 4 núcleos, Matriz de confusão, \emph{Kyoto} Dez. 2015.}
+    \label{tab:single-matrix}
+    \begin{tabular}{l|r|r|r|r|r|r|r}
+      Rótulos &      - &       N &    0 &    1 &   2 &  3 &  4 \\\hline
+      Classes  &        &         &      &      &     &    &    \\\hline
+      \hline
+      A        &  12\;282 &  433\;797 &  147 &  952 &   0 &  0 &  1 \\\hline
+      N        &   3\;088 &  203\;019 &   40 &   99 &  27 &  5 &  0 \\\hline
+      \hline
+      Associação &      - &       N &    A &    A &   N &  N &  A \\\hline
+      Hits ($tp$)     &      0 &  203\;019 &  147 &  952 &  27 &  5 &  1 
+    \end{tabular}
+  \end{table}
+\end{frame}
+\begin{frame}\centering
   \includegraphics[width=1\linewidth]{experiments/tmi-n12-log.png}
+\end{frame}
+\begin{frame}\centering
+  \begin{table}[hbt]
+    \centering
+    % \setlength\tabcolsep{0.5em}
+    \caption{Experimento \expD, \mfog com 3 nós de 4 núcleos cada, Matriz de confusão, \emph{Kyoto} Dez. 2015.}
+    \label{tab:multi-matrix}
+    \begin{tabular}{l|r|r|r|r|r|r|r}
+      Rótulos   &      - &       N &    0 &    1 &    2 &    3 &  4 \\\hline
+      Classes   &        &         &      &      &      &      &    \\\hline
+      \hline
+      A      &  12\;378 &  433\;631 &  117 &  886 &    0 &  162 &  5 \\\hline
+      N      &   3\;121 &  202\;916 &   40 &   96 &  105 &    0 &  0 \\\hline
+      \hline
+      Associação   &      - &       N &    A &    A &    N &    A &  A \\\hline
+      Hits ($tp$)   &      0 &  202\;916 &  117 &  886 &  105 &  162 &  5 
+    \end{tabular}
+  \end{table}
 \end{frame}
 \begin{frame}\centering
   \includegraphics[width=1\linewidth,page=1]{experiments/speedup-clean.pdf}
