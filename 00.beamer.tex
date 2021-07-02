@@ -199,25 +199,25 @@ Programa de Pós-Graduação em Ciência da Computação}
   \SetKwFunction{MinasOnline}{MinasOnline}
   % 
   \Function{\MinasOnline{Modelo, fluxoEntrada, fluxoSaída, \cleaningWindow, \noveltyDetectionTrigger}}{
-    Desconhecidos $\leftarrow$ $\emptyset$; ModeloAntigo $\leftarrow$ $\emptyset$; últimaLimpeza $\leftarrow 0$; proximaNovidade $\leftarrow 0$\;
+    Desconhecidos $\gets$ $\emptyset$; ModeloAntigo $\gets$ $\emptyset$; últimaLimpeza $\gets 0$; proximaNovidade $\gets 0$\;
     \ForEach{ {$exemplo_{i}$} $\in$ fluxoEntrada }{
-      % exemplo.rótulo $\leftarrow$ unknown\;
-      % (distância, cluster) $\leftarrow$ \nearestCluster(exemplo, Modelo)\;
-      maisPróximo $\leftarrow$ \nearestCluster(exemplo, Modelo)\;
+      % exemplo.rótulo $\gets$ unknown\;
+      % (distância, cluster) $\gets$ \nearestCluster(exemplo, Modelo)\;
+      maisPróximo $\gets$ \nearestCluster(exemplo, Modelo)\;
       \eIf{maisPróximo.distância $<$ maisPróximo.cluster.raio}{
-        exemplo.rótulo $\leftarrow$ maisPróximo.cluster.rótulo\;
-        maisPróximo.cluster.últimoUso $ \leftarrow i$\;
+        exemplo.rótulo $\gets$ maisPróximo.cluster.rótulo\;
+        maisPróximo.cluster.últimoUso $ \gets i$\;
       }
       {
-        exemplo.rótulo $\leftarrow$ ``desconhecido''\;
-        Desconhecidos $\leftarrow$ Desconhecidos $\cup$ exemplo\;
+        exemplo.rótulo $\gets$ ``desconhecido''\;
+        Desconhecidos $\gets$ Desconhecidos $\cup$ exemplo\;
         \If{$|\;Desconhecidos\;| \geq$ \noveltyDetectionTrigger}{
-          Modelo $\leftarrow$ Modelo $\cup$ \NoveltyDetection(Modelo $\cup$ ModeloAntigo, *Desconhecidos)\;
+          Modelo $\gets$ Modelo $\cup$ \NoveltyDetection(Modelo $\cup$ ModeloAntigo, *Desconhecidos)\;
         }
         \If{ $ i > $ ( últimaLimpeza $ + $ \cleaningWindow )}{
-          Modelo $\leftarrow$ \handleModelSleep(Modelo, *ModeloAntigo, últimaLimpeza)\;
-          Desconhecidos $\leftarrow$ \removeOldSamples(Desconhecidos, últimaLimpeza)\;
-          últimaLimpeza $ \leftarrow i $\;
+          Modelo $\gets$ \handleModelSleep(Modelo, *ModeloAntigo, últimaLimpeza)\;
+          Desconhecidos $\gets$ \removeOldSamples(Desconhecidos, últimaLimpeza)\;
+          últimaLimpeza $ \gets i $\;
         }
       }
       fluxoSaída.adicione(exemplo)\;
