@@ -17,14 +17,14 @@
 \usepackage{lmodern}
 \usepackage[alf]{abntex2cite}
 % \usepackage{ragged2e}
-\usepackage{graphicx}
-\usepackage{caption}
-\usepackage{subcaption}
+\usepackage{graphicx,caption,subcaption}
 
 \newcommand{\printorientador}{<Orientador>}
 \newcommand{\orientador}[1]{\renewcommand{\printorientador}{#1}}
 \newcommand{\printagradecimento}{<agradecimento>}
 \newcommand{\agradecimento}[1]{\renewcommand{\printagradecimento}{#1}}
+\newcommand{\fonte}[1]{\vspace{-1em}{\footnotesize\textbf{Fonte:} #1}}
+\newcommand{\mfog}{M-FOG\xspace}
 
 \setbeamertemplate{title page}{
     \begin{minipage}[c][\paperheight]{\textwidth}
@@ -52,8 +52,6 @@
         \vspace*{1mm}
     \end{minipage}
 }
-
-\newcommand{\fonte}[1]{\vspace{-1em}{\footnotesize\textbf{Fonte:} #1}}
 
 \title[]{Uma Implementação Distribuída em Névoa do Algoritmo de Detecção de
 Novidade em Fluxos de Dados MINAS}
@@ -83,7 +81,18 @@ Programa de Pós-Graduação em Ciência da Computação}
 
 \section{Introdução}
 
-\begin{frame}[fragile]{Introdução}
+% \begin{frame}{Introdução}
+%   \begin{itemize}
+%   \item Cenário
+%   \item Problema
+%   \item Relacionados $\to$ lacuna
+%   \item Proposta, ND $\to$ distribuição névoa (kafka, flink, mpi) $\to$ efeitos (ressaltar diferenças das implementações)
+%   \item Resultados
+%   \end{itemize}
+% \end{frame}
+
+\begin{frame}{Introdução}
+  \begin{block}{Contexto}
   \begin{itemize}%[<+- | alert@+>]
   % Contexto Geral
   \item Crescimento do número de dispositivos IoT e riscos associados;
@@ -99,15 +108,18 @@ Programa de Pós-Graduação em Ciência da Computação}
     \item detecção por assinatura \emph{versus} anomalia;
     \item ambiente de névoa e redes IoT.
   \end{itemize}
+  \end{itemize}
+  \end{block}
 
   % Proposta
+  \begin{block}{Proposta}
+  \begin{itemize}
   \item Um sistema para detecção de intrusão em Redes IoT implementando em névoa;
-
   % hipótese
   \item A hipótese do trabalho é que o algoritmo MINAS pode ser distribuído em
   névoa reduzindo a latência sem redução na qualidade de classificação.
-
   \end{itemize}
+  \end{block}
   % \nota{pode falar:\\
   % - dificuldade de atualização de SW\\
   % - como foi o ataque MIRAI? (só curiosidade)\\
@@ -115,14 +127,48 @@ Programa de Pós-Graduação em Ciência da Computação}
 \end{frame}
 
 
-\section{Fundamentos}
-\begin{frame}[fragile]{Fundamentos}
-\begin{itemize}
-  \item Fluxo de Dados e Métodos Detecção de Novidade;
-  \item Plataformas de processamento distribuído de fluxos;
-  \item Ambientes de computação Distribuída.
-\end{itemize}
-% \nota{Por que "seria dificil processar de forma centralizado"? [tg] corrigir no discurso}
+\begin{frame}{Introdução - Cenário}
+  \begin{figure}\centering
+    \includegraphics[width=0.75\linewidth]{figures/mfog-arch-fisica.png}
+    \caption{Visão geral de IoT, Névoa e Nuvem.}
+    \fonte{O autor.}
+  \end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Fundamentos - Ambientes}
+  \begin{alertblock}{Ambientes de computação Distribuída}
+  \begin{itemize}%[<+- | alert@+>]
+    
+    \vspace{1.0em}\item \textbf{Computação em Nuvem} (\emph{Cloud Computing}) é
+    um modelo que permite acesso conveniente a recursos computacionais
+    compartilhados \cite{NIST2011}.
+
+    \textbf{Características:}
+      \underline{Auto-serviço} sob demanda,
+      Amplo acesso à rede,
+      Agrupamento de recursos,
+      Rápida \underline{elasticidade},
+      Serviço mensurado;
+    
+    \vspace{1.0em}\item \textbf{Computação de Borda} (\emph{Edge Computing})
+    refere-se a qualquer recurso computacional entre os dispositivos de borda e
+    centro de dados hospedados em nuvem \cite{Shi2016}.
+    
+    \vspace{1.0em}\item \textbf{Computação em Névoa} (\emph{Fog Computing}) é
+    uma arquitetura horizontal a nível de sistema que distribui funções de
+    computação, armazenamento, controle e rede próximos aos usuários no espaço
+    \underline{contínuo nuvem-coisa} \cite{IEEECommunicationsSociety2018}.
+    
+    \textbf{Características:}
+        Mobilidade,
+        Heterogeneidade,
+        \underline{Baixa Latência},
+        Distribuição geográfica,
+        \underline{Alto número de nós},
+        Interoperabilidade e federação,
+        Uso de \underline{fluxo de dados} e aplicações em tempo real.
+  \end{itemize}
+  \end{alertblock}
 \end{frame}
 
 \begin{frame}[fragile]{Fundamentos}
@@ -161,6 +207,61 @@ Programa de Pós-Graduação em Ciência da Computação}
 % \nota{Poderia explicar melhor a evolução de modelos, "concept drift"
 % (precisa estudar um pouco + a teoria).}
 \end{frame}
+
+
+% ------------------------------------------------------------------------------
+\section{Estado da Arte e Trabalhos Relacionados}
+
+\newcommand{\arch}{IDSA-IoT\xspace}
+
+\begin{frame}[fragile]{Estado da Arte e Trabalhos Relacionados}
+\begin{alertblock}{Sistemas de detecção de intrusão em redes}
+  \begin{itemize}%[<+- | alert@+>]
+    \item Ferramenta BigFlow \cite{Viegas2019}:
+    \begin{itemize}
+      % \nota{% OK, isso é trabalho relacionado!\\
+      % Dissecar melhor [bigflow, catraca, idsa-iot]\\
+      % passar mais rápido, detalhar nos próximos.}
+      % \nota{BigFlow usa stream mining?\\
+      % - qual é a grande contribuição?\\
+      % - qual é a limitação?}
+      \item[$\boldsymbol{+}$] Integração da extração dos descritores de fluxo à emissão de alarmes;
+      \item[$\boldsymbol{+}$] Capacidade de tratamento de grandes volumes;
+      \item[$\boldsymbol{-}$] Atualização semanal com avaliação de um especialista;
+      \item[$\boldsymbol{-}$] Execução somente em nuvem.
+    \end{itemize}
+    \item Ferramenta CATRACA \cite{Lopez2018,Sanz2018}:
+    \begin{itemize}
+      % \nota{catraca: contribuição? limitação?}
+      \item[$\boldsymbol{+}$] Divisão em camadas alocadas em nuvem e névoa;
+      \item[$\boldsymbol{+}$] Modelo de decisão baseado em árvore de decisão;
+      \item[$\boldsymbol{-}$] Extração dos descritores de fluxo é feita em
+      névoa, classificação e detecção é feita em nuvem.
+    \end{itemize}
+    \item Arquitetura \arch \cite{Cassales2019a}:
+    \begin{itemize}
+      \item[$+$] Avaliação do algoritmo MINAS, ECSMiner e AnyNovel;
+      \item[$+$] Distribuição das tarefas em nuvem e névoa focada em IoT;
+      \item[$-$] Implementação e detalhamento da arquitetura em aberto.
+    \end{itemize}
+  \end{itemize}
+\end{alertblock}
+\end{frame}
+
+\begin{frame}[fragile]{Estado da Arte e Trabalhos Relacionados}
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.48\textwidth]{figuras/idsa-iot-quali-000.png}
+  \hfill
+  \includegraphics[width=0.48\textwidth]{figuras/idsa-iot-quali-004.png}
+  \caption{Distribuição de serviços da arquitetura \arch.}
+  \fonte{\citeonline{Cassales2019a}.}
+  \label{fig:ids-iot}
+\end{figure}
+\end{frame}
+
+% ------------------------------------------------------------------------------
+\section{Proposta}
 
 \begin{frame}[fragile]{Fundamentos - \minas}
   \begin{itemize}%[<+- | alert@+>]
@@ -277,166 +378,22 @@ Programa de Pós-Graduação em Ciência da Computação}
   % Deveria quebrar o slide em 3 ou 4 slides ao menos.}
 \end{frame}
 
-\begin{frame}[fragile]{Fundamentos - MPI}
-  \begin{itemize}%[<+- | alert@+>]
-    \item Localidade de dados;
-    \begin{itemize}
-      \item Menor número de \emph{page-faults} mantendo o Modelo em cache;
-    \end{itemize}
-    \item Memória distribuída e troca de mensagens;
-    \item Padrão MPI - \emph{Message Passing Interface};
-    \begin{itemize}
-      \item Padrão MPI-4.0 aprovado pelo MPI Forum em 9 de Junho de 2021;
-      \item Bibliotecas bem estabelecidas;
-      \item Pares de operações \emph{send/receive}, entre outras operações;
-      \item Execução gerenciada (\emph{Runtime Environment}, \texttt{mpirun});
-    \end{itemize}
-    \item Técnica SPMD - \emph{Single Program Multiple Data};
-    \begin{itemize}
-      \item Construção e execução simplificadas;
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]{Fundamentos - Ambientes}
-\begin{alertblock}{Ambientes de computação Distribuída}
-\begin{itemize}
-  \item Computação em Nuvem (\emph{Cloud Computing}) é um modelo que permite
-  acesso conveniente a recursos computacionais compartilhados \cite{NIST2011}
-  \begin{columns}[T,onlytextwidth]
-    \column{0.5\textwidth}
-    \begin{itemize}
-      \item \textbf{Características Essenciais:}
-      \begin{itemize}
-        \item Auto-serviço sob demanda,
-        \item Amplo acesso à rede,
-        \item Agrupamento de recursos,
-        \item Rápida elasticidade,
-        \item Serviço mensurado;
-      \end{itemize}
-    \end{itemize}
-    \column{0.5\textwidth}
-    \begin{itemize}
-      % \item \textbf{Modelo de Serviço:} \emph{Software} (SaaS), Plataforma (PaaS), Infraestrutura (IaaS);
-      % \item \textbf{Implementações:} privada, comunitária, pública, híbrida.
-      \item \textbf{Modelo de Serviço:}
-      \begin{itemize}
-        \item \emph{Software} (SaaS),
-        \item Plataforma (PaaS),
-        \item Infraestrutura (IaaS),
-      \end{itemize}
-      \item \textbf{Implementações:}
-      \begin{itemize}
-        \item Nuvem privada,
-        \item Nuvem comunitária,
-        \item Nuvem pública,
-        \item Nuvem híbrida.
-      \end{itemize}
-    \end{itemize}
-  \end{columns}
-\end{itemize}
-\end{alertblock}
-% \nota{Separar os items em bullets (sub-bullets)}
-\end{frame}
-
-\begin{frame}[fragile]{Fundamentos - Ambientes}
-\begin{alertblock}{Ambientes de computação Distribuída}
-\begin{itemize}
-  \item Computação de Borda (\emph{Edge Computing}):
-  \\ Refere-se a qualquer recurso computacional ou de rede entre os dispositivos
-  de borda e centro de dados hospedados em nuvem \cite{Shi2016}.
-
-  \item Computação em Névoa (\emph{Fog Computing})
-  
-  % \cite{Bonomi2012,dastjerdi2016}
-  
-  % A horizontal, system-level architecture that distributes
-  % computing, storage, control and networking functions closer to
-  % the users along a cloud-to-thing continuum.
-  
-  Uma arquitetura horizontal a nível de sistema que distribui funções de
-  computação, armazenamento, controle e rede próximos aos usuários no espaço
-  contínuo nuvem-coisa \cite{IEEECommunicationsSociety2018}.
-  \textbf{Características:}
-  % \hspace{0.2\textwidth}
-  \begin{columns}
-    \column{0.15\textwidth}
-    \column{0.3\textwidth}
-    \begin{itemize}
-      \item Mobilidade,
-      \item Heterogeneidade,
-      \item Baixa Latência,
-      \item Distribuição geográfica,
-    \end{itemize}
-    \column{0.4\textwidth}
-    \begin{itemize}
-      \item Alto número de nós,
-      \item Interoperabilidade e federação,
-      \item Uso de fluxo de dados e aplicações em tempo real.
-    \end{itemize}
-    \column{0.15\textwidth}
-  \end{columns}
-  % \begin{block}{Características:}
-  % \end{block}
-\end{itemize}
-\end{alertblock}
-\end{frame}
-
-% ------------------------------------------------------------------------------
-\section{Estado da Arte e Trabalhos Relacionados}
-
-\newcommand{\arch}{IDSA-IoT\xspace}
-
-\begin{frame}[fragile]{Estado da Arte e Trabalhos Relacionados}
-\begin{alertblock}{Sistemas de detecção de intrusão em redes}
-  \begin{itemize}
-    \item Ferramenta BigFlow \cite{Viegas2019}:
-    \begin{itemize}
-      % \nota{% OK, isso é trabalho relacionado!\\
-      % Dissecar melhor [bigflow, catraca, idsa-iot]\\
-      % passar mais rápido, detalhar nos próximos.}
-      % \nota{BigFlow usa stream mining?\\
-      % - qual é a grande contribuição?\\
-      % - qual é a limitação?}
-      \item[$\boldsymbol{+}$] Integração da extração dos descritores de fluxo à emissão de alarmes;
-      \item[$\boldsymbol{+}$] Capacidade de tratamento de grandes volumes;
-      \item[$\boldsymbol{-}$] Atualização semanal com avaliação de um especialista;
-      \item[$\boldsymbol{-}$] Execução somente em nuvem.
-    \end{itemize}
-    \item Ferramenta CATRACA \cite{Lopez2018,Sanz2018}:
-    \begin{itemize}
-      % \nota{catraca: contribuição? limitação?}
-      \item[$\boldsymbol{+}$] Divisão em camadas alocadas em nuvem e névoa;
-      \item[$\boldsymbol{+}$] Modelo de decisão baseado em árvore de decisão;
-      \item[$\boldsymbol{-}$] Extração dos descritores de fluxo é feita em
-      névoa, classificação e detecção é feita em nuvem.
-    \end{itemize}
-    \item Arquitetura \arch \cite{Cassales2019a}:
-    \begin{itemize}
-      \item[$+$] Avaliação do algoritmo MINAS, ECSMiner e AnyNovel;
-      \item[$+$] Distribuição das tarefas em nuvem e névoa focada em IoT;
-      \item[$-$] Implementação e detalhamento da arquitetura em aberto.
-    \end{itemize}
-  \end{itemize}
-\end{alertblock}
-\end{frame}
-
-\begin{frame}[fragile]{Estado da Arte e Trabalhos Relacionados}
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=0.48\textwidth]{figuras/idsa-iot-quali-000.png}
-  \hfill
-  \includegraphics[width=0.48\textwidth]{figuras/idsa-iot-quali-004.png}
-  \caption{Distribuição de serviços da arquitetura \arch.}
-  \fonte{\citeonline{Cassales2019a}.}
-  \label{fig:ids-iot}
-\end{figure}
-\end{frame}
-
-% ------------------------------------------------------------------------------
-\section{Proposta}
-
-\newcommand{\mfog}{M-FOG\xspace}
+% \begin{frame}[fragile]{Fundamentos - MPI}
+  % \begin{itemize}%[<+- | alert@+>]
+  %   \item Memória distribuída e troca de mensagens;
+  %   \item Padrão MPI - \emph{Message Passing Interface};
+  %   \begin{itemize}
+  %     \item Padrão MPI-4.0 aprovado pelo MPI Forum em 9 de Junho de 2021;
+  %     \item Bibliotecas bem estabelecidas;
+  %     \item Pares de operações \emph{send/receive}, entre outras operações;
+  %     \item Execução gerenciada (\emph{Runtime Environment}, \texttt{mpirun});
+  %   \end{itemize}
+  %   \item Técnica SPMD - \emph{Single Program Multiple Data};
+  %   \begin{itemize}
+  %     \item Construção e execução simplificadas;
+  %   \end{itemize}
+  % \end{itemize}
+% \end{frame}
 
 \begin{frame}[fragile]{Proposta}
   \metroset{block=fill}
@@ -786,7 +743,7 @@ Programa de Pós-Graduação em Ciência da Computação}
 \begin{frame}{Contribuições e Publicações}
   \begin{itemize}
     
-    \item Artigo aceito na seção geral da 21ª Conferência Internacional em
+    \item Artigo aceito na trilha principal da 21ª Conferência Internacional em
     Computação Ciêntífica e suas Aplicações (ICCSA 2021,
     \url{https://iccsa.org/}) em Cagliari, Itália, Setembro 13-16 2021
     \cite{Puhl2021};
