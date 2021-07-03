@@ -264,27 +264,44 @@ Programa de Pós-Graduação em Ciência da Computação}
 \section{Proposta}
 
 \begin{frame}[fragile]{Fundamentos - \minas}
-  \begin{itemize}%[<+- | alert@+>]
-    \item Modelo de aprendizado \emph{Offline-Online};
-    \item Transformação dos dados analisados para o espaço $\mathbb{R}^d$;
-    \item Modelo de classificação com \emph{Clusters};
-    \item Função de classificação baseada em distância euclideana;
-    \item Algoritmo de agrupamento para identificação de novos padrões;
-    \item Classificação de novos padrões entre recorrência, extensão e novidade;
-  \end{itemize}
-% \nota{MINAS: Use figura!\\pseudocodigo?}
-\end{frame}
+\begin{alertblock}{O algoritmo \minas}
+\begin{itemize}%[<+- | alert@+>]
 
+  \item Análise no espaço $\mathbb{R}^d$;
+  
+  \item Aprendizado \emph{Offline-Online};
+    
+  \item Classificação com \emph{Clusters} e distância euclideana;
+  \begin{figure}[H]
+    \begin{subfigure}{0.45\textwidth}
+      \includegraphics[width=\textwidth]{figuras/FariaMinas2015-off.png}
+      \caption{Fase \emph{Online}.}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+      \includegraphics[width=\textwidth]{figuras/FariaMinas2015-on.png}
+      \caption{Fase \emph{Online}.}
+    \end{subfigure}
+    \caption{Visão geral do algoritmo \minas.}
+    \fonte{\citeonline{Faria2016minas}.}
+  \end{figure}
+
+\end{itemize}
+\end{alertblock}
+\end{frame}
 \begin{frame}[fragile]{Fundamentos - \minas}
-\begin{figure}[ht]
-  \centering
-  \includegraphics[width=\textwidth]{figuras/FariaMinas2015-fases.png}
-  \caption{Visão geral do algoritmo MINAS com fases \emph{Offline} (a) e 
-  \emph{Online} (b).}
-  \fonte{\citeonline{Faria2016minas}.}
-  \label{fig:minas}
-\end{figure}
+\begin{alertblock}{O algoritmo \minas}
+\begin{itemize}%[<+- | alert@+>]
+
+  \item Agrupamento para identificação de novos padrões, tratando recorrência, extensão e novidade;
+  \begin{figure}[H]
+    \includegraphics[width=0.7  \textwidth]{figuras/FariaMinas2015-ndd.png}
+    \caption{Visão da Detecção de Novidade do algoritmo \minas.}
+    \fonte{\citeonline{Faria2016minas}.}
+  \end{figure}
+
+\end{itemize}
 % \nota{Explique o desenho! o que significa cada objeto da figura? explique na figura.}
+\end{alertblock}
 \end{frame}
 
 \begin{frame}[fragile]{Fundamentos - \minas}
@@ -329,17 +346,26 @@ Programa de Pós-Graduação em Ciência da Computação}
 \end{algorithm}
 \end{frame}
 
-\begin{frame}[fragile]{Fundamentos - Processamento Distribuído de Fluxos}
-    \begin{columns}[T,onlytextwidth]
-      \column{0.5\textwidth}
-        \vspace{1em}
+\begin{frame}{Fundamentos - Processamento Distribuído de Fluxos}
+    % \begin{columns}[T,onlytextwidth]
+    %   \column{0.5\textwidth}
+        % \vspace{1em}
         \begin{itemize}%[<+- | alert@+>]
           \item Arquiteturas \emph{Lambda} e \emph{Kappa};
+          \begin{figure}
+            \includegraphics[width=40ex]{figuras/lambda.png}
+            \caption{Arquitetura \emph{Lambda} com Kafka, Storm, Hadoop, SGBD tradicional e aplicação consumidora.}
+            \fonte{\citeonline{Kreps2014}.}
+          \end{figure}
           \item Mineração de Dados:
           \begin{itemize}
             \item \emph{MapReduce} e \emph{Apache Hadoop};
             \item \emph{Apache Spark} com \emph{Resilient Distributed Dataset - RDD};
           \end{itemize}
+        \end{itemize}
+        % \column{0.05\textwidth}
+        % \column{0.45\textwidth}
+        \begin{itemize}%[<+- | alert@+>]
           \item Mineração de Fluxo de Dados:
           \begin{itemize}
             \item \emph{Apache Spark Streaming} com estratégia de \emph{micro-batching};
@@ -351,22 +377,9 @@ Programa de Pós-Graduação em Ciência da Computação}
             \item Não-plataforma (construção dos mecanismos de envio e recebimento);
             \item Interface de Troca de Mensagens - MPI;
           \end{itemize}
+          \vspace{-1em}
         \end{itemize}
-      \column{0.05\textwidth}
-      \column{0.45\textwidth}
-        % \vspace{-3em}
-        \begin{figure}
-          \includegraphics[width=\textwidth]{figuras/lambda.png}
-          \caption{Arquitetura \emph{Lambda} com Kafka, Storm, Hadoop, SGBD tradicional e aplicação consumidora.}
-          \fonte{\citeonline{Kreps2014}.}
-        \end{figure}
-        \vspace{-1em}
-        \begin{figure}
-            \includegraphics[width=\textwidth, trim={2cm 0 10cm 20cm},clip]{figuras/dataflow-code-flink.png}
-            \caption{Arquitetura Apache Flink.}
-            \fonte{\citeonline{ApacheFlink2020}.}
-        \end{figure}
-    \end{columns}
+    % \end{columns}
 
   % \nota{Faltou definir antes o que é processamento de fluxo.\\
   % \textbf{fluxo vs lote} deixar mais claro a diferença}
@@ -468,6 +481,11 @@ Programa de Pós-Graduação em Ciência da Computação}
     \begin{itemize}%[<+- | alert@+>]
       \item Implementação escrita em Scala ou Java;
       \item Processamento de fluxos \emph{Stateful};
+      \begin{figure}
+        \includegraphics[width=0.5\textwidth, trim={2cm 0 10cm 20cm},clip]{figuras/dataflow-code-flink.png}
+        \caption{Arquitetura Apache Flink.}
+        \fonte{\citeonline{ApacheFlink2020}.}
+      \end{figure}
       \item Falta de bibliotecas que distribuam algoritmos base como \emph{K-means};
       \item Gerenciador de trabalhos (\emph{job manager}) e gerenciador de
       tarefas (\emph{job manager}) ocupam mais de $1\;GB$ em execuções
