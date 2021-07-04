@@ -7,9 +7,8 @@ em redes e sistemas distribuídos de Luís Puhl.
 
 ## PDFs
 
-- [Dissertação Atual](./00.ppgcc-2020.pdf)
-- [Dissertação Qualificação](./DissertacaoQuali-LuisPuhl.pdf)
-- [Apresentação Atual](./00.beamer.pdf)
+- [Dissertação](./00.ppgcc-2020.pdf)
+- [Apresentação](./00.beamer-short.pdf)
 
 ## Resumo
 

@@ -18,6 +18,7 @@
 \usepackage[alf]{abntex2cite}
 % \usepackage{ragged2e}
 \usepackage{graphicx,caption,subcaption}
+% 1,2,4-7,9,10,12-23,25-31,33,34
 
 \newcommand{\printorientador}{<Orientador>}
 \newcommand{\orientador}[1]{\renewcommand{\printorientador}{#1}}
@@ -351,9 +352,10 @@ Programa de Pós-Graduação em Ciência da Computação}
     %   \column{0.5\textwidth}
         % \vspace{1em}
         \begin{itemize}%[<+- | alert@+>]
-          \item Arquiteturas \emph{Lambda} e \emph{Kappa};
+          \item Arquiteturas \emph{Lambda} e \emph{Kappa}, focadas em aplicações tradicionais;
           \begin{figure}
-            \includegraphics[width=40ex]{figuras/lambda.png}
+            \small
+            \includegraphics[width=0.5\textwidth]{figuras/lambda.png}
             \caption{Arquitetura \emph{Lambda} com Kafka, Storm, Hadoop, SGBD tradicional e aplicação consumidora.}
             \fonte{\citeonline{Kreps2014}.}
           \end{figure}
@@ -456,7 +458,7 @@ Programa de Pós-Graduação em Ciência da Computação}
 \end{frame}
 
 \begin{frame}[fragile]{Proposta - Avaliações Preliminares}
-  \begin{alertblock}{Primeira Implementação com \emph{Python} e \emph{Apache Kafka}}
+  \begin{block}{Primeira Implementação com \emph{Python} e \emph{Apache Kafka}}
     \begin{itemize}%[<+- | alert@+>]
       \item \emph{Python} é acessível e fornece bibliotecas diversas;
       \item \emph{Apache Kafka} é um sistema de mensagens distribuído;
@@ -466,22 +468,28 @@ Programa de Pós-Graduação em Ciência da Computação}
       \end{itemize}
       \item A hipótese de que a carga seria distribuída entre os consumidores,
       uma vez que o consumidor pode selecionar uma partição para leitura;
+      \begin{figure}\small
+        \includegraphics[width=0.25\textwidth]{figuras/kafka-partitions-Kreps2014.png}
+        \caption{Partições em Apache Kafka.}
+        \fonte{\citeonline{Kreps2014}.}
+      \end{figure}
       \item Em experimento com um produtor, 8 partições e 8 consumidores,
       observou-se que um consumidor processava a maior parte das mensagens,
       poucos consumidores recebiam algumas mensagens e a maioria dos consumidores
       não recebia mensagem alguma.
     \end{itemize}
-  \end{alertblock}
+  \end{block}
+
 % \nota{\textsc{cuidado,} o fato de vc não ter conseguido não significa que não é possível\\
 % concluir que "o sistema não escala ..." (pode citar, só tome cuidado com a conclusão tirada)}
 \end{frame}
 
 \begin{frame}[fragile]{Proposta - Avaliações Preliminares}
-  \begin{alertblock}{Segunda Implementação com \emph{Apache Flink}}
+  \begin{block}{Segunda Implementação com \emph{Apache Flink}}
     \begin{itemize}%[<+- | alert@+>]
       \item Implementação escrita em Scala ou Java;
       \item Processamento de fluxos \emph{Stateful};
-      \begin{figure}
+      \begin{figure}\small
         \includegraphics[width=0.5\textwidth, trim={2cm 0 10cm 20cm},clip]{figuras/dataflow-code-flink.png}
         \caption{Arquitetura Apache Flink.}
         \fonte{\citeonline{ApacheFlink2020}.}
@@ -491,15 +499,16 @@ Programa de Pós-Graduação em Ciência da Computação}
       tarefas (\emph{job manager}) ocupam mais de $1\;GB$ em execuções
       consecutivas, portanto não é confiável para dispositivos pequenos.
     \end{itemize}
-  \end{alertblock}
+  \end{block}
 % \nota{métricas: Tem a fórmula? expressão?}
 % \nota{"Avaliação do fluxo de saída do classificador" isto é uma métrica?}
 % \nota{Incluir CR}
 \end{frame}
 
 \begin{frame}[fragile]{Proposta - Implementação MPI}
-\begin{alertblock}{Terceira Implementação com MPI}
+\begin{block}{Terceira Implementação com MPI}
   \begin{itemize}
+    \item Maior controle sobre a implementação e execução;
     \item Implementado em linguagem C, OpenMPI 4.0.4, seguindo a técnica SPMD;
     \item Dividido em 2 módulos e 4 tarefas.
     \item \texttt{mpirun} cria processos, o processo de \emph{0} executa o
@@ -510,7 +519,7 @@ Programa de Pós-Graduação em Ciência da Computação}
     \item Módulo folha, com as tarefas \texttt{Classificador} e \texttt{Atualiza Modelo},
     trata da classificação de cada exemplo e manutenção do modelo local de cada instância.
   \end{itemize}
-\end{alertblock}
+\end{block}
 \end{frame}
 
 \begin{frame}[fragile]{Proposta - Implementação MPI}
