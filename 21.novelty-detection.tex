@@ -223,29 +223,29 @@ padrões-novidade e atualização do modelo de decisão \cite{Faria2016minas}.
   % 
   \SetKwFunction{MinasOnline}{MinasOnline}
   \Function{\MinasOnline{Modelo, fluxoEntrada}}{
-    Desconhecidos $\leftarrow$ $\emptyset$, ModeloAntigo $\leftarrow$ $\emptyset$ \;
-    últimaLimpeza $\leftarrow 0$ , proximaNovidade $\leftarrow 0$\;
-    % sampleIn $\leftarrow 0$\;
+    Desconhecidos $\gets$ $\emptyset$, ModeloAntigo $\gets$ $\emptyset$ \;
+    últimaLimpeza $\gets 0$ , proximaNovidade $\gets 0$\;
+    % sampleIn $\gets 0$\;
     \ForEach{ {$exemplo_{i}$} $\in$ fluxoEntrada }{
-      % exemplo.rótulo $\leftarrow$ unknown\;
-      % (distância, cluster) $\leftarrow$ \nearestCluster(exemplo, Modelo)\;
-      maisPróximo $\leftarrow$ \nearestCluster(exemplo, Modelo)\;
+      % exemplo.rótulo $\gets$ unknown\;
+      % (distância, cluster) $\gets$ \nearestCluster(exemplo, Modelo)\;
+      maisPróximo $\gets$ \nearestCluster(exemplo, Modelo)\;
       \eIf{maisPróximo.distância $<$ maisPróximo.cluster.raio}{
-        exemplo.rótulo $\leftarrow$ maisPróximo.cluster.rótulo\;
-        maisPróximo.cluster.últimoUso $ \leftarrow i $ \;
+        exemplo.rótulo $\gets$ maisPróximo.cluster.rótulo\;
+        maisPróximo.cluster.últimoUso $ \gets i $ \;
       }
       {
-        exemplo.rótulo $\leftarrow$ "desconhecido"\;
-        Desconhecidos $\leftarrow$ Desconhecidos $\cup$ exemplo\;
+        exemplo.rótulo $\gets$ ``desconhecido''\;
+        Desconhecidos $\gets$ Desconhecidos $\cup$ exemplo\;
         \If{$|\;Desconhecidos\;| \geq$ \noveltyDetectionTrigger}{
           % \tcc{Novelty Detection}
-          novidades $\leftarrow$ \NoveltyDetection(Modelo $\cup$ ModeloAntigo, *Desconhecidos)\;
-          Modelo $\leftarrow$ Modelo $\cup$ novidades\;
+          novidades $\gets$ \NoveltyDetection(Modelo $\cup$ ModeloAntigo, *Desconhecidos)\;
+          Modelo $\gets$ Modelo $\cup$ novidades\;
         }
         \If{ $ i > $ ( últimaLimpeza $ + $ \cleaningWindow )}{
-          Modelo $\leftarrow$ \handleModelSleep(Modelo, *ModeloAntigo, últimaLimpeza)\;
-          Desconhecidos $\leftarrow$ \removeOldSamples(Desconhecidos, últimaLimpeza)\;
-          últimaLimpeza $ \leftarrow i $\;
+          Modelo $\gets$ \handleModelSleep(Modelo, *ModeloAntigo, últimaLimpeza)\;
+          Desconhecidos $\gets$ \removeOldSamples(Desconhecidos, últimaLimpeza)\;
+          últimaLimpeza $ \gets i $\;
         }
       }
       fluxoSaída.adicione(exemplo)\;
@@ -333,22 +333,22 @@ exemplo representado no novo \mcluster.
   \KwParams{\minExamplesPerCluster, \noveltyFactor}
   % 
   \Function{\NoveltyDetection{Modelo, Desconhecidos}}{
-    novoModelo $\leftarrow$ $\emptyset$\;
-    \ForEach{novoCluster $\in$ \clustering(Desconhecidos)}{
-      \If{$(|\;novoCluster.exemplos\;| \geq$ \minExamplesPerCluster $) \land (\;novoCluster.silhueta\; > 0)$}{
-        maisPróximo $\leftarrow$ \nearestCluster(novoCluster, Modelo)\;
+    novoModelo $\gets$ $\emptyset$\;
+    \ForEach{novo $\in$ \clustering(Desconhecidos)}{
+      \If{$(|\;novo.exemplos\;| \geq$ \minExamplesPerCluster $) \land (\;novo.silhueta\; > 0)$}{
+        maisPróximo $\gets$ \nearestCluster(novo, Modelo)\;
         \eIf{maisPróximo.distância $<$ (maisPróximo.cluster.raio $\times$ \noveltyFactor)}{
-          novoCluster.rótulo $\leftarrow$ maisPróximo.cluster.rótulo\;
-          novoCluster.tipo $\leftarrow$ "extensão"\;
+          novo.rótulo $\gets$ maisPróximo.cluster.rótulo\;
+          novo.tipo $\gets$ ``extensão''\;
         }{
-          novoCluster.rótulo $\leftarrow$ proximaNovidade\;
-          proximaNovidade $\leftarrow$ proximaNovidade $+ 1$\;
-          novoCluster.tipo $\leftarrow$ "novidade"\;
+          novo.rótulo $\gets$ proximaNovidade\;
+          proximaNovidade $\gets$ proximaNovidade $+ 1$\;
+          novo.tipo $\gets$ ``novidade''\;
         }
-        % novoCluster.últimoUso $ \leftarrow i $ \;
+        % novo.últimoUso $ \gets i $ \;
         \label{alg:MINAS-nd:reclassify}
-        Desconhecidos $\leftarrow$ Desconhecidos $-$ novoCluster.exemplos\;
-        novoModelo $\leftarrow$ novoModelo $\cup$ novoCluster\;
+        Desconhecidos $\gets$ Desconhecidos $-$ novo.exemplos\;
+        novoModelo $\gets$ novoModelo $\cup$ novo\;
       }
     }
     \Return{novoModelo}\;

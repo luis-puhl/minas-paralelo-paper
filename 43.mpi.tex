@@ -1,4 +1,4 @@
-%!TeX root $\leftarrow$ ./00.ppgcc-2020.tex
+%!TeX root = ./00.ppgcc-2020.tex
 
 \section{Implementação com MPI}
 
@@ -52,8 +52,8 @@ classes iniciais) como fluxo de entrada e sua saída, que é um fluxo finito de
 % - Reprocessamento dos exemplos utilizados para atualização do modelo:
 %   - Muda o comportamento do operador de fluxo de `Map` para `Flatmap`, ou seja,
 %     requer outro fluxo de saída para a transmissão de padrões novidade (alarmes);
-%   - Para reclassificação a definição de raio é modificada de `r $\leftarrow$ f * σ` (fator
-%     multiplicando desvio padrão) para `r $\leftarrow$ max(distance)` (distância máxima);
+%   - Para reclassificação a definição de raio é modificada de `r $\gets$ f * σ` (fator
+%     multiplicando desvio padrão) para `r $\gets$ max(distance)` (distância máxima);
 %   - Passível da crítica de *overfitting*. Isto é, este processo pode
 %     inflar a métrica de precisão;
 %   - **Solução:** *em aberto*;
@@ -103,7 +103,7 @@ no diagrama de sequencia na Figura \ref{fig:mfog-mpi-life}.
     \KwOut{fluxoSaída}
     % 
     \Function{\Mfog{fluxoEntrada, fluxoSaída}}{
-        Modelo $\leftarrow$ $\emptyset$; trava $\leftarrow$ \textbf{new} \Lock()\; \label{line:init}
+        Modelo $\gets$ $\emptyset$; trava $\gets$ \textbf{new} \Lock()\; \label{line:init}
         \eIf(\emph{raiz}){\mpiRank == 0}{ \label{line:spmd}
             \textbf{new} \Thread(\Detector, [fluxoSaída, Modelo, trava])\;
             \Sampler(fluxoEntrada, Modelo, trava)\;
@@ -154,14 +154,14 @@ marcador de fim de fluxo (\texttt{FimDeFluxo}, \emph{end of stream, eos}).
     % 
     \Function{\Classifier{Modelo, trava}}{
         \While{ Verdade }{
-            exemplo $\leftarrow$ \receive(TipoExemplo, raiz)\;
+            exemplo $\gets$ \receive(TipoExemplo, raiz)\;
             \lIf{exemplo == \EndOfStream}{\break}
-            exemplo.rótulo $\leftarrow$ "desconhecido"\;
+            exemplo.rótulo $\gets$ "desconhecido"\;
             \With{\readLock(trava)}{
-                (distância, cluster) $\leftarrow$ \nearestCluster(exemplo, Modelo)\;
+                (distância, cluster) $\gets$ \nearestCluster(exemplo, Modelo)\;
             }
             \If{distância $<$ cluster.raio}{
-                exemplo.rótulo $\leftarrow$ cluster.rótulo\;
+                exemplo.rótulo $\gets$ cluster.rótulo\;
             }
             \send(raiz, TipoExemplo, exemplo)\;
         }
@@ -184,10 +184,10 @@ busca pelo \mclusters mais próximo.
     \input{43.mpi-extra.tex}
     \Function{\modelReceiver{Modelo, trava}}{
         \While{ Verdade }{
-            cluster $\leftarrow$ \receive(TipoCluster, raiz)\;
+            cluster $\gets$ \receive(TipoCluster, raiz)\;
             \lIf{cluster == \EndOfStream}{\break}
             \With{\writeLock(trava)}{
-                Modelo $\leftarrow$ Modelo $\cup$ cluster\;
+                Modelo $\gets$ Modelo $\cup$ cluster\;
             }
         }
     }
@@ -208,19 +208,19 @@ atualizado, e o novo cluster é enviado para todas os nós folhas.
 \begin{algorithm}[htb]
     \input{43.mpi-extra.tex}
     \Function{\Sampler{fluxoEntrada, Modelo, trava}}{
-        dest $\leftarrow$ 1\;
+        dest $\gets$ 1\;
         \ForEach{ {$exemplo_{i}$} $\in$ fluxoEntrada }{
             \If{\typeOf(exemplo) é TipoCluster}{
                 \broadcast(TipoCluster, exemplo, raiz)\;
                 \With{\writeLock(trava)}{
-                    Modelo $\leftarrow$ Modelo $\cup$ exemplo\;
+                    Modelo $\gets$ Modelo $\cup$ exemplo\;
                 }
                 \continue\;
             }
-            % sample.label $\leftarrow$ unknown\;
+            % sample.label $\gets$ unknown\;
             \send(dest, TipoExemplo, exemplo)\;
-            dest $\leftarrow$ dest $+ 1$\;
-            \lIf{dest $>$ \mpiSize}{dest $\leftarrow$ 1}
+            dest $\gets$ dest $+ 1$\;
+            \lIf{dest $>$ \mpiSize}{dest $\gets$ 1}
         }
     }
 \caption{Função \texttt{Fonte} do nó raiz do \mfog.}
@@ -241,26 +241,26 @@ novidade são considerados \emph{outliers} ou ruído e são removidos.
 \begin{algorithm}[htb]
     \input{43.mpi-extra.tex}
     \Function{\Detector{fluxoSaída, Modelo, trava}}{
-        Desconhecidos $\leftarrow \emptyset$;  últimaLimpeza $\leftarrow 0$\;
+        Desconhecidos $\gets \emptyset$;  últimaLimpeza $\gets 0$\;
         \While{ Verdade }{
-            exemplo $\leftarrow$ \receive(TipoExemplo, qualquer)\;
+            exemplo $\gets$ \receive(TipoExemplo, qualquer)\;
             \lIf{exemplo == \EndOfStream}{\break}
-            % $out \leftarrow$ exemplo\;
+            % $out \gets$ exemplo\;
             fluxoSaída.adicione(exemplo)\;
             \If{exemplo.label == unknown}{
-                Desconhecidos $\leftarrow$ Desconhecidos $\cup$ exemplo\;
+                Desconhecidos $\gets$ Desconhecidos $\cup$ exemplo\;
                 \If{$|\;Desconhecidos\;| \geq$ \noveltyDetectionTrigger}{
-                    novidades $\leftarrow$ \NoveltyDetection(Modelo, *Desconhecidos)\;
+                    novidades $\gets$ \NoveltyDetection(Modelo, *Desconhecidos)\;
                     \With{\writeLock(trava)}{
-                        Modelo $\leftarrow$ Modelo $\cup$ novidades\;
+                        Modelo $\gets$ Modelo $\cup$ novidades\;
                     }
                     \ForEach{ cluster $\in$ novidades }{
                         \broadcast(TipoCluster, cluster, raiz)\;
                     }
                 }
                 \If{ exemplo.uid $ > $ ( últimaLimpeza $ + $ \cleaningWindow )}{
-                    Desconhecidos $\leftarrow$ \removeOldSamples(Desconhecidos, últimaLimpeza)\;
-                    últimaLimpeza $ \leftarrow $ exemplo.uid\;
+                    Desconhecidos $\gets$ \removeOldSamples(Desconhecidos, últimaLimpeza)\;
+                    últimaLimpeza $ \gets $ exemplo.uid\;
                 }
             }
         }
