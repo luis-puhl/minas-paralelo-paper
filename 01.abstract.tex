@@ -121,12 +121,12 @@
    Agradeço os ensinamentos dos colegas, especialmente ao Professor Hélio,
    Professor Hermes e Doutor Guilherme pela experência compartilhada.
    
-   Agradeço à companheira Carolina pelo constante alegria e apoio a todos os
+   Agradeço à companheira Carolina pela constante alegria e apoio a todos os
    momentos e ao incentivo e ajuda nas horas difíceis.
 
    Agradeço aos familiares e amigos pelo carinho.
    
-   Agradeço também à CNPq pelo suporte financiero (contrato 167345/2018-4).
+   Agradeço também ao CNPq pelo suporte \hlke{financiero} (contrato 167345/2018-4).
 }
 % Epígrafe
 % \imprimirepigrafe{
@@ -140,8 +140,19 @@
 \begin{resumo}{Detecção de Novidades. Detecção de Intrusão. Fluxos de Dados.
    Computação Distribuída. Computação em Névoa. Internet das Coisas}
 
+   \notapa{FALAR NO FINAL DA ARGUIÇÃO:
+   
+   O trabalho não encontrou eficiência no uso da versão distribuída/paralela,
+   característica chave
+   para a eficácia na detecção de intrusão. Sugiro mudar o objetivo de propor um
+   sistema ... para avaliar o uso da computação distribuída, levantando
+   virtudes, desafios e requisitos.
+   
+   Isso já está na introdução, página 15.
+   }
+
    Em um cenário de crescente número de dispositivos na Internet das Coisas
-   (IoT), gerando proporcional crescimento no volume dos fluxos de dados
+   (IoT), gerando um crescimento \hlpa{proporcional} no volume dos fluxos de dados
    gerados,
    % são necessários métodos robustos para a mineração de fluxos contínuos de dados.
    são constantes e evolutivas as ameaças ativas e passivas aos recursos
@@ -150,8 +161,9 @@
    Métodos para mineração de dados de forma robusta e contínua podem ser um
    aliado à segurança nesses casos.
    % 
-   Particularmente em ambientes distribuídos e nos quais busca-se manter os
-   fluxos de informação próximos a onde eles são gerados, como nas bordas das
+   % \hlke{a onde eles}
+   Particularmente em ambientes distribuídos e nos quais busca-se manter o tratamento
+   dos fluxos de informação próximo de onde eles são gerados, como nas bordas das
    redes IoT, e na computação em névoa de maneira geral, a detecção de ameaças é
    essencial e não trivial.
    % 
@@ -163,7 +175,8 @@
    % nuvem.
    Além disso, a evolução constante dos tipos de dispositivos e de tráfegos
    nessas redes favorece que as ferramentas de detecção de ameaças sejam
-   beneficiadas por algoritmos de detecção de novidades em fluxo de dados.
+   beneficiadas por \hlpa{algoritmos de detecção de novidades em fluxo de dados}.
+   \notapa{Tricorder?}
    % 
    % % As ferramentas de detecção de intrusão utilizam extensivamente algoritmos
    % % de detecção de novidade em fluxos de dados para identificar padrões no
@@ -180,9 +193,11 @@
    % % atenção de pesquisas recentes por tratar desses desafios de detecção de
    % % novidade em fluxos de dados.
    % 
-   No entanto, apesar de sua divisão em três partes semi-independentes, este
-   algoritmo ainda não foi adaptado para processar grandes volumes de fluxos
-   reais em ambiente de computação em névoa.
+   No entanto, \hlpa{apesar de sua divisão em três partes} \hlpa{semi-independentes, este
+   algoritmo ainda não foi adaptado para processar grandes} volumes de fluxos
+   \hlpa{reais em ambiente de computação em névoa.}
+   \notapa{A versão distribuída está adaptada, porém, não é eficiente, impedindo
+   a eficácia daquilo que se propõe.}
    % 
    O presente trabalho aborda essa lacuna, propondo um sistema que implementa o
    algoritmo MINAS de maneira distribuída num contexto de detecção de intrusão e
@@ -190,7 +205,21 @@
    % 
    Os resultados obtidos mostram a viabilidade do modelo de detecção de
    novidades distribuído em ambiente de computação em névoa.
-   Mesmo em um cenário distribuído, o sistema apresentou eficácia equivalente ao
+   \notapa{
+   Por que "Mesmo" em um cenário distribuído? Qual a dificuldade pelo fato de 
+   ser distribuído.
+   }
+   % "No entanto"? Quero dizer que mesmo com 12 CPUs não obteve resultado melhor.
+   \hlpa{Mesmo em um cenário distribuído}, 
+   \hlpa{o sistema apresentou eficácia equivalente ao}
+   \notapa{
+   O problema a ser resolvido era que o algoritmo ainda não havia sido adaptado
+   para processar grandes volumes de fluxos reais em computação em névoa. Mas o
+   algoritmo original funcionava para computação em névoa para suportar esta
+   afirmação?
+   % O MINAS não é adaptado para névoa, tanto no sentido distribuído quanto uso
+   % de recursos.
+   }
    algoritmo original, ainda que executando em dispositivos de capacidade
    computacional limitada, como é previsto em cenários de IoT.
 
@@ -236,7 +265,7 @@
    increasing the number and variety of small devices on edge networks.
    %
    Likewise, the attack opportunities for hostile agents also
-   increases, requiring more effort from network administrators and strategies
+   increase\hlke{s}, requiring more effort from network administrators and strategies
    to detect and react to those threats.
    % 
    For a network security system to operate in the context of fog and
@@ -250,15 +279,17 @@
    % (DSND)
    algorithm.
    % 
+   % hlke{}
    We discuss the algorithm steps, how it can be deployed in a distributed
-   environment, the impacts on the accuracy and evaluate performance and
+   environment, the impacts on the \hlke{accuracy,} and evaluate performance and
    scalability using a cluster of constrained devices commonly found in IoT
    scenarios.
    % 
+   % hlke{}
    The obtained results show equivalent metrics in the distributed version but
-   also a reduction in the execution time using low profile devices.
+   also a reduction in the execution time using low-profile devices.
    Although not efficient, the parallel version showed to be viable as the
-   proposed granularity provides equivalent accuracy and same response times.
+   proposed granularity provides equivalent accuracy and the same response times.
    % \todo[inline]{Poderia dizer que não houve redução do tempo de execução. }
 
 \end{abstract}
