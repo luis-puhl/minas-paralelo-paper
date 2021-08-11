@@ -44,6 +44,7 @@ Destes experimentos os seguintes resultados são apresentados.
   \caption{Listagem dos principais experimentos.}
   \label{tab:exp-list}
   \begin{tabular}{p{0.17\textwidth}|p{0.27\textwidth}|p{0.47\textwidth}}
+    % Nota Kelton: Coluna Programa circulada.
   \textbf{Experimento} & \textbf{Programa}                 & \textbf{Características} \\\hline
   \expA                & \minas referência 2013            & Raio é a distância máxima. \\\hline
   \expB                & \minas sequencial para validação  & 
@@ -80,6 +81,7 @@ demais a matriz segue os atributos definidos na Seção \ref{sec:avaliacao}.
 Esta matriz é comparada com a matriz de confusão do mesmo instante do fluxo de
 saída do experimento \expB, vista na Tabela \ref{tab:libc-matrix}.
 
+\notake{Coloque em negrito (destaque as células importantes)}
 \begin{table}[hbt]%{\linewidth}
   {\footnotesize
   % \setlength\tabcolsep{0.5em}
@@ -102,7 +104,7 @@ saída do experimento \expB, vista na Tabela \ref{tab:libc-matrix}.
 
 Comparando as duas matrizes, a primeira diferença aparente é o índice do
 primeiro rótulo novidade ($0$ ao invés de $1$), mas isso se deve apenas à decisão
-arbitrária de íncide inicial de novidades.
+arbitrária de \hlke{íncide} inicial de novidades.
 % A sentença a seguir está bem longa, difícil de acompanhar. Fragmentar?
 A primeira diferença notável que influi nas métricas de qualidade é a falta de 3
 rótulos novidade, $12$ rótulos no experimento \expA ($[1,12]$) e $9$ no
@@ -435,9 +437,9 @@ calculadas a partir dos valores extraídos são a latência de eventos e
 A latência média é calculada com o tempo decorrido dividido pelo o tamanho do
 \dataset e pode ser vista na Tabela \ref{tab:exper-summary}.
 O \emph{speedup} é calculado com a divisão do tempo decorrido na versão
-sequencial divido pelo tempo utilizado pela versão paralela.
+sequencial \hlke{dividido} pelo tempo utilizado pela versão paralela.
 A eficiência é calculada com a divisão do tempo decorrido na versão sequencial
-divido pelo produto do número de processadores utilizado e o tempo utilizado
+dividido pelo produto do número de processadores utilizado e o tempo utilizado
 pela versão paralela.
 
 Observando as métricas de escalabilidade nota-se que o \mfog não fornece
@@ -524,10 +526,11 @@ Já o comportamento visto na Figura \ref{fig:lag-mfog}, extraído do \mfog, most
 filas (\emph{buffers}) de comunicação entre diferentes processos onde o pico de latência
 da detecção de novidade cai progressivamente conforme os buffers são esvaziados
 já que o processo de detecção de novidade é assíncrono, porém ocupa a \emph{thread}
-responsável pelo fluxo de saída do \mfog.
+responsável pelo fluxo de saída do \mfog \hlke{.}
 
 % \FloatBarrier
-\section{Conclusão}
+\notake{considerações sobre o capítulo}
+\section{Considerações Sobre Experimentos e Resultados}
 \label{sec:exp-conclusao}
 
 Os experimentos executados e os resultados obtidos demonstram que a \acf{ND}
@@ -535,7 +538,8 @@ executada de maneira distribuída em ambiente de névoa é uma estratégia
 válida para detecção de mudanças nos padrões de tráfego, sendo viável como parte
 de um \acf{NIDS} para redes \iot.
 
-No entanto para aplicação em uma situação real, são necessárias otimizações
+\notake{Quais otimizações [e estratégias]?}
+No entanto para aplicação em uma situação real, são necessárias \hlke{otimizações}
 desde o \dataset de treinamento e avaliação, passando pelo algoritmo de detecção
-de novidade, parâmetros do algoritmo e estratégias de paralelismo e
+de novidade, parâmetros do algoritmo e \hlke{estratégias} de paralelismo e
 distribuição.
