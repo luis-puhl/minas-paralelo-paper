@@ -22,12 +22,13 @@ na Definição \ref{def:fluxodados}.
 O volume dos dados em \emph{Big Data} e a velocidade com qual eles são
 produzidos afeta como os dados de um problema são modelados e manipulados.
 Técnicas e algoritmos de mineração de fluxos de dados atendem esses desafios
-utilizando restrições como apenas uma leitura do conjunto de dados e baixo
-complexidade na construção de seus algoritmos \cite{Gama2007, Gaber2005}. O
-processamento requerido para a mineração de um enorme fluxos de dados pode não
+utilizando restrições como apenas uma leitura do conjunto de dados e baixa
+complexidade computacional na construção de seus algoritmos
+\cite{Gama2007,Gaber2005}.
+O processamento requerido para a mineração de um enorme fluxos de dados pode não
 ser atendido por recursos computacionais de um único computador (nó), de forma
-que pode ser necessária a distribuição dos dados e do processamento em múltiplos nós computacionais
-em um sistema distribuído \cite{Gaber2005}.
+que pode ser necessária a distribuição dos dados e do processamento em múltiplos
+nós computacionais em um sistema distribuído \cite{Gaber2005}.
 
 % Computação distribuída é a área da ciência da computação que estuda sistemas
 % em que os componentes são localizados em diferentes computadores (nós), que
@@ -92,8 +93,11 @@ Ainda na segunda fase, para atualizar o modelo, os exemplos marcados como
 desconhecidos são utilizados para a extração de novos conceitos ou variações em
 conceitos conhecidos \cite{Gama2010}.
 
-Dentre os métodos de \nd que baseiam-se em aprendizado \emph{Offline-Online},
-muitos são baseados em algoritmos de agrupamento não supervisionados, tanto
+Dentre os métodos de \nd que construídos na estratégia aprendizado \emph{Offline-Online},
+muitos são baseados em
+\notaPA{Precisa de uma função para mediro grau de similaridade
+NCD - Normalized Compression Distance}
+algoritmos de agrupamento não supervisionados, tanto
 para construção do modelo inicial como na extração de novos conceitos dos
 exemplos não explicados pelo modelo marcados como desconhecidos
 \cite{Spinosa2009ollinda,Masud2010ECSMiner,Faria2013Minas}.
@@ -534,6 +538,7 @@ As modificações são:
   
   \item Mudança de representação de \clusters, atualmente esferas no espaço de
   dimensão $d$, para paralelogramos no espaço de dimensão $d$ tratando conjuntos de dados
+  \notaPA{cacofonia}
   onde as características representadas por cada dimensão são completamente
   independentes;
   

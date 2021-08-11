@@ -26,7 +26,12 @@ relação aos dados pessoais como localização e saúde aos quais dispositivos 
 acesso \cite{sengupta2020comprehensive}.
 Além dos dados de sensores e atuadores que esses dispositivos gerenciam, se
 esses dispositivos forem subvertidos podem gerar tráfego maligno, como o
-produzido pela \emph{mirai botnet} em 2016
+\notaPA{Explicar brevemente o que foi. Poderia ser até uma nota de rodapé. 
+Não se deve assumir que o leitor conheça ou tenha que buscar.}
+produzido pela \hlpa{\emph{mirai botnet} em 2016}
+\notaPA{Comentar desta e outras situações semelhantes no texto.
+%  (author: ???)
+}
 \cite{Kambourakis2017,Kolias2017mirai}.
 Nesse cenário, fatores que podem favorecer a subversão dos dispositivos incluem
 a falta de controle sobre a origem do hardware e software embarcado nos
@@ -57,18 +62,21 @@ descoberta de novos ataques o mais cedo possível
 Apesar do uso promissor de \ml para segurança para sistemas \iot, muitos estudos
 na literatura \cite{buczak2016survey,mitchell2014survey,Tahsien2020} são
 limitados a métodos tradicionais de \ml.
+\notaPA{Tricorder ``Estes métodos [...] evolução de ataques''}
 Estes métodos comumente utilizam modelos estáticos para descrever e prever o
 comportamento da rede que não mantêm a confiabilidade frente à evolução de
 ataques \cite{Viegas2019,AndreoniLopez2019}.
 
 % confiabilidade ou eficiência ??
 % \todo[inline]{DS} 
+\notaPA{Bem difícil de ler essa frase.}
 Além das complicações de confiabilidade, a grande quantidade de dispositivos em
 redes distantes gerando dados em volumes e velocidades elevadas as 
 % , diretamente ligados às suas funções originais ou metadados produzidos como subproduto,
 técnicas tradicionais que tratam grandes lotes em \emph{datacenters} não são aplicáveis.
 Para esses fluxos contínuos de dados (\emph{Data Stream}), técnicas de
 mineração de fluxos de dados (\emph{Data Stream Mining}) são promissoras.
+\notaPA{Faltam referências para embasar a afirmação.}
 % 
 Nesses cenários, essas técnicas são aplicadas, por exemplo, em problemas de
 monitoramento e classificação de valores originários de sensores para tomada de
@@ -87,6 +95,7 @@ macro, na otimização de processos industriais.
 % detecting novelty and changes in concepts already learned.
 
 % \todo[inline]{ND} 
+\notaPA{Damicore - Tricorder}
 Dentre as técnicas de mineração de fluxo de dados, classificadores podem ser
 utilizados para detectar padrões conhecidos e, em conjunto com algoritmos de
 \nd (\emph{Novelty Detection in Data Streams}), detectar novos padrões.
@@ -104,6 +113,7 @@ também sobre paradigmas como computação em névoa (\emph{fog computing}).
 Para névoa, além dos recursos em nuvem, são explorados os recursos
 distribuídos pela rede desde nós remotos até a nuvem.
 Processos que dependem desses recursos são distribuídos de acordo com
+\notaPA{Tricorder ``consumo computacional''}
 características como sensibilidade à latência, privacidade, consumo
 computacional ou energético.
 
@@ -121,9 +131,11 @@ distribuída, para uso em ambientes \iot.
 % \todo[inline]{FALTA na INTRODUCAO 1 OU 2 PARAGRAFOS EXPLICANDO O QUE VC FEZ/ E
 % QUAL É UM RESUMO DOS RESULTADOS, SO PRA SETAR EXPECTATIVA DO LEITO}
 
+\notaPA{Introduzir antes de falar que vai usar.}
 Este trabalho apresenta a construção e avaliação do \mfog\footnote{Disponível em
 \url{https://github.com/luis-puhl/minas-flink}.}, uma implementação paralela e
 distribuída em névoa de dispositivos \iot do algoritmo \minas.
+\notaPA{Explicar antes o que é MiNAS!}
 Esta implementação foi construída com o padrão \mpi buscando escalabilidade na
 tarefa de processamento de fluxo de dados e economia dos recursos limitados
 comumente encontrados em sistemas \iot, seguindo a arquitetura \arch
@@ -131,11 +143,18 @@ comumente encontrados em sistemas \iot, seguindo a arquitetura \arch
 
 A avaliação do \mfog é constituída de métricas de qualidade de classificação e
 métricas de escalabilidade, extraídas com auxilio do conjunto de dados
+\notaPA{Introduzir "o que é" o conjunto de dados Kyoto 2015.}
 \emph{Kyoto 2015} relevante para \nids.
+\notaPA{... métricas de qualidade de classificação e métricas de escalabilidade,
+extraídas com auxilio do conjunto de dados Kyoto 2015...
+
+O que tem nesse conjunto de dados?}
 As métricas de qualidade de classificação obtidas dos resultados mostraram
 valores equivalentes à implementação de referência do algoritmo \minas e
 as métricas de escalabilidade mostraram melhora em relação à implementação de
+\notaPA{Mas o paralelismo é uma das motivações...}
 referência porém com eficiência de paralelismo abaixo do esperado.
+\notaPA{Acho que este deveria ser o foco de investigação do trabalho, a ser destacado desde o título.}
 Este trabalho contribui com uma análise do algoritmo \minas com a ótica de
 distribuição em névoa, mostrando benefícios e desafios deste tipo de aplicação,
 iluminando os detalhes do problema abordado e apontando algumas soluções para
@@ -176,11 +195,13 @@ ECSMiner \cite{Masud2010ECSMiner}, AnyNovel \cite{Abdallah2016anynovel} e MINAS
 % \notahl{ Por que a necessidade paralelismo? O que falta que justifica essa
 % avaliação? Tempo de resposta?\\
 % Necessidade de tratar os dados próximo a onde são produzidos? Uso da cloud? ….}
+\notaPA{Mas o resultado do paralelismo ficou abaixo do esperado...  Como fica essa motivação?}
 Contudo, o algoritmo \minas ainda não foi implementado e avaliado com paralelismo,
 multi-processamento ou distribuição computacional, que são necessários para
 tratar fluxos de dados 
 % com grandes volumes e velocidades
 em ambientes distribuídos, como em cenários \iot e névoa.
+
 % \notafa{Por que isso é importante. Acho que convém ressaltar a importancia da sua
 % proposta. O que o MINAS original não trata, em quais cenários ele apresenta um
 % gargalo? como ele está dividido?}
@@ -189,6 +210,8 @@ O tratamento de distribuição em ambiente névoa é essencial para aplicação 
 algoritmo ao problema de detecção de intrusão em redes \iot, pois esta aplicação
 requer tempo de resposta mínimo e pequena comunicação entre nós distantes, como
 aquelas comunicações entre borda e a nuvem.
+\notaPA{Por que a divisão em 03 partes pertence ao escopo da não implementação
+do multi-processamento e da distribuição?}
 Ainda observando o algoritmo \minas, destaca-se a possível divisão em três partes
 semi-independentes, sendo elas treinamento, classificação e detecção de
 novidades. A classificação é o elemento central cujos resultados são utilizados
@@ -239,6 +262,7 @@ taxas de até $10.72$  Gbps.
 Os trabalhos de \citeonline{Cassales2019a} e \citeonline{Viegas2019} abordam
 detecção de intrusão em redes utilizando algoritmos de \nd, porém com
 perspectivas diferentes.
+\label{lbl:paulo-draw-an-arrow}
 O primeiro investiga \iot e processamento em névoa e baseia-se em um
 algoritmo genérico de detecção de novidade.
 O segundo trabalho trata de \emph{backbones} e processamento em nuvem e
@@ -258,7 +282,8 @@ para os desafios de detecção de novidades.
 % \\ arquiteutra distribuida em fog com minas e alto desempenho bigflow
 % }
 
-A proposta deste trabalho, aqui chamada \mfog, adapta a arquitetura \arch \cite{Cassales2019a}
+\notaPA{Introduzir antes.}
+A proposta deste trabalho, aqui chamada \mfog, adapta a arquitetura \hlpa{\arch} \cite{Cassales2019a}
 empregando o algoritmo de \nd \minas \cite{Faria2016minas}, tornando-o capaz
 de ser executado em um sistema distribuído composto de pequenos computadores com
 recursos limitados, alocados na borda da rede próximos dos dispositivos \iot.
@@ -267,6 +292,7 @@ como a distribuição afeta a capacidade do sistema de detectar mudanças
 (novidades) nos padrões de tráfego e o impacto na eficiência computacional.
 Por fim, algumas estratégias e políticas para configuração do sistema de
 detecção de novidades em fluxo de dados são discutidas.
+\notaPA{Fiquei confuso. Entendi que tinha essa implementação...}
 
 % \todo[inline]{Ler aqui --> sera que motivacao tá clara, vc tá implementando isso pq o
 % MINAS é um algoritmo promissor, IoT e subversao de dispositivos pode ser
@@ -286,6 +312,8 @@ detecção de novidades em fluxo de dados são discutidas.
 \section{Objetivos}\label{sec:objetivos}
 
 Como estabelecido na \refsec{motivo}, a lacuna no estado da arte observada é a
+\notaPA{``a lacuna [...] contexto de \underline{computação distribuída em névoa}''
+\ref{lbl:paulo-draw-an-arrow}}
 ausência de uma implementação de algoritmo de detecção de novidades no contexto
 de computação distribuída em névoa.
 Neste sentido, um algoritmo que trate adequadamente os desafios de fluxo de
@@ -299,10 +327,17 @@ intrusão.
 
 Portanto, seguindo os trabalhos do Grupo de Sistemas Distribuídos e Redes (GSDR)
 da Universidade Federal de São Carlos (UFSCar), propõem-se a construção de uma
+\notaPA{A proposta é ter escalabilidade.
+Afirmou que não teve bom desempenho.
+Como fica isso?}
 aplicação que implemente o algoritmo \minas \cite{Faria2016minas} de maneira
 escalável e distribuível para ambientes de computação em névoa, seguindo a
 arquitetura \arch \cite{Cassales2019a}.
 
+\notaPA{Como posto no trabalho, com o objetivo maior de implementar um versão
+distribuída, eu não vejo essa avaliação aqui como um objetivo, mas como
+metodologia.
+Ela, como escrito, serve para validar a proposta, ou não?}
 Além disso, propõem-se também a avaliação dessa implementação com experimentos
 baseados na literatura usando conjunto de dados públicos relevantes.
 O resultado esperado é uma implementação compatível em qualidade de
@@ -310,6 +345,7 @@ classificação ao algoritmo \minas e passível de ser distribuída em um ambien
 computação em névoa aplicado à detecção de intrusão.
 
 Com foco no objetivo geral, alguns objetivos específicos são propostos:
+\notaPA{Não está igual ao objetivo geral?}
 implementar o algoritmo \minas de maneira distribuída sobre uma plataforma de
 processamento distribuída de fluxos de dados;
 arquitetar e implementar um mecanismo de execução e avaliação de qualidade e
@@ -329,6 +365,7 @@ arquitetura \arch em ambiente de computação em névoa.
 % alinhados com o que vc esperava. Vc consegue avaliar a qualidade? Nao tem
 % objetivo especifico se repetindo?}
 
+\notaPA{Gostei muito desta seção explicando como a pesquisa foi feita.}
 \section{Proposta Metodológica}
 
 Para cumprir os objetivos citados na \refsec{objetivos}, foi identificada a necessidade
@@ -338,13 +375,22 @@ através de implementação de aplicação e testes.
 
 O foco da revisão da literatura acadêmica é em trabalhos que abordem
 processamento de fluxos de dados, classificação de fluxo de dados, detecção de
+\notaPA{
+    % ``detecção de novidades em fluxo de dados''
+    Esse termo ficaria bom na Tricorder
+    % Os comentários de tricorder do Paulo SLS sempre me confundem.
+    % Mas acho que ele quer dizer que eu inventei o termo (maldade da parte dele, nada se inventa).
+}
 novidades em fluxo de dados e processamento distribuído de fluxo de dados.
 O objetivo da revisão foi o estabelecimento do estado da arte desses assuntos,
 de forma que alguns desses trabalhos servissem para comparações e relacionamentos.
-Além disso, desses trabalhos buscou-se métricas de qualidade de classificação
+Além disso, desses trabalhos buscaram-se métricas de qualidade de classificação
 (por exemplo, taxa de falso positivo e matriz de confusão) e métricas de
 escalabilidade (como taxa de mensagens por segundo e escalabilidade vertical ou
 horizontal).
+\notaPA{O que é escalabilidade vertical e horizontal?
+Vertical: aumentar recursos de um nó.
+Horizontal: aumentar os nós disponíveis.}
 
 A revisão da literatura técnica foi focada em plataformas, ferramentas e técnicas
 para realizar a implementação proposta.

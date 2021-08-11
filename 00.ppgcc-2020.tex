@@ -56,11 +56,11 @@
 }
 % ---
 
-% \newcommand{\nota}[1]{}\newcommand{\hl}[1]{}
-\newcommand{\notahl}[1]{}\newcommand{\hlhl}[1]{#1}
-\newcommand{\notafa}[1]{}\newcommand{\hlfa}[1]{#1}
-\newcommand{\notake}[1]{}\newcommand{\hlke}[1]{\colorbox{yellow}{#1}}
-\newcommand{\notapa}[1]{}\newcommand{\hlpa}[1]{\colorbox{green}{#1}}
+\newcommand{\nott}[1]{\footnote{{\color{red}{#1}}}}\newcommand{\hl}[1]{\colorbox{green}{[}#1\colorbox{green}{]}}
+\newcommand{\notahl}[1]{\textcolor{red}{hl}}\newcommand{\hlhl}[1]{\hl{#1}}
+\newcommand{\notafa}[1]{\textcolor{red}{fa}}\newcommand{\hlfa}[1]{\hl{#1}}
+\newcommand{\notake}[1]{\textcolor{red}{ke}}\newcommand{\hlke}[1]{\hl{#1}}
+\newcommand{\notaPA}[1]{\textcolor{red}{PA}}\newcommand{\hlpa}[1]{\hl{#1}}
 % \newcommand{acronym}[3]{\acro{#1}[#2]{#3}}
 
 \newcommand{\refcap}[1]{Capítulo \ref{cha:#1}\xspace}
@@ -214,20 +214,16 @@
 %\glossary
 
 % ----------------------------------------------------------
-% Apêndices
-% Inicia os apêndices
+% Apêndices (do autor)
 % \begin{apendicesenv}
 %    % Imprime uma página indicando o início dos apêndices
 %    \partapendices
-%    % ----------------------------------------------------------
-%    % Incluir Apêndice
-%    % ----------------------------------------------------------
 %    \chapter{Quisque libero justo}
 %    \lipsum[3]
 % \end{apendicesenv}
 
 % ----------------------------------------------------------
-% Anexos
+% Anexos (de outros)
 % \begin{anexosenv}
 %    % Imprime uma página indicando o início dos anexos
 %    \partanexos

@@ -77,8 +77,8 @@ processamento distribuído de sensoriamento massivo em cidades inteligentes \cit
 \citeonline{Dastjerdi2016} e \citeonline{IEEECommunicationsSociety2018}
 mencionam que a enorme massa de dados gerados por ambientes IoT pode ser
 processada em nuvem, entretanto a latência produzida pela transferência desses
-dados para a nuvem e o retorno do resultado pode não ser toleradas por sistemas
-críticos que sejam sensíveis a latência como monitoramento de saúde e resposta a
+dados para a nuvem e o retorno do resultado podem não ser toleradas por sistemas
+críticos que sejam sensíveis à latência como monitoramento de saúde e resposta a
 emergências.
 \citeonline{IEEECommunicationsSociety2018} ainda acrescenta que enviar tantos
 dados à nuvem
@@ -169,13 +169,14 @@ emergência.
 
 % \todo[inline]{Me parece que Spark, Flink ... são ambientes, enquanto Cloud e Fog
 % estão mais para plataformas (seção 2.1). }
+\notaPA{Essa frase não está genérica demais? ``Aplicações'' nem sempre possuem BDs.}
 Tradicionalmente, aplicações
 foram construídas com um sistema gerenciador de
 banco de dados relacional ou não-relacional associado.
 Essa arquitetura,
 nomeada de ``arquitetura totalmente incremental'' por \citeonline{marz2015big},
 foi evoluída e simplificada iterativamente durante décadas de uso, porém ela não
-é adequada para sistemas em tempo real, como os sistema de fluxo de dados.
+é adequada para sistemas em tempo real, como os que tratam fluxos de dados.
 O volume e a velocidade de dados em um fluxo de dados leva à necessidade de
 distribuir o processamento, acrescentando poder computacional a cada nó
 adicionado.
@@ -202,7 +203,7 @@ $(chave, valor)$ e emite um conjunto de pares intermediários na mesma estrutura
 \emph{Reduce}, que recebe uma chave e um conjunto de valores gerado pelo agrupamento
 de pares com essa mesma chave \cite{Dean2004}.
 
-Em prática, um \emph{cluster MapReduce} tem centenas de processadores e o
+Na prática, um \emph{cluster MapReduce} tem centenas de processadores e o
 conjunto de dados é armazenado em um sistema de arquivos distribuído que é lido
 pela plataforma com programas escritos por usuários sendo executados sob
 supervisão de um nó mestre.
@@ -264,6 +265,10 @@ configurado para ser executado como um \emph{cluster stand-alone}.
 Já o acesso programático a essa plataforma pode ser feito através das linguagens
 Java, Scala ou Python.
 
+\notaPA{Por que falar de MPI?
+Ɠté este momento no texto não foi falado da necessidade de MPI,
+nem das outras tentativas prévias ao uso dele.
+Destacar desde o resumo.}
 \section{MPI - Interface de Troca de Mensagens}
 
 % \todo[inline]{Não é usual traduzir MPI e nem SPMD. Ambos são bem conhecidos na comunidade.}
@@ -272,6 +277,7 @@ múltiplos nós e processos, tendo cada processo acesso direto somente a sua mem
 local.
 Para esse tipo de sistema, o paradigma de programação paralela \spmd onde
 múltiplas instâncias de um único programa tratam parcelas de dados, pode ser
+\notaPA{Memória Distribuída Compartilhada?}
 implementado utilizando o conceito de memória distribuída compartilhada através
 de troca de mensagens.
 Nesse modelo, cada
@@ -288,6 +294,7 @@ Esse modelo pode ser implementado desde computadores multiprocessados de memóri
 compartilhada até supercomputadores com centenas de nós e milhares de
 processadores.
 O \mpi, por meio de alguma
+\notaPA{Faltam referências.}
 implementação como OpenMPI e MPICH, permite a construção de um sistema
 distribuído com um executável único (monólito) e sua execução em um ambiente gerenciado.
 
@@ -298,6 +305,9 @@ processo destino, e \emph{tag} para diferenciar mensagens (ex: ordem e conteúdo
 Associado à cada primitiva enviar, a primitiva receber possui os argumentos:
 conteúdo da mensagem, tamanho máximo da mensagem, remetente da mensagem, tamanho
 real da mensagem, e \emph{tag}.
+\notaPA{Comunicação coletiva?
+Deveria explicar antes a derivação delas a partir de snd/rcv, que são ponto-a-ponto.
+Está confuso. Não precisa ser um livro, mas completo no nível que se deseja explicar.}
 Além de operações de envio e recebimento, pode-se fazer
 envio de mensagens de uma fonte para múltiplos destinos, e um destino receber de
 múltiplas fontes numa única operação.
@@ -320,7 +330,7 @@ comunicação entre os processos de cada nó do cluster.
 Cada nó do cluster possui um conjunto de processos, e cada processo possui seu
 espaço de endereçamento e é \emph{multithread}, onde as \emph{threads} se comunicam
 através da memória compartilhada.
-O OpenMPI permite a comunicação entre os processos independente se estão ou não
+O OpenMPI permite a comunicação entre os processos independentemente se estão ou não
 no mesmo nó.
 
 % \begin{figure}[htb]
@@ -339,6 +349,7 @@ desempenho. Processadores modernos possuem memórias hierárquicas que beneficia
 programas que fazem o melhor uso de cache. O modelo de passagem de mensagens
 permite o particionamento dos dados em fatias menores otimizando o uso de cache
 nesses processadores. Portanto, para aplicações limitados por memória pode haver
+\notaPA{Definir. Não considerar que o leitor sabe.}
 acelerações super-lineares (\emph{superlinear speedup}) \cite{mpi-book}.
 
 Apesar do \mpi não ter sido idealizado para o processamento de fluxo de dados, ele

@@ -76,7 +76,7 @@ e folha.
 
 % The overall sequence of interactions is shown in Figure \ref{fig:mfog-mpi-life}.
 As interações entre os diferentes módulos e ciclo de vida do sistema é ilustrado
-no diagrama de sequencia na Figura \ref{fig:mfog-mpi-life}.
+no diagrama de sequência na Figura \ref{fig:mfog-mpi-life}.
 
 \begin{figure}[htb]
   \centerline{
@@ -156,7 +156,7 @@ marcador de fim de fluxo (\texttt{FimDeFluxo}, \emph{end of stream, eos}).
         \While{ Verdade }{
             exemplo $\gets$ \receive(TipoExemplo, raiz)\;
             \lIf{exemplo == \EndOfStream}{\break}
-            exemplo.rótulo $\gets$ "desconhecido"\;
+            exemplo.rótulo $\gets$ ``desconhecido''\;
             \With{\readLock(trava)}{
                 (distância, cluster) $\gets$ \nearestCluster(exemplo, Modelo)\;
             }

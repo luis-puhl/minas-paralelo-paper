@@ -180,28 +180,35 @@ de \iot e névoa, alguns desafios para implementação \nids são notáveis:
 
 Nesta proposta, recursos em névoa são combinados para minimizar a latência entre
 o recebimento (ingestão) do descritor de fluxo e a identificação daquele fluxo.
-Executa-se múltiplas instâncias da tarefa de classificação do algoritmo \minas.
+Executam-se múltiplas instâncias da tarefa de classificação do algoritmo \minas.
 % In our proposal, fog and cloud computing resources are combined to minimize
 % the time elapsed between a flow descriptor ingestion and intrusion alarm,
 % performing the classification step of \minas running multiple
 % classifier instances.
-Após identificado o rótulo do descritor de fluxo (exemplo), este par (rótulo, exemplo) pode ser
-utilizado imediatamente para tomada de decisões e, se o exemplo é rotulado como
-``desconhecido'', ele é armazenado para posterior execução assíncrona da tarefa
+Após identificado o rótulo do descritor de fluxo (exemplo), este par (rótulo, exemplo)
+\notaPA{Quem executa?}
+pode ser utilizado imediatamente para tomada de decisões e, se o
+exemplo é rotulado como ``desconhecido'', ele é armazenado para
+\notaPA{Quem executa?}
+posterior execução assíncrona da tarefa
 de detecção de novidade, portanto sem interromper o processo de identificação.
 % After the initial classification, the resulting label can be used immediately,
 % but if the sample is labeled as \emph{unknown}, this sample must be stored and
 % the novelty detection step will be triggered.
 
+\notaPA{Ok, multiprocessamento. Em todas as instâncias? Como?}
 Além do multiprocessamento da tarefa de classificação e da execução assíncrona da
 tarefa de detecção de novidade na fase \emph{online}, outra mudança em relação
 ao \minas original é a remoção do mecanismo de esquecimento de padrões antigos.
 Esta remoção tem por finalidade simplificar a atualização e o compartilhamento
 do modelo entre as múltiplas instâncias e \emph{threads} concorrentes.
 % 
-O impacto desta alteração não é grande, pois o algoritmo \minas não estabelece a remoção
-permanente dos \mclusters com pouco uso. Essa alteração aumenta marginalmente 
-a complexidade computacional da classificação, pois inclui na busca  os padrões menos utilizados.
+
+O impacto desta alteração não é grande, pois o algoritmo \minas não estabelece a
+remoção permanente dos \mclusters com pouco uso.
+\notaPA{Mas não aumenta o tempo para a classificação, caso haja diferentes padrões de fluxos de dados?}
+Essa alteração aumenta marginalmente a complexidade computacional da
+classificação, pois inclui na busca os padrões menos utilizados.
 
 Já a fase \emph{offline} e a função de detecção de novidades do algoritmo \minas
 permanecem as mesmas.
@@ -232,6 +239,8 @@ Detecção de Novidade, que equivalem à fase \emph{online} do algoritmo \minas.
 % Detection, which implement the \minas main tasks.
 O módulo Classificação executa a tarefa de mesmo nome do algoritmo \minas e é
 ponto focal dos esforços de paralelismo desta proposta.
+\notaPA{Vai explicando em ciclos, detalhando sempre um pouco mais.
+Sugiro rever, e explicar com detalhes, 1x apenas.}
 Este módulo é replicado em todos os nós do cluster % hospedado (?)
 em névoa.
 % The Classification Module performs the same task of the \minas Online phase and
@@ -265,7 +274,7 @@ O projeto desta arquitetura de \nd distribuída inclui o particionamento das
 funcionalidades de \minas e o estabelecimento dos fluxos de dados apropriados
 entre os diferentes atores.
  % ??? Hélio
-Mudanças no posicionamento de cada ator e no comportamento tem impactos
+Mudanças no posicionamento de cada ator e no comportamento têm impactos
 diferentes no desempenho e na acurácia do modelo e devem ser escolhidas com
 cuidado.
 % As decisões após essas discussões podem ser organizadas em várias políticas; 
@@ -289,9 +298,11 @@ Alguns dos aspectos com impactos potenciais na implementação incluem:
   \begin{enumerate}
     
     \item Em névoa (há um módulo em cada cluster alocado a uma rede local): padrões serão
+    \notaPA{qual seria a quantidade e quanto tempo depois esse padrão é detectado?}
     somente detectados se um número suficiente de exemplos deste padrão ocorrer
     na rede observada; considerando o uso do poder computacional da névoa, qualquer
-    sincronização de modelo deve ter a propriedade de aditividade; também é preciso  reconhecer padrões duplicados;
+    sincronização de modelo deve ter a propriedade de aditividade; também é preciso
+    reconhecer padrões duplicados;
     % \item At each fog node: patterns will be only detected if sufficient samples
     % of them occur in the local observed network, use of the local node
     % processing power, and a model synchronization mechanism between networks
@@ -308,8 +319,17 @@ Alguns dos aspectos com impactos potenciais na implementação incluem:
     % cloud implying increased internet link usage and increased delay between the
     % appearance of a pattern, its detection and propagation to fog classifiers;
 
+    \notaPA{A propagação dos novos padrões
+    é feita hierarquicamente, subindo
+    da névoa para a nuvem, ou
+    é propagada diretamente entre
+    a porção em névoa?}
+
     \item Em ambos (nuvem e névoa): cada conjunto de desconhecidos em cada rede
     local é mantido bem como a detecção de novidade para padrões locais,
+    \notaPA{locais. Quando...
+    A frase muito longa dificulta o entendimento dela...
+    há outros casos assim no texto. Verificar para tornar o texto mais fluído.}
     quando um exemplo é considerado ruído e removido do conjunto de
     desconhecidos, o exemplo é enviado à nuvem para detecção de novidade global.
     Esta opção requer um mecanismo complexo de sincronização de modelo.
@@ -336,15 +356,17 @@ Alguns dos aspectos com impactos potenciais na implementação incluem:
   classificado com o rótulo deste novo cluster.
   No Algoritmo \ref{alg:minas-nd}, linha \ref{alg:MINAS-nd:reclassify},
   o novo cluster válido inclui o subconjunto de exemplos que o compõem.
+  \notaPA{Eu não consegui enxergar isso...  Como isso ocorre de fato?}
   Portanto, se este conjunto de exemplos fosse classificado com o rótulo atribuído ao
   novo cluster e adicionado ao fluxo de saída, esta saída teria exemplos
   atrasados e duplicados em relação ao fluxo de entrada e o resultado obtido
   poderia ser mais acurado.
   % preciso (???) Hélio
+  \notaPA{Novamente, ficou difícil de acompanhar o raciocínio. Talvez uma figura fosse ajudasse aqui.}
   Além disso, esta escolha modificaria o comportamento do operador de fluxo de
   dados de um \emph{map}, onde para cada exemplo do fluxo de entrada existe um
   exemplo no fluxo de saída, para \emph{flatMap}, onde cada exemplo entrada pode
-  ter mais de um exemplo no fluxo de saída.
+  ter mais de um exemplo no fluxo de saída, como ilustrado na Figura \ref{fig:marble}.
   % \item Lastly, reclassification of \emph{unknowns}: In the novelty detection
   % task in \minas, the \emph{unknown} sample buffer is effectively classified
   % using the new set of clusters.
@@ -358,6 +380,15 @@ Alguns dos aspectos com impactos potenciais na implementação incluem:
   % many outputs).
 
 \end{enumerate}
+
+\begin{figure}[htb]
+  \centerline{
+    \includegraphics[width=0.9\linewidth,page=1]{figures/map-vs-flatmap.png}
+  }
+  \caption{Diagrama de bola de gude (\emph{marble diagram}) da operação de
+  classificação: descarte \emph{versus} re-utilização de exemplos formadores de padrões novidade.}
+  \label{fig:marble}
+\end{figure}
 
 % ------------------------------------------------------------------------------
 
