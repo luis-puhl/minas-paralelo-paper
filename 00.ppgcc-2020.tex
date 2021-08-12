@@ -56,11 +56,12 @@
 }
 % ---
 
-\newcommand{\nott}[1]{\footnote{{\color{red}{#1}}}}\newcommand{\hl}[1]{\colorbox{green}{[}#1\colorbox{green}{]}}
-\newcommand{\notahl}[1]{\textcolor{red}{hl}}\newcommand{\hlhl}[1]{\hl{#1}}
-\newcommand{\notafa}[1]{\textcolor{red}{fa}}\newcommand{\hlfa}[1]{\hl{#1}}
-\newcommand{\notake}[1]{\textcolor{red}{ke}}\newcommand{\hlke}[1]{\hl{#1}}
-\newcommand{\notaPA}[1]{\textcolor{red}{PA}}\newcommand{\hlpa}[1]{\hl{#1}}
+% \newcommand{\nott}[1]{}\newcommand{\hl}[1]{#1}
+\newcommand{\nott}[1]{\textcolor{red}{#1}}\newcommand{\hl}[1]{\colorbox{green}{[}#1\colorbox{green}{]}}
+\newcommand{\notahl}[1]{\nott{hl}}\newcommand{\hlhl}[1]{\hl{#1}}
+\newcommand{\notafa}[1]{\nott{fa}}\newcommand{\hlfa}[1]{\hl{#1}}
+\newcommand{\notake}[1]{\nott{ke}}\newcommand{\hlke}[1]{\hl{#1}}
+\newcommand{\notaPA}[1]{\nott{PA}}\newcommand{\hlpa}[1]{\hl{#1}}
 % \newcommand{acronym}[3]{\acro{#1}[#2]{#3}}
 
 \newcommand{\refcap}[1]{Capítulo \ref{cha:#1}\xspace}

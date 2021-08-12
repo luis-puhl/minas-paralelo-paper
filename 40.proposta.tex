@@ -83,20 +83,27 @@ Esta abordagem é baseada na arquitetura \arch \cite{Cassales2019a} e no algorit
 de \nd \minas \cite{Faria2016minas}.
 % Our approach is based on the \arch architecture \cite{Cassales2019a} and \nd
 % techniques provide by the \minas algorithm \cite{Faria2016minas}.
-Nomeada \mfog, esta implementação do algoritmo \minas explora computação distribuída
-habilitando o uso de computadores e dispositivos com recursos limitados presentes no
-ambiente de névoa a realizar, além de tarefas habituais de um \emph{gateway} \iot, a classificação e detecção de
-tráfego indesejável.
+Nomeada ``\mfog'', esta implementação do algoritmo \minas explora computação
+distribuída habilitando o uso de computadores e dispositivos com recursos
+limitados presentes no ambiente de névoa a realizar, além de tarefas habituais
+de um \emph{gateway} \iot, a classificação e detecção de tráfego indesejável.
 % Named \mfog, our distributed algorithm explores load balancing to enable low
 % profile devices at the edge of the internet to also work on the classification
 % and detection of unwanted traffic.
 
-A arquitetura física do \mfog pode ser vista na Figura
+\section{Ambiente Físico, Impactos no Algoritmo e Arquitetura}
+
+Nesta seção apresenta-se o ambiente físico escolhido, a relação deste ambiente
+com o problema de detecção de intrusão em rede, as modificações no algoritmo
+necessárias para adequação a este problema e ambiente e, por fim, a descrição
+da arquitetura geral da presente proposta.
+
+O ambiente físico do \mfog pode ser vista na Figura
 \ref{fig:arq-fisica-mfog}, onde um dispositivo \emph{gateway} observa o tráfego
 da rede local (sensores IoT) e entre a rede local e a nuvem.
 A detecção de intrusão é executada de forma paralela e distribuída numa névoa de
 dispositivos SBC (\emph{Single Board Computer}).
-Esta arquitetura física foi escolhida por aproximar os recursos comuns em redes
+Este ambiente físico foi escolhido por aproximar os recursos comuns em redes
 deste tipo mas o \mfog não é limitado a ela, podendo utilizar dispositivos de
 borda ou névoa com recursos disponíveis para a tarefa de detecção de intrusão ou
 novidades.
@@ -112,7 +119,7 @@ novidades.
   \centerline{
     \includegraphics[width=0.6\linewidth,page=1]{figures/arq-mfog.png}
   }
-  \caption{Arquitetura física do \mfog.}
+  \caption{Ambiente Físico do \mfog.}
   \label{fig:arq-fisica-mfog}
 \end{figure}
 
@@ -179,17 +186,23 @@ de \iot e névoa, alguns desafios para implementação \nids são notáveis:
 \end{enumerate}
 
 Nesta proposta, recursos em névoa são combinados para minimizar a latência entre
-o recebimento (ingestão) do descritor de fluxo e a identificação daquele fluxo.
-Executam-se múltiplas instâncias da tarefa de classificação do algoritmo \minas.
+o recebimento (ingestão) do descritor de fluxo e a identificação (rotulagem)
+daquele descritor de fluxo com uma classe do problema (normal ou ataque).
+% \hlpa{Executam-se múltiplas}
+Para tal fim, executa-se múltiplos processos da tarefa de classificação do
+algoritmo \minas que é responsável pela identificação.
 % In our proposal, fog and cloud computing resources are combined to minimize
 % the time elapsed between a flow descriptor ingestion and intrusion alarm,
 % performing the classification step of \minas running multiple
 % classifier instances.
-Após identificado o rótulo do descritor de fluxo (exemplo), este par (rótulo, exemplo)
-\notaPA{Quem executa?}
-pode ser utilizado imediatamente para tomada de decisões e, se o
-exemplo é rotulado como ``desconhecido'', ele é armazenado para
-\notaPA{Quem executa?}
+
+Após identificado o rótulo do descritor de fluxo, o par (rótulo, descritor de fluxo)
+% \notaPA{Quem executa?}
+pode ser utilizado imediatamente por outros sistemas como os de monitoramento ou
+\emph{firewalls} para tomada de decisões.
+Caso o rótulo seja ``desconhecido'', o descritor de fluxo é armazenado no
+processo coordenador para
+% \notaPA{Quem executa?}
 posterior execução assíncrona da tarefa
 de detecção de novidade, portanto sem interromper o processo de identificação.
 % After the initial classification, the resulting label can be used immediately,
@@ -201,17 +214,19 @@ Além do multiprocessamento da tarefa de classificação e da execução assínc
 tarefa de detecção de novidade na fase \emph{online}, outra mudança em relação
 ao \minas original é a remoção do mecanismo de esquecimento de padrões antigos.
 Esta remoção tem por finalidade simplificar a atualização e o compartilhamento
-do modelo entre as múltiplas instâncias e \emph{threads} concorrentes.
+do modelo de decisão entre os múltiplas processos e \emph{threads} concorrentes.
 % 
-
 O impacto desta alteração não é grande, pois o algoritmo \minas não estabelece a
 remoção permanente dos \mclusters com pouco uso.
-\notaPA{Mas não aumenta o tempo para a classificação, caso haja diferentes padrões de fluxos de dados?}
+\notaPA{Mas não aumenta o tempo para a classificação, caso haja diferentes
+padrões de fluxos de dados?}
+\hlpa{
 Essa alteração aumenta marginalmente a complexidade computacional da
 classificação, pois inclui na busca os padrões menos utilizados.
+}
 
-Já a fase \emph{offline} e a função de detecção de novidades do algoritmo \minas
-permanecem as mesmas.
+Já a fase de treinamento \emph{offline} e a função de detecção de novidades do
+algoritmo \minas permanecem as mesmas salvo fato da reimplementação no \mfog.
 
 % To have a better overview of our proposal and how it integrates with existing
 % \iot environments, Figure \ref{fig:mfog-phy-arch-cloud} depicts such scenario
@@ -241,8 +256,10 @@ O módulo Classificação executa a tarefa de mesmo nome do algoritmo \minas e �
 ponto focal dos esforços de paralelismo desta proposta.
 \notaPA{Vai explicando em ciclos, detalhando sempre um pouco mais.
 Sugiro rever, e explicar com detalhes, 1x apenas.}
+\hlpa{
 Este módulo é replicado em todos os nós do cluster % hospedado (?)
 em névoa.
+}
 % The Classification Module performs the same task of the \minas Online phase and
 % is the focal point for parallelism and distribution in our proposal.
 % It is replicated in the fog and runs on each cluster node, using a configurable
@@ -271,10 +288,10 @@ e distribui os novos \mclusters para as instâncias do módulo de Classificaçã
 \section{Políticas}\label{sec:polices}
 
 O projeto desta arquitetura de \nd distribuída inclui o particionamento das
-funcionalidades de \minas e o estabelecimento dos fluxos de dados apropriados
+funcionalidades do algoritmo \minas e o estabelecimento dos fluxos de dados apropriados
 entre os diferentes atores.
  % ??? Hélio
-Mudanças no posicionamento de cada ator e no comportamento têm impactos
+Mudanças no posicionamento de cada ator e no comportamento \hlpa{têm} impactos
 diferentes no desempenho e na acurácia do modelo e devem ser escolhidas com
 cuidado.
 % As decisões após essas discussões podem ser organizadas em várias políticas; 
@@ -297,49 +314,59 @@ Alguns dos aspectos com impactos potenciais na implementação incluem:
   % Regarding the allocation of the Novelty Detection Module:
   \begin{enumerate}
     
-    \item Em névoa (há um módulo em cada cluster alocado a uma rede local): padrões serão
+    \item Em névoa (há um módulo em cada cluster alocado a uma rede local):
     \notaPA{qual seria a quantidade e quanto tempo depois esse padrão é detectado?}
-    somente detectados se um número suficiente de exemplos deste padrão ocorrer
-    na rede observada; considerando o uso do poder computacional da névoa, qualquer
-    sincronização de modelo deve ter a propriedade de aditividade; também é preciso
-    reconhecer padrões duplicados;
+    \hlpa{
+    padrões serão somente detectados se um número suficiente de exemplos deste
+    padrão
+    } ocorrer na rede observada;
+    % considerando o uso do poder computacional da névoa, qualquer sincronização
+    % de modelo deve ter a propriedade de aditividade;
+    % também é preciso reconhecer padrões duplicados;
+    
     % \item At each fog node: patterns will be only detected if sufficient samples
     % of them occur in the local observed network, use of the local node
     % processing power, and a model synchronization mechanism between networks
     % must be added;
 
     \item Em nuvem: capacidade de detecção de padrões dispersos em cada rede
-    local onde se analisado não formaria um cluster válido,
+    local,
+    % onde se analisado não formaria um cluster válido,
     neste caso todos exemplos com rótulo ``desconhecido''  são enviados da rede
     local para a nuvem implicando aumento do uso do \emph{link} de internet e
-    aumento do atraso entre aparição de um padrão, sua detecção e a propagação
+    aumento do atraso entre o surgimento de um padrão, sua detecção e a propagação
     para os classificadores em névoa;
     % \item In the cloud: detect patterns even when scattered on each local
     % network, each sample with \emph{unknown} label must be sent from edge to
     % cloud implying increased internet link usage and increased delay between the
     % appearance of a pattern, its detection and propagation to fog classifiers;
 
-    \notaPA{A propagação dos novos padrões
-    é feita hierarquicamente, subindo
-    da névoa para a nuvem, ou
-    é propagada diretamente entre
-    a porção em névoa?}
-
     \item Em ambos (nuvem e névoa): cada conjunto de desconhecidos em cada rede
-    local é mantido bem como a detecção de novidade para padrões locais,
-    \notaPA{locais. Quando...
-    A frase muito longa dificulta o entendimento dela...
-    há outros casos assim no texto. Verificar para tornar o texto mais fluído.}
-    quando um exemplo é considerado ruído e removido do conjunto de
-    desconhecidos, o exemplo é enviado à nuvem para detecção de novidade global.
+    local é mantido bem como a detecção de novidade para padrões locais.
+    % \notaPA{locais. Quando...
+    % A frase muito longa dificulta o entendimento dela...
+    % há outros casos assim no texto. Verificar para tornar o texto mais fluído.}
+    Quando um exemplo é considerado ruído e removido do conjunto de
+    desconhecidos, este é enviado à nuvem para detecção de novidade global.
     Esta opção requer um mecanismo complexo de sincronização de modelo.
     % \item On both: local \emph{unknown} buffer is maintained and novelty
     % detection is local as well, once a sample is considered as noise or outlier
     % it shall be sent to the cloud where the process repeats but with global
     % data.
     % This choice needs an even more complex model synchronization mechanism.
-
+    
   \end{enumerate}
+  
+  % \notaPA{A propagação dos novos padrões é feita hierarquicamente, subindo da
+  % névoa para a nuvem, ou é propagada diretamente entre a porção em névoa?}
+  As três opções requerem, no mínimo, um mecanismo global de sincronização de
+  modelo alocado em nuvem, onde novidades encontradas em um cluster que observa
+  uma rede local são enviados para a nuvem e posteriormente distribuídos.
+  Para tal fim, o modelo deve ter a propriedade de aditividade e o correto
+  tratamento de padrões duplicados.
+  Além disso, no caso mais complexo, a instância em nuvem deve tratar exemplos
+  com rótulo ``desconhecido'' ou considerados ruído ou \emph{outlier} gerados
+  erroneamente por atrasos de comunicação do modelo ou dos próprios exemplos;
     
   \item Com relação ao mecanismo de esquecimento:
   mesmo quando a detecção de novidade global é usada, modelos locais podem
@@ -350,23 +377,38 @@ Alguns dos aspectos com impactos potenciais na implementação incluem:
   % classification using the local model statistics by sorting by (or removing)
   % least used clusters;
 
-  \item \label{reclassification} Por último, na reclassificação do conjunto de desconhecidos,
+  \item \label{reclassification}
+  Por último, na reclassificação do conjunto de desconhecidos,
   feita pela tarefa de detecção de novidade do algoritmo \minas, o subconjunto de
   desconhecidos que pertencem a um novo cluster válido é, efetivamente,
   classificado com o rótulo deste novo cluster.
   No Algoritmo \ref{alg:minas-nd}, linha \ref{alg:MINAS-nd:reclassify},
   o novo cluster válido inclui o subconjunto de exemplos que o compõem.
-  \notaPA{Eu não consegui enxergar isso...  Como isso ocorre de fato?}
+  % \notaPA{Eu não consegui enxergar isso...  Como isso ocorre de fato?}
   Portanto, se este conjunto de exemplos fosse classificado com o rótulo atribuído ao
   novo cluster e adicionado ao fluxo de saída, esta saída teria exemplos
   atrasados e duplicados em relação ao fluxo de entrada e o resultado obtido
   poderia ser mais acurado.
   % preciso (???) Hélio
-  \notaPA{Novamente, ficou difícil de acompanhar o raciocínio. Talvez uma figura fosse ajudasse aqui.}
+  % \notaPA{Novamente, ficou difícil de acompanhar o raciocínio. Talvez uma figura fosse ajudasse aqui.}
   Além disso, esta escolha modificaria o comportamento do operador de fluxo de
   dados de um \emph{map}, onde para cada exemplo do fluxo de entrada existe um
   exemplo no fluxo de saída, para \emph{flatMap}, onde cada exemplo entrada pode
-  ter mais de um exemplo no fluxo de saída, como ilustrado na Figura \ref{fig:marble}.
+  ter mais de um exemplo no fluxo de saída, como ilustrado nos 
+  diagramas de bola de gude\footnote{
+  Um Diagrama de bola de gude (\emph{marble diagram}) ilustra o comportamento de
+  um operador de fluxos de dados.
+  Cada diagrama contém do topo: os fluxos de entrada, o operador e os fluxos de saída.
+  Cada fluxo é representado por uma linha do tempo crescente em direção à
+  esquerda com um terminador vertical ($|$), possívelmente um marcador de erro
+  ($\times$) e diversos eventos.
+  Os eventos são representados por polígonos rotulados com valores de exemplo,
+  geralmente círculos coloridos (bolas de gude, \emph{marbles}).
+  O objetivo deste tipo de diagrama é ilustrar pequenos exemplos de comportamento
+  do operador, para cada evento nos fluxos de entrada, qual o comportamento nos
+  fluxos de saída.
+  }
+  na Figura \ref{fig:marble}.
   % \item Lastly, reclassification of \emph{unknowns}: In the novelty detection
   % task in \minas, the \emph{unknown} sample buffer is effectively classified
   % using the new set of clusters.
@@ -383,10 +425,10 @@ Alguns dos aspectos com impactos potenciais na implementação incluem:
 
 \begin{figure}[htb]
   \centerline{
-    \includegraphics[width=0.9\linewidth,page=1]{figures/map-vs-flatmap.png}
+    \includegraphics[width=\linewidth,page=1]{figures/map-vs-flatmap.png}
   }
-  \caption{Diagrama de bola de gude (\emph{marble diagram}) da operação de
-  classificação: descarte \emph{versus} re-utilização de exemplos formadores de padrões novidade.}
+  \caption{Diagrama de bola de gude da operação de classificação: descarte
+  \emph{versus} re-utilização de exemplos formadores de padrões novidade.}
   \label{fig:marble}
 \end{figure}
 
