@@ -2,13 +2,15 @@
 
 \section{Implementações Preliminares}\label{sec:resultados}
 
-No desenvolvimento desta pesquisa, uma vez determinado o modelo de operação distribuída, com processamento nas bordas da rede, algumas experimentações e algumas ferramentas
-de teste foram desenvolvidas. Aspectos desses desenvolvimentos são descritos a
-seguir.
+No desenvolvimento desta pesquisa, uma vez determinado o modelo de operação
+distribuída, com processamento nas bordas da rede, algumas experimentações e
+algumas ferramentas de teste foram desenvolvidas. Aspectos desses
+desenvolvimentos são descritos a seguir.
 % obrigado hélio. % :-)
 
 \subsection{Implementação com \python e \kafka}
 
+\notaPA{Inserir Figura para auxiliar na compreensão, principalmente do problema encontrado.}
 A primeira implementação e avaliação do \mfog realizada foi construída sobre a
 linguagem \python com o sistema de fila de mensagens \kafka e a respectiva
 biblioteca de conexão.
@@ -26,7 +28,16 @@ mantidas pelo \kafka.
 Para essa implementação, havia a hipótese de que a distribuição de
 mensagens gerenciada pelo \kafka
 se estenderia a processos consumidores, efetivamente distribuindo o volume de
-mensagens entre eles igualmente.
+mensagens entre eles igualmente, como ilustrado na Figura \ref{fig:python-kafka}.
+
+\begin{figure}[htb]
+    \centerline{
+      \includegraphics[width=\linewidth,page=1]{figures/python-kafka.png}
+    }
+    \caption{Hipótese de distribuição de carga com Apache Kafka e Python.}
+    \label{fig:python-kafka}
+\end{figure}
+
 No entanto, a hipótese foi refutada nos experimentos realizados.
 Os experimentos em questão foram compostos de 8 processos consumidores, um
 processo produtor, uma instância \kafka com 8 partições em seu tópico principal
@@ -42,21 +53,28 @@ Portanto, a iniciativa de implementar o algoritmo MINAS em \python com \kafka e
 atingir os objetivos de distribuição falhou, o que levou à reconsideração das
 plataformas escolhidas.
 
+% TODO: fiz a parte do "figura para auxiliar na compreensão" mas falta a parte do "principalmente do problema encontrado"
+% TODO: Rodar o py-kafka-minas no i7, extrair contagem de exemplos por classificador, gerar gráfico de barras disso. (Faço???)
+
 \subsection{Implementação com \flink}
 
 % \nota{citar ferramentas e a escolha só depois do python e kafka}
 % \nota{entre flink e spark, outro grupo de pesquisa já está explorando spark}
 
 A segunda alternativa explorada teve por inspiração o trabalho de
-\citeonline{Viegas2019} e, como outro grupo de pesquisa já estava explorando
+\notaPA{Qual seria o outro grupo? Viegas et al. (2019)?}
+\citeonline{Viegas2019} e, \hlpa{como outro grupo de pesquisa} já estava explorando
 o algoritmo na plataforma \emph{Apache Spark}, a segunda implementação
 foi baseada na plataforma \flink.
 
 A plataforma \flink tem modelos de processamento tanto de fluxos como em lotes.
 O modelo em lotes é implementado como extensão do modelo de fluxos e, apesar de
 não ser foco desse trabalho, mostrou-se útil para a construção da fase de
-treinamento \emph{offline} do algoritmo \minas, já que o conjunto consumido por
-esse módulo é limitado.
+treinamento \emph{offline} do algoritmo \minas, \hlpa{já que o conjunto consumido por
+esse módulo é limitado.}
+\notaPA{Não sei se compreendi corretamente. O modelo em lotes é pior, mas pode
+ser usado para treinamento offline por trabalhar com conjuntos de dados
+menores?}
 
 % Um desafio encontrado durante o desenvolvimento da implementação do \mfog foi a falta
 % de bibliotecas na plataforma \flink que disponibilizem versões adaptadas
@@ -71,15 +89,21 @@ esse módulo é limitado.
 
 Após desenvolvimento e testes em um computador pessoal, o sistema foi testado no
 ambiente de testes como descrito na Seção \ref{sec:ambiente}, onde observou-se uma
-redução enorme no desempenho que concluiu-se ser causada pelo uso excessivo de
-memória pela plataforma \flink.
-Com a configuração dos parâmetros de memória do cluster, resultados
-compatíveis com o esperado foram obtidos; no entanto, apesar de exemplos de
+\notaPA{Definir "enorme"!}
+\hlpa{redução enorme} no desempenho que \hlpa{concluiu-se ser causada pelo uso excessivo de
+memória pela plataforma \flink}.
+\notaPA{Isso provocou uso de swap ou apenas mais acessos? Qual foi o gargalo?}
+Com a configuração dos parâmetros de memória do cluster, \hlpa{resultados
+\notaPA{Definir "resultados compatíveis com o esperado".}
+compatíveis com o esperado} foram obtidos; no entanto, apesar de exemplos de
 sucesso na literatura
-\cite{lee2017data,Greco2019wearableStream,battulga2020fogguru}, o ambiente de
+\cite{lee2017data,Greco2019wearableStream,battulga2020fogguru}, \hlpa{o ambiente de
+\notaPA{o código do Apache Flink é aberto?
+Esse problema não é apenas falta de liberação de memória?}
 testes não permaneceu estável para execução de repetições do experimento,
 necessitando reinicializações para que o controlador não ocupasse mais de $1GB$
-na segunda execução, o que degradava imensamente o desempenho.
+na segunda execução}, o que \hlpa{degradava imensamente} o desempenho.
+\notaPA{O termo "imensamente" é mesmo necessário?}
 
 Em conclusão, apesar de promissora, a plataforma \flink ainda não suportava a
 execução em dispositivos computacionais restritos de maneira confiável, sendo a
