@@ -69,8 +69,8 @@
 	abnt-emphasize=bf,
 	abnt-repeated-author-omit=no,
 	abnt-repeated-title-omit=no,
-	abnt-etal-list=0,
-	abnt-year-extra-label=yes
+	abnt-etal-list=0
+	% abnt-year-extra-label=yes
 ]{abntex2cite}	% Citações padrão ABNT
 % abnt-year-extra-label=yes causa warning para overleaf com TeX Live version = 2020
 \RequirePackage{color}	% Controle das cores
