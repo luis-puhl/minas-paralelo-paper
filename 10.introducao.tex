@@ -139,7 +139,7 @@ distribuída em névoa de dispositivos \iot do algoritmo \minas.
 Esta implementação foi construída com o padrão \mpi buscando escalabilidade na
 tarefa de processamento de fluxo de dados e economia dos recursos limitados
 comumente encontrados em sistemas \iot, seguindo a arquitetura \arch
-\cite{Cassales2019a}.
+\cite{Cassales2019}.
 
 A avaliação do \mfog é constituída de métricas de qualidade de classificação e
 \notake{?}
@@ -175,13 +175,13 @@ Um problema recente que une, em um único contexto, os métodos de computação 
 névoa, processamento de fluxo de dados e detecção de novidades nesses fluxos é a
 detecção de intrusão em redes de dispositivos \iot.
 Para tratar esse problema, a arquitetura \arch, recentemente proposta por
-\citeonline{Cassales2019a}, aplica ao problema algoritmos relevantes
+\citeonline{Cassales2019}, aplica ao problema algoritmos relevantes
 % atuais     % isso pode ser afirmado? Hélio
 do tema de detecção de
 novidades em fluxos, executando esses algoritmos em ambiente próximo aos
 dispositivos e avaliando-os quanto à detecção de intrusão.
 
-Na arquitetura proposta, \citeonline{Cassales2019a} avaliou os algoritmos
+Na arquitetura proposta, \citeonline{Cassales2019} avaliou os algoritmos
 ECSMiner \cite{Masud2010ECSMiner}, AnyNovel \cite{Abdallah2016anynovel} e MINAS
 \cite{Faria2016minas}, sendo que o último mostrou resultados promissores.
 % A arquitetura proposta foi avaliada com o conjunto de dados (\emph{data set})
@@ -192,7 +192,7 @@ ECSMiner \cite{Masud2010ECSMiner}, AnyNovel \cite{Abdallah2016anynovel} e MINAS
 % O \emph{data set} \emph{Kyoto 2006+} contém 24 atributos, 3 etiquetas atribuídas por
 % detectores de intrusão comerciais e uma etiqueta
 % distinguindo o tráfego entre normal, ataque conhecido e ataque desconhecido
-% \cite{Cassales2019a}.
+% \cite{Cassales2019}.
 
 % \notahl{ Por que a necessidade paralelismo? O que falta que justifica essa
 % avaliação? Tempo de resposta?\\
@@ -261,7 +261,7 @@ taxas de até $10.72$  Gbps.
 % atualização constante do modelo. Esses problemas são amplamente abordados e
 % tratados em outros algoritmos como o MINAS \cite{Faria2016minas}.
 
-Os trabalhos de \citeonline{Cassales2019a} e \citeonline{Viegas2019} abordam
+Os trabalhos de \citeonline{Cassales2019} e \citeonline{Viegas2019} abordam
 detecção de intrusão em redes utilizando algoritmos de \nd, porém com
 perspectivas diferentes.
 \label{lbl:paulo-draw-an-arrow}
@@ -285,7 +285,7 @@ para os desafios de detecção de novidades.
 % }
 
 \notaPA{Introduzir antes.}
-A proposta deste trabalho, aqui chamada \mfog, adapta a arquitetura \hlpa{\arch} \cite{Cassales2019a}
+A proposta deste trabalho, aqui chamada \mfog, adapta a arquitetura \hlpa{\arch} \cite{Cassales2019}
 empregando o algoritmo de \nd \minas \cite{Faria2016minas}, tornando-o capaz
 de ser executado em um sistema distribuído composto de pequenos computadores com
 recursos limitados, alocados na borda da rede próximos dos dispositivos \iot.
@@ -301,7 +301,7 @@ detecção de novidades em fluxo de dados são discutidas.
 % perigoso, e tem lacuna de duas implementacoes ali que nao fazem distribuicao ou
 % paralelismo, o que ajudaria na resposta mais rapida do algortimo, certo?} uhum.
 
-% Our proposal, called \mfog, adapted the \arch architecture \cite{Cassales2019a}
+% Our proposal, called \mfog, adapted the \arch architecture \cite{Cassales2019}
 % using the \nd algorithm \minas \cite{Faria2013Minas,Faria2016minas}, making it
 % suitable to run on a distributed system composed of small devices with limited
 % resources on the edge of the network.
@@ -323,7 +323,7 @@ dados contínuos (como volume e velocidade do fluxo, evolução e mudança de
 conceito) e considere o ambiente de computação em névoa aplicada à detecção de
 intrusão.
 % Seguindo a comparação entre algoritmos desse gênero realizada por
-% \citeonline{Cassales2019a}, esta pesquisa escolheu investigar o algoritmo MINAS
+% \citeonline{Cassales2019}, esta pesquisa escolheu investigar o algoritmo MINAS
 % \cite{Faria2016minas} para receber o tratamento necessário para adequá-lo ao
 % ambiente de névoa e para fluxos de grandes volumes e velocidades.
 
@@ -334,7 +334,7 @@ Afirmou que não teve bom desempenho.
 Como fica isso?}
 aplicação que implemente o algoritmo \minas \cite{Faria2016minas} de maneira
 escalável e distribuível para ambientes de computação em névoa, seguindo a
-arquitetura \arch \cite{Cassales2019a}.
+arquitetura \arch \cite{Cassales2019}.
 
 \notaPA{Como posto no trabalho, com o objetivo maior de implementar um versão
 distribuída, eu não vejo essa avaliação aqui como um objetivo, mas como

@@ -57,7 +57,7 @@ Given the recent \cite{Viegas2019,AndreoniLopez2019,DaCosta2019a} use of Data St
 Detection (\nd) in network data streams, this paper shows the effects of
 adapting these mechanisms to edge services for use in \iot environments.
 Our proposal, called \mfog, adapted the \arch
-architecture \cite{Cassales2019a} using the \nd algorithm \minas
+architecture \cite{Cassales2019} using the \nd algorithm \minas
 \cite{Faria2013Minas,Faria2015minas}, making it suitable to run
 on a distributed system composed of small devices with limited
 resources on the edge of the network.
@@ -83,7 +83,7 @@ possible future work.
 In this work, we investigate an appropriate architecture for performing \nd at
 the edge, as a means of allowing small IoT devices to filter and detect undesirable
 network behavior.
-Our approach is based on the \arch architecture \cite{Cassales2019a} and \nd
+Our approach is based on the \arch architecture \cite{Cassales2019} and \nd
 techniques provide by the \minas algorithm \cite{Faria2015minas}.
 Named \mfog, our distributed algorithm explores load balancing to enable low
 profile devices at the edge of the internet to also work on the classification
@@ -92,7 +92,7 @@ and detection of unwanted traffic.
 In this work, we propose and assess \mfog, a distributed data stream
 novelty detection system based on the algorithm \minas for securing \iot networks.
 \mfog implements a distributed version of \minas according to the \arch
-architecture proposed in a previous work \cite{Cassales2019a}, to execute in the
+architecture proposed in a previous work \cite{Cassales2019}, to execute in the
 edge where small devices and constrained resources may be prevalent.
 
 However, given the distributed nature and the typical use of small computing
@@ -148,7 +148,7 @@ the novelty detection step will be triggered.
 % \begin{figure}[hb]
 %   \centering
 %   \includegraphics[width=0.5\linewidth]{figures/cassalesimgs-000.png}
-%   \caption{\arch \cite{Cassales2019a} physical architecture and deployment scenario overview.}
+%   \caption{\arch \cite{Cassales2019} physical architecture and deployment scenario overview.}
 %   \label{fig:mfog-phy-arch-cloud}
 % \end{figure}
 
@@ -502,7 +502,7 @@ containing $7\:865\:245$ samples.
 From the original data set, we filtered only samples associated with normal traffic
 or known attack types identified by existing \nids, and attack types with more
 than $10\:000$ samples for significance, as previously done by
-\cite{Cassales2019a}.
+\cite{Cassales2019}.
 % , this removes 46,390 instances. TODO: revisar, pois 7M != 700K.
 The remaining samples then were normalized so each feature value space (e.g., IP
 Address, Duration, Service) is translated to the Real interval $[0, 1]$.
@@ -539,7 +539,7 @@ then add it to the model.
 %   attack types and known IDS alert code with a minimum of 10,000 occurrences (for
 %   significance) were considered. The offline training was performed with 72,000
 %   examples (i.e., 10\% of the data set) using the holdout technique.
-%   \cite{Cassales2019a}
+%   \cite{Cassales2019}
 % \end{quote}
 
 % \begin{highlight}
