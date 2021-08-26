@@ -89,14 +89,14 @@ saída do experimento \expB, vista na Tabela \ref{tab:libc-matrix}.
   \caption{Experimento \expA, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
   \label{tab:java-matrix}
   \begin{tabular}{l *{14}{|r} }
-    Rótulos   &     - &       N &    1 &    2 &    3 &  4 &   5 &    6 &    7 &     8 &    9 &    10 &   11 &  12 \\\hline
+    Rótulos   &     - &       N &  \textbf{1} &    2 &    3 &  4 &   5 &    6 &    7 &     8 &    9 &    10 &   11 &  \textbf{12} \\\hline
     Classes  &       &         &      &      &      &    &     &      &      &       &      &       &      &     \\\hline
     \hline
-    A        &  3\;774 &  438\;750 &  123 &  145 &  368 &  8 &  52 &  165 &    1 &  1\;046 &  161 &  2\;489 &   71 &  26 \\\hline
-    N        &  8\;206 &  193\;030 &    0 &   79 &   44 &  0 &   0 &    0 &  229 &   181 &  154 &  4\;066 &  289 &   0 \\\hline
+    A        &  \textbf{3\;774} &  438\;750 &  123 &  145 &  368 &  8 &  52 &  165 &    1 &  1\;046 &  161 &  2\;489 &   71 &  26 \\\hline
+    N        &  \textbf{8\;206} &  193\;030 &    0 &   79 &   44 &  0 &   0 &    0 &  229 &   181 &  154 &  4\;066 &  289 &   0 \\\hline
     \hline
-    Associação &     - &       N &    A &    A &    A &  A &   A &    A &    N &     A &    A &     N &    N &   A \\\hline
-    Hits ($tp$)     &     0 &  193\;030 &  123 &  145 &  368 &  8 &  52 &  165 &  229 &  1\;046 &  161 &  4\;066 &  289 &  26 
+    Asso.   &     - &       N &    A &    A &    A &  A &   A &    A &    N &     A &    A &     N &    N &   A \\\hline
+    Hits    &     0 &  193\;030 &  123 &  145 &  368 &  8 &  52 &  165 &  229 &  1\;046 &  161 &  4\;066 &  289 &  26 
   \end{tabular}
 \end{center}
 }
@@ -104,7 +104,8 @@ saída do experimento \expB, vista na Tabela \ref{tab:libc-matrix}.
 
 Comparando as duas matrizes, a primeira diferença aparente é o índice do
 primeiro rótulo novidade ($0$ ao invés de $1$), mas isso se deve apenas à decisão
-arbitrária de \hlke{íncide} inicial de novidades.
+% arbitrária de \hlke{íncide} inicial de novidades.
+arbitrária de índice inicial de novidades.
 % A sentença a seguir está bem longa, difícil de acompanhar. Fragmentar?
 A primeira diferença notável que influi nas métricas de qualidade é a falta de 3
 rótulos novidade, $12$ rótulos no experimento \expA ($[1,12]$) e $9$ no
@@ -121,11 +122,11 @@ novidade, muito menor no experimento \expB.
   \caption{Experimento \expB, Matriz de confusão do \dataset \emph{Kyoto} Dez. 2015.}
   \label{tab:libc-matrix}
   \begin{tabular}{l|r|r|r|r|r|r|r|r|r|r|r}
-    Rótulos &      - &       N &   0 &    1 &    2 &   4 &   5 &  6 &   7 &   8 &  10 \\\hline
+    Rótulos &      - &       N &   \textbf{0} &    1 &    2 &   4 &   5 &  6 &   7 &   8 &  \textbf{10} \\\hline
     Classes  &        &         &     &      &      &     &     &    &     &     &     \\\hline
     \hline
-    A        &  16\;086 &  429\;765 &  94 &  995 &  104 &   0 &  23 &  3 &  29 &  46 &  34 \\\hline
-    N        &  12\;481 &  193\;642 &   3 &   94 &    0 &  47 &   0 &  0 &   0 &  11 &   0 \\\hline
+    A        &  \textbf{16\;086} &  429\;765 &  94 &  995 &  104 &   0 &  23 &  3 &  29 &  46 &  34 \\\hline
+    N        &  \textbf{12\;481} &  193\;642 &   3 &   94 &    0 &  47 &   0 &  0 &   0 &  11 &   0 \\\hline
     \hline
     Associação &      - &       N &   A &    A &    A &   N &   A &  A &   A &   A &   A \\\hline
     Hits ($tp$)     &      0 &  193\;642 &  94 &  995 &  104 &  47 &  23 &  3 &  29 &  46 &  34 
@@ -527,10 +528,11 @@ Já o comportamento visto na Figura \ref{fig:lag-mfog}, extraído do \mfog, most
 filas (\emph{buffers}) de comunicação entre diferentes processos onde o pico de latência
 da detecção de novidade cai progressivamente conforme os buffers são esvaziados
 já que o processo de detecção de novidade é assíncrono, porém ocupa a \emph{thread}
-responsável pelo fluxo de saída do \mfog \hlke{.}
+responsável pelo fluxo de saída do \mfog.
+%  \hlke{.}
 
 % \FloatBarrier
-\notake{considerações sobre o capítulo}
+% \notake{considerações sobre o capítulo}
 \section{Considerações Sobre Experimentos e Resultados}
 \label{sec:exp-conclusao}
 
@@ -539,8 +541,11 @@ executada de maneira distribuída em ambiente de névoa é uma estratégia
 válida para detecção de mudanças nos padrões de tráfego, sendo viável como parte
 de um \acf{NIDS} para redes \iot.
 
-\notake{Quais otimizações [e estratégias]?}
-No entanto para aplicação em uma situação real, são necessárias \hlke{otimizações}
+% \notake{Quais otimizações [e estratégias]?}
+% No entanto para aplicação em uma situação real, são necessárias \hlke{otimizações}
+No entanto para aplicação em uma situação real, são necessárias adaptações para
+o tratamento do problema específico abordado,
 desde o \dataset de treinamento e avaliação, passando pelo algoritmo de detecção
-de novidade, parâmetros do algoritmo e \hlke{estratégias} de paralelismo e
-distribuição.
+% de novidade, parâmetros do algoritmo e \hlke{estratégias} de paralelismo,
+de novidade, parâmetros do algoritmo e estratégias de paralelismo, distribuição
+e implantação.
