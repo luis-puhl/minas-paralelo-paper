@@ -26,12 +26,15 @@ relação aos dados pessoais como localização e saúde aos quais dispositivos 
 acesso \cite{sengupta2020comprehensive}.
 Além dos dados de sensores e atuadores que esses dispositivos gerenciam, se
 esses dispositivos forem subvertidos podem gerar tráfego maligno, como o
-\notaPA{Explicar brevemente o que foi. Poderia ser até uma nota de rodapé. 
-Não se deve assumir que o leitor conheça ou tenha que buscar.}
-produzido pela \hlpa{\emph{mirai botnet} em 2016}
-\notaPA{Comentar desta e outras situações semelhantes no texto.
+% \notaPA{Explicar brevemente o que foi. Poderia ser até uma nota de rodapé. 
+% Não se deve assumir que o leitor conheça ou tenha que buscar.}
+% produzido pela \hlpa{\emph{mirai botnet} em 2016}
+produzido pela \emph{mirai botnet} em 2016, onde em um dos ataques de \acf{DDoS}
+$50\,000$ endereços únicos, de 164 países, formaram um pico de tráfego de $280$ Gbps
+% 280 Gbps attributed to about 50 thousand unique IPs dispersed in 164 countries
+% \notaPA{Comentar desta e outras situações semelhantes no texto.
 %  (author: ???)
-}
+% }
 \cite{Kambourakis2017,Kolias2017mirai}.
 Nesse cenário, fatores que podem favorecer a subversão dos dispositivos incluem
 a falta de controle sobre a origem do hardware e software embarcado nos
@@ -62,21 +65,21 @@ descoberta de novos ataques o mais cedo possível
 Apesar do uso promissor de \ml para segurança para sistemas \iot, muitos estudos
 na literatura \cite{buczak2016survey,mitchell2014survey,Tahsien2020} são
 limitados a métodos tradicionais de \ml.
-\notaPA{Tricorder ``Estes métodos [...] evolução de ataques''}
-Estes métodos comumente utilizam modelos estáticos para descrever e prever o
-comportamento da rede que não mantêm a confiabilidade frente à evolução de
-ataques \cite{Viegas2019,AndreoniLopez2019}.
+% \notaPA{Tricorder ``Estes métodos [...] evolução de ataques''}
+Estes métodos comumente utilizam modelos estáticos, ou com atualização manual,
+para descrever e prever o comportamento da rede, que não mantêm a confiabilidade
+frente à evolução de ataques \cite{Viegas2019,AndreoniLopez2019}.
 
 % confiabilidade ou eficiência ??
 % \todo[inline]{DS} 
-\notaPA{Bem difícil de ler essa frase.}
-Além das complicações de confiabilidade, a grande quantidade de dispositivos em
-redes distantes gerando dados em volumes e velocidades elevadas as 
-% , diretamente ligados às suas funções originais ou metadados produzidos como subproduto,
-técnicas tradicionais que tratam grandes lotes em \emph{datacenters} não são aplicáveis.
+% \notaPA{Bem difícil de ler essa frase.}
+Além das complicações de confiabilidade, grande quantidade de dispositivos,
+redes distantes, geração de dados em volumes e velocidades elevadas, as técnicas
+tradicionais, que tratam grandes lotes em \emph{datacenters}, não são aplicáveis.
 Para esses fluxos contínuos de dados (\emph{Data Stream}), técnicas de
-mineração de fluxos de dados (\emph{Data Stream Mining}) são promissoras.
-\notaPA{Faltam referências para embasar a afirmação.}
+mineração de fluxos de dados (\emph{Data Stream Mining}) entre outras que tratam
+são promissoras \cite{AriyaluranHabeeb2019,Faria2016ndds,Akbar2017}.
+% \notaPA{Faltam referências para embasar a afirmação.}
 % 
 Nesses cenários, essas técnicas são aplicadas, por exemplo, em problemas de
 monitoramento e classificação de valores originários de sensores para tomada de
@@ -95,27 +98,32 @@ macro, na otimização de processos industriais.
 % detecting novelty and changes in concepts already learned.
 
 % \todo[inline]{ND} 
-\notaPA{Damicore - Tricorder}
+% \notaPA{Damicore - Tricorder}
 Dentre as técnicas de mineração de fluxo de dados, classificadores podem ser
 utilizados para detectar padrões conhecidos e, em conjunto com algoritmos de
 \nd (\emph{Novelty Detection in Data Streams}), detectar novos padrões.
+Um destes algoritmos de \nd é o \minas \cite{Faria2013Minas}.
 Essa capacidade de detectar novos padrões é relevante para \nids, onde novidades
 na rede podem representar novas funcionalidades ou ataques por agentes
 maliciosos, sem assinaturas existentes em bancos de dados de ataques conhecidos.
 Outras características que fazem \nd atraente para \nids são a produção de
 respostas imediatas e a detecção de novidades e mudança de conceitos já
 conhecidos.
+Neste sentido, uma avaliação do algoritmo \minas como \nids foi feita por
+\citeonline{Cassales2019} utilizando o conjunto de dados \emph{Kyoto 2006+},
+composto de dados coletados de 348 \emph{Honeypots} pela Universidade de Kyoto
+\cite{KyotoDataset}.
 
 % \todo[inline]{Fog} 
 Análises como mineração de fluxos de dados e \nd têm sido implementadas sobre
 o paradigma de computação na nuvem (\emph{Cloud Computing}) e, recentemente,
 também sobre paradigmas como computação em névoa (\emph{fog computing}).
 Para névoa, além dos recursos em nuvem, são explorados os recursos
-distribuídos pela rede desde nós remotos até a nuvem.
-Processos que dependem desses recursos são distribuídos de acordo com
-\notaPA{Tricorder ``consumo computacional''}
-características como sensibilidade à latência, privacidade, consumo
-computacional ou energético.
+espalhados de nós remotos até a nuvem.
+% \notaPA{Tricorder ``consumo computacional''}
+Processos que implementam este tipo de análise em névoa fazem uso desses
+recursos de acordo com características como sensibilidade à latência,
+privacidade, consumo de recursos computacionais ou consumo energético.
 
 De maneira geral, a aplicação de \nd para detecção de ameaças em fluxos de dados
 originários de redes \iot dentro de \nids tem sido um ponto de interesse
@@ -131,32 +139,35 @@ distribuída, para uso em ambientes \iot.
 % \todo[inline]{FALTA na INTRODUCAO 1 OU 2 PARAGRAFOS EXPLICANDO O QUE VC FEZ/ E
 % QUAL É UM RESUMO DOS RESULTADOS, SO PRA SETAR EXPECTATIVA DO LEITO}
 
-\notaPA{Introduzir antes de falar que vai usar.}
+% \notaPA{Introduzir antes de falar que vai usar.}
 Este trabalho apresenta a construção e avaliação do \mfog\footnote{Disponível em
 \url{https://github.com/luis-puhl/minas-flink}.}, uma implementação paralela e
 distribuída em névoa de dispositivos \iot do algoritmo \minas.
-\notaPA{Explicar antes o que é MiNAS!}
+% \notaPA{Explicar antes o que é MiNAS!}
 Esta implementação foi construída com o padrão \mpi buscando escalabilidade na
 tarefa de processamento de fluxo de dados e economia dos recursos limitados
 comumente encontrados em sistemas \iot, seguindo a arquitetura \arch
 \cite{Cassales2019}.
 
 A avaliação do \mfog é constituída de métricas de qualidade de classificação e
-\notake{?}
-métricas de escalabilidade, extraídas com \hlke{auxilio} do conjunto de dados
-\notaPA{Introduzir "o que é" o conjunto de dados Kyoto 2015.}
-\emph{Kyoto 2015} relevante para \nids.
+% \notake{?}
+% métricas de escalabilidade, extraídas com \hlke{auxilio} do conjunto de dados
+métricas de escalabilidade, ambas extraídas experimentalmente com o conjunto de dados
+% \notaPA{Introduzir "o que é" o conjunto de dados Kyoto 2015.}
+\emph{Kyoto dez 2015} relevante para \nids.
 % 
-\notaPA{... métricas de qualidade de classificação e métricas de escalabilidade,
-extraídas com auxilio do conjunto de dados Kyoto 2015...
-O que tem nesse conjunto de dados?}
+% \notaPA{... métricas de qualidade de classificação e métricas de escalabilidade,
+% extraídas com auxilio do conjunto de dados Kyoto 2015...
+% O que tem nesse conjunto de dados?}
 % 
 As métricas de qualidade de classificação obtidas dos resultados mostraram
 valores equivalentes à implementação de referência do algoritmo \minas e
-as métricas de \hlke{escalabilidade mostraram melhora em relação à implementação de
-\notaPA{Mas o paralelismo é uma das motivações...}
-referência} porém com eficiência de \hlke{paralelismo abaixo do esperado}.
-\notaPA{Acho que este deveria ser o foco de investigação do trabalho, a ser destacado desde o título.}
+% as métricas de \hlke{escalabilidade mostraram melhora em relação à implementação de
+as métricas de escalabilidade mostraram melhora em relação à implementação de
+% \notaPA{Mas o paralelismo é uma das motivações...}
+% referência} porém com eficiência de \hlke{paralelismo abaixo do esperado}.
+referência porém com eficiência de paralelismo abaixo do esperado.
+% \notaPA{Acho que este deveria ser o foco de investigação do trabalho, a ser destacado desde o título.}
 Este trabalho contribui com uma análise do algoritmo \minas com a ótica de
 distribuição em névoa, mostrando benefícios e desafios deste tipo de aplicação,
 iluminando os detalhes do problema abordado e apontando algumas soluções para
@@ -197,7 +208,9 @@ ECSMiner \cite{Masud2010ECSMiner}, AnyNovel \cite{Abdallah2016anynovel} e MINAS
 % \notahl{ Por que a necessidade paralelismo? O que falta que justifica essa
 % avaliação? Tempo de resposta?\\
 % Necessidade de tratar os dados próximo a onde são produzidos? Uso da cloud? ….}
-\notaPA{Mas o resultado do paralelismo ficou abaixo do esperado...  Como fica essa motivação?}
+% \notaPA{Mas o resultado do paralelismo ficou abaixo do esperado...  Como fica essa motivação?}
+% Author: Nem toda motivação é escrita após um bom resultado.
+% Author: Geralmente motiva-se à fazer algo antes de te-lo feito.
 Contudo, o algoritmo \minas ainda não foi implementado e avaliado com paralelismo,
 multi-processamento ou distribuição computacional, que são necessários para
 tratar fluxos de dados 
@@ -212,11 +225,11 @@ O tratamento de distribuição em ambiente névoa é essencial para aplicação 
 algoritmo ao problema de detecção de intrusão em redes \iot, pois esta aplicação
 requer tempo de resposta mínimo e pequena comunicação entre nós distantes, como
 aquelas comunicações entre borda e a nuvem.
-\notaPA{Por que a divisão em 03 partes pertence ao escopo da não implementação
-do multi-processamento e da distribuição?}
-Ainda observando o algoritmo \minas, destaca-se a possível divisão em três partes
-semi-independentes, sendo elas treinamento, classificação e detecção de
-novidades. A classificação é o elemento central cujos resultados são utilizados
+% \notaPA{Por que a divisão em 03 partes pertence ao escopo da não implementação
+% do multi-processamento e da distribuição?}
+Ainda observando o algoritmo \minas, destacam-se suas três partes: treinamento,
+classificação e detecção de novidades.
+A classificação é o elemento central cujos resultados são utilizados
 para a identificação de intrusões, enquanto a detecção de novidades fornece
 atualização automática do modelo de classificação.
 
@@ -230,7 +243,7 @@ volume considerável.
 Essa implementação foi feita sobre uma plataforma distribuída processadora de
 fluxos (\emph{Apache Flink}) executada em um cluster com até $10$ nós de trabalho,
 cada um com $4$ núcleos de processamento, totalizando $40$ núcleos, para atingir
-taxas de até $10.72$  Gbps.
+taxas de até $10.72$ Gbps.
 
 % Além de apresentar uma implementação, \citeonline{Viegas2019} também apresenta o
 % \emph{data set} \emph{MAWIFlow}. Esse conjunto é derivado do ponto de coleta
@@ -264,9 +277,10 @@ taxas de até $10.72$  Gbps.
 Os trabalhos de \citeonline{Cassales2019} e \citeonline{Viegas2019} abordam
 detecção de intrusão em redes utilizando algoritmos de \nd, porém com
 perspectivas diferentes.
-\label{lbl:paulo-draw-an-arrow}
-O primeiro investiga \iot e processamento em névoa e baseia-se em um
-algoritmo genérico de detecção de novidade.
+% \label{lbl:paulo-draw-an-arrow}
+O primeiro investiga \iot e processamento em névoa e baseia-se em um algoritmo
+genérico de detecção de novidade, sem modificações que o adaptem para o ambiente
+de névoa (recursos limitados, distribuídos e alta velocidade).
 O segundo trabalho trata de \emph{backbones} e processamento em nuvem e
 implementa o próprio algoritmo de detecção de novidade.
 Essas diferenças deixam uma lacuna onde, de um lado, tem-se uma
@@ -284,17 +298,21 @@ para os desafios de detecção de novidades.
 % \\ arquiteutra distribuida em fog com minas e alto desempenho bigflow
 % }
 
-\notaPA{Introduzir antes.}
-A proposta deste trabalho, aqui chamada \mfog, adapta a arquitetura \hlpa{\arch} \cite{Cassales2019}
-empregando o algoritmo de \nd \minas \cite{Faria2016minas}, tornando-o capaz
-de ser executado em um sistema distribuído composto de pequenos computadores com
-recursos limitados, alocados na borda da rede próximos dos dispositivos \iot.
+% \notaPA{Introduzir antes.}
+% A proposta deste trabalho, aqui chamada \mfog, adapta a arquitetura \hlpa{\arch} \cite{Cassales2019}
+A proposta deste trabalho, aqui chamada \mfog, adapta a arquitetura \arch
+\cite{Cassales2019} empregando o algoritmo de \nd \minas \cite{Faria2016minas},
+tornando-o capaz de ser executado em um sistema distribuído composto de pequenos
+computadores com recursos limitados, alocados na borda da rede próximos dos
+dispositivos \iot.
+% \notaPA{O foco do trabalho deveria ser na avaliação de uma versão distribuída
+% /paralela, não na implementação em si.}\hlpa{
 Utilizando a nova implementação do algoritmo \minas, avalia-se experimentalmente
 como a distribuição afeta a capacidade do sistema de detectar mudanças
 (novidades) nos padrões de tráfego e o impacto na eficiência computacional.
+% }
 Por fim, algumas estratégias e políticas para configuração do sistema de
 detecção de novidades em fluxo de dados são discutidas.
-\notaPA{Fiquei confuso. Entendi que tinha essa implementação...}
 
 % \todo[inline]{Ler aqui --> sera que motivacao tá clara, vc tá implementando isso pq o
 % MINAS é um algoritmo promissor, IoT e subversao de dispositivos pode ser
@@ -314,10 +332,11 @@ detecção de novidades em fluxo de dados são discutidas.
 \section{Objetivos}\label{sec:objetivos}
 
 Como estabelecido na \refsec{motivo}, a lacuna no estado da arte observada é a
-\notaPA{``a lacuna [...] contexto de \underline{computação distribuída em névoa}''
-\ref{lbl:paulo-draw-an-arrow}}
+% \notaPA{``a lacuna [...] contexto de \underline{computação distribuída em névoa}''
+% \ref{lbl:paulo-draw-an-arrow}}
 ausência de \hlke{uma implementação de algoritmo de detecção de novidades no contexto
 de computação distribuída em névoa}.
+% \notaPA{Fiquei confuso. Entendi que tinha essa implementação... \ref{lbl:paulo-draw-an-arrow}}
 Neste sentido, um algoritmo que trate adequadamente os desafios de fluxo de
 dados contínuos (como volume e velocidade do fluxo, evolução e mudança de
 conceito) e considere o ambiente de computação em névoa aplicada à detecção de
