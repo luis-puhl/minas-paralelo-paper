@@ -334,8 +334,10 @@ detecção de novidades em fluxo de dados são discutidas.
 Como estabelecido na \refsec{motivo}, a lacuna no estado da arte observada é a
 % \notaPA{``a lacuna [...] contexto de \underline{computação distribuída em névoa}''
 % \ref{lbl:paulo-draw-an-arrow}}
-ausência de \hlke{uma implementação de algoritmo de detecção de novidades no contexto
-de computação distribuída em névoa}.
+% ausência de \hlke{uma implementação de algoritmo de detecção de novidades no contexto
+% de computação distribuída em névoa}.
+ausência de uma implementação de algoritmo de detecção de novidades no contexto
+de computação distribuída em névoa.
 % \notaPA{Fiquei confuso. Entendi que tinha essa implementação... \ref{lbl:paulo-draw-an-arrow}}
 Neste sentido, um algoritmo que trate adequadamente os desafios de fluxo de
 dados contínuos (como volume e velocidade do fluxo, evolução e mudança de
@@ -347,27 +349,31 @@ intrusão.
 % ambiente de névoa e para fluxos de grandes volumes e velocidades.
 
 Portanto, seguindo os trabalhos do Grupo de Sistemas Distribuídos e Redes (GSDR)
-da Universidade Federal de São Carlos (UFSCar), \hlke{propõem-se a construção de}\notake{*} uma
-\notaPA{A proposta é ter escalabilidade.
-Afirmou que não teve bom desempenho.
-Como fica isso?}
+% da Universidade Federal de São Carlos (UFSCar), \hlke{propõem-se a construção de}\notake{*} uma
+da Universidade Federal de São Carlos (UFSCar), propõem-se a construção de uma
+% \notaPA{A proposta é ter escalabilidade. Afirmou que não teve bom desempenho. Como fica isso?}
+% Author: Como anotado antes, nem sempre tem-se os resultados ótimos.
+% Author: Não acho legal mudar a narrativa para acomodar meus resultados.
 aplicação que implemente o algoritmo \minas \cite{Faria2016minas} de maneira
 escalável e distribuível para ambientes de computação em névoa, seguindo a
 arquitetura \arch \cite{Cassales2019}.
 
-\notaPA{Como posto no trabalho, com o objetivo maior de implementar um versão
-distribuída, eu não vejo essa avaliação aqui como um objetivo, mas como
-metodologia.
-Ela, como escrito, serve para validar a proposta, ou não?}
-\notake{verificar e inserir no trabalho.*}
-Além disso, \hlke{propõem-se} a avaliação dessa implementação com experimentos
+% \notaPA{Como posto no trabalho, com o objetivo maior de implementar um versão
+% distribuída, eu não vejo essa avaliação aqui como um objetivo, mas como
+% metodologia.
+% Ela, como escrito, serve para validar a proposta, ou não?}
+% Author: Com a mudança do título acho que deixa claro que a avaliação é um objetivo principal.
+% \notake{verificar e inserir no trabalho.*}
+% Além disso, \hlke{propõem-se} a avaliação dessa implementação com experimentos
+Além disso, propõem-se a avaliação dessa implementação com experimentos
 baseados na literatura usando conjunto de dados públicos relevantes.
 O resultado esperado é uma implementação compatível em qualidade de
 classificação ao algoritmo \minas e passível de ser distribuída em um ambiente de
 computação em névoa aplicado à detecção de intrusão.
 
 Com foco no objetivo geral, alguns objetivos específicos são propostos:
-\notaPA{Não está igual ao objetivo geral?}
+% \notaPA{Não está igual ao objetivo geral?}
+% Author: Enquanto a geral fala de arquitetura teórica, a específica fala de tecnologia aplicada.
 implementar o algoritmo \minas de maneira distribuída sobre uma plataforma de
 processamento distribuída de fluxos de dados;
 arquitetar e implementar um mecanismo de execução e avaliação de qualidade e
@@ -387,7 +393,7 @@ arquitetura \arch em ambiente de computação em névoa.
 % alinhados com o que vc esperava. Vc consegue avaliar a qualidade? Nao tem
 % objetivo especifico se repetindo?}
 
-\notaPA{Gostei muito desta seção explicando como a pesquisa foi feita.}
+% \notaPA{Gostei muito desta seção explicando como a pesquisa foi feita.}
 \section{Proposta Metodológica}
 
 Para cumprir os objetivos citados na \refsec{objetivos}, foi identificada a necessidade
@@ -397,22 +403,21 @@ através de implementação de aplicação e testes.
 
 O foco da revisão da literatura acadêmica é em trabalhos que abordem
 processamento de fluxos de dados, classificação de fluxo de dados, detecção de
-\notaPA{
-    % ``detecção de novidades em fluxo de dados''
-    Esse termo ficaria bom na Tricorder
-    % Os comentários de tricorder do Paulo SLS sempre me confundem.
-    % Mas acho que ele quer dizer que eu inventei o termo (maldade da parte dele, nada se inventa).
-}
+% \notaPA{
+%     % ``detecção de novidades em fluxo de dados''
+%     Esse termo ficaria bom na Tricorder
+%     % Author: Os comentários de tricorder do Paulo SLS sempre me confundem.
+%     % Author: Mas acho que ele quer dizer que eu inventei o termo (maldade da parte dele, nada se inventa).
+% }
 novidades em fluxo de dados e processamento distribuído de fluxo de dados.
 O objetivo da revisão foi o estabelecimento do estado da arte desses assuntos,
 de forma que alguns desses trabalhos servissem para comparações e relacionamentos.
 Além disso, desses trabalhos buscaram-se métricas de qualidade de classificação
 (por exemplo, taxa de falso positivo e matriz de confusão) e métricas de
-escalabilidade (como taxa de mensagens por segundo e escalabilidade vertical ou
-horizontal).
-\notaPA{O que é escalabilidade vertical e horizontal?
-Vertical: aumentar recursos de um nó.
-Horizontal: aumentar os nós disponíveis.}
+escalabilidade (como taxa de mensagens, número de nós e número de processadores).
+% \notaPA{O que é escalabilidade vertical e horizontal?
+% Vertical: aumentar recursos de um nó.
+% Horizontal: aumentar os nós disponíveis.}
 
 A revisão da literatura técnica foi focada em plataformas, ferramentas e técnicas
 para realizar a implementação proposta.
