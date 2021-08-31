@@ -95,8 +95,8 @@ conceitos conhecidos \cite{Gama2010}.
 
 Dentre os métodos de \nd que construídos na estratégia aprendizado \emph{Offline-Online},
 muitos são baseados em
-\notaPA{Precisa de uma função para mediro grau de similaridade
-NCD - Normalized Compression Distance}
+% \notaPA{Precisa de uma função para medir o grau de similaridade
+% NCD - Normalized Compression Distance}
 algoritmos de agrupamento não supervisionados, tanto
 para construção do modelo inicial como na extração de novos conceitos dos
 exemplos não explicados pelo modelo marcados como desconhecidos
@@ -536,11 +536,12 @@ As modificações são:
   \item Diferentes métodos de cálculo de distância entre pontos além da
   distância euclidiana;
   
-  \item Mudança de representação de \clusters, atualmente esferas no espaço de
-  dimensão $d$, para paralelogramos no espaço de dimensão $d$ tratando conjuntos de dados
-  \notaPA{cacofonia}
-  onde as características representadas por cada dimensão são completamente
-  independentes;
+  \item Mudança de representação de \clusters de esferas ($\mathbf{X}, d$) para
+  retângulos ($\mathbf{X}, \mathbf{D}$) no espaço $\mathbb{R}^d$, melhorando o
+  tratamento de conjuntos de dados onde as características representadas por
+  cada dimensão são completamente independentes;
+  % Author: Isso altera a função de pertinência.
+  % \notaPA{cacofonia}
   
   % \item um modo interativo onde o \cluster é formado, mostrado ao especialista
   % que o classifica como inválido (ruído ou não representativo) ou válido,

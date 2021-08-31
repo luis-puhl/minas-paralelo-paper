@@ -81,7 +81,7 @@ demais a matriz segue os atributos definidos na Seção \ref{sec:avaliacao}.
 Esta matriz é comparada com a matriz de confusão do mesmo instante do fluxo de
 saída do experimento \expB, vista na Tabela \ref{tab:libc-matrix}.
 
-\notake{Coloque em negrito (destaque as células importantes)}
+% \notake{Coloque em negrito (destaque as células importantes)}
 \begin{table}[hbt]%{\linewidth}
   {\footnotesize
   % \setlength\tabcolsep{0.5em}
@@ -286,11 +286,11 @@ de confusão dos experimentos \expC e \expD respectivamente.
   \dataset \emph{Kyoto} Dez. 2015.}
   \label{tab:single-matrix}
   \begin{tabular}{l|r|r|r|r|r|r|r}
-    Rótulos &      - &       N &    0 &    1 &   2 &  3 &  4 \\\hline
+    Rótulos  &      - &       N &    0 &    1 &   2 &  3 &  4 \\\hline
     Classes  &        &         &      &      &     &    &    \\\hline
     \hline
-    A        &  12\;282 &  433\;797 &  147 &  952 &   0 &  0 &  1 \\\hline
-    N        &   3\;088 &  203\;019 &   40 &   99 &  27 &  5 &  0 \\\hline
+    A        &  \textbf{12\;282} &  433\;797 &  147 &  952 &   0 &  0 &  1 \\\hline
+    N        &   \textbf{3\;088} &  203\;019 &   40 &   99 &  27 &  5 &  0 \\\hline
     \hline
     Associação &      - &       N &    A &    A &   N &  N &  A \\\hline
     Hits ($tp$)     &      0 &  203\;019 &  147 &  952 &  27 &  5 &  1 
@@ -304,11 +304,11 @@ de confusão dos experimentos \expC e \expD respectivamente.
   confusão do \dataset \emph{Kyoto} Dez. 2015.}
   \label{tab:multi-matrix}
   \begin{tabular}{l|r|r|r|r|r|r|r}
-    Rótulos   &      - &       N &    0 &    1 &    2 &    3 &  4 \\\hline
-    Classes   &        &         &      &      &      &      &    \\\hline
+    Rótulos  &      - &       N &    0 &    1 &    2 &    3 &  4 \\\hline
+    Classes  &        &         &      &      &      &      &    \\\hline
     \hline
-    A      &  12\;378 &  433\;631 &  117 &  886 &    0 &  162 &  5 \\\hline
-    N      &   3\;121 &  202\;916 &   40 &   96 &  105 &    0 &  0 \\\hline
+    A        &  \textbf{12\;378} &  433\;631 &  117 &  886 &    0 &  162 &  5 \\\hline
+    N        &   \textbf{3\;121} &  202\;916 &   40 &   96 &  105 &    0 &  0 \\\hline
     \hline
     Associação   &      - &       N &    A &    A &    N &    A &  A \\\hline
     Hits ($tp$)   &      0 &  202\;916 &  117 &  886 &  105 &  162 &  5 
@@ -330,7 +330,7 @@ assíncrona da tarefa de detecção de novidade.
 O impacto principal é a redução no número de rótulos novidade, de $9$ para $5$.
 Comparando a visualização de fluxo, Figuras \ref{fig:validation-serial} e
 \ref{fig:single-flow}, observa-se também que a aparição do primeiro padrão
-novidade acontece mais ``tarde''; enquanto em \expB o rótulo novidade ``1'' é
+novidade acontece mais ``tarde'': enquanto em \expB o rótulo novidade ``1'' é
 observado em $x = 94\:155$, em \expC o mesmo rótulo é observado em $x =
 172\:917$.
 
@@ -365,7 +365,8 @@ Este é um resultado muito importante para compreender os problemas relacionados
 
 Avançando para o experimento \expD, a matriz de confusão na Tabela
 \ref{tab:multi-matrix}, mostra pouca diferença quando comparado ao experimento
-\expC, com o número de desconhecidos sofrendo a maior variação, sendo de apenas $129$.
+\expC, com o número de desconhecidos sofrendo a maior variação, sendo de apenas
+$129$ exemplos.
 O mesmo é observado quando compara-se a visualização de fluxo, Figuras
 \ref{fig:single-flow} e \ref{fig:multi-flow}, há pouca diferença e a tripla-sumário
 ($2.4\%,\: 31.2\%,\: 66.4\%$) é idêntica.
@@ -413,22 +414,22 @@ fase \emph{online}, como já foi mencionado.
   \caption{Sumário das métricas extraídas dos experimentos principais.}
   \label{tab:exper-summary}
   \begin{tabular}{l|r|r|r|r|r}
-  Experimento     & \expA         & \emph{Offline} & \expB          & \expC       & \expD       \\
-  Métrica         &               &               &                 &             &             \\\hline
-  \mr{unk}        & $11980$       &               & $28567$         & $15370$     & $15499$     \\
-                  & $0.018333$    &               & $0.043717$      & $0.023521$  & $0.023718$  \\\hline
-  \mr{hit}        & $199708$      &               & $195017$        & $204151$    & $204191$    \\
-                  & $0.305618$    &               & $0.298438$      & $0.312416$  & $0.312478$  \\\hline
-  \mr{err}        & $441769$      &               & $429873$        & $433936$    & $433767$    \\
-                  & $0.676049$    &               & $0.657843$      & $0.664061$  & $0.663802$  \\\hline
-  Novidades       & $12$          &               & $9$             & $5$         & $5$         \\\hline
-  Tempo     ($s$) & $2761.83$     & $194.12$      & $80.79$         & $522.10$    & $207.14$    \\\hline
-  Sistema   ($s$) & $7.15$        & $ 0.075$      & $11.51$         & $ 47.77$    & $157.61$    \\\hline
-  Decorrido ($s$) & $2772.07$     & $194.27$      & $93.03$         & $145.04$    & $ 95.38$    \\\hline
-  Latência  ($s$) & $4.24\cdot10^{-3}$  &       & $1.42\cdot10^{-4}$  & $2.22\cdot10^{-4}$  & $1.46\cdot10^{-4}\ $  \\\hline
-  Processadores   & $1$           &  $1$          &  $1$            & $4$         & $12$        \\\hline
-  \emph{Speedup}  &               &               &                 & $0.6414092$ & $0.9753617$  \\\hline
-  Eficiência      &               &               &                 & $0.1603523$ & $0.0812801$  
+  Experimento     & \expA               & \emph{Offline} & \expB          & \expC       & \expD       \\
+  Métrica         &                     &               &                 &             &             \\\hline
+  \mr{unk}        & $11980$             &               & $28567$         & $15370$     & $15499$     \\
+                  & $0.018333$          &               & $0.043717$      & $0.023521$  & $0.023718$  \\\hline
+  \mr{hit}        & $199708$            &               & $195017$        & $204151$    & $204191$    \\
+                  & $0.305618$          &               & $0.298438$      & $0.312416$  & $0.312478$  \\\hline
+  \mr{err}        & $441769$            &               & $429873$        & $433936$    & $433767$    \\
+                  & $0.676049$          &               & $0.657843$      & $0.664061$  & $0.663802$  \\\hline
+  Novidades       & $12$                &               & $9$             & $5$         & $5$         \\\hline
+  Tempo     ($s$) & $\mathbf{2761.83}$  & $194.12$      & $\mathbf{80.79}$& $\mathbf{522.10}$    & $\mathbf{207.14}$ \\\hline
+  Sistema   ($s$) & $7.15$              & $ 0.075$      & $11.51$         & $ 47.77$    & $157.61$    \\\hline
+  Decorrido ($s$) & $2772.07$           & $194.27$      & $93.03$         & $145.04$    & $ 95.38$    \\\hline
+  Latência  ($s$) & $4.24\cdot10^{-3}$  &               & $1.42\cdot10^{-4}$  & $2.22\cdot10^{-4}$  & $1.46\cdot10^{-4}\ $  \\\hline
+  Processadores   & $1$                 &  $1$          &  $1$            & $4$         & $12$        \\\hline
+  \emph{Speedup}  &                     &               &                 & $0.6414092$ & $0.9753617$  \\\hline
+  Eficiência      &                     &               &                 & $\mathbf{0.1603523}$ & $\mathbf{0.0812801}$  
   \end{tabular}
 \end{table}
 
@@ -454,8 +455,9 @@ para o processamento de fluxo de dados.
 
 \subsection{Experimentos Adicionais}
 
-Experimentos adicionais foram realizados para melhor compreender o comportamento do \mfog
-para número variado de processadores entre $1$ e $12$ utilizando de $1$ a $3$ nós.
+Experimentos adicionais foram realizados para melhor compreender o comportamento
+do \mfog para número variado de processadores entre $1$ e $12$ utilizando de $1$
+a $3$ nós.
 Os resultados obtidos, ilustrados na Figura \ref{fig:speedup}, são limitados ao
 nó raiz, e mostram um aumento do tempo \emph{Sistema} (operações em modo
 \emph{kernel}).

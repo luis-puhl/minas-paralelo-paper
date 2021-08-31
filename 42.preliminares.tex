@@ -10,13 +10,15 @@ desenvolvimentos são descritos a seguir.
 
 \subsection{Implementação com \python e \kafka}
 
-\notaPA{Inserir Figura para auxiliar na compreensão, principalmente do problema encontrado.}
+% \notaPA{Inserir Figura para auxiliar na compreensão, principalmente do
+% problema encontrado.}
 A primeira implementação e avaliação do \mfog realizada foi construída sobre a
 linguagem \python com o sistema de fila de mensagens \kafka e a respectiva
 biblioteca de conexão.
-A escolha desse conjunto para a implementação ocorreu \hlhl{devido à ampla}
-disponibilidade de bibliotecas de aprendizagem de máquina no ecossistema
-\python e, à simplicidade geral da linguagem.
+% A escolha desse conjunto para a implementação ocorreu \hlhl{devido à ampla}
+A escolha desse conjunto para a implementação ocorreu devido a disponibilidade
+de bibliotecas de aprendizagem de máquina no ecossistema \python e a
+simplicidade geral da linguagem.
 Na implementação desenvolvida, o sistema \kafka recebe mensagens e as armazena
 em tópicos distribuídos em partições replicadas em nós de um \cluster,
 gerenciados por um nó mestre e suportados pelo serviço de gerenciamento de
