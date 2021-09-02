@@ -209,7 +209,8 @@ de detecção de novidade, portanto sem interromper o processo de identificaçã
 % but if the sample is labeled as \emph{unknown}, this sample must be stored and
 % the novelty detection step will be triggered.
 
-\notaPA{Ok, multiprocessamento. Em todas as instâncias? Como?}
+% \notaPA{Ok, multiprocessamento. Em todas as instâncias? Como?}
+% Author: Detalhes de implementação estão na seção 4.4 Implementação com MPI.
 Além do multiprocessamento da tarefa de classificação e da execução assíncrona da
 tarefa de detecção de novidade na fase \emph{online}, outra mudança em relação
 ao \minas original é a remoção do mecanismo de esquecimento de padrões antigos.
@@ -218,12 +219,12 @@ do modelo de decisão entre os múltiplas processos e \emph{threads} concorrente
 % 
 O impacto desta alteração não é grande, pois o algoritmo \minas não estabelece a
 remoção permanente dos \mclusters com pouco uso.
-\notaPA{Mas não aumenta o tempo para a classificação, caso haja diferentes
-padrões de fluxos de dados?}
-\hlpa{
+% \notaPA{Mas não aumenta o tempo para a classificação, caso haja diferentes
+% padrões de fluxos de dados?}
+% \hlpa{
 Essa alteração aumenta marginalmente a complexidade computacional da
 classificação, pois inclui na busca os padrões menos utilizados.
-}
+% }
 
 Já a fase de treinamento \emph{offline} e a função de detecção de novidades do
 algoritmo \minas permanecem as mesmas salvo fato da reimplementação no \mfog.
@@ -254,12 +255,12 @@ Detecção de Novidade, que equivalem à fase \emph{online} do algoritmo \minas.
 % Detection, which implement the \minas main tasks.
 O módulo Classificação executa a tarefa de mesmo nome do algoritmo \minas e é
 ponto focal dos esforços de paralelismo desta proposta.
-\notaPA{Vai explicando em ciclos, detalhando sempre um pouco mais.
-Sugiro rever, e explicar com detalhes, 1x apenas.}
-\hlpa{
+% \notaPA{Vai explicando em ciclos, detalhando sempre um pouco mais.
+% Sugiro rever, e explicar com detalhes, 1x apenas.}
+% \hlpa{
 Este módulo é replicado em todos os nós do cluster % hospedado (?)
 em névoa.
-}
+% }
 % The Classification Module performs the same task of the \minas Online phase and
 % is the focal point for parallelism and distribution in our proposal.
 % It is replicated in the fog and runs on each cluster node, using a configurable
@@ -291,7 +292,8 @@ O projeto desta arquitetura de \nd distribuída inclui o particionamento das
 funcionalidades do algoritmo \minas e o estabelecimento dos fluxos de dados apropriados
 entre os diferentes atores.
  % ??? Hélio
-Mudanças no posicionamento de cada ator e no comportamento \hlpa{têm} impactos
+% Mudanças no posicionamento de cada ator e no comportamento \hlpa{têm} impactos
+Mudanças no posicionamento de cada ator e no comportamento têm impactos
 diferentes no desempenho e na acurácia do modelo e devem ser escolhidas com
 cuidado.
 % As decisões após essas discussões podem ser organizadas em várias políticas; 
@@ -315,11 +317,14 @@ Alguns dos aspectos com impactos potenciais na implementação incluem:
   \begin{enumerate}
     
     \item Em névoa (há um módulo em cada cluster alocado a uma rede local):
-    \notaPA{qual seria a quantidade e quanto tempo depois esse padrão é detectado?}
-    \hlpa{
+    % \notaPA{qual seria a quantidade e quanto tempo depois esse padrão é detectado?}
+    % Author: Essa seria uma boa pergunta de pesquisa para um novo trabalho.
+    % Author: Enquanto eu enumero estes desafios, esta exploração não fez parte deste trabalho.
+    % \hlpa{
     padrões serão somente detectados se um número suficiente de exemplos deste
     padrão
-    } ocorrer na rede observada;
+    % }
+    ocorrer na rede observada;
     % considerando o uso do poder computacional da névoa, qualquer sincronização
     % de modelo deve ter a propriedade de aditividade;
     % também é preciso reconhecer padrões duplicados;
