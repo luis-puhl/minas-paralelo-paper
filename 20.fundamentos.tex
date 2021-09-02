@@ -14,7 +14,7 @@ Esta \Section relaciona três ambientes de computação distribuída habitualmen
 utilizados para o processamento de dados massivos relacionados a redes de
 dispositivos \iot: computação em nuvem, computação de borda, e computação em névoa.
 A computação em nuvem (\emph{Cloud Computing}) é
-aplicada a vários problemas, e para sistemas \iot 
+aplicada à vários problemas, e para sistemas \iot 
 fornece vastos recursos como computação e armazenamento para onde geralmente os dispositivos
 enviam todos dados relevantes ao sistema.
 O segundo e terceiro ambientes são computação de borda (\emph{edge computing})
@@ -25,9 +25,9 @@ intenções, desde privacidade até redução de latência.
 
 % \subsection{Computação em Nuvem}
 
-A computação em nuvem, ou simplesmente nuvem, habilita o acesso através da rede a um grupo compartilhado de
-recursos de computação configuráveis, como servidores, redes, aplicações,
-armazenamento, etc.
+A computação em nuvem, ou simplesmente nuvem, habilita o acesso através da rede
+a um grupo compartilhado de recursos de computação configuráveis, como
+servidores, redes, aplicações, armazenamento, etc.
 Tais recursos podem ser provisionados ou liberados sob
 demanda rapidamente com o mínimo esforço de gerenciamento
 e mínima interação com o provedor destes recursos \cite{NIST2011}.
@@ -60,8 +60,8 @@ Além disso, o autor ainda acrescenta que a computação de borda pode aumentar 
 privacidade dos dados, uma vez que eles podem ser processados no próprio
 dispositivo final.
 
-A computação de borda tenta trazer a computação mais próxima \hlke{das fontes de
-dados}.
+A computação de borda propõem trazer a computação mais próxima às fontes de
+dados.
 Os componentes desse tipo de computação podem ser
 tanto produtores como consumidores, não só requisitando serviços e conteúdo da
 nuvem, mas também realizando tarefas da nuvem.
@@ -77,6 +77,7 @@ processamento distribuído de sensoriamento massivo em cidades inteligentes \cit
 \citeonline{Dastjerdi2016} e \citeonline{IEEECommunicationsSociety2018}
 mencionam que a enorme massa de dados gerados por ambientes IoT pode ser
 processada em nuvem, entretanto a latência produzida pela transferência desses
+% \hlpa{pode, a latência}
 dados para a nuvem e o retorno do resultado podem não ser toleradas por sistemas
 críticos que sejam sensíveis à latência como monitoramento de saúde e resposta a
 emergências.
@@ -95,7 +96,8 @@ capacidade limitada dos dispositivos de borda, a computação em névoa foi prop
 
 A computação em névoa (\emph{fog computing}) é um paradigma que distribui
 as capacidades de computação, armazenamento e rede entre os nós próximos
-das fontes dados
+% \hlke{das fontes dados}
+às fontes de dados
 e dos dispositivos finais, mas não necessariamente localizados na borda,
 dando a esses nós características de uma nuvem
 \cite{Bonomi2012,Dastjerdi2016,IEEECommunicationsSociety2018}.
@@ -127,7 +129,8 @@ características da computação em névoa são:
     configurações e formatos diferentes e podem estar implantados em ambientes
     distintos;
 
-    \item \textbf{Baixa Latência:} \hlhl{computação em névoa} foi proposta para
+    % \item \textbf{Baixa Latência:} \hlhl{computação em névoa} foi proposta para
+    \item \textbf{Baixa Latência:} computação em névoa foi proposta para
     atender aplicações que requeiram baixa latência (monitoramento de saúde,
     jogos, realidade aumentada, etc.);
 
@@ -140,7 +143,8 @@ características da computação em névoa são:
 
     \item \textbf{Interoperabilidade e federação:} os componentes da computação
     em névoa devem ser capazes de interoperar, e o serviços devem ser federados
-    \hlhl{ao longo de diferentes domínios};
+    % \hlhl{ao longo de diferentes domínios};
+    ao longo de diferentes domínios;
 
     \item \textbf{Uso de fluxo de dados e aplicações em tempo real:} a
     computação em névoa pode envolver aplicações que processam em lote, mas na
@@ -169,14 +173,14 @@ emergência.
 
 % \todo[inline]{Me parece que Spark, Flink ... são ambientes, enquanto Cloud e Fog
 % estão mais para plataformas (seção 2.1). }
-\notaPA{Essa frase não está genérica demais? ``Aplicações'' nem sempre possuem BDs.}
-Tradicionalmente, aplicações
-foram construídas com um sistema gerenciador de
-banco de dados relacional ou não-relacional associado.
-Essa arquitetura,
-nomeada de ``arquitetura totalmente incremental'' por \citeonline{marz2015big},
-foi evoluída e simplificada iterativamente durante décadas de uso, porém ela não
-é adequada para sistemas em tempo real, como os que tratam fluxos de dados.
+% \notaPA{Essa frase não está genérica demais? ``Aplicações'' nem sempre possuem BDs.}
+
+Tradicionalmente, aplicações foram construídas com um sistema gerenciador de
+banco de dados relacional ou não-relacional associado, esta arquitetura é
+nomeada de ``arquitetura totalmente incremental'' por \citeonline{marz2015big}.
+Esta arquitetura foi evoluída e simplificada iterativamente durante décadas de
+uso, porém ela não é adequada para sistemas em tempo real, como os que tratam
+fluxos de dados.
 O volume e a velocidade de dados em um fluxo de dados leva à necessidade de
 distribuir o processamento, acrescentando poder computacional a cada nó
 adicionado.
@@ -209,7 +213,8 @@ pela plataforma com programas escritos por usuários sendo executados sob
 supervisão de um nó mestre.
 Essa implementação tem esquema geral de processamento em lotes que não atende o
 requisito de baixa latência.
-\nobreakdash \emph{MapReduce} é uma das principais influências na criação da arquitetura \lambdaa \cite{marz2015big}.
+\emph{MapReduce} é uma das principais influências na criação da
+arquitetura \lambdaa \cite{marz2015big}.
 
 \emph{Apache Hadoop} é uma coleção de ferramentas, incluindo: \emph{Hadoop
 Distributed File System} (HDFS, um sistema de arquivos distribuído), \emph{Hadoop
@@ -227,62 +232,96 @@ um multiconjunto imutável distribuído (\emph{Resilient Distributed Dataset}
 direcionados (\emph{directed acyclic graph} - DAG), otimizador de consultas e
 motor de execução \cite{ApacheSpark2020}.
 
-Uma das extensões de \emph{Apache Spark} é o \emph{Spark Streaming}, que é um
-sistema de processamento de fluxo de dados 
-escalável e tolerante a falhas
-\cite{zaharia2016,sparkStreaming2016}.
-\emph{Spark Streaming} implementa processamento incremental de fluxo de
-dados usando o modelo de fluxos discretizados em que dividem-se os dados de entrada
-em micro-lotes (ex: a cada 100 milissegundos) e combinam-se regularmente com o
-estado nos RDDs para produzir novos resultados \cite{zaharia2016}.
-Essa estratégia traz benefícios sobre os sistemas de fluxos de dados distribuídos
-tradicionais, pois permite a consistência e recuperação de falhas rapidamente,
-devido à \notahl{?}\hlhl{linhagem de RDD} (\emph{RDD lineage})
-e à combinação do fluxo de dados com
-consultas em lotes e interativas \cite{sparkStreaming2016,Lopez2018}.
+Uma das extensões de \emph{Apache Spark} é o \emph{Spark Streaming}, que utiliza
+o modelo de fluxos discretizados onde divide-se os dados de entrada em
+micro-lotes (ex: a cada 100 milissegundos) e RDDs armazenando estados
+intermediários e o grafo de operações que geram o estado intermediário
+\cite{sparkStreaming2016}.
+% 
+Esta extensão permite o processamento de fluxo de dados de maneira escalável,
+tolerante à falhas com rápida recuperação e tem habilidades de consultas
+interativas graças aos estados intermediários
+\cite{sparkStreaming2016,Lopez2018}.
 
-\emph{Apache Storm} é um sistema de computação tolerante a falhas em tempo
-real que \notahl{quem disse?!}\hlhl{facilita o processamento} de fluxo de dados
-\cite{ApacheStorm2020,Lopez2018}.
-Ao invés de executar trabalhos (\emph{jobs}) como algumas ferramentas citadas
-anteriormente, \emph{Apache Storm} \notahl{?}\hlhl{executa topologias}.
-Os \emph{jobs} eventualmente finalizam, e as topologias executam continuamente até
-serem finalizadas manualmente.
-Uma topologia constitui-se de processos trabalhadores (\emph{workers}) sendo executados
-em um \emph{cluster} de nós que são gerenciados pelo nó mestre que além de
-coordenar e distribuir execução, monitora falhas.
-Uma topologia pode ser representada por um grafo de computação direcionado
-acíclico (DAG).
+
+\nota{TODO: Refazer este parágrafo de apache storm}
+\emph{Apache Storm} é um sistema de processamento de fluxo de dados em tempo
+real tolerante a falhas onde,
+% que \notahl{quem disse?!}\hlhl{facilita o processamento} de fluxo de dados
+% 
+ao invés de executar trabalhos (\emph{jobs}) como algumas ferramentas citadas
+% anteriormente, \emph{Apache Storm} \notahl{?}\hlhl{executa topologias}.
+anteriormente, executada topologias
+onde 
+\cite{toshniwal2014storm,Lopez2018,ApacheStorm2020}.
+% 
+% Os \emph{jobs} eventualmente finalizam, e as topologias executam continuamente
+% até serem finalizadas manualmente.
+% 
+% Uma topologia constitui-se de processos trabalhadores (\emph{workers}) sendo
+% executados em um \emph{cluster} de nós que são gerenciados pelo nó mestre que
+% além de coordenar e distribuir execução, monitora falhas.
+% 
+% Uma topologia pode ser representada por um grafo de computação direcionado
+% acíclico (DAG) onde 
+
+
+% The basic Storm data processing architecture consists of streams of tuples
+% flowing through topologies.
+% A topology is a directed graph where the vertices represent computation and the
+% edges represent the data flow between the computation components.
+% Vertices are further divided into two disjoint sets – spouts and bolts.
+% Spouts are tuple sources for the topology. Typical spouts pull data from queues,
+% such as Kafka [13] or Kestrel [14].
+% On the other hand, bolts process the incoming tuples and pass them to the next
+% set of bolts downstream.
+% Note that a Storm topology can have cycles.
+% From the database systems perspective, one can think of a topology as a directed
+% graph of operators.
+% \cite{toshniwal2014storm}
 
 O \emph{Apache Flink} é uma plataforma de processamento distribuído para
-computação com estado gerenciado (\emph{stateful}) sobre fluxo de dados limitados (têm início e
-fim) e ilimitados (não têm fim definido) \cite{ApacheFlink2020}.
+computação com estado gerenciado (\emph{stateful}) sobre fluxo de dados
+limitados (têm início e fim) e ilimitados (não têm fim definido)
+\cite{ApacheFlink2020}.
 Essa plataforma segue um paradigma que abrange o processamento de fluxos de
 dados contínuos e o processamento em lote \cite{Carbone2015,Lopez2018}.
-O \emph{Apache Flink} pode ser integrado a vários gerenciadores de \emph{cluster}
-comuns, como \emph{Hadoop Yarn}, \emph{Apache Mesos}, e \emph{Kubernetes}, mas também pode ser
-configurado para ser executado como um \emph{cluster stand-alone}.
+O \emph{Apache Flink} pode ser integrado a vários gerenciadores de
+\emph{cluster} comuns, como \emph{Hadoop Yarn}, \emph{Apache Mesos}, e
+\emph{Kubernetes}, mas também pode ser configurado para ser executado como um
+\emph{cluster stand-alone}.
 Já o acesso programático a essa plataforma pode ser feito através das linguagens
 Java, Scala ou Python.
 
-\notaPA{Por que falar de MPI?
-Ɠté este momento no texto não foi falado da necessidade de MPI,
-nem das outras tentativas prévias ao uso dele.
-Destacar desde o resumo.}
+% \notaPA{Por que falar de MPI?
+% Ɠté este momento no texto não foi falado da necessidade de MPI,
+% nem das outras tentativas prévias ao uso dele.
+% Destacar desde o resumo.}
 \section{MPI - Interface de Troca de Mensagens}
+
+Enquanto as outras ferramentas enumeradas neste trabalho (e muitas outras que
+não foram incluídas) podem ser aplicadas ao problema em questão, a ferramenta
+utilizada neste trabalho é a Interface de Troca de Mensagens (MPI).
+Esta escolha deu-se para obter maior controle sobre a distribuição de tarefas e
+dados, enquanto reduzindo o uso de recursos computacionais, especialmente o uso
+de memória.
+Portanto, em contraste com as descrições das outras ferramentas, esta seção
+aborda com mais detalhes o que é e como funciona \mpi.
 
 % \todo[inline]{Não é usual traduzir MPI e nem SPMD. Ambos são bem conhecidos na comunidade.}
 Em um sistema distribuído multiprocessado, a memória é distribuída entre
-múltiplos nós e processos, tendo cada \hlke{processo, acesso} direto somente a sua memória
+% múltiplos nós e processos, tendo cada \hlke{processo, acesso} direto somente a sua memória
+múltiplos nós e processos, tendo cada processo, acesso direto somente a sua memória
 local.
 Para esse tipo de sistema, o paradigma de programação paralela \spmd onde
 múltiplas instâncias de um único programa tratam parcelas de dados, pode ser
-\notaPA{Memória Distribuída Compartilhada?}
-implementado utilizando o conceito de memória distribuída compartilhada através
-de troca de mensagens.
+% \notaPA{Memória Distribuída Compartilhada?}
+% Author: Realmente entendi errado.
+implementado utilizando o conceito de memória distribuída, onde dados são
+compartilhados entre nós através de troca de mensagens.
 Nesse modelo, cada
 processo tem sua memória local e se comunica com outros processos através da
-troca de mensagens \cite{mpi-book}.
+troca de mensagens \cite{MpiMitBookGroupp2014}.
 Observando boas práticas e melhores funcionalidades ao longo dos anos, a
 comunidade e a indústria padronizaram esse modelo de troca de mensagens no
 padrão \acf{MPI}.
@@ -293,24 +332,30 @@ bibliotecas de troca de mensagens em ambientes de memória distribuída comparti
 Esse modelo pode ser implementado desde computadores multiprocessados de memória
 compartilhada até supercomputadores com centenas de nós e milhares de
 processadores.
-O \mpi, por meio de alguma
-\notaPA{Faltam referências.}
-implementação como OpenMPI e MPICH, permite a construção de um sistema
-distribuído com um executável único (monólito) e sua execução em um ambiente gerenciado.
+% \notaPA{Faltam referências.}
+O \mpi, por meio de alguma implementação como \citeonline{MPICH2021} e
+\citeonline{OpenMPI2021}, permite a construção de um sistema distribuído com um
+executável único (monólito) e sua execução em um ambiente gerenciado.
 
 O \mpi tem duas primitivas básicas para comunicação dos processos que são o
-enviar (\emph{send}) e o receber (\emph{receive}) \cite{mpi-book}. A primitiva de
-envio é composta pelos argumentos: conteúdo da mensagem, tamanho da mensagem,
-processo destino, e \emph{tag} para diferenciar mensagens (ex: ordem e conteúdo).
+enviar (\emph{send}) e o receber (\emph{receive}) \cite{MpiMitBookGroupp2014}.
+A primitiva de envio é composta pelos argumentos: conteúdo da mensagem, tamanho
+da mensagem, processo destino, e \emph{tag} para diferenciar mensagens (ex:
+ordem e conteúdo).
 Associado à cada primitiva enviar, a primitiva receber possui os argumentos:
 conteúdo da mensagem, tamanho máximo da mensagem, remetente da mensagem, tamanho
 real da mensagem, e \emph{tag}.
-\notaPA{Comunicação coletiva?
-Deveria explicar antes a derivação delas a partir de snd/rcv, que são ponto-a-ponto.
-Está confuso. Não precisa ser um livro, mas completo no nível que se deseja explicar.}
-Além de operações de envio e recebimento, pode-se fazer
-envio de mensagens de uma fonte para múltiplos destinos, e um destino receber de
-múltiplas fontes numa única operação.
+
+% \notaPA{Comunicação coletiva?
+% Deveria explicar antes a derivação delas a partir de snd/rcv, que são ponto-a-ponto.
+% Está confuso. Não precisa ser um livro, mas completo no nível que se deseja explicar.}
+
+Além de operações de envio e recebimento pode-se fazer comunicações coletivas,
+por exemplo, o envio de uma mensagem de uma fonte para múltiplos destinos
+(\emph{broadcast}), e um destino receber de
+
+% múltiplas fontes numa única operação.
+
 
 Um dos detalhes importantes quando se utiliza o \mpi com o TCP/IP, é que as
 garantias de envio são fornecidas pelo protocolo TCP, ou seja, feito um envio
@@ -325,7 +370,8 @@ repassando os parâmetros que recebeu a cada processo e o identificador do
 processo para que ele saiba qual dado ler e qual função executar sob o paradigma
 \spmd.
 
-Este trabalho utiliza o OpenMPI\footnote{Disponível em \url{https://www.open-mpi.org/}.}, que é uma implementação livre de \mpi, para a
+Este trabalho utiliza o OpenMPI\footnote{Disponível em
+\url{https://www.open-mpi.org/}.}, que é uma implementação livre de \mpi, para a
 comunicação entre os processos de cada nó do cluster.
 Cada nó do cluster possui um conjunto de processos, e cada processo possui seu
 espaço de endereçamento e é \emph{multithread}, onde as \emph{threads} se comunicam
@@ -344,13 +390,18 @@ no mesmo nó.
 % \todo[inline]{A figura se refere a alfo específico do M-FOG ou algo geral para
 % MPI? Se for o primeiro caso, seria melhor colocá-la junto ao texto que apresenta
 % o M-FOG. Nesta seção o foco é descrever o MPI.}
-O amplo uso de \mpi para programação paralela e distribuída está principalmente pautado no
-desempenho. Processadores modernos possuem memórias hierárquicas que beneficiam
-programas que fazem o melhor uso de cache. O modelo de passagem de mensagens
-permite o particionamento dos dados em fatias menores otimizando o uso de cache
-nesses processadores. Portanto, para aplicações limitados por memória pode haver
-\notaPA{Definir. Não considerar que o leitor sabe.}
-acelerações super-lineares (\emph{superlinear speedup}) \cite{mpi-book}.
+
+O amplo uso de \mpi para programação paralela e distribuída está principalmente
+pautado no desempenho.
+Processadores modernos possuem memórias hierárquicas que beneficiam programas
+que fazem o melhor uso de cache.
+O modelo de passagem de mensagens permite o particionamento dos dados em fatias
+menores otimizando o uso de cache nesses processadores \cite{MpiMitBookGroupp2014}.
+% Portanto, para aplicações limitadas por memória pode haver
+% \notaPA{Definir. Não considerar que o leitor sabe.}
+% acelerações super-lineares (\emph{superlinear speedup}) \cite{MpiMitBookGroupp2014}.
+% onde a eficiência da versão paralela é maior do que a versão sequencial.
+% Neste caso 
 
 Apesar do \mpi não ter sido idealizado para o processamento de fluxo de dados, ele
 permite o controle sobre a distribuição de tarefas de maneira
