@@ -199,7 +199,7 @@
    No entanto,
    %\hlpa{
    apesar de sua divisão em três partes semi-independentes, este
-   algoritmo ainda não foi adaptado para processar grandes volumes de fluxos
+   algoritmo ainda não foi adaptado para tratar grandes volumes de fluxos
    reais em ambiente de computação em névoa.
    % }
    % \notaPA{A versão distribuída está adaptada, porém, não é eficiente, impedindo
@@ -212,29 +212,35 @@
    Esta implementação foi feita em MPI e é avaliada com auxílio do conjunto de
    dados \emph{Kyoto 2006+} em um ambiente de teste com 3 nós com recursos
    limitados.
-   
-   \textcolor{red}{TODO: Revisar este fechamento, não agradou ao Paulo.}\\
    Os resultados obtidos mostram a viabilidade do modelo de detecção de
    novidades distribuído em ambiente de computação em névoa.
    % 
-   \notaPA{
-   Por que ``Mesmo'' em um cenário distribuído? Qual a dificuldade pelo fato de 
-   ser distribuído.
-   }
+   Observou-se baixa degradação nas métricas de classificação porém com redução
+   no número de novidades (anomalias, ataques) encontradas.
+   Além disso, observou-se redução do tempo de processamento na nova
+   implementação distribuída em relação à implementação original, porém o
+   \emph{speedup} não refletiu a adição de processadores.
+   % na execução paralela e distribuída indic abaixo do esperado.
+   
+   % \textcolor{red}{TODO: Revisar este fechamento, não agradou ao Paulo.}\\
+   % \notaPA{
+   % Por que ``Mesmo'' em um cenário distribuído? Qual a dificuldade pelo fato de 
+   % ser distribuído.
+   % }
    % ``No entanto''? Quero dizer que mesmo com 12 CPUs não obteve resultado melhor.
-   \hlpa{Mesmo em um cenário distribuído}, 
-   \hlpa{o sistema apresentou eficácia equivalente ao}
-   \notaPA{
-   O problema a ser resolvido era que o algoritmo ainda não havia sido adaptado
-   para processar grandes volumes de fluxos reais em computação em névoa. Mas o
-   algoritmo original funcionava para computação em névoa para suportar esta
-   afirmação?
-   % O MINAS não é adaptado para névoa, tanto no sentido distribuído quanto uso
-   % de recursos.
-   % Author: O original foi testado em névoa por Cassales2019
-   }
-   algoritmo original, ainda que executando em dispositivos de capacidade
-   computacional limitada, como é previsto em cenários de IoT.
+   % \hlpa{Mesmo em um cenário distribuído}, 
+   % \hlpa{o sistema apresentou eficácia equivalente ao}
+   % \notaPA{
+   % O problema a ser resolvido era que o algoritmo ainda não havia sido adaptado
+   % para processar grandes volumes de fluxos reais em computação em névoa. Mas o
+   % algoritmo original funcionava para computação em névoa para suportar esta
+   % afirmação?
+   % % O MINAS não é adaptado para névoa, tanto no sentido distribuído quanto uso
+   % % de recursos.
+   % % Author: O original foi testado em névoa por Cassales2019
+   % }
+   % algoritmo original, ainda que executando em dispositivos de capacidade
+   % computacional limitada, como é previsto em cenários de IoT.
 
 \end{resumo}
 
