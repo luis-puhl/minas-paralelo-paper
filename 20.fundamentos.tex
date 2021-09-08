@@ -244,16 +244,32 @@ interativas graças aos estados intermediários
 \cite{sparkStreaming2016,Lopez2018}.
 
 
-\nota{TODO: Refazer este parágrafo de apache storm}
+% \nota{TODO: Refazer este parágrafo de apache storm}
+% 
 \emph{Apache Storm} é um sistema de processamento de fluxo de dados em tempo
-real tolerante a falhas onde,
+real tolerante a falhas que executada topologias onde, contrapondo a execução de
+trabalhos (\emph{jobs}) em ferramentas em lotes, a execução de topologias é
+contínua \cite{toshniwal2014storm,Lopez2018,ApacheStorm2020}.
+% 
+A arquitetura de processamento de dados utilizada no \emph{Apache Storm}
+consiste de fluxos de tuplas fluindo em topologias, que são grafos direcionados
+de execução onde as arestas descrevem o fluxo de dados entre componentes
+computacionais e há dois tipos vértices:
+\emph{Spouts} são fontes de dados e,
+\emph{Bolts} que processam tuplas e passam para os próximos \emph{bolts}
+\cite{toshniwal2014storm}.
+Ao executar estas topologias um \emph{cluster} é utilizado permitindo paralelismo.
+% Ao executar estas topologias, um \emph{cluster} é utilizado de maneira similar
+% às ferramentas anteriores, onde nós executam processos trabalhadores, cada
+% trabalhador trata de uma topologia.
+% Cada processo trabalhador contém múltiplos executores, que permite paralelismo
+% em uma topologia, e cada executor trata multiplas tarefas que permitem
+% paralelismo entre vértices (\emph{spouts} e \emph{bolts})
+% \cite{toshniwal2014storm}.
+
 % que \notahl{quem disse?!}\hlhl{facilita o processamento} de fluxo de dados
 % 
-ao invés de executar trabalhos (\emph{jobs}) como algumas ferramentas citadas
 % anteriormente, \emph{Apache Storm} \notahl{?}\hlhl{executa topologias}.
-anteriormente, executada topologias
-onde 
-\cite{toshniwal2014storm,Lopez2018,ApacheStorm2020}.
 % 
 % Os \emph{jobs} eventualmente finalizam, e as topologias executam continuamente
 % até serem finalizadas manualmente.
