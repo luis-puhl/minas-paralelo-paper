@@ -1,4 +1,5 @@
-% !TeX root = ./00.main.tex
+% !TeX root = ./00.ppgcc-2020.tex
+
 \chapter{Trabalhos Relacionados}\label{cha:related}
 
 % \notaPA{Sugestão na Estrutura:
@@ -463,11 +464,18 @@ de fluxos contínuos em ambientes de computação em nuvem e em névoa, fornecen
 métodos para processar grandes volume de dados com mínima latência.
 
 Um sumário dos trabalhos abordados pode ser visto na Tabela \ref{tab:summary}.
-
-\notaPA{Falta a comparação com a sua proposta. Quais as diferenças? O que há de
-melhor/pior?}
-
-\nota{TODO: Fazer novo parágrafo de comparação}
+% \notaPA{Falta a comparação com a sua proposta. Quais as diferenças? O que há de
+% melhor/pior?}
+% \nota{TODO: Fazer novo parágrafo de comparação}
+Destaca-se a lacuna encontrada onde não há uma implementação de detector de
+intrusos focada na execução em ambiente de névoa com recursos limitados.
+Além disso, as propostas existentes que tratam grande volume de dados, como
+BigFlow \cite{Viegas2019} e CATRACA \cite{Lopez2018}, não oferecem atualização
+de modelo contínua sem interação com um especialista externo.
+No entanto, o \emph{speedup} alcançado neste trabalho ficou abaixo do esperado,
+onde, por exemplo, no trabalho de \citeonline{Lopez2018} foi obtido o
+\emph{speedup} $4.65$ para $20$ processadores, enquanto este trabalho observou
+$0.97$ para $12$ processadores.
 
 \begin{table}[ht]
   \caption{Sumário dos trabalhos relacionados}
