@@ -20,7 +20,7 @@ A escolha desse conjunto para a implementação ocorreu devido a disponibilidade
 de bibliotecas de aprendizagem de máquina no ecossistema \python e a
 simplicidade geral da linguagem.
 Na implementação desenvolvida, o sistema \kafka recebe mensagens e as armazena
-em tópicos distribuídos em partições replicadas em nós de um \cluster,
+em tópicos distribuídos em partições replicadas em nós de um \emph{cluster},
 gerenciados por um nó mestre e suportados pelo serviço de gerenciamento de
 configuração distribuída \emph{Apache ZooKeeper}.
 A aplicação \emph{Python} consome eventos através da interface \emph{Consumer API},
@@ -143,8 +143,8 @@ treinamento \emph{offline} do algoritmo \minas pois esta fase opera em lotes.
 Após desenvolvimento e testes em um computador pessoal, o sistema foi testado no
 ambiente de testes como descrito na Seção \ref{sec:ambiente}, onde observou-se
 que o uso de memória pela plataforma \flink excedia o disponível no sistema.
-Com isso, optou-se por configurar dos parâmetros de memória do cluster
-de maneira extrema, reduzindo os valores até que o cluster não conseguisse
+Com isso, optou-se por configurar dos parâmetros de memória do \emph{cluster}
+de maneira extrema, reduzindo os valores até que o \emph{cluster} não conseguisse
 iniciar e então retomando a configuração anterior, desta forma minimizando estes
 valores.
 Além disso, foi desativada a memória \emph{swap} para que o processo falhasse se

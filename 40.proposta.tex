@@ -258,7 +258,7 @@ ponto focal dos esforços de paralelismo desta proposta.
 % \notaPA{Vai explicando em ciclos, detalhando sempre um pouco mais.
 % Sugiro rever, e explicar com detalhes, 1x apenas.}
 % \hlpa{
-Este módulo é replicado em todos os nós do cluster % hospedado (?)
+Este módulo é replicado em todos os nós do \emph{cluster} % hospedado (?)
 em névoa.
 % }
 % The Classification Module performs the same task of the \minas Online phase and
@@ -267,7 +267,7 @@ em névoa.
 % number of threads (limited to the node CPU core count).
 
 % o que quer dizer isso?
-O módulo Detecção de Novidade tem uma instância por cluster, equivalendo a uma
+O módulo Detecção de Novidade tem uma instância por \emph{cluster}, equivalendo a uma
 instância por rede local.
 O compartilhamento de modelo entre redes distintas é possível, mas não foi
 implementado e testado neste trabalho.
@@ -316,7 +316,7 @@ Alguns dos aspectos com impactos potenciais na implementação incluem:
   % Regarding the allocation of the Novelty Detection Module:
   \begin{enumerate}
     
-    \item Em névoa (há um módulo em cada cluster alocado a uma rede local):
+    \item Em névoa (há um módulo em cada \emph{cluster} alocado a uma rede local):
     % \notaPA{qual seria a quantidade e quanto tempo depois esse padrão é detectado?}
     % Author: Essa seria uma boa pergunta de pesquisa para um novo trabalho.
     % Author: Enquanto eu enumero estes desafios, esta exploração não fez parte deste trabalho.
@@ -365,7 +365,7 @@ Alguns dos aspectos com impactos potenciais na implementação incluem:
   % \notaPA{A propagação dos novos padrões é feita hierarquicamente, subindo da
   % névoa para a nuvem, ou é propagada diretamente entre a porção em névoa?}
   As três opções requerem, no mínimo, um mecanismo global de sincronização de
-  modelo alocado em nuvem, onde novidades encontradas em um cluster que observa
+  modelo alocado em nuvem, onde novidades encontradas em um \emph{cluster} que observa
   uma rede local são enviados para a nuvem e posteriormente distribuídos.
   Para tal fim, o modelo deve ter a propriedade de aditividade e o correto
   tratamento de padrões duplicados.
@@ -385,13 +385,13 @@ Alguns dos aspectos com impactos potenciais na implementação incluem:
   \item \label{reclassification}
   Por último, na reclassificação do conjunto de desconhecidos,
   feita pela tarefa de detecção de novidade do algoritmo \minas, o subconjunto de
-  desconhecidos que pertencem a um novo cluster válido é, efetivamente,
-  classificado com o rótulo deste novo cluster.
+  desconhecidos que pertencem a um novo \mcluster válido é, efetivamente,
+  classificado com o rótulo deste novo \mcluster
   No Algoritmo \ref{alg:minas-nd}, linha \ref{alg:MINAS-nd:reclassify},
-  o novo cluster válido inclui o subconjunto de exemplos que o compõem.
+  o novo \mcluster válido inclui o subconjunto de exemplos que o compõem.
   % \notaPA{Eu não consegui enxergar isso...  Como isso ocorre de fato?}
   Portanto, se este conjunto de exemplos fosse classificado com o rótulo atribuído ao
-  novo cluster e adicionado ao fluxo de saída, esta saída teria exemplos
+  novo \mcluster e adicionado ao fluxo de saída, esta saída teria exemplos
   atrasados e duplicados em relação ao fluxo de entrada e o resultado obtido
   poderia ser mais acurado.
   % preciso (???) Hélio
@@ -405,7 +405,7 @@ Alguns dos aspectos com impactos potenciais na implementação incluem:
   um operador de fluxos de dados.
   Cada diagrama contém do topo: os fluxos de entrada, o operador e os fluxos de saída.
   Cada fluxo é representado por uma linha do tempo crescente em direção à
-  esquerda com um terminador vertical ($|$), possívelmente um marcador de erro
+  esquerda com um terminador vertical ($|$), possivelmente um marcador de erro
   ($\times$) e diversos eventos.
   Os eventos são representados por polígonos rotulados com valores de exemplo,
   geralmente círculos coloridos (bolas de gude, \emph{marbles}).

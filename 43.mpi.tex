@@ -65,7 +65,7 @@ paralela \acf{SPMD}.
 No paradigma \spmd, uma única versão do programa é inicializada em todos os nós, sendo que
 para cada instância são passados os parâmetros \texttt{mpiSize} e
 \texttt{mpiRank}, que representam o número de nós e o índice de cada nó no
-cluster.
+\emph{cluster}.
 Neste caso, o parâmetro \texttt{mpiRank} é o componente de múltiplos dados em
 \spmd e, como cada nó recebe com um valor diferente, cada nó pode ter um
 comportamento diferente.
@@ -148,7 +148,7 @@ encontrando o mais próximo e verificando se o modelo explica aquele exemplo; se
 explica, o rótulo do \mcluster mais próximo é atribuído como rótulo do exemplo.
 A função \texttt{Classificador}, como as outras, só chega ao seu final se a
 mensagem recebida (ou instância lida no caso da função \texttt{Fonte}) é um
-marcador de fim de fluxo (\texttt{FimDeFluxo}, \emph{end of stream, eos}).
+marcador de fim de fluxo (\texttt{FimDeFluxo}, \emph{end of stream}, eos).
 
 \begin{algorithm}[htb]
     \input{43.mpi-extra.tex}
@@ -199,12 +199,12 @@ busca pelo \mclusters mais próximo.
 \end{algorithm}
 
 A função \texttt{Fonte}, listada no Algoritmo \ref{alg:MFOG-sampler}, lê uma
-instância do fluxo de entrada que pode ser do tipo exemplo ou do tipo cluster.
+instância do fluxo de entrada que pode ser do tipo exemplo ou do tipo \mcluster.
 Se a instância for um exemplo, ele é enviado para um dos nós folha, o nó é
 escolhido via balanceamento de carga \emph{round-robin}.
-Se a instância for do tipo cluster, o modelo compartilhado com a \emph{thread}
+Se a instância for do tipo \mcluster, o modelo compartilhado com a \emph{thread}
 executando a função \texttt{Detector} é travado para leitura e escrita e
-atualizado, e o novo cluster é enviado para todas os nós folhas.
+atualizado, e o novo \mcluster é enviado para todas os nós folhas.
 
 \begin{algorithm}[htb]
     \input{43.mpi-extra.tex}
@@ -273,7 +273,7 @@ novidade são considerados \emph{outliers} ou ruído e são removidos.
 \end{algorithm}
 
 Em suma, a arquitetura do \mfog é composta de múltiplos nós numa névoa, que detectam
-intrusão numa rede IoT. Para isso, os nós da rede processam de forma paralela e
+intrusão numa rede \iot. Para isso, os nós da rede processam de forma paralela e
 distribuída o cálculo das distâncias e detecção de novidades, sendo assim um
 sistema multiprocessado e distribuído. Utiliza-se um único programa com vários
 processos por nó, e cada processo recebe um conjunto de dados diferentes

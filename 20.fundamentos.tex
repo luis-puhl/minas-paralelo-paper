@@ -14,7 +14,7 @@ Esta \Section relaciona três ambientes de computação distribuída habitualmen
 utilizados para o processamento de dados massivos relacionados a redes de
 dispositivos \iot: computação em nuvem, computação de borda, e computação em névoa.
 A computação em nuvem (\emph{Cloud Computing}) é
-aplicada à vários problemas, e para sistemas \iot 
+aplicada à vários problemas, e para sistemas \iot
 fornece vastos recursos como computação e armazenamento para onde geralmente os dispositivos
 enviam todos dados relevantes ao sistema.
 O segundo e terceiro ambientes são computação de borda (\emph{edge computing})
@@ -75,7 +75,7 @@ processamento distribuído de sensoriamento massivo em cidades inteligentes \cit
 % \subsection{Computação em Névoa}
 
 \citeonline{Dastjerdi2016} e \citeonline{IEEECommunicationsSociety2018}
-mencionam que a enorme massa de dados gerados por ambientes IoT pode ser
+mencionam que a enorme massa de dados gerados por ambientes \iot pode ser
 processada em nuvem, entretanto a latência produzida pela transferência desses
 % \hlpa{pode, a latência}
 dados para a nuvem e o retorno do resultado podem não ser toleradas por sistemas
@@ -89,7 +89,7 @@ O ambiente de computação de borda foi proposto para trazer o
 processamento e armazenamento para os dispositivos de borda tentando solucionar
 esses problemas.
 Entretanto, dispositivos de borda comumente não podem lidar com várias
-aplicações IoT competindo pelos seus recursos limitados, o que poderia causar a
+aplicações \iot competindo pelos seus recursos limitados, o que poderia causar a
 contenção dos recursos e o aumento na latência do processamento
 \cite{Dastjerdi2016}. Portanto, para solucionar estas questões de latência e
 capacidade limitada dos dispositivos de borda, a computação em névoa foi proposta.
@@ -138,7 +138,7 @@ características da computação em névoa são:
     milhares de sensores e dispositivos distribuídos geograficamente, com
     consciência de suas localizações (\emph{location awareness});
 
-    \item \textbf{Alto número de nós:} seguindo os ambientes IoT, a computação
+    \item \textbf{Alto número de nós:} seguindo os ambientes \iot, a computação
     em névoa pode ser composta por milhares de nós;
 
     \item \textbf{Interoperabilidade e federação:} os componentes da computação
@@ -150,7 +150,7 @@ características da computação em névoa são:
     computação em névoa pode envolver aplicações que processam em lote, mas na
     maior parte das vezes envolve aplicações com requisito de processamento em
     tempo real, e para isso fazem o uso de fluxo de dados. Por exemplo, os
-    sensores de um rede IoT escrevem a informação no fluxo de dados, a
+    sensores de um rede \iot escrevem a informação no fluxo de dados, a
     informação é processada, ações são inferidas e traduzidos em
     ações nos componentes atuadores.
 
@@ -218,7 +218,7 @@ arquitetura \lambdaa \cite{marz2015big}.
 
 \emph{Apache Hadoop} é uma coleção de ferramentas, incluindo: \emph{Hadoop
 Distributed File System} (HDFS, um sistema de arquivos distribuído), \emph{Hadoop
-YARN} um gerenciador de recursos em cluster e escalonador de trabalhos e,
+YARN} um gerenciador de recursos em \emph{cluster} e escalonador de trabalhos e,
 \emph{Hadoop MapReduce}, um sistema baseado em \emph{YARN}, implementando o modelo
 \emph{MapReduce} \cite{ApacheHadoop2020}.
 
@@ -380,7 +380,7 @@ mensagem é escrita no buffer de saída do TCP do sistema operacional. Portanto,
 existe tempo de voo (\emph{time of flight}) entre o envio e recebimento.
 
 O \mpi possui um ambiente de execução e gerenciamento chamado \emph{mpirun} que
-recebe como entrada a configuração do cluster e o programa a ser executado, e se
+recebe como entrada a configuração do \emph{cluster} e o programa a ser executado, e se
 encarrega de iniciar os processos em todos os nós, geralmente por \emph{ssh},
 repassando os parâmetros que recebeu a cada processo e o identificador do
 processo para que ele saiba qual dado ler e qual função executar sob o paradigma
@@ -388,8 +388,8 @@ processo para que ele saiba qual dado ler e qual função executar sob o paradig
 
 Este trabalho utiliza o OpenMPI\footnote{Disponível em
 \url{https://www.open-mpi.org/}.}, que é uma implementação livre de \mpi, para a
-comunicação entre os processos de cada nó do cluster.
-Cada nó do cluster possui um conjunto de processos, e cada processo possui seu
+comunicação entre os processos de cada nó do \emph{cluster}.
+Cada nó do \emph{cluster} possui um conjunto de processos, e cada processo possui seu
 espaço de endereçamento e é \emph{multithread}, onde as \emph{threads} se comunicam
 através da memória compartilhada.
 O OpenMPI permite a comunicação entre os processos independentemente se estão ou não
@@ -423,7 +423,7 @@ Apesar do \mpi não ter sido idealizado para o processamento de fluxo de dados, 
 permite o controle sobre a distribuição de tarefas de maneira
 semelhante ao Apache Flink, porém dispensando o uso de um
 gerenciador. Essa dispensa de gerenciador em experimentos preliminares mostrou
-crucial para implementação do \mfog em dispositivos IoT, pois não excede o limite de
+crucial para implementação do \mfog em dispositivos \iot, pois não excede o limite de
 memória do nó.
 
 Em resumo, o \mpi é utilizado em um programa monólito escrito em C, executado
