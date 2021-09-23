@@ -6,8 +6,9 @@ Com os desafios de distribuição e memória encontrados nas implementações
 preliminares, optou-se por tomar mais controle sobre estes aspectos para
 maximizar o aproveitamento do \emph{hardware} escolhido, visto que seus recursos
 são limitados.
-Para isso escolheu-se implementar a proposta\footnote{Esta implementação está
-disponível em \url{https://github.com/luis-puhl/minas-flink}.} utilizando o
+Para isso escolheu-se implementar a proposta\footnote{
+    O código fonte do \mfog implementado com MPI está disponível em \url{https://github.com/luis-puhl/minas-flink}.
+} utilizando o
 padrão \mpi e linguagem C, onde tem-se controle fino sobre o uso de memória e
 distribuição.
 No entanto, ao escolher-se \mpi perde-se facilidades e garantias inclusas nas
@@ -59,8 +60,9 @@ classes iniciais) como fluxo de entrada e sua saída, que é um fluxo finito de
 %   - **Solução:** *em aberto*;
 
 Para avaliação desta proposta, ela foi construída em linguagem C com
-\emph{OpenMPI 4.0.4}\footnote{Documentação em
-\url{https://www.open-mpi.org/doc/v4.0/}.}, seguindo o paradigma de programação
+\emph{OpenMPI 4.0.4}\footnote{
+    Documentação do \emph{OpenMPI 4.0.4} está disponível em \url{https://www.open-mpi.org/doc/v4.0/}.
+}, seguindo o paradigma de programação
 paralela \acf{SPMD}.
 No paradigma \spmd, uma única versão do programa é inicializada em todos os nós, sendo que
 para cada instância são passados os parâmetros \texttt{mpiSize} e
@@ -117,7 +119,7 @@ no diagrama de sequência na Figura \ref{fig:mfog-mpi-life}.
 \label{alg:MFOG}
 \end{algorithm}
 
-O Algoritmo \ref{alg:MFOG} mostra os primeiros passos do sistema \mfog, a
+O Algoritmo \ref{alg:MFOG} mostra os primeiros passos do \mfog, a
 linha \ref{line:init} cria Modelo inicial como um conjunto vazio, e a trava
 ($lock$) utilizada para controle de acesso concorrente das \emph{threads}
 \texttt{Detector} e \texttt{Fonte} no nó raiz e \texttt{AtualizaModelo} e
@@ -204,7 +206,7 @@ Se a instância for um exemplo, ele é enviado para um dos nós folha, o nó é
 escolhido via balanceamento de carga \emph{round-robin}.
 Se a instância for do tipo \mcluster, o modelo compartilhado com a \emph{thread}
 executando a função \texttt{Detector} é travado para leitura e escrita e
-atualizado, e o novo \mcluster é enviado para todas os nós folhas.
+atualizado, e o novo \mcluster é enviado para todos os nós folhas.
 
 \begin{algorithm}[htb]
     \input{43.mpi-extra.tex}
@@ -219,6 +221,7 @@ atualizado, e o novo \mcluster é enviado para todas os nós folhas.
                 \continue\;
             }
             % sample.label $\gets$ unknown\;
+            % exemplo.rótulo $\gets$ ``desconhecido''\;
             \send(dest, TipoExemplo, exemplo)\;
             dest $\gets$ dest $+ 1$\;
             \lIf{dest $>$ \mpiSize}{dest $\gets$ 1}
@@ -248,7 +251,7 @@ novidade são considerados \emph{outliers} ou ruído e são removidos.
             \lIf{exemplo == \EndOfStream}{\break}
             % $out \gets$ exemplo\;
             fluxoSaída.adicione(exemplo)\;
-            \If{exemplo.label == unknown}{
+            \If{exemplo.rótulo == ``desconhecido''}{
                 Desconhecidos $\gets$ Desconhecidos $\cup$ exemplo\;
                 \If{$|\;Desconhecidos\;| \geq$ \noveltyDetectionTrigger}{
                     novidades $\gets$ \NoveltyDetection(Modelo, *Desconhecidos)\;

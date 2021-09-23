@@ -63,8 +63,9 @@ Destes experimentos os seguintes resultados são apresentados.
 \subsection{Validação do algoritmo}
 
 Para validar a biblioteca de funções do \mfog que implementa o algoritmo \minas,
-uma versão do Algoritmo \ref{alg:minas-main} foi construída, sem classificadores
-paralelos ou detecção de novidade assíncrona, aspectos que caracterizam o \mfog.
+uma versão do Algoritmo \ref{alg:minas-main} (Fase \emph{online} do algoritmo
+MINAS) foi construída, sem classificadores paralelos ou detecção de novidade
+assíncrona, aspectos que caracterizam o \mfog.
 Esta implementação utiliza a definição de raio da Equação \ref{eq:raio_paper}
 (desvio padrão das distâncias).
 Feita esta implementação foram realizados os experimentos \expB com esta
@@ -422,10 +423,11 @@ fase \emph{online}, como já foi mencionado.
                   & $0.305618$          &               & $0.298438$      & $0.312416$  & $0.312478$  \\\hline
   \mr{err}        & $441769$            &               & $429873$        & $433936$    & $433767$    \\
                   & $0.676049$          &               & $0.657843$      & $0.664061$  & $0.663802$  \\\hline
+  % Exemplos        & $653457$            &               & $653457$        & $653457$    & $653457$    \\\hline
   Novidades       & $12$                &               & $9$             & $5$         & $5$         \\\hline
-  Tempo     ($s$) & $\mathbf{2761.83}$  & $194.12$      & $\mathbf{80.79}$& $\mathbf{522.10}$    & $\mathbf{207.14}$ \\\hline
+  Tempo     ($s$) & $2761.83$           & $194.12$      & $80.79$         & $522.10$    & $207.14$    \\\hline
   Sistema   ($s$) & $7.15$              & $ 0.075$      & $11.51$         & $ 47.77$    & $157.61$    \\\hline
-  Decorrido ($s$) & $2772.07$           & $194.27$      & $93.03$         & $145.04$    & $ 95.38$    \\\hline
+  Decorrido ($s$) & $\mathbf{2772.07}$  & $194.27$      & $\mathbf{93.03}$ & $\mathbf{145.04}$    & $\mathbf{ 95.38}$    \\\hline
   Latência  ($s$) & $4.24\cdot10^{-3}$  &               & $1.42\cdot10^{-4}$  & $2.22\cdot10^{-4}$  & $1.46\cdot10^{-4}\ $  \\\hline
   Processadores   & $1$                 &  $1$          &  $1$            & $4$         & $12$        \\\hline
   \emph{Speedup}  &                     &               &                 & $0.6414092$ & $0.9753617$  \\\hline

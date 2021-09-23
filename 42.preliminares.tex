@@ -46,8 +46,9 @@ para um tópico de saída, como ilustrado na Figura \ref{fig:python-kafka}.
 \end{figure}
 
 No entanto, a hipótese foi refutada nos experimentos realizados.
-Os experimentos em questão\footnote{Código fonte disponível em
-\url{https://github.com/luis-puhl/minas-py}.} foram compostos de 8 processos
+Os experimentos em questão\footnote{
+  Código fonte da implementação com \python e \kafka está disponível em \url{https://github.com/luis-puhl/minas-py}.
+} foram compostos de 8 processos
 consumidores e um processo produtor cujos programas foram escritos em Python com
 a biblioteca \emph{confluent-kafka} versão $1.0.0$.
 Além do programa, uma instância do par \kafka versão $2.2.0$ (git $121308c$) e
@@ -143,7 +144,7 @@ treinamento \emph{offline} do algoritmo \minas pois esta fase opera em lotes.
 Após desenvolvimento e testes em um computador pessoal, o sistema foi testado no
 ambiente de testes como descrito na Seção \ref{sec:ambiente}, onde observou-se
 que o uso de memória pela plataforma \flink excedia o disponível no sistema.
-Com isso, optou-se por configurar dos parâmetros de memória do \emph{cluster}
+Com isso, optou-se por configurar os parâmetros de memória do \emph{cluster}
 de maneira extrema, reduzindo os valores até que o \emph{cluster} não conseguisse
 iniciar e então retomando a configuração anterior, desta forma minimizando estes
 valores.
@@ -151,7 +152,7 @@ Além disso, foi desativada a memória \emph{swap} para que o processo falhasse 
 o uso de memória excedesse o recurso principal, deixando o sistema operacional e
 o processo experimental mais responsivo.
 Com estas configurações os resultados ficaram equivalentes à implementação de
-referencia.
+referência (\refminas).
 No entanto, apesar de exemplos de sucesso na literatura
 \cite{lee2017data,Greco2019wearableStream,battulga2020fogguru}, o ambiente de
 testes não permaneceu estável para execução de repetições do experimento,

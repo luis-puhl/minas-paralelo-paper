@@ -30,10 +30,16 @@ exemplos até a instância $x$.
   \in \mathbf{L}$ podendo ser uma classe conhecida $c' \in \mathbf{C}'$, ``desconhecido''
   ou um rótulo novidade $y \in \mathbf{Y}$:
   \begin{align}
-    f  &: \mathbf{X} \mapsto l  \quad \mathbf{X} \in S , \quad l \in \mathbf{L}\\
-    \mathbf{C} &= \{ c_1, c_2, \cdots, c_m \}  \label{eq:classes} \\
-    \mathbf{Y} &= \{ y_1, y_2, \cdots, y_k \}  \label{eq:novelies} \\
-    \mathbf{L} &= \{ l_1, l_2, \cdots, l_n \} = \mathbf{C}' \cup \{ \text{``desconhecido''} \} \cup \mathbf{Y} \label{eq:labels} 
+    f  &: \mathbf{X} \mapsto l  \quad \mathbf{X} \in S , \quad l \in \mathbf{L}
+      &&\text{Função de classificação} \label{eq:classifieFN} \\
+    \mathbf{C} &= \{ c_1, c_2, \cdots, c_m \}
+      &&\text{Classes do problema} \label{eq:classes} \\
+    \mathbf{C}' &\in \mathbf{C}
+      &&\text{Classes no treinamento} \label{eq:knownClasses} \\
+    \mathbf{Y} &= \{ y_1, y_2, \cdots, y_k \}
+      &&\text{Rótulos Novidade} \label{eq:novelies} \\
+    \mathbf{L} &= \{ l_1, l_2, \cdots, l_n \} = \mathbf{C}' \cup \{ \text{``desconhecido''} \} \cup \mathbf{Y}
+      &&\text{Rótulos Produzidos}\label{eq:labels} 
   \end{align}
 \end{definition}
 
@@ -66,28 +72,31 @@ A taxa de desconhecidos $\mathit{UnkR}$ na \refequ{unkr} é uma das métricas es
 pois trata deste tipo específico de erro \cite{Faria2013evaluation}.
 
 \begin{definition}
-  A taxa de desconhecidos $\mathit{UnkR}_x$ para um instante $x$ é definida como
+  A taxa de desconhecidos $\mathit{UnkR}_x$ (\refequ{unkr}) para um instante $x$ é definida como
   a média da taxa de desconhecidos de cada classe \cite{Faria2013evaluation}.
   % \begin{align}
   %   \mathit{UnkR}_x & = \frac{1}{m} \sum_{i=1}^{m} \mathit{UnkR}_{x, i}
   % \end{align}
-  A taxa de desconhecidos de cada classe $c_i$ é definida como o elemento
+  A taxa de desconhecidos de cada classe $c_i$ (\refequ{unkrXI}) é definida como o elemento
   $e_{ij} \in \mathbf{E}_x$ onde $j$ é a coluna do rótulo ``desconhecido''
   na matriz de rótulos $\mathbf{L}$ dividido pelo número de exemplos da classe.
   \begin{align}
-    \mathit{UnkR}_x & = \frac{1}{m} \sum_{i=1}^{m} \mathit{UnkR}_{x, i} \\
     \mathit{UnkR}_{x, i}
       &= \frac{e_{i j} : l_j = \text{``desconhecido''}}{\sum_{j=1}^{n} e_{i j}}
-      \label{eq:unkr}
+      \label{eq:unkrXI}\\
+    \mathit{UnkR}_x & = \frac{1}{m} \sum_{i=1}^{m} \mathit{UnkR}_{x, i}
+    \label{eq:unkr}
   \end{align}
 \end{definition}
 
 Para todos os rótulos $l_j$ diferentes de ``desconhecido'', uma classe $c_i$ é
 associada se o rótulo $l_j$ é procedente do modelo inicial, ou seja $l_j = c_i :
-c_i \in \mathbf{C}$ ou, em último caso, o rótulo $l_j$ é associado à classe com
+c_i \in \mathbf{C}'$ ou, em último caso, o rótulo $l_j$ é associado à classe com
 o maior número de exemplos com o rótulo $l_j$, ou seja $e_{ij} = max\{ e_{aj} :
 a \in [0, m] \}$ para $c_i \in \mathbf{C}$ e $l_j \in \mathbf{L}$
 \cite{Faria2013evaluation}.
+Estas regras de associação podem ser expressas pela função de associação vista
+na Equação \ref{eq:assosiationFN}.
 
 \begin{definition}
   A função de associações $A(l)$ é definida como:
@@ -100,22 +109,23 @@ a \in [0, m] \}$ para $c_i \in \mathbf{C}$ e $l_j \in \mathbf{L}$
       c_i         & \quad \text{se } \exists c_i = l_j \quad: c_i \in \mathbf{C}' \\
       c_i         & \quad \text{se } e_{ij} = max\{ e_{aj} : \in [0, m] \}
     \end{cases}
+    \label{eq:assosiationFN}
   \end{align}
 \end{definition}
 
 No contexto de classificação multi-classe, a acurácia $\mathit{acc}_x$ para um
-instante $x$ é definida como a média da acurácia de cada classe (Eq. \ref{eq:acc}).
+instante $x$ é definida como a média da acurácia de cada classe (\refequ{acc}).
 A acurácia de cada classe $c_i$ no instante $x$, de forma semelhante à
 definição da matriz de confusão, é definida como extensão da acurácia da
-classificação binária (Eq. \ref{eq:acci}).
+classificação binária (\refequ{acci}).
 Para classificação binária a acurácia calculada com os valores
 verdadeiro-positivo ($tp$), verdadeiro-negativo ($tn$), falso-positivo ($fp$) e
 falso-negativo ($fn$).
 Para cada classe $c_i$, o valor verdadeiro-positivo ($tp_i$) é definido como
 número de exemplos onde o rótulo do exemplo $l$ é associado à
-classe $c_i$ (Eq. \ref{eq:tpi}).
+classe $c_i$ (\refequ{tpi}).
 O valor falso-negativo ($fn_i$) são os exemplos da classe onde o
-rótulo do exemplo não é associado à classe $c_i$ e o rótulo não é ``desconhecido'' (Eq. \ref{eq:fni}).
+rótulo do exemplo não é associado à classe $c_i$ e o rótulo não é ``desconhecido'' (\refequ{fni}).
 Os valores verdadeiro-negativo ($tn$) e falso-positivo ($fp$) são zero.
 % pois dado um exemplo de classe $c_i$, ele pode ser classificado como .
 % O como os valores $tp_i$ e $fp_i$ cobrem toda a matriz de confusão ($tp_i + fp_i = x$)

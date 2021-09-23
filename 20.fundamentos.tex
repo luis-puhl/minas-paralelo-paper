@@ -13,10 +13,10 @@ de dados e o algoritmo MINAS.
 Esta \Section relaciona três ambientes de computação distribuída habitualmente
 utilizados para o processamento de dados massivos relacionados a redes de
 dispositivos \iot: computação em nuvem, computação de borda, e computação em névoa.
-A computação em nuvem (\emph{Cloud Computing}) é
-aplicada à vários problemas, e para sistemas \iot
-fornece vastos recursos como computação e armazenamento para onde geralmente os dispositivos
-enviam todos dados relevantes ao sistema.
+A computação em nuvem (\emph{Cloud Computing}) é aplicada à vários problemas e,
+para sistemas \iot, fornece vastos recursos como computação e armazenamento
+sendo geralmente destino para o qual os dispositivos \iot enviam todos dados
+relevantes ao sistema.
 O segundo e terceiro ambientes são computação de borda (\emph{edge computing})
 e a computação em névoa (\emph{fog computing}) que utilizam os recursos
 computacionais distribuídos presentes em nós localizados entre os dispositivos
@@ -148,8 +148,8 @@ características da computação em névoa são:
 
     \item \textbf{Uso de fluxo de dados e aplicações em tempo real:} a
     computação em névoa pode envolver aplicações que processam em lote, mas na
-    maior parte das vezes envolve aplicações com requisito de processamento em
-    tempo real, e para isso fazem o uso de fluxo de dados. Por exemplo, os
+    maior parte envolve aplicações com requisito de processamento em
+    tempo real e para isso fazem o uso de fluxo de dados. Por exemplo, os
     sensores de um rede \iot escrevem a informação no fluxo de dados, a
     informação é processada, ações são inferidas e traduzidos em
     ações nos componentes atuadores.
@@ -186,7 +186,8 @@ distribuir o processamento, acrescentando poder computacional a cada nó
 adicionado.
 Entretanto, desafios como comunicação eficiente e sincronização de estado
 entre os nós, assim como tolerância a falhas, aumentam a complexidade de
-construção de um sistema distribuído em relação a um sistema tradicional.
+construção de um sistema distribuído em relação a um sistema tradicional
+\cite{marz2015big}.
 
 \newcommand{\lambdaa}{\xspace\emph{Lambda}\xspace}
 \newcommand{\kappaa}{\xspace\emph{Kappa}\xspace}
@@ -258,7 +259,7 @@ computacionais e há dois tipos vértices:
 \emph{Spouts} são fontes de dados e,
 \emph{Bolts} que processam tuplas e passam para os próximos \emph{bolts}
 \cite{toshniwal2014storm}.
-Ao executar estas topologias um \emph{cluster} é utilizado permitindo paralelismo.
+% Ao executar estas topologias um \emph{cluster} é utilizado permitindo paralelismo.
 % Ao executar estas topologias, um \emph{cluster} é utilizado de maneira similar
 % às ferramentas anteriores, onde nós executam processos trabalhadores, cada
 % trabalhador trata de uma topologia.
@@ -342,7 +343,9 @@ Observando boas práticas e melhores funcionalidades ao longo dos anos, a
 comunidade e a indústria padronizaram esse modelo de troca de mensagens no
 padrão \acf{MPI}.
 
-O \mpi\footnote{Disponível em \url{https://www.mpi-forum.org/}.} é um padrão que
+O \mpi\footnote{
+    MPI Forum, que define o padrão, está disponível em \url{https://www.mpi-forum.org/}.
+} é um padrão que
 estabelece um protocolo de comunicação e define sintaxe e semântica para
 bibliotecas de troca de mensagens em ambientes de memória distribuída compartilhada.
 Esse modelo pode ser implementado desde computadores multiprocessados de memória
@@ -368,10 +371,9 @@ real da mensagem, e \emph{tag}.
 
 Além de operações de envio e recebimento pode-se fazer comunicações coletivas,
 por exemplo, o envio de uma mensagem de uma fonte para múltiplos destinos
-(\emph{broadcast}), e um destino receber de
-
-% múltiplas fontes numa única operação.
-
+(\emph{Broadcast}), distribuição das partes de um conjunto para múltiplos
+destinos (\emph{Scatter}) e um destino receber partes de um conjunto de
+múltiplas fontes (\emph{Gather}) em uma única operação.
 
 Um dos detalhes importantes quando se utiliza o \mpi com o TCP/IP, é que as
 garantias de envio são fornecidas pelo protocolo TCP, ou seja, feito um envio
@@ -381,13 +383,14 @@ existe tempo de voo (\emph{time of flight}) entre o envio e recebimento.
 
 O \mpi possui um ambiente de execução e gerenciamento chamado \emph{mpirun} que
 recebe como entrada a configuração do \emph{cluster} e o programa a ser executado, e se
-encarrega de iniciar os processos em todos os nós, geralmente por \emph{ssh},
+encarrega de iniciar os processos em todos os nós, geralmente por \emph{ssh} (\emph{Secure Shell}),
 repassando os parâmetros que recebeu a cada processo e o identificador do
 processo para que ele saiba qual dado ler e qual função executar sob o paradigma
 \spmd.
 
-Este trabalho utiliza o OpenMPI\footnote{Disponível em
-\url{https://www.open-mpi.org/}.}, que é uma implementação livre de \mpi, para a
+Este trabalho utiliza o OpenMPI\footnote{
+    A implementação OpenMPI está disponível em \url{https://www.open-mpi.org/}.
+}, que é uma implementação livre de \mpi, para a
 comunicação entre os processos de cada nó do \emph{cluster}.
 Cada nó do \emph{cluster} possui um conjunto de processos, e cada processo possui seu
 espaço de endereçamento e é \emph{multithread}, onde as \emph{threads} se comunicam
@@ -410,21 +413,21 @@ no mesmo nó.
 O amplo uso de \mpi para programação paralela e distribuída está principalmente
 pautado no desempenho.
 Processadores modernos possuem memórias hierárquicas que beneficiam programas
-que fazem o melhor uso de cache.
+que fazem o melhor uso de \emph{cache}.
 O modelo de passagem de mensagens permite o particionamento dos dados em fatias
-menores otimizando o uso de cache nesses processadores \cite{MpiMitBookGroupp2014}.
+menores otimizando o uso de \emph{cache} nesses processadores \cite{MpiMitBookGroupp2014}.
 % Portanto, para aplicações limitadas por memória pode haver
 % \notaPA{Definir. Não considerar que o leitor sabe.}
 % acelerações super-lineares (\emph{superlinear speedup}) \cite{MpiMitBookGroupp2014}.
 % onde a eficiência da versão paralela é maior do que a versão sequencial.
 % Neste caso 
 
-Apesar do \mpi não ter sido idealizado para o processamento de fluxo de dados, ele
-permite o controle sobre a distribuição de tarefas de maneira
-semelhante ao Apache Flink, porém dispensando o uso de um
-gerenciador. Essa dispensa de gerenciador em experimentos preliminares mostrou
-crucial para implementação do \mfog em dispositivos \iot, pois não excede o limite de
-memória do nó.
+Apesar do \mpi não ter sido idealizado para o processamento de fluxo de dados,
+ele permite o controle sobre a distribuição de tarefas e também dispensa o uso
+de um gerenciador.
+Essa dispensa de gerenciador em experimentos preliminares mostrou crucial para
+implementação do \mfog em dispositivos \iot, pois não excede o limite de memória
+do nó.
 
 Em resumo, o \mpi é utilizado em um programa monólito escrito em C, executado
 por múltiplos processos em múltiplos nós, cada processo recebe um conjunto de

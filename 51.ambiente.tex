@@ -7,7 +7,7 @@ da detecção de novidades em um cenário \iot, construiu-se um ambiente
 experimental de névoa.
 
 Este ambiente é composto por três computadores de única placa (\emph{Single
-Board Computer}) modelo Raspberry Pi 3 model B, equipados com o SoC
+Board Computer}), Raspberry Pi 3 model B equipados com o SoC
 (\emph{system-on-chip} - sistema em um chip) de arquitetura ARM \emph{BCM2837} com
 $4$ núcleos de processamento à frequência de $1.2\,GHz$, $32\,kB$ e $512\,kB$ de
 memória \emph{cache} nível 1 e 2 respectivamente, $1\,GB$ de memória RAM,
@@ -38,8 +38,9 @@ variações imprevistas e para garantir que as comparações seriam justas com
 % unforeseen variations and for safe software comparison with constant hardware.
 % data sets, being accessed via our laboratory network over Secure Shell (SSH).
 
-O \dataset \emph{Kyoto 2006+}\footnote{Disponível em
-\url{http://www.takakura.com/Kyoto\_data/}.}, tráfego das \emph{Honeypots} da
+O \dataset \emph{Kyoto 2006+}\footnote{
+  O \dataset \emph{Kyoto 2006+} está disponível em \url{http://www.takakura.com/Kyoto\_data/}.
+}, tráfego das \emph{Honeypots} da
 Universidade de Kyoto, é a referência de um cenário real para este trabalho.
 % será que é o ``foco''? Talvez é a ``referência de um cenário real''...(?)
 Este \dataset contém dados ainda representativos (até 2015) e as característica
@@ -50,7 +51,7 @@ atendidas \cite{KyotoDataset,Song2011kyoto}.
 O segmento utilizado deste \dataset é o de Dezembro de 2015, contendo $7\:865\:245$ instâncias.
 Deste segmento, são mantidas apenas instâncias associadas a tráfego normal ou
 a ataques conhecidos, identificados por \nids que tenham mais de $10\,000$ instâncias
-para significância, como feito previamente por \citeonline{Cassales2019a}.
+para significância, como feito previamente por \citeonline{Cassales2019}.
 % , this removes 46,390 instances. TODO: revisar, pois 7M != 700K.
 As instâncias mantidas são normalizadas para que o valor de cada característica
 original (como endereço IP, duração do fluxo, serviço) seja transposta para o

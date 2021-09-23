@@ -71,7 +71,7 @@ almejada não foi alcançada.
 
 As principais contribuições deste trabalho são a análise, implementação revisada
 e melhora do desempenho do algoritmo \minas guiado pelo contexto de computação
-distribuída em névoa de dispositivos \iot e, adição de uma técnica palpável para
+distribuída em névoa de dispositivos \iot e, adição de uma técnica tangível para
 \nids, contribuindo para redução de danos a quem depende do bom funcionamento
 dos sistemas em redes \iot.
 
@@ -98,15 +98,24 @@ inspiração para busca de algoritmos e sistemas que maximizam o aproveitamento 
 \emph{hardware} e energia dedicados a esta tarefa.
 % o que vc  poderia melhorar/??
 Em termos mais práticos, sugere-se a utilização do algoritmo \emph{CluStream}
-\cite{Aggarwal2003} ou seus derivados e a ideia de um Modelo de tamanho fixo,
-maximizando o aproveitamento de memória e a acurácia com um grande conjunto de
-\mclusters.
-Seguindo esta sugestão, estes \mclusters podem ser definidos como polígonos para
-melhor cobertura do espaço, o Modelo pode ser checado quanto à sobreposição
-evitando ambiguidade e o Modelo organizado em índices para que a busca espacial
-seja rápida e eficiente.
-Acredita-se que estas características junto com as propriedades de paralelismo e
-distribuição em névoa podem levar a resultados brilhantes.
+\cite{Aggarwal2003} ou seus derivados e, como já elencado na Seção
+\ref{sec:polices} item \ref{reclassification}, o reaproveitamento de exemplos
+formadores de um padrão novidade.
+
+Seguindo nas sugestões relacionadas ao Modelo de decisão,
+o Modelo inicial pode ser checado quanto à sobreposição evitando ambiguidade,
+\mclusters podem ser definidos como polígonos para melhor cobertura do espaço,
+organização em índices para que a busca espacial seja rápida e eficiente e
+um Modelo de tamanho fixo, maximizando o aproveitamento de memória e a acurácia
+com um grande conjunto de \mclusters.
+
+Quanto à escalabilidade e distribuição, a principal sugestão aos trabalhos
+futuros é a otimização da comunicação entre instâncias, como a estratégia de
+balanceamento de carga, seguido pela inclusão de sincronização entre clusters em
+nuvem e outras redes monitoradas.
+
+% Acredita-se que estas características junto com as propriedades de paralelismo e
+% distribuição em névoa podem levar a resultados brilhantes.
 
 % -------------------------------------------------------------
 

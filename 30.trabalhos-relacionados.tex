@@ -53,7 +53,7 @@ Como mecanismo de detecção de intrusão na construção de um \nids, duas
 abordagens são comuns, detecção por assinatura e detecção por anomalia.
 Para a detecção de novos tipos de ataque (\emph{zero day}) a abordagem de
 detecção por anomalia é vantajosa comparada a detecção por assinatura que tem
-tempo de resposta grande demais para prevenir esse tipo de intrusão.
+tempo de resposta maior para mitigar esse tipo de intrusão.
 
 A ferramenta BigFlow é composta pelos módulos de extração de atributos e de
 aprendizado confiável. O módulo de extração de atributos é responsável por
@@ -181,7 +181,7 @@ novos padrões.
 O trabalho de \citeonline{Lopez2018} aborda a detecção de ameaças a redes de
 computadores em tempo real e, para atingir esse objetivo, propôs a ferramenta
 CATRACA\footnote{
-    A ferramenta e sua documentação estão disponíveis em
+    A ferramenta CATRACA e sua documentação estão disponíveis em
     \url{http://gta.ufrj.br/catraca}
     e \url{https://github.com/tinchoa/catraca}.
 }.
@@ -203,7 +203,7 @@ visualização.
 Na camada de captura, pacotes são capturados da rede e 
 são gerados descritores de fluxos
 por uma aplicação \emph{Python} utilizando a biblioteca \emph{flowtbag}\footnote{
-    Disponível em \url{https://github.com/danielarndt/flowtbag} e
+    A biblioteca \emph{flowtbag} está disponível em \url{https://github.com/danielarndt/flowtbag} e
     \url{https://dan.arndt.ca/projects/netmate-flowcalc/}.
 }.
 Esses descritores de fluxo são enviados para um tópico de um sistema de fila de mensagens
@@ -362,7 +362,7 @@ hospedagem de um sistema detector de intrusão somente em ambiente de nuvem, e
 também possibilitar a análise de grandes volumes de dados por algoritmos de
 maior complexidade, que são de custo computacional proibitivo para nós de borda.
 
-A arquitetura proposta é avaliada com três algoritmos de detecção de novidade:
+A viabilidade da arquitetura proposta é avaliada com três algoritmos de detecção de novidade:
 ECSMiner \cite{Masud2010ECSMiner}, AnyNovel \cite{Abdallah2016anynovel} e \minas
 \cite{Faria2016minas}.
 A avaliação foi feita com o conjunto de dados \emph{Kyoto 2006+}, composto de
@@ -378,13 +378,12 @@ detectores de intrusão comerciais e uma etiqueta
 distinguindo o tráfego entre normal, ataque conhecido e ataque desconhecido.
 
 A avaliação da arquitetura foi realizada utilizando as métricas de qualidade
-\emph{Fnew}, \emph{Mnew} e \emph{erro}.
-A métrica \emph{Fnew} (ou Falso Positivo) é a fração dos exemplos de uma classe normal
-classificados com etiqueta novidade ou etiqueta extensão.
-A métrica \emph{Mnew} (ou Falso Negativo) é a fração dos exemplos de uma classe novidade
-classificados com etiqueta normal.
-A métrica \emph{erro} é a soma dos valores falso positivo e falso negativo dividida
-pelo número de exemplos classificados.
+\emph{Fnew}, \emph{Mnew} e \emph{erro} \cite{Cassales2019}.
+A métrica \emph{Fnew} (ou Falso Positivo) é a fração dos exemplos de uma classe
+normal classificados com etiqueta novidade ou etiqueta extensão, \emph{Mnew} (ou
+Falso Negativo) é a fração dos exemplos de uma classe novidade classificados com
+etiqueta normal e a métrica \emph{erro} é a soma dos valores falso positivo e
+falso negativo dividida pelo número de exemplos classificados \cite{Faria2014}.
 Além das métricas de qualidade de classificação tradicionais, também foi medida
 a quantidade de requisições de classificação por especialista.
 
