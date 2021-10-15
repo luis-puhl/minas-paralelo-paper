@@ -70,12 +70,19 @@ Estes métodos comumente utilizam modelos estáticos, ou com atualização manua
 para descrever e prever o comportamento da rede, que não mantêm a confiabilidade
 frente à evolução de ataques \cite{Viegas2019,AndreoniLopez2019}.
 
+% \notaHS{redes distantes? eu entendi, mas fica estranho dizer dessa forma ... poderia citar a 
+% dispersão geográfica ou pervasividade dos dispositivos ... ou seja estão espalhados por
+% toda parte ...}
+
 % confiabilidade ou eficiência ??
 % \todo[inline]{DS} 
 % \notaPA{Bem difícil de ler essa frase.}
 Além das complicações de confiabilidade, grande quantidade de dispositivos,
-redes distantes, geração de dados em volumes e velocidades elevadas, as técnicas
-tradicionais, que tratam grandes lotes em \emph{datacenters}, não são aplicáveis.
+\hlHS{
+redes distantes,
+}
+geração de dados em volumes e velocidades elevadas, as técnicas
+tradicionais que tratam grandes lotes em \emph{datacenters} não são aplicáveis.
 Para esses fluxos contínuos de dados (\emph{Data Stream}), técnicas de
 mineração de fluxos de dados (\emph{Data Stream Mining}) entre outras são
 promissoras \cite{AriyaluranHabeeb2019,Faria2016ndds,Akbar2017}.
@@ -145,7 +152,10 @@ Este trabalho apresenta a construção e avaliação do \mfog\footnote{
 }, uma implementação
 paralela e distribuída em névoa de dispositivos \iot do algoritmo \minas.
 % \notaPA{Explicar antes o que é MiNAS!}
-Esta implementação foi construída com o padrão \mpi buscando escalabilidade na
+Esta implementação foi construída com o padrão \mpi 
+\hlHS{
+buscando escalabilidade na
+}
 tarefa de processamento de fluxo de dados e economia dos recursos limitados
 comumente encontrados em sistemas \iot, seguindo a arquitetura \arch
 \cite{Cassales2019}.
@@ -153,7 +163,10 @@ comumente encontrados em sistemas \iot, seguindo a arquitetura \arch
 A avaliação do \mfog é constituída de métricas de qualidade de classificação e
 % \notake{?}
 % métricas de escalabilidade, extraídas com \hlke{auxilio} do conjunto de dados
-métricas de escalabilidade, ambas extraídas experimentalmente com o conjunto de dados
+\hlHS{
+métricas de escalabilidade,
+}
+ambas extraídas experimentalmente com o conjunto de dados
 % \notaPA{Introduzir "o que é" o conjunto de dados Kyoto 2015.}
 \emph{Kyoto dez 2015} relevante para \nids.
 % 
@@ -164,7 +177,10 @@ métricas de escalabilidade, ambas extraídas experimentalmente com o conjunto d
 As métricas de qualidade de classificação obtidas dos resultados mostraram
 valores equivalentes à implementação de referência do algoritmo \minas e
 % as métricas de \hlke{escalabilidade mostraram melhora em relação à implementação de
-as métricas de escalabilidade mostraram melhora em relação à implementação de
+\hlHS{
+as métricas de escalabilidade 
+}
+mostraram melhora em relação à implementação de
 % \notaPA{Mas o paralelismo é uma das motivações...}
 % referência} porém com eficiência de \hlke{paralelismo abaixo do esperado}.
 referência porém com eficiência de paralelismo abaixo do esperado.
@@ -351,12 +367,16 @@ intrusão.
 
 Portanto, seguindo os trabalhos do Grupo de Sistemas Distribuídos e Redes (GSDR)
 % da Universidade Federal de São Carlos (UFSCar), \hlke{propõem-se a construção de}\notake{*} uma
-da Universidade Federal de São Carlos (UFSCar), propõem-se a construção de uma
+da Universidade Federal de São Carlos (UFSCar), 
+\hlHS{
+propõem-se a construção de uma
 % \notaPA{A proposta é ter escalabilidade. Afirmou que não teve bom desempenho. Como fica isso?}
 % Author: Como anotado antes, nem sempre tem-se os resultados ótimos.
 % Author: Não acho legal mudar a narrativa para acomodar meus resultados.
 aplicação que implemente o algoritmo \minas \cite{Faria2016minas} de maneira
-escalável e distribuível para ambientes de computação em névoa, seguindo a
+escalável
+}
+e distribuível para ambientes de computação em névoa, seguindo a
 arquitetura \arch \cite{Cassales2019}.
 
 % \notaPA{Como posto no trabalho, com o objetivo maior de implementar um versão
