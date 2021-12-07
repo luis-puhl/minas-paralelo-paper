@@ -66,10 +66,16 @@ Apesar do uso promissor de \ml para segurança para sistemas \iot, muitos estudo
 na literatura \cite{buczak2016survey,mitchell2014survey,Tahsien2020} são
 limitados a métodos tradicionais de \ml.
 % \notaPA{Tricorder ``Estes métodos [...] evolução de ataques''}
-Estes métodos comumente utilizam modelos estáticos ou com atualização manual
-para descrever e prever o comportamento da rede, porém estes modelos não mantêm
-a confiabilidade frente à evolução de ataques
-\cite{Viegas2019,Lopez2019}.
+
+Na aplicação de métodos tradicionais de \ml, é comum que modelos estáticos ou
+com atualizações pouco frequentes sejam utilizados para descrever e prever o
+comportamento da rede, porém estes modelos não mantêm a confiabilidade frente à
+evolução de ataques \cite{Viegas2019,Lopez2019}.
+
+% Estes métodos comumente utilizam modelos estáticos ou com atualização manual
+% para descrever e prever o comportamento da rede, porém estes modelos não mantêm
+% a confiabilidade frente à evolução de ataques
+% \cite{Viegas2019,Lopez2019}.
 
 % \notaHS{redes distantes? eu entendi, mas fica estranho dizer dessa forma ... poderia citar a 
 % dispersão geográfica ou pervasividade dos dispositivos ... ou seja estão espalhados por
@@ -110,9 +116,11 @@ macro, na otimização de processos industriais.
 
 % \todo[inline]{ND} 
 % \notaPA{Damicore - Tricorder}
-Dentre as técnicas de mineração de fluxo de dados, classificadores podem ser
-utilizados para detectar padrões conhecidos e, em conjunto com algoritmos de
-\nd (\emph{Novelty Detection in Data Streams}), detectar novos padrões.
+
+Dentre as técnicas de mineração de fluxo de dados, algoritmos de \nd
+(\emph{Novelty Detection in Data Streams}) permitem a detecção de novos padrões
+e, em conjunto com classificadores, podem ser utilizados para detectar padrões
+conhecidos.
 Um destes algoritmos de \nd é o \minas \cite{Faria2013Minas}.
 Essa capacidade de detectar novos padrões é relevante para \nids, onde novidades
 na rede podem representar novas funcionalidades ou ataques por agentes
